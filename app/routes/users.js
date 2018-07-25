@@ -151,12 +151,22 @@ router.post('/login', upload.fields([{}]), (req, res) =>{
 })
 
 
-// @route  GET users/current
+// @route  GET users/current/personalTrainers
 // @desc   Return current user
 // @access Private
 // use passport.authenticate with jwt as it is the strategy that is being used, as well as session false as we are not
 // using sessions (passport_pt.authenticate with pt_rule for personal trainers only)
-router.get('/current', passport_pt.authenticate('pt_rule', {session: false}), (req, res) =>{
+router.get('/current/personalTrainers', passport_pt.authenticate('pt_rule', {session: false}), (req, res) =>{
+    res.json({msg: 'success'});
+})
+
+
+// @route  GET users/current_clients
+// @desc   Return current user
+// @access Private
+// use passport.authenticate with jwt as it is the strategy that is being used, as well as session false as we are not
+// using sessions (passport_pt.authenticate with pt_rule for personal trainers only)
+router.get('/current/clients', passport_client.authenticate('client_rule', {session: false}), (req, res) =>{
     res.json({msg: 'success'});
 })
 

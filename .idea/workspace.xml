@@ -29,8 +29,8 @@
       <file leaf-file-name="passport.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/config/passport.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="799">
-              <caret line="47" column="29" selection-start-line="47" selection-start-column="29" selection-end-line="47" selection-end-column="29" />
+            <state relative-caret-position="17">
+              <caret line="40" column="47" selection-start-line="40" selection-start-column="47" selection-end-line="40" selection-end-column="47" />
             </state>
           </provider>
         </entry>
@@ -47,8 +47,8 @@
       <file leaf-file-name="users.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/routes/users.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="134">
-              <caret line="157" column="84" selection-start-line="157" selection-start-column="84" selection-end-line="157" selection-end-column="84" />
+            <state relative-caret-position="49">
+              <caret line="153" column="29" selection-start-line="153" selection-start-column="29" selection-end-line="153" selection-end-column="29" />
             </state>
           </provider>
         </entry>
@@ -218,12 +218,12 @@
       <workItem from="1530952344557" duration="38517000" />
       <workItem from="1531227264689" duration="5617000" />
       <workItem from="1531233142145" duration="21105000" />
-      <workItem from="1532364574410" duration="45337000" />
+      <workItem from="1532364574410" duration="46029000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="117289000" />
+    <option name="totallyTimeSpent" value="117981000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-1032" y="-8" width="1040" height="784" extended-state="6" />
@@ -584,13 +584,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/config/passport.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="799">
-          <caret line="47" column="29" selection-start-line="47" selection-start-column="29" selection-end-line="47" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/restful_api_server.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="440">
@@ -598,10 +591,17 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/config/passport.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="40" column="47" selection-start-line="40" selection-start-column="47" selection-end-line="40" selection-end-column="47" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/routes/users.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="134">
-          <caret line="157" column="84" selection-start-line="157" selection-start-column="84" selection-end-line="157" selection-end-column="84" />
+        <state relative-caret-position="49">
+          <caret line="153" column="29" selection-start-line="153" selection-start-column="29" selection-end-line="153" selection-end-column="29" />
         </state>
       </provider>
     </entry>

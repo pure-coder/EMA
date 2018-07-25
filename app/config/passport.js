@@ -38,7 +38,7 @@ module.exports = passport => {
 
     passport.use('client_rule',
 
-        // This strategy only allows the pt to access the current page, the client must also be added by finding id
+        // This strategy only allows the client to access the current page, the client must also be added by finding id
 
         new jwtStrategy(opts, (jwt_payload, done) =>{
             // Get data from model using jwt (finding user by id)
@@ -48,7 +48,7 @@ module.exports = passport => {
                     if(client){
                         // First parameter of done is an err (there won't be one so we set it to null, 2nd is to pass
                         // the pt (user)
-                        return done(null, pt);
+                        return done(null, client);
                     }
                     // If user isn't found then 2nd parameter will be set to false as a user was not found
                     return done(null, false);
