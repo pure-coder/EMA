@@ -158,7 +158,7 @@ router.post('/login', upload.fields([{}]), (req, res) =>{
 // use passport.authenticate with jwt as it is the strategy that is being used, as well as session false as we are not
 // using sessions (passport_pt.authenticate with pt_rule for personal trainers only)
 router.get('/current/personalTrainers', passport_pt.authenticate('pt_rule', {session: false}), (req, res) =>{
-    res.json({msg: 'success'});
+    res.json(req.user);
 })
 
 
@@ -168,7 +168,7 @@ router.get('/current/personalTrainers', passport_pt.authenticate('pt_rule', {ses
 // use passport.authenticate with jwt as it is the strategy that is being used, as well as session false as we are not
 // using sessions (passport_client.authenticate with client_rule for clients only)
 router.get('/current/clients', passport_client.authenticate('client_rule', {session: false}), (req, res) =>{
-    res.json({msg: 'success'});
+    res.json(req.user);
 })
 
 // @route  GET users/current/both
@@ -177,7 +177,11 @@ router.get('/current/clients', passport_client.authenticate('client_rule', {sess
 // use passport.authenticate with jwt as it is the strategy that is being used, as well as session false as we are not
 // using sessions (passport_both.authenticate both_rule for both)
 router.get('/current/both', passport_both.authenticate('both_rule', {session: false}), (req, res) =>{
-    res.json({msg: 'success'});
+    res.json({
+        id: req.user.id,
+        name: req.user.FullName,
+        email: req.user.Email
+    });
 })
 
 //Export router so it can work with the main restful api server
