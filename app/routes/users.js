@@ -11,7 +11,8 @@ const jwt = require('jsonwebtoken');
 // jwt keys
 const keys = require('../config/db');
 // require passport
-const passport = require('passport');
+const passport_pt = require('passport');
+const passport_client = require('passport');
 
 
 
@@ -154,8 +155,8 @@ router.post('/login', upload.fields([{}]), (req, res) =>{
 // @desc   Return current user
 // @access Private
 // use passport.authenticate with jwt as it is the strategy that is being used, as well as session false as we are not
-// using sessions
-router.get('/current', passport.authenticate('jwt', {session: false}), (req, res) =>{
+// using sessions (passport_pt.authenticate with pt_rule for personal trainers only)
+router.get('/current', passport_pt.authenticate('pt_rule', {session: false}), (req, res) =>{
     res.json({msg: 'success'});
 })
 
