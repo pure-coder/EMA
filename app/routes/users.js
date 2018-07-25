@@ -15,9 +15,12 @@ const passport_pt = require('passport');
 const passport_client = require('passport');
 const passport_both = require('passport');
 
+// Require Input validation
+const validateRegistrationInput = require('../validation/registration')
 
 
-// Load PersonalTrainer model
+
+// Require PersonalTrainer model
 const PersonalTrainer = require('../models/PersonalTrainer');
 const Client = require('../models/Clients');
 
