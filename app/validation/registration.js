@@ -13,6 +13,11 @@ module.exports = function validateRegistrationInput(data){
     data.Password2 = !isEmpty(data.Password2) ? data.Password2 : '';
     data.ContactNumber = !isEmpty(data.ContactNumber) ? data.ContactNumber: '';
 
+    // Checks to see if FullName field is empty using validator module
+    if(Validator.isEmpty(data.FullName)){
+        errors.FullName = 'Full Name is required';
+    }
+
     // FullName is name of field used to collect name of user (not name)
     if(!Validator.isLength(data.FullName, {min: 5, max: 25})){
         errors.name = 'Full Name must be between 5 and 25 characters';
@@ -21,11 +26,6 @@ module.exports = function validateRegistrationInput(data){
     // Checks to see if Email field input is in a valid email format
     if(!Validator.isEmail(data.Email)){
         errors.Email = 'Not a valid Email address';
-    }
-
-    // Checks to see if FullName field is empty using validator module
-    if(Validator.isEmpty(data.FullName)){
-        errors.FullName = 'Full Name is required';
     }
 
     // Checks to see if Email field is empty using validator module
