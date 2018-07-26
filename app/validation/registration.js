@@ -19,11 +19,6 @@ module.exports = function validateRegistrationInput(data){
     }
 
     // FullName is name of field used to collect name of user (not name)
-    if(!Validator.isLength(data.Password, {min: 8, max: 16})){
-        errors.Password = 'Password must be between 8 and 16 characters';
-    }
-
-    // FullName is name of field used to collect name of user (not name)
     if(!Validator.isLength(data.FullName, {min: 5, max: 25})){
         errors.name = 'Full Name must be between 5 and 25 characters';
     }
@@ -46,6 +41,11 @@ module.exports = function validateRegistrationInput(data){
     // Checks to see if Password field is empty using validator module
     if(Validator.isEmpty(data.Password)){
         errors.Password = 'Password is required';
+    }
+
+    // Password must have length with min 8 and max 20
+    if(!Validator.isLength(data.Password, {min: 8, max: 20})){
+        errors.Password = 'Password must be between 8 and 16 characters';
     }
 
     // Checks to see if Password2 field is empty using validator module
