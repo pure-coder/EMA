@@ -8,8 +8,9 @@ const progressionSchema = mongoose.Schema({
     Client_id: {
         type: String, required: true,
     },
-    // Date of exercise will be in array that is added to this object
+    // exercises will be separate objects with progression data put in arrays in those exercise objects
     Exercises:{
+        type: {}
       }
 },{collection: "Client_progression"}, { timestamps: true });
 
