@@ -107,7 +107,7 @@ router.post('/login', (req, res) =>{
                         // if that is the case return 404 error status with a message
                         if(!client){
                             // if Personal client is found this will get over written with a success msg
-                            errors.Email = 'Email already exists';
+                            errors.Email = 'User not found';
                             return res.status(404).json(errors);
                         }
 
@@ -138,7 +138,7 @@ router.post('/login', (req, res) =>{
                                 }
                             })
                         if(!pt && !client){
-                            errors.Email = 'Email already exists';
+                            errors.Email = 'User not found';
                             return res.status(404).json(errors);
                         }
                     })
