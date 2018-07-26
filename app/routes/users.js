@@ -33,12 +33,24 @@ router.get('/test', (req, res) => res.json({msg: "Users Works"}));
 // @desc   Register Personal Trainer
 // @access Public
 router.post('/register', upload.fields([{}]), (req, res) =>{
+    // Set up validation checking for every field that has been posted
+    console.log(req.body)
+    const {errors, isValid } = validateRegistrationInput(req.body);
+
+    // Check validation
+    if(!isValid){
+        return res.status(400).json(errors);
+    }
+
     // Check if email already existing in database
     PersonalTrainer.findOne({Email: req.body.Email})
         .then(PT  =>{
             // Check if PT email exists and return 400 error if it does
             if(PT) {
-                return res.status(400).json({email: 'Email already exists'});
+                // Using validation to log error (this for email exists error)
+                errors.Email = 'Email already exists';
+                // Then pass errors object into returned json
+                return res.status(400).json(errors);
             }
             // Create new user if email doesn't exist
             else {

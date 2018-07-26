@@ -2,18 +2,6 @@ const ptModel = require('../models/PersonalTrainer');
 const clientModel = require('../models/Clients');
 const client_progressionModel = require('../models/Client_progression');
 
-// Test to see if an object is empty
-function isEmpty(obj) {
-    for(var prop in obj) {
-        if(obj.hasOwnProperty(prop))
-            return false;
-    }
-
-    return JSON.stringify(obj) === JSON.stringify({});
-}
-
-
-
 // routes/routes.js
 module.exports = function(app, log) {
 

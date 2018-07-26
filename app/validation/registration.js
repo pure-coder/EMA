@@ -4,7 +4,9 @@ const isEmpty = require('./is_empty');
 module.exports = function validateRegistrationInput(data){
     let errors = {};
 
-    if(!Validator.isLength(data.name, {min: 5, max: 25})){
+    // FullName is name of field used to collect name of user (not name)
+    if(!Validator.isLength(data.FullName, {min: 5, max: 25})){
+
         errors.name = 'Full name must be between 5 and 25 characters';
     }
 
