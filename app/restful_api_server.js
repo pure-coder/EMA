@@ -53,6 +53,10 @@ app.use('/progression', progression);
 app.use('/profile', profile);
 app.use('/calendar', calendar);
 
+
+// const mail = require('./services/emailer');
+// mail();
+
 app.listen(port, () => {
         console.log('We are live on ' + port);
 });

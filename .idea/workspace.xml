@@ -2,8 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9625c45b-50a6-4179-8701-7bab933da840" name="Default" comment="">
+      <change afterPath="$PROJECT_DIR$/app/services/emailer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/restful_api_server.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/restful_api_server.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/routes/progression.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/routes/progression.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/routes/users.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/routes/users.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -17,11 +20,20 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="restful_api_server.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="restful_api_server.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/restful_api_server.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="321">
-              <caret line="57" column="3" lean-forward="true" selection-start-line="57" selection-start-column="3" selection-end-line="57" selection-end-column="3" />
+            <state relative-caret-position="185">
+              <caret line="56" selection-start-line="56" selection-start-column="3" selection-end-line="57" selection-end-column="10" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="emailer.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/services/emailer.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="238">
+              <caret line="23" column="30" selection-start-line="23" selection-start-column="30" selection-end-line="23" selection-end-column="30" />
             </state>
           </provider>
         </entry>
@@ -29,13 +41,13 @@
       <file leaf-file-name="progression.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/routes/progression.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="219">
-              <caret line="15" lean-forward="true" selection-start-line="15" selection-end-line="15" />
+            <state relative-caret-position="170">
+              <caret line="10" column="41" selection-start-line="10" selection-start-column="41" selection-end-line="10" selection-end-column="41" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="PersonalTrainer.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="PersonalTrainer.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/models/PersonalTrainer.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="-34">
@@ -47,7 +59,7 @@
       <file leaf-file-name="users.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/routes/users.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-2396">
+            <state relative-caret-position="-2855">
               <caret line="23" column="44" selection-start-line="23" selection-start-column="44" selection-end-line="23" selection-end-column="44" />
             </state>
           </provider>
@@ -89,7 +101,6 @@
         <option value="$PROJECT_DIR$/app/models/Clients.js" />
         <option value="C:/other/other.js" />
         <option value="$PROJECT_DIR$/app/config/db.js" />
-        <option value="$PROJECT_DIR$/app/restful_api_server.js" />
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/app/config/passport.js" />
         <option value="$PROJECT_DIR$/app/routes/routes.js" />
@@ -101,6 +112,8 @@
         <option value="$PROJECT_DIR$/app/models/Exercise.js" />
         <option value="$PROJECT_DIR$/app/routes/users.js" />
         <option value="$PROJECT_DIR$/app/routes/progression.js" />
+        <option value="$PROJECT_DIR$/app/services/emailer.js" />
+        <option value="$PROJECT_DIR$/app/restful_api_server.js" />
       </list>
     </option>
   </component>
@@ -158,6 +171,12 @@
               <item name="TM470" type="462c0819:PsiDirectoryNode" />
               <item name="app" type="462c0819:PsiDirectoryNode" />
               <item name="routes" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="TM470" type="b2602c69:ProjectViewProjectNode" />
+              <item name="TM470" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="services" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="TM470" type="b2602c69:ProjectViewProjectNode" />
@@ -230,12 +249,12 @@
       <workItem from="1530952344557" duration="38517000" />
       <workItem from="1531227264689" duration="5617000" />
       <workItem from="1531233142145" duration="21105000" />
-      <workItem from="1532364574410" duration="66626000" />
+      <workItem from="1532364574410" duration="68150000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="138578000" />
+    <option name="totallyTimeSpent" value="140102000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -250,7 +269,7 @@
     <frame x="-1032" y="-8" width="1040" height="784" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.33433133" />
+      <window_info content_ui="combo" id="Project" order="0" weight="0.33433133" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32972136" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
@@ -259,7 +278,7 @@
       <window_info id="npm" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.32972136" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="Terminal" order="7" visible="true" weight="0.3498452" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="7" visible="true" weight="0.3498452" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -302,13 +321,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/restful_api_server.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="612">
-          <caret line="36" column="3" lean-forward="true" selection-end-line="36" selection-end-column="3" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/routes/routes.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="136">
@@ -626,31 +638,38 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/routes/progression.js">
+    <entry file="file://$PROJECT_DIR$/app/models/PersonalTrainer.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="219">
-          <caret line="15" lean-forward="true" selection-start-line="15" selection-end-line="15" />
+        <state relative-caret-position="-34">
+          <caret line="10" column="76" selection-start-line="10" selection-start-column="76" selection-end-line="10" selection-end-column="76" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/routes/users.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2396">
+        <state relative-caret-position="-2855">
           <caret line="23" column="44" selection-start-line="23" selection-start-column="44" selection-end-line="23" selection-end-column="44" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/routes/progression.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" column="41" selection-start-line="10" selection-start-column="41" selection-end-line="10" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/services/emailer.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="23" column="30" selection-start-line="23" selection-start-column="30" selection-end-line="23" selection-end-column="30" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/restful_api_server.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="321">
-          <caret line="57" column="3" lean-forward="true" selection-start-line="57" selection-start-column="3" selection-end-line="57" selection-end-column="3" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/models/PersonalTrainer.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-34">
-          <caret line="10" column="76" selection-start-line="10" selection-start-column="76" selection-end-line="10" selection-end-column="76" />
+        <state relative-caret-position="185">
+          <caret line="56" selection-start-line="56" selection-start-column="3" selection-end-line="57" selection-end-column="10" />
         </state>
       </provider>
     </entry>
