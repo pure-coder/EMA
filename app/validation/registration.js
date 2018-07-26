@@ -45,7 +45,7 @@ module.exports = function validateRegistrationInput(data){
 
     // Password must have length with min 8 and max 20
     if(!Validator.isLength(data.Password, {min: 8, max: 20})) {
-        errors.Password = 'Password must be between 8 and 16 characters';
+        errors.Password = 'Password must be between 8 and 20 characters';
     }
 
     // Checks to see if Password2 field is empty using validator module

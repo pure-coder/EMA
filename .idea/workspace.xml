@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9625c45b-50a6-4179-8701-7bab933da840" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/app/routes/users.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/routes/users.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/validation/login.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/validation/login.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/validation/registration.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/validation/registration.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -25,11 +27,29 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="users.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="users.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/routes/users.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
-              <caret line="164" column="13" lean-forward="true" selection-start-line="164" selection-start-column="13" selection-end-line="164" selection-end-column="13" />
+            <state relative-caret-position="221">
+              <caret line="166" column="13" lean-forward="true" selection-start-line="166" selection-start-column="13" selection-end-line="166" selection-end-column="13" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="login.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/validation/login.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="126">
+              <caret line="23" column="60" selection-start-line="23" selection-start-column="60" selection-end-line="23" selection-end-column="60" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="registration.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/validation/registration.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="239">
+              <caret line="47" column="60" selection-start-line="47" selection-start-column="60" selection-end-line="47" selection-end-column="60" />
             </state>
           </provider>
         </entry>
@@ -78,9 +98,9 @@
         <option value="$PROJECT_DIR$/app/routes/routes.js" />
         <option value="$PROJECT_DIR$/app/validation/is_empty.js" />
         <option value="$PROJECT_DIR$/app/models/PersonalTrainer.js" />
-        <option value="$PROJECT_DIR$/app/validation/registration.js" />
-        <option value="$PROJECT_DIR$/app/validation/login.js" />
         <option value="$PROJECT_DIR$/app/routes/users.js" />
+        <option value="$PROJECT_DIR$/app/validation/login.js" />
+        <option value="$PROJECT_DIR$/app/validation/registration.js" />
       </list>
     </option>
   </component>
@@ -210,12 +230,12 @@
       <workItem from="1530952344557" duration="38517000" />
       <workItem from="1531227264689" duration="5617000" />
       <workItem from="1531233142145" duration="21105000" />
-      <workItem from="1532364574410" duration="62353000" />
+      <workItem from="1532364574410" duration="62779000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="134305000" />
+    <option name="totallyTimeSpent" value="134731000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -230,7 +250,7 @@
     <frame x="-1032" y="-8" width="1040" height="784" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.33433133" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.33433133" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32972136" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
@@ -239,7 +259,7 @@
       <window_info id="npm" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.32972136" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="7" visible="true" weight="0.3498452" />
+      <window_info anchor="bottom" id="Terminal" order="7" visible="true" weight="0.3498452" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -599,20 +619,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/validation/registration.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="86">
-          <caret line="14" lean-forward="true" selection-end-line="69" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/validation/login.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="171">
-          <caret line="30" lean-forward="true" selection-start-line="30" selection-end-line="30" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/validation/is_empty.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="119">
@@ -622,8 +628,22 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/routes/users.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="164" column="13" lean-forward="true" selection-start-line="164" selection-start-column="13" selection-end-line="164" selection-end-column="13" />
+        <state relative-caret-position="221">
+          <caret line="166" column="13" lean-forward="true" selection-start-line="166" selection-start-column="13" selection-end-line="166" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/validation/login.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="126">
+          <caret line="23" column="60" selection-start-line="23" selection-start-column="60" selection-end-line="23" selection-end-column="60" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/validation/registration.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="239">
+          <caret line="47" column="60" selection-start-line="47" selection-start-column="60" selection-end-line="47" selection-end-column="60" />
         </state>
       </provider>
     </entry>
