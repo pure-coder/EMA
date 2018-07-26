@@ -37,7 +37,7 @@ router.post('/register', upload.fields([{}]), (req, res) =>{
     console.log(req.body)
     const {errors, isValid } = validateRegistrationInput(req.body);
 
-    // Check validation
+    // Check validation (so if it isn't valid give 400 error and message of error
     if(!isValid){
         return res.status(400).json(errors);
     }

@@ -2,6 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9625c45b-50a6-4179-8701-7bab933da840" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/models/PersonalTrainer.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/models/PersonalTrainer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/routes/users.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/routes/users.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/validation/is_empty.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/validation/is_empty.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/validation/registration.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/validation/registration.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -19,7 +23,7 @@
       <file leaf-file-name="restful_api_server.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/restful_api_server.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="440">
+            <state relative-caret-position="474">
               <caret line="57" column="3" lean-forward="true" selection-start-line="57" selection-start-column="3" selection-end-line="57" selection-end-column="3" />
             </state>
           </provider>
@@ -28,8 +32,8 @@
       <file leaf-file-name="users.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/routes/users.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="289">
-              <caret line="46" column="21" lean-forward="true" selection-start-line="46" selection-start-column="21" selection-end-line="46" selection-end-column="21" />
+            <state relative-caret-position="102">
+              <caret line="39" column="81" selection-start-line="39" selection-start-column="81" selection-end-line="39" selection-end-column="81" />
             </state>
           </provider>
         </entry>
@@ -51,8 +55,8 @@
       <file leaf-file-name="registration.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/validation/registration.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="202">
-              <caret line="41" column="41" selection-start-line="41" selection-start-column="41" selection-end-line="41" selection-end-column="41" />
+            <state relative-caret-position="270">
+              <caret line="22" column="35" selection-start-line="22" selection-start-column="35" selection-end-line="22" selection-end-column="35" />
             </state>
           </provider>
         </entry>
@@ -92,7 +96,6 @@
         <option value="$PROJECT_DIR$/app/routes/calendar.js" />
         <option value="$PROJECT_DIR$/app/routes/profile.js" />
         <option value="$PROJECT_DIR$/app/models/Client_progression.js" />
-        <option value="$PROJECT_DIR$/app/models/PersonalTrainer.js" />
         <option value="$PROJECT_DIR$/app/models/Clients.js" />
         <option value="C:/other/other.js" />
         <option value="$PROJECT_DIR$/app/config/db.js" />
@@ -100,8 +103,9 @@
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/app/config/passport.js" />
         <option value="$PROJECT_DIR$/app/validation/login.js" />
-        <option value="$PROJECT_DIR$/app/validation/is_empty.js" />
         <option value="$PROJECT_DIR$/app/routes/routes.js" />
+        <option value="$PROJECT_DIR$/app/validation/is_empty.js" />
+        <option value="$PROJECT_DIR$/app/models/PersonalTrainer.js" />
         <option value="$PROJECT_DIR$/app/routes/users.js" />
         <option value="$PROJECT_DIR$/app/validation/registration.js" />
       </list>
@@ -149,6 +153,12 @@
               <item name="TM470" type="b2602c69:ProjectViewProjectNode" />
               <item name="TM470" type="462c0819:PsiDirectoryNode" />
               <item name="app" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="TM470" type="b2602c69:ProjectViewProjectNode" />
+              <item name="TM470" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="models" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="TM470" type="b2602c69:ProjectViewProjectNode" />
@@ -227,12 +237,12 @@
       <workItem from="1530952344557" duration="38517000" />
       <workItem from="1531227264689" duration="5617000" />
       <workItem from="1531233142145" duration="21105000" />
-      <workItem from="1532364574410" duration="53723000" />
+      <workItem from="1532364574410" duration="55806000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="125675000" />
+    <option name="totallyTimeSpent" value="127758000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -247,7 +257,7 @@
     <frame x="-1032" y="-8" width="1040" height="784" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" weight="0.33433133" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.33433133" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32972136" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
@@ -567,13 +577,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/models/PersonalTrainer.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="21" column="4" lean-forward="true" selection-start-line="21" selection-start-column="4" selection-end-line="26" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/models/Clients.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="228">
@@ -605,13 +608,6 @@
     <entry file="file://$PROJECT_DIR$/app/validation/login.js">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/validation/is_empty.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/routes/routes.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-3331">
@@ -619,24 +615,38 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/validation/is_empty.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/models/PersonalTrainer.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="10" column="76" selection-start-line="10" selection-start-column="76" selection-end-line="10" selection-end-column="76" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/restful_api_server.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="440">
+        <state relative-caret-position="474">
           <caret line="57" column="3" lean-forward="true" selection-start-line="57" selection-start-column="3" selection-end-line="57" selection-end-column="3" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/routes/users.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="46" column="21" lean-forward="true" selection-start-line="46" selection-start-column="21" selection-end-line="46" selection-end-column="21" />
+        <state relative-caret-position="102">
+          <caret line="39" column="81" selection-start-line="39" selection-start-column="81" selection-end-line="39" selection-end-column="81" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/validation/registration.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="202">
-          <caret line="41" column="41" selection-start-line="41" selection-start-column="41" selection-end-line="41" selection-end-column="41" />
+        <state relative-caret-position="270">
+          <caret line="22" column="35" selection-start-line="22" selection-start-column="35" selection-end-line="22" selection-end-column="35" />
         </state>
       </provider>
     </entry>

@@ -10,11 +10,22 @@ module.exports = function validateRegistrationInput(data){
     data.Email = !isEmpty(data.Email) ? data.Email : '';
     data.DateOfBirth = !isEmpty(data.DateOfBirth) ? data.DateOfBirth : '';
     data.Password = !isEmpty(data.Password) ? data.Password : '';
+    data.Password2 = !isEmpty(data.Password2) ? data.Password2 : '';
     data.ContactNumber = !isEmpty(data.ContactNumber) ? data.ContactNumber: '';
 
     // FullName is name of field used to collect name of user (not name)
     if(!Validator.isLength(data.FullName, {min: 5, max: 25})){
-        errors.name = 'Full name must be between 5 and 25 characters';
+        errors.name = 'Full Name must be between 5 and 25 characters';
+    }
+
+    // FullName is name of field used to collect name of user (not name)
+    if(!Validator.isLength(data.Password, {min: 8, max: 16})){
+        errors.Password = 'Password must be between 8 and 16 characters';
+    }
+
+    // FullName is name of field used to collect name of user (not name)
+    if(!Validator.isLength(data.FullName, {min: 5, max: 25})){
+        errors.name = 'Full Name must be between 5 and 25 characters';
     }
 
     // Checks to see if FullName field is empty using validator module
@@ -22,24 +33,29 @@ module.exports = function validateRegistrationInput(data){
         errors.FullName = 'Full Name is required';
     }
 
-    // Checks to see if FullName field is empty using validator module
+    // Checks to see if Email field is empty using validator module
     if(Validator.isEmpty(data.Email)){
         errors.Email = 'Email is required';
     }
 
-    // Checks to see if FullName field is empty using validator module
+    // Checks to see if DateOfBirth field is empty using validator module
     if(Validator.isEmpty(data.DateOfBirth)){
         errors.DateOfBirth = 'Date of Birth is required';
     }
 
-    // Checks to see if FullName field is empty using validator module
+    // Checks to see if Password field is empty using validator module
     if(Validator.isEmpty(data.Password)){
         errors.Password = 'Password is required';
     }
 
-    // Checks to see if FullName field is empty using validator module
+    // Checks to see if ContactNumber field is empty using validator module
     if(Validator.isEmpty(data.ContactNumber)){
         errors.ContactNumber = 'Contact number is required';
+    }
+
+    // Checks to see if Email field input is in a valid email format
+    if(Validator.isEmail(data.Email)){
+        errors.Email = 'Not a valid Email address';
     }
 
     return {

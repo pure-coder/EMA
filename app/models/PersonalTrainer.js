@@ -4,20 +4,20 @@ const mongoose = require('mongoose');
 const PersonalTrainerSchema = mongoose.Schema({
     FullName: {
         // Trim
-        type: String, require: true, index: true, trim: true
+        type: String, index: true, trim: true
     },
     Email: {
         // Trim and lowercase
-        type: String, required: true, index: { unique: true }, lowercase: true, trim: true, match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Please fill a valid email address'],
+        type: String,  index: { unique: true }, lowercase: true, trim: true,
     },
     DateOfBirth: {
-    type: Date, required: true, trim: true,
+    type: Date, trim: true,
     },
     Password: {
-        type: String, required: true, trim: true,
+        type: String, trim: true,
     },
     ContactNumber: {
-        type: String, required: true, trim: true,
+        type: String, trim: true,
     },
     Sex: {
         type: String, required: false, default: 'NA', trim: true,
