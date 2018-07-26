@@ -48,13 +48,23 @@ module.exports = function validateRegistrationInput(data){
         errors.Password = 'Password is required';
     }
 
+    // Checks to see if Password2 field is empty using validator module
+    if(Validator.isEmpty(data.Password2)){
+        errors.Password2 = 'Confirmation password is required';
+    }
+
+    // Checks to see if Passwords match field is empty using validator module
+    if(!Validator.equals(data.Password, data.Password2)){
+        errors.Password = 'Passwords do not match';
+    }
+
     // Checks to see if ContactNumber field is empty using validator module
     if(Validator.isEmpty(data.ContactNumber)){
         errors.ContactNumber = 'Contact number is required';
     }
 
     // Checks to see if Email field input is in a valid email format
-    if(Validator.isEmail(data.Email)){
+    if(!Validator.isEmail(data.Email)){
         errors.Email = 'Not a valid Email address';
     }
 
