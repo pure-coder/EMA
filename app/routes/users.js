@@ -23,11 +23,6 @@ const validateLoginInput = require('../validation/Login');
 const PersonalTrainer = require('../models/PersonalTrainer');
 const Client = require('../models/Clients');
 
-// @route  GET users/test
-// @desc   Test users route
-// @access Public
-router.get('/test', (req, res) => res.json({msg: "Users Works"}));
-
 // @route  GET users/register
 // @desc   Register Personal Trainer
 // @access Public
