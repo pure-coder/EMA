@@ -17,7 +17,7 @@ const passport_both = require('passport');
 
 // Require Input validation for PT Registration and Login
 const validateRegistrationInput = require('../validation/registration');
-const validateLoginInput = require('../validation/registration');
+const validateLoginInput = require('../validation/Login');
 
 // Require PersonalTrainer model
 const PersonalTrainer = require('../models/PersonalTrainer');
@@ -82,7 +82,6 @@ router.post('/register', (req, res) =>{
 // @route  POST users/login
 // @desc   Login Users (Personal Trainers and Clients) / and return JWT
 // @access Public
-
 router.post('/login', (req, res) =>{
     const Email = req.body.Email;
     const Password = req.body.Password;
