@@ -18,9 +18,9 @@ module.exports = function validateRegistrationInput(data){
         errors.name = 'Full Name must be between 5 and 25 characters';
     }
 
-    // FullName is name of field used to collect name of user (not name)
-    if(!Validator.isLength(data.FullName, {min: 5, max: 25})){
-        errors.name = 'Full Name must be between 5 and 25 characters';
+    // Checks to see if Email field input is in a valid email format
+    if(!Validator.isEmail(data.Email)){
+        errors.Email = 'Not a valid Email address';
     }
 
     // Checks to see if FullName field is empty using validator module
@@ -38,19 +38,9 @@ module.exports = function validateRegistrationInput(data){
         errors.DateOfBirth = 'Date of Birth is required';
     }
 
-    // Checks to see if Password field is empty using validator module
-    if(Validator.isEmpty(data.Password)){
-        errors.Password = 'Password is required';
-    }
-
     // Password must have length with min 8 and max 20
-    if(!Validator.isLength(data.Password, {min: 8, max: 20})){
+    if(!Validator.isLength(data.Password, {min: 8, max: 20})) {
         errors.Password = 'Password must be between 8 and 16 characters';
-    }
-
-    // Checks to see if Password2 field is empty using validator module
-    if(Validator.isEmpty(data.Password2)){
-        errors.Password2 = 'Confirmation password is required';
     }
 
     // Checks to see if Passwords match field is empty using validator module
@@ -58,15 +48,22 @@ module.exports = function validateRegistrationInput(data){
         errors.Password = 'Passwords do not match';
     }
 
+    // Checks to see if Password2 field is empty using validator module
+    if(Validator.isEmpty(data.Password2)) {
+        errors.Password2 = 'Confirmation password is required';
+    }
+
+    // Checks to see if Password field is empty using validator module
+    if(Validator.isEmpty(data.Password)){
+        errors.Password = 'Password is required';
+    }
+
     // Checks to see if ContactNumber field is empty using validator module
     if(Validator.isEmpty(data.ContactNumber)){
         errors.ContactNumber = 'Contact number is required';
     }
 
-    // Checks to see if Email field input is in a valid email format
-    if(!Validator.isEmail(data.Email)){
-        errors.Email = 'Not a valid Email address';
-    }
+
 
     return {
         errors,

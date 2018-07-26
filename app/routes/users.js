@@ -15,10 +15,9 @@ const passport_pt = require('passport');
 const passport_client = require('passport');
 const passport_both = require('passport');
 
-// Require Input validation
-const validateRegistrationInput = require('../validation/registration')
-
-
+// Require Input validation for PT Registration and Login
+const validateRegistrationInput = require('../validation/registration');
+const validateLoginInput = require('../validation/registration');
 
 // Require PersonalTrainer model
 const PersonalTrainer = require('../models/PersonalTrainer');
@@ -32,9 +31,8 @@ router.get('/test', (req, res) => res.json({msg: "Users Works"}));
 // @route  GET users/register
 // @desc   Register Personal Trainer
 // @access Public
-router.post('/register', upload.fields([{}]), (req, res) =>{
+router.post('/register', (req, res) =>{
     // Set up validation checking for every field that has been posted
-    console.log(req.body)
     const {errors, isValid } = validateRegistrationInput(req.body);
 
     // Check validation (so if it isn't valid give 400 error and message of error
@@ -85,9 +83,17 @@ router.post('/register', upload.fields([{}]), (req, res) =>{
 // @desc   Login Users (Personal Trainers and Clients) / and return JWT
 // @access Public
 
-router.post('/login', upload.fields([{}]), (req, res) =>{
+router.post('/login', (req, res) =>{
     const Email = req.body.Email;
     const Password = req.body.Password;
+
+    // Set up validation checking for every field that has been posted
+    const {errors, isValid } = validateLoginInput(req.body);
+
+    // Check validation (so if it isn't valid give 400 error and message of error
+    if(!isValid){
+        return res.status(400).json(errors);
+    }
 
         PersonalTrainer.findOne({Email})
         // Check for user
@@ -102,7 +108,8 @@ router.post('/login', upload.fields([{}]), (req, res) =>{
                         // if that is the case return 404 error status with a message
                         if(!client){
                             // if Personal client is found this will get over written with a success msg
-                            return res.status(404).json({Email: 'User not found'});
+                            errors.Email = 'Email already exists';
+                            return res.status(404).json(errors);
                         }
 
                         // If user is found continue with comparing the password of given
@@ -127,11 +134,13 @@ router.post('/login', upload.fields([{}]), (req, res) =>{
                                 }
                                 // If a match is not found provide a 400 error
                                 else{
-                                    return res.status(400).json({msg: 'Password incorrect'})
+                                    errors.password = 'Password is incorrect';
+                                    return res.status(400).json(errors)
                                 }
                             })
                         if(!pt && !client){
-                            return res.status(404).json({Email: 'User not found'});
+                            errors.Email = 'Email already exists';
+                            return res.status(404).json(errors);
                         }
                     })
              }
@@ -158,7 +167,8 @@ router.post('/login', upload.fields([{}]), (req, res) =>{
                         }
                         // If a match is not found provide a 400 error
                         else{
-                            return res.status(400).json({msg: 'Password incorrect'})
+                            errors.password = 'Password is incorrect';
+                            return res.status(400).json(errors)
                         }
                     })
             }
