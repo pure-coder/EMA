@@ -22,8 +22,8 @@ module.exports = function(Email, Token){
             from: 'JRDunkley <jdun101@gmail.com>', // used as MAIL FROM: address for SMTP
             to: Email + ', Mailer <' + Email + '>' // used as RCPT TO: address for SMTP
         },
-        text: Token
-        //html: '<a href=localhost:8000/users/verify/' + Token + '> </a>'
+        text: Token,
+        html: '<a href="http://localhost:8000/users/verify/' + Token + '">Activation Link</a>'
     }
     var smtpTransport = nodemailer.createTransport(smtpConfig);
     smtpTransport.sendMail(message, function(error, response){

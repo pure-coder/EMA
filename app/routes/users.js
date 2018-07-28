@@ -26,7 +26,7 @@ const Client = require('../models/Clients');
 const verification = require('../validation/verification');
 //verification();
 
-// @route  GET users/register
+// @route  POST users/register
 // @desc   Register Personal Trainer
 // @access Public
 router.post('/register', (req, res) =>{
