@@ -2,10 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9625c45b-50a6-4179-8701-7bab933da840" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/app/validation/newClient.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/models/Clients.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/models/Clients.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/routes/users.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/routes/users.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/validation/verification.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/validation/verification.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -31,8 +30,8 @@
       <file leaf-file-name="users.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/routes/users.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="156">
-              <caret line="125" column="60" selection-start-line="125" selection-start-column="60" selection-end-line="125" selection-end-column="60" />
+            <state relative-caret-position="217">
+              <caret line="265" column="76" selection-start-line="265" selection-start-column="76" selection-end-line="265" selection-end-column="76" />
             </state>
           </provider>
         </entry>
@@ -84,10 +83,10 @@
         <option value="$PROJECT_DIR$/app/routes/progression.js" />
         <option value="$PROJECT_DIR$/app/models/AcitvationTokens.js" />
         <option value="$PROJECT_DIR$/app/restful_api_server.js" />
-        <option value="$PROJECT_DIR$/app/validation/verification.js" />
         <option value="$PROJECT_DIR$/app/services/emailer.js" />
         <option value="$PROJECT_DIR$/app/models/Clients.js" />
         <option value="$PROJECT_DIR$/app/validation/newClient.js" />
+        <option value="$PROJECT_DIR$/app/validation/verification.js" />
         <option value="$PROJECT_DIR$/app/routes/users.js" />
       </list>
     </option>
@@ -224,12 +223,12 @@
       <workItem from="1530952344557" duration="38517000" />
       <workItem from="1531227264689" duration="5617000" />
       <workItem from="1531233142145" duration="21105000" />
-      <workItem from="1532364574410" duration="86481000" />
+      <workItem from="1532364574410" duration="87811000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="158433000" />
+    <option name="totallyTimeSpent" value="159763000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -599,13 +598,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/validation/verification.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="29" column="4" selection-start-line="29" selection-start-column="4" selection-end-line="29" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/restful_api_server.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="161">
@@ -641,10 +633,17 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/validation/verification.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="31" column="75" selection-start-line="31" selection-start-column="75" selection-end-line="31" selection-end-column="75" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/routes/users.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="156">
-          <caret line="125" column="60" selection-start-line="125" selection-start-column="60" selection-end-line="125" selection-end-column="60" />
+        <state relative-caret-position="217">
+          <caret line="265" column="76" selection-start-line="265" selection-start-column="76" selection-end-line="265" selection-end-column="76" />
         </state>
       </provider>
     </entry>

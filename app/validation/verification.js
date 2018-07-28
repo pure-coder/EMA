@@ -29,7 +29,7 @@ module.exports = function(Email){
 
     ActivateTokens.findOne({Email})
         .then(ActivateToken  =>{
-            // Check if PT email exists and return 400 error if it does
+            // Check if Client email exists and return 400 error if it does
             if(ActivateToken) {
                 // Then pass errors object into returned json
                 return 'Token Exists';

@@ -87,7 +87,7 @@ router.post('/register', (req, res) =>{
                 })
             }
         })
-
+    //verification(req.body.Email);
 });
 
 // @route  POST users/register
@@ -124,10 +124,12 @@ router.post('/new_client', (req, res) =>{
                 newClient.save()
                     .then(PT => res.json(PT),
                         // Send verification email to client
-                        verification(req.body.Email))
+                        //verification(req.body.Email)
+                    )
                     .catch(err => console.log(err));
             }
         })
+    verification(req.body.Email)
 });
 
 // @route  POST users/login
@@ -255,13 +257,13 @@ router.get('/verify', (req, res) => {
                 // Compare date to check if it is still valid (valid == true), then set client account to activated
                 if(expiration >= now){
                     // Update client found by Email, update Activated field, get results from update
-                    Clients.update({Email : token[0].Email}, { Activated: true}, (err, results) => {
+                    Client.update({Email : token[0].Email}, { Activated: true}, (err, results) => {
                         if(err) throw err;
                         console.log(results);
                     } )
                 }
 
-
+                //////////////////// ENDED HERE /////////////////// 28/07/18
             }
             else{
                 console.log('No token found')
