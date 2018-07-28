@@ -23,8 +23,11 @@ const validateLoginInput = require('../validation/Login');
 const PersonalTrainer = require('../models/PersonalTrainer');
 const Client = require('../models/Clients');
 
+// Require verification functionality
 const verification = require('../validation/verification');
-//verification();
+
+// Require verification / activation model
+const ActivationTokens = require('../models/AcitvationTokens');
 
 // @route  POST users/register
 // @desc   Register Personal Trainer
@@ -175,6 +178,35 @@ router.post('/login', (req, res) =>{
         })
 
 })
+
+// @route  GET users/verify
+// @desc   Activate Client from valid activation link token
+// @access Public
+router.get('/verify', (req, res) => {
+    let activationLink = req.query.activation_link;
+
+    // Check that activation link is captured properly
+    res.json(activationLink);
+
+    ActivationTokens.find({"TokenData.Token": activationLink})
+        .then(token =>{
+            if(token){
+                console.log(token);
+            }
+        }).catch(err =>{
+            console.log(err)
+    })// catch end
+
+})
+
+
+
+
+
+
+
+
+
 
 
 // @route  GET users/current/personalTrainers
