@@ -20,9 +20,6 @@ module.exports = function(Email){
     // Check expiration date
     // console.log(expiration);
 
-    // Email activation token to client
-    mail(Email, token)
-
     // Save activation token in datebase
     TokenDetails = {
         Token : token,
@@ -35,7 +32,7 @@ module.exports = function(Email){
             // Check if PT email exists and return 400 error if it does
             if(ActivateToken) {
                 // Then pass errors object into returned json
-                return console.log('Token Exists');
+                return 'Token Exists';
             }
             // Create new user if email doesn't exist
             else {
@@ -44,11 +41,19 @@ module.exports = function(Email){
                     TokenData: TokenDetails
                 });
 
+                let result;
                 // Add token to database
                 newToken.save()
-                    .then(ActivateToken => console.log(ActivateToken))
-                    .catch(err => console.log(err));
-            }
+                    .then(
+                        mail(Email, token),
+                        result = 'Token created',
+                        )
+                    .catch(
+                        err => console.log(err),
+                        result = 'Token not created'
+                    );
+                return result;
+            } // else end
         })
 
 

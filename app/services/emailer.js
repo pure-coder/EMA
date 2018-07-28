@@ -23,13 +23,14 @@ module.exports = function(Email, Token){
             to: Email + ', Mailer <' + Email + '>' // used as RCPT TO: address for SMTP
         },
         text: Token
+        //html: '<a href=localhost:8000/users/verify/' + Token + '> </a>'
     }
     var smtpTransport = nodemailer.createTransport(smtpConfig);
     smtpTransport.sendMail(message, function(error, response){
         if(error){
-            console.log(error);
+            ;
         }else{
-            res.redirect('/');
+            console.log('Mail has been sent');
         }
     });
 };

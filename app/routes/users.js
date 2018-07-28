@@ -77,8 +77,7 @@ router.post('/register', (req, res) =>{
         })
 
     // check verification
-    console.log(req.body.Email)
-    verification(req.body.Email, )
+    console.log(verification(req.body.Email));
 });
 
 // @route  POST users/login
