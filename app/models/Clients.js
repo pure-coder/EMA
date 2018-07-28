@@ -25,6 +25,9 @@ const ClientSchema = mongoose.Schema({
     ProfilePicUrl: {
         type: String, required: false, default: 'NA', trim: true,
     },
+    Activated: {
+        type: Boolean, default: false
+    }
 },{collection: "Clients"}, { timestamps: true });
 
 

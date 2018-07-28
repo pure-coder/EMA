@@ -57,6 +57,9 @@ app.use('/calendar', calendar);
 // const mail = require('./services/emailer');
 // mail();
 
+const verification = require('./validation/verification');
+verification();
+
 app.listen(port, () => {
         console.log('We are live on ' + port);
 });
