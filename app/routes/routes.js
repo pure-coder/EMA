@@ -1,6 +1,6 @@
 const ptModel = require('../models/PersonalTrainer');
 const clientModel = require('../models/Clients');
-const client_progressionModel = require('../models/Client_progression');
+const client_progressionModel = require('../models/ClientProgression');
 
 // routes/routes.js
 module.exports = function(app, log) {

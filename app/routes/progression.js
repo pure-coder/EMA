@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 const passport = require('passport');
 
 // Require models
-const client_progression = require('../models/Client_progression');
+const client_progression = require('../models/ClientProgression');
 const exercise = require('../models/Exercise');
 const PT = require('../models/PersonalTrainer');
 const client = require('../models/Clients');

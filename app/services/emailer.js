@@ -1,7 +1,7 @@
 const nodemailer = require('nodemailer');
 
-module.exports = function(){
-    console.log('hello')
+module.exports = function(Email, Token){
+
     let smtpConfig = {
         host: 'smtp.gmail.com',
         port: 587,
@@ -16,12 +16,13 @@ module.exports = function(){
     };
     let message = {
         from: 'jdun101@gmail.com', // listed in rfc822 message header
-        to: 'jrdunkley@sky.com', // listed in rfc822 message header
+        to: Email, // listed in rfc822 message header
+        subject: 'Fitness App Activation code',
         envelope: {
             from: 'JRDunkley <jdun101@gmail.com>', // used as MAIL FROM: address for SMTP
-            to: 'jrdunkley@sky.com, Mailer <jrdunkley@sky.com>' // used as RCPT TO: address for SMTP
+            to: Email + ', Mailer <' + Email + '>' // used as RCPT TO: address for SMTP
         },
-        text: 'This is my new message'
+        text: Token
     }
     var smtpTransport = nodemailer.createTransport(smtpConfig);
     smtpTransport.sendMail(message, function(error, response){

@@ -53,10 +53,6 @@ app.use('/progression', progression);
 app.use('/profile', profile);
 app.use('/calendar', calendar);
 
-
-// const mail = require('./services/emailer');
-// mail();
-
 const verification = require('./validation/verification');
 verification();
 
