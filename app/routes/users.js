@@ -19,6 +19,9 @@ const passport_both = require('passport');
 const validateRegistrationInput = require('../validation/registration');
 const validateLoginInput = require('../validation/Login');
 
+// Require isEmpty function
+const isEmpty = require('../validation/is_empty');
+
 // Require PersonalTrainer model
 const PersonalTrainer = require('../models/PersonalTrainer');
 const Client = require('../models/Clients');
@@ -190,8 +193,34 @@ router.get('/verify', (req, res) => {
 
     ActivationTokens.find({"TokenData.Token": activationLink})
         .then(token =>{
-            if(token){
-                console.log(token);
+            // Check if token is found in the database (returns empty array if token isn't found so used isEmpty)
+            if(!isEmpty(token)){
+                // Check token from database is returned properly
+                // console.log(token);
+
+                // Check expiration date is still valid
+
+                // Get current date and time
+                let now = new Date();
+                now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+
+                // Get expiration date from token
+                let expiration = token[0].TokenData.ExpirationDate;
+
+
+                // Compare date to check if it is still valid (valid == true), then set client account to activated
+                if(expiration >= now){
+                    // Update client found by Email, update Activated field, get results from update
+                    Clients.update({Email : token[0].Email}, { Activated: true}, (err, results) => {
+                        if(err) throw err;
+                        console.log(results);
+                    } )
+                }
+
+
+            }
+            else{
+                console.log('No token found')
             }
         }).catch(err =>{
             console.log(err)
