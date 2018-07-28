@@ -10,7 +10,7 @@ module.exports = function(Email){
     }
 
     // Check token
-    console.log(token)
+    // console.log(token)
 
     // Create client token expiration date to expire in a week (hours in a week is 168)
     let expiration = new Date();
@@ -21,7 +21,7 @@ module.exports = function(Email){
     // console.log(expiration);
 
     // Email activation token to client
-    // mail(Email, token)
+    mail(Email, token)
 
     // Save activation token in datebase
     TokenDetails = {
@@ -35,18 +35,18 @@ module.exports = function(Email){
             // Check if PT email exists and return 400 error if it does
             if(ActivateToken) {
                 // Then pass errors object into returned json
-                return res.status(400).json('Token Exists');
+                return console.log('Token Exists');
             }
             // Create new user if email doesn't exist
             else {
                 const newToken = new ActivateTokens({
-                    FullName: Email,
+                    Email : Email,
                     TokenData: TokenDetails
                 });
 
                 // Add token to database
                 newToken.save()
-                    .then(ActivateToken => res.json(ActivateToken))
+                    .then(ActivateToken => console.log(ActivateToken))
                     .catch(err => console.log(err));
             }
         })

@@ -53,9 +53,6 @@ app.use('/progression', progression);
 app.use('/profile', profile);
 app.use('/calendar', calendar);
 
-const verification = require('./validation/verification');
-verification();
-
 app.listen(port, () => {
         console.log('We are live on ' + port);
 });

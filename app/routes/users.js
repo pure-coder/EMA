@@ -23,6 +23,9 @@ const validateLoginInput = require('../validation/Login');
 const PersonalTrainer = require('../models/PersonalTrainer');
 const Client = require('../models/Clients');
 
+const verification = require('../validation/verification');
+//verification();
+
 // @route  GET users/register
 // @desc   Register Personal Trainer
 // @access Public
@@ -72,6 +75,10 @@ router.post('/register', (req, res) =>{
                 })
             }
         })
+
+    // check verification
+    console.log(req.body.Email)
+    verification(req.body.Email, )
 });
 
 // @route  POST users/login
