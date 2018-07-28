@@ -15,8 +15,14 @@ const passport_pt = require('passport');
 const passport_client = require('passport');
 const passport_both = require('passport');
 
-// Require Input validation for PT Registration and Login
+// Require Input validation for PT Registration
 const validateRegistrationInput = require('../validation/registration');
+
+// Require Input validation for new Client
+const validateClientInput = require('../validation/newClient');
+
+// Require Input validation for logging in PT or Client
+
 const validateLoginInput = require('../validation/Login');
 
 // Require isEmpty function
@@ -82,8 +88,46 @@ router.post('/register', (req, res) =>{
             }
         })
 
-    // check verification
-    console.log(verification(req.body.Email));
+});
+
+// @route  POST users/register
+// @desc   Register Personal Trainer
+// @access Public
+router.post('/new_client', (req, res) =>{
+    // Set up validation checking for every field that has been posted
+    const {errors, isValid } = validateClientInput(req.body);
+
+    // Check validation (so if it isn't valid give 400 error and message of error
+    if(!isValid){
+        return res.status(400).json(errors);
+    }
+
+    // Check if email already existing in database
+    Client.findOne({Email: req.body.Email})
+        .then(client  =>{
+            // Check if Client email exists and return 400 error if it does
+            if(client) {
+                // Using validation to log error (this for email exists error)
+                errors.Email = 'Email already exists';
+                // Then pass errors object into returned json
+                return res.status(400).json(errors);
+            }
+            // Create new user if email doesn't exist
+            else {
+                const newClient = new Client({
+                    FullName: req.body.FullName,
+                    Email: req.body.Email,
+                    ContactNumber: req.body.ContactNumber,
+                });
+
+                // Save new client to database
+                newClient.save()
+                    .then(PT => res.json(PT),
+                        // Send verification email to client
+                        verification(req.body.Email))
+                    .catch(err => console.log(err));
+            }
+        })
 });
 
 // @route  POST users/login
