@@ -9,7 +9,8 @@ module.exports = function() {
     let now = new Date();
     now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
 
-    schedule.scheduleJob("1 * * * * *", function () {
+    // Run scheduler every 24 hours to remove expired tokens (0-23 for hour ranges)
+    schedule.scheduleJob("0 23 * * * *", function () {
         // $lt = means less than < (so will find documents less than the value given)
         ActivationTokens.remove({"TokenData.ExpirationDate": {$lt: now }})
             .then(results => {

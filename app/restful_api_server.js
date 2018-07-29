@@ -23,7 +23,7 @@ const assert = require('assert');
 
 const log = require('./config/logger').logger;
 
-// use scheduler
+// use scheduler to delete expired tokens
 scheduler();
 
 // assign the port that will listen on for the application
