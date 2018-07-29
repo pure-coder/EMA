@@ -14,7 +14,8 @@ const ClientSchema = mongoose.Schema({
         type: Date, trim: true,
     },
     Password: {
-        type: String, trim: true,
+        // default password is a hash of "password" - will need to be changed by user on initial login
+        type: String, default: "$2a$12$gyS3ECpQsn0RZivqKG8HK.Vv5kBtcfilMI.IlzK2xas6PcxBeEZ12", trim: true,
     },
     ContactNumber: {
         type: String, trim: true,

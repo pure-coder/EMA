@@ -164,32 +164,35 @@ router.post('/login', (req, res) =>{
                             return res.status(404).json(errors);
                         }
 
-                        // If user is found continue with comparing the password of given
-                        // user with the hashed password in the database
-                        // Check password
-                        bcrypt.compare(Password, client.Password)
-                        // A boolean is returned if match is found or not
-                            .then(isMatch =>{
-                                // If it is matched then provide a token
-                                if(isMatch) {
-                                    // User matched so create payload
-                                    const payload = {id: client.id, name: client.FullName}
+                        // Check if user is activated before password check and logging in
+                        if(client.Activated) {
+                            // If user is found continue with comparing the password of given
+                            // user with the hashed password in the database
+                            // Check password
+                            bcrypt.compare(Password, client.Password)
+                            // A boolean is returned if match is found or not
+                                .then(isMatch => {
+                                    // If it is matched then provide a token
+                                    if (isMatch) {
+                                        // User matched so create payload
+                                        const payload = {id: client.id, name: client.FullName}
 
-                                    // Sign Token (needs payload, secret key, and expiry detail (3600 = 1hr) for re-login
-                                    // and callback for token
-                                    jwt.sign(payload, keys.secretOrKey, {expiresIn: 3600}, (err, token) =>{
-                                        res.json({
-                                            success: true,
-                                            token: 'Bearer ' + token // Using Bearer token protocol
-                                        })
-                                    });
-                                }
-                                // If a match is not found provide a 400 error
-                                else{
-                                    errors.password = 'Password is incorrect';
-                                    return res.status(400).json(errors)
-                                }
-                            })
+                                        // Sign Token (needs payload, secret key, and expiry detail (3600 = 1hr) for re-login
+                                        // and callback for token
+                                        jwt.sign(payload, keys.secretOrKey, {expiresIn: 3600}, (err, token) => {
+                                            res.json({
+                                                success: true,
+                                                token: 'Bearer ' + token // Using Bearer token protocol
+                                            })
+                                        });
+                                    }
+                                    // If a match is not found provide a 400 error
+                                    else {
+                                        errors.password = 'Password is incorrect';
+                                        return res.status(400).json(errors)
+                                    }
+                                })
+                        } // check if user is activated
                         if(!pt && !client){
                             errors.Email = 'User not found';
                             return res.status(404).json(errors);
