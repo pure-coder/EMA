@@ -4,12 +4,12 @@
 const express        = require('express');
 const bodyParser     = require('body-parser');
 const mongoose       = require('mongoose');
+const scheduler = require('./services/scheduler');
 // require passport
 const passport = require('passport');
 
 // initialise app as instance of express
 const app            = express();
-
 
 // require the routes
 const users = require('./routes/users');
@@ -22,6 +22,9 @@ const assert = require('assert');
 ///////////////////////////////////////////////////////////////
 
 const log = require('./config/logger').logger;
+
+// use scheduler
+scheduler();
 
 // assign the port that will listen on for the application
 const port = 8000; // Set port to 8000

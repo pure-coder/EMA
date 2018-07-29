@@ -6,6 +6,7 @@ const ActivationTokensSchema = mongoose.Schema({
         type: String, require: true,
     },
     TokenData : {
+        // Has Token, and ExpirationDate as fields
 
     }
 },{collection: "ActivationTokens"}, { timestamps: true });
