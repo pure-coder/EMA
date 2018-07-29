@@ -61,33 +61,44 @@ router.post('/register', (req, res) =>{
                 return res.status(400).json(errors);
             }
             // Create new user if email doesn't exist
-            else {
-                const newPT = new PersonalTrainer({
-                    FullName: req.body.FullName,
-                    Email: req.body.Email,
-                    DateOfBirth: req.body.DateOfBirth,
-                    Password: req.body.Password,
-                    ContactNumber: req.body.ContactNumber,
-                    Sex: req.body.Sex,
-                    ProfilePicUrl: req.body.ProfilePicUrl,
-                    ClientIDs: req.body.ClientIDs
-                });
+            Client.findOne({Email: req.body.Email})
+                .then(client => {
 
-                // Encrypt password
-                bcrypt.genSalt(12, (err, salt) => {
-                    bcrypt.hash(newPT.Password, salt, (err, hash) => {
-                        if(err) throw err;
-                        // Set plain password to the hash that was created for the password
-                        newPT.Password = hash;
-                        // Save new Personal Trainer to the database
-                        newPT.save()
-                            .then(PT => res.json(PT))
-                            .catch(err => console.log(err));
-                    })
+                    if(client){
+                        // Using validation to log error (this for email exists error)
+                        errors.Email = 'Email already exists';
+                        // Then pass errors object into returned json
+                        return res.status(400).json(errors);
+                    }
+
+                    else
+                    {
+                        const newPT = new PersonalTrainer({
+                            FullName: req.body.FullName,
+                            Email: req.body.Email,
+                            DateOfBirth: req.body.DateOfBirth,
+                            Password: req.body.Password,
+                            ContactNumber: req.body.ContactNumber,
+                            Sex: req.body.Sex,
+                            ProfilePicUrl: req.body.ProfilePicUrl,
+                            ClientIDs: req.body.ClientIDs
+                        });
+
+                        // Encrypt password
+                        bcrypt.genSalt(12, (err, salt) => {
+                            bcrypt.hash(newPT.Password, salt, (err, hash) => {
+                                if (err) throw err;
+                                // Set plain password to the hash that was created for the password
+                                newPT.Password = hash;
+                                // Save new Personal Trainer to the database
+                                newPT.save()
+                                    .then(PT => res.json(PT))
+                                    .catch(err => console.log(err));
+                            })
+                        })
+                    }
                 })
-            }
         })
-    //verification(req.body.Email);
 });
 
 // @route  POST users/register
@@ -193,6 +204,11 @@ router.post('/login', (req, res) =>{
                                     }
                                 })
                         } // check if user is activated
+                        // Client isn't activated
+                        else{
+                            errors.password = 'Client is not activated, please check your email';
+                            return res.status(400).json(errors)
+                        }
                         if(!pt && !client){
                             errors.Email = 'User not found';
                             return res.status(404).json(errors);
