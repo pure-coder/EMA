@@ -61,6 +61,8 @@ router.post('/register', (req, res) =>{
                 return res.status(400).json(errors);
             }
             // Create new user if email doesn't exist
+
+            // Check if email doesn't exist in client database
             Client.findOne({Email: req.body.Email})
                 .then(client => {
 
@@ -124,22 +126,36 @@ router.post('/new_client', (req, res) =>{
                 return res.status(400).json(errors);
             }
             // Create new user if email doesn't exist
-            else {
-                const newClient = new Client({
-                    FullName: req.body.FullName,
-                    Email: req.body.Email,
-                    ContactNumber: req.body.ContactNumber,
-                });
 
-                // Save new client to database
-                newClient.save()
-                    .then(PT => {
-                        // Send verification email to client
-                        verification(req.body.Email),
-                        res.json(PT)}
-                    )
-                    .catch(err => console.log(err));
-            }
+            // Check if email exists in pt database
+            PersonalTrainer.findOne({Email: req.body.Email})
+                .then(PT => {
+                    if(PT){
+                        // Using validation to log error (this for email exists error)
+                        errors.Email = 'Email already exists';
+                        // Then pass errors object into returned json
+                        return res.status(400).json(errors);
+                    }
+
+                    else {
+                        const newClient = new Client({
+                            FullName: req.body.FullName,
+                            Email: req.body.Email,
+                            ContactNumber: req.body.ContactNumber,
+                        });
+
+                        // Save new client to database
+                        newClient.save()
+                            .then(client => {
+                                // Send verification email to client
+                                verification(req.body.Email),
+                                    res.json(client)}
+                            )
+                            .catch(err => console.log(err));
+                    }
+
+                })
+
         })
 });
 
