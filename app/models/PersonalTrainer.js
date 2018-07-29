@@ -11,7 +11,7 @@ const PersonalTrainerSchema = mongoose.Schema({
         type: String,  index: { unique: true }, lowercase: true, trim: true,
     },
     DateOfBirth: {
-    type: Date, trim: true,
+        type: Date, trim: true,
     },
     Password: {
         type: String, trim: true,

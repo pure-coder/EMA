@@ -10,8 +10,8 @@ const exercise = require('../models/Exercise');
 const PT = require('../models/PersonalTrainer');
 const client = require('../models/Clients');
 
-// @route  GET progression/test
-// @desc   Test progression route
+// @route  GET personal_trainer/test
+// @desc   Test personalTrainer route
 // @access Public route
 
 

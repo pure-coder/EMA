@@ -35,7 +35,7 @@ const ActivationTokens = require('../models/AcitvationTokens');
 // @route  POST users/register
 // @desc   Register Personal Trainer
 // @access Public
-router.post('/register', (req, res) =>{
+router.post('/register', (req, res, next) =>{
     // Set up validation checking for every field that has been posted
     const {errors, isValid } = validateRegistrationInput(req.body);
 
@@ -100,7 +100,7 @@ router.post('/register', (req, res) =>{
 // @route  POST users/register
 // @desc   Register Personal Trainer
 // @access Public
-router.post('/new_client', (req, res) =>{
+router.post('/new_client', (req, res, next) =>{
     // Set up validation checking for every field that has been posted
     const {errors, isValid } = validateClientInput(req.body);
 
@@ -156,7 +156,7 @@ router.post('/new_client', (req, res) =>{
 // @route  POST users/login
 // @desc   Login Users (Personal Trainers and Clients) / and return JWT
 // @access Public
-router.post('/login', (req, res) =>{
+router.post('/login', (req, res, next) =>{
     const Email = req.body.Email;
     const Password = req.body.Password;
 
@@ -260,8 +260,11 @@ router.post('/login', (req, res) =>{
 // @route  GET users/verify
 // @desc   Activate Client from valid activation link token
 // @access Public
-router.get('/verify', (req, res) => {
+router.get('/verify', (req, res, next) => {
     let activationLink = req.query.activation_link;
+
+    // Create object of errors
+    let errors = {};
 
     // Check that activation link is captured properly
     // console.log(activationLink);
@@ -273,8 +276,6 @@ router.get('/verify', (req, res) => {
             if(!isEmpty(token)){
                 // Check token from database is returned properly
                 // console.log(token);
-
-                // Check expiration date is still valid
 
                 // Get current date and time
                 let now = new Date();
@@ -294,22 +295,22 @@ router.get('/verify', (req, res) => {
                         ActivationTokens.findByIdAndDelete(tokenId)
                             .then(result => {
                                 if(result){
-                                    res.status(200).json({msg: "Client activated"});
+                                    return res.status(200).json({msg: "Client activated"});
                                 }
                             })
 
                     } )
                 }
                 else {
-                    res.sendStatus(200).json({msg: 'Token expired, contact Personal Trainer to reactivate token'});
+                    return res.status(400).json({msg: "Token expired, please contact your personal trainer for reactivation"});
                 }
             // No token found in database
             }
             else{
-                console.log('No token found')
+                return res.status(400).json({msg: "Token not found"});
             }
         }).catch(err =>{
-            console.log(err)
+            console.log(err);
     })// catch end
 
 })

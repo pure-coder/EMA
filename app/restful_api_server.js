@@ -13,9 +13,10 @@ const app            = express();
 
 // require the routes
 const users = require('./routes/users');
-const progression = require('./routes/progression');
-const calendar = require('./routes/calendar');
+const personalTrainer = require('./routes/personalTrainer');
+const client = require('./routes/client');
 const profile = require('./routes/profile');
+const calendar = require('./routes/calendar');
 
 ////////////////// FOR DEV --- REMOVE /////////////////////////
 const assert = require('assert');
@@ -52,7 +53,8 @@ require('./config/passport')(passport);
 
 // Use the routes that have been set up
 app.use('/users', users);
-app.use('/progression', progression);
+app.use('/personal_trainer', personalTrainer);
+app.use('/client', client);
 app.use('/profile', profile);
 app.use('/calendar', calendar);
 
