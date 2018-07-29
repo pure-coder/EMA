@@ -122,14 +122,14 @@ router.post('/new_client', (req, res) =>{
 
                 // Save new client to database
                 newClient.save()
-                    .then(PT => res.json(PT),
+                    .then(PT => {
                         // Send verification email to client
-                        //verification(req.body.Email)
+                        verification(req.body.Email),
+                        res.json(PT)}
                     )
                     .catch(err => console.log(err));
             }
         })
-    verification(req.body.Email)
 });
 
 // @route  POST users/login
@@ -237,6 +237,7 @@ router.get('/verify', (req, res) => {
     // Check that activation link is captured properly
     res.json(activationLink);
 
+    // Find token then update client to activated if found, also delete token after activation is complete
     ActivationTokens.find({"TokenData.Token": activationLink})
         .then(token =>{
             // Check if token is found in the database (returns empty array if token isn't found so used isEmpty)
@@ -252,14 +253,22 @@ router.get('/verify', (req, res) => {
 
                 // Get expiration date from token
                 let expiration = token[0].TokenData.ExpirationDate;
+                // Get token id for deletion later
+                let tokenId = token[0].id
 
 
                 // Compare date to check if it is still valid (valid == true), then set client account to activated
                 if(expiration >= now){
                     // Update client found by Email, update Activated field, get results from update
-                    Client.update({Email : token[0].Email}, { Activated: true}, (err, results) => {
+                    Client.update({Email : token[0].Email}, { Activated: true}, (err) => {
                         if(err) throw err;
-                        console.log(results);
+                        ActivationTokens.findByIdAndDelete(tokenId)
+                            .then(result => {
+                                if(result){
+                                    console.log('Client activated and token deleted')
+                                }
+                            })
+
                     } )
                 }
 
