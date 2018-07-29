@@ -1,9 +1,6 @@
 const express = require('express');
 // set router so routes can be used
 const router = express.Router();
-// used to parse mult-part forms
-const multer = require('multer');
-const upload = multer();
 // require bcrypt to encrypt password
 const bcrypt = require('bcryptjs');
 // require jason web tokens
@@ -11,9 +8,6 @@ const jwt = require('jsonwebtoken');
 // jwt keys
 const keys = require('../config/db');
 // require passport
-const passport_pt = require('passport');
-const passport_client = require('passport');
-const passport_both = require('passport');
 
 // Require Input validation for PT Registration
 const validateRegistrationInput = require('../validation/registration');
@@ -270,7 +264,7 @@ router.get('/verify', (req, res) => {
     let activationLink = req.query.activation_link;
 
     // Check that activation link is captured properly
-    res.json(activationLink);
+    // console.log(activationLink);
 
     // Find token then update client to activated if found, also delete token after activation is complete
     ActivationTokens.find({"TokenData.Token": activationLink})
@@ -300,14 +294,16 @@ router.get('/verify', (req, res) => {
                         ActivationTokens.findByIdAndDelete(tokenId)
                             .then(result => {
                                 if(result){
-                                    console.log('Client activated and token deleted')
+                                    res.status(200).json({msg: "Client activated"});
                                 }
                             })
 
                     } )
                 }
-
-                //////////////////// ENDED HERE /////////////////// 28/07/18
+                else {
+                    res.sendStatus(200).json({msg: 'Token expired, contact Personal Trainer to reactivate token'});
+                }
+            // No token found in database
             }
             else{
                 console.log('No token found')
@@ -316,48 +312,6 @@ router.get('/verify', (req, res) => {
             console.log(err)
     })// catch end
 
-})
-
-
-
-
-
-
-
-
-
-
-
-// @route  GET users/current/personalTrainers
-// @desc   Return current user
-// @access Private
-// use passport.authenticate with jwt as it is the strategy that is being used, as well as session false as we are not
-// using sessions (passport_pt.authenticate with pt_rule for personal trainers only)
-router.get('/current/personalTrainers', passport_pt.authenticate('pt_rule', {session: false}), (req, res) =>{
-    res.json(req.user);
-})
-
-
-// @route  GET users/current_clients
-// @desc   Return current user
-// @access Private
-// use passport.authenticate with jwt as it is the strategy that is being used, as well as session false as we are not
-// using sessions (passport_client.authenticate with client_rule for clients only)
-router.get('/current/clients', passport_client.authenticate('client_rule', {session: false}), (req, res) =>{
-    res.json(req.user);
-})
-
-// @route  GET users/current/both
-// @desc   Return current user
-// @access Private
-// use passport.authenticate with jwt as it is the strategy that is being used, as well as session false as we are not
-// using sessions (passport_both.authenticate both_rule for both)
-router.get('/current/both', passport_both.authenticate('both_rule', {session: false}), (req, res) =>{
-    res.json({
-        id: req.user.id,
-        name: req.user.FullName,
-        email: req.user.Email
-    });
 })
 
 //Export router so it can work with the main restful api server

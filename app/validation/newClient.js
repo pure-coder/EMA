@@ -33,6 +33,8 @@ module.exports = function validateRegistrationInput(data){
         errors.Email = 'Email is required';
     }
 
+    // Not needed whilst PT is activating client account
+
     // // Checks to see if DateOfBirth field is empty using validator module
     // if(Validator.isEmpty(data.DateOfBirth)){
     //     errors.DateOfBirth = 'Date of Birth is required';
