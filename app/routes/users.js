@@ -315,5 +315,9 @@ router.get('/verify', (req, res, next) => {
 
 })
 
+router.get('/', (req, res) => {
+    res.json({msg: "This is the users home page"})
+})
+
 //Export router so it can work with the main restful api server
 module.exports = router;
