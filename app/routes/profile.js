@@ -3,20 +3,14 @@ const express = require('express');
 const router = express.Router();
 
 // Require passport to control access to routes
-const passport_pt = require('passport');
-const passport_client = require('passport');
-const passport_both = require('passport');
+const passport = require('passport');
 
 // @route  GET profile/test
 // @desc   Test profile route
-// @access Public route
-router.get('/test/:id/hello', (req, res) => res.json({msg: "Profile Works"}));
-
-// @route  GET profile/test
-// @desc   Test profile route
-// @access Public route
-router.get('/personal-trainer/:id/profile',  passport_pt.authenticate('pt_rule', {session: false}),
+// @access Private route
+router.get('/personal_trainer',  passport.authenticate('pt_rule', {session: false}),
     (req, res, next) => {
+        const errors = {};
         res.json({msg: "Personal Trainer Profile Works"})
 });
 

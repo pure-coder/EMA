@@ -14,6 +14,7 @@ module.exports = function() {
         // $lt = means less than < (so will find documents less than the value given)
         ActivationTokens.remove({"TokenData.ExpirationDate": {$lt: now }})
             .then(results => {
+                cosole.log('Remove expired token')
                 console.log(results);
             }).catch(err => {
                 console.log(err);
