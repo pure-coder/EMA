@@ -109,6 +109,10 @@ router.post('/new_client', passport.authenticate('pt_rule', {session: false}) ,(
         return res.status(400).json(errors);
     }
 
+    var token = req.headers.authorization.split(' ')[1];
+    var payload = jwt.decode(token, keys.secretOrKey);
+    var PersonalTrainerId = payload.id;
+
     // Check if email already existing in database
     Client.findOne({Email: req.body.Email})
         .then(client  =>{
@@ -142,10 +146,21 @@ router.post('/new_client', passport.authenticate('pt_rule', {session: false}) ,(
                         newClient.save()
                             .then(client => {
                                 // Send verification email to client
-                                verification(req.body.Email),
-                                    res.json(client)}
+                                verification(req.body.Email)
+                                    //, res.json()// Add client id to this personal trainers clients id array
+                                    , //console.log(PersonalTrainerId + ' cl: ' + client.id)
+                                    PersonalTrainer.findByIdAndUpdate(PersonalTrainerId,
+                                        {$push: {ClientIDs: client.id}},
+                                        {safe: true, upsert: true})
+                                        .then(result =>{
+                                            console.log('client id: ' + client.id),
+                                            res.json({result})
+                                        })
+                                        .catch(err => {res.json({err})},
+                                            )
+                            }
                             )
-                            .catch(err => console.log(err));
+                            .catch(err => {console.log(err)});
                     }
 
                 })
