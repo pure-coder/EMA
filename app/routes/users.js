@@ -99,8 +99,8 @@ router.post('/register', (req, res) =>{
 
 // @route  POST users/register
 // @desc   Register Personal Trainer
-// @access Public
-router.post('/new_client', (req, res) =>{
+// @access Private route - only Personal Trainers can add new clients
+router.post('/new_client', passport.authenticate('pt_rule', {session: false}) ,(req, res) =>{
     // Set up validation checking for every field that has been posted
     const {errors, isValid } = validateClientInput(req.body);
 
