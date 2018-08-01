@@ -52,11 +52,11 @@ app.use(passport.initialize());
 require('./config/passport')(passport);
 
 // Use the routes that have been set up
-app.use('/users', users);
+app.use('/', users);
 app.use('/personal_trainer', personalTrainer);
 app.use('/client', client);
-app.use('/profile', profile);
-app.use('/calendar', calendar);
+app.use('/client/profile', profile);
+app.use('/client/calendar', calendar);
 
 app.listen(port, () => {
         console.log('We are live on ' + port);
