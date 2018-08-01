@@ -147,13 +147,15 @@ router.post('/new_client', passport.authenticate('pt_rule', {session: false}) ,(
                             .then(client => {
                                 // Send verification email to client
                                 verification(req.body.Email)
-                                    //, res.json()// Add client id to this personal trainers clients id array
-                                    , //console.log(PersonalTrainerId + ' cl: ' + client.id)
+                                    let client_id_object = {
+                                        email: client.Email,
+                                        id: client.id
+                                    }
                                     PersonalTrainer.findByIdAndUpdate(PersonalTrainerId,
-                                        {$push: {ClientIDs: client.id}},
-                                        {safe: true, upsert: true})
+                                        {$push: {ClientIDs: client_id_object}},
+                                        {safe: true})
                                         .then(result =>{
-                                            console.log('client id: ' + client.id),
+                                            console.log(client_id_object),
                                             res.json({result})
                                         })
                                         .catch(err => {res.json({err})},
