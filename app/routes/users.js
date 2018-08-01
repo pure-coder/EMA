@@ -8,6 +8,7 @@ const jwt = require('jsonwebtoken');
 // jwt keys
 const keys = require('../config/db');
 // require passport
+const passport = require('passport');
 
 // Require Input validation for PT Registration
 const validateRegistrationInput = require('../validation/registration');
@@ -16,7 +17,6 @@ const validateRegistrationInput = require('../validation/registration');
 const validateClientInput = require('../validation/newClient');
 
 // Require Input validation for logging in PT or Client
-
 const validateLoginInput = require('../validation/Login');
 
 // Require isEmpty function
@@ -35,7 +35,7 @@ const ActivationTokens = require('../models/AcitvationTokens');
 // @route  POST users/register
 // @desc   Register Personal Trainer
 // @access Public
-router.post('/register', (req, res, next) =>{
+router.post('/register', (req, res) =>{
     // Set up validation checking for every field that has been posted
     const {errors, isValid } = validateRegistrationInput(req.body);
 
@@ -100,7 +100,7 @@ router.post('/register', (req, res, next) =>{
 // @route  POST users/register
 // @desc   Register Personal Trainer
 // @access Public
-router.post('/new_client', (req, res, next) =>{
+router.post('/new_client', (req, res) =>{
     // Set up validation checking for every field that has been posted
     const {errors, isValid } = validateClientInput(req.body);
 
@@ -156,7 +156,7 @@ router.post('/new_client', (req, res, next) =>{
 // @route  POST users/login
 // @desc   Login Users (Personal Trainers and Clients) / and return JWT
 // @access Public
-router.post('/login', (req, res, next) =>{
+router.post('/login', (req, res) =>{
     const Email = req.body.Email;
     const Password = req.body.Password;
 
@@ -260,7 +260,7 @@ router.post('/login', (req, res, next) =>{
 // @route  GET users/verify
 // @desc   Activate Client from valid activation link token
 // @access Public
-router.get('/verify', (req, res, next) => {
+router.get('/verify', (req, res) => {
     let activationLink = req.query.activation_link;
 
     // Create object of errors
@@ -315,9 +315,6 @@ router.get('/verify', (req, res, next) => {
 
 })
 
-router.get('/', (req, res) => {
-    res.json({msg: "This is the users home page"})
-})
 
 //Export router so it can work with the main restful api server
 module.exports = router;

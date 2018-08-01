@@ -9,7 +9,7 @@ const passport = require('passport');
 // @desc   Test profile route
 // @access Private route
 router.get('/personal_trainer',  passport.authenticate('pt_rule', {session: false}),
-    (req, res, next) => {
+    (req, res) => {
         const errors = {};
         res.json({msg: "Personal Trainer Profile Works"})
 });
