@@ -151,6 +151,7 @@ router.post('/new_client', passport.authenticate('pt_rule', {session: false}) ,(
                                         email: client.Email,
                                         id: client.id
                                     }
+                                    // Add client id to associated personal trainer
                                     PersonalTrainer.findByIdAndUpdate(PersonalTrainerId,
                                         {$push: {ClientIDs: client_id_object}},
                                         {safe: true})
