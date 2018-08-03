@@ -10,8 +10,9 @@ const jwt = require('jsonwebtoken');
 // jwt keys
 const keys = require('../config/db');
 
-// Require PersonalTrainer model
-const PersonalTrainer = require('../models/PersonalTrainer');
+////////////////////////////////////////////// CHANGE CLIENT MODEL TO PROFILE MODEL //////////////////////////
+
+// Require Client model
 const Client = require('../models/Clients');
 
 // @route  GET profile/test
@@ -19,19 +20,16 @@ const Client = require('../models/Clients');
 // @access Private route
 router.get('/:id',  passport.authenticate('both_rule', {session: false}),
     (req, res) => {
-        const errors = {};
-        //res.json({msg: "Profile Works"})
 
         // If client display profile and If client is associated to personal trainer display profile
         var token = req.headers.authorization.split(' ')[1];
         var payload = jwt.decode(token, keys.secretOrKey);
         var user_id = payload.id;
 
-        // If client display profile and If client is associated to personal trainer display profile
-        // Get client profile data
+        // If signed in client matches id in url then get client profile data
 
-        // If signed in client matches id in url or id in url is located signed in pt's client id
         if(req.params.id == user_id) {
+                ////////////////////////////////////////////// CHANGE CLIENT MODEL TO PROFILE MODEL //////////////////////////
             Client.findById(user_id)
                 .then(client => {
                     return res.json({client})
@@ -41,7 +39,9 @@ router.get('/:id',  passport.authenticate('both_rule', {session: false}),
                     }
                 )
         }// If signed in client matches id in url or id in url is located signed in pt's client id
-
+        else{
+            return res.json({msg: "Unauthorised access: Profile cannot be displayed!"})
+        }
 
 });
 
