@@ -16,6 +16,7 @@ const users = require('./routes/users');
 const personalTrainer = require('./routes/personalTrainer');
 const client = require('./routes/client');
 const profile = require('./routes/profile');
+const profiles = require('./routes/profiles');
 const calendar = require('./routes/calendar');
 
 ////////////////// FOR DEV --- REMOVE /////////////////////////
@@ -55,6 +56,7 @@ require('./config/passport')(passport);
 app.use('/', users);
 app.use('/personal_trainer', personalTrainer);
 app.use('/client', client);
+app.use('/personal_trainer/client/profile', profiles);
 app.use('/client/profile', profile);
 app.use('/client/calendar', calendar);
 

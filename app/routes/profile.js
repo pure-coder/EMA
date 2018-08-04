@@ -17,14 +17,14 @@ const Client = require('../models/Clients');
 
 // @route  GET profile/test
 // @desc   Test profile route
-// @access Private route
-router.get('/:id',  passport.authenticate('both_rule', {session: false}),
+// @access Private route for clients only
+router.get('/:id',  passport.authenticate('client_rule', {session: false}),
     (req, res) => {
 
         // If client display profile and If client is associated to personal trainer display profile
-        var token = req.headers.authorization.split(' ')[1];
-        var payload = jwt.decode(token, keys.secretOrKey);
-        var user_id = payload.id;
+        let token = req.headers.authorization.split(' ')[1];
+        let payload = jwt.decode(token, keys.secretOrKey);
+        let user_id = payload.id;
 
         // If signed in client matches id in url then get client profile data
 
