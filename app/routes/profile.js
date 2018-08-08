@@ -39,6 +39,9 @@ router.get('/:id',  passport.authenticate('client_rule', {session: false}),
                     }
                     return res.json({client});
                 })
+                .catch(err => {
+                    res.status(404).json({err});
+                })
         }// If signed in client matches id in url or id in url is located signed in pt's client id
         else {
             return res.json({msg: "Unauthorised access: Profile cannot be displayed!"})
