@@ -21,25 +21,26 @@ const Client = require('../models/Clients');
 router.get('/:id',  passport.authenticate('client_rule', {session: false}),
     (req, res) => {
 
+        const errors = {};
+
         // If client display profile and If client is associated to personal trainer display profile
         let token = req.headers.authorization.split(' ')[1];
         let payload = jwt.decode(token, keys.secretOrKey);
         let user_id = payload.id;
 
         // If signed in client matches id in url then get client profile data
-
-        if(req.params.id == user_id) {
-                ////////////////////////////////////////////// CHANGE CLIENT MODEL TO PROFILE MODEL //////////////////////////
+        if (req.params.id == user_id) {
+            ////////////////////////////////////////////// CHANGE CLIENT MODEL TO PROFILE MODEL //////////////////////////
             Client.findById(user_id)
                 .then(client => {
-                    return res.json({client})
-                })
-                .catch(err => {
-                        return res.json({msg: "Client data not found"})
+                    if(!client){
+                        errors.noprofile = "Client data not found";
+                        return res.status(404).json(errors);
                     }
-                )
+                    return res.json({client});
+                })
         }// If signed in client matches id in url or id in url is located signed in pt's client id
-        else{
+        else {
             return res.json({msg: "Unauthorised access: Profile cannot be displayed!"})
         }
 
