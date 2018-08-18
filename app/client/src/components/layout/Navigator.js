@@ -6,10 +6,10 @@ class Navigation extends Component {
         return (
             <nav className="navbar navbar-expand-sm navbar-dark navbar-custom mb-5">
                 <div className="container navbar-container">
-                    <a className="navbar-brand" href="#">
+                    <Link className="navbar-brand" to="/">
                         <img src={require('../../img/logo.jpg')} alt={"Fitness app logo"}></img>
                         Fitness App
-                    </a>
+                    </Link> {/*Using Link instead of anchor tag*/}
                     <button className="navbar-toggler" type="button" data-target="#mobile-navigation" data-toggle="collapse">
                         <span className="navbar-toggler-icon"></span>
                     </button>
