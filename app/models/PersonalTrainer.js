@@ -25,6 +25,10 @@ const PersonalTrainerSchema = mongoose.Schema({
     ProfilePicUrl: {
         type: String, required: false, default: 'NA', trim: true,
     },
+    Date: {
+        type: Date
+    }
+    ,
     ClientIDs: [{
         email: {type: String},
         id: {type: String}

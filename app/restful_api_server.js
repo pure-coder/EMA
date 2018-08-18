@@ -53,7 +53,7 @@ app.use(passport.initialize());
 require('./config/passport')(passport);
 
 // Use the routes that have been set up
-app.use('/api/users', users);
+app.use('/api/', users);
 app.use('/api/personal_trainer', personalTrainer);
 app.use('/api/client', client);
 app.use('/api/personal_trainer/client/profile', profiles);

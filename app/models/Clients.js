@@ -28,6 +28,9 @@ const ClientSchema = mongoose.Schema({
     },
     Activated: {
         type: Boolean, default: false
+    },
+    Date: {
+        type: Date
     }
 },{collection: "Clients"}, { timestamps: true });
 

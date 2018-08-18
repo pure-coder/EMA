@@ -69,6 +69,9 @@ router.post('/register', (req, res) =>{
 
                     else
                     {
+                        let now = new Date();
+                        now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+
                         const newPT = new PersonalTrainer({
                             FullName: req.body.FullName,
                             Email: req.body.Email,
@@ -77,6 +80,7 @@ router.post('/register', (req, res) =>{
                             ContactNumber: req.body.ContactNumber,
                             Sex: req.body.Sex,
                             ProfilePicUrl: req.body.ProfilePicUrl,
+                            Date: now,
                             ClientIDs: req.body.ClientIDs
                         });
 
@@ -136,10 +140,14 @@ router.post('/new_client', passport.authenticate('pt_rule', {session: false}) ,(
                     }
 
                     else {
+                        let now = new Date();
+                        now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+
                         const newClient = new Client({
                             FullName: req.body.FullName,
                             Email: req.body.Email,
                             ContactNumber: req.body.ContactNumber,
+                            Date: now
                         });
 
                         // Save new client to database
