@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Link} from 'react-router-dom'; {/*This will be used instead of the anchor tag for routing*/}
+import {Link} from 'react-router-dom'; /*This will be used instead of the anchor tag for routing*/
 
 class Navigation extends Component {
     render() {
