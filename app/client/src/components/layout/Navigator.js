@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {Link} from 'react-router-dom'; {/*This will be used instead of the anchor tag for routing*/}
 
 class Navigation extends Component {
     render() {
@@ -17,10 +18,14 @@ class Navigation extends Component {
 
                         <ul className="navbar-nav ml-auto">
                             <li className="nav-item">
-                                <a className="nav-link" href="#">Sign Up</a>
+                                <Link className="nav-link" to="/register">
+                                    Sign Up
+                                </Link> {/*Using Link instead of anchor tag*/}
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" href="#">Login</a>
+                                <Link className="nav-link" to="/login">
+                                    Login
+                                </Link> {/*Using Link instead of anchor tag*/}
                             </li>
                         </ul>
                     </div>
