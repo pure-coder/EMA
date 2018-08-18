@@ -4,6 +4,10 @@
     padding : 0px;
 }
 
+body {
+    height: 100vh;
+}
+
 img {
     width : 3.5em;
     padding-right: 10px;
@@ -16,10 +20,6 @@ img {
 
 .navbar-custom, .footer-custom {
     background-color: #000;
-}
-
-#wrap {
-    min-height: 100%;
 }
 
 #main {
@@ -42,6 +42,7 @@ img {
     width: 90%;
     top: 35%;
     bottom:50%;
+    min-height: 0px;
 }
 
 .description {
@@ -52,4 +53,10 @@ img {
     position: relative;
     clear:both;
     padding-top:20px;
+}
+
+.container-custom {
+    overflow: auto;
+    min-height: 490px;
+    /*height: 100vh;*/
 }

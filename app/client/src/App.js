@@ -16,9 +16,9 @@ class App extends Component {
     return (
         <Router>
             {/* Wrap the App div with Router so the functionality can be used  */}
-            <div className="App" id="wrap">
+            <div className="App">
                 <Navigation/> {/*adds navbar component to web app*/}
-                <Route exact path="/" component={Landing_page} /> {/* using Route functionality that adds the landing_page component to web app*/}
+                <Route exact path="/" component={Landing_page}/> {/* using Route functionality that adds the landing_page component to web app*/}
                 <div className="container"> {/*This holders the other routes for the app*/}
                     <Route exact path="/register" component={Register}/>
                     <Route exact path="/login" component={Login}/>
