@@ -4,7 +4,7 @@ class Navigation extends Component {
     render() {
         return (
             <nav className="navbar navbar-expand-sm navbar-dark navbar-custom mb-5">
-                <div className="container">
+                <div className="container navbar-container">
                     <a className="navbar-brand" href="#">
                         <img src={require('../../img/logo.jpg')} alt={"Fitness app logo"}></img>
                         Fitness App

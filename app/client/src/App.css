@@ -1,5 +1,5 @@
 /*Put global (for all pages) bootstrap theme css here!*/
-.container {
+.navbar-container {
     max-width : 100%;
     padding : 0px;
 }
@@ -16,4 +16,40 @@ img {
 
 .navbar-custom, .footer-custom {
     background-color: #000;
+}
+
+#wrap {
+    min-height: 100%;
+}
+
+#main {
+    overflow:auto;
+    padding-bottom:150px; /* this needs to be bigger than footer height*/
+}
+
+.landing_page {
+    background: url("img/landing_page_img.jpg") no-repeat;
+    position: relative;
+    background-size: 100%;
+    background-position: center;
+    height: 100vh;
+    margin-top: -48px;
+    margin-bottom: -50px;
+}
+
+.landing_div {
+    position: absolute;
+    width: 90%;
+    top: 35%;
+    bottom:50%;
+}
+
+.description {
+    font-size: 1.3em;
+}
+
+.footer-custom {
+    position: relative;
+    clear:both;
+    padding-top:20px;
 }
