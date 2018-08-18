@@ -38,11 +38,6 @@ module.exports = function validateRegistrationInput(data){
     //     errors.DateOfBirth = 'Date of Birth is required';
     // }
 
-    // Checks to see if Passwords match field is empty using validator module
-    if(!Validator.equals(data.Password, data.Password2)){
-        errors.Password = 'Passwords do not match';
-    }
-
     // Password must have length with min 8 and max 20
     if(!Validator.isLength(data.Password, {min: 8, max: 20})) {
         errors.Password = 'Password must be between 8 and 20 characters';
@@ -56,6 +51,11 @@ module.exports = function validateRegistrationInput(data){
     // Checks to see if Password field is empty using validator module
     if(Validator.isEmpty(data.Password)){
         errors.Password = 'Password is required';
+    }
+
+    // Checks to see if Passwords match
+    if(!Validator.equals(data.Password, data.Password2)){
+        errors.Password = 'Passwords do not match';
     }
 
     // // Checks to see if ContactNumber field is empty using validator module

@@ -53,11 +53,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Register.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Register.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/client/src/components/authentication/Register.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="66" column="90" selection-start-line="66" selection-start-column="90" selection-end-line="66" selection-end-column="90" />
+            <state relative-caret-position="200">
+              <caret line="123" column="27" selection-start-line="123" selection-start-column="27" selection-end-line="123" selection-end-column="27" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
@@ -65,11 +65,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="registration.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="registration.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/validation/registration.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="801">
-              <caret line="60" column="4" selection-start-line="60" selection-start-column="7" selection-end-line="64" />
+            <state relative-caret-position="289">
+              <caret line="58" column="5" selection-start-line="58" selection-start-column="5" selection-end-line="58" selection-end-column="5" />
             </state>
           </provider>
         </entry>
@@ -106,13 +106,13 @@
         <option value="$PROJECT_DIR$/client/src/components/layout/Navigator.js" />
         <option value="$PROJECT_DIR$/client/src/components/layout/Landing_page.js" />
         <option value="$PROJECT_DIR$/client/src/components/authentication/Login.js" />
-        <option value="$PROJECT_DIR$/validation/registration.js" />
         <option value="$PROJECT_DIR$/client/package.json" />
         <option value="$PROJECT_DIR$/restful_api_server.js" />
         <option value="$PROJECT_DIR$/models/PersonalTrainer.js" />
         <option value="$PROJECT_DIR$/routes/users.js" />
         <option value="$PROJECT_DIR$/models/Clients.js" />
         <option value="$PROJECT_DIR$/client/src/components/authentication/Register.js" />
+        <option value="$PROJECT_DIR$/validation/registration.js" />
       </list>
     </option>
   </component>
@@ -226,12 +226,12 @@
       <workItem from="1534586010666" duration="1297000" />
       <workItem from="1534587325986" duration="3407000" />
       <workItem from="1534590870496" duration="60000" />
-      <workItem from="1534593744616" duration="26219000" />
+      <workItem from="1534593744616" duration="27035000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="90101000" />
+    <option name="totallyTimeSpent" value="90917000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="784" extended-state="6" />
@@ -632,20 +632,20 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/validation/registration.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="801">
-          <caret line="60" column="4" selection-start-line="60" selection-start-column="7" selection-end-line="64" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/client/src/components/authentication/Register.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="66" column="90" selection-start-line="66" selection-start-column="90" selection-end-line="66" selection-end-column="90" />
+        <state relative-caret-position="200">
+          <caret line="123" column="27" selection-start-line="123" selection-start-column="27" selection-end-line="123" selection-end-column="27" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/validation/registration.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="58" column="5" selection-start-line="58" selection-start-column="5" selection-end-line="58" selection-end-column="5" />
         </state>
       </provider>
     </entry>
