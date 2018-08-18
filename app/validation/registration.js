@@ -8,10 +8,10 @@ module.exports = function validateRegistrationInput(data){
     // the field is turned into an empty string for the validation check below
     data.FullName = !isEmpty(data.FullName) ? data.FullName : '';
     data.Email = !isEmpty(data.Email) ? data.Email : '';
-    data.DateOfBirth = !isEmpty(data.DateOfBirth) ? data.DateOfBirth : '';
+    // data.DateOfBirth = !isEmpty(data.DateOfBirth) ? data.DateOfBirth : '';
     data.Password = !isEmpty(data.Password) ? data.Password : '';
     data.Password2 = !isEmpty(data.Password2) ? data.Password2 : '';
-    data.ContactNumber = !isEmpty(data.ContactNumber) ? data.ContactNumber: '';
+    //data.ContactNumber = !isEmpty(data.ContactNumber) ? data.ContactNumber: '';
 
     // FullName is name of field used to collect name of user (not name)
     if(!Validator.isLength(data.FullName, {min: 5, max: 25})){
@@ -33,10 +33,10 @@ module.exports = function validateRegistrationInput(data){
         errors.Email = 'Email is required';
     }
 
-    // Checks to see if DateOfBirth field is empty using validator module
-    if(Validator.isEmpty(data.DateOfBirth)){
-        errors.DateOfBirth = 'Date of Birth is required';
-    }
+    // // Checks to see if DateOfBirth field is empty using validator module
+    // if(Validator.isEmpty(data.DateOfBirth)){
+    //     errors.DateOfBirth = 'Date of Birth is required';
+    // }
 
     // Checks to see if Passwords match field is empty using validator module
     if(!Validator.equals(data.Password, data.Password2)){
@@ -58,10 +58,10 @@ module.exports = function validateRegistrationInput(data){
         errors.Password = 'Password is required';
     }
 
-    // Checks to see if ContactNumber field is empty using validator module
-    if(Validator.isEmpty(data.ContactNumber)){
-        errors.ContactNumber = 'Contact number is required';
-    }
+    // // Checks to see if ContactNumber field is empty using validator module
+    // if(Validator.isEmpty(data.ContactNumber)){
+    //     errors.ContactNumber = 'Contact number is required';
+    // }
 
     return {
         errors,

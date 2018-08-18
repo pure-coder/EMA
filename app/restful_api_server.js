@@ -29,7 +29,7 @@ const log = require('./config/logger').logger;
 scheduler();
 
 // assign the port that will listen on for the application
-const port = 8000; // Set port to 8000
+const port = process.env.PORT || 8000; // Set port to 8000
 
 // allow app to use bodyParser so that the app can process URL encoded forms
 app.use(bodyParser.urlencoded({extended:true}));
@@ -53,12 +53,12 @@ app.use(passport.initialize());
 require('./config/passport')(passport);
 
 // Use the routes that have been set up
-app.use('/', users);
-app.use('/personal_trainer', personalTrainer);
-app.use('/client', client);
-app.use('/personal_trainer/client/profile', profiles);
-app.use('/client/profile', profile);
-app.use('/client/calendar', calendar);
+app.use('/api/users', users);
+app.use('/api/personal_trainer', personalTrainer);
+app.use('/api/client', client);
+app.use('/api/personal_trainer/client/profile', profiles);
+app.use('/api/client/profile', profile);
+app.use('/api/client/calendar', calendar);
 
 app.listen(port, () => {
         console.log('We are live on ' + port);

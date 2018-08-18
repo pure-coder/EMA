@@ -32,7 +32,7 @@ const verification = require('../validation/verification');
 // Require verification / activation model
 const ActivationTokens = require('../models/AcitvationTokens');
 
-// @route  POST users/register
+// @route  POST /register
 // @desc   Register Personal Trainer
 // @access Public
 router.post('/register', (req, res) =>{
