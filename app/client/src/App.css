@@ -73,10 +73,13 @@ img {
         background-size: 550px;
         max-width: 2560px;
         margin-top: -50px;
-        display: block;
+        max-height: 515px;
     }
     .landing_div {
         position: absolute;
         top: 110px;
+    }
+    body {
+        background-color: black;
     }
 }
