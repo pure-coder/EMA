@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 import classnames from 'classnames';
+import { connect } from 'react-redux' // Needed when using redux inside a component (connects redux to this component)
+import { registerUser} from "../../actions/authenticationActions";
 
 class Register extends Component {
     // This allows the component states to be updated and re-rendered
@@ -39,14 +41,18 @@ class Register extends Component {
         }
         console.log(newUser);
 
-        // Post user data to the API specifically the user/register route
-        axios
-            .post('/api/register', newUser)
-            .then(result => {
-                console.log(result.data)
-                    window.location='/login';
-            }).catch(err => this.setState({errors: err.response.data})); // This sets the state of errors in the constructor
-        // to the errors that have been catched so they can be directed to the user
+        // props stores the actions that will be used
+        this.props.registerUser(newUser);
+
+    //     // Post user data to the API specifically the user/register route
+    //     axios
+    //         .post('/api/register', newUser)
+    //         .then(result => {
+    //             console.log(result.data)
+    //                 window.location='/login';
+    //         }).catch(err => this.setState({errors: err.response.data})); // This sets the state of errors in the constructor
+    //     // to the errors that have been catched so they can be directed to the user
+
     }
 
     render() {
@@ -138,4 +144,6 @@ class Register extends Component {
     }
 }
 
-export default Register;
+// connect must be exported with a passed parameter (not direct parameter) of Register, and direct parameters of
+// null for the 1st parameter and the action which is registerUser as the 2nd parameter
+export default connect(null, { registerUser })(Register);
