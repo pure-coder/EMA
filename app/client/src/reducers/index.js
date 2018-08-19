@@ -1,7 +1,7 @@
-import {combine_Reducers} from 'redux';
-import authReducer from './authReducer;';
+import {combineReducers} from 'redux';
+import authReducer from './authReducer';
 
 // Used to combine all of the applications reducers
-export default combine_Reducers({
+export default combineReducers({
     auth: authReducer
-})
+});

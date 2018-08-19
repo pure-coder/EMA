@@ -5,7 +5,12 @@
 }
 
 body {
-    height: 100vh;
+    min-height: 100%;
+}
+
+.App {
+    overflow: auto;
+    max-height: 1200px;
 }
 
 img {
@@ -22,27 +27,21 @@ img {
     background-color: #000;
 }
 
-#main {
-    overflow:auto;
-    padding-bottom:150px; /* this needs to be bigger than footer height*/
-}
-
 .landing_page {
     background: url("img/landing_page_img.jpg") no-repeat;
-    position: relative;
-    background-size: 100%;
+    /*position: relative;*/
+    background-size: 100% 100vh;
     background-position: center;
     height: 100vh;
     margin-top: -48px;
     margin-bottom: -50px;
+    max-width: 2560px;
 }
 
 .landing_div {
-    position: absolute;
-    width: 90%;
+    position: relative;
     top: 35%;
     bottom:50%;
-    min-height: 0px;
 }
 
 .description {
@@ -59,4 +58,25 @@ img {
     overflow: auto;
     min-height: 490px;
     /*height: 100vh;*/
+}
+
+@media only Screen and (max-width: 500px) {
+    img {
+        width : 3em;
+        padding-right: 12px;
+    }
+    .navbar-brand {
+        font-size: 1.2em;
+    }
+    .landing_page {
+        background: url("img/landing_page_mobile_img.jpg") no-repeat;
+        background-size: 550px;
+        max-width: 2560px;
+        margin-top: -50px;
+        display: block;
+    }
+    .landing_div {
+        position: absolute;
+        top: 110px;
+    }
 }
