@@ -58,8 +58,12 @@ class Register extends Component {
     render() {
         const {errors} = this.state; // This allows errors to be pulled out of this.state with pulling them out directly
 
+        // Pull user from authentication
+        const { user } = this.props.authenticatedUser; /////////// USED TO TEST SO DELETE
+
         return (
             <div className="register">
+                {user ? user.FullName : null} {/*/////////// USED TO TEST SO DELETE*/}
                 <div className="container  container-custom">
                     <div className="row">
                         <div className="m-auto col-md-8">
@@ -144,6 +148,11 @@ class Register extends Component {
     }
 }
 
+// Used to pull auth state into this component
+const stateToProps = (state) => ({
+       authenticatedUser: state.authenticatedUser
+    });
+
 // connect must be exported with a passed parameter (not direct parameter) of Register, and direct parameters of
-// null for the 1st parameter and the action which is registerUser as the 2nd parameter
-export default connect(null, { registerUser })(Register);
+// stateToProps for the 1st parameter and the action which is registerUser as the 2nd parameter
+export default connect(stateToProps, { registerUser })(Register);
