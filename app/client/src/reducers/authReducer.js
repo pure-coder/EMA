@@ -1,3 +1,5 @@
+import { TEST_DISPATCH} from "../actions/types";
+
 const initialisedState = {
     isAuthenticated: false,
     user: {}
