@@ -43,7 +43,7 @@ class Register extends Component {
         axios
             .post('/api/register', newUser)
             .then(result => {
-                console.log(result.data),
+                console.log(result.data)
                     window.location='/login';
             }).catch(err => this.setState({errors: err.response.data})); // This sets the state of errors in the constructor
         // to the errors that have been catched so they can be directed to the user
