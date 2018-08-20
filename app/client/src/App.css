@@ -49,9 +49,11 @@ img {
 }
 
 .footer-custom {
-    position: relative;
+    position: absolute;
     clear:both;
     padding-top:20px;
+    bottom: 0px;
+    width: 100%;
 }
 
 .container-custom {
@@ -84,12 +86,9 @@ img {
     }
 }
 
-.App {
-    height: 1000px;
-}
-
 .dhx_cal_container {
     overflow: visible;
+    top: -20px;
 }
 
 .dhx_cal_data {
@@ -100,6 +99,15 @@ img {
     width: 580px !important;
 }
 
-textarea {
-    resize: auto;
+ /*for scheduler*/
+.App{
+    height: 650px;
+}
+
+.dhx_cal_data {
+    border-left: 1px solid #e0e0e0;
+}
+
+.dhx_cal_ltext {
+    height: 150px !important;
 }
