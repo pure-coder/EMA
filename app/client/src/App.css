@@ -4,6 +4,10 @@
     padding : 0px;
 }
 
+.navbar-custom, .footer-custom {
+    background-color: #000;
+}
+
 body {
     min-height: 100%;
 }
@@ -21,10 +25,6 @@ img {
 .navbar-brand {
     padding : 0px;
     font-size: 1.5em;
-}
-
-.navbar-custom, .footer-custom {
-    background-color: #000;
 }
 
 .landing_page {
@@ -82,4 +82,24 @@ img {
     body {
         background-color: black;
     }
+}
+
+.App {
+    height: 1000px;
+}
+
+.dhx_cal_container {
+    overflow: visible;
+}
+
+.dhx_cal_data {
+    height: 400px !important;
+}
+
+.dhx_cal_light {
+    width: 580px !important;
+}
+
+textarea {
+    resize: auto;
 }
