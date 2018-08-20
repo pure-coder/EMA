@@ -52,8 +52,8 @@ img {
     position: absolute;
     clear:both;
     padding-top:20px;
-    bottom: 0px;
-    width: 100%;
+    /*bottom: 0px;*/
+    /*width: 100%;*/
 }
 
 .container-custom {
@@ -80,9 +80,6 @@ img {
     .landing_div {
         position: absolute;
         top: 110px;
-    }
-    body {
-        background-color: black;
     }
 }
 
