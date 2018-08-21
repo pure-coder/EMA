@@ -63,8 +63,7 @@ class Register extends Component {
 
         return (
             <div className="register">
-                {user ? user.FullName : null} {/*/////////// USED TO TEST SO DELETE*/}
-                <div className="container  container-custom">
+                <div className="container  register-custom">
                     <div className="row">
                         <div className="m-auto col-md-8">
                             <h1 className=" text-center display-5">Personal Trainer <br/> Sign Up</h1>

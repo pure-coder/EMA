@@ -37,7 +37,7 @@ class Login extends Component {
     render() {
         return (
             <div className="login">
-                <div className="container  container-custom">
+                <div className="container  login-custom">
                     <div className="row">
                         <div className="col-md-8 m-auto">
                             <h1 className="text-center display-5">Log In</h1>

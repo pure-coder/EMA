@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import {BrowserRouter as Router, Route} from 'react-router-dom'; /* mimics server allowing back, forward page routing etc*/
 import {Provider} from 'react-redux'; // A react component that provides the store (holds state/data for app) for redux
 import store from './store'; // Imports store to be used with redux to hold application state
-import classnames from 'classnames';
 
 
 import Navigation from './components/layout/Navigator'; /*import navbar component*/
@@ -24,7 +23,7 @@ class App extends Component {
                         <Navigation/> {/*adds navbar component to web app*/}
                         <Route exact path="/"
                                component={Landing_page}/> {/* using Route functionality that adds the landing_page component to web app*/}
-                        <div className={classnames('container' , {"container-custom": document.getElementsByClassName('landing_page')[0] === undefined ? false : true})} id="main"> {/*This holders the other routes for the app*/}
+                        <div className="container-custom"> {/*This holders the other routes for the app*/}
                             <Route exact path="/register" component={Register}/>
                             <Route exact path="/login" component={Login}/>
                             <Route exact path="/Scheduler" component={Scheduler}/>
