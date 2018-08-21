@@ -113,6 +113,7 @@ img {
 .scheduler {
     padding: 0 15px;
     height: 500px;
+    margin-bottom: 15px;
 }
 
 .dhx_cal_container {

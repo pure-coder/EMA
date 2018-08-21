@@ -2,14 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ec8ccf39-8487-4892-a38d-de9c288878a3" name="Default" comment="profiles changed">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/client/public/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/App.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/App.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/Scheduler/Scheduler.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Scheduler/Scheduler.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/authentication/Login.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/authentication/Login.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/authentication/Register.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/authentication/Register.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/layout/Footer.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/layout/Footer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/layout/Landing_page.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/layout/Landing_page.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -33,8 +28,8 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="css" value="1113" />
-          <entry key="html" value="245" />
+          <entry key="css" value="1135" />
+          <entry key="html" value="328" />
           <entry key="js" value="3809" />
           <entry key="json" value="1" />
           <entry key="txt" value="25" />
@@ -42,8 +37,8 @@
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="CSS" value="1113" />
-          <entry key="HTML" value="245" />
+          <entry key="CSS" value="1135" />
+          <entry key="HTML" value="328" />
           <entry key="JSON" value="1" />
           <entry key="JavaScript" value="3809" />
           <entry key="PLAIN_TEXT" value="25" />
@@ -52,8 +47,8 @@
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="css" value="3" />
-          <entry key="html" value="5" />
-          <entry key="js" value="31" />
+          <entry key="html" value="6" />
+          <entry key="js" value="32" />
           <entry key="json" value="2" />
           <entry key="md" value="3" />
           <entry key="txt" value="2" />
@@ -62,9 +57,9 @@
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="CSS" value="3" />
-          <entry key="HTML" value="5" />
+          <entry key="HTML" value="6" />
           <entry key="JSON" value="2" />
-          <entry key="JavaScript" value="31" />
+          <entry key="JavaScript" value="32" />
           <entry key="PLAIN_TEXT" value="5" />
         </counts>
       </usages-collector>
@@ -75,8 +70,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/client/src/App.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1402">
-              <caret line="20" lean-forward="true" selection-start-line="20" selection-end-line="20" />
+            <state relative-caret-position="213">
+              <caret line="115" column="24" selection-start-line="115" selection-start-column="24" selection-end-line="115" selection-end-column="24" />
             </state>
           </provider>
         </entry>
@@ -117,11 +112,20 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/client/src/components/Scheduler/Scheduler.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
-              <caret line="33" column="18" selection-start-line="33" selection-start-column="18" selection-end-line="33" selection-end-column="18" />
+            <state relative-caret-position="170">
+              <caret line="31" column="22" selection-start-line="31" selection-start-column="22" selection-end-line="31" selection-end-column="22" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/client/public/index.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="153">
+              <caret line="28" column="37" lean-forward="true" selection-start-line="28" selection-start-column="37" selection-end-line="28" selection-end-column="37" />
             </state>
           </provider>
         </entry>
@@ -186,7 +190,6 @@
         <option value="$PROJECT_DIR$/client/src/reducers/index.js" />
         <option value="$PROJECT_DIR$/client/src/dhtmlxscheduler.css" />
         <option value="$PROJECT_DIR$/client/src/index.js" />
-        <option value="$PROJECT_DIR$/client/public/index.html" />
         <option value="$PROJECT_DIR$/client/src/components/layout/Navigator.js" />
         <option value="$PROJECT_DIR$/client/src/components/layout/Footer.js" />
         <option value="$PROJECT_DIR$/client/src/App.js" />
@@ -194,6 +197,7 @@
         <option value="$PROJECT_DIR$/client/src/components/layout/Landing_page.js" />
         <option value="$PROJECT_DIR$/client/src/components/authentication/Login.js" />
         <option value="$PROJECT_DIR$/client/src/App.css" />
+        <option value="$PROJECT_DIR$/client/public/index.html" />
         <option value="$PROJECT_DIR$/client/src/components/Scheduler/Scheduler.js" />
       </list>
     </option>
@@ -246,12 +250,6 @@
               <item name="app" type="b2602c69:ProjectViewProjectNode" />
               <item name="app" type="462c0819:PsiDirectoryNode" />
               <item name="client" type="462c0819:PsiDirectoryNode" />
-              <item name="public" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="app" type="b2602c69:ProjectViewProjectNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="client" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -289,6 +287,16 @@
               <item name="app" type="b2602c69:ProjectViewProjectNode" />
               <item name="app" type="462c0819:PsiDirectoryNode" />
               <item name="models" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="app" type="b2602c69:ProjectViewProjectNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="services" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="app" type="b2602c69:ProjectViewProjectNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="validation" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -357,12 +365,12 @@
       <workItem from="1534593744616" duration="43839000" />
       <workItem from="1534697978423" duration="13087000" />
       <workItem from="1534780146208" duration="1654000" />
-      <workItem from="1534781839098" duration="32495000" />
+      <workItem from="1534781839098" duration="33285000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="154957000" />
+    <option name="totallyTimeSpent" value="155747000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="784" extended-state="6" />
@@ -506,13 +514,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="153">
           <caret line="27" column="11" lean-forward="true" selection-start-line="27" selection-start-column="11" selection-end-line="27" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/services/scheduler.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="9" column="63" lean-forward="true" selection-start-line="8" selection-start-column="4" selection-end-line="9" selection-end-column="63" />
         </state>
       </provider>
     </entry>
@@ -682,13 +683,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/public/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="11" column="62" lean-forward="true" selection-start-line="11" selection-start-column="62" selection-end-line="11" selection-end-column="62" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/client/src/components/layout/Footer.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="85">
@@ -732,15 +726,29 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/client/src/App.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1402">
-          <caret line="20" lean-forward="true" selection-start-line="20" selection-end-line="20" />
+        <state relative-caret-position="213">
+          <caret line="115" column="24" selection-start-line="115" selection-start-column="24" selection-end-line="115" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/services/scheduler.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" column="7" selection-start-line="8" selection-start-column="4" selection-end-line="8" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/public/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="28" column="37" lean-forward="true" selection-start-line="28" selection-start-column="37" selection-end-line="28" selection-end-column="37" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/client/src/components/Scheduler/Scheduler.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="33" column="18" selection-start-line="33" selection-start-column="18" selection-end-line="33" selection-end-column="18" />
+        <state relative-caret-position="170">
+          <caret line="31" column="22" selection-start-line="31" selection-start-column="22" selection-end-line="31" selection-end-column="22" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>

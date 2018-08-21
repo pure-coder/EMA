@@ -15,8 +15,7 @@ class Scheduler extends Component {
 
     render() {
         return (
-            <div className="scheduler">
-                <div id="scheduler_here" className="dhx_cal_container" style={divStyle}>
+                <div id="scheduler" className="dhx_cal_container" style={divStyle}>
                     <div className="dhx_cal_navline">
                         <div className="dhx_cal_prev_button">&nbsp;</div>
                         <div className="dhx_cal_next_button">&nbsp;</div>
@@ -31,7 +30,6 @@ class Scheduler extends Component {
                     <div className="dhx_cal_data">
                     </div>
                 </div>
-            </div>
         );
     }
 }

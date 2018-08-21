@@ -21,8 +21,12 @@
     <link rel="stylesheet" href="http://cdn.dhtmlx.com/scheduler/edge/dhtmlxscheduler_material.css">
 
     <script type="text/javascript" charSet="utf-8">
+        let now = new Date();
+        let date = now.getDate();
+        let month = now.getMonth();
+        let year = now.getFullYear();
         function init() {
-            scheduler.init('scheduler_here', new Date(2018, 8, 4), "month")
+            scheduler.init('scheduler', new Date(year, month, date), "month")
         }
     </script>
 
