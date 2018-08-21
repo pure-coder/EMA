@@ -44,22 +44,19 @@ class Register extends Component {
         // props stores the actions that will be used
         this.props.registerUser(newUser);
 
-    //     // Post user data to the API specifically the user/register route
-    //     axios
-    //         .post('/api/register', newUser)
-    //         .then(result => {
-    //             console.log(result.data)
-    //                 window.location='/login';
-    //         }).catch(err => this.setState({errors: err.response.data})); // This sets the state of errors in the constructor
-    //     // to the errors that have been catched so they can be directed to the user
+        // Post user data to the API specifically the user/register route
+        axios
+            .post('/api/register', newUser)
+            .then(result => {
+                console.log(result.data)
+                    window.location='/login';
+            }).catch(err => this.setState({errors: err.response.data})); // This sets the state of errors in the constructor
+        // to the errors that have been catched so they can be directed to the user
 
     }
 
     render() {
         const {errors} = this.state; // This allows errors to be pulled out of this.state with pulling them out directly
-
-        // Pull user from authentication
-        const { user } = this.props.authenticatedUser; /////////// USED TO TEST SO DELETE
 
         return (
             <div className="register">

@@ -1,11 +1,6 @@
 import React, {Component} from 'react';
 import '../../../node_modules/dhtmlx-scheduler/codebase/dhtmlxscheduler.js';
 
-const divStyle = {
-    width: '100%',
-    height: '100%',
-}
-
 class Scheduler extends Component {
 
     // // add init() function to only the scheduler route in index.html (located in public folder) before the component is rendered
