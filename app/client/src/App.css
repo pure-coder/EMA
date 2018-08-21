@@ -8,19 +8,22 @@
     background-color: #000;
 }
 
-body {
-    min-height: 100%;
-}
-
-.App {
-    overflow: auto;
-    max-height: 1200px;
+html, body {
+    position: relative;
+    max-height: 100vh;
+    min-height: 100vh;
+    height: 100%;
+    overflow: visible;
 }
 
 img {
     width : 3.5em;
     padding-right: 10px;
 }
+
+/*.App {*/
+    /*max-height: 100%;*/
+/*}*/
 
 .navbar-brand {
     padding : 0px;
@@ -49,17 +52,16 @@ img {
 }
 
 .footer-custom {
-    position: absolute;
-    clear:both;
-    padding-top:20px;
-    /*bottom: 0px;*/
-    /*width: 100%;*/
+    position: relative;
+    bottom: 0;
+    height: 60px;
+    width: 100%;
 }
 
 .container-custom {
     overflow: auto;
     min-height: 490px;
-    /*height: 100vh;*/
+    height: 100vh;
 }
 
 @media only Screen and (max-width: 500px) {
@@ -94,11 +96,6 @@ img {
 
 .dhx_cal_light {
     width: 580px !important;
-}
-
- /*for scheduler*/
-.App{
-    height: 650px;
 }
 
 .dhx_cal_data {

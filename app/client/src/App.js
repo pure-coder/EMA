@@ -28,6 +28,7 @@ class App extends Component {
                             <Route exact path="/login" component={Login}/>
                             <Route exact path="/Scheduler" component={Scheduler}/>
                         </div>
+
                         <Footer/> {/*adds footer component to web app*/}
                     </div>
                 </Router>
