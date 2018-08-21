@@ -24,7 +24,7 @@ class App extends Component {
                         <Navigation/> {/*adds navbar component to web app*/}
                         <Route exact path="/"
                                component={Landing_page}/> {/* using Route functionality that adds the landing_page component to web app*/}
-                        <div className={classnames(null , {"container-custom": document.getElementsByClassName('landing_page')[0] === undefined ? false : true})}> {/*This holders the other routes for the app*/}
+                        <div className={classnames('container' , {"container-custom": document.getElementsByClassName('landing_page')[0] === undefined ? false : true})} id="main"> {/*This holders the other routes for the app*/}
                             <Route exact path="/register" component={Register}/>
                             <Route exact path="/login" component={Login}/>
                             <Route exact path="/Scheduler" component={Scheduler}/>

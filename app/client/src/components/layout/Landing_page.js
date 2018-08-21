@@ -3,11 +3,6 @@ import {Link} from 'react-router-dom'; /*This will be used instead of the anchor
 
 class Landing_page extends Component {
 
-    // componentDidMount() {
-    //     let element = document.getElementById('custom');
-    //         element.remove();
-    // }
-
     render() {
         return (
             <div className="landing_page">
