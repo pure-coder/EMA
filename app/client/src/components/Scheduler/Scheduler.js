@@ -9,8 +9,9 @@ const divStyle = {
 class Scheduler extends Component {
 
     // add init() function to only the scheduler route
-    componentWillMount(){
+    componentDidMount(){
         document.getElementsByTagName('body')[0].setAttribute('onload', 'init();');
+        document.getElementsByClassName('container-custom')[0].setAttribute('id', 'scheduler');
     }
 
     render() {

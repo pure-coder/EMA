@@ -2,6 +2,7 @@
 .navbar-container {
     max-width : 100%;
     padding : 0px;
+    height: 100%;
 }
 
 .navbar-custom, .footer-custom {
@@ -20,10 +21,6 @@ img {
     width : 3.5em;
     padding-right: 10px;
 }
-
-/*.App {*/
-    /*max-height: 100%;*/
-/*}*/
 
 .navbar-brand {
     padding : 0px;
@@ -59,9 +56,10 @@ img {
 }
 
 .container-custom {
+    position: relative;
     overflow: auto;
     min-height: 490px;
-    height: 100vh;
+    height: 500px !important;
 }
 
 @media only Screen and (max-width: 500px) {
@@ -85,9 +83,13 @@ img {
     }
 }
 
+#scheduler {
+    padding: 0 15px;
+}
+
 .dhx_cal_container {
+    position: relative;
     overflow: visible;
-    top: -20px;
 }
 
 .dhx_cal_data {
@@ -104,4 +106,10 @@ img {
 
 .dhx_cal_ltext {
     height: 150px !important;
+}
+
+#root, .App {
+    position: relative;
+    min-height: 100%;
+    max-height: 100%;
 }

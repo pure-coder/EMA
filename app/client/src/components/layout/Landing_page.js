@@ -2,10 +2,15 @@ import React, {Component} from 'react';
 import {Link} from 'react-router-dom'; /*This will be used instead of the anchor tag for routing*/
 
 class Landing_page extends Component {
+
+    componentWillUnmount() {
+        let element = document.getElementById('custom');
+            element.remove();
+    }
+
     render() {
         return (
-            <div className="landing_page">
-
+            <div className="landing_page" id="landing_page">
                     <div className="container landing_div">
                         <div className="row">
                             <div className="text-center col-md-12 landing_div text-info">
