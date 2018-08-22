@@ -1,8 +1,9 @@
-import React, {Component} from 'react';
-import PropTypes from 'prop-types';
-import classnames from 'classnames';
+import React, {Component} from 'react';  // Used to create this component
+import PropTypes from 'prop-types'; // Used to document prop types sent to components
+import classnames from 'classnames';  // Used for dynamically setting class name for errors on page
 import { connect } from 'react-redux' // Needed when using redux inside a component (connects redux to this component)
-import { registerUser} from "../../actions/authenticationActions";
+import { registerUser} from "../../actions/authenticationActions"; // Used to import create action for registering user
+import { withRouter } from 'react-router-dom'; // Allows proper routing and linking using browsers match, location, and history properties
 
 class Register extends Component {
     // This allows the component states to be updated and re-rendered
@@ -49,10 +50,10 @@ class Register extends Component {
             Password: this.state.Password,
             Password2: this.state.Password2
         }
-        console.log(newUser);
 
-        // props stores the actions that will be used
-        this.props.registerUser(newUser);
+        // Calls the action/reducer registerUser for storing the data as well as using the history function of
+        // withRouter for directing user to another link/route. (calls registerUser from actions/authenticationActions.js)
+        this.props.registerUser(newUser , this.props.history);
     }
 
     render() {
@@ -156,6 +157,7 @@ const stateToProps = (state) => ({
     errors: state.errors
     });
 
-// connect must be exported with a passed parameter (not direct parameter) of Register, and direct parameters of
+// connect must be exported with a passed parameter (not direct parameter) of Register this is wrapped with withRouter
+// allowing the functions of the package to be used with the component eg, proper routing, and direct parameters of
 // stateToProps for the 1st parameter and the action which is registerUser as the 2nd parameter
-export default connect(stateToProps, { registerUser })(Register);
+export default connect(stateToProps, { registerUser })(withRouter(Register));
