@@ -123,6 +123,7 @@ img {
 /* Scheduler */
 
 .scheduler {
+    min-width: 770px;
     height: 500px;
     margin-bottom: 15px;
 }
