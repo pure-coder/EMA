@@ -1,7 +1,9 @@
 import {combineReducers} from 'redux';
-import authReducer from './authReducer';
+import authenticationReducer from './authenticationReducer';
+import errReducer from "./errReducer";
 
-// Used to combine all of the applications reducers
+// Used to combine all of the applications reducers (actions)
 export default combineReducers({
-    authenticatedUser: authReducer
+    authenticatedUser: authenticationReducer,
+    errors: errReducer
 });

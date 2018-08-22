@@ -1,1 +1,2 @@
-export const TEST_DISPATCH = 'TEST_DISPATCH';
+// Define reducer types here
+export const GET_ERRS = 'GET_ERRS';
