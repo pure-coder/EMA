@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import axios from 'axios';
+import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { connect } from 'react-redux' // Needed when using redux inside a component (connects redux to this component)
 import { registerUser} from "../../actions/authenticationActions";
@@ -142,6 +143,11 @@ class Register extends Component {
             </div>
         );
     }
+}
+
+Register.prototypes = {
+    registerUser: PropTypes.func.isRequired,
+    authenticatedUser: PropTypes.object.isRequired
 }
 
 // Used to pull auth state into this component

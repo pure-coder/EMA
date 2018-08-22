@@ -3,10 +3,10 @@ import '../../../node_modules/dhtmlx-scheduler/codebase/dhtmlxscheduler.js';
 
 class Scheduler extends Component {
 
-    // // add init() function to only the scheduler route in index.html (located in public folder) before the component is rendered
-    // componentDidMount() {
-    //     document.getElementsByTagName('body')[0].setAttribute('onload', 'init();');
-    // }
+    // add init() function to only the scheduler route in index.html (located in public folder) before the component is rendered
+    componentDidMount() {
+        document.getElementsByTagName('body')[0].setAttribute('onload', 'init();');
+    }
 
     render() {
         return (
