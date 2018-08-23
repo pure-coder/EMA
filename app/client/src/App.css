@@ -4,6 +4,7 @@ html, body {
     position: relative;
     max-height: 100vh;
     min-height: 100vh;
+    max-width: 2560px;
     height: 100%;
     overflow: visible;
 }
@@ -123,7 +124,9 @@ img {
 /* Scheduler */
 
 .scheduler {
-    min-width: 770px;
+    position: relative;
+    min-width: 690px;
+    max-width: 900px;
     height: 500px;
     margin-bottom: 15px;
 }
