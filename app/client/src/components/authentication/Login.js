@@ -27,7 +27,7 @@ class Login extends Component {
 
         // Check if isAuthenticated is true then redirect to the dashboard
         if(nextProps.isAuthenticated){
-            this.props.history.push('/dashboard');
+            this.props.history.push('/register');
         }
 
         // If property (nextProps) contains errors (contains the "errors" prop) then set the component state of errors
@@ -115,7 +115,7 @@ class Login extends Component {
     }
 }
 
-Login.prototypes = {
+Login.propTypes = {
     loginUser: PropTypes.func.isRequired,
     authenticatedUser: PropTypes.object.isRequired,
     errors: PropTypes.object.isRequired
