@@ -60,7 +60,7 @@ export const setSignedInUser = (decodedToken) => {
 }; // setSignedInUser
 
 // Log out the user
-export const LogOutUser = () => (dispatch) => {
+export const logOutUser = () => (dispatch) => {
     // Remove the token from local storage
     localStorage.removeItem('jwtToken');
     // Remove the token from authorisation header for all future requests

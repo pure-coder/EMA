@@ -114,13 +114,14 @@ class Login extends Component {
     }
 }
 
+// Documents what props are needed for this component and will log a warning in the console in dev mode if not complied to
 Login.propTypes = {
     loginUser: PropTypes.func.isRequired,
     authenticatedUser: PropTypes.object.isRequired,
     errors: PropTypes.object.isRequired
 }
 
-// Used to pull auth state into this component
+// Used to pull auth state and errors into this component
 const stateToProps = (state) => ({
     authenticatedUser: state.authenticatedUser,
     errors: state.errors

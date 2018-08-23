@@ -1,8 +1,52 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom'; /*This will be used instead of the anchor tag for routing*/
 
+// For dynamic navbar depending on login status (either guest link (not signed in) or authorised link (signed in))
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { loginUser } from "../../actions/authenticationActions";;
+
 class Navigation extends Component {
+
+    // Create log out link functionality
+    onLogOutClick(event) {
+        event.preventDefault();
+        this.props.logOutUser();
+    }
+
     render() {
+
+        // // This allows specified data to be pulled out of this.prop.authenticatedUser with pulling them out directly
+        const { isAuthenticated, user} = this.props.authenticatedUser;
+
+
+
+        // Define navbar for dynamic navbar
+        const authorisedLinks = (
+            <div className="collapse navbar-collapse" id="mobile-navigation">
+                <ul className="navbar-nav ml-auto">
+                    <a href="#" onClick={this.onLogOutClick.bind(this)} className="nav-link"></a>
+                </ul>
+            </div>
+        );
+
+        const guestLinks = (
+            <div className="collapse navbar-collapse" id="mobile-navigation">
+                <ul className="navbar-nav ml-auto">
+                    <li className="nav-item">
+                        <Link className="nav-link" to="/register">
+                            Sign Up
+                        </Link> {/*Using Link instead of anchor tag*/}
+                    </li>
+                    <li className="nav-item">
+                        <Link className="nav-link" to="/login">
+                            Login
+                        </Link> {/*Using Link instead of anchor tag*/}
+                    </li>
+                </ul>
+            </div>
+        )
+
         return (
             <nav className="navbar navbar-expand-sm navbar-dark navbar-custom mb-5">
                 <div className="container navbar-container">
@@ -13,26 +57,25 @@ class Navigation extends Component {
                     <button className="navbar-toggler" type="button" data-target="#mobile-navigation" data-toggle="collapse">
                         <span className="navbar-toggler-icon"></span>
                     </button>
-
-                    <div className="collapse navbar-collapse" id="mobile-navigation">
-
-                        <ul className="navbar-nav ml-auto">
-                            <li className="nav-item">
-                                <Link className="nav-link" to="/register">
-                                    Sign Up
-                                </Link> {/*Using Link instead of anchor tag*/}
-                            </li>
-                            <li className="nav-item">
-                                <Link className="nav-link" to="/login">
-                                    Login
-                                </Link> {/*Using Link instead of anchor tag*/}
-                            </li>
-                        </ul>
-                    </div>
                 </div>
             </nav>
         );
     }
 }
 
-export default Navigation;
+// Documents what props are needed for this component and will log a warning in the console in dev mode if not complied to
+Navigation.propTypes = {
+    logOutUser: PropTypes.func.isRequired,
+    authenticatedUser: PropTypes.object.isRequired,
+}
+
+// Used to pull auth state into this component
+const stateToProps = (state) => ({
+    authenticatedUser: state.authenticatedUser,
+});
+
+
+// connect must be exported with a passed parameter (not direct parameter) of Register this is wrapped with withRouter
+// allowing the functions of the package to be used with the component eg, proper routing, and direct parameters of
+// stateToProps for the 1st parameter and the action which is registerUser as the 2nd parameter
+export default connect(stateToProps, { logOutUser })(withRouter(Navigation));
