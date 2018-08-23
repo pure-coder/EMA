@@ -24,6 +24,12 @@ class Login extends Component {
 
     // Life cycle method for react which will run when this component receives new properties
     componentWillReceiveProps(nextProps) {
+
+        // Check if isAuthenticated is true then redirect to the dashboard
+        if(nextProps.auth.isAuthenicated){
+            this.props.history.push('/dashboard');
+        }
+
         // If property (nextProps) contains errors (contains the "errors" prop) then set the component state of errors
         // defined in the constructor above to the errors that was sent to it via the dispatch call from
         // authenicationActions.js
@@ -121,4 +127,4 @@ const stateToProps = (state) => ({
 // connect must be exported with a passed parameter (not direct parameter) of Register this is wrapped with withRouter
 // allowing the functions of the package to be used with the component eg, proper routing, and direct parameters of
 // stateToProps for the 1st parameter and the action which is registerUser as the 2nd parameter
-export default connect(stateToProps, { loginUser })(withRouter(Register));
+export default connect(stateToProps, { loginUser })(withRouter(Login));

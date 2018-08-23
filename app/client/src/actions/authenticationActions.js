@@ -1,5 +1,6 @@
 import axios from 'axios';
 import {GET_ERRS} from "./types"; // import custom defined types
+import {SET_SIGNED_IN_USER} from "./types"; // import custom defined types
 import setAuthorisationToken from '../utilities/setAuthorisationToken';
 import jwtDecode from 'jwt-decode';
 
@@ -30,7 +31,7 @@ export const loginUser =(Data, history) => (dispatch) => {
         .post('/api/login', Data)
         .then(result => {
             // Save JWT to local storage
-            const { token } = res.data;
+            const { token } = result.data;
             // Set the token to local storage item 'jwtToken' (local storage can only store strings!)
             localStorage.setItem('jwtToken', token);
             // Set the token to authorisation header

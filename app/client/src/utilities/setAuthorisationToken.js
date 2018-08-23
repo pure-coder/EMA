@@ -1,4 +1,4 @@
-import axios form 'axios';
+import axios from 'axios';
 
 const setAuthorisationToken = (token) => {
     // Check if the token exists
