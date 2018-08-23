@@ -4,4 +4,5 @@ const  isEmpty = value =>
     (typeof value === 'string' && value.trim().length === 0) ||
     (typeof value === 'object' && Object.keys(value).length === 0);
 
-module.exports = isEmpty;
+// Using same function as API but change exports.module = isEmpty to export default isEmpty
+export default isEmpty;

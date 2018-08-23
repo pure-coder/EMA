@@ -1,4 +1,10 @@
-import React, {Component} from 'react';
+import React, {Component} from 'react';  // Used to create this component
+import PropTypes from 'prop-types'; // Used to document prop types sent to components
+import classnames from 'classnames';  // Used for dynamically setting class name for errors on page
+import { connect } from 'react-redux' // Needed when using redux inside a component (connects redux to this component)
+import { loginUser} from "../../actions/authenticationActions"; // Used to import create action for registering user
+import { withRouter } from 'react-router-dom'; // Allows proper routing and linking using browsers match, location, and history properties
+
 
 class Login extends Component {
     constructor(props) {
@@ -14,6 +20,16 @@ class Login extends Component {
 
         // This binds the onSubmit function to this.OnSubmit
         this.onSubmit = this.onSubmit.bind(this);
+    }
+
+    // Life cycle method for react which will run when this component receives new properties
+    componentWillReceiveProps(nextProps) {
+        // If property (nextProps) contains errors (contains the "errors" prop) then set the component state of errors
+        // defined in the constructor above to the errors that was sent to it via the dispatch call from
+        // authenicationActions.js
+        if(nextProps.errors){
+            this.setState({errors: nextProps.errors})
+        }
     }
 
     // This captures what the user types and sets the specific input to the respective state variable
@@ -35,6 +51,9 @@ class Login extends Component {
 
 
     render() {
+
+        const {errors} = this.state; // This allows errors to be pulled out of this.state with pulling them out directly
+
         return (
             <div className="login">
                 <div className="container  login-custom">
@@ -45,21 +64,36 @@ class Login extends Component {
                             <form onSubmit={this.onSubmit}>  {/* onSubmit used instead of normal action*/}
                                 <div className="form-group">
                                     <input type="email"
-                                           className="form-control form-control-lg"
+                                        // Using classnames package to display errors to user if they occur
+                                        // 1st parameter are default classes that should always be used, the 2nd
+                                        // parameter adds 'is-invalid' if errors.FullName exists
+                                           className={classnames('form-control form-control-lg', {'is-invalid': errors.FullName})}
                                            placeholder="Email Address"
                                            name="Email"
                                            value={this.state.Email}
                                            onChange={this.onChange}
                                            required />
+                                    {/* This adds the feedback to the user (which was defined in*/}
+                                    {/*  validation/registration.js on the API server*/}
+                                    {errors.Email && (<div className="invalid-feedback">
+                                        {errors.Email}
+                                    </div>)}
                                 </div>
                                 <div className="form-group">
-                                    <input type="password"
-                                           className="form-control form-control-lg"
+                                    <input type="password"// Using classnames package to display errors to user if they occur
+                                        // 1st parameter are default classes that should always be used, the 2nd
+                                        // parameter adds 'is-invalid' if errors.FullName exists
+                                           className={classnames('form-control form-control-lg', {'is-invalid': errors.FullName})}
                                            placeholder="Password"
                                            name="Password"
                                            value={this.state.Password}
                                            onChange={this.onChange}
                                            required/>
+                                    {/* This adds the feedback to the user (which was defined in*/}
+                                    {/*  validation/registration.js on the API server*/}
+                                    {errors.Password && (<div className="invalid-feedback">
+                                        {errors.Password}
+                                    </div>)}
                                 </div>
                                 <input type="submit" className="btn btn-info btn-block mt-5"/>
                             </form>
@@ -72,4 +106,19 @@ class Login extends Component {
     }
 }
 
-export default Login;
+Login.prototypes = {
+    LoginUser: PropTypes.func.isRequired,
+    authenticatedUser: PropTypes.object.isRequired,
+    errors: PropTypes.object.isRequired
+}
+
+// Used to pull auth state into this component
+const stateToProps = (state) => ({
+    authenticatedUser: state.authenticatedUser,
+    errors: state.errors
+});
+
+// connect must be exported with a passed parameter (not direct parameter) of Register this is wrapped with withRouter
+// allowing the functions of the package to be used with the component eg, proper routing, and direct parameters of
+// stateToProps for the 1st parameter and the action which is registerUser as the 2nd parameter
+export default connect(stateToProps, { loginUser })(withRouter(Register));

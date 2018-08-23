@@ -1,5 +1,5 @@
 import { SET_SIGNED_IN_USER } from "../actions/types";
-import isEmpty from 'validation/is_empty';
+import isEmpty from '../validation/is_empty';
 
 const initialisedState = {
     isAuthenticated: false,
@@ -15,6 +15,8 @@ export default function (state = initialisedState, action) {
                 // check to see if authentication value is empty (if not empty the user has been authenticated!)
                 isAuthenticated: !isEmpty(action.payload),
                 // user will have the data of the decoded token
+                // this can be called again for logout but pass in an empty user so the user will not be authenticated,
+                // and it will be an empty object
                 user: action.payload
             }
         default:
