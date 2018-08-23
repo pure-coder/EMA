@@ -40,7 +40,6 @@ export const loginUser =(Data, history) => (dispatch) => {
             const decodedToken = jwtDecode(token);
             // Set the current signedIn user
             dispatch(setSignedInUser(decodedToken));
-
         })
         .catch(err =>
             dispatch({ // if an error occurs dispatch is called to send the data as an object to the

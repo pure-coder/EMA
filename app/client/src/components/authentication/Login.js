@@ -26,7 +26,7 @@ class Login extends Component {
     componentWillReceiveProps(nextProps) {
 
         // Check if isAuthenticated is true then redirect to the dashboard
-        if(nextProps.auth.isAuthenicated){
+        if(nextProps.isAuthenticated){
             this.props.history.push('/dashboard');
         }
 
@@ -48,11 +48,14 @@ class Login extends Component {
     onSubmit(event){
         event.preventDefault();
 
-        const newUser = {
+        const user = {
             Email: this.state.Email,
             Password: this.state.Password,
         }
-        console.log(newUser);
+
+        // Calls the action/reducer loginUser for storing the data as well as using the history function of
+        // withRouter for directing user to another link/route. (calls registerUser from actions/authenticationActions.js)
+        this.props.loginUser(user , this.props.history);
     }
 
 
@@ -73,12 +76,12 @@ class Login extends Component {
                                         // Using classnames package to display errors to user if they occur
                                         // 1st parameter are default classes that should always be used, the 2nd
                                         // parameter adds 'is-invalid' if errors.FullName exists
-                                           className={classnames('form-control form-control-lg', {'is-invalid': errors.FullName})}
+                                           className={classnames('form-control form-control-lg', {'is-invalid': errors.Email})}
                                            placeholder="Email Address"
                                            name="Email"
                                            value={this.state.Email}
                                            onChange={this.onChange}
-                                           required />
+                                            />
                                     {/* This adds the feedback to the user (which was defined in*/}
                                     {/*  validation/registration.js on the API server*/}
                                     {errors.Email && (<div className="invalid-feedback">
@@ -89,12 +92,12 @@ class Login extends Component {
                                     <input type="password"// Using classnames package to display errors to user if they occur
                                         // 1st parameter are default classes that should always be used, the 2nd
                                         // parameter adds 'is-invalid' if errors.FullName exists
-                                           className={classnames('form-control form-control-lg', {'is-invalid': errors.FullName})}
+                                           className={classnames('form-control form-control-lg', {'is-invalid': errors.Password})}
                                            placeholder="Password"
                                            name="Password"
                                            value={this.state.Password}
                                            onChange={this.onChange}
-                                           required/>
+                                    />
                                     {/* This adds the feedback to the user (which was defined in*/}
                                     {/*  validation/registration.js on the API server*/}
                                     {errors.Password && (<div className="invalid-feedback">
@@ -113,7 +116,7 @@ class Login extends Component {
 }
 
 Login.prototypes = {
-    LoginUser: PropTypes.func.isRequired,
+    loginUser: PropTypes.func.isRequired,
     authenticatedUser: PropTypes.object.isRequired,
     errors: PropTypes.object.isRequired
 }
@@ -124,7 +127,7 @@ const stateToProps = (state) => ({
     errors: state.errors
 });
 
-// connect must be exported with a passed parameter (not direct parameter) of Register this is wrapped with withRouter
+// connect must be exported with a passed parameter (not direct parameter) of Login this is wrapped with withRouter
 // allowing the functions of the package to be used with the component eg, proper routing, and direct parameters of
 // stateToProps for the 1st parameter and the action which is registerUser as the 2nd parameter
 export default connect(stateToProps, { loginUser })(withRouter(Login));
