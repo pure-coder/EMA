@@ -51,8 +51,9 @@ class Register extends Component {
             Password2: this.state.Password2
         }
 
-        // Calls the action/reducer registerUser for storing the data as well as using the history function of
-        // withRouter for directing user to another link/route. (calls registerUser from actions/authenticationActions.js)
+        // Calls the action/reducer loginUser with the user data as well
+        // as using the history function of withRouter for directing user to another link/route. (calls registerUser
+        // from actions/authenticationActions.js)
         this.props.registerUser(newUser , this.props.history);
     }
 

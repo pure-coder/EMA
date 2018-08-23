@@ -25,7 +25,7 @@ export const registerUser =(Data, history) => (dispatch) => {
 
 // Login User - get JWT for user
 
-export const loginUser =(Data, history) => (dispatch) => {
+export const loginUser =(Data) => (dispatch) => {
     // Post user data to the API specifically the user/register route
     axios
         .post('/api/login', Data)

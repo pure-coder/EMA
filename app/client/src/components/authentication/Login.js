@@ -26,8 +26,8 @@ class Login extends Component {
     componentWillReceiveProps(nextProps) {
 
         // Check if isAuthenticated is true then redirect to the dashboard
-        if(nextProps.isAuthenticated){
-            this.props.history.push('/register');
+        if(nextProps.authenticatedUser.isAuthenticated){
+            this.props.history.push('/dashboard');
         }
 
         // If property (nextProps) contains errors (contains the "errors" prop) then set the component state of errors
@@ -53,9 +53,8 @@ class Login extends Component {
             Password: this.state.Password,
         }
 
-        // Calls the action/reducer loginUser for storing the data as well as using the history function of
-        // withRouter for directing user to another link/route. (calls registerUser from actions/authenticationActions.js)
-        this.props.loginUser(user , this.props.history);
+        // Calls the action/reducer loginUser with the user data (defined in actions/authenticatedActions.js)
+        this.props.loginUser(user);
     }
 
 
