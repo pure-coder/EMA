@@ -25,6 +25,14 @@ class Register extends Component {
     }
 
     // Life cycle method for react which will run when this component receives new properties
+    componentDidMount() {
+        // Check if isAuthenticated is true then redirect to the dashboard
+        if (this.props.authenticatedUser.isAuthenticated) {
+            this.props.history.push('/dashboard');
+        }
+    }
+
+    // Life cycle method for react which will run when this component receives new properties
     componentWillReceiveProps(nextProps) {
         // If property (nextProps) contains errors (contains the "errors" prop) then set the component state of errors
         // defined in the constructor above to the errors that was sent to it via the dispatch call from

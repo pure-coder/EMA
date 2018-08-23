@@ -33,8 +33,11 @@ class Navigation extends Component {
                             src={user.profilePic ? user.profilePic : defaultUserImage}
                              alt={user.name}
                              style={{backgroundColor: 'white', width: 30, height: 27, paddingRight: 0}}
-                        />{' '}
+                        />
+                        {/*{' '} is used to provide space */}
+                        {' '}
                         {user.name}
+                        {' '}
                         - Log Out</a>
                 </ul>
             </div>
