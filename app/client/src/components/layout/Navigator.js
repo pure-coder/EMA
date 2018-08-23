@@ -4,7 +4,8 @@ import {Link} from 'react-router-dom'; /*This will be used instead of the anchor
 // For dynamic navbar depending on login status (either guest link (not signed in) or authorised link (signed in))
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { loginUser } from "../../actions/authenticationActions";;
+import { logOutUser } from "../../actions/authenticationActions";
+import { withRouter } from 'react-router-dom';
 
 class Navigation extends Component {
 
@@ -19,13 +20,11 @@ class Navigation extends Component {
         // // This allows specified data to be pulled out of this.prop.authenticatedUser with pulling them out directly
         const { isAuthenticated, user} = this.props.authenticatedUser;
 
-
-
         // Define navbar for dynamic navbar
         const authorisedLinks = (
             <div className="collapse navbar-collapse" id="mobile-navigation">
                 <ul className="navbar-nav ml-auto">
-                    <a href="#" onClick={this.onLogOutClick.bind(this)} className="nav-link"></a>
+                    <a href="" onClick={this.onLogOutClick.bind(this)} className="nav-link">{user.name} - Log Out</a>
                 </ul>
             </div>
         );
@@ -57,6 +56,10 @@ class Navigation extends Component {
                     <button className="navbar-toggler" type="button" data-target="#mobile-navigation" data-toggle="collapse">
                         <span className="navbar-toggler-icon"></span>
                     </button>
+
+                    {/*Depending on isAuthenticated the navbar will display either authorisedLinks or guestLinks*/}
+                    {isAuthenticated ? authorisedLinks : guestLinks}
+
                 </div>
             </nav>
         );
