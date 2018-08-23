@@ -7,6 +7,8 @@ import { connect } from 'react-redux';
 import { logOutUser } from "../../actions/authenticationActions";
 import { withRouter } from 'react-router-dom';
 
+import defaultUserImage from '../../img/user-regular.svg';
+
 class Navigation extends Component {
 
     // Create log out link functionality
@@ -24,7 +26,16 @@ class Navigation extends Component {
         const authorisedLinks = (
             <div className="collapse navbar-collapse" id="mobile-navigation">
                 <ul className="navbar-nav ml-auto">
-                    <a href="" onClick={this.onLogOutClick.bind(this)} className="nav-link">{user.name} - Log Out</a>
+                    <a href="" onClick={this.onLogOutClick.bind(this)} className="nav-link">
+                        <img
+                            className="rounded-circle"
+                            // If user has profile pic display it otherwise display default user image
+                            src={user.profilePic ? user.profilePic : defaultUserImage}
+                             alt={user.name}
+                             style={{backgroundColor: 'white', width: 30, height: 27, paddingRight: 0}}
+                        />{' '}
+                        {user.name}
+                        - Log Out</a>
                 </ul>
             </div>
         );

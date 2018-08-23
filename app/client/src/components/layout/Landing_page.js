@@ -6,7 +6,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
-/*This will be used instead of the anchor tag for routing*/
 
 class Landing_page extends Component {
 
