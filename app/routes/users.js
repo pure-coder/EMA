@@ -1,7 +1,7 @@
 const express = require('express');
 // set router so routes can be used
 const router = express.Router();
-// require bcrypt to encrypt password
+// require bcrypt to encrypt Password
 const bcrypt = require('bcryptjs');
 // require jason web tokens
 const jwt = require('jsonwebtoken');
@@ -84,11 +84,11 @@ router.post('/register', (req, res) =>{
                             ClientIDs: req.body.ClientIDs
                         });
 
-                        // Encrypt password
+                        // Encrypt Password
                         bcrypt.genSalt(12, (err, salt) => {
                             bcrypt.hash(newPT.Password, salt, (err, hash) => {
                                 if (err) throw err;
-                                // Set plain password to the hash that was created for the password
+                                // Set plain Password to the hash that was created for the Password
                                 newPT.Password = hash;
                                 // Save new Personal Trainer to the database
                                 newPT.save()
@@ -211,11 +211,11 @@ router.post('/login', (req, res) =>{
                             return res.status(404).json(errors);
                         }
 
-                        // Check if user is activated before password check and logging in
+                        // Check if user is activated before Password check and logging in
                         if(client.Activated) {
-                            // If user is found continue with comparing the password of given
-                            // user with the hashed password in the database
-                            // Check password
+                            // If user is found continue with comparing the Password of given
+                            // user with the hashed Password in the database
+                            // Check Password
                             bcrypt.compare(Password, client.Password)
                             // A boolean is returned if match is found or not
                                 .then(isMatch => {
@@ -235,14 +235,14 @@ router.post('/login', (req, res) =>{
                                     }
                                     // If a match is not found provide a 400 error
                                     else {
-                                        errors.password = 'Password is incorrect';
+                                        errors.Password = 'Password is incorrect';
                                         return res.status(400).json(errors)
                                     }
                                 })
                         } // check if user is activated
                         // Client isn't activated
                         else{
-                            errors.password = 'Client is not activated, please check your email';
+                            errors.Password = 'Client is not activated, please check your email';
                             return res.status(400).json(errors)
                         }
                         if(!pt && !client){
@@ -252,9 +252,9 @@ router.post('/login', (req, res) =>{
                     })
              }
             else {
-                // If user is found continue with comparing the password of given
-                // user with the hashed password in the database
-                // Check password
+                // If user is found continue with comparing the Password of given
+                // user with the hashed Password in the database
+                // Check Password
                 bcrypt.compare(Password, pt.Password)
                 // A boolean is returned if match is found or not
                     .then(isMatch =>{
@@ -274,7 +274,7 @@ router.post('/login', (req, res) =>{
                         }
                         // If a match is not found provide a 400 error
                         else{
-                            errors.password = 'Password is incorrect';
+                            errors.Password = 'Password is incorrect';
                             return res.status(400).json(errors)
                         }
                     })
