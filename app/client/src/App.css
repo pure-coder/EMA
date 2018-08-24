@@ -121,6 +121,23 @@ img {
     height: 100%;
 }
 
+/* Error page */
+
+.ErrorPageNotFound {
+    position: relative;
+    max-width: 2560px;
+    min-height: 490px;
+    max-height: 490px;
+    height: 100%;
+    overflow: hidden;
+}
+
+.ErrorPageNotFound_div {
+    position: relative;
+    top: 100px;
+    bottom:50%;
+}
+
 /* Scheduler */
 
 .scheduler {
