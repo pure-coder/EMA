@@ -81,7 +81,7 @@ class Login extends Component {
                             <form onSubmit={this.onSubmit}>  {/* onSubmit used instead of normal action*/}
                                 <FormInputGroup
                                     name="Email"
-                                    placeholer="Email Address"
+                                    placeholder="Email Address"
                                     value={this.state.Email}
                                     type="Email"
                                     onChange={this.onChange}
@@ -89,7 +89,7 @@ class Login extends Component {
                                 />
                                 <FormInputGroup
                                     name="Password"
-                                    placeholer="Enter Password"
+                                    placeholder="Enter Password"
                                     value={this.state.password}
                                     type="Password"
                                     onChange={this.onChange}

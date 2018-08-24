@@ -43,11 +43,6 @@ module.exports = function validateRegistrationInput(data){
         errors.Password2 = 'Confirmation password is required';
     }
 
-    // Checks to see if Password field is empty using validator module
-    if(Validator.isEmpty(data.Password)){
-        errors.Password = 'Password is required';
-    }
-
     // Checks to see if Passwords match
     if(!Validator.equals(data.Password, data.Password2)){
         errors.Password = 'Passwords do not match';
@@ -56,6 +51,11 @@ module.exports = function validateRegistrationInput(data){
     // Password must have length with min 8 and max 20
     if(!Validator.isLength(data.Password, {min: 8, max: 20})) {
         errors.Password = 'Password must be between 8 and 20 characters';
+    }
+
+    // Checks to see if Password field is empty using validator module
+    if(Validator.isEmpty(data.Password)){
+        errors.Password = 'Password is required';
     }
 
     // // Checks to see if ContactNumber field is empty using validator module

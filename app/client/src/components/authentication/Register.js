@@ -3,7 +3,8 @@ import PropTypes from 'prop-types'; // Used to document prop types sent to compo
 import classnames from 'classnames';  // Used for dynamically setting class name for errors on page
 import { connect } from 'react-redux' // Needed when using redux inside a component (connects redux to this component)
 import { registerUser} from "../../actions/authenticationActions"; // Used to import create action for registering user
-import { withRouter } from 'react-router-dom'; // Allows proper routing and linking using browsers match, location, and history properties
+import { withRouter } from 'react-router-dom';
+import FormInputGroup from "../common/FormInputGroup"; // Allows proper routing and linking using browsers match, location, and history properties
 
 class Register extends Component {
     // This allows the component states to be updated and re-rendered
@@ -76,74 +77,38 @@ class Register extends Component {
                             <h1 className=" text-center display-5">Personal Trainer <br/> Sign Up</h1>
                             <p className="description text-center">Create your Personal Trainer account</p>
                             <form onSubmit={this.onSubmit}> {/* onSubmit used instead of normal action*/}
-                                <div className="form-group">
-                                    <input type="text"
-                                        // Using classnames package to display errors to user if they occur
-                                        // 1st parameter are default classes that should always be used, the 2nd
-                                        // parameter adds 'is-invalid' if errors.FullName exists
-                                           className={classnames('form-control form-control-md', {'is-invalid': errors.FullName})}
-                                           placeholder="Full Name"
-                                           name="FullName"
-                                           value={this.state.FullName}
-                                           onChange={this.onChange}
-                                    />
-                                    {/* This adds the feedback to the user (which was defined in*/}
-                                    {/*  validation/registration.js on the API server*/}
-                                    {errors.FullName && (<div className="invalid-feedback">
-                                        {errors.FullName}
-                                    </div>)}
-                                </div>
-                                <div className="form-group">
-                                    <input type="email"
-                                        // Using classnames package to display errors to user if they occur
-                                        // 1st parameter are default classes that should always be used, the 2nd
-                                        // parameter adds 'is-invalid' if errors.FullName exists
-                                           className={classnames('form-control form-control-md', {'is-invalid': errors.Email})}
-                                           placeholder="Email Address"
-                                           name="Email"
-                                           value={this.state.Email}
-                                           onChange={this.onChange}
-                                    />
-                                    {/* This adds the feedback to the user (which was defined in*/}
-                                    {/*  validation/registration.js on the API server*/}
-                                    {errors.Email && (<div className="invalid-feedback">
-                                        {errors.Email}
-                                    </div>)}
-                                </div>
-                                <div className="form-group">
-                                    <input type="password"
-                                        // Using classnames package to display errors to user if they occur
-                                        // 1st parameter are default classes that should always be used, the 2nd
-                                        // parameter adds 'is-invalid' if errors.FullName exists
-                                           className={classnames('form-control form-control-md', {'is-invalid': errors.Password})}
-                                           placeholder="Password"
-                                           name="Password"
-                                           value={this.state.Password}
-                                           onChange={this.onChange}
-                                    />
-                                    {/* This adds the feedback to the user (which was defined in*/}
-                                    {/*  validation/registration.js on the API server*/}
-                                    {errors.Password && (<div className="invalid-feedback">
-                                        {errors.Password}
-                                    </div>)}
-                                </div>
-                                <div className="form-group">
-                                    <input type="password"
-                                        // Using classnames package to display errors to user if they occur
-                                        // 1st parameter are default classes that should always be used, the 2nd
-                                        // parameter adds 'is-invalid' if errors.FullName exists
-                                           className={classnames('form-control form-control-md', {'is-invalid': errors.Password2})}
-                                           placeholder="Confirm Password"
-                                           name="Password2"
-                                           value={this.state.Password2}
-                                           onChange={this.onChange}
-                                    />
-                                    {/* This adds the feedback to the user (which was defined in*/}
-                                    {/*  validation/registration.js on the API server*/}
-                                    {errors.Password2 && (<div className="invalid-feedback">
-                                        {errors.Password2}
-                                    </div>)}
-                                </div>
+                                <FormInputGroup
+                                    name="FullName"
+                                    placeholder="Full Name"
+                                    value={this.state.FullName}
+                                    type="text"
+                                    onChange={this.onChange}
+                                    error={errors.FullName}
+                                />
+                                <FormInputGroup
+                                    name="Email"
+                                    placeholder="Email Address"
+                                    value={this.state.Email}
+                                    type="Email"
+                                    onChange={this.onChange}
+                                    error={errors.Email}
+                                />
+                                <FormInputGroup
+                                    name="Password"
+                                    placeholder="Enter Password"
+                                    value={this.state.password}
+                                    type="Password"
+                                    onChange={this.onChange}
+                                    error={errors.Password}
+                                />
+                                <FormInputGroup
+                                    name="Password2"
+                                    placeholder="Confirm Password"
+                                    value={this.state.password2}
+                                    type="Password2"
+                                    onChange={this.onChange}
+                                    error={errors.Password2}
+                                />
                                 <input type="submit" className="btn btn-info btn-block mt-5"/>
                             </form>
                         </div>
