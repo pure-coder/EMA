@@ -80,29 +80,21 @@ class Login extends Component {
                             <p className="description text-center">Sign into Fitness App account</p>
                             <form onSubmit={this.onSubmit}>  {/* onSubmit used instead of normal action*/}
                                 <FormInputGroup
-                                    name="email"
+                                    name="Email"
                                     placeholer="Email Address"
-                                    value={this.state.email}
-                                    type="email"
+                                    value={this.state.Email}
+                                    type="Email"
                                     onChange={this.onChange}
-                                    error={errors.email}
+                                    error={errors.Email}
                                 />
-                                <div className="form-group">
-                                    <input type="password"// Using classnames package to display errors to user if they occur
-                                        // 1st parameter are default classes that should always be used, the 2nd
-                                        // parameter adds 'is-invalid' if errors.FullName exists
-                                           className={classnames('form-control form-control-lg', {'is-invalid': errors.Password})}
-                                           placeholder="Password"
-                                           name="Password"
-                                           value={this.state.Password}
-                                           onChange={this.onChange}
-                                    />
-                                    {/* This adds the feedback to the user (which was defined in*/}
-                                    {/*  validation/registration.js on the API server*/}
-                                    {errors.Password && (<div className="invalid-feedback">
-                                        {errors.Password}
-                                    </div>)}
-                                </div>
+                                <FormInputGroup
+                                    name="Password"
+                                    placeholer="Enter Password"
+                                    value={this.state.password}
+                                    type="Password"
+                                    onChange={this.onChange}
+                                    error={errors.Password}
+                                />
                                 <input type="submit" className="btn btn-info btn-block mt-5"/>
                             </form>
                         </div>
