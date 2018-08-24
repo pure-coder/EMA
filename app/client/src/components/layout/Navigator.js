@@ -15,6 +15,7 @@ class Navigation extends Component {
     onLogOutClick(event) {
         event.preventDefault();
         this.props.logOutUser();
+        this.props.history.push('/login');
     }
 
     render() {
