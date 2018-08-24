@@ -80,7 +80,7 @@ class Register extends Component {
                                 <FormInputGroup
                                     name="FullName"
                                     placeholder="Full Name"
-                                    value={this.state.FullName}
+                                    value={this.state.name}
                                     type="text"
                                     onChange={this.onChange}
                                     error={errors.FullName}
