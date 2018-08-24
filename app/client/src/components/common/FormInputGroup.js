@@ -3,13 +3,13 @@ import classnames from 'classnames';
 import PropTypes from 'prop-types';
 
 // Input all properties as parameters
-const formInputGroup = ({
+const FormInputGroup = ({
     name,
     placeholder,
     value,
-    error,
     type,
-    onChange
+    onChange,
+    error
 }) => {
     return (
         <div className="form-group">
@@ -21,26 +21,26 @@ const formInputGroup = ({
                    placeholder={placeholder}
                    name={name}
                    value={value}
-                   disabled={disabled}
                    onChange={onChange}
             />
             {/* This adds the feedback to the user (which was defined in*/}
             {/*  validation/registration.js on the API server*/}
-            {error && (<div className="invalid-feedback">
-                {error}
-            </div>)}
+            {error && (<div className="invalid-feedback">{error}</div>)}
         </div>
     )
 }
 
-formInputGroup.PropTypes = {
+FormInputGroup.PropTypes = {
     name: PropTypes.string.isRequired,
     placeholder: PropTypes.string,
     value: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,
     error: PropTypes.string,
     onChange: PropTypes.func.isRequired,
-    disabled: PropTypes.string.isRequired,
 }
 
-export default formInputGroup;
+FormInputGroup.defaultProps = {
+    type: 'text'
+}
+
+export default FormInputGroup;

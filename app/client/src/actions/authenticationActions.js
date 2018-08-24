@@ -60,7 +60,7 @@ export const setSignedInUser = (decodedToken) => {
 }; // setSignedInUser
 
 // Log out the user
-export const logOutUser = () => (dispatch) => {
+export const logOutUser = () => dispatch => {
     // Remove the token from local storage
     localStorage.removeItem('jwtToken');
     // Remove the token from authorisation header for all future requests
@@ -68,4 +68,4 @@ export const logOutUser = () => (dispatch) => {
     setAuthorisationToken(false);
     // Set signed in user to an empty object and isAuthenticated to false by passing in {} (empty object)
     dispatch(setSignedInUser({}))
-}
+};

@@ -4,6 +4,7 @@ import classnames from 'classnames';  // Used for dynamically setting class name
 import { connect } from 'react-redux' // Needed when using redux inside a component (connects redux to this component)
 import { loginUser} from "../../actions/authenticationActions"; // Used to import create action for registering user
 import { withRouter } from 'react-router-dom'; // Allows proper routing and linking using browsers match, location, and history properties
+import FormInputGroup from '../common/FormInputGroup';
 
 
 class Login extends Component {
@@ -78,23 +79,14 @@ class Login extends Component {
                             <h1 className="text-center display-5">Log In</h1>
                             <p className="description text-center">Sign into Fitness App account</p>
                             <form onSubmit={this.onSubmit}>  {/* onSubmit used instead of normal action*/}
-                                <div className="form-group">
-                                    <input type="email"
-                                        // Using classnames package to display errors to user if they occur
-                                        // 1st parameter are default classes that should always be used, the 2nd
-                                        // parameter adds 'is-invalid' if errors.FullName exists
-                                           className={classnames('form-control form-control-lg', {'is-invalid': errors.Email})}
-                                           placeholder="Email Address"
-                                           name="Email"
-                                           value={this.state.Email}
-                                           onChange={this.onChange}
-                                            />
-                                    {/* This adds the feedback to the user (which was defined in*/}
-                                    {/*  validation/registration.js on the API server*/}
-                                    {errors.Email && (<div className="invalid-feedback">
-                                        {errors.Email}
-                                    </div>)}
-                                </div>
+                                <FormInputGroup
+                                    name="email"
+                                    placeholer="Email Address"
+                                    value={this.state.email}
+                                    type="email"
+                                    onChange={this.onChange}
+                                    error={errors.email}
+                                />
                                 <div className="form-group">
                                     <input type="password"// Using classnames package to display errors to user if they occur
                                         // 1st parameter are default classes that should always be used, the 2nd

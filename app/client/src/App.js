@@ -18,7 +18,7 @@ import setAuthorisationToken from './utilities/setAuthorisationToken';
 import { setSignedInUser } from './actions/authenticationActions';
 
 // Used to log the user out
-import logOutUser from './components/layout/Navigator';
+import { logOutUser } from './actions/authenticationActions';
 
 // check if token exists in local storage
 if(localStorage.jwtToken) {
