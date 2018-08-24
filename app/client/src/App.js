@@ -17,6 +17,9 @@ import jwtDecode from 'jwt-decode';
 import setAuthorisationToken from './utilities/setAuthorisationToken';
 import { setSignedInUser } from './actions/authenticationActions';
 
+// Used to log the user out
+import logOutUser from './components/layout/Navigator';
+
 // check if token exists in local storage
 if(localStorage.jwtToken) {
     // Set the token to local storage item 'jwtToken'
@@ -25,6 +28,19 @@ if(localStorage.jwtToken) {
     const decodedToken = jwtDecode(localStorage.jwtToken);
     // Call the setSignedInUser action/reducer and set the user and isAuthenticated
     store.dispatch(setSignedInUser(decodedToken));
+
+    // I have set the jwt token in the REST API to expire in 1 hr, so they will have to log back in
+    // - Delete the jwt token given in the expiration.
+    const currentTime = Date.now() / 1000; // convert to milliseconds
+    if(decodedToken.exp < currentTime) {
+        // Log the user out
+        store.dispatch(logOutUser());
+        // TODO: clear current profile data on logout and redirect to login page
+
+        // Redirect the user to the login page
+        window.location.href = '/login';
+    }
+
 }
 
 class App extends Component {
