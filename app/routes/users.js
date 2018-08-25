@@ -262,11 +262,11 @@ router.post('/login', (req, res) =>{
                         if(isMatch) {
                             // User matched so create payload
 
-                            // // Create own expiration time for token
-                            // let tokenExpiration = new Date();
+                            // Create own expiration time for token
+                            // let tokenExpiration = new Date().valueOf();
                             // console.log(tokenExpiration);
                             // const payload = {id: pt.id, name: pt.FullName, clients: pt.ClientIDs, exp: tokenExpiration}
-                            const payload = {id: pt.id, name: pt.FullName, clients: pt.ClientIDs}
+                             const payload = {id: pt.id, name: pt.FullName, clients: pt.ClientIDs}
 
                             // Sign Token (needs payload, secret key, and expiry detail (3600 = 1hr) for re-login
                             // and callback for token
