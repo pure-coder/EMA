@@ -261,6 +261,11 @@ router.post('/login', (req, res) =>{
                         // If it is matched then provide a token
                         if(isMatch) {
                             // User matched so create payload
+
+                            // // Create own expiration time for token
+                            // let tokenExpiration = new Date();
+                            // console.log(tokenExpiration);
+                            // const payload = {id: pt.id, name: pt.FullName, clients: pt.ClientIDs, exp: tokenExpiration}
                             const payload = {id: pt.id, name: pt.FullName, clients: pt.ClientIDs}
 
                             // Sign Token (needs payload, secret key, and expiry detail (3600 = 1hr) for re-login
@@ -277,7 +282,7 @@ router.post('/login', (req, res) =>{
                             errors.Password = 'Password is incorrect';
                             return res.status(400).json(errors)
                         }
-                    })
+                    }).catch(err => console.log(err));
             }
         })
 

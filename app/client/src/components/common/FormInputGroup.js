@@ -30,13 +30,13 @@ const FormInputGroup = ({
     )
 }
 
-FormInputGroup.PropTypes = {
+FormInputGroup.propTypes = {
     name: PropTypes.string.isRequired,
     placeholder: PropTypes.string,
-    value: PropTypes.string.isRequired,
+    value: PropTypes.string,
     type: PropTypes.string.isRequired,
     error: PropTypes.string,
-    onChange: PropTypes.func.isRequired,
+    onChange: PropTypes.func.isRequired
 }
 
 FormInputGroup.defaultProps = {

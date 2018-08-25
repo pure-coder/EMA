@@ -1,6 +1,5 @@
 import React, {Component} from 'react';  // Used to create this component
 import PropTypes from 'prop-types'; // Used to document prop types sent to components
-import classnames from 'classnames';  // Used for dynamically setting class name for errors on page
 import { connect } from 'react-redux' // Needed when using redux inside a component (connects redux to this component)
 import { registerUser} from "../../actions/authenticationActions"; // Used to import create action for registering user
 import { withRouter } from 'react-router-dom';
