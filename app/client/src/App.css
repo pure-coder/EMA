@@ -142,16 +142,32 @@ img {
 
 .scheduler {
     position: relative;
-    min-width: 690px;
+    min-width: 692px;
     max-width: 900px;
+    width: 100%;
     height: 500px;
-    margin-bottom: 15px;
     margin: auto;
 }
 
 .dhx_cal_container {
     position: relative;
     overflow: visible;
+}
+
+.dhx_cal_ltext text {
+    background-color: #fff;
+    overflow: auto;
+    color: rgba(0, 0, 0, .8);
+    height: 100%;
+    width: 100%;
+    outline: 0 !important;
+    resize: none;
+    border: 1px solid rgba(0, 0, 0, .08);
+    line-height: 20px;
+    font-family: inherit;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 4px 0 0 8px;
 }
 
 .dhx_cal_data {

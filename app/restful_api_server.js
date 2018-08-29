@@ -4,7 +4,7 @@
 const express        = require('express');
 const bodyParser     = require('body-parser');
 const mongoose       = require('mongoose');
-const scheduler = require('./services/scheduler');
+// const scheduler = require('./services/scheduler'); ////////////////// SORT OUT 24HR CRON ////////////////
 // require passport
 const passport = require('passport');
 
@@ -26,7 +26,7 @@ const assert = require('assert');
 const log = require('./config/logger').logger;
 
 // use scheduler to delete expired tokens
-scheduler();
+// scheduler();  /////////////// WITH LINE 7 SORT OUT CRON SCHEDULER
 
 // assign the port that will listen on for the application
 const port = process.env.PORT || 8000; // Set port to 8000
