@@ -17,4 +17,4 @@ const EventsSchema = mongoose.Schema({
 },{collection: "Events"}, { timestamps: true });
 
 
-module.exports = mongoose.model('ActivationTokens', EventsSchema);
+module.exports = mongoose.model('Events', EventsSchema);

@@ -26,7 +26,7 @@
             scheduler.init('scheduler', new Date(year, month, date), "month")
 
             scheduler.templates.xml_date = function(value){ return new Date(value); };
-            scheduler.load("/data", "json");
+            // scheduler.load("/api/data", "json");
         }
 
 

@@ -1,6 +1,7 @@
 import axios from 'axios';
 import {GET_ERRS} from "./types"; // import custom defined types
 import {SET_SIGNED_IN_USER} from "./types"; // import custom defined types
+import {POST_WORKOUT_DATA_TO_DATABASE} from "./types"; // import custom defined types
 import setAuthorisationToken from '../utilities/setAuthorisationToken';
 import jwtDecode from 'jwt-decode';
 
@@ -13,7 +14,7 @@ export const registerUser =(Data, history) => (dispatch) => {
     // Post user data to the API specifically the user/register route
     axios
         .post('/api/register', Data)
-        .then(result => history.push('/login')) // Uses history.push to direct the user
+        .then( history.push('/login')) // Uses history.push to direct the user
         .catch(err =>
         dispatch({ // if an error occurs dispatch is called to send the data as an object to the
                    // redux store, in this case the err data
@@ -25,7 +26,7 @@ export const registerUser =(Data, history) => (dispatch) => {
 
 // Login User - get JWT for user
 
-export const loginUser =(Data) => (dispatch) => {
+export const loginUser = (Data) => (dispatch) => {
     // Post user data to the API specifically the user/register route
     axios
         .post('/api/login', Data)
@@ -69,3 +70,22 @@ export const logOutUser = () => dispatch => {
     // Set signed in user to an empty object and isAuthenticated to false by passing in {} (empty object)
     dispatch(setSignedInUser({}))
 };
+
+export const userData = () => (dispatch) => {
+    axios
+        .post('/api/init')
+        .then(result => {
+            dispatch({ // if an error occurs dispatch is called to send the data as an object to the
+                // redux store, in this case the err data
+                type: POST_WORKOUT_DATA_TO_DATABASE,
+                payload: result // Puts result data into the payload which will be sent to the redux store
+            })
+        })
+        .catch(err =>
+            dispatch({ // if an error occurs dispatch is called to send the data as an object to the
+                // redux store, in this case the err data
+                type: GET_ERRS,
+                payload: err.response.data // Puts err data into the payload which will be sent to the redux store
+            })
+        );
+}; // userData

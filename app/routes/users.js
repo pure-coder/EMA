@@ -353,35 +353,74 @@ router.get('/verify', (req, res) => {
 //// TESTING SCHEDULER FOR LOADING FROM DB TO CLIENT
 
 
-router.get('/init', function(req, res){
-    Events.insert({
-        text:"My test event A",
-        start_date: new Date(2018,8,1),
-        end_date:   new Date(2018,8,5)
-    });
-    Events.insert({
-        text:"One more test event",
-        start_date: new Date(2018,8,3),
-        end_date:   new Date(2018,8,8),
-        color: "#DD8616"
-    });
+router.post('/init', function(req, res) {
+    // Events.insert({
+    //     text:"My test event A",
+    //     start_date: new Date(2018,8,1),
+    //     end_date:   new Date(2018,8,5)
+    // });
+    // Events.insert({
+    //     text:"One more test event",
+    //     start_date: new Date(2018,8,3),
+    //     end_date:   new Date(2018,8,8),
+    //     color: "#DD8616"
+    // });
 
-    /*... skipping similar code for other test events...*/
+    Events.find({})
+            .then(results => {
+                if(!isEmpty(results)){
+                    console.log(results);
+                }
+                else
+                {
+                    const newEvent = new Events({
+                        text:"My test event A",
+                        start_date: new Date(2018,8,1),
+                        end_date:   new Date(2018,8,5)
+                    });
 
-    res.send("Test events were added to the database")
-});
+                    // Save new client to database
+                    newEvent.save()
+                        .then(events => {
+                                console.log(events);
+                            }
+                        )
+                        .catch(err => {console.log(err)});
+
+                    const newEvent2 = new Events({
+                        text:"One more test event",
+                        start_date: new Date(2018,8,3),
+                        end_date:   new Date(2018,8,8),
+                        color: "#DD8616"
+                    });
+
+                    // Save new client to database
+                    newEvent2.save()
+                        .then(events => {
+                                console.log(events);
+                            }
+                        )
+                        .catch(err => {console.log(err)});
+
+                } // else
+            })// .then
+
+        /*... skipping similar code for other test events...*/
+
+        res.send("Test events were added to the database")
+    });// router get /scheduler
 
 
-router.get('/data', function(req, res){
-    Events.find().toArray(function(err, data){
-        //set id property for all records
-        for (let i = 0; i < data.length; i++)
-            data[i].id = data[i]._id;
-
-        //output response
-        res.send(data);
-    });
-});
+// router.get('/data', function(req, res){
+//     Events.find().toArray(function(err, data){
+//         //set id property for all records
+//         for (let i = 0; i < data.length; i++)
+//             data[i].id = data[i]._id;
+//
+//         //output response
+//         res.send(data);
+//     });
+// }); // router get /data
 
 
 //Export router so it can work with the main restful api server
