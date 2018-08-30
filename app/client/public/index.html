@@ -24,7 +24,12 @@
         let year = now.getFullYear();
         function init() {
             scheduler.init('scheduler', new Date(year, month, date), "month")
+
+            scheduler.templates.xml_date = function(value){ return new Date(value); };
+            scheduler.load("/data", "json");
         }
+
+
     </script>
 
     <title>Fitness Application</title>

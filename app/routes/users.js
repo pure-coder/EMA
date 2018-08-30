@@ -32,6 +32,9 @@ const verification = require('../validation/verification');
 // Require verification / activation model
 const ActivationTokens = require('../models/AcitvationTokens');
 
+// Require events
+const Events = require('../models/Events');
+
 // @route  POST /register
 // @desc   Register Personal Trainer
 // @access Public
@@ -345,6 +348,40 @@ router.get('/verify', (req, res) => {
     })// catch end
 
 })
+
+
+//// TESTING SCHEDULER FOR LOADING FROM DB TO CLIENT
+
+
+router.get('/init', function(req, res){
+    Events.insert({
+        text:"My test event A",
+        start_date: new Date(2018,8,1),
+        end_date:   new Date(2018,8,5)
+    });
+    Events.insert({
+        text:"One more test event",
+        start_date: new Date(2018,8,3),
+        end_date:   new Date(2018,8,8),
+        color: "#DD8616"
+    });
+
+    /*... skipping similar code for other test events...*/
+
+    res.send("Test events were added to the database")
+});
+
+
+router.get('/data', function(req, res){
+    Events.find().toArray(function(err, data){
+        //set id property for all records
+        for (let i = 0; i < data.length; i++)
+            data[i].id = data[i]._id;
+
+        //output response
+        res.send(data);
+    });
+});
 
 
 //Export router so it can work with the main restful api server
