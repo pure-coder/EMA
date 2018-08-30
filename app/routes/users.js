@@ -405,7 +405,8 @@ router.get('/verify', (req, res) => {
 // @route  GET /api/data
 // @desc   retrieve data from database
 // @access private for PT's and clients
-router.get({url: '/scheduler',  headers: { Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjViN2VhNzEyYjMzNDJkNDY3MDlmYTc0MiIsIm5hbWUiOiJKYW1lcyBEdW5rbGV5IiwiY2xpZW50cyI6W10sImlhdCI6MTUzNTY0MDQ1MSwiZXhwIjoxNTM1NjQ0MDUxfQ.eWRXRNZjnpfsLkL7tV9iVUqeMQaRN3XooSAic2gxBTg' }}, passport.authenticate('both_rule', {session: false}), (req, res) =>{
+router.get('/scheduler', (req, res) =>{
+    console.log('cow bag');
     Events.find({})
         .then(data => {
             // set id property for all records
@@ -421,7 +422,8 @@ router.get({url: '/scheduler',  headers: { Authorization: 'Bearer eyJhbGciOiJIUz
 // @route  POST /api/data
 // @desc   Add, edit and delete data in database
 // @access private for PT's and clients
-router.post('/scheduler', passport.authenticate('both_rule', {session: false}) ,(req, res) => {
+router.post('/scheduler',(req, res) => {
+    console.log('cow bag2');
     let data = req.body;
 
     // Get data's operation type
@@ -429,33 +431,31 @@ router.post('/scheduler', passport.authenticate('both_rule', {session: false}) ,
 
     // Get the id of the current record
     let dataId = data.id;
-    let id = dataId;
 
     // Take away data properties that won't be saved to the database
-    delete data.id;
     delete data["!nativeeditor_status"];
 
+    console.log(id)
 
     // Update database with confirmation to user
     function update_database(err, result){
         if (err)
             type = "error";
-        else if (type === "inserted")
-            id = data._id;
 
         res.setHeader("Content-Type","application/json");
-        res.send({action: type, dataId: dataId, id: tid});
+        res.send({action: type, dataId: dataId});
 
     }
 
     // Add, edit or delete depending on the type
     if (type === "updated")
-        Events.findByIdAndUpdate( dataId, data, update_database)
+        Events.findOneAndUpdate( {id: dataId},{data},{upsert: true, new: true, runValidators: true}, update_database)
             .then(result => console.log(result))
             .catch(err => console.log(err))
     else if (type === "inserted")
         {
             const newEvent = new Events({
+                id: data.id,
                 text: data.text,
                 start_date: data.start_date,
                 end_date: data.end_date
@@ -471,7 +471,7 @@ router.post('/scheduler', passport.authenticate('both_rule', {session: false}) ,
                 })
         }
     else if (type === "deleted")
-        db.event.removeById( dataId, update_database)
+        Events.findOne({id: dataId}).remove(update_database)
             .then(result => console.log(result))
             .catch(err => console.log(err))
     else

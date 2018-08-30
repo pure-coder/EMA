@@ -23,7 +23,7 @@ class Scheduler extends Component {
             this.props.history.push('/login');
         }
 
-        this.props.userData();
+        //this.props.userData();
     }
 
 

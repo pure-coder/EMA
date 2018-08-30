@@ -32,7 +32,7 @@
 
             // Add, edit, and delete data in the database
             scheduler.config.xml_date="%Y-%m-%d %H:%i";
-            let dataProc = new dataProcessor("/scheduler");
+            let dataProc = new dataProcessor("/api/scheduler");
             dataProc.init(scheduler);
             dataProc.setTransactionMode("POST", false);
         }

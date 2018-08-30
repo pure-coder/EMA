@@ -11,7 +11,7 @@ const EventsSchema = mongoose.Schema({
     end_date: {
         type: Date
     },
-    color: {
+    id: {
         type: String
     }
 },{collection: "Events"}, { timestamps: true });
