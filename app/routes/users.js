@@ -406,7 +406,6 @@ router.get('/verify', (req, res) => {
 // @desc   retrieve data from database
 // @access private for PT's and clients
 router.get('/scheduler', (req, res) =>{
-    console.log('cow bag');
     Events.find({})
         .then(data => {
             // set id property for all records
@@ -423,8 +422,8 @@ router.get('/scheduler', (req, res) =>{
 // @desc   Add, edit and delete data in database
 // @access private for PT's and clients
 router.post('/scheduler',(req, res) => {
-    console.log('cow bag2');
     let data = req.body;
+    console.log(data.id)
 
     // Get data's operation type
     let type = data["!nativeeditor_status"];
@@ -435,23 +434,25 @@ router.post('/scheduler',(req, res) => {
     // Take away data properties that won't be saved to the database
     delete data["!nativeeditor_status"];
 
-    console.log(id)
 
     // Update database with confirmation to user
     function update_database(err, result){
         if (err)
             type = "error";
 
+        console.log(dataId);
         res.setHeader("Content-Type","application/json");
         res.send({action: type, dataId: dataId});
-
     }
+    console.log(dataId);
 
     // Add, edit or delete depending on the type
     if (type === "updated")
-        Events.findOneAndUpdate( {id: dataId},{data},{upsert: true, new: true, runValidators: true}, update_database)
-            .then(result => console.log(result))
-            .catch(err => console.log(err))
+        {
+            Events.findOneAndUpdate({id: dataId}, {data}, {upsert: true, new: true, runValidators: true}, update_database)
+                .then(result => console.log(result))
+                .catch(err => console.log(err))
+        }
     else if (type === "inserted")
         {
             const newEvent = new Events({
@@ -471,12 +472,16 @@ router.post('/scheduler',(req, res) => {
                 })
         }
     else if (type === "deleted")
-        Events.findOne({id: dataId}).remove(update_database)
-            .then(result => console.log(result))
-            .catch(err => console.log(err))
+        {
+            console.log(dataId)
+            Events.find({id: dataId}).remove()
+                .then(result => console.log(result))
+                .catch(err => console.log(err))
+        }
     else
-        res.send("Not supported operation");
-
+        {
+            res.send("Not supported operation");
+        }
 }); // router post /data
 
 //Export router so it can work with the main restful api server
