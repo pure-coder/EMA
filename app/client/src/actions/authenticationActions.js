@@ -75,11 +75,10 @@ export const userData = () => (dispatch) => {
     axios
         .post('/api/init')
         .then(result => {
-            dispatch({ // if an error occurs dispatch is called to send the data as an object to the
-                // redux store, in this case the err data
+            return {
                 type: POST_WORKOUT_DATA_TO_DATABASE,
                 payload: result // Puts result data into the payload which will be sent to the redux store
-            })
+            }
         })
         .catch(err =>
             dispatch({ // if an error occurs dispatch is called to send the data as an object to the

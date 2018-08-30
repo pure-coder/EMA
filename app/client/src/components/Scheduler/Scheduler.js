@@ -5,14 +5,21 @@ import {withRouter} from "react-router-dom";
 import { userData } from "../../actions/authenticationActions";
 
 class Scheduler extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            dataPosted: {},
+            errors: {}
+        }
+    }// constructor
 
     // add init() function to only the scheduler route in index.html (located in public folder) before the component is rendered
     // and check if user is authenticated
     componentDidMount() {
         document.getElementsByTagName('body')[0].setAttribute('onload', 'init();');
 
-        // Check if isAuthenticated is true then redirect to the dashboard
-        if (this.props.authenticatedUser.isAuthenticated) {
+        // Check if isAuthenticated is false then redirect to the dashboard
+        if (!this.props.authenticatedUser.isAuthenticated) {
             this.props.history.push('/dashboard');
         }
 
@@ -23,8 +30,8 @@ class Scheduler extends Component {
     // Life cycle method for react which will run when this component receives new properties
     componentWillReceiveProps(nextProps) {
 
-        // Check if isAuthenticated is true then redirect to the dashboard
-        if(nextProps.authenticatedUser.isAuthenticated){
+        // Check if isAuthenticated is false then redirect to the dashboard
+        if(!nextProps.authenticatedUser.isAuthenticated){
             this.props.history.push('/dashboard');
         }
     }
@@ -59,6 +66,7 @@ Scheduler.propTypes = {
 // Used to pull auth state and errors into this component
 const stateToProps = (state) => ({
     authenticatedUser: state.authenticatedUser,
+    dataPosted: state.dataPosted
 });
 
 // connect must be exported with a passed parameter (not direct parameter) of Scheduler this is wrapped with withRouter
