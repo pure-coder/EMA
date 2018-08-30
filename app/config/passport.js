@@ -49,7 +49,7 @@ module.exports = passport => {
                     // If user has been found then return the done function which is part of strategy
                     if(client){
                         // First parameter of done is an err (there won't be one so we set it to null, 2nd is to pass
-                        // the pt (user)
+                        // the client (user)
                         return done(null, client);
                     }
                     // If user isn't found then 2nd parameter will be set to false as a user was not found
@@ -81,7 +81,7 @@ module.exports = passport => {
                                 // If user has been found then return the done function which is part of strategy
                                 if(client){
                                     // First parameter of done is an err (there won't be one so we set it to null, 2nd is to pass
-                                    // the pt (user)
+                                    // the client
                                     return done(null, client);
                                 }
                                 // If user isn't found then 2nd parameter will be set to false as a user was not found

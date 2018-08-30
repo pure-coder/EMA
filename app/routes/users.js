@@ -116,9 +116,9 @@ router.post('/new_client', passport.authenticate('pt_rule', {session: false}) ,(
         return res.status(400).json(errors);
     }
 
-    var token = req.headers.authorization.split(' ')[1];
-    var payload = jwt.decode(token, keys.secretOrKey);
-    var PersonalTrainerId = payload.id;
+    let token = req.headers.authorization.split(' ')[1];
+    let payload = jwt.decode(token, keys.secretOrKey);
+    let PersonalTrainerId = payload.id;
 
     // Check if email already existing in database
     Client.findOne({Email: req.body.Email})
@@ -274,6 +274,7 @@ router.post('/login', (req, res) =>{
                             // Sign Token (needs payload, secret key, and expiry detail (3600 = 1hr) for re-login
                             // and callback for token
                             jwt.sign(payload, keys.secretOrKey, {expiresIn: 3600}, (err, token) =>{
+                                //res.setHeader('Set-Cookie', 'localFitnessToken=Bearer ' + token + '; HttpOnly')
                                 res.json({
                                     success: true,
                                     token: 'Bearer ' + token // Using Bearer token protocol
@@ -352,76 +353,131 @@ router.get('/verify', (req, res) => {
 
 //// TESTING SCHEDULER FOR LOADING FROM DB TO CLIENT
 
-
-router.post('/init', function(req, res) {
-    // Events.insert({
-    //     text:"My test event A",
-    //     start_date: new Date(2018,8,1),
-    //     end_date:   new Date(2018,8,5)
-    // });
-    // Events.insert({
-    //     text:"One more test event",
-    //     start_date: new Date(2018,8,3),
-    //     end_date:   new Date(2018,8,8),
-    //     color: "#DD8616"
-    // });
-
-    Events.find({})
-            .then(results => {
-                if(!isEmpty(results)){
-                    console.log(results);
-                }
-                else
-                {
-                    const newEvent = new Events({
-                        text:"My test event A",
-                        start_date: new Date(2018,8,1),
-                        end_date:   new Date(2018,8,5)
-                    });
-
-                    // Save new client to database
-                    newEvent.save()
-                        .then(events => {
-                                console.log(events);
-                            }
-                        )
-                        .catch(err => {console.log(err)});
-
-                    const newEvent2 = new Events({
-                        text:"One more test event",
-                        start_date: new Date(2018,8,3),
-                        end_date:   new Date(2018,8,8),
-                        color: "#DD8616"
-                    });
-
-                    // Save new client to database
-                    newEvent2.save()
-                        .then(events => {
-                                console.log(events);
-                            }
-                        )
-                        .catch(err => {console.log(err)});
-
-                } // else
-            })// .then
-
-        /*... skipping similar code for other test events...*/
-
-        res.send("Test events were added to the database")
-    });// router get /scheduler
-
-
-// router.get('/data', function(req, res){
-//     Events.find().toArray(function(err, data){
-//         //set id property for all records
-//         for (let i = 0; i < data.length; i++)
-//             data[i].id = data[i]._id;
+// // @route  POST /api/init
+// // @desc   save data to database
+// // @access private for PT's and clients
+// router.post('/scheduler', passport.authenticate('both_rule', {session: false}) ,(req, res) =>{
 //
-//         //output response
-//         res.send(data);
-//     });
-// }); // router get /data
+//     // Initialise database with fake data for dev
+//     Events.find({})
+//         .then(results => {
+//             if(!isEmpty(results)){
+//                 console.log(results);
+//             }
+//             else
+//             {
+//                 const newEvent = new Events({
+//                     text:"My test event A",
+//                     start_date: new Date(2018,8,1),
+//                     end_date:   new Date(2018,8,5)
+//                 });
+//
+//                 // Save new client to database
+//                 newEvent.save()
+//                     .then(events => {
+//                             console.log(events);
+//                         }
+//                     )
+//                     .catch(err => {console.log(err)});
+//
+//                 const newEvent2 = new Events({
+//                     text:"One more test event",
+//                     start_date: new Date(2018,8,3),
+//                     end_date:   new Date(2018,8,8),
+//                     color: "#DD8616"
+//                 });
+//
+//                 // Save new client to database
+//                 newEvent2.save()
+//                     .then(events => {
+//                             console.log(events);
+//                         }
+//                     )
+//                     .catch(err => {console.log(err)});
+//
+//             } // else
+//         })// .then
+//
+//         res.send("Test events were added to the database")
+// });// router get /scheduler
 
+
+// @route  GET /api/data
+// @desc   retrieve data from database
+// @access private for PT's and clients
+router.get({url: '/scheduler',  headers: { Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjViN2VhNzEyYjMzNDJkNDY3MDlmYTc0MiIsIm5hbWUiOiJKYW1lcyBEdW5rbGV5IiwiY2xpZW50cyI6W10sImlhdCI6MTUzNTY0MDQ1MSwiZXhwIjoxNTM1NjQ0MDUxfQ.eWRXRNZjnpfsLkL7tV9iVUqeMQaRN3XooSAic2gxBTg' }}, passport.authenticate('both_rule', {session: false}), (req, res) =>{
+    Events.find({})
+        .then(data => {
+            // set id property for all records
+                for (let i = 0; i < data.length; i++)
+                    data[i].id = data[i]._id;
+
+                //output response
+                res.send(data);
+        })
+        .catch(err => {console.log(err)})
+}); // router get /data
+
+// @route  POST /api/data
+// @desc   Add, edit and delete data in database
+// @access private for PT's and clients
+router.post('/scheduler', passport.authenticate('both_rule', {session: false}) ,(req, res) => {
+    let data = req.body;
+
+    // Get data's operation type
+    let type = data["!nativeeditor_status"];
+
+    // Get the id of the current record
+    let dataId = data.id;
+    let id = dataId;
+
+    // Take away data properties that won't be saved to the database
+    delete data.id;
+    delete data["!nativeeditor_status"];
+
+
+    // Update database with confirmation to user
+    function update_database(err, result){
+        if (err)
+            type = "error";
+        else if (type === "inserted")
+            id = data._id;
+
+        res.setHeader("Content-Type","application/json");
+        res.send({action: type, dataId: dataId, id: tid});
+
+    }
+
+    // Add, edit or delete depending on the type
+    if (type === "updated")
+        Events.findByIdAndUpdate( dataId, data, update_database)
+            .then(result => console.log(result))
+            .catch(err => console.log(err))
+    else if (type === "inserted")
+        {
+            const newEvent = new Events({
+                text: data.text,
+                start_date: data.start_date,
+                end_date: data.end_date
+            });
+            // Save new client to database
+            newEvent.save()
+                .then(events => {
+                        console.log(events);
+                    }
+                )
+                .catch(err => {
+                    console.log(err)
+                })
+        }
+    else if (type === "deleted")
+        db.event.removeById( dataId, update_database)
+            .then(result => console.log(result))
+            .catch(err => console.log(err))
+    else
+        res.send("Not supported operation");
+
+}); // router post /data
 
 //Export router so it can work with the main restful api server
 module.exports = router;

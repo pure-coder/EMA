@@ -20,7 +20,7 @@ class Scheduler extends Component {
 
         // Check if isAuthenticated is false then redirect to the dashboard
         if (!this.props.authenticatedUser.isAuthenticated) {
-            this.props.history.push('/dashboard');
+            this.props.history.push('/login');
         }
 
         this.props.userData();
@@ -32,7 +32,7 @@ class Scheduler extends Component {
 
         // Check if isAuthenticated is false then redirect to the dashboard
         if(!nextProps.authenticatedUser.isAuthenticated){
-            this.props.history.push('/dashboard');
+            this.props.history.push('/login');
         }
     }
 

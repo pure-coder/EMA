@@ -23,10 +23,18 @@
         let month = now.getMonth();
         let year = now.getFullYear();
         function init() {
+            // Initialising workout scheduler to current date and display the month view
             scheduler.init('scheduler', new Date(year, month, date), "month")
 
+            // Load the data from the database
             scheduler.templates.xml_date = function(value){ return new Date(value); };
-            // scheduler.load("/api/data", "json");
+            scheduler.load("/api/scheduler", "json");
+
+            // Add, edit, and delete data in the database
+            scheduler.config.xml_date="%Y-%m-%d %H:%i";
+            let dataProc = new dataProcessor("/scheduler");
+            dataProc.init(scheduler);
+            dataProc.setTransactionMode("POST", false);
         }
 
 

@@ -1,5 +1,4 @@
 import {POST_WORKOUT_DATA_TO_DATABASE} from "../actions/types";
-import isEmpty from '../validation/is_empty';
 
 const initialisedState = {
     data: {}
