@@ -5,14 +5,14 @@ import { registerClient} from "../../actions/authenticationActions"; // Used to 
 import { withRouter } from 'react-router-dom';
 import FormInputGroup from "../common/FormInputGroup"; // Allows proper routing and linking using browsers match, location, and history properties
 
-class Register extends Component {
+class RegisterClient extends Component {
     // This allows the component states to be updated and re-rendered
     constructor(props) {
         super(props);
         this.state = {
             FullName: '',
             Email: '',
-            contactNumber: '',
+            ContactNumber: '',
             errors: {}
         }
 
@@ -26,9 +26,9 @@ class Register extends Component {
     // Life cycle method for react which will run when this component receives new properties
     componentDidMount() {
         // Check if isAuthenticated is true then redirect to the dashboard
-        if (this.props.authenticatedUser.isAuthenticated) {
-            this.props.history.push('/dashboard');
-        }
+        // if (this.props.authenticatedUser.isAuthenticated) {
+        //     this.props.history.push('/dashboard');
+        // }
     }
 
     // Life cycle method for react which will run when this component receives new properties
@@ -71,8 +71,8 @@ class Register extends Component {
                 <div className="container  register-custom">
                     <div className="row">
                         <div className="m-auto col-md-8">
-                            <h1 className=" text-center display-5">Personal Trainer <br/> Sign Up</h1>
-                            <p className="description text-center">Enter basic Client details below</p>
+                            <h1 className=" text-center display-5">Client Sign Up</h1>
+                            <p className="description text-center">Enter Client details below</p>
                             <form onSubmit={this.onSubmit}> {/* onSubmit used instead of normal action*/}
                                 <FormInputGroup
                                     name="FullName"
@@ -94,7 +94,7 @@ class Register extends Component {
                                     name="ContactNumber"
                                     placeholder="Enter Contact Number"
                                     value={this.state.contactNumber}
-                                    type="Password"
+                                    type="text"
                                     onChange={this.onChange}
                                     error={errors.ContactNumber}
                                 />
@@ -109,7 +109,7 @@ class Register extends Component {
 }
 
 // Documents what props are needed for this component and will log a warning in the console in dev mode if not complied to
-Register.propTypes = {
+RegisterClient.propTypes = {
     registerClient: PropTypes.func.isRequired,
     authenticatedUser: PropTypes.object.isRequired,
     errors: PropTypes.object.isRequired
@@ -124,4 +124,4 @@ const stateToProps = (state) => ({
 // connect must be exported with a passed parameter (not direct parameter) of Register this is wrapped with withRouter
 // allowing the functions of the package to be used with the component eg, proper routing, and direct parameters of
 // stateToProps for the 1st parameter and the action which is registerClient as the 2nd parameter
-export default connect(stateToProps, { registerClient })(withRouter(Register));
+export default connect(stateToProps, { registerClient })(withRouter(RegisterClient));

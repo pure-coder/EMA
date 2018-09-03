@@ -107,80 +107,82 @@ router.post('/register', (req, res) =>{
 // @route  POST users/register
 // @desc   Register Personal Trainer
 // @access Private route - only Personal Trainers can add new clients
-router.post('/new_client', passport.authenticate('pt_rule', {session: false}) ,(req, res) =>{
-    // Set up validation checking for every field that has been posted
-    const {errors, isValid } = validateClientInput(req.body);
+//router.post('/new_client', passport.authenticate('pt_rule', {session: false}) ,(req, res) =>{
+router.post('/new_client',(req, res) =>{
+        // Set up validation checking for every field that has been posted
+        const {errors, isValid } = validateClientInput(req.body);
 
-    // Check validation (so if it isn't valid give 400 error and message of error
-    if(!isValid){
-        return res.status(400).json(errors);
-    }
+        // Check validation (so if it isn't valid give 400 error and message of error
+        if(!isValid){
+            return res.status(400).json(errors);
+        }
 
-    let token = req.headers.authorization.split(' ')[1];
-    let payload = jwt.decode(token, keys.secretOrKey);
-    let PersonalTrainerId = payload.id;
+        let token = req.headers.authorization.split(' ')[1];
+        let payload = jwt.decode(token, keys.secretOrKey);
+        let PersonalTrainerId = payload.id;
 
-    // Check if email already existing in database
-    Client.findOne({Email: req.body.Email})
-        .then(client  =>{
-            // Check if Client email exists and return 400 error if it does
-            if(client) {
-                // Using validation to log error (this for email exists error)
-                errors.Email = 'Email already exists';
-                // Then pass errors object into returned json
-                return res.status(400).json(errors);
-            }
-            // Create new user if email doesn't exist
+        // Check if email already existing in database
+        Client.findOne({Email: req.body.Email})
+            .then(client  =>{
+                // Check if Client email exists and return 400 error if it does
+                if(client) {
+                    // Using validation to log error (this for email exists error)
+                    errors.Email = 'Email already exists';
+                    // Then pass errors object into returned json
+                    return res.status(400).json(errors);
+                }
+                // Create new user if email doesn't exist
 
-            // Check if email exists in pt database
-            PersonalTrainer.findOne({Email: req.body.Email})
-                .then(PT => {
-                    if(PT){
-                        // Using validation to log error (this for email exists error)
-                        errors.Email = 'Email already exists';
-                        // Then pass errors object into returned json
-                        return res.status(400).json(errors);
-                    }
+                // Check if email exists in pt database
+                PersonalTrainer.findOne({Email: req.body.Email})
+                    .then(PT => {
+                        if(PT){
+                            // Using validation to log error (this for email exists error)
+                            errors.Email = 'Email already exists';
+                            // Then pass errors object into returned json
+                            return res.status(400).json(errors);
+                        }
 
-                    else {
-                        let now = new Date();
-                        now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+                        else {
+                            let now = new Date();
+                            now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
 
-                        const newClient = new Client({
-                            FullName: req.body.FullName,
-                            Email: req.body.Email,
-                            ContactNumber: req.body.ContactNumber,
-                            Date: now
-                        });
+                            const newClient = new Client({
+                                FullName: req.body.FullName,
+                                Email: req.body.Email,
+                                ContactNumber: req.body.ContactNumber,
+                                Date: now
+                            });
 
-                        // Save new client to database
-                        newClient.save()
-                            .then(client => {
-                                // Send verification email to client
-                                verification(req.body.Email)
-                                    let client_id_object = {
-                                        email: client.Email,
-                                        id: client.id
-                                    }
-                                    // Add client id to associated personal trainer
-                                    PersonalTrainer.findByIdAndUpdate(PersonalTrainerId,
-                                        {$push: {ClientIDs: client_id_object}},
-                                        {safe: true})
-                                        .then(result =>{
-                                            console.log(client_id_object),
-                                            res.json({result})
-                                        })
-                                        .catch(err => {res.json({err})},
+                            // Save new client to database
+                            newClient.save()
+                                .then(client => {
+                                        // Send verification email to client
+                                        verification(req.body.Email)
+                                        let client_id_object = {
+                                            email: client.Email,
+                                            id: client.id
+                                        }
+                                        // Add client id to associated personal trainer
+                                        PersonalTrainer.findByIdAndUpdate(PersonalTrainerId,
+                                            {$push: {ClientIDs: client_id_object}},
+                                            {safe: true})
+                                            .then(result =>{
+                                                console.log(client_id_object),
+                                                    res.json({result})
+                                            })
+                                            .catch(err => {res.json({err})},
                                             )
-                            }
-                            )
-                            .catch(err => {console.log(err)});
-                    }
+                                    }
+                                )
+                                .catch(err => {console.log(err)});
+                        }
 
-                })
+                    })
 
-        })
-});
+            })
+    });
+}
 
 // @route  POST users/login
 // @desc   Login Users (Personal Trainers and Clients) / and return JWT

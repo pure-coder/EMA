@@ -93,6 +93,7 @@ export const userData = () => (dispatch) => {
         );
 }; // userData
 
+// Register client
 export const registerClient =(Data, history) => (dispatch) => {
     // Post user data to the API specifically the user/register route
     axios

@@ -7,6 +7,7 @@ import Navigation from './components/layout/Navigator'; /*import navbar componen
 import Landing_page from './components/layout/Landing_page'; /*import landing_page component*/
 import Footer from './components/layout/Footer'; /*import footer component*/
 import Register from './components/authentication/Register'; /*import register component*/
+import RegisterClient from './components/authentication/RegisterClient'; /*import register client component*/
 import Login from './components/authentication/Login'; /*import login component*/
 import Scheduler from './components/Scheduler/Scheduler'; //////////// THIS NEEDS TO BE CHANGED ////////////////
 import ErrorComponent from './components/error/ErrorComponent';
@@ -58,7 +59,7 @@ class App extends Component {
                             <Route exact path="/"
                                    component={Landing_page}/> {/* using Route functionality that adds the landing_page component to web app*/}
                                 <Route exact path="/register" component={Register}/>
-                                <Route exact path="/register_client" component={Register}/>
+                                <Route exact path="/register_client" component={RegisterClient}/>
                                 <Route exact path="/login" component={Login}/>
                                 <Route exact path="/Scheduler" component={Scheduler}/>
 
