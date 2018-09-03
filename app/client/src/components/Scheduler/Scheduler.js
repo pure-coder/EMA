@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import connect from "react-redux/es/connect/connect";
 import {withRouter} from "react-router-dom";
 import { userData } from "../../actions/authenticationActions";
+import '../../../node_modules/dhtmlx-scheduler/codebase/sources/dhtmlxscheduler'
 
 class Scheduler extends Component {
     constructor(props) {
