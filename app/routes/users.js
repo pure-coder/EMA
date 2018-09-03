@@ -423,40 +423,49 @@ router.get('/scheduler', (req, res) =>{
 // @access private for PT's and clients
 router.post('/scheduler',(req, res) => {
     let data = req.body;
-    console.log(data.id)
+    let schedId, docId;
 
     // Get data's operation type
     let type = data["!nativeeditor_status"];
 
     // Get the id of the current record
-    let dataId = data.id;
+    if (type === 'inserted') {
+        schedId = data.id;
+    }
+    else {
+        docId = data.id;
+    }
 
     // Take away data properties that won't be saved to the database
     delete data["!nativeeditor_status"];
 
-
-    // Update database with confirmation to user
-    function update_database(err, result){
-        if (err)
-            type = "error";
-
-        console.log(dataId);
-        res.setHeader("Content-Type","application/json");
-        res.send({action: type, dataId: dataId});
-    }
-    console.log(dataId);
-
     // Add, edit or delete depending on the type
     if (type === "updated")
         {
-            Events.findOneAndUpdate({id: dataId}, {data}, {upsert: true, new: true, runValidators: true}, update_database)
-                .then(result => console.log(result))
+            console.log('updated: ' +  docId)
+            Events.update({id: docId},
+                {
+                    id: docId,
+                    text: data.text,
+                    start_date: data.start_date,
+                    end_date: data.end_date
+                }, {upsert: true, overwrite: true, runValidators: true})
+                .then( result => {
+                    if(result){
+                        // because of the way mongoose update works update needs to be performed as it makes a new
+                        // doc as id are unique, have to delete old doc with previous id so new and updated doc
+                        // do not appear on schedule
+                        Events.remove({_id: docId}).remove()
+                            .then(result => console.log(result))
+                            .catch(err => console.log(err))
+                    }
+                })
                 .catch(err => console.log(err))
         }
     else if (type === "inserted")
         {
             const newEvent = new Events({
-                id: data.id,
+                id: schedId,
                 text: data.text,
                 start_date: data.start_date,
                 end_date: data.end_date
@@ -473,8 +482,9 @@ router.post('/scheduler',(req, res) => {
         }
     else if (type === "deleted")
         {
-            console.log(dataId)
-            Events.find({id: dataId}).remove()
+            console.log('deleted: ' +  docId)
+            console.log(docId)
+            Events.remove({_id: docId}).remove()
                 .then(result => console.log(result))
                 .catch(err => console.log(err))
         }
