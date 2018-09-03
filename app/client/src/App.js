@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'; /* mimics server allowing back, forward page routing etc*/
 import {Provider} from 'react-redux'; // A react component that provides the store (holds state/data for app) for redux
 import store from './store'; // Imports store to be used with redux to hold application state
-
+import 'axios';
 import Navigation from './components/layout/Navigator'; /*import navbar component*/
 import Landing_page from './components/layout/Landing_page'; /*import landing_page component*/
 import Footer from './components/layout/Footer'; /*import footer component*/

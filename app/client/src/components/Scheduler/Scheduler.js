@@ -3,14 +3,14 @@ import PropTypes from "prop-types";
 import connect from "react-redux/es/connect/connect";
 import {withRouter} from "react-router-dom";
 import { userData } from "../../actions/authenticationActions";
-import '../../../node_modules/dhtmlx-scheduler/codebase/sources/dhtmlxscheduler'
 import axios from 'axios';
+import 'dhtmlx-scheduler';
 
 class Scheduler extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            dataPosted: {},
+            data: [],
             errors: {}
         }
     }// constructor
@@ -26,6 +26,32 @@ class Scheduler extends Component {
         }
 
         this.props.userData();
+
+        const scheduler = window.dhtmlXScheduler;
+
+        axios.get('/api/scheduler')
+            .then(result => {
+                if (result){
+                    console.log(result.data[1])
+
+                    let now = new Date();
+                    let date = now.getDate();
+                    let month = now.getMonth();
+                    let year = now.getFullYear();
+                    // Initialising workout scheduler to current date and display the month view
+                    scheduler.init('scheduler', new Date(year, month, date), "month")
+
+                    // Load the data from the database
+                    scheduler.templates.xml_date = function(value){ return new Date(value); };
+                    //scheduler.load(result.data)
+
+
+                    // Add, edit, and delete data in the database
+                    scheduler.config.xml_date="%Y-%m-%d %H:%i";
+                }
+            })
+            .catch();
+
     }
 
 
@@ -63,12 +89,13 @@ class Scheduler extends Component {
 Scheduler.propTypes = {
     userData: PropTypes.func.isRequired,
     authenticatedUser: PropTypes.object.isRequired,
+    //data: PropTypes.array.isRequired
 }
 
 // Used to pull auth state and errors into this component
 const stateToProps = (state) => ({
     authenticatedUser: state.authenticatedUser,
-    dataPosted: state.dataPosted
+    data: state.data
 });
 
 // connect must be exported with a passed parameter (not direct parameter) of Scheduler this is wrapped with withRouter
