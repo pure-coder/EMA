@@ -350,62 +350,13 @@ router.get('/verify', (req, res) => {
 
 })
 
-
-//// TESTING SCHEDULER FOR LOADING FROM DB TO CLIENT
-
-// // @route  POST /api/init
-// // @desc   save data to database
-// // @access private for PT's and clients
-// router.post('/scheduler', passport.authenticate('both_rule', {session: false}) ,(req, res) =>{
-//
-//     // Initialise database with fake data for dev
-//     Events.find({})
-//         .then(results => {
-//             if(!isEmpty(results)){
-//                 console.log(results);
-//             }
-//             else
-//             {
-//                 const newEvent = new Events({
-//                     text:"My test event A",
-//                     start_date: new Date(2018,8,1),
-//                     end_date:   new Date(2018,8,5)
-//                 });
-//
-//                 // Save new client to database
-//                 newEvent.save()
-//                     .then(events => {
-//                             console.log(events);
-//                         }
-//                     )
-//                     .catch(err => {console.log(err)});
-//
-//                 const newEvent2 = new Events({
-//                     text:"One more test event",
-//                     start_date: new Date(2018,8,3),
-//                     end_date:   new Date(2018,8,8),
-//                     color: "#DD8616"
-//                 });
-//
-//                 // Save new client to database
-//                 newEvent2.save()
-//                     .then(events => {
-//                             console.log(events);
-//                         }
-//                     )
-//                     .catch(err => {console.log(err)});
-//
-//             } // else
-//         })// .then
-//
-//         res.send("Test events were added to the database")
-// });// router get /scheduler
-
-
 // @route  GET /api/data
-// @desc   retrieve data from database
+// @desc   retrieve data from database for client
 // @access private for PT's and clients
 router.get('/scheduler', (req, res) =>{
+
+    // TODO - retrieve specific clients data
+
     Events.find({})
         .then(data => {
             // set id property for all records
@@ -416,9 +367,9 @@ router.get('/scheduler', (req, res) =>{
                 res.send(data);
         })
         .catch(err => {console.log(err)})
-}); // router get /data
+}); // router get /scheduler
 
-// @route  POST /api/data
+// @route  POST /api/scheduler
 // @desc   Add, edit and delete data in database
 // @access private for PT's and clients
 router.post('/scheduler',(req, res) => {
@@ -442,7 +393,7 @@ router.post('/scheduler',(req, res) => {
     // Add, edit or delete depending on the type
     if (type === "updated")
         {
-            console.log('updated: ' +  docId)
+            // Update the existing workout using the document id
             Events.update({id: docId},
                 {
                     id: docId,
@@ -452,7 +403,7 @@ router.post('/scheduler',(req, res) => {
                 }, {upsert: true, overwrite: true, runValidators: true})
                 .then( result => {
                     if(result){
-                        // because of the way mongoose update works update needs to be performed as it makes a new
+                        // Because of the way mongoose update works update needs to be performed as it makes a new
                         // doc as id are unique, have to delete old doc with previous id so new and updated doc
                         // do not appear on schedule
                         Events.remove({_id: docId}).remove()
@@ -464,14 +415,16 @@ router.post('/scheduler',(req, res) => {
         }
     else if (type === "inserted")
         {
-            const newEvent = new Events({
+            // Create new workout for client
+            // TODO - add client id to database so only their data is shown
+            const newWorkout = new Events({
                 id: schedId,
                 text: data.text,
                 start_date: data.start_date,
                 end_date: data.end_date
             });
-            // Save new client to database
-            newEvent.save()
+            // Save new workout to database
+            newWorkout.save()
                 .then(events => {
                         console.log(events);
                     }
@@ -482,8 +435,7 @@ router.post('/scheduler',(req, res) => {
         }
     else if (type === "deleted")
         {
-            console.log('deleted: ' +  docId)
-            console.log(docId)
+            // Remove the workout from the schedule that user has deleted
             Events.remove({_id: docId}).remove()
                 .then(result => console.log(result))
                 .catch(err => console.log(err))
@@ -492,7 +444,7 @@ router.post('/scheduler',(req, res) => {
         {
             res.send("Not supported operation");
         }
-}); // router post /data
+}); // router post /scheduler
 
 //Export router so it can work with the main restful api server
 module.exports = router;

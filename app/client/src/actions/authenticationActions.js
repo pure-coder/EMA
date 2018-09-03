@@ -14,7 +14,11 @@ export const registerUser =(Data, history) => (dispatch) => {
     // Post user data to the API specifically the user/register route
     axios
         .post('/api/register', Data)
-        .then( history.push('/login')) // Uses history.push to direct the user
+        .then(response => {
+            // If registering was successful (having status code of 200) then redirect user to login page
+            if (response.status === 200)
+            history.push('/login')
+        }) // Uses history.push to direct the user
         .catch(err =>
         dispatch({ // if an error occurs dispatch is called to send the data as an object to the
                    // redux store, in this case the err data
@@ -88,3 +92,17 @@ export const userData = () => (dispatch) => {
             })
         );
 }; // userData
+
+export const registerClient =(Data, history) => (dispatch) => {
+    // Post user data to the API specifically the user/register route
+    axios
+        .post('/api/new_client', Data)
+        .then( ) // Uses history.push to direct the user history.push('/login')
+        .catch(err =>
+            dispatch({ // if an error occurs dispatch is called to send the data as an object to the
+                // redux store, in this case the err data
+                type: GET_ERRS,
+                payload: err.response.data // Puts err data into the payload which will be sent to the redux store
+            })
+        );
+}; // registerUser

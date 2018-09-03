@@ -1,7 +1,7 @@
 import React, {Component} from 'react';  // Used to create this component
 import PropTypes from 'prop-types'; // Used to document prop types sent to components
 import { connect } from 'react-redux' // Needed when using redux inside a component (connects redux to this component)
-import { registerUser} from "../../actions/authenticationActions"; // Used to import create action for registering user
+import { registerClient} from "../../actions/authenticationActions"; // Used to import create action for registering user
 import { withRouter } from 'react-router-dom';
 import FormInputGroup from "../common/FormInputGroup"; // Allows proper routing and linking using browsers match, location, and history properties
 
@@ -12,8 +12,7 @@ class Register extends Component {
         this.state = {
             FullName: '',
             Email: '',
-            Password: '',
-            Password2: '',
+            contactNumber: '',
             errors: {}
         }
 
@@ -55,16 +54,13 @@ class Register extends Component {
         const newUser = {
             FullName: this.state.FullName,
             Email: this.state.Email,
-            Password: this.state.Password,
-            Password2: this.state.Password2
+            ContactNumber: this.state.contactNumber
         }
 
         // Calls the action/reducer loginUser with the user data as well
-        // as using the history function of withRouter for directing user to another link/route. (calls registerUser
+        // as using the history function of withRouter for directing user to another link/route. (calls registerClient
         // from actions/authenticationActions.js)
-
-        // If no errors occur then register user
-        this.props.registerUser(newUser, this.props.history);
+        this.props.registerClient(newUser , this.props.history);
     }
 
     render() {
@@ -76,7 +72,7 @@ class Register extends Component {
                     <div className="row">
                         <div className="m-auto col-md-8">
                             <h1 className=" text-center display-5">Personal Trainer <br/> Sign Up</h1>
-                            <p className="description text-center">Create your Personal Trainer account</p>
+                            <p className="description text-center">Enter basic Client details below</p>
                             <form onSubmit={this.onSubmit}> {/* onSubmit used instead of normal action*/}
                                 <FormInputGroup
                                     name="FullName"
@@ -95,20 +91,12 @@ class Register extends Component {
                                     error={errors.Email}
                                 />
                                 <FormInputGroup
-                                    name="Password"
-                                    placeholder="Enter Password"
-                                    value={this.state.password}
+                                    name="ContactNumber"
+                                    placeholder="Enter Contact Number"
+                                    value={this.state.contactNumber}
                                     type="Password"
                                     onChange={this.onChange}
-                                    error={errors.Password}
-                                />
-                                <FormInputGroup
-                                    name="Password2"
-                                    placeholder="Confirm Password"
-                                    value={this.state.password2}
-                                    type="Password2"
-                                    onChange={this.onChange}
-                                    error={errors.Password2}
+                                    error={errors.ContactNumber}
                                 />
                                 <input type="submit" className="btn btn-info btn-block mt-5"/>
                             </form>
@@ -122,7 +110,7 @@ class Register extends Component {
 
 // Documents what props are needed for this component and will log a warning in the console in dev mode if not complied to
 Register.propTypes = {
-    registerUser: PropTypes.func.isRequired,
+    registerClient: PropTypes.func.isRequired,
     authenticatedUser: PropTypes.object.isRequired,
     errors: PropTypes.object.isRequired
 }
@@ -131,9 +119,9 @@ Register.propTypes = {
 const stateToProps = (state) => ({
     authenticatedUser: state.authenticatedUser,
     errors: state.errors
-    });
+});
 
 // connect must be exported with a passed parameter (not direct parameter) of Register this is wrapped with withRouter
 // allowing the functions of the package to be used with the component eg, proper routing, and direct parameters of
-// stateToProps for the 1st parameter and the action which is registerUser as the 2nd parameter
-export default connect(stateToProps, { registerUser })(withRouter(Register));
+// stateToProps for the 1st parameter and the action which is registerClient as the 2nd parameter
+export default connect(stateToProps, { registerClient })(withRouter(Register));
