@@ -4,6 +4,7 @@ import connect from "react-redux/es/connect/connect";
 import {withRouter} from "react-router-dom";
 import { userData } from "../../actions/authenticationActions";
 import '../../../node_modules/dhtmlx-scheduler/codebase/sources/dhtmlxscheduler'
+import axios from 'axios';
 
 class Scheduler extends Component {
     constructor(props) {
@@ -24,7 +25,7 @@ class Scheduler extends Component {
             this.props.history.push('/login');
         }
 
-        //this.props.userData();
+        this.props.userData();
     }
 
 

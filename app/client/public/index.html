@@ -27,7 +27,10 @@
 
             // Load the data from the database
             scheduler.templates.xml_date = function(value){ return new Date(value); };
-            scheduler.load("/api/scheduler", "json");
+            axios.get('/api/scheduler')
+                .then(scheduler.load("/api/scheduler", "json"))
+                .catch();
+
 
             // Add, edit, and delete data in the database
             scheduler.config.xml_date="%Y-%m-%d %H:%i";

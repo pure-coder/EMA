@@ -54,7 +54,7 @@ class RegisterClient extends Component {
         const newUser = {
             FullName: this.state.FullName,
             Email: this.state.Email,
-            ContactNumber: this.state.contactNumber
+            ContactNumber: this.state.ContactNumber
         }
 
         // Calls the action/reducer loginUser with the user data as well
@@ -93,7 +93,7 @@ class RegisterClient extends Component {
                                 <FormInputGroup
                                     name="ContactNumber"
                                     placeholder="Enter Contact Number"
-                                    value={this.state.contactNumber}
+                                    value={this.state.ContactNumber}
                                     type="text"
                                     onChange={this.onChange}
                                     error={errors.ContactNumber}

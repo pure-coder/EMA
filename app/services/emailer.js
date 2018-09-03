@@ -23,7 +23,7 @@ module.exports = function(Email, Token){
             to: Email + ', Mailer <' + Email + '>' // used as RCPT TO: address for SMTP
         },
         text: Token,
-        html: '<a href="http://localhost:8000/users/verify?activation_link=' + Token + '">Activation Link</a>'
+        html: '<a href="http://localhost:8000/api/verify?activation_link=' + Token + '">Activation Link</a>'
     }
     var smtpTransport = nodemailer.createTransport(smtpConfig);
     smtpTransport.sendMail(message, function(error, response){

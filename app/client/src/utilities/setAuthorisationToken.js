@@ -1,5 +1,6 @@
 import axios from 'axios';
 
+// Called from App.js
 const setAuthorisationToken = (token) => {
     // Check if the token exists
     if(token){
