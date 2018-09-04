@@ -9,7 +9,8 @@ import Footer from './components/layout/Footer'; /*import footer component*/
 import Register from './components/authentication/Register'; /*import register component*/
 import RegisterClient from './components/authentication/RegisterClient'; /*import register client component*/
 import Login from './components/authentication/Login'; /*import login component*/
-import Scheduler from './components/Scheduler/Scheduler'; //////////// THIS NEEDS TO BE CHANGED ////////////////
+import Scheduler from './components/scheduler/Scheduler'; /*import scheduler component*/
+import Dashboard from './components/dashboard/Dashboard' /*import dashboard component*/
 import ErrorComponent from './components/error/ErrorComponent';
 
 import './App.css';
@@ -62,6 +63,7 @@ class App extends Component {
                                 <Route exact path="/register_client" component={RegisterClient}/>
                                 <Route exact path="/login" component={Login}/>
                                 <Route exact path="/scheduler" component={Scheduler}/>
+                                <Route exact path="/dashboard" component={Dashboard}/>
 
                                 {/*If page doesn't exist * then show error page component*/}
                                 <Route component={ErrorComponent} />

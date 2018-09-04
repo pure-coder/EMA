@@ -112,3 +112,17 @@ export const registerClient =(Data, history) => (dispatch) => {
         );
 }; // registerUser
 
+export const dashboard =(Data, history) => (dispatch) => {
+    // Post user data to the API specifically the user/register route
+    axios
+        .post( )
+        .then(response => {
+
+        }) // Uses history.push to direct the user
+        .catch(err =>
+            dispatch({ // if an error occurs dispatch is called to send the data as an object to the
+
+            })
+        );
+}; // registerUser
+
