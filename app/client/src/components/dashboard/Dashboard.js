@@ -182,7 +182,7 @@ class Dashboard extends Component {
     }
 
     render() {
-        const {errors} = this.state; // This allows errors to be pulled out of this.state with pulling them out directly
+        //const {errors} = this.state; // This allows errors to be pulled out of this.state with pulling them out directly
 
         return (
                 <div className="container  dashboard-custom">
@@ -203,7 +203,7 @@ class Dashboard extends Component {
 Dashboard.propTypes = {
     dashboard: PropTypes.func.isRequired,
     authenticatedUser: PropTypes.object.isRequired,
-    errors: PropTypes.object.isRequired
+    //errors: PropTypes.object.isRequired
 }
 
 // Used to pull auth state and errors into this component

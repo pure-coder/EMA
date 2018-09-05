@@ -372,9 +372,20 @@ router.get('/scheduler', passport.authenticate('both_rule', {session: false}), (
 // @route  POST api/scheduler
 // @desc   Add, edit and delete data in database
 // @access private for PT's and clients
-router.post('/scheduler',(req, res) => {
+router.post('/scheduler',passport.authenticate('both_rule', {session: false}), (req, res) => {
     let data = req.body;
     let schedId, docId;
+
+    // Had to rename keys to the data sent as dhtmlxscheduler added the id number into the key
+    for (let k in data){
+        if (data.hasOwnProperty(k)) {
+            let oldKey = k;
+            let newKey = k.replace(addedId, '')
+            Object.defineProperty(data,newKey,
+                Object.getOwnPropertyDescriptor(data, oldKey));
+            delete data[oldKey];
+        }
+    } // for
 
     // Get data's operation type
     let type = data["!nativeeditor_status"];
@@ -386,6 +397,7 @@ router.post('/scheduler',(req, res) => {
     else {
         docId = data.id;
     }
+
 
     // Take away data properties that won't be saved to the database
     delete data["!nativeeditor_status"];

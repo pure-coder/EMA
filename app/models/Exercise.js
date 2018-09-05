@@ -7,7 +7,7 @@ const ExerciseSchema = mongoose.Schema({
     },
     Details: [
         {
-            Metric: { type : String },
+            Weight: { type : String },
             Date: { type: Date }
         }
     ]
