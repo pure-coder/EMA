@@ -389,10 +389,11 @@ router.post('/scheduler',passport.authenticate('both_rule', {session: false}), (
     } // for
     console.log(data)
 
-    // Get data's operation type
+    // Get data's operation type which is either inserted/updated/deleted
     let type = data["!nativeeditor_status"];
 
-    // Get the id of the current record
+    // Get the id of current record as inserted code id is different from updated/delete as dhtmlxscheduler changes
+    // the id to the document id from mongodb database for edited events
     if (type === 'inserted') {
         schedId = data.id;
     }
