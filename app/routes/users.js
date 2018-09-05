@@ -377,6 +377,7 @@ router.post('/scheduler',passport.authenticate('both_rule', {session: false}), (
     let schedId, docId;
 
     // Had to rename keys to the data sent as dhtmlxscheduler added the id number into the key
+    let addedId = data.ids + '_';
     for (let k in data){
         if (data.hasOwnProperty(k)) {
             let oldKey = k;
@@ -386,6 +387,7 @@ router.post('/scheduler',passport.authenticate('both_rule', {session: false}), (
             delete data[oldKey];
         }
     } // for
+    console.log(data)
 
     // Get data's operation type
     let type = data["!nativeeditor_status"];

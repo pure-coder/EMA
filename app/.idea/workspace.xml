@@ -2,10 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ec8ccf39-8487-4892-a38d-de9c288878a3" name="Default" comment="min height changed for developed pages">
-      <change beforePath="$PROJECT_DIR$/client/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/App.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/dashboard/Dashboard.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/dashboard/Dashboard.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/scheduler/Scheduler.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/scheduler/Scheduler.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/Exercise.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/Exercise.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/users.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/users.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -35,7 +31,7 @@
         <counts>
           <entry key="css" value="1773" />
           <entry key="html" value="1072" />
-          <entry key="js" value="23080" />
+          <entry key="js" value="23083" />
           <entry key="json" value="1" />
           <entry key="txt" value="76" />
         </counts>
@@ -45,7 +41,7 @@
           <entry key="CSS" value="1773" />
           <entry key="HTML" value="1072" />
           <entry key="JSON" value="1" />
-          <entry key="JavaScript" value="23080" />
+          <entry key="JavaScript" value="23083" />
           <entry key="PLAIN_TEXT" value="76" />
         </counts>
       </usages-collector>
@@ -100,8 +96,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/routes/users.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="239">
-              <caret line="387" column="12" selection-start-line="387" selection-start-column="12" selection-end-line="387" selection-end-column="12" />
+            <state relative-caret-position="69">
+              <caret line="379" column="33" selection-start-line="379" selection-start-column="33" selection-end-line="379" selection-end-column="33" />
             </state>
           </provider>
         </entry>
@@ -473,7 +469,7 @@
       <workItem from="1535203436750" duration="10451000" />
       <workItem from="1535558676498" duration="37815000" />
       <workItem from="1535645357895" duration="1637000" />
-      <workItem from="1535974075888" duration="49011000" />
+      <workItem from="1535974075888" duration="49149000" />
     </task>
     <task id="LOCAL-00001" summary="min height changed for developed pages">
       <created>1534874964132</created>
@@ -486,7 +482,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="310628000" />
+    <option name="totallyTimeSpent" value="310766000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="784" extended-state="6" />
@@ -881,8 +877,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/routes/users.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="239">
-          <caret line="387" column="12" selection-start-line="387" selection-start-column="12" selection-end-line="387" selection-end-column="12" />
+        <state relative-caret-position="69">
+          <caret line="379" column="33" selection-start-line="379" selection-start-column="33" selection-end-line="379" selection-end-column="33" />
         </state>
       </provider>
     </entry>
