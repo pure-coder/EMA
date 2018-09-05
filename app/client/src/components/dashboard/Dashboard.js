@@ -29,89 +29,123 @@ class Dashboard extends Component {
             this.props.history.push('/dashboard');
         }
 
-        // set the dimensions and margins of the graph
-        let marginTop = 20;
-        let marginRight = 20;
-        let marginBottom = 30;
-        let marginLeft = 50;
-        let width = 960 - marginLeft - marginRight;
-        let   height = 500 - marginTop - marginBottom;
-
-        // parse the {date / time
-        let parseTime = d3.timeParse("%d-%b-%y");
-
-        // set the ranges
-        let x = d3.scaleTime().range([0, width]);
-        let y = d3.scaleLinear().range([height, 0]);
-
-        // define the line
-        let valueline = d3.line()
-            .x(function(d) { return x(d.date); })
-            .y(function(d) { return y(d.frequency); });
-
-        // append the svg obgect to the body of the page
-        // appends a 'group' element to 'svg'
-        // moves the 'group' element to the top left margin
-        let svg = d3.select("body").append("svg")
-            .attr("width", width + marginLeft + marginRight)
-            .attr("height", height + marginTop + marginBottom)
-            .append("g")
-            .attr("transform",
-                "translate(" + marginLeft + "," + marginTop + ")");
-
         // set data
         let myData = [
-            {date: '1-May-12', frequency: 58.13},
-            {date: '27-Apr-12', frequency: 67.00},
-            {date: '26-Apr-12', frequency: 89.70},
-            {date: '25-Apr-12', frequency: 99.00},
-            {date: '24-Apr-12', frequency: 130.28},
-            {date: '23-Apr-12', frequency: 166.70},
-            {date: '20-Apr-12', frequency: 234.98},
-            {date: '19-Apr-12', frequency: 345.44},
-            {date: '18-Apr-12', frequency: 443.34},
-            {date: '17-Apr-12', frequency: 543.70},
-            {date: '16-Apr-12', frequency: 580.13},
-            {date: '13-Apr-12', frequency: 605.23},
-            {date: '12-Apr-12', frequency: 622.77},
-            {date: '11-Apr-12', frequency: 626.20},
-            {date: '10-Apr-12', frequency: 628.44},
+            {date: '01-May-12', frequency: 1.13},
+            {date: '01-Jun-12', frequency: 5.00},
+            {date: '01-Jul-12', frequency: 10},
+            {date: '01-Aug-12', frequency: 20},
+            {date: '01-Sep-12', frequency: 30},
+            {date: '01-Nov-12', frequency: 35},
+            {date: '01-Dec-12', frequency: 42},
+            {date: '01-Jan-13', frequency: 55},
+            {date: '05-Feb-13', frequency: 55},
+            {date: '05-Mar-13', frequency: 60},
+            {date: '05-Apr-13', frequency: 66},
+            {date: '05-may-13', frequency: 68},
+            {date: '10-Jun-13', frequency: 62},
+            {date: '10-Jul-13', frequency: 70},
+            {date: '10-Aug-13', frequency: 76},
         ]
 
-        // Get the data
-        function draw (data) {
+        // set data
+        let myData2 = [
+            {date: '01-May-12', frequency: 10},
+            {date: '01-Jun-12', frequency: 15},
+            {date: '01-Jul-12', frequency: 10},
+            {date: '01-Aug-12', frequency: 11},
+            {date: '01-Sep-12', frequency: 52},
+            {date: '01-Nov-12', frequency: 35},
+            {date: '01-Dec-12', frequency: 42},
+            {date: '01-Jan-13', frequency: 68},
+            {date: '05-Feb-13', frequency: 55},
+            {date: '05-Mar-13', frequency: 25},
+            {date: '05-Apr-13', frequency: 66},
+            {date: '05-may-13', frequency: 68},
+            {date: '10-Jun-13', frequency: 62},
+            {date: '10-Jul-13', frequency: 70},
+            {date: '10-Aug-13', frequency: 76},
+        ]
 
-            // format the data
-            data.forEach(function (d) {
-                d.date = parseTime(d.date);
-                d.frequency = +d.frequency;
-            });
+        // 1st parameter takes array of objects as data to plot graph, 2nd parameter takes div as position to display graph
+        function addGraph(data, position) {// set the dimensions and margins of the graph
 
-            // Scale the range of the data
-            x.domain(d3.extent(data, function (d) {
-                return d.date;
-            }));
-            y.domain([0, d3.max(data, function (d) {
-                return d.frequency;
-            })]);
+            // Takes data given in function
+            let myData = data;
 
-            // Add the valueline path.
-            svg.append("path")
-                .data([data])
-                .attr("class", "line")
-                .attr("d", valueline);
+            let marginTop = 20;
+            let marginRight = 20;
+            let marginBottom = 30;
+            let marginLeft = 50;
+            let width = 500 - marginLeft - marginRight;
+            let height = 300 - marginTop - marginBottom;
 
-            // Add the X Axis
-            svg.append("g")
-                .attr("transform", "translate(0," + height + ")")
-                .call(d3.axisBottom(x));
+            // parse the {date / time
+            let parseTime = d3.timeParse("%d-%b-%y");
 
-            // Add the Y Axis
-            svg.append("g")
-                .call(d3.axisLeft(y))
-        } // d3.json
+            // set the ranges
+            let x = d3.scaleTime().range([0, width]);
+            let y = d3.scaleLinear().range([height, 0]);
 
-        draw(myData);
+            // define the line
+            let valueline = d3.line()
+                .x(function (d) {
+                    return x(d.date);
+                })
+                .y(function (d) {
+                    return y(d.frequency);
+                });
+
+            // append the svg object to the body of the page
+            // appends a 'group' element to 'svg'
+            // moves the 'group' element to the top left margin
+            // setPosition - sets specific graph to div specified as position parameter
+            let svg = d3.select(position).append("svg")
+                .attr("width", width + marginLeft + marginRight)
+                .attr("height", height + marginTop + marginBottom)
+                .append("g")
+                .attr("transform",
+                    "translate(" + marginLeft + "," + marginTop + ")");
+
+            // Get the data
+            function draw(data) {
+
+                // format the data
+                data.forEach(function (d) {
+                    d.date = parseTime(d.date);
+                    d.frequency = +d.frequency;
+                });
+
+                // Scale the range of the data
+                x.domain(d3.extent(data, function (d) {
+                    return d.date;
+                }));
+                y.domain([0, d3.max(data, function (d) {
+                    return d.frequency;
+                })]);
+
+                // Add the valueline path.
+                svg.append("path")
+                    .data([data])
+                    .attr("class", "line")
+                    .attr("d", valueline);
+
+                // Add the X Axis
+                svg.append("g")
+                    .attr("transform", "translate(0," + height + ")")
+                    .call(d3.axisBottom(x));
+
+                // Add the Y Axis
+                svg.append("g")
+                    .call(d3.axisLeft(y))
+            } // d3.json
+
+            draw(myData);
+        } // addGraph
+
+        // 1st argument takes array of objects as data to plot graph, 2nd argument takes div as position to display graph
+        addGraph(myData, ".progression-data");
+        addGraph(myData2, ".progression-data2");
 
     }
 
@@ -151,19 +185,16 @@ class Dashboard extends Component {
         const {errors} = this.state; // This allows errors to be pulled out of this.state with pulling them out directly
 
         return (
-            <div className="dashboard">
                 <div className="container  dashboard-custom">
                     <div className="row">
                         <div className="m-auto col-md-8">
                             <h1 className=" text-center display-5">Personal Trainer <br/> Sign Up</h1>
                             <p className="description text-center">Create your Personal Trainer account</p>
-
-
-
+                            <div className="progression-data"></div>
+                            <div className="progression-data2"></div>
                         </div>
                     </div>
                 </div>
-            </div>
         );
     }
 }
