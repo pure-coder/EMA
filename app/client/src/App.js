@@ -62,8 +62,8 @@ class App extends Component {
                                 <Route exact path="/register" component={Register}/>
                                 <Route exact path="/register_client" component={RegisterClient}/>
                                 <Route exact path="/login" component={Login}/>
-                                <Route exact path="/scheduler" component={Scheduler}/>
-                                <Route exact path="/dashboard" component={Dashboard}/>
+                                <Route exact path="/scheduler/:id?" component={Scheduler}/>
+                                <Route exact path="/dashboard/:id?" component={Dashboard}/>
 
                                 {/*If page doesn't exist * then show error page component*/}
                                 <Route component={ErrorComponent} />
