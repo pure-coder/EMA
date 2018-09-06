@@ -351,7 +351,7 @@ router.get('/verify', (req, res) => {
 })
 
 // @route  GET api/data
-// @desc   retrieve data from database for client
+// @desc   Workout scheduler - retrieve data from database for client
 // @access private for PT's and clients
 router.get('/scheduler', passport.authenticate('both_rule', {session: false}), (req, res) =>{
 

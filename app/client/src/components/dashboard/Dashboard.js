@@ -188,8 +188,7 @@ class Dashboard extends Component {
                 <div className="container  dashboard-custom">
                     <div className="row">
                         <div className="m-auto col-md-8">
-                            <h1 className=" text-center display-5">Personal Trainer <br/> Sign Up</h1>
-                            <p className="description text-center">Create your Personal Trainer account</p>
+                            <h1 className=" text-center display-5">Dashboard</h1>
                             <div className="progression-data"></div>
                             <div className="progression-data2"></div>
                         </div>

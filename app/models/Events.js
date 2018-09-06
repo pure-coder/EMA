@@ -13,6 +13,9 @@ const EventsSchema = mongoose.Schema({
     },
     id: {
         type: String
+    },
+    clientId: {
+        type: String
     }
 },{collection: "Events"}, { timestamps: true });
 

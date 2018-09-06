@@ -9,13 +9,13 @@ class Scheduler extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            data: [],
             errors: {}
         }
 
         const scheduler = window.dhtmlXScheduler;
         const dataProcessor = window.dataProcessor;
 
+        // Connect via API to get data for a specific client
         axios.get('/api/scheduler')
             .then(result => {
                 if (result) {
@@ -40,19 +40,14 @@ class Scheduler extends Component {
 
         // Add, edit, and delete data in the database
         scheduler.config.xml_date = "%Y-%m-%d %H:%i";
-
-
         //Get token for adding/editing/deleting events
         let token = localStorage.getItem('jwtToken')
-
+        // Use dataProcessor of dhtmlx scheduler to insert/update/delete data for scheduler
         let dataProc = new dataProcessor("/api/scheduler");
         dataProc.init(scheduler);
-
-        // Add token header to allow access to the POST function on API
+        // Add token to header to allow access to the POST function on API
         dataProc.setTransactionMode({mode: "POST", headers:{ "Content-Type": "application/x-www-form-urlencoded",
         Authorization: token}});
-
-        //dataProc.setTransactionMode("POST", false);
 
     }// constructor
 
@@ -99,13 +94,11 @@ class Scheduler extends Component {
 // Documents what props are needed for this component and will log a warning in the console in dev mode if not complied to
 Scheduler.propTypes = {
     authenticatedUser: PropTypes.object.isRequired,
-    //data: PropTypes.array.isRequired
 }
 
 // Used to pull auth state and errors into this component
 const stateToProps = (state) => ({
     authenticatedUser: state.authenticatedUser,
-    data: state.data
 });
 
 // connect must be exported with a passed parameter (not direct parameter) of scheduler this is wrapped with withRouter
