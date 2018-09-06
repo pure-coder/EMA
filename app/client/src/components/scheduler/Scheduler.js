@@ -43,7 +43,10 @@ class Scheduler extends Component {
         //Get token for adding/editing/deleting events
         let token = localStorage.getItem('jwtToken')
         // Use dataProcessor of dhtmlx scheduler to insert/update/delete data for scheduler
-        let dataProc = new dataProcessor("/api/scheduler");
+        // for the current client (the id of the client is sent to the api so that the event can be
+        // associated with them, allowing client events to be filtered so only their events are retreived
+        // and shown with GET method
+        let dataProc = new dataProcessor("/api/scheduler/" + this.props.authenticatedUser.user.id);
         dataProc.init(scheduler);
         // Add token to header to allow access to the POST function on API
         dataProc.setTransactionMode({mode: "POST", headers:{ "Content-Type": "application/x-www-form-urlencoded",

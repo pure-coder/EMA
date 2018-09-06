@@ -116,6 +116,7 @@ router.post('/new_client', passport.authenticate('pt_rule', {session: false}) ,(
         return res.status(400).json(errors);
     }
 
+
     let token = req.headers.authorization.split(' ')[1];
     let payload = jwt.decode(token, keys.secretOrKey);
     let PersonalTrainerId = payload.id;
@@ -150,7 +151,8 @@ router.post('/new_client', passport.authenticate('pt_rule', {session: false}) ,(
                             FullName: req.body.FullName,
                             Email: req.body.Email,
                             ContactNumber: req.body.ContactNumber,
-                            Date: now
+                            Date: now,
+                            ptId : PersonalTrainerId
                         });
 
                         // Save new client to database
@@ -224,8 +226,8 @@ router.post('/login', (req, res) =>{
                                 .then(isMatch => {
                                     // If it is matched then provide a token
                                     if (isMatch) {
-                                        // User matched so create payload
-                                        const payload = {id: client.id, name: client.FullName}
+                                        // User matched so create payload for client
+                                        const payload = {id: client.id, name: client.FullName, pt: false}
 
                                         // Sign Token (needs payload, secret key, and expiry detail (3600 = 1hr) for re-login
                                         // and callback for token
@@ -263,13 +265,8 @@ router.post('/login', (req, res) =>{
                     .then(isMatch =>{
                         // If it is matched then provide a token
                         if(isMatch) {
-                            // User matched so create payload
-
-                            // Create own expiration time for token
-                            // let tokenExpiration = new Date().valueOf();
-                            // console.log(tokenExpiration);
-                            // const payload = {id: pt.id, name: pt.FullName, clients: pt.ClientIDs, exp: tokenExpiration}
-                             const payload = {id: pt.id, name: pt.FullName, clients: pt.ClientIDs}
+                            // User matched so create payload for pt
+                             const payload = {id: pt.id, name: pt.FullName, pt: true ,clients: pt.ClientIDs}
 
                             // Sign Token (needs payload, secret key, and expiry detail (3600 = 1hr) for re-login
                             // and callback for token
@@ -372,9 +369,10 @@ router.get('/scheduler', passport.authenticate('both_rule', {session: false}), (
 // @route  POST api/scheduler
 // @desc   Add, edit and delete data in database
 // @access private for PT's and clients
-router.post('/scheduler',passport.authenticate('both_rule', {session: false}), (req, res) => {
+router.post('/scheduler/:id',passport.authenticate('both_rule', {session: false}), (req, res) => {
     let data = req.body;
     let schedId, docId;
+    // console.log(req.params.id); // used to check if correct client id was passed with event
 
     // Had to rename keys to the data sent as dhtmlxscheduler added the id number into the key
     let addedId = data.ids + '_';
@@ -387,7 +385,6 @@ router.post('/scheduler',passport.authenticate('both_rule', {session: false}), (
             delete data[oldKey];
         }
     } // for
-    console.log(data)
 
     // Get data's operation type which is either inserted/updated/deleted
     let type = data["!nativeeditor_status"];
@@ -404,6 +401,8 @@ router.post('/scheduler',passport.authenticate('both_rule', {session: false}), (
 
     // Take away data properties that won't be saved to the database
     delete data["!nativeeditor_status"];
+
+    // only perform database operations if client is in the pt's clients list (security logic)
 
     // Add, edit or delete depending on the type
     if (type === "updated")

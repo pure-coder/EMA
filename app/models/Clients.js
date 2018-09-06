@@ -31,6 +31,9 @@ const ClientSchema = mongoose.Schema({
     },
     Date: {
         type: Date
+    },
+    ptId: {
+        type: String
     }
 },{collection: "Clients"}, { timestamps: true });
 
