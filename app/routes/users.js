@@ -172,16 +172,15 @@ router.post('/new_client', passport.authenticate('pt_rule', {session: false}) ,(
                                             console.log(client_id_object),
                                             res.json({result})
                                         })
-                                        .catch(err => {res.json({err})},
-                                            )
+                                        .catch(err => {res.json({err})})
                             }
                             )
-                            .catch(err => {console.log(err)});
+                            .catch(err => res.json({err}));
                     }
 
                 })
 
-        })
+        }).catch(err => res.json({err}))
 });
 
 // @route  POST api/login

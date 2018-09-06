@@ -26,7 +26,7 @@ class Login extends Component {
     componentDidMount() {
         // Check if isAuthenticated is true then redirect to the dashboard
         if (this.props.authenticatedUser.isAuthenticated) {
-            this.props.history.push('/dashboard');
+            this.props.history.push('/users/' + this.props.authenticatedUser.user.id + '/dashboard');
         }
     }
 
@@ -109,15 +109,13 @@ class Login extends Component {
 Login.propTypes = {
     loginUser: PropTypes.func.isRequired,
     authenticatedUser: PropTypes.object.isRequired,
-    errors: PropTypes.object.isRequired,
-    user: PropTypes.object.isRequired
+    errors: PropTypes.object.isRequired
 }
 
 // Used to pull auth state and errors into this component
 const stateToProps = (state) => ({
     authenticatedUser: state.authenticatedUser,
-    errors: state.errors,
-    user: state.user
+    errors: state.errors
 });
 
 // connect must be exported with a passed parameter (not direct parameter) of Login this is wrapped with withRouter

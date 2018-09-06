@@ -60,7 +60,7 @@ class RegisterClient extends Component {
         // Calls the action/reducer loginUser with the user data as well
         // as using the history function of withRouter for directing user to another link/route. (calls registerClient
         // from actions/authenticationActions.js)
-        this.props.registerClient(newUser , this.props.history);
+        this.props.registerClient(newUser , this.props);
     }
 
     render() {
