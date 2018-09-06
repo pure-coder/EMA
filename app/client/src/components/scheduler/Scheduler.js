@@ -16,18 +16,20 @@ class Scheduler extends Component {
         const dataProcessor = window.dataProcessor;
 
         // Connect via API to get data for a specific client
-        axios.get('/api/scheduler')
+        let userId = this.props.authenticatedUser.user.id;
+        let clientId = this.props.authenticatedUser.user.pt ? '5b9150d0583702356ccca378' : '';
+        axios.get('/api/' + userId + '/scheduler/' + clientId)
             .then(result => {
                 if (result) {
 
+                    // Initialise scheduler to current date (month)
                     let now = new Date();
                     let date = now.getDate();
                     let month = now.getMonth();
                     let year = now.getFullYear();
                     // Initialising workout scheduler to current date and display the month view
                     scheduler.init('scheduler', new Date(year, month, date), "month")
-
-                    // Load the data from the database
+                    // Load the date from the database
                     scheduler.templates.xml_date = function (value) {
                         return new Date(value);
                     };
@@ -42,6 +44,8 @@ class Scheduler extends Component {
         scheduler.config.xml_date = "%Y-%m-%d %H:%i";
         //Get token for adding/editing/deleting events
         let token = localStorage.getItem('jwtToken')
+
+
         // Use dataProcessor of dhtmlx scheduler to insert/update/delete data for scheduler
         // for the current client (the id of the client is sent to the api so that the event can be
         // associated with them, allowing client events to be filtered so only their events are retreived

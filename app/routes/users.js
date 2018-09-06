@@ -175,12 +175,12 @@ router.post('/new_client', passport.authenticate('pt_rule', {session: false}) ,(
                                         .catch(err => {res.json({err})})
                             }
                             )
-                            .catch(err => res.json({err}));
-                    }
+                            .catch(err => res.json({err})); // catch client save
+                    } // else
 
-                })
+                }).catch(err => res.json({err})) // catch pt find
 
-        }).catch(err => res.json({err}))
+        }).catch(err => res.json({err})) // catch client find
 });
 
 // @route  POST api/login
@@ -349,20 +349,73 @@ router.get('/verify', (req, res) => {
 // @route  GET api/data
 // @desc   Workout scheduler - retrieve data from database for client
 // @access private for PT's and clients
-router.get('/scheduler', passport.authenticate('both_rule', {session: false}), (req, res) =>{
+router.get('/:id/scheduler/:cid?', passport.authenticate('both_rule', {session: false}), (req, res) =>{
 
     // TODO - retrieve specific clients data
 
-    Events.find({})
-        .then(data => {
-            // set id property for all records
+    // Get clientId from frontEnd
+    let userId = req.params.id;
+    let clientId = req.params.cid
+
+    // Check authentication of the current user, will also be used to verify if they can access data
+    let token = req.headers.authorization.split(' ')[1];
+    let payload = jwt.decode(token, keys.secretOrKey);
+    let userTokenId = payload.id;
+    let isPT = payload.pt;
+
+    // If user is pt check to see if the client id is in their list, if so allow them access to data
+    if(isPT){
+        PersonalTrainer.findOne({"_id": userTokenId} )
+            .then(pt => {
+                // Make sure that the pt exists
+                if(pt){
+                    let clientIds = pt.ClientIDs;
+                    // Check to see if client id is in the pt clients list
+                    let checkClientId = clientIds.find(function (checkClientId){return checkClientId.id === clientId})
+                    // If id is in pt client id list then display events for client
+                    if(checkClientId !== undefined){
+                        Events.find({clientId})
+                            .then(data => {
+                                // set id property for all records
+                                for (let i = 0; i < data.length; i++)
+                                    data[i].id = data[i]._id;
+
+                                //output response
+                                return res.send(data);
+                            })
+                            .catch(err => {console.log(err)})
+                    }
+                    else {
+                        // Send empty data so scheduler gets rendered
+                        let data = [];
+                        return res.send(data);
+                    }
+                }
+            })
+            .catch(err => { return res.json({err}) }) // catch pt find
+    }
+    else if(userTokenId === userId){
+        //Events.findOne({"clientId": })
+        Events.find({clientId : userId})
+            .then(data => {
+                // set id property for all records
                 for (let i = 0; i < data.length; i++)
                     data[i].id = data[i]._id;
 
                 //output response
-                res.send(data);
-        })
-        .catch(err => {console.log(err)})
+                console.log(data)
+                return res.send(data);
+            })
+            .catch(err => {console.log(err)})
+    }
+    else
+    {
+        // Send empty data so scheduler gets rendered
+        let data = [];
+        return res.send(data);
+    }
+
+
 }); // router get /scheduler
 
 // @route  POST api/scheduler
@@ -371,7 +424,8 @@ router.get('/scheduler', passport.authenticate('both_rule', {session: false}), (
 router.post('/scheduler/:id',passport.authenticate('both_rule', {session: false}), (req, res) => {
     let data = req.body;
     let schedId, docId;
-    // console.log(req.params.id); // used to check if correct client id was passed with event
+    let clientId = req.params.id;
+    // console.log(clientId); // used to check if correct client id was passed with event
 
     // Had to rename keys to the data sent as dhtmlxscheduler added the id number into the key
     let addedId = data.ids + '_';
@@ -402,6 +456,7 @@ router.post('/scheduler/:id',passport.authenticate('both_rule', {session: false}
     delete data["!nativeeditor_status"];
 
     // only perform database operations if client is in the pt's clients list (security logic)
+
 
     // Add, edit or delete depending on the type
     if (type === "updated")
@@ -434,7 +489,8 @@ router.post('/scheduler/:id',passport.authenticate('both_rule', {session: false}
                 id: schedId,
                 text: data.text,
                 start_date: data.start_date,
-                end_date: data.end_date
+                end_date: data.end_date,
+                clientId: clientId
             });
             // Save new workout to database
             newWorkout.save()
