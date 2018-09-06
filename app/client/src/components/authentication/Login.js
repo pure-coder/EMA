@@ -35,7 +35,7 @@ class Login extends Component {
 
         // Check if isAuthenticated is true then redirect to the dashboard
         if(nextProps.authenticatedUser.isAuthenticated){
-            this.props.history.push('/dashboard/' + nextProps.authenticatedUser.user.id);
+            this.props.history.push('/users/' + nextProps.authenticatedUser.user.id + '/dashboard');
         }
 
         // If property (nextProps) contains errors (contains the "errors" prop) then set the component state of errors

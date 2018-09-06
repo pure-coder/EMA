@@ -33,33 +33,6 @@ module.exports = function validateRegistrationInput(data){
         errors.Email = 'Email is required';
     }
 
-    // Not needed whilst PT is activating client account
-
-    // // Checks to see if DateOfBirth field is empty using validator module
-    // if(Validator.isEmpty(data.DateOfBirth)){
-    //     errors.DateOfBirth = 'Date of Birth is required';
-    // }
-    //
-    // // // Checks to see if Passwords match field is empty using validator module
-    // if(!Validator.equals(data.Password, data.Password2)){
-    //     errors.Password = 'Passwords do not match';
-    // }
-    //
-    // // Password must have length with min 8 and max 20
-    // if(!Validator.isLength(data.Password, {min: 8, max: 20})) {
-    //     errors.Password = 'Password must be between 8 and 20 characters';
-    // }
-    //
-    // // Checks to see if Password2 field is empty using validator module
-    // if(Validator.isEmpty(data.Password2)) {
-    //     errors.Password2 = 'Confirmation password is required';
-    // }
-    //
-    // // Checks to see if Password field is empty using validator module
-    // if(Validator.isEmpty(data.Password)){
-    //     errors.Password = 'Password is required';
-    //}
-
     // Checks to see if ContactNumber field is empty using validator module
     if(Validator.isEmpty(data.ContactNumber)){
         errors.ContactNumber = 'Contact number is required';

@@ -104,7 +104,7 @@ router.post('/register', (req, res) =>{
         })
 });
 
-// @route  POST api/register
+// @route  POST api/register/new_client
 // @desc   Register Personal Trainer
 // @access Private route - only Personal Trainers can add new clients
 router.post('/new_client', passport.authenticate('pt_rule', {session: false}) ,(req, res) =>{

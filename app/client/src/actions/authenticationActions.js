@@ -76,14 +76,14 @@ export const logOutUser = () => dispatch => {
 };
 
 // Register client
-export const registerClient =(Data, history) => (dispatch) => {
+export const registerClient =(Data, props) => (dispatch) => {
     // Post user data to the API specifically the user/register route
     axios
         .post('/api/new_client', Data)
         .then(response => {
             // If registering was successful (having status code of 200) then redirect user to login page
             if (response.status === 200)
-                history.push('/login')
+                props.history.push('/login')
         }) // Uses history.push to direct the user) // Uses history.push to direct the user history.push('/login')
         .catch(err =>
             dispatch({ // if an error occurs dispatch is called to send the data as an object to the

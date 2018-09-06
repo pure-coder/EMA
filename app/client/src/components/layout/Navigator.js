@@ -64,7 +64,8 @@ class Navigation extends Component {
         return (
             <nav className="navbar navbar-expand-sm navbar-dark navbar-custom mb-5">
                 <div className="container navbar-container">
-                    <Link className="navbar-brand" to="/">
+                    <Link className="navbar-brand" to={this.props.authenticatedUser.isAuthenticated ? '/users/' +
+                        this.props.authenticatedUser.user.id + '/dashboard' : "/"}>
                         <img src={require('../../img/logo.jpg')} alt={"Fitness app logo"}></img>
                         Fitness App
                     </Link> {/*Using Link instead of anchor tag*/}
