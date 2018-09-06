@@ -402,8 +402,6 @@ router.get('/:id/scheduler/:cid?', passport.authenticate('both_rule', {session: 
                 for (let i = 0; i < data.length; i++)
                     data[i].id = data[i]._id;
 
-                //output response
-                console.log(data)
                 return res.send(data);
             })
             .catch(err => {console.log(err)})

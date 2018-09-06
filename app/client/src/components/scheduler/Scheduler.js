@@ -17,7 +17,10 @@ class Scheduler extends Component {
 
         // Connect via API to get data for a specific client
         let userId = this.props.authenticatedUser.user.id;
-        let clientId = this.props.authenticatedUser.user.pt ? '5b9150d0583702356ccca378' : '';
+        let clientId = this.props.authenticatedUser.user.pt ? '' : '';
+        console.log('this will check client id that pt is viewing')
+        // If client - userId will only be used, will show their events, if pt userId is pt, clientId is client events that
+        // pt wishes to view (clientId added when pt clicks client on their dashboard)
         axios.get('/api/' + userId + '/scheduler/' + clientId)
             .then(result => {
                 if (result) {
