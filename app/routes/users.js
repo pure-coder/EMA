@@ -383,6 +383,7 @@ router.get('/:id/scheduler/:cid?', passport.authenticate('both_rule', {session: 
                                     data[i].id = data[i]._id;
 
                                 //output response
+                                console.log(data)
                                 return res.send(data);
                             })
                             .catch(err => {console.log(err)})
@@ -420,12 +421,25 @@ router.get('/:id/scheduler/:cid?', passport.authenticate('both_rule', {session: 
 
 // @route  POST api/scheduler
 // @desc   Add, edit and delete data in database
-// @access private for PT's and clients
-router.post('/scheduler/:id',passport.authenticate('both_rule', {session: false}), (req, res) => {
+// @access private for PT's - clients can't post to the scheduler
+router.post('/:id/scheduler/:cid',passport.authenticate('pt_rule', {session: false}), (req, res) => {
     let data = req.body;
-    let schedId, docId;
-    let clientId = req.params.id;
-    // console.log(clientId); // used to check if correct client id was passed with event
+    let schedId, docId; // initialising schedule id and document id
+
+
+    // Get clientId from frontEnd
+    let userId = req.params.id;
+    let clientId = req.params.cid
+
+    // Check authentication of the current user, will also be used to verify if they can access data
+    let token = req.headers.authorization.split(' ')[1];
+    let payload = jwt.decode(token, keys.secretOrKey);
+    let isPT = payload.pt;
+
+    // If user is PT then userId will be of pt so change clientId to userId, so that userId is that of the client
+    if(isPT){
+        userId = clientId;
+    }
 
     // Had to rename keys to the data sent as dhtmlxscheduler added the id number into the key
     let addedId = data.ids + '_';
@@ -450,7 +464,6 @@ router.post('/scheduler/:id',passport.authenticate('both_rule', {session: false}
     else {
         docId = data.id;
     }
-
 
     // Take away data properties that won't be saved to the database
     delete data["!nativeeditor_status"];
@@ -490,7 +503,7 @@ router.post('/scheduler/:id',passport.authenticate('both_rule', {session: false}
                 text: data.text,
                 start_date: data.start_date,
                 end_date: data.end_date,
-                clientId: clientId
+                clientId: userId
             });
             // Save new workout to database
             newWorkout.save()
