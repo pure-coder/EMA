@@ -32,7 +32,8 @@ const PersonalTrainerSchema = mongoose.Schema({
     ClientIDs: [{
         FullName: {type: String},
         email: {type: String},
-        id: {type: String}
+        id: {type: String},
+        ptId: {type: String}
     }]
     // collection value is the name of the collection that is stored in the database
 },{collection: "Personal_Trainers"}, { timestamps: true });

@@ -3,9 +3,13 @@ import React, { Component } from 'react';
 import { deleteClient} from "../../actions/DashboardActions";
 import PropTypes from "prop-types";
 
+
 class ClientList extends Component {
     onClientDelete(id) {
         this.props.deleteClient(id);
+    }
+    onScheduleClick(id) {
+        window.location.href = '/users/' + this.props.authenticatedUser.user.id + '/scheduler/' + id;
     }
 
     render() {
@@ -14,7 +18,7 @@ class ClientList extends Component {
             <tr key={client.id}>
                 <td> {client.FullName}</td>
                 <td align="center"><i className="fas fa-columns fa-2x"></i></td>
-                <td align="center"><i className="far fa-calendar-alt fa-2x"></i></td>
+                <td align="center"><a onClick={this.onScheduleClick.bind(this, client.id)}><i className="far fa-calendar-alt fa-2x"></i></a></td>
                 <td align="center"><i className="fas fa-edit fa-2x"></i></td>
                 <td align="center">
                     <button
