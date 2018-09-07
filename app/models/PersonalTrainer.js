@@ -30,6 +30,7 @@ const PersonalTrainerSchema = mongoose.Schema({
     }
     ,
     ClientIDs: [{
+        FullName: {type: String},
         email: {type: String},
         id: {type: String}
     }]
