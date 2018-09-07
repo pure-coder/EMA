@@ -155,7 +155,7 @@ router.post('/new_client', passport.authenticate('pt_rule', {session: false}) ,(
                             ptId : PersonalTrainerId
                         });
 
-                        // Save new client to database
+                        // Save new client to database and push basic client details to personal trainers ClientIDs
                         newClient.save()
                             .then(client => {
                                 // Send verification email to client

@@ -3,8 +3,8 @@ import PropTypes from 'prop-types'; // Used to document prop types sent to compo
 import { connect } from 'react-redux' // Needed when using redux inside a component (connects redux to this component)
 import { dashboard} from "../../actions/authenticationActions"; // Used to import create action for dashboarding user
 import { withRouter } from 'react-router-dom';
-import * as d3 from 'd3';
-// import FormInputGroup from "../common/FormInputGroup"; // Allows proper routing and linking using browsers match, location, and history properties
+import ClientList from './ClientList'
+//import * as d3 from 'd3';
 
 class Dashboard extends Component {
     // This allows the component states to be up{dated and re-rendered
@@ -57,44 +57,23 @@ class Dashboard extends Component {
     }
 
     render() {
+        // Get clients from pt client list via redux
+        const clients  = this.props.authenticatedUser.user.clients;
 
         let displayContent;
 
         // If user is a PT then display pt dashboard of clients
         if(this.props.authenticatedUser.user.pt){
-            let clientList = this.props.authenticatedUser.user.clients;
-            console.log(clientList)
-            // displayContent = (
-            //     // clientList.forEach( function (client){
-            //     //     <tr key={exp._id}>
-            //     //         <td>{exp.company}</td>
-            //     //         <td>{exp.title}</td>
-            //     //         <td>
-            //     //             <Moment format="YYYY/MM/DD">{exp.from}</Moment> -
-            //     //             {exp.to === null ? (
-            //     //                 ' Now'
-            //     //             ) : (
-            //     //                 <Moment format="YYYY/MM/DD">{exp.to}</Moment>
-            //     //             )}
-            //     //         </td>
-            //     //         <td>
-            //     //             <button
-            //     //                 onClick={this.onClientDelete().bind(this, exp._id)}
-            //     //                 className="btn btn-danger"
-            //     //             >
-            //     //                 Delete
-            //     //             </button>
-            //     //         </td>
-            //     //     </tr>
-            //     // })
-            //     //console.log()
-            // )
+            displayContent = (
+                // send clients data to client component, and render client component
+                <ClientList clients={clients}/>
+            )
         } // If PT
 
         return (
                 <div className="container  dashboard-custom">
                     <div className="row">
-                        <div className="m-auto col-md-8">
+                        <div className="m-auto col-md-10">
                             <h1 className=" text-center display-5">Dashboard</h1>
                             {displayContent}
                         </div>

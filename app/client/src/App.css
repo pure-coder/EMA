@@ -208,6 +208,10 @@ img {
     margin: auto;
 }
 
+.client-table th {
+    text-align: center;
+}
+
 .progression-data {
     position: relative;
     min-width: 150px;
