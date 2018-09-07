@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ec8ccf39-8487-4892-a38d-de9c288878a3" name="Default" comment="min height changed for developed pages">
-      <change beforePath="$PROJECT_DIR$/client/src/components/scheduler/Scheduler.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/scheduler/Scheduler.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/users.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/users.js" afterDir="false" />
-    </list>
+    <list default="true" id="ec8ccf39-8487-4892-a38d-de9c288878a3" name="Default" comment="min height changed for developed pages" />
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
     <ignored path="$PROJECT_DIR$/tmp/" />
@@ -51,7 +48,7 @@
         <counts>
           <entry key="css" value="14" />
           <entry key="html" value="14" />
-          <entry key="js" value="230" />
+          <entry key="js" value="231" />
           <entry key="json" value="5" />
           <entry key="map" value="1" />
           <entry key="md" value="3" />
@@ -64,7 +61,7 @@
           <entry key="CSS" value="14" />
           <entry key="HTML" value="14" />
           <entry key="JSON" value="5" />
-          <entry key="JavaScript" value="230" />
+          <entry key="JavaScript" value="231" />
           <entry key="PLAIN_TEXT" value="5" />
           <entry key="SourceMap" value="1" />
           <entry key="TypeScript" value="1" />
@@ -87,10 +84,22 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/client/src/components/authentication/Register.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="115">
+              <caret line="78" column="48" lean-forward="true" selection-start-line="78" selection-start-column="48" selection-end-line="78" selection-end-column="48" />
+              <folding>
+                <element signature="e#399#445#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/routes/users.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="119">
-              <caret line="403" column="16" selection-start-line="403" selection-start-column="16" selection-end-line="403" selection-end-column="16" />
+              <caret line="403" selection-start-line="403" selection-end-line="403" />
               <folding>
                 <element signature="e#1190#1215#0" />
               </folding>
@@ -273,15 +282,7 @@
               <item name="client" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="components" type="462c0819:PsiDirectoryNode" />
-              <item name="dashboard" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="app" type="b2602c69:ProjectViewProjectNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="client" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
-              <item name="scheduler" type="462c0819:PsiDirectoryNode" />
+              <item name="authentication" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="app" type="b2602c69:ProjectViewProjectNode" />
@@ -378,7 +379,7 @@
       <workItem from="1535558676498" duration="37815000" />
       <workItem from="1535645357895" duration="1637000" />
       <workItem from="1535974075888" duration="53507000" />
-      <workItem from="1536238997921" duration="25504000" />
+      <workItem from="1536238997921" duration="25786000" />
     </task>
     <task id="LOCAL-00001" summary="min height changed for developed pages">
       <created>1534874964132</created>
@@ -391,13 +392,13 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="340628000" />
+    <option name="totallyTimeSpent" value="340910000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="784" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24851191" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24851191" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Messages" order="0" weight="0.32923076" />
@@ -409,7 +410,7 @@
       <window_info anchor="bottom" id="Inspection" order="6" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="7" />
       <window_info anchor="bottom" id="Docker" order="8" show_stripe_button="false" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="9" visible="true" weight="0.40153846" />
+      <window_info anchor="bottom" id="Terminal" order="9" visible="true" weight="0.40153846" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="11" weight="0.32923076" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -599,16 +600,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/components/authentication/Register.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="251">
-          <caret line="86" column="11" selection-end-line="139" />
-          <folding>
-            <element signature="e#399#445#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/models/Exercise.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="187">
@@ -765,6 +756,16 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/routes/users.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="403" selection-start-line="403" selection-end-line="403" />
+          <folding>
+            <element signature="e#1190#1215#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/client/src/components/scheduler/Scheduler.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="119">
@@ -775,12 +776,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/routes/users.js">
+    <entry file="file://$PROJECT_DIR$/client/src/components/authentication/Register.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="403" column="16" selection-start-line="403" selection-start-column="16" selection-end-line="403" selection-end-column="16" />
+        <state relative-caret-position="115">
+          <caret line="78" column="48" lean-forward="true" selection-start-line="78" selection-start-column="48" selection-end-line="78" selection-end-column="48" />
           <folding>
-            <element signature="e#1190#1215#0" />
+            <element signature="e#399#445#0" expanded="true" />
           </folding>
         </state>
       </provider>
