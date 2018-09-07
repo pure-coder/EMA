@@ -131,8 +131,8 @@ router.post('/new_client', passport.authenticate('pt_rule', {session: false}) ,(
                 // Then pass errors object into returned json
                 return res.status(400).json(errors);
             }
-            // Create new user if email doesn't exist
 
+            // Create new user if email doesn't exist
             // Check if email exists in pt database
             PersonalTrainer.findOne({Email: req.body.Email})
                 .then(PT => {
@@ -161,10 +161,11 @@ router.post('/new_client', passport.authenticate('pt_rule', {session: false}) ,(
                                 // Send verification email to client
                                 verification(req.body.Email)
                                     let client_id_object = {
+                                        FullName: client.FullName,
                                         email: client.Email,
                                         id: client.id
                                     }
-                                    // Add client id to associated personal trainer
+                                    // Add client id to associated personal trainer ClientIDs
                                     PersonalTrainer.findByIdAndUpdate(PersonalTrainerId,
                                         {$push: {ClientIDs: client_id_object}},
                                         {safe: true})
