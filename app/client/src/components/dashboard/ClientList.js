@@ -1,18 +1,24 @@
 import { connect } from 'react-redux';
 import React, { Component } from 'react';
+import { deleteClient} from "../../actions/DashboardActions";
+import PropTypes from "prop-types";
 
 class ClientList extends Component {
+    onClientDelete(id) {
+        this.props.deleteClient(id);
+    }
 
     render() {
+        console.log(this.props.clients)
         let clients = this.props.clients.map(client => (
-            <tr>
+            <tr key={client.id}>
                 <td> {client.FullName}</td>
                 <td align="center"><i className="fas fa-columns fa-2x"></i></td>
                 <td align="center"><i className="far fa-calendar-alt fa-2x"></i></td>
                 <td align="center"><i className="fas fa-edit fa-2x"></i></td>
                 <td align="center">
                     <button
-                        //onClick={this.onClientDelete.bind(this, client._id)}
+                        onClick={this.onClientDelete.bind(this, client.id)}
                         className="btn btn-danger">
                         Delete
                     </button>
@@ -39,4 +45,8 @@ class ClientList extends Component {
     }
 }
 
-export default connect(null, {})(ClientList);
+ClientList.propTypes = {
+    deleteClient: PropTypes.func.isRequired
+};
+
+export default connect(null, { deleteClient})(ClientList);

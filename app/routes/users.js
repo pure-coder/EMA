@@ -163,7 +163,8 @@ router.post('/new_client', passport.authenticate('pt_rule', {session: false}) ,(
                                     let client_id_object = {
                                         FullName: client.FullName,
                                         email: client.Email,
-                                        id: client.id
+                                        id: client.id,
+                                        ptId : PersonalTrainerId
                                     }
                                     // Add client id to associated personal trainer ClientIDs
                                     PersonalTrainer.findByIdAndUpdate(PersonalTrainerId,
@@ -513,6 +514,33 @@ router.post('/scheduler/:id',passport.authenticate('both_rule', {session: false}
             res.send("Not supported operation");
         }
 }); // router post /scheduler
+
+// @route  DELETE /delete_client
+// @desc   delete client from pt ClientIDs
+// @access private for PT's and clients
+router.delete('/delete_client/:cid',passport.authenticate('pt_rule', {session: false}), (req, res) => {
+
+    let clientId = req.params.cid
+        // Delete the client
+        Client.findOne({_id: clientId})
+            .then(client =>{
+                if(client){
+                    PersonalTrainer.update({_id: client.ptId}, {$unset: {"_id.ClientIDs": client.ptId}})
+                        .then(pt =>{
+                            if(pt)
+                                Client.remove({_id: clientId}).remove()
+                                    .then(result => console.log(result))
+                                    .catch(err => res.json({msg: "could not delete"}))
+                            }
+                        )
+                        .catch(res.json({msg: "could not delete"}))
+                }
+                }
+
+            ) // then
+            .catch(res.json({msg: "could not delete"}))
+
+}); // router post /delete_client
 
 //Export router so it can work with the main restful api server
 module.exports = router;

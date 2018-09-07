@@ -1,4 +1,4 @@
-import { SET_SIGNED_IN_USER } from "../actions/types";
+import {DELETE_CLIENT, SET_SIGNED_IN_USER} from "../actions/types";
 import isEmpty from '../validation/is_empty';
 
 const initialisedState = {
@@ -19,6 +19,9 @@ export default function (state = initialisedState, action) {
                 // and it will be an empty object
                 user: action.payload
             }
+        case DELETE_CLIENT:
+            // return the current state and authenticated
+            return state.user.clients.filter(({ id }) => id !== action.payload);
         default:
             return state;
     }

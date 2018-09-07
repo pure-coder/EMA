@@ -1,7 +1,6 @@
 import axios from 'axios';
 import {GET_ERRS} from "./types"; // import custom defined types
 import {SET_SIGNED_IN_USER} from "./types"; // import custom defined types
-// import {POST_WORKOUT_DATA_TO_DATABASE} from "./types"; // import custom defined types
 import setAuthorisationToken from '../utilities/setAuthorisationToken';
 import jwtDecode from 'jwt-decode';
 
