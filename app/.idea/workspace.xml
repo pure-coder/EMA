@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ec8ccf39-8487-4892-a38d-de9c288878a3" name="Default" comment="delete client from pt array - using pull">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/users.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/users.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -34,7 +33,7 @@
         <counts>
           <entry key="css" value="1932" />
           <entry key="html" value="1072" />
-          <entry key="js" value="31168" />
+          <entry key="js" value="31226" />
           <entry key="json" value="1" />
           <entry key="txt" value="120" />
         </counts>
@@ -44,7 +43,7 @@
           <entry key="CSS" value="1932" />
           <entry key="HTML" value="1072" />
           <entry key="JSON" value="1" />
-          <entry key="JavaScript" value="31168" />
+          <entry key="JavaScript" value="31226" />
           <entry key="PLAIN_TEXT" value="120" />
         </counts>
       </usages-collector>
@@ -121,8 +120,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/routes/users.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="119">
-              <caret line="540" column="52" selection-start-line="540" selection-start-column="52" selection-end-line="540" selection-end-column="52" />
+            <state relative-caret-position="280">
+              <caret line="544" column="71" lean-forward="true" selection-start-line="544" selection-start-column="71" selection-end-line="544" selection-end-column="71" />
             </state>
           </provider>
         </entry>
@@ -419,7 +418,7 @@
       <workItem from="1536238997921" duration="55116000" />
       <workItem from="1537155146771" duration="5906000" />
       <workItem from="1546453126129" duration="4966000" />
-      <workItem from="1546462505723" duration="7033000" />
+      <workItem from="1546462505723" duration="8460000" />
     </task>
     <task id="LOCAL-00001" summary="min height changed for developed pages">
       <created>1534874964132</created>
@@ -467,7 +466,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="388145000" />
+    <option name="totallyTimeSpent" value="389572000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="784" extended-state="6" />
@@ -485,7 +484,7 @@
       <window_info anchor="bottom" id="Inspection" order="6" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="7" />
       <window_info anchor="bottom" id="Docker" order="8" show_stripe_button="false" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="9" visible="true" weight="0.40153846" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="9" visible="true" weight="0.2646154" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="11" weight="0.32923076" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -856,8 +855,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/routes/users.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="540" column="52" selection-start-line="540" selection-start-column="52" selection-end-line="540" selection-end-column="52" />
+        <state relative-caret-position="280">
+          <caret line="544" column="71" lean-forward="true" selection-start-line="544" selection-start-column="71" selection-end-line="544" selection-end-column="71" />
         </state>
       </provider>
     </entry>

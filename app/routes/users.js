@@ -539,11 +539,11 @@ router.delete('/delete_client/:cid',passport.authenticate('pt_rule', {session: f
             .then(client =>{
                 if(client){
                     // Had to change $unset to $pull
-                    PersonalTrainer.update({_id: client.ptId}, { $pull: {ClientIDs: {ptId: client.ptId} }})
+                    PersonalTrainer.update({_id: client.ptId}, { $pull: {ClientIDs: {id: client.id} }})
                         .then(pt =>{
                             if(pt) {
                                 Client.remove({_id: clientId}).remove()
-                                    .then(result => console.log(result))
+                                    .then(result => console.log("Deletion of user: " + client.FullName + " ", result))
                                     .catch(err => console.log(err))
                             }
                             })
