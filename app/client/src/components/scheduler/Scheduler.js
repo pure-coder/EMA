@@ -50,7 +50,7 @@ class Scheduler extends Component {
 
         // Use dataProcessor of dhtmlx scheduler to insert/update/delete data for scheduler
         // for the current client (the id of the client is sent to the api so that the event can be
-        // associated with them, allowing client events to be filtered so only their events are retreived
+        // associated with them, allowing client events to be filtered so only their events are retrieved
         // and shown with GET method
         let dataProc = new dataProcessor("/api/" + this.props.authenticatedUser.user.id + "/scheduler/" + this.props.match.params.Cid );
         dataProc.init(scheduler);
