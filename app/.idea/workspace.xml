@@ -34,7 +34,7 @@
         <counts>
           <entry key="css" value="1932" />
           <entry key="html" value="1072" />
-          <entry key="js" value="31128" />
+          <entry key="js" value="31168" />
           <entry key="json" value="1" />
           <entry key="txt" value="120" />
         </counts>
@@ -44,7 +44,7 @@
           <entry key="CSS" value="1932" />
           <entry key="HTML" value="1072" />
           <entry key="JSON" value="1" />
-          <entry key="JavaScript" value="31128" />
+          <entry key="JavaScript" value="31168" />
           <entry key="PLAIN_TEXT" value="120" />
         </counts>
       </usages-collector>
@@ -121,8 +121,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/routes/users.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="543" column="32" selection-start-line="543" selection-start-column="32" selection-end-line="545" selection-end-column="67" />
+            <state relative-caret-position="119">
+              <caret line="540" column="52" selection-start-line="540" selection-start-column="52" selection-end-line="540" selection-end-column="52" />
             </state>
           </provider>
         </entry>
@@ -419,7 +419,7 @@
       <workItem from="1536238997921" duration="55116000" />
       <workItem from="1537155146771" duration="5906000" />
       <workItem from="1546453126129" duration="4966000" />
-      <workItem from="1546462505723" duration="6748000" />
+      <workItem from="1546462505723" duration="7033000" />
     </task>
     <task id="LOCAL-00001" summary="min height changed for developed pages">
       <created>1534874964132</created>
@@ -456,11 +456,18 @@
       <option name="project" value="LOCAL" />
       <updated>1546531020660</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="delete client from pt array - using pull">
+      <created>1546531043438</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1546531043438</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="387860000" />
+    <option name="totallyTimeSpent" value="388145000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="784" extended-state="6" />
@@ -849,8 +856,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/routes/users.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="543" column="32" selection-start-line="543" selection-start-column="32" selection-end-line="545" selection-end-column="67" />
+        <state relative-caret-position="119">
+          <caret line="540" column="52" selection-start-line="540" selection-start-column="52" selection-end-line="540" selection-end-column="52" />
         </state>
       </provider>
     </entry>

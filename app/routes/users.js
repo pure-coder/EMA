@@ -538,6 +538,7 @@ router.delete('/delete_client/:cid',passport.authenticate('pt_rule', {session: f
         Client.findOne({_id: clientId})
             .then(client =>{
                 if(client){
+                    // Had to change $unset to $pull
                     PersonalTrainer.update({_id: client.ptId}, { $pull: {ClientIDs: {ptId: client.ptId} }})
                         .then(pt =>{
                             if(pt) {
