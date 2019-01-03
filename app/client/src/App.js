@@ -60,9 +60,12 @@ class App extends Component {
                             <Route exact path="/"
                                    component={Landing_page}/> {/* using Route functionality that adds the landing_page component to web app*/}
                                 <Route exact path="/register" component={Register}/>
+                            {/* Register_client below uses restful url*/}
                                 <Route exact path="/users/:uid?/register_client" component={RegisterClient}/>
                                 <Route exact path="/login" component={Login}/>
+                            {/* Register Scheduler below uses restful url*/}
                                 <Route exact path="/users/:uid?/scheduler/:Cid?" component={Scheduler}/>
+                            {/* Register Dashboard below uses restful url*/}
                                 <Route exact path="/users/:uid?/dashboard/:Cid?" component={Dashboard}/>
 
                                 {/*If page doesn't exist * then show error page component*/}

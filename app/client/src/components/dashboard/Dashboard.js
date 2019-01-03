@@ -52,10 +52,6 @@ class Dashboard extends Component {
     //     this.props.dashboard(clickedClient, this.props.history);
     // }
 
-    onClientDelete(event) {
-        this.props.deleteClient();
-    }
-
     render() {
         // Get clients from pt client list via redux
         const clients  = this.props.authenticatedUser.user.clients;

@@ -16,7 +16,7 @@ class ClientList extends Component {
         console.log(this.props.clients)
         let clients = this.props.clients.map(client => (
             <tr key={client.id}>
-                <td> {client.FullName}</td>
+                <td align="center"> <b>{client.FullName}</b> </td>
                 <td align="center"><i className="fas fa-columns fa-2x"></i></td>
                 <td align="center"><a onClick={this.onScheduleClick.bind(this, client.ptId, client.id)}><i className="far fa-calendar-alt fa-2x"></i></a></td>
                 <td align="center"><i className="fas fa-edit fa-2x"></i></td>
