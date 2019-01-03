@@ -541,10 +541,9 @@ router.delete('/delete_client/:cid',passport.authenticate('pt_rule', {session: f
                     PersonalTrainer.update({_id: client.ptId}, { $pull: {ClientIDs: {ptId: client.ptId} }})
                         .then(pt =>{
                             if(pt) {
-                                // Client.remove({_id: clientId}).remove()
-                                //     .then(result => console.log(result))
-                                //     .catch(err => console.log(err))
-                                console.log(pt)
+                                Client.remove({_id: clientId}).remove()
+                                    .then(result => console.log(result))
+                                    .catch(err => console.log(err))
                             }
                             })
                         .catch(err => console.log(err))
