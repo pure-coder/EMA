@@ -538,20 +538,21 @@ router.delete('/delete_client/:cid',passport.authenticate('pt_rule', {session: f
         Client.findOne({_id: clientId})
             .then(client =>{
                 if(client){
-                    PersonalTrainer.update({_id: client.ptId}, { $pullAll: {"_id.ClientIDs": client.ptId} })
+                    PersonalTrainer.update({_id: client.ptId}, { $pull: {ClientIDs: {ptId: client.ptId} }})
                         .then(pt =>{
-                            if(pt)
-                                Client.remove({_id: clientId}).remove()
-                                    .then(result => console.log(result))
-                                    .catch(err => res.json({msg: "could not delete"}))
+                            if(pt) {
+                                // Client.remove({_id: clientId}).remove()
+                                //     .then(result => console.log(result))
+                                //     .catch(err => console.log(err))
+                                console.log(pt)
                             }
-                        )
-                        .catch(res.json({msg: "could not delete"}))
+                            })
+                        .catch(err => console.log(err))
                 }
                 }
 
             ) // then
-            .catch(res.json({msg: "could not delete"}))
+            .catch(err => console.log(err))
 
 }); // router post /delete_client
 
