@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ec8ccf39-8487-4892-a38d-de9c288878a3" name="Default" comment="delete client from pt array - using pull">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/users.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/users.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -34,7 +33,7 @@
         <counts>
           <entry key="css" value="1932" />
           <entry key="html" value="1072" />
-          <entry key="js" value="31521" />
+          <entry key="js" value="31551" />
           <entry key="json" value="1" />
           <entry key="txt" value="120" />
         </counts>
@@ -44,7 +43,7 @@
           <entry key="CSS" value="1932" />
           <entry key="HTML" value="1072" />
           <entry key="JSON" value="1" />
-          <entry key="JavaScript" value="31521" />
+          <entry key="JavaScript" value="31551" />
           <entry key="PLAIN_TEXT" value="120" />
         </counts>
       </usages-collector>
@@ -121,8 +120,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/routes/users.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="229">
-              <caret line="549" column="117" selection-start-line="549" selection-start-column="117" selection-end-line="549" selection-end-column="117" />
+            <state relative-caret-position="212">
+              <caret line="571" column="37" selection-start-line="571" selection-start-column="26" selection-end-line="571" selection-end-column="37" />
             </state>
           </provider>
         </entry>
@@ -148,7 +147,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>load</find>
       <find>scheduler</find>
       <find>scheduler.$</find>
       <find>scheduler.$a</find>
@@ -178,6 +176,7 @@
       <find>Events</find>
       <find>new_client</find>
       <find>res.json({msg</find>
+      <find>console.log</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -419,7 +418,7 @@
       <workItem from="1536238997921" duration="55116000" />
       <workItem from="1537155146771" duration="5906000" />
       <workItem from="1546453126129" duration="4966000" />
-      <workItem from="1546462505723" duration="11424000" />
+      <workItem from="1546462505723" duration="12217000" />
     </task>
     <task id="LOCAL-00001" summary="min height changed for developed pages">
       <created>1534874964132</created>
@@ -467,10 +466,11 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="392536000" />
+    <option name="totallyTimeSpent" value="393329000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="784" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.33333334" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -855,8 +855,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/routes/users.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="229">
-          <caret line="549" column="117" selection-start-line="549" selection-start-column="117" selection-end-line="549" selection-end-column="117" />
+        <state relative-caret-position="212">
+          <caret line="571" column="37" selection-start-line="571" selection-start-column="26" selection-end-line="571" selection-end-column="37" />
         </state>
       </provider>
     </entry>

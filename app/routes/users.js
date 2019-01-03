@@ -171,7 +171,7 @@ router.post('/new_client', passport.authenticate('pt_rule', {session: false}) ,(
                                         {$push: {ClientIDs: client_id_object}},
                                         {safe: true})
                                         .then(result =>{
-                                            console.log(client_id_object),
+                                            // console.log(client_id_object),
                                             res.json({result})
                                         })
                                         .catch(err => {res.json({err})})
@@ -383,7 +383,7 @@ router.get('/:id/scheduler/:cid?', passport.authenticate('both_rule', {session: 
                                     data[i].id = data[i]._id;
 
                                 //output response
-                                console.log(data)
+                                // console.log(data)
                                 return res.send(data);
                             })
                             .catch(err => {console.log(err)})
@@ -488,7 +488,9 @@ router.post('/:id/scheduler/:cid',passport.authenticate('pt_rule', {session: fal
                         // doc as id are unique, have to delete old doc with previous id so new and updated doc
                         // do not appear on schedule
                         Events.remove({_id: docId}).remove()
-                            .then(result => console.log(result))
+                            .then(
+                                result => {}//console.log(result)
+                            )
                             .catch(err => console.log(err))
                     }
                 })
@@ -508,7 +510,7 @@ router.post('/:id/scheduler/:cid',passport.authenticate('pt_rule', {session: fal
             // Save new workout to database
             newWorkout.save()
                 .then(events => {
-                        console.log(events);
+                        //console.log(events);
                     }
                 )
                 .catch(err => {
@@ -519,7 +521,9 @@ router.post('/:id/scheduler/:cid',passport.authenticate('pt_rule', {session: fal
         {
             // Remove the workout from the schedule that user has deleted
             Events.remove({_id: docId}).remove()
-                .then(result => console.log(result))
+                .then(result => {}
+                // console.log(result)
+                )
                 .catch(err => console.log(err))
         }
     else
@@ -547,13 +551,13 @@ router.delete('/delete_client/:cid',passport.authenticate('pt_rule', {session: f
                                         if(result){
                                             Events.remove({clientId: clientId})
                                                 .then(events =>{
-                                                    console.log( "Events deleted for user: " + client.FullName + " ", events)
+                                                    // console.log( "Events deleted for user: " + client.FullName + " ", events)
                                                     }
                                                 )
                                                 // Events.remove
                                                 .catch(err => console.log(err))
                                         }
-                                        console.log("Deletion of user: " + client.FullName + " ", result)
+                                        // console.log("Deletion of user: " + client.FullName + " ", result)
                                     })
                                 // Client.remove
                                 .catch(err => console.log(err))
