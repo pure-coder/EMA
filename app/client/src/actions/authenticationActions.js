@@ -96,6 +96,6 @@ export const registerClient =(Data, props) => (dispatch) => {
                 payload: err.response.data // Puts err data into the payload which will be sent to the redux store
             })
         );
-}; // registerUser
+}; // registerClient
 
 

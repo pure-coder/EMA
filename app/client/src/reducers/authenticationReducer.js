@@ -23,8 +23,13 @@ export default function (state = initialisedState, action) {
             }
         case DELETE_CLIENT:
             // return the current state and authenticated
-            console.log("Delete client")
-            return state.user.clients.filter(({ id }) => id !== action.payload);
+            console.log(state, action.id)
+            return {
+                ...state,
+                user: state.user.clients.filter(function (id) {
+                    return id.id !== action.id
+                })
+    }
         default:
             return state;
     }

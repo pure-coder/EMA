@@ -4,18 +4,21 @@ import {DELETE_CLIENT} from "./types";
 
 // Delete Client
 export const deleteClient = id => dispatch => {
-
     axios
         .delete(`/api/delete_client/${id}`)
-        .then(function (response){
-            console.log("deleted user hard")
-            dispatch({type: DELETE_CLIENT})
+        .then(() => {
+            console.log("deleted user")
+            dispatch({
+                type: DELETE_CLIENT,
+                id: id
+            })
             }
         )
         .catch(err => {
+            console.log(err)
             dispatch({
                 type: GET_ERRS,
-                payload: err.response.data
+                payload: {msg: "Error"}
             })
         })
 };
