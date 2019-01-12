@@ -491,10 +491,10 @@ router.post('/:id/scheduler/:cid',passport.authenticate('pt_rule', {session: fal
                             .then(
                                 result => {}//console.log(result)
                             )
-                            .catch(err => console.log(err))
+                            .catch(err => { return res.json({err}) })
                     }
                 })
-                .catch(err => console.log(err))
+                .catch(err => { return res.json({err}) })
         }
     else if (type === "inserted")
         {
@@ -551,25 +551,26 @@ router.delete('/delete_client/:cid',passport.authenticate('pt_rule', {session: f
                                         if(result){
                                             Events.remove({clientId: clientId})
                                                 .then(events =>{
+                                                    return res.json({events})
                                                     // console.log( "Events deleted for user: " + client.FullName + " ", events)
                                                     }
                                                 )
                                                 // Events.remove
-                                                .catch(err => console.log(err))
+                                                .catch(err => { return res.json({err}) })
                                         }
                                         // console.log("Deletion of user: " + client.FullName + " ", result)
                                     })
                                 // Client.remove
-                                .catch(err => console.log(err))
+                                .catch(err => { return res.json({err}) })
                             }
                             })
                         // PersonalTrainer.update
-                        .catch(err => console.log(err))
+                        .catch(err => { return res.json({err}) })
                 }
                 }
 
             ) // then Client.findOne
-            .catch(err => console.log(err))
+            .catch(err => { return res.json({err}) })
 
 }); // router post /delete_client
 

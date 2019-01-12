@@ -10,6 +10,7 @@ export default function (state = initialisedState, action) {
     switch (action.type) {
         case SET_SIGNED_IN_USER:
             // return the current state and authenticated
+            console.log("Signing in")
             return {
                 ...state, // Using the spread operator allows the state to stay immutable, with only the following
                 // code being changed in the state.
@@ -22,6 +23,7 @@ export default function (state = initialisedState, action) {
             }
         case DELETE_CLIENT:
             // return the current state and authenticated
+            console.log("Delete client")
             return state.user.clients.filter(({ id }) => id !== action.payload);
         default:
             return state;

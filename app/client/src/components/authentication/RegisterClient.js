@@ -115,7 +115,7 @@ RegisterClient.propTypes = {
     errors: PropTypes.object.isRequired
 }
 
-// Used to pull auth state and errors into this component
+// Used to pull auth state and errors into this component.... DEFINED IN reducers/index.js {combineReducers}
 const stateToProps = (state) => ({
     authenticatedUser: state.authenticatedUser,
     errors: state.errors

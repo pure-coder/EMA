@@ -1,10 +1,18 @@
 import { connect } from 'react-redux';
 import React, { Component } from 'react';
-import { deleteClient} from "../../actions/DashboardActions";
+import {deleteClient} from "../../actions/DashboardActions";
 import PropTypes from "prop-types";
 
 
 class ClientList extends Component {
+    // This allows the component states to be up{dated and re-rendered)
+    constructor(props) {
+        super(props);
+        this.state = {
+            errors: {}
+        }
+    }
+
     onClientDelete(id) {
         this.props.deleteClient(id);
     }
@@ -54,4 +62,9 @@ ClientList.propTypes = {
     deleteClient: PropTypes.func.isRequired
 };
 
-export default connect(null, { deleteClient})(ClientList);
+const stateToProps = (state) => ({
+    authenticatedUser: state.authenticatedUser,
+    errors: state.errors
+});
+
+export default connect(stateToProps, { deleteClient})(ClientList);

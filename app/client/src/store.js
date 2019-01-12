@@ -2,6 +2,8 @@ import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import rootReducer from './reducers'; // THIS IMPORTS combineReducers function from ./reducers/index.js
 
+// Read combineReducers docs on redux website for better explaination of how reducers are invoked via store
+
 const initialisedState = {}; // Allows a preloaded state to be passed into the store
 
 // Allows the action creators to be written that returns a function instead of an action
