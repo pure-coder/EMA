@@ -1,5 +1,4 @@
 import axios from "axios";
-import {DELETE_CLIENT} from "./types";
 import {GET_ERRS} from "./types";
 
 // Delete Client

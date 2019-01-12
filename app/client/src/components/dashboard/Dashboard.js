@@ -7,7 +7,7 @@ import ClientList from './ClientList'
 //import * as d3 from 'd3';
 
 class Dashboard extends Component {
-    // This allows the component states to be up{dated and re-rendered
+    // This allows the component states to be up{dated and re-rendered)
     constructor(props) {
         super(props);
         this.state = {
@@ -55,6 +55,7 @@ class Dashboard extends Component {
     render() {
         // Get clients from pt client list via redux
         const clients  = this.props.authenticatedUser.user.clients;
+        console.log(clients)
 
         let displayContent;
 

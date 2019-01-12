@@ -13,7 +13,8 @@ class ClientList extends Component {
     }
 
     render() {
-        console.log(this.props.clients)
+        // check clients are set properly
+        // console.log(this.props.clients)
         let clients = this.props.clients.map(client => (
             <tr key={client.id}>
                 <td align="center"> <b>{client.FullName}</b> </td>

@@ -11,7 +11,8 @@ export default function (state = initialisedState, action) {
         case SET_SIGNED_IN_USER:
             // return the current state and authenticated
             return {
-                ...state,
+                ...state, // Using the spread operator allows the state to stay immutable, with only the following
+                // code being changed in the state.
                 // check to see if authentication value is empty (if not empty the user has been authenticated!)
                 isAuthenticated: !isEmpty(action.payload),
                 // user will have the data of the decoded token

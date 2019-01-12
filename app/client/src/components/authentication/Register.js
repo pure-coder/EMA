@@ -1,7 +1,7 @@
-import React, {Component} from 'react';  // Used to create this component
+import React, { Component } from 'react';  // Used to create this component
 import PropTypes from 'prop-types'; // Used to document prop types sent to components
 import { connect } from 'react-redux' // Needed when using redux inside a component (connects redux to this component)
-import { registerUser} from "../../actions/authenticationActions"; // Used to import create action for registering user
+import { registerUser } from "../../actions/authenticationActions"; // Used to import create action for registering user
 import { withRouter } from 'react-router-dom';
 import FormInputGroup from "../common/FormInputGroup"; // Allows proper routing and linking using browsers match, location, and history properties
 
@@ -127,13 +127,16 @@ Register.propTypes = {
     errors: PropTypes.object.isRequired
 }
 
-// Used to pull auth state and errors into this component
+// Used to pull auth state and errors into this component.... DEFINED IN reducers/index.js {combineReducers}
 const stateToProps = (state) => ({
     authenticatedUser: state.authenticatedUser,
     errors: state.errors
     });
 
-// connect must be exported with a passed parameter (not direct parameter) of Register this is wrapped with withRouter
-// allowing the functions of the package to be used with the component eg, proper routing, and direct parameters of
-// stateToProps for the 1st parameter and the action which is registerUser as the 2nd parameter
+
+/* connect has stateToProps for the 1st parameter which is used to retrieve the current state of the redux store, the parameter is used to for the action, which is used to change the current state of the redux store. Remember that the redux-store cannot be directly accessed, this is done via actions.
+
+
+ Connect must be exported with a passed parameter (not direct parameter) of Register this is wrapped with withRouter function that is part of the react-router-dom package. This allows
+ the functions of the package to be used with the component (in this case Register) eg, proper routing, and direct parameters */
 export default connect(stateToProps, { registerUser })(withRouter(Register));

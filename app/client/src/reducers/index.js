@@ -8,4 +8,4 @@ export default combineReducers({
     authenticatedUser: authenticationReducer,
     // dataPosted: schedulerReducer,
     errors: errReducer
-});
+}); // THIS WILL EXPORT combineReducers function which will be called from ../store.js as rootReducer

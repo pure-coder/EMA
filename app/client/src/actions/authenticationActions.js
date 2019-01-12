@@ -6,8 +6,13 @@ import jwtDecode from 'jwt-decode';
 
 // Register User
 // Used to dispatch (action) data to a reducer, in this case it is the registerUser action with the sign up data
-// from the redux state entered in the register route and handled by Register.js in components/authentication folder.
-// Note that dispatch is an asynchronous function - redux thunk allows asynchronous functions to be used as actions.
+// from the redux store (the state) entered in the register route and handled by Register.js in components/authentication folder.
+// Note that dispatch is an asynchronous function - redux thunk allows asynchronous functions to be used as actions,
+//
+// dispatch is used to trigger the action (change) so with the dispatch function being the function call of registerUser
+// (Data and history are the parameters of said registerUser) allows dispatch to be used (via the thunk package),
+// thus allowing the result to be passed to the dispatch function, the dispatch function is called via the connect function in the component.
+//
 // history is passed in from register.js onSubmit so it can be used to direct the user to another link/route
 export const registerUser =(Data, history) => (dispatch) => {
     // Post user data to the API specifically the user/register route
