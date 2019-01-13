@@ -23,18 +23,14 @@ export default function (state = initialisedState, action) {
             }
         case DELETE_CLIENT:
             // return the current state and authenticated
-            console.log(state, action.id)
-            // return Object.assign({}, state.user, {
-            //     user: {
-            //         clients: [...state.user.clients.filter((id) => id.id !== action.id)]})
-            //     }
+            //console.log(state, action.id)
             return {
                 ...state,
                 user: {
-                    id: state.user.id,
+                    id: state.user.id, // had to reenter id, name, pt, iat, exp, as they were overwriten with nothing otherwise
                     name: state.user.name,
                     pt: state.user.pt,
-                    clients: state.user.clients.filter((id) => id.id !== action.id),
+                    clients: state.user.clients.filter((id) => id.id !== action.id), // this where deleted client is removed
                     iat: state.user.iat,
                     exp: state.user.exp
                 }
