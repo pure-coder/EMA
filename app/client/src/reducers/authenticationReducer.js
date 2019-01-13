@@ -24,10 +24,21 @@ export default function (state = initialisedState, action) {
         case DELETE_CLIENT:
             // return the current state and authenticated
             console.log(state, action.id)
-            return Object.assign({}, state.user, {
-                clients: [...state.user.clients.filter((id) => id.id !== action.id)]})
-                // ...state,
-                // user: state.user.clients.filter((id) => id.id !== action.id)
+            // return Object.assign({}, state.user, {
+            //     user: {
+            //         clients: [...state.user.clients.filter((id) => id.id !== action.id)]})
+            //     }
+            return {
+                ...state,
+                user: {
+                    id: state.user.id,
+                    name: state.user.name,
+                    pt: state.user.pt,
+                    clients: state.user.clients.filter((id) => id.id !== action.id),
+                    iat: state.user.iat,
+                    exp: state.user.exp
+                }
+            }
         default:
             return state;
     }

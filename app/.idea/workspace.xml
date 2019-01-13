@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ec8ccf39-8487-4892-a38d-de9c288878a3" name="Default" comment="delete client from pt array - using pull">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/reducers/authenticationReducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/reducers/authenticationReducer.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -35,7 +36,7 @@
         <counts>
           <entry key="css" value="1932" />
           <entry key="html" value="1072" />
-          <entry key="js" value="35083" />
+          <entry key="js" value="35449" />
           <entry key="json" value="1" />
           <entry key="txt" value="120" />
         </counts>
@@ -45,7 +46,7 @@
           <entry key="CSS" value="1932" />
           <entry key="HTML" value="1072" />
           <entry key="JSON" value="1" />
-          <entry key="JavaScript" value="35083" />
+          <entry key="JavaScript" value="35449" />
           <entry key="PLAIN_TEXT" value="120" />
         </counts>
       </usages-collector>
@@ -104,8 +105,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/client/src/reducers/authenticationReducer.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="26" column="42" selection-start-line="26" selection-start-column="42" selection-end-line="26" selection-end-column="42" />
+            <state relative-caret-position="191">
+              <caret line="38" column="39" lean-forward="true" selection-start-line="38" selection-start-column="39" selection-end-line="38" selection-end-column="39" />
               <folding>
                 <element signature="e#0#67#0" expanded="true" />
               </folding>
@@ -447,7 +448,7 @@
       <workItem from="1546969245149" duration="368000" />
       <workItem from="1546969655412" duration="29000" />
       <workItem from="1546969715667" duration="137000" />
-      <workItem from="1546971654241" duration="35530000" />
+      <workItem from="1546971654241" duration="38178000" />
     </task>
     <task id="LOCAL-00001" summary="min height changed for developed pages">
       <created>1534874964132</created>
@@ -495,7 +496,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="430921000" />
+    <option name="totallyTimeSpent" value="433569000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -909,8 +910,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/client/src/reducers/authenticationReducer.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="26" column="42" selection-start-line="26" selection-start-column="42" selection-end-line="26" selection-end-column="42" />
+        <state relative-caret-position="191">
+          <caret line="38" column="39" lean-forward="true" selection-start-line="38" selection-start-column="39" selection-end-line="38" selection-end-column="39" />
           <folding>
             <element signature="e#0#67#0" expanded="true" />
           </folding>
