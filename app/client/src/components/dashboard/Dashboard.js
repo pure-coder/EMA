@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'; // Used to document prop types sent to compo
 import { connect } from 'react-redux' // Needed when using redux inside a component (connects redux to this component)
 import { withRouter } from 'react-router-dom';
 import ClientList from './ClientList'
+import { saveState, loadState }from '../../utilities/localState'; // import function to save and load state to local storage
 //import * as d3 from 'd3';
 
 class Dashboard extends Component {
@@ -22,11 +23,29 @@ class Dashboard extends Component {
 
     // Life cycle method for react which will run when this component receives new properties
     componentDidMount() {
+        // Load state from local store
+        this.setState(loadState)
+
+
+        // Save current state to local storage if user leaves or refreshes the page
+        window.addEventListener(
+            "beforeunload",
+            saveState.bind(this.state)
+        )
+
         // Check if isAuthenticated is true then redirect to the dashboard
         if (!this.props.authenticatedUser.isAuthenticated) {
             this.props.history.push('/login');
         }
     } // ComponentDidMount
+
+    componentWillUnmount() {
+        // Save current state to local storage
+        window.addEventListener(
+            "beforeunload",
+            saveState.bind(this.state)
+        )
+    }
 
     // Life cycle method for react which will run when this component receives new properties
     componentWillReceiveProps(nextProps) {
