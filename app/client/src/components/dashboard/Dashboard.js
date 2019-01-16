@@ -24,14 +24,23 @@ class Dashboard extends Component {
     // Life cycle method for react which will run when this component receives new properties
     componentDidMount() {
         // Load state from local store
-        this.setState(loadState)
+        try {
+            let loadedState = loadState()
+            this.setState({authenticatedUser: loadedState.authenticatedUser})
+
+            // Save current state to local storage if user leaves or refreshes the page
+            // window.addEventListener(
+            //     "beforeunload",
+            //     saveState(this.props.authenticatedUser)
+            // )
+
+        }
+        catch (e) {
+            // ignore errors
+        }
 
 
-        // Save current state to local storage if user leaves or refreshes the page
-        window.addEventListener(
-            "beforeunload",
-            saveState.bind(this.state)
-        )
+        console.log("did mount", this.state)
 
         // Check if isAuthenticated is true then redirect to the dashboard
         if (!this.props.authenticatedUser.isAuthenticated) {
@@ -41,10 +50,20 @@ class Dashboard extends Component {
 
     componentWillUnmount() {
         // Save current state to local storage
-        window.addEventListener(
-            "beforeunload",
-            saveState.bind(this.state)
-        )
+        try {
+            let loadedState = loadState()
+            this.setState({authenticatedUser: loadedState.authenticatedUser})
+
+            // Save current state to local storage if user leaves or refreshes the page
+            // window.addEventListener(
+            //     "beforeunload",
+            //     saveState(this.props.authenticatedUser)
+            // )
+
+        }
+        catch (e) {
+            // ignore errors
+        }
     }
 
     // Life cycle method for react which will run when this component receives new properties
@@ -54,6 +73,12 @@ class Dashboard extends Component {
         // authenicationActions.js
         if(nextProps.errors){
             this.setState({errors: nextProps.errors})
+        }
+
+        // If authenticatedUser properties have changed then update the state of authenticatedUser
+        if(nextProps.authenticatedUser){
+            this.setState({authenticatedUser: nextProps.authenticatedUser})
+            saveState(nextProps.authenticatedUser)
         }
     }
 
@@ -73,7 +98,15 @@ class Dashboard extends Component {
 
     render() {
         // Get clients from pt client list via redux
-        const clients  = this.props.authenticatedUser.user.clients;
+        let clients
+        console.log("render", this.state)
+        if (this.state.authenticatedUser === undefined) {
+            clients = this.props.authenticatedUser.user.clients
+        }
+        else
+        {
+            clients = this.state.authenticatedUser.user.clients
+        }
         console.log(clients)
 
         let displayContent;

@@ -77,6 +77,8 @@ export const logOutUser = () => dispatch => {
     setAuthorisationToken(false);
     // Set signed in user to an empty object and isAuthenticated to false by passing in {} (empty object)
     dispatch(setSignedInUser({}))
+    // remove state from local storage
+    localStorage.removeItem('state')
 };
 
 // Register client

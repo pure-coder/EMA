@@ -27,7 +27,7 @@ export default function (state = initialisedState, action) {
             return {
                 ...state,
                 user: {
-                    id: state.user.id, // had to reenter id, name, pt, iat, exp, as they were overwriten with nothing otherwise
+                    id: state.user.id, // had to reenter id, name, pt, iat, exp, as they were overwritten with nothing otherwise
                     name: state.user.name,
                     pt: state.user.pt,
                     clients: state.user.clients.filter((id) => id.id !== action.id), // this where deleted client is removed

@@ -9,7 +9,8 @@ export const loadState = () => {
             return undefined
         }
         // return the parsed json object otherwise, it is parsed from a string back into an object
-        return JSON.parse(serializedState)
+        let state = {authenticatedUser: JSON.parse(serializedState)}
+        return state
     }
     catch (err) {
         return undefined
