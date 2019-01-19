@@ -31,22 +31,35 @@ class Dashboard extends Component {
     }
 
     // Life cycle method for react which will run when this component receives new properties
-    componentWillReceiveProps(nextProps) {
-        // If property (nextProps) contains errors (contains the "errors" prop) then set the component state of errors
-        // defined in the constructor above to the errors that was sent to it via the dispatch call from
-        // authenicationActions.js
-        if(nextProps.errors){
-            this.setState({errors: nextProps.errors})
-        }
+    // componentWillReceiveProps(nextProps) {
+    //     // If property (nextProps) contains errors (contains the "errors" prop) then set the component state of errors
+    //     // defined in the constructor above to the errors that was sent to it via the dispatch call from
+    //     // authenicationActions.js
+    //     if(nextProps.errors){
+    //         this.setState({errors: nextProps.errors})
+    //     }
+    //
+    //     // If authenticatedUser properties have changed then update the state of authenticatedUser
+    //     if(nextProps.authenticatedUser !== this.state.authenticatedUser){
+    //         this.setState({authenticatedUser: nextProps.authenticatedUser})
+    //         saveState(nextProps.authenticatedUser)
+    //     }
+    // }
 
+    static getDerivedStateFromProps(nextProps, prevState){
         // If authenticatedUser properties have changed then update the state of authenticatedUser
-        if(nextProps){
-            this.setState({authenticatedUser: nextProps.authenticatedUser}, saveState(nextProps.authenticatedUser))
+        if(nextProps.authenticatedUser !== prevState.authenticatedUser){
+            saveState(nextProps.authenticatedUser)
+            return {
+                authenticatedUser: nextProps.authenticatedUser
+            }
         }
+        return null
     }
 
     render() {
-        console.log("render", this.state)
+        console.log("render state", this.state)
+        console.log("render props", this.props)
 
         // Get clients from pt client list via redux
         let clients = this.state.authenticatedUser.user.clients
