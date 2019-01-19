@@ -11,7 +11,8 @@ class Dashboard extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            authenticatedUser: loadState() || props.authenticatedUser,
+            authenticatedUser: null,
+            // authenticatedUser: loadState() || props.authenticatedUser,
             errors: {}
         }
 
@@ -24,42 +25,49 @@ class Dashboard extends Component {
             this.props.history.push('/login');
         }
 
+        // console.log("componentDidMount", this.state)
+        // if (this.state.authenticatedUser === null){
+        //     this.setState({authenticatedUser: this.props.authenticatedUser})
+        // }
+        // else {
+        //     this.setState({authenticatedUser: loadState()})
+        // }
+
     } // ComponentDidMount
 
     componentWillUnmount() {
 
     }
 
-    // Life cycle method for react which will run when this component receives new properties
-    // componentWillReceiveProps(nextProps) {
-    //     // If property (nextProps) contains errors (contains the "errors" prop) then set the component state of errors
-    //     // defined in the constructor above to the errors that was sent to it via the dispatch call from
-    //     // authenicationActions.js
-    //     if(nextProps.errors){
-    //         this.setState({errors: nextProps.errors})
-    //     }
-    //
-    //     // If authenticatedUser properties have changed then update the state of authenticatedUser
-    //     if(nextProps.authenticatedUser !== this.state.authenticatedUser){
-    //         this.setState({authenticatedUser: nextProps.authenticatedUser})
-    //         saveState(nextProps.authenticatedUser)
-    //     }
-    // }
-
-    static getDerivedStateFromProps(nextProps, prevState){
+    static getDerivedStateFromProps(props, state){
         // If authenticatedUser properties have changed then update the state of authenticatedUser
-        if(nextProps.authenticatedUser !== prevState.authenticatedUser){
-            saveState(nextProps.authenticatedUser)
+        console.log("props", props.authenticatedUser)
+        console.log("state", state.authenticatedUser)
+
+        if (loadState() !== undefined){
             return {
-                authenticatedUser: nextProps.authenticatedUser
+                authenticatedUser: loadState()
+            }
+        }
+        if(props.authenticatedUser !== state.authenticatedUser){
+            return {
+                authenticatedUser: props.authenticatedUser
             }
         }
         return null
     }
 
+    componentDidUpdate(prevProps){
+        if (prevProps.authenticatedUser !== this.props.authenticatedUser) {
+            saveState(this.props.authenticatedUser)
+            this.setState(this.props.authenticatedUser)
+            console.log("component did update ", this.props.authenticatedUser)
+        }
+    }
+
     render() {
-        console.log("render state", this.state)
-        console.log("render props", this.props)
+        console.log("render state", this.state.authenticatedUser)
+        console.log("render props", this.props.authenticatedUser)
 
         // Get clients from pt client list via redux
         let clients = this.state.authenticatedUser.user.clients
