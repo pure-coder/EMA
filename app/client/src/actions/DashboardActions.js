@@ -7,7 +7,7 @@ export const deleteClient = id => dispatch => {
     axios
         .delete(`/api/delete_client/${id}`)
         .then(() => {
-            console.log("deleted user")
+            // console.log("deleted user")
             dispatch({
                 type: DELETE_CLIENT,
                 id: id

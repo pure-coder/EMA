@@ -11,59 +11,23 @@ class Dashboard extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            authenticatedUser: loadState() || props.authenticatedUser,
             errors: {}
         }
 
-        // This sets the state value to it's respective state (via binding)
-        this.onChange = this.onChange.bind(this);
-
-        // This binds the onClientClicked function to this.OnSubmit
-        //this.onClientClicked = this.onClientClicked.bind(this);
     }
 
     // Life cycle method for react which will run when this component receives new properties
     componentDidMount() {
-        // Load state from local store
-        try {
-            let loadedState = loadState()
-            this.setState({authenticatedUser: loadedState.authenticatedUser})
-
-            // Save current state to local storage if user leaves or refreshes the page
-            // window.addEventListener(
-            //     "beforeunload",
-            //     saveState(this.props.authenticatedUser)
-            // )
-
-        }
-        catch (e) {
-            // ignore errors
-        }
-
-
-        console.log("did mount", this.state)
-
         // Check if isAuthenticated is true then redirect to the dashboard
         if (!this.props.authenticatedUser.isAuthenticated) {
             this.props.history.push('/login');
         }
+
     } // ComponentDidMount
 
     componentWillUnmount() {
-        // Save current state to local storage
-        try {
-            let loadedState = loadState()
-            this.setState({authenticatedUser: loadedState.authenticatedUser})
 
-            // Save current state to local storage if user leaves or refreshes the page
-            // window.addEventListener(
-            //     "beforeunload",
-            //     saveState(this.props.authenticatedUser)
-            // )
-
-        }
-        catch (e) {
-            // ignore errors
-        }
     }
 
     // Life cycle method for react which will run when this component receives new properties
@@ -76,38 +40,16 @@ class Dashboard extends Component {
         }
 
         // If authenticatedUser properties have changed then update the state of authenticatedUser
-        if(nextProps.authenticatedUser){
-            this.setState({authenticatedUser: nextProps.authenticatedUser})
-            saveState(nextProps.authenticatedUser)
+        if(nextProps){
+            this.setState({authenticatedUser: nextProps.authenticatedUser}, saveState(nextProps.authenticatedUser))
         }
     }
-
-    // This captures what the user types and sets the specific input to the respective state variable
-    onChange(event) {
-        // event.target.name is used instead of a specific named state (ie "event.target.FullName") as there is more then
-        // one, making it easier to capture all of them with this onChange function.
-        this.setState({[event.target.name]: event.target.value})
-    }
-
-    // onClientClicked(event) {
-    //     event.preventDefault();
-    //
-    //     // If no errors occur then dashboard user
-    //     this.props.dashboard(clickedClient, this.props.history);
-    // }
 
     render() {
-        // Get clients from pt client list via redux
-        let clients
         console.log("render", this.state)
-        if (this.state.authenticatedUser === undefined) {
-            clients = this.props.authenticatedUser.user.clients
-        }
-        else
-        {
-            clients = this.state.authenticatedUser.user.clients
-        }
-        console.log(clients)
+
+        // Get clients from pt client list via redux
+        let clients = this.state.authenticatedUser.user.clients
 
         let displayContent;
 
