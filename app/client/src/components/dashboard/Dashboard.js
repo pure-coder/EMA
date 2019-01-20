@@ -1,6 +1,6 @@
 import React, {Component} from 'react';  // Used to create this component
 import PropTypes from 'prop-types'; // Used to document prop types sent to components
-import {getClients} from "../../actions/DashboardActions"; // Used to get clients of personal trainers from db and set to state
+import {getClients} from "../../actions/dashboardActions"; // Used to get clients of personal trainers from db and set to state
 import { connect } from 'react-redux' // Needed when using redux inside a component (connects redux to this component)
 import { withRouter } from 'react-router-dom';
 import ClientList from './ClientList'
@@ -9,8 +9,11 @@ import ClientList from './ClientList'
 class Dashboard extends Component {
     // This allows the component states to be up{dated and re-rendered)
     constructor(props) {
+        // initiate props this clients
         super(props);
         this.state = {
+            id: this.props.authenticatedUser.user.id,
+            clients: this.props.getClients(this.props.authenticatedUser.user.id),
             errors: {}
         }
     }
@@ -22,43 +25,28 @@ class Dashboard extends Component {
             this.props.history.push('/login');
         }
 
-        this.props.getClients(this.props.authenticatedUser.user.id)
-
     } // ComponentDidMount
 
-    componentWillUnmount() {
-
-    }
-
-    static getDerivedStateFromProps(props, state){
-        return null
-    }
-
-    componentDidUpdate(prevProps){
-    }
-
     render() {
-
         // Get clients from pt client list via redux
-        // let clients = this.state.authenticatedUser.user.clients
-        //
-        // let displayContent;
-        //
-        // // If user is a PT then display pt dashboard of clients
-        // if(this.props.authenticatedUser.user.pt){
-        //     displayContent = (
-        //         // send clients data to client component, and render client component
-        //         <ClientList clients={clients}/>
-        //     )
-        // } // If PT
-//  {displayContent}
+        let clients = this.state.clients
+        console.log(clients)
+        let displayContent;
+
+        // If user is a PT then display pt dashboard of clients
+        if(this.props.authenticatedUser.user.pt){
+            displayContent = (
+                // send clients data to client component, and render client component
+                <ClientList clients={clients}/>
+            )
+        } // If PT
 
         return (
                 <div className="container  dashboard-custom">
                     <div className="row">
                         <div className="m-auto col-md-10">
                             <h1 className=" text-center display-5">Dashboard</h1>
-
+                            {displayContent}
                         </div>
                     </div>
                 </div>

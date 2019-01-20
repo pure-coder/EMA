@@ -1,5 +1,5 @@
 import axios from "axios";
-import {GET_ERRS, PT_CLIENTS} from "./types";
+import {GET_ERRS} from "./types";
 
 // Get pt Clients
 export const getClients = ptid => dispatch => {
@@ -7,10 +7,7 @@ export const getClients = ptid => dispatch => {
         .get(`/api/pt_clients/${ptid}`)
         .then(result => {
             // console.log("called in actions")
-                dispatch({
-                    type: PT_CLIENTS,
-                    payload: result.data
-                })
+                return {clients : result.data}
             }
         )
         .catch(err => {
