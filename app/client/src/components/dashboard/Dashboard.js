@@ -2,7 +2,7 @@ import React, {Component} from 'react';  // Used to create this component
 import PropTypes from 'prop-types'; // Used to document prop types sent to components
 import { connect } from 'react-redux' // Needed when using redux inside a component (connects redux to this component)
 import { withRouter } from 'react-router-dom';
-import ClientList from './ClientList'
+//import ClientList from './ClientList'
 //import * as d3 from 'd3';
 
 class Dashboard extends Component {
@@ -10,7 +10,7 @@ class Dashboard extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            authenticatedUser: null,
+            clients: null,
             errors: {}
         }
 

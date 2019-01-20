@@ -536,8 +536,7 @@ router.post('/:id/scheduler/:cid',passport.authenticate('pt_rule', {session: fal
 // @route  GET api/pt_clients/:ptid
 // @desc   get up to date clients of personal trainer
 // @access private for PT's
-// router.get('/pt_clients/:ptid',passport.authenticate('pt_rule', {session: false}), (req, res) => {
-router.get('/pt_clients/:ptid', (req, res) => {
+router.get('/pt_clients/:ptid',passport.authenticate('pt_rule', {session: false}), (req, res) => {
         let ptId = req.params.ptid
         // get personal trainers client list
         PersonalTrainer.findOne({_id: ptId})
