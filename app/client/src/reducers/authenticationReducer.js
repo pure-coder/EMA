@@ -1,3 +1,5 @@
+// THIS MUST BE IMPORTED INTO INDEX.JS IN RUDECERS FOLDER
+
 import {SET_SIGNED_IN_USER} from "../actions/types";
 import isEmpty from '../validation/is_empty';
 

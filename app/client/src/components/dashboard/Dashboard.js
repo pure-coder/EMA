@@ -1,8 +1,9 @@
 import React, {Component} from 'react';  // Used to create this component
 import PropTypes from 'prop-types'; // Used to document prop types sent to components
+import {getClients} from "../../actions/DashboardActions"; // Used to get clients of personal trainers from db and set to state
 import { connect } from 'react-redux' // Needed when using redux inside a component (connects redux to this component)
 import { withRouter } from 'react-router-dom';
-//import ClientList from './ClientList'
+import ClientList from './ClientList'
 //import * as d3 from 'd3';
 
 class Dashboard extends Component {
@@ -10,10 +11,8 @@ class Dashboard extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            clients: null,
             errors: {}
         }
-
     }
 
     // Life cycle method for react which will run when this component receives new properties
@@ -22,6 +21,8 @@ class Dashboard extends Component {
         if (!this.props.authenticatedUser.isAuthenticated) {
             this.props.history.push('/login');
         }
+
+        this.props.getClients(this.props.authenticatedUser.user.id)
 
     } // ComponentDidMount
 
@@ -34,10 +35,10 @@ class Dashboard extends Component {
     }
 
     componentDidUpdate(prevProps){
-
     }
 
     render() {
+
         // Get clients from pt client list via redux
         // let clients = this.state.authenticatedUser.user.clients
         //
@@ -67,7 +68,8 @@ class Dashboard extends Component {
 
 // Documents what props are needed for this component and will log a warning in the console in dev mode if not complied to
 Dashboard.propTypes = {
-    authenticatedUser: PropTypes.object.isRequired,
+    authenticatedUser : PropTypes.object.isRequired,
+    getClients: PropTypes.func.isRequired,
     errors: PropTypes.object.isRequired
 }
 
@@ -75,10 +77,8 @@ Dashboard.propTypes = {
 // Used to pull auth state and errors into this component.... DEFINED IN reducers/index.js {combineReducers}
 const stateToProps = (state) => ({
         authenticatedUser: state.authenticatedUser,
+        clients: state.clients,
         errors: state.errors
     });
 
-// connect must be exported with a passed parameter (not direct parameter) of Dashboard this is wrapped with withRouter
-// allowing the functions of the package to be used with the component eg, proper routing, and direct parameters of
-// stateToProps for the 1st parameter and the action which is dashboard as the 2nd parameter
-export default connect(stateToProps, null)(withRouter(Dashboard));
+export default connect(stateToProps, {getClients})(withRouter(Dashboard));

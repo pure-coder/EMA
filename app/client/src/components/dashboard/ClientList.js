@@ -67,4 +67,4 @@ const stateToProps = (state) => ({
     errors: state.errors
 });
 
-export default connect(stateToProps, { deleteClient})(ClientList);
+export default connect(stateToProps, {deleteClient})(ClientList);
