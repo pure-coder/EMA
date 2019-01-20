@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'; // Used to document prop types sent to compo
 import { connect } from 'react-redux' // Needed when using redux inside a component (connects redux to this component)
 import { withRouter } from 'react-router-dom';
 import ClientList from './ClientList'
+import { saveState, loadState }from '../../utilities/localState'; // import function to save and load state to local storage
 //import * as d3 from 'd3';
 
 class Dashboard extends Component {
@@ -30,11 +31,32 @@ class Dashboard extends Component {
     }
 
     static getDerivedStateFromProps(props, state){
+        // If authenticatedUser properties have changed then update the state of authenticatedUser
 
+        if (loadState() !== undefined){
+            console.log("loadstate not undefined")
+            return {
+                authenticatedUser: loadState()
+            }
+        }
+        if(props.authenticatedUser !== state.authenticatedUser){
+            console.log("derived props to state", props.authenticatedUser)
+            return {
+                authenticatedUser: props.authenticatedUser
+            }
+        }
+        return null
     }
 
     componentDidUpdate(prevProps){
 
+        if (prevProps.authenticatedUser !== this.props.authenticatedUser) {
+            console.log("component did update prev props ", prevProps.authenticatedUser)
+            console.log("component did update this", this.props.authenticatedUser)
+            saveState(this.props.authenticatedUser)
+            this.setState(this.props.authenticatedUser)
+            console.log("component did update 2 ", this.props.authenticatedUser)
+        }
     }
 
     render() {
@@ -52,14 +74,14 @@ class Dashboard extends Component {
         } // If PT
 
         return (
-                <div className="container  dashboard-custom">
-                    <div className="row">
-                        <div className="m-auto col-md-10">
-                            <h1 className=" text-center display-5">Dashboard</h1>
-                            {displayContent}
-                        </div>
+            <div className="container  dashboard-custom">
+                <div className="row">
+                    <div className="m-auto col-md-10">
+                        <h1 className=" text-center display-5">Dashboard</h1>
+                        {displayContent}
                     </div>
                 </div>
+            </div>
         );
     }
 }
@@ -73,9 +95,9 @@ Dashboard.propTypes = {
 
 // Used to pull auth state and errors into this component.... DEFINED IN reducers/index.js {combineReducers}
 const stateToProps = (state) => ({
-        authenticatedUser: state.authenticatedUser,
-        errors: state.errors
-    });
+    authenticatedUser: state.authenticatedUser,
+    errors: state.errors
+});
 
 // connect must be exported with a passed parameter (not direct parameter) of Dashboard this is wrapped with withRouter
 // allowing the functions of the package to be used with the component eg, proper routing, and direct parameters of
