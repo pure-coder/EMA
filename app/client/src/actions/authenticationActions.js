@@ -47,7 +47,10 @@ export const loginUser = (Data) => (dispatch) => {
             setAuthorisationToken(token);
             // Decode the token so user data can be used
             const decodedToken = jwtDecode(token);
-            // Set the current signedIn user
+            // Set the current signedIn user (with setSignedInUser function below), this adds the object returned by the
+            // result.data (which was put into token, then token was decoded and put into decodedToken). The object
+            // data is sent to setSignedInUser which is then added to the store under user, which is in InitialisedState
+            // in authenticatedReducer.js
             dispatch(setSignedInUser(decodedToken));
         })
         .catch(err =>

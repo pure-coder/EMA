@@ -1,6 +1,5 @@
 import axios from "axios";
 import {GET_ERRS} from "./types";
-import {DELETE_CLIENT} from "./types";
 
 // Delete Client
 export const deleteClient = id => dispatch => {
@@ -9,8 +8,7 @@ export const deleteClient = id => dispatch => {
         .then(() => {
             // console.log("deleted user")
             dispatch({
-                type: DELETE_CLIENT,
-                id: id
+
             })
             }
         )

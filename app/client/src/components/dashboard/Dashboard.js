@@ -30,7 +30,7 @@ class Dashboard extends Component {
     }
 
     static getDerivedStateFromProps(props, state){
-
+        return null
     }
 
     componentDidUpdate(prevProps){
@@ -39,24 +39,25 @@ class Dashboard extends Component {
 
     render() {
         // Get clients from pt client list via redux
-        let clients = this.state.authenticatedUser.user.clients
-
-        let displayContent;
-
-        // If user is a PT then display pt dashboard of clients
-        if(this.props.authenticatedUser.user.pt){
-            displayContent = (
-                // send clients data to client component, and render client component
-                <ClientList clients={clients}/>
-            )
-        } // If PT
+        // let clients = this.state.authenticatedUser.user.clients
+        //
+        // let displayContent;
+        //
+        // // If user is a PT then display pt dashboard of clients
+        // if(this.props.authenticatedUser.user.pt){
+        //     displayContent = (
+        //         // send clients data to client component, and render client component
+        //         <ClientList clients={clients}/>
+        //     )
+        // } // If PT
+//  {displayContent}
 
         return (
                 <div className="container  dashboard-custom">
                     <div className="row">
                         <div className="m-auto col-md-10">
                             <h1 className=" text-center display-5">Dashboard</h1>
-                            {displayContent}
+
                         </div>
                     </div>
                 </div>

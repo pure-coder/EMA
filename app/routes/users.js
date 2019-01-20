@@ -267,7 +267,7 @@ router.post('/login', (req, res) =>{
                         // If it is matched then provide a token
                         if(isMatch) {
                             // User matched so create payload for pt
-                             const payload = {id: pt.id, name: pt.FullName, pt: true ,clients: pt.ClientIDs}
+                             const payload = {id: pt.id, name: pt.FullName, pt: true}
 
                             // Sign Token (needs payload, secret key, and expiry detail (3600 = 1hr) for re-login
                             // and callback for token
@@ -532,9 +532,33 @@ router.post('/:id/scheduler/:cid',passport.authenticate('pt_rule', {session: fal
         }
 }); // router post /scheduler
 
-// @route  DELETE /delete_client
+
+// @route  GET api/pt_clients/:ptid
+// @desc   get up to date clients of personal trainer
+// @access private for PT's
+// router.get('/pt_clients/:ptid',passport.authenticate('pt_rule', {session: false}), (req, res) => {
+router.get('/pt_clients/:ptid', (req, res) => {
+        let ptId = req.params.ptid
+        // get personal trainers client list
+        PersonalTrainer.findOne({_id: ptId})
+            .then(pt =>{
+                    if(pt){
+                        return res.json(pt.ClientIDs)
+                    }
+                }
+
+            ) // then Client.findOne
+            .catch(err => {
+                return  res.json("No data for ptid: " + err.stringValue)
+            })
+
+    });
+ // router post /pt_clients
+
+
+// @route  DELETE api/delete_client
 // @desc   delete client, delete them from pt ClientIDs, Events and Event progression
-// @access private for PT's and clients
+// @access private for PT's
 router.delete('/delete_client/:cid',passport.authenticate('pt_rule', {session: false}), (req, res) => {
 
     let clientId = req.params.cid
