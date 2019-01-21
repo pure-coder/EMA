@@ -13,7 +13,6 @@ class Dashboard extends Component {
         super(props);
         this.state = {
             id: this.props.authenticatedUser.user.id,
-            clients: this.props.getClients(this.props.authenticatedUser.user.id),
             errors: {}
         }
     }
@@ -25,20 +24,30 @@ class Dashboard extends Component {
             this.props.history.push('/login');
         }
 
+        this.props.getClients(this.props.authenticatedUser.user.id)
+
+        // let ptid = this.props.authenticatedUser.user.id
+        // fetch('http://localhost:8000/api/pt_clients/' + ptid).then(
+        //     results => {
+        //         console.log(results)
+        //     }
+        // )
+
     } // ComponentDidMount
 
     render() {
-        // Get clients from pt client list via redux
-        let clients = this.state.clients
-        console.log(clients)
         let displayContent;
 
         // If user is a PT then display pt dashboard of clients
         if(this.props.authenticatedUser.user.pt){
-            displayContent = (
-                // send clients data to client component, and render client component
-                <ClientList clients={clients}/>
-            )
+            // Get clients from pt client list via redux
+            let clients = this.state.clients
+            console.log(clients)
+            //
+            // displayContent = (
+            //     // send clients data to client component, and render client component
+            //     <ClientList clients={clients}/>
+            // )
         } // If PT
 
         return (
@@ -46,7 +55,7 @@ class Dashboard extends Component {
                     <div className="row">
                         <div className="m-auto col-md-10">
                             <h1 className=" text-center display-5">Dashboard</h1>
-                            {displayContent}
+
                         </div>
                     </div>
                 </div>
@@ -65,7 +74,7 @@ Dashboard.propTypes = {
 // Used to pull auth state and errors into this component.... DEFINED IN reducers/index.js {combineReducers}
 const stateToProps = (state) => ({
         authenticatedUser: state.authenticatedUser,
-        clients: state.clients,
+        ptClients: state.clients,
         errors: state.errors
     });
 

@@ -1,5 +1,5 @@
 import axios from "axios";
-import {GET_ERRS} from "./types";
+import {GET_ERRS, PT_CLIENTS} from "./types";
 
 // Get pt Clients
 export const getClients = ptid => dispatch => {
@@ -7,17 +7,26 @@ export const getClients = ptid => dispatch => {
         .get(`/api/pt_clients/${ptid}`)
         .then(result => {
             // console.log("called in actions")
-                return {clients : result.data}
+            // console.log(result.data)
+            //return {clients : result.data}
+
+            // dispatch this action to the action below so the data can be sent to the respective reducer
+            dispatch(setPtClients(result.data))
             }
         )
         .catch(err => {
             console.log(err)
-            dispatch({
-                type: GET_ERRS,
-                payload: {msg: "Error"}
-            })
+
         })
 };
+
+// Used to send data from getClients action above to the reducer in dashboardReducer.js
+export const setPtClients = (data) => {
+    return{
+        type: PT_CLIENTS,
+        payload: data
+    }
+}
 
 // Delete Client
 export const deleteClient = id => dispatch => {
@@ -25,9 +34,9 @@ export const deleteClient = id => dispatch => {
         .delete(`/api/delete_client/${id}`)
         .then(() => {
             // console.log("deleted user")
-            dispatch({
-
-            })
+            // dispatch({
+            //
+            // })
             }
         )
         .catch(err => {
