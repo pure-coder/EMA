@@ -51,6 +51,9 @@ export const loginUser = (Data) => (dispatch) => {
             // data is sent to setSignedInUser which is then added to the store under user, which is in InitialisedState
             // in authenticatedReducer.js
             dispatch(setSignedInUser(decodedToken));
+            if (decodedToken.pt === true) {
+                dispatch(getClients(decodedToken.id))
+            };
         })
         .catch(err =>
             dispatch({ // if an error occurs dispatch is called to send the data as an object to the
