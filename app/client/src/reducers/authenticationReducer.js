@@ -1,11 +1,9 @@
 // THIS MUST BE IMPORTED INTO INDEX.JS IN RUDECERS FOLDER
 
-import {SET_SIGNED_IN_USER} from "../actions/types";
+import {PT_CLIENTS, SET_SIGNED_IN_USER} from "../actions/types";
 import isEmpty from '../validation/is_empty';
 
 const initialisedState = {
-    isAuthenticated: false,
-    user: {}
 }
 
 export default function (state = initialisedState, action) {
@@ -22,7 +20,15 @@ export default function (state = initialisedState, action) {
                 // this can be called again for logout but pass in an empty user so the user will not be authenticated,
                 // and it will be an empty object
                 user: action.payload
-            }
+            };
+        case PT_CLIENTS:
+            // Add pt clients to state
+            return {
+                ...state, // Using the spread operator allows the state to stay immutable, with only the following
+                // code being changed in the state.
+                // Add the payload which was returned from from the PT_CLIENTS action in dashboardActions.js
+                clients: action.payload
+            };
         default:
             return state;
     }

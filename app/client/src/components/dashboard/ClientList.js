@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import React, { Component } from 'react';
-import {deleteClient} from "../../actions/dashboardActions";
+import {deleteClient} from "../../actions/authenticationActions";
 import PropTypes from "prop-types";
 
 

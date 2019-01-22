@@ -39,6 +39,7 @@ app.use(bodyParser.json());
 const db = require('./config/db');
 
 // Connect to MongoDB
+
 mongoose
     .connect(db.mongodb.dsn)
     .then (() => log.info('successfully connected to Mongodb'))

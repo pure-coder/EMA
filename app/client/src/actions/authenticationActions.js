@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {GET_ERRS, SET_SIGNED_IN_USER} from "./types"; // import custom defined types
+import {GET_ERRS, SET_SIGNED_IN_USER, PT_CLIENTS} from "./types"; // import custom defined types
 import setAuthorisationToken from '../utilities/setAuthorisationToken';
 import jwtDecode from 'jwt-decode';
 
@@ -78,7 +78,7 @@ export const logOutUser = () => dispatch => {
     // setAuthorisationToken checks passed parameter for a token or false value (false deletes the header token)
     setAuthorisationToken(false);
     // Set signed in user to an empty object and isAuthenticated to false by passing in {} (empty object)
-    dispatch(setSignedInUser({}))
+    dispatch(setSignedInUser({}));
     // remove state from local storage
     localStorage.removeItem('state')
 };
@@ -101,5 +101,50 @@ export const registerClient =(Data, props) => (dispatch) => {
             })
         );
 }; // registerClient
+
+// Get pt Clients
+export const getClients = ptid => dispatch => {
+    axios
+        .get(`/api/pt_clients/${ptid}`)
+        .then(result => {
+                // return {clients : result.data}
+                // dispatch this action to the action below so the data can be sent to the respective reducer
+                dispatch(setPtClients(result.data))
+            }
+        )
+        .catch(err => {
+            console.log(err)
+
+        })
+};
+
+// Used to send data from getClients action above to the reducer in dashboardReducer.js
+export const setPtClients = (data) => {
+    // console.log("set pt clients", data)
+    return{
+        type: PT_CLIENTS,
+        payload: data
+    }
+}
+
+// Delete Client
+export const deleteClient = id => dispatch => {
+    axios
+        .delete(`/api/delete_client/${id}`)
+        .then(() => {
+                // console.log("deleted user")
+                // dispatch({
+                //
+                // })
+            }
+        )
+        .catch(err => {
+            console.log(err)
+            dispatch({
+                type: GET_ERRS,
+                payload: {msg: "Error"}
+            })
+        })
+};
 
 
