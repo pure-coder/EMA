@@ -2,13 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ec8ccf39-8487-4892-a38d-de9c288878a3" name="Default" comment="delete client from pt array - using pull">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/actions/authenticationActions.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/actions/authenticationActions.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/actions/dashboardActions.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/dashboard/Dashboard(old).js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/dashboard/Dashboard(old).js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/dashboard/Dashboard.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/dashboard/Dashboard.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/layout/Navigator.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/layout/Navigator.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/reducers/dashboardReducer.js" beforeDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -99,19 +93,11 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/client/src/components/layout/Navigator.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="408">
-              <caret line="42" column="24" lean-forward="true" selection-start-line="28" selection-start-column="19" selection-end-line="42" selection-end-column="24" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/Dashboard(old).js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="195">
-              <caret line="71" lean-forward="true" selection-start-line="71" selection-end-line="71" />
+            <state relative-caret-position="202">
+              <caret line="42" column="21" selection-start-line="28" selection-start-column="16" selection-end-line="42" selection-end-column="21" />
               <folding>
-                <element signature="e#279#325#0" expanded="true" />
+                <element signature="e#0#39#0" expanded="true" />
+                <element signature="e#255#290#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -434,7 +420,7 @@
       <workItem from="1546971654241" duration="46706000" />
       <workItem from="1547654890513" duration="11235000" />
       <workItem from="1547837527280" duration="49596000" />
-      <workItem from="1548165767780" duration="11240000" />
+      <workItem from="1548165767780" duration="11511000" />
     </task>
     <task id="LOCAL-00001" summary="min height changed for developed pages">
       <created>1534874964132</created>
@@ -482,7 +468,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="514168000" />
+    <option name="totallyTimeSpent" value="514439000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -497,7 +483,7 @@
     <frame x="-8" y="-8" width="1382" height="784" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.18005952" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.18005952" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Messages" order="0" weight="0.32923076" />
@@ -509,7 +495,7 @@
       <window_info anchor="bottom" id="Inspection" order="6" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="7" weight="0.32923076" />
       <window_info anchor="bottom" id="Docker" order="8" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Terminal" order="9" weight="0.46923077" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="9" visible="true" weight="0.46923077" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="11" weight="0.32923076" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -882,8 +868,12 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/client/src/components/layout/Navigator.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="42" column="24" lean-forward="true" selection-start-line="28" selection-start-column="19" selection-end-line="42" selection-end-column="24" />
+        <state relative-caret-position="202">
+          <caret line="42" column="21" selection-start-line="28" selection-start-column="16" selection-end-line="42" selection-end-column="21" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+            <element signature="e#255#290#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
