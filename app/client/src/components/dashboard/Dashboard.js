@@ -16,6 +16,8 @@ class Dashboard extends Component {
             clients: {},
             errors: {}
         }
+
+        this.update = this.update.bind(this);
     }
 
     static getDerivedStateFromProps(props, state){
@@ -44,10 +46,11 @@ class Dashboard extends Component {
     // }
 
     // update client list after change
-    update = () =>{
+    update(){
         this.props.getClients(this.state.id)
 
         this.setState({clients: this.props.authenticatedUser.clients})
+        console.log("clicked")
     }
     
     render() {

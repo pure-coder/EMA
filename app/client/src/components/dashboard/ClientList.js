@@ -13,8 +13,8 @@ class ClientList extends Component {
         }
     }
 
-    onClientDelete(id) {
-        this.props.deleteClient(id);
+    onClientDelete(id, ptId) {
+        this.props.deleteClient(id, ptId);
     }
     onScheduleClick(ptId ,id) {
         window.location.href = '/users/' + ptId + '/scheduler/' + id;
@@ -31,13 +31,13 @@ class ClientList extends Component {
                 <td align="center"><i className="fas fa-edit fa-2x"></i></td>
                 <td align="center">
                     <button
-                        onClick={this.onClientDelete.bind(this, client.id)}
+                        onClick={this.onClientDelete.bind(this, client.id, client.ptId)}
                         className="btn btn-danger">
                         Delete
                     </button>
                 </td>
             </tr>
-        ))
+        ));
         return (
             <div>
                 <h3 className="mb-3">Clients</h3>

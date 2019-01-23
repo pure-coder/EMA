@@ -131,13 +131,11 @@ export const setPtClients = (data) => {
 }
 
 // Delete Client
-export const deleteClient = id => dispatch => {
+export const deleteClient = (id, ptId) => dispatch => {
     axios
         .delete(`/api/delete_client/${id}`)
         .then(() => {
-                // dispatch({
-                //
-                // })
+                dispatch(getClients(ptId))
             }
         )
         .catch(err => {
