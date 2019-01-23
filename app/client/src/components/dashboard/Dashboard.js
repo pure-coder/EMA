@@ -17,6 +17,13 @@ class Dashboard extends Component {
         }
     }
 
+    static getDerivedStateFromProps(props, state){
+        if (props.authenticatedUser.clients !== state.clients){
+            return {clients: props.authenticatedUser.clients}
+        }
+        return null
+    }
+
     // Life cycle method for react which will run when this component receives new properties
     componentDidMount() {
         // Check if isAuthenticated is true then redirect to the dashboard
@@ -24,17 +31,25 @@ class Dashboard extends Component {
             this.props.history.push('/login');
         }
 
-        this.props.getClients(this.props.authenticatedUser.user.id);
+        this.setState({clients: this.props.authenticatedUser.clients})
 
     } // ComponentDidMount
+
+    componentDidUpdate(prevProps) {
+        // Typical usage (don't forget to compare props):
+        if (this.props.authenticatedUser.clients !== prevProps.authenticatedUser.clients) {
+            this.setState({clients: this.props.authenticatedUser.clients})
+        }
+    }
     
     render() {
         let displayContent;
+        console.log("state", this.state)
 
         // If user is a PT then display pt dashboard of clients
-        if(this.props.authenticatedUser.user.pt && this.props.authenticatedUser.clients !== undefined){
+        if(this.props.authenticatedUser.user.pt && this.state.clients !== undefined){
             // Get clients from pt client list via redux
-            let clients = this.props.authenticatedUser.clients;
+            let clients = this.state.clients;
 
             // Define content to display.. in this case the list of clients
             displayContent = (

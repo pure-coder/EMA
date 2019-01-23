@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom'; /*This will be used instead of the anchor tag for routing*/
-
 // For dynamic navbar depending on login status (either guest link (not signed in) or authorised link (signed in))
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -20,8 +19,11 @@ class Navigation extends Component {
 
     render() {
 
-        // // This allows specified data to be pulled out of this.prop.authenticatedUser with pulling them out directly
-        const { isAuthenticated, user} = this.props.authenticatedUser;
+        // // This allows specified data to be pulled out of this.prop.authenticatedUser without pulling them out directly
+        // const { isAuthenticated, user} = this.props.authenticatedUser;
+        const user = this.props.authenticatedUser.user;
+        const isAuthenticated = this.props.authenticatedUser.isAuthenticated;
+        const Guest = "Guest";
 
         // Define navbar for dynamic navbar
         const authorisedLinks = (
@@ -31,13 +33,14 @@ class Navigation extends Component {
                         <img
                             className="rounded-circle"
                             // If user has profile pic display it otherwise display default user image
-                            src={user.profilePic ? user.profilePic : defaultUserImage}
-                             alt={user.name}
-                             style={{backgroundColor: 'white', width: 30, height: 27, paddingRight: 0}}
+                            // Todo - src={isAuthenticated ? user.profilePic : defaultUserImage} --- and add profilePic to user
+                            src={isAuthenticated ? defaultUserImage : defaultUserImage}
+                            alt={isAuthenticated ? user.name : Guest}
+                            style={{backgroundColor: 'white', width: 30, height: 27, paddingRight: 0}}
                         />
                         {/*{' '} is used to provide space */}
                         {' '}
-                        {user.name}
+                        {isAuthenticated ? user.name : Guest}
                         {' '}
                         - Log Out</a>
                 </ul>
@@ -59,7 +62,7 @@ class Navigation extends Component {
                     </li>
                 </ul>
             </div>
-        )
+        );
 
         return (
             <nav className="navbar navbar-expand-sm navbar-dark navbar-custom mb-5">
@@ -86,7 +89,7 @@ class Navigation extends Component {
 Navigation.propTypes = {
     logOutUser: PropTypes.func.isRequired,
     authenticatedUser: PropTypes.object.isRequired,
-}
+};
 
 // Used to pull auth state into this component
 const stateToProps = (state) => ({
