@@ -32,9 +32,7 @@ class Dashboard extends Component {
             this.props.history.push('/login');
         }
 
-        this.props.getClients(this.state.id)
-
-        this.setState({clients: this.props.authenticatedUser.clients})
+        this.update()
 
     } // ComponentDidMount
 
@@ -44,10 +42,17 @@ class Dashboard extends Component {
     //         this.setState({clients: this.props.authenticatedUser.clients})
     //     }
     // }
+
+    // update client list after change
+    update = () =>{
+        this.props.getClients(this.state.id)
+
+        this.setState({clients: this.props.authenticatedUser.clients})
+    }
     
     render() {
         let displayContent;
-        console.log("state", this.state)
+        //console.log("state", this.state)
 
         // If user is a PT then display pt dashboard of clients
         if(this.props.authenticatedUser.user.pt && this.state.clients !== undefined){
@@ -57,7 +62,7 @@ class Dashboard extends Component {
             // Define content to display.. in this case the list of clients
             displayContent = (
                 // send clients data to client component, and render client component
-                <ClientList clients={clients}/>
+                <ClientList clients={clients} callback={this.update}/>
             )
         } // If PT
 
