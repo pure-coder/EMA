@@ -12,6 +12,7 @@ class Dashboard extends Component {
         // initiate props this clients
         super(props);
         this.state = {
+            id: this.props.authenticatedUser.user.id,
             clients: {},
             errors: {}
         }
@@ -31,16 +32,18 @@ class Dashboard extends Component {
             this.props.history.push('/login');
         }
 
+        this.props.getClients(this.state.id)
+
         this.setState({clients: this.props.authenticatedUser.clients})
 
     } // ComponentDidMount
 
-    componentDidUpdate(prevProps) {
-        // Typical usage (don't forget to compare props):
-        if (this.props.authenticatedUser.clients !== prevProps.authenticatedUser.clients) {
-            this.setState({clients: this.props.authenticatedUser.clients})
-        }
-    }
+    // componentDidUpdate(prevProps) {
+    //     // Typical usage (don't forget to compare props):
+    //     if (this.props.authenticatedUser.clients !== prevProps.authenticatedUser.clients) {
+    //         this.setState({clients: this.props.authenticatedUser.clients})
+    //     }
+    // }
     
     render() {
         let displayContent;
