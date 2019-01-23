@@ -16,10 +16,9 @@ class Dashboard extends Component {
             clients: {},
             errors: {}
         }
-
-        this.update = this.update.bind(this);
     }
 
+    // Set clients in state to those retrieved from database (from props), as on refresh state clients will always be undefined
     static getDerivedStateFromProps(props, state){
         if (props.authenticatedUser.clients !== state.clients){
             return {clients: props.authenticatedUser.clients}
@@ -38,34 +37,24 @@ class Dashboard extends Component {
 
     } // ComponentDidMount
 
-    // componentDidUpdate(prevProps) {
-    //     // Typical usage (don't forget to compare props):
-    //     if (this.props.authenticatedUser.clients !== prevProps.authenticatedUser.clients) {
-    //         this.setState({clients: this.props.authenticatedUser.clients})
-    //     }
-    // }
-
     // update client list after change
     update(){
+        // Get updated client list from database
         this.props.getClients(this.state.id)
-
-        this.setState({clients: this.props.authenticatedUser.clients})
-        console.log("clicked")
     }
     
     render() {
         let displayContent;
-        //console.log("state", this.state)
-
         // If user is a PT then display pt dashboard of clients
         if(this.props.authenticatedUser.user.pt && this.state.clients !== undefined){
             // Get clients from pt client list via redux
             let clients = this.state.clients;
+            //console.log("state", this.state)
 
             // Define content to display.. in this case the list of clients
             displayContent = (
                 // send clients data to client component, and render client component
-                <ClientList clients={clients} callback={this.update}/>
+                <ClientList clients={clients}/>
             )
         } // If PT
 
