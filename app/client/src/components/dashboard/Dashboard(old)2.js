@@ -34,13 +34,13 @@ class Dashboard extends Component {
         // If authenticatedUser properties have changed then update the state of authenticatedUser
 
         if (loadState() !== undefined){
-            console.log("loadstate not undefined")
+            console.log("loadstate not undefined");
             return {
                 authenticatedUser: loadState()
             }
         }
         if(props.authenticatedUser !== state.authenticatedUser){
-            console.log("derived props to state", props.authenticatedUser)
+            console.log("derived props to state", props.authenticatedUser);
             return {
                 authenticatedUser: props.authenticatedUser
             }
@@ -51,17 +51,17 @@ class Dashboard extends Component {
     componentDidUpdate(prevProps){
 
         if (prevProps.authenticatedUser !== this.props.authenticatedUser) {
-            console.log("component did update prev props ", prevProps.authenticatedUser)
-            console.log("component did update this", this.props.authenticatedUser)
-            saveState(this.props.authenticatedUser)
-            this.setState(this.props.authenticatedUser)
+            console.log("component did update prev props ", prevProps.authenticatedUser);
+            console.log("component did update this", this.props.authenticatedUser);
+            saveState(this.props.authenticatedUser);
+            this.setState(this.props.authenticatedUser);
             console.log("component did update 2 ", this.props.authenticatedUser)
         }
     }
 
     render() {
         // Get clients from pt client list via redux
-        let clients = this.state.authenticatedUser.user.clients
+        let clients = this.state.authenticatedUser.user.clients;
 
         let displayContent;
 
@@ -90,7 +90,7 @@ class Dashboard extends Component {
 Dashboard.propTypes = {
     authenticatedUser: PropTypes.object.isRequired,
     errors: PropTypes.object.isRequired
-}
+};
 
 
 // Used to pull auth state and errors into this component.... DEFINED IN reducers/index.js {combineReducers}

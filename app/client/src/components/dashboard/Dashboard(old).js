@@ -34,7 +34,7 @@ class Dashboard extends Component {
         // If user is a PT then display pt dashboard of clients
         if(this.props.authenticatedUser.user.pt && this.props.authenticatedUser.clients !== undefined){
             // Get clients from pt client list via redux
-            let clients = this.props.authenticatedUser.clients
+            let clients = this.props.authenticatedUser.clients;
 
             // Define content to display.. in this case the list of clients
             displayContent = (

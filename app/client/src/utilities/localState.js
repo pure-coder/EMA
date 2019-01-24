@@ -3,7 +3,7 @@
 // function to load any saved state from local storage
 export const loadState = () => {
     try{
-        const serializedState = localStorage.getItem('state')
+        const serializedState = localStorage.getItem('state');
         // return undefined if null so the program does not crash
         if (serializedState === null) {
             return undefined
@@ -15,16 +15,16 @@ export const loadState = () => {
     catch (err) {
         return undefined
     }
-}
+};
 
 export const saveState = (state) => {
     try {
         // stringify the state as local storage can only save strings
-        const serializedState = JSON.stringify(state)
+        const serializedState = JSON.stringify(state);
         // save the state as 'state' in local storage
         localStorage.setItem('state', serializedState)
     }
     catch (err) {
         // ignore write errors
     }
-}
+};

@@ -1,6 +1,6 @@
 const nodemailer = require('nodemailer');
 
-module.exports = function(Email, Token){
+module.exports = function (Email, Token) {
 
     let smtpConfig = {
         host: 'smtp.gmail.com',
@@ -24,12 +24,11 @@ module.exports = function(Email, Token){
         },
         text: Token,
         html: '<a href="http://localhost:8000/api/verify?activation_link=' + Token + '">Activation Link</a>'
-    }
+    };
     var smtpTransport = nodemailer.createTransport(smtpConfig);
-    smtpTransport.sendMail(message, function(error, response){
-        if(error){
-            ;
-        }else{
+    smtpTransport.sendMail(message, function (error, response) {
+        if (error) {
+        } else {
             console.log('Mail has been sent');
         }
     });

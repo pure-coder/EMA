@@ -14,7 +14,7 @@ class RegisterClient extends Component {
             Email: '',
             ContactNumber: '',
             errors: {}
-        }
+        };
 
         // This sets the state value to it's respective state (via binding)
         this.onChange = this.onChange.bind(this);
@@ -55,7 +55,7 @@ class RegisterClient extends Component {
             FullName: this.state.FullName,
             Email: this.state.Email,
             ContactNumber: this.state.ContactNumber
-        }
+        };
 
         // Calls the action/reducer loginUser with the user data as well
         // as using the history function of withRouter for directing user to another link/route. (calls registerClient
@@ -113,7 +113,7 @@ RegisterClient.propTypes = {
     registerClient: PropTypes.func.isRequired,
     authenticatedUser: PropTypes.object.isRequired,
     errors: PropTypes.object.isRequired
-}
+};
 
 // Used to pull auth state and errors into this component.... DEFINED IN reducers/index.js {combineReducers}
 const stateToProps = (state) => ({

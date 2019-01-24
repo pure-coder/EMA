@@ -17,7 +17,7 @@ const EventsSchema = mongoose.Schema({
     clientId: {
         type: String
     }
-},{collection: "Events"}, { timestamps: true });
+}, {collection: "Events"}, {timestamps: true});
 
 
 module.exports = mongoose.model('Events', EventsSchema);

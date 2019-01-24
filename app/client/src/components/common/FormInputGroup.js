@@ -28,7 +28,7 @@ const FormInputGroup = ({
             {error && (<div className="invalid-feedback">{error}</div>)}
         </div>
     )
-}
+};
 
 FormInputGroup.propTypes = {
     name: PropTypes.string.isRequired,
@@ -37,10 +37,10 @@ FormInputGroup.propTypes = {
     type: PropTypes.string.isRequired,
     error: PropTypes.string,
     onChange: PropTypes.func.isRequired
-}
+};
 
 FormInputGroup.defaultProps = {
     type: 'text'
-}
+};
 
 export default FormInputGroup;

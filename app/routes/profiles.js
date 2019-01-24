@@ -19,7 +19,7 @@ const PersonalTrainer = require('../models/PersonalTrainer');
 // @route  GET client profile
 // @desc   profile route for client that belongs to the personal trainer
 // @access Private route for personal trainers only
-router.get('/:id',  passport.authenticate('pt_rule', {session: false}),
+router.get('/:id', passport.authenticate('pt_rule', {session: false}),
     (req, res) => {
 
         const errors = {};
@@ -31,7 +31,7 @@ router.get('/:id',  passport.authenticate('pt_rule', {session: false}),
         // Get array of client ids belonging to pt
         PersonalTrainer.findById(payload.id)
             .then(pt => {
-                if(!pt){
+                if (!pt) {
                     //
                     errors.noprofile = "Personal trainer data not found";
                     return res.status(404).json(errors);
@@ -45,14 +45,13 @@ router.get('/:id',  passport.authenticate('pt_rule', {session: false}),
 
                 // If signed in pt has client id that matches id in url then get client profile data
                 // (using the "some" function breaks the loop once value is found saving computational time
-                if(pt_clients.some((element) => {
-                    return element.id == client_id;
-                }))
-                {
+                if (pt_clients.some((element) => {
+                    return element.id === client_id;
+                })) {
                     ////////////////////////////////////////////// CHANGE CLIENT MODEL TO PROFILE MODEL //////////////////////////
                     Client.findById(client_id)
                         .then(client => {
-                            if(!client){
+                            if (!client) {
                                 errors.noprofile = "Client data not found";
                                 return res.status(404).json(errors);
                             }
@@ -62,7 +61,7 @@ router.get('/:id',  passport.authenticate('pt_rule', {session: false}),
                             res.status(404).json({err});
                         })
                 }// If signed in client matches id in url or id in url is located signed in pt's client id
-                else{
+                else {
                     return res.json({msg: "Unauthorised access: Profile cannot be displayed!"})
                 }
 
@@ -71,7 +70,7 @@ router.get('/:id',  passport.authenticate('pt_rule', {session: false}),
                 res.status(404).json({err});
             })
 
-});
+    });
 
 //Export router so it can work with the main restful api server
 module.exports = router;

@@ -18,7 +18,7 @@ const Client = require('../models/Clients');
 // @route  GET profile/test
 // @desc   Test profile route
 // @access Private route for clients only
-router.get('/:id',  passport.authenticate('client_rule', {session: false}),
+router.get('/:id', passport.authenticate('client_rule', {session: false}),
     (req, res) => {
 
         const errors = {};
@@ -29,11 +29,11 @@ router.get('/:id',  passport.authenticate('client_rule', {session: false}),
         let user_id = payload.id;
 
         // If signed in client matches id in url then get client profile data
-        if (req.params.id == user_id) {
+        if (req.params.id === user_id) {
             ////////////////////////////////////////////// CHANGE CLIENT MODEL TO PROFILE MODEL //////////////////////////
             Client.findById(user_id)
                 .then(client => {
-                    if(!client){
+                    if (!client) {
                         errors.noprofile = "Client data not found";
                         return res.status(404).json(errors);
                     }
@@ -47,7 +47,7 @@ router.get('/:id',  passport.authenticate('client_rule', {session: false}),
             return res.json({msg: "Unauthorised access: Profile cannot be displayed!"})
         }
 
-});
+    });
 
 //Export router so it can work with the main restful api server
 module.exports = router;

@@ -53,7 +53,7 @@ export const loginUser = (Data) => (dispatch) => {
             dispatch(setSignedInUser(decodedToken));
             if (decodedToken.pt === true) {
                 dispatch(getClients(decodedToken.id))
-            };
+            }
         })
         .catch(err =>
             dispatch({ // if an error occurs dispatch is called to send the data as an object to the
@@ -128,7 +128,7 @@ export const setPtClients = (data) => {
         type: PT_CLIENTS,
         payload: data
     }
-}
+};
 
 // Delete Client
 export const deleteClient = (id, ptId) => dispatch => {
@@ -139,7 +139,7 @@ export const deleteClient = (id, ptId) => dispatch => {
             }
         )
         .catch(err => {
-            console.log(err)
+            console.log(err);
             dispatch({
                 type: GET_ERRS,
                 payload: {msg: "Error"}

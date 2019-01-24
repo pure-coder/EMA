@@ -13,7 +13,7 @@ class Dashboard extends Component {
         this.state = {
 
             errors: {}
-        }
+        };
 
         // This sets the state value to it's respective state (via binding)
         this.onChange = this.onChange.bind(this);
@@ -46,7 +46,7 @@ class Dashboard extends Component {
             {date: '10-Jun-13', frequency: 62},
             {date: '10-Jul-13', frequency: 70},
             {date: '10-Aug-13', frequency: 76},
-        ]
+        ];
 
         // set data
         let myData2 = [
@@ -65,7 +65,7 @@ class Dashboard extends Component {
             {date: '10-Jun-13', frequency: 62},
             {date: '10-Jul-13', frequency: 70},
             {date: '10-Aug-13', frequency: 76},
-        ]
+        ];
 
         // 1st parameter takes array of objects as data to plot graph, 2nd parameter takes div as position to display graph
         function addGraph(data, position) {// set the dimensions and margins of the graph
@@ -171,7 +171,7 @@ class Dashboard extends Component {
 
         const newUser = {
 
-        }
+        };
 
         // Calls the action/reducer loginUser with the user data as well
         // as using the history function of withRouter for directing user to another link/route. (calls dashboard
@@ -203,7 +203,7 @@ Dashboard.propTypes = {
     dashboard: PropTypes.func.isRequired,
     authenticatedUser: PropTypes.object.isRequired,
     //errors: PropTypes.object.isRequired
-}
+};
 
 // Used to pull auth state and errors into this component
 const stateToProps = (state) => ({

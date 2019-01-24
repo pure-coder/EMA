@@ -9,10 +9,10 @@ const progressionSchema = mongoose.Schema({
         type: String, required: true,
     },
     // exercises will be separate objects with progression data put in arrays in those exercise objects
-    Exercises:{
+    Exercises: {
         type: {}
-      }
-},{collection: "Client_progression"}, { timestamps: true });
+    }
+}, {collection: "Client_progression"}, {timestamps: true});
 
 
 module.exports = mongoose.model('Client_progression', progressionSchema);

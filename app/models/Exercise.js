@@ -7,11 +7,11 @@ const ExerciseSchema = mongoose.Schema({
     },
     Details: [
         {
-            Weight: { type : String },
-            Date: { type: Date }
+            Weight: {type: String},
+            Date: {type: Date}
         }
     ]
-},{collection: "Exercise"}, { timestamps: true });
+}, {collection: "Exercise"}, {timestamps: true});
 
 
 module.exports = mongoose.model('Exercise', ExerciseSchema);

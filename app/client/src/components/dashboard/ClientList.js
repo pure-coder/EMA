@@ -1,5 +1,5 @@
-import { connect } from 'react-redux';
-import React, { Component } from 'react';
+import {connect} from 'react-redux';
+import React, {Component} from 'react';
 import {deleteClient} from "../../actions/authenticationActions";
 import PropTypes from "prop-types";
 
@@ -16,7 +16,8 @@ class ClientList extends Component {
     onClientDelete(id, ptId) {
         this.props.deleteClient(id, ptId);
     }
-    onScheduleClick(ptId ,id) {
+
+    onScheduleClick(ptId, id) {
         window.location.href = '/users/' + ptId + '/scheduler/' + id;
     }
 
@@ -25,9 +26,10 @@ class ClientList extends Component {
         // console.log(this.props.clients)
         let clients = this.props.clients.map(client => (
             <tr key={client.id}>
-                <td align="center"> <b>{client.FullName}</b> </td>
+                <td align="center"><b>{client.FullName}</b></td>
                 <td align="center"><i className="fas fa-columns fa-2x"></i></td>
-                <td align="center"><a onClick={this.onScheduleClick.bind(this, client.ptId, client.id)}><i className="far fa-calendar-alt fa-2x"></i></a></td>
+                <td align="center"><a onClick={this.onScheduleClick.bind(this, client.ptId, client.id)}><i
+                    className="far fa-calendar-alt fa-2x"></i></a></td>
                 <td align="center"><i className="fas fa-edit fa-2x"></i></td>
                 <td align="center">
                     <button

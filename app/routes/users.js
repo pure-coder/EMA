@@ -38,20 +38,20 @@ const Events = require('../models/Events');
 // @route  POST /register
 // @desc   Register Personal Trainer
 // @access Public
-router.post('/register', (req, res) =>{
+router.post('/register', (req, res) => {
     // Set up validation checking for every field that has been posted
-    const {errors, isValid } = validateRegistrationInput(req.body);
+    const {errors, isValid} = validateRegistrationInput(req.body);
 
     // Check validation (so if it isn't valid give 400 error and message of error
-    if(!isValid){
+    if (!isValid) {
         return res.status(400).json(errors);
     }
 
     // Check if email already existing in database
     PersonalTrainer.findOne({Email: req.body.Email})
-        .then(PT  =>{
+        .then(PT => {
             // Check if PT email exists and return 400 error if it does
-            if(PT) {
+            if (PT) {
                 // Using validation to log error (this for email exists error)
                 errors.Email = 'Email already exists';
                 // Then pass errors object into returned json
@@ -63,15 +63,14 @@ router.post('/register', (req, res) =>{
             Client.findOne({Email: req.body.Email})
                 .then(client => {
 
-                    if(client){
+                    if (client) {
                         // Using validation to log error (this for email exists error)
                         errors.Email = 'Email already exists';
                         // Then pass errors object into returned json
                         return res.status(400).json(errors);
                     }
 
-                    else
-                    {
+                    else {
                         let now = new Date();
                         now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
 
@@ -104,15 +103,15 @@ router.post('/register', (req, res) =>{
         })
 });
 
-// @route  POST api/register/new_client
+// @route  POST api/new_client
 // @desc   Register Personal Trainer
 // @access Private route - only Personal Trainers can add new clients
-router.post('/new_client', passport.authenticate('pt_rule', {session: false}) ,(req, res) =>{
+router.post('/new_client', passport.authenticate('pt_rule', {session: false}), (req, res) => {
     // Set up validation checking for every field that has been posted
-    const {errors, isValid } = validateClientInput(req.body);
+    const {errors, isValid} = validateClientInput(req.body);
 
     // Check validation (so if it isn't valid give 400 error and message of error
-    if(!isValid){
+    if (!isValid) {
         return res.status(400).json(errors);
     }
 
@@ -123,9 +122,9 @@ router.post('/new_client', passport.authenticate('pt_rule', {session: false}) ,(
 
     // Check if email already existing in database
     Client.findOne({Email: req.body.Email})
-        .then(client  =>{
+        .then(client => {
             // Check if Client email exists and return 400 error if it does
-            if(client) {
+            if (client) {
                 // Using validation to log error (this for email exists error)
                 errors.Email = 'Email already exists';
                 // Then pass errors object into returned json
@@ -136,7 +135,7 @@ router.post('/new_client', passport.authenticate('pt_rule', {session: false}) ,(
             // Check if email exists in pt database
             PersonalTrainer.findOne({Email: req.body.Email})
                 .then(PT => {
-                    if(PT){
+                    if (PT) {
                         // Using validation to log error (this for email exists error)
                         errors.Email = 'Email already exists';
                         // Then pass errors object into returned json
@@ -152,30 +151,32 @@ router.post('/new_client', passport.authenticate('pt_rule', {session: false}) ,(
                             Email: req.body.Email,
                             ContactNumber: req.body.ContactNumber,
                             Date: now,
-                            ptId : PersonalTrainerId
+                            ptId: PersonalTrainerId
                         });
 
                         // Save new client to database and push basic client details to personal trainers ClientIDs
                         newClient.save()
                             .then(client => {
-                                // Send verification email to client
-                                verification(req.body.Email)
+                                    // Send verification email to client
+                                    verification(req.body.Email);
                                     let client_id_object = {
                                         FullName: client.FullName,
                                         email: client.Email,
                                         id: client.id,
-                                        ptId : PersonalTrainerId
-                                    }
+                                        ptId: PersonalTrainerId
+                                    };
                                     // Add client id to associated personal trainer ClientIDs
                                     PersonalTrainer.findByIdAndUpdate(PersonalTrainerId,
                                         {$push: {ClientIDs: client_id_object}},
                                         {safe: true})
-                                        .then(result =>{
+                                        .then(result => {
                                             // console.log(client_id_object),
                                             res.json({result})
                                         })
-                                        .catch(err => {res.json({err})})
-                            }
+                                        .catch(err => {
+                                            res.json({err})
+                                        })
+                                }
                             )
                             .catch(err => res.json({err})); // catch client save
                     } // else
@@ -188,37 +189,37 @@ router.post('/new_client', passport.authenticate('pt_rule', {session: false}) ,(
 // @route  POST api/login
 // @desc   Login Users (Personal Trainers and Clients) / and return JWT
 // @access Public
-router.post('/login', (req, res) =>{
+router.post('/login', (req, res) => {
     const Email = req.body.Email;
     const Password = req.body.Password;
 
     // Set up validation checking for every field that has been posted
-    const {errors, isValid } = validateLoginInput(req.body);
+    const {errors, isValid} = validateLoginInput(req.body);
 
     // Check validation (so if it isn't valid give 400 error and message of error
-    if(!isValid){
+    if (!isValid) {
         return res.status(400).json(errors);
     }
 
-        PersonalTrainer.findOne({Email})
-        // Check for user
+    PersonalTrainer.findOne({Email})
+    // Check for user
         .then(pt => {
             // This will be false if a match is not found for the user
             // if that is the case return 404 error status with a message
-            if(!pt){
+            if (!pt) {
                 Client.findOne({Email})
                 // Check for user
                     .then(client => {
                         // This will be false if a match is not found for the user
                         // if that is the case return 404 error status with a message
-                        if(!client){
+                        if (!client) {
                             // if Personal client is found this will get over written with a success msg
                             errors.Email = 'User not found';
                             return res.status(404).json(errors);
                         }
 
                         // Check if user is activated before Password check and logging in
-                        if(client.Activated) {
+                        if (client.Activated) {
                             // If user is found continue with comparing the Password of given
                             // user with the hashed Password in the database
                             // Check Password
@@ -228,7 +229,7 @@ router.post('/login', (req, res) =>{
                                     // If it is matched then provide a token
                                     if (isMatch) {
                                         // User matched so create payload for client
-                                        const payload = {id: client.id, name: client.FullName, pt: false}
+                                        const payload = {id: client.id, name: client.FullName, pt: false};
 
                                         // Sign Token (needs payload, secret key, and expiry detail (3600 = 1hr) for re-login
                                         // and callback for token
@@ -247,31 +248,31 @@ router.post('/login', (req, res) =>{
                                 })
                         } // check if user is activated
                         // Client isn't activated
-                        else{
+                        else {
                             errors.Password = 'Client is not activated, please check your email';
                             return res.status(400).json(errors)
                         }
-                        if(!pt && !client){
+                        if (!pt && !client) {
                             errors.Email = 'User not found';
                             return res.status(404).json(errors);
                         }
                     })
-             }
+            }
             else {
                 // If user is found continue with comparing the Password of given
                 // user with the hashed Password in the database
                 // Check Password
                 bcrypt.compare(Password, pt.Password)
                 // A boolean is returned if match is found or not
-                    .then(isMatch =>{
+                    .then(isMatch => {
                         // If it is matched then provide a token
-                        if(isMatch) {
+                        if (isMatch) {
                             // User matched so create payload for pt
-                             const payload = {id: pt.id, name: pt.FullName, pt: true}
+                            const payload = {id: pt.id, name: pt.FullName, pt: true};
 
                             // Sign Token (needs payload, secret key, and expiry detail (3600 = 1hr) for re-login
                             // and callback for token
-                            jwt.sign(payload, keys.secretOrKey, {expiresIn: 3600}, (err, token) =>{
+                            jwt.sign(payload, keys.secretOrKey, {expiresIn: 3600}, (err, token) => {
                                 //res.setHeader('Set-Cookie', 'localFitnessToken=Bearer ' + token + '; HttpOnly')
                                 res.json({
                                     success: true,
@@ -280,7 +281,7 @@ router.post('/login', (req, res) =>{
                             });
                         }
                         // If a match is not found provide a 400 error
-                        else{
+                        else {
                             errors.Password = 'Password is incorrect';
                             return res.status(400).json(errors)
                         }
@@ -288,7 +289,7 @@ router.post('/login', (req, res) =>{
             }
         })
 
-})
+});
 
 // @route  GET api/verify
 // @desc   Activate Client from valid activation link token
@@ -304,9 +305,9 @@ router.get('/verify', (req, res) => {
 
     // Find token then update client to activated if found, also delete token after activation is complete
     ActivationTokens.find({"TokenData.Token": activationLink})
-        .then(token =>{
+        .then(token => {
             // Check if token is found in the database (returns empty array if token isn't found so used isEmpty)
-            if(!isEmpty(token)){
+            if (!isEmpty(token)) {
                 // Check token from database is returned properly
                 // console.log(token);
 
@@ -317,47 +318,47 @@ router.get('/verify', (req, res) => {
                 // Get expiration date from token
                 let expiration = token[0].TokenData.ExpirationDate;
                 // Get token id for deletion later
-                let tokenId = token[0].id
+                let tokenId = token[0].id;
 
 
                 // Compare date to check if it is still valid (valid == true), then set client account to activated
-                if(expiration >= now){
+                if (expiration >= now) {
                     // Update client found by Email, update Activated field, get results from update
-                    Client.update({Email : token[0].Email}, { Activated: true}, (err) => {
-                        if(err) throw err;
+                    Client.update({Email: token[0].Email}, {Activated: true}, (err) => {
+                        if (err) throw err;
                         ActivationTokens.findByIdAndDelete(tokenId)
                             .then(result => {
-                                if(result){
+                                if (result) {
                                     return res.status(200).json({msg: "Client activated"});
                                 }
                             })
 
-                    } )
+                    })
                 }
                 else {
                     return res.status(400).json({msg: "Token expired, please contact your personal trainer for reactivation"});
                 }
-            // No token found in database
+                // No token found in database
             }
-            else{
+            else {
                 return res.status(400).json({msg: "Token not found"});
             }
-        }).catch(err =>{
-            console.log(err);
+        }).catch(err => {
+        console.log(err);
     })// catch end
 
-})
+});
 
 // @route  GET api/data
 // @desc   Workout scheduler - retrieve data from database for client
 // @access private for PT's and clients
-router.get('/:id/scheduler/:cid?', passport.authenticate('both_rule', {session: false}), (req, res) =>{
+router.get('/:id/scheduler/:cid?', passport.authenticate('both_rule', {session: false}), (req, res) => {
 
     // TODO - retrieve specific clients data
 
     // Get clientId from frontEnd
     let userId = req.params.id;
-    let clientId = req.params.cid
+    let clientId = req.params.cid;
 
     // Check authentication of the current user, will also be used to verify if they can access data
     let token = req.headers.authorization.split(' ')[1];
@@ -366,16 +367,18 @@ router.get('/:id/scheduler/:cid?', passport.authenticate('both_rule', {session: 
     let isPT = payload.pt;
 
     // If user is pt check to see if the client id is in their list, if so allow them access to data
-    if(isPT){
-        PersonalTrainer.findOne({"_id": userTokenId} )
+    if (isPT) {
+        PersonalTrainer.findOne({"_id": userTokenId})
             .then(pt => {
                 // Make sure that the pt exists
-                if(pt){
+                if (pt) {
                     let clientIds = pt.ClientIDs;
                     // Check to see if client id is in the pt clients list
-                    let checkClientId = clientIds.find(function (checkClientId){return checkClientId.id === clientId})
+                    let checkClientId = clientIds.find(function (checkClientId) {
+                        return checkClientId.id === clientId
+                    });
                     // If id is in pt client id list then display events for client
-                    if(checkClientId !== undefined){
+                    if (checkClientId !== undefined) {
                         Events.find({clientId})
                             .then(data => {
                                 // set id property for all records
@@ -386,7 +389,9 @@ router.get('/:id/scheduler/:cid?', passport.authenticate('both_rule', {session: 
                                 // console.log(data)
                                 return res.send(data);
                             })
-                            .catch(err => {console.log(err)})
+                            .catch(err => {
+                                console.log(err)
+                            })
                     }
                     else {
                         // Send empty data so scheduler gets rendered
@@ -395,11 +400,13 @@ router.get('/:id/scheduler/:cid?', passport.authenticate('both_rule', {session: 
                     }
                 }
             })
-            .catch(err => { return res.json({err}) }) // catch pt find
+            .catch(err => {
+                return res.json({err})
+            }) // catch pt find
     }
-    else if(userTokenId === userId){
+    else if (userTokenId === userId) {
         //Events.findOne({"clientId": })
-        Events.find({clientId : userId})
+        Events.find({clientId: userId})
             .then(data => {
                 // set id property for all records
                 for (let i = 0; i < data.length; i++)
@@ -407,10 +414,11 @@ router.get('/:id/scheduler/:cid?', passport.authenticate('both_rule', {session: 
 
                 return res.send(data);
             })
-            .catch(err => {console.log(err)})
+            .catch(err => {
+                console.log(err)
+            })
     }
-    else
-    {
+    else {
         // Send empty data so scheduler gets rendered
         let data = [];
         return res.send(data);
@@ -422,14 +430,14 @@ router.get('/:id/scheduler/:cid?', passport.authenticate('both_rule', {session: 
 // @route  POST api/scheduler
 // @desc   Add, edit and delete data in database
 // @access private for PT's - clients can't post to the scheduler
-router.post('/:id/scheduler/:cid',passport.authenticate('pt_rule', {session: false}), (req, res) => {
+router.post('/:id/scheduler/:cid', passport.authenticate('pt_rule', {session: false}), (req, res) => {
     let data = req.body;
     let schedId, docId; // initialising schedule id and document id
 
 
     // Get clientId from frontEnd
     let userId = req.params.id;
-    let clientId = req.params.cid
+    let clientId = req.params.cid;
 
     // Check authentication of the current user, will also be used to verify if they can access data
     let token = req.headers.authorization.split(' ')[1];
@@ -437,17 +445,17 @@ router.post('/:id/scheduler/:cid',passport.authenticate('pt_rule', {session: fal
     let isPT = payload.pt;
 
     // If user is PT then userId will be of pt so change clientId to userId, so that userId is that of the client
-    if(isPT){
+    if (isPT) {
         userId = clientId;
     }
 
     // Had to rename keys to the data sent as dhtmlxscheduler added the id number into the key
     let addedId = data.ids + '_';
-    for (let k in data){
+    for (let k in data) {
         if (data.hasOwnProperty(k)) {
             let oldKey = k;
-            let newKey = k.replace(addedId, '')
-            Object.defineProperty(data,newKey,
+            let newKey = k.replace(addedId, '');
+            Object.defineProperty(data, newKey,
                 Object.getOwnPropertyDescriptor(data, oldKey));
             delete data[oldKey];
         }
@@ -472,128 +480,136 @@ router.post('/:id/scheduler/:cid',passport.authenticate('pt_rule', {session: fal
 
 
     // Add, edit or delete depending on the type
-    if (type === "updated")
-        {
-            // Update the existing workout using the document id
-            Events.update({id: docId},
-                {
-                    id: docId,
-                    text: data.text,
-                    start_date: data.start_date,
-                    end_date: data.end_date
-                }, {upsert: true, overwrite: true, runValidators: true})
-                .then( result => {
-                    if(result){
-                        // Because of the way mongoose update works update needs to be performed as it makes a new
-                        // doc as id are unique, have to delete old doc with previous id so new and updated doc
-                        // do not appear on schedule
-                        Events.remove({_id: docId}).remove()
-                            .then(
-                                result => {}//console.log(result)
-                            )
-                            .catch(err => { return res.json({err}) })
-                    }
-                })
-                .catch(err => { return res.json({err}) })
-        }
-    else if (type === "inserted")
-        {
-            // Create new workout for client
-            // TODO - add client id to database so only their data is shown
-            const newWorkout = new Events({
-                id: schedId,
+    if (type === "updated") {
+        // Update the existing workout using the document id
+        Events.update({id: docId},
+            {
+                id: docId,
                 text: data.text,
                 start_date: data.start_date,
-                end_date: data.end_date,
-                clientId: userId
-            });
-            // Save new workout to database
-            newWorkout.save()
-                .then(events => {
-                        //console.log(events);
-                    }
-                )
-                .catch(err => {
-                    console.log(err)
-                })
-        }
-    else if (type === "deleted")
-        {
-            // Remove the workout from the schedule that user has deleted
-            Events.remove({_id: docId}).remove()
-                .then(result => {}
+                end_date: data.end_date
+            }, {upsert: true, overwrite: true, runValidators: true})
+            .then(result => {
+                if (result) {
+                    // Because of the way mongoose update works update needs to be performed as it makes a new
+                    // doc as id are unique, have to delete old doc with previous id so new and updated doc
+                    // do not appear on schedule
+                    Events.remove({_id: docId}).remove()
+                        .then(
+                            result => {
+                            }//console.log(result)
+                        )
+                        .catch(err => {
+                            return res.json({err})
+                        })
+                }
+            })
+            .catch(err => {
+                return res.json({err})
+            })
+    }
+    else if (type === "inserted") {
+        // Create new workout for client
+        // TODO - add client id to database so only their data is shown
+        const newWorkout = new Events({
+            id: schedId,
+            text: data.text,
+            start_date: data.start_date,
+            end_date: data.end_date,
+            clientId: userId
+        });
+        // Save new workout to database
+        newWorkout.save()
+            .then(events => {
+                    //console.log(events);
+                }
+            )
+            .catch(err => {
+                console.log(err)
+            })
+    }
+    else if (type === "deleted") {
+        // Remove the workout from the schedule that user has deleted
+        Events.remove({_id: docId}).remove()
+            .then(result => {
+                }
                 // console.log(result)
-                )
-                .catch(err => console.log(err))
-        }
-    else
-        {
-            res.send("Not supported operation");
-        }
+            )
+            .catch(err => console.log(err))
+    }
+    else {
+        res.send("Not supported operation");
+    }
 }); // router post /scheduler
 
 
 // @route  GET api/pt_clients/:ptid
 // @desc   get up to date clients of personal trainer
 // @access private for PT's
-router.get('/pt_clients/:ptid',passport.authenticate('pt_rule', {session: false}), (req, res) => {
-        let ptId = req.params.ptid
-        // get personal trainers client list
-        PersonalTrainer.findOne({_id: ptId})
-            .then(pt =>{
-                    if(pt){
-                        return res.json(pt.ClientIDs)
-                    }
+router.get('/pt_clients/:ptid', passport.authenticate('pt_rule', {session: false}), (req, res) => {
+    let ptId = req.params.ptid;
+    // get personal trainers client list
+    PersonalTrainer.findOne({_id: ptId})
+        .then(pt => {
+                if (pt) {
+                    return res.json(pt.ClientIDs)
                 }
+            }
+        ) // then Client.findOne
+        .catch(err => {
+            return res.json("No data for ptid: " + err.stringValue)
+        })
 
-            ) // then Client.findOne
-            .catch(err => {
-                return  res.json("No data for ptid: " + err.stringValue)
-            })
-
-    });
- // router post /pt_clients
+});
+// router post /pt_clients
 
 
 // @route  DELETE api/delete_client
 // @desc   delete client, delete them from pt ClientIDs, Events and Event progression
 // @access private for PT's
-router.delete('/delete_client/:cid',passport.authenticate('pt_rule', {session: false}), (req, res) => {
+router.delete('/delete_client/:cid', passport.authenticate('pt_rule', {session: false}), (req, res) => {
 
-    let clientId = req.params.cid
-        // Delete the client
-        Client.findOne({_id: clientId})
-            .then(client =>{
-                if(client){
+    let clientId = req.params.cid;
+    // Delete the client
+    Client.findOne({_id: clientId})
+        .then(client => {
+                if (client) {
                     // Had to change $unset to $pull
-                    PersonalTrainer.update({_id: client.ptId}, { $pull: {ClientIDs: {id: client.id} }})
-                        .then(pt =>{
-                            if(pt) {
+                    PersonalTrainer.update({_id: client.ptId}, {$pull: {ClientIDs: {id: client.id}}})
+                        .then(pt => {
+                            if (pt) {
                                 Client.remove({_id: clientId}).remove()
-                                    .then(result =>{
-                                        if(result){
+                                    .then(result => {
+                                        if (result) {
                                             Events.remove({clientId: clientId})
-                                                .then(events =>{
-                                                    return res.json({events})
-                                                    // console.log( "Events deleted for user: " + client.FullName + " ", events)
+                                                .then(events => {
+                                                        return res.json({events})
+                                                        // console.log( "Events deleted for user: " + client.FullName + " ", events)
                                                     }
                                                 )
                                                 // Events.remove
-                                                .catch(err => { return res.json({err}) })
+                                                .catch(err => {
+                                                    return res.json({err})
+                                                })
                                         }
                                         // console.log("Deletion of user: " + client.FullName + " ", result)
                                     })
-                                // Client.remove
-                                .catch(err => { return res.json({err}) })
+                                    // Client.remove
+                                    .catch(err => {
+                                        return res.json({err})
+                                    })
                             }
-                            })
+                        })
                         // PersonalTrainer.update
-                        .catch(err => { return res.json({err}) })
+                        .catch(err => {
+                            return res.json({err})
+                        })
                 }
-                }
-
-            ) // then Client.findOne
-            .catch(err => { return res.json({err}) })
+            }
+        ) // then Client.findOne
+        .catch(err => {
+            return res.json({err})
+        })
 
 }); // router post /delete_client
 

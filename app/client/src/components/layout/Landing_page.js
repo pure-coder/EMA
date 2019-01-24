@@ -44,7 +44,7 @@ class Landing_page extends Component {
 // Documents what props are needed for this component and will log a warning in the console in dev mode if not complied to
 Landing_page.propTypes = {
     authenticatedUser: PropTypes.object.isRequired,
-}
+};
 
 // Used to pull auth state into this component
 const stateToProps = (state) => ({

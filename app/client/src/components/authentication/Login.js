@@ -13,7 +13,7 @@ class Login extends Component {
             Email: '',
             Password: '',
             errors: {}
-        }
+        };
 
         // This sets the state value to it's respective state (via binding)
         this.onChange = this.onChange.bind(this);
@@ -59,7 +59,7 @@ class Login extends Component {
         const user = {
             Email: this.state.Email,
             Password: this.state.Password,
-        }
+        };
 
         // Calls the action/reducer loginUser with the user data (defined in actions/authenticatedActions.js)
         this.props.loginUser(user);
@@ -110,7 +110,7 @@ Login.propTypes = {
     loginUser: PropTypes.func.isRequired,
     authenticatedUser: PropTypes.object.isRequired,
     errors: PropTypes.object.isRequired
-}
+};
 
 // Used to pull auth state and errors into this component.... DEFINED IN reducers/index.js {combineReducers}
 const stateToProps = (state) => ({

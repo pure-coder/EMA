@@ -8,7 +8,7 @@ const PersonalTrainerSchema = mongoose.Schema({
     },
     Email: {
         // Trim and lowercase
-        type: String,  index: { unique: true }, lowercase: true, trim: true,
+        type: String, index: {unique: true}, lowercase: true, trim: true,
     },
     DateOfBirth: {
         type: Date, trim: true,
@@ -36,7 +36,7 @@ const PersonalTrainerSchema = mongoose.Schema({
         ptId: {type: String}
     }]
     // collection value is the name of the collection that is stored in the database
-},{collection: "Personal_Trainers"}, { timestamps: true });
+}, {collection: "Personal_Trainers"}, {timestamps: true});
 
 
 module.exports = mongoose.model('PersonalTrainer', PersonalTrainerSchema);

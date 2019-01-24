@@ -4,11 +4,11 @@ const mongoose = require('mongoose');
 const ClientSchema = mongoose.Schema({
     FullName: {
         // Trim
-        type: String,index: true, trim: true
+        type: String, index: true, trim: true
     },
     Email: {
         // Trim and lowercase
-        type: String, index: { unique: true }, lowercase: true, trim: true,
+        type: String, index: {unique: true}, lowercase: true, trim: true,
     },
     DateOfBirth: {
         type: Date, trim: true,
@@ -35,7 +35,7 @@ const ClientSchema = mongoose.Schema({
     ptId: {
         type: String
     }
-},{collection: "Clients"}, { timestamps: true });
+}, {collection: "Clients"}, {timestamps: true});
 
 
 module.exports = mongoose.model('Client', ClientSchema);

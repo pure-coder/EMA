@@ -1,7 +1,7 @@
 const Validator = require('validator');
 const isEmpty = require('./is_empty');
 
-module.exports = function validateRegistrationInput(data){
+module.exports = function validateRegistrationInput(data) {
     let errors = {};
 
     // As the validator module test's strings, we need to use own isEmpty function to see if it is empty if it is then
@@ -10,22 +10,22 @@ module.exports = function validateRegistrationInput(data){
     data.Password = !isEmpty(data.Password) ? data.Password : '';
 
     // Checks to see if Email field input is in a valid email format
-    if(!Validator.isEmail(data.Email)){
+    if (!Validator.isEmail(data.Email)) {
         errors.Email = 'Not a valid Email address';
     }
 
     // Checks to see if Email field is empty using validator module
-    if(Validator.isEmpty(data.Email)){
+    if (Validator.isEmpty(data.Email)) {
         errors.Email = 'Email is required';
     }
 
     // Password must have length with min 8 and max 20
-    if(!Validator.isLength(data.Password, {min: 8, max: 20})) {
+    if (!Validator.isLength(data.Password, {min: 8, max: 20})) {
         errors.Password = 'Password must be between 8 and 20 characters';
     }
 
     // Checks to see if Password field is empty using validator module
-    if(Validator.isEmpty(data.Password)){
+    if (Validator.isEmpty(data.Password)) {
         errors.Password = 'Password is required';
     }
 
@@ -33,4 +33,4 @@ module.exports = function validateRegistrationInput(data){
         errors,
         isValid: isEmpty(errors) // Check to see if errors is empty
     }
-}
+};

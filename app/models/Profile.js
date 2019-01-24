@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 // Create Schema
 const ProfileSchema = mongoose.Schema({
-    user: {
+        user: {
             type: Schema.Types.ObjectId,
             ref: 'Clients'
         },
@@ -69,7 +69,7 @@ const ProfileSchema = mongoose.Schema({
                 },
                 metrics: [
                     {
-                        weight:{
+                        weight: {
                             type: String,
                             required: true
                         },
@@ -83,7 +83,7 @@ const ProfileSchema = mongoose.Schema({
             }
         ]
     }
-,{collection: "Profiles"}, { timestamps: true });
+    , {collection: "Profiles"}, {timestamps: true});
 
 
 module.exports = Profile = mongoose.model('Profile', ProfileSchema);

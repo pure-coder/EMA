@@ -1,10 +1,10 @@
-// THIS MUST BE IMPORTED INTO INDEX.JS IN RUDECERS FOLDER
+// THIS MUST BE IMPORTED INTO INDEX.JS IN REDUCERS FOLDER
 
 import {PT_CLIENTS, SET_SIGNED_IN_USER} from "../actions/types";
 import isEmpty from '../validation/is_empty';
 
 const initialisedState = {
-}
+};
 
 export default function (state = initialisedState, action) {
     switch (action.type) {

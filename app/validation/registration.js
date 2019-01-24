@@ -1,7 +1,7 @@
 const Validator = require('validator');
 const isEmpty = require('./is_empty');
 
-module.exports = function validateRegistrationInput(data){
+module.exports = function validateRegistrationInput(data) {
     let errors = {};
 
     // As the validator module test's strings, we need to use own isEmpty function to see if it is empty if it is then
@@ -14,22 +14,22 @@ module.exports = function validateRegistrationInput(data){
     //data.ContactNumber = !isEmpty(data.ContactNumber) ? data.ContactNumber: '';
 
     // FullName is name of field used to collect name of user (not name)
-    if(!Validator.isLength(data.FullName, {min: 5, max: 25})){
+    if (!Validator.isLength(data.FullName, {min: 5, max: 25})) {
         errors.FullName = 'Full Name must be between 5 and 25 characters';
     }
 
     // Checks to see if FullName field is empty using validator module
-    if(Validator.isEmpty(data.FullName)){
+    if (Validator.isEmpty(data.FullName)) {
         errors.FullName = 'Full Name is required';
     }
 
     // Checks to see if Email field input is in a valid email format
-    if(!Validator.isEmail(data.Email)){
+    if (!Validator.isEmail(data.Email)) {
         errors.Email = 'Not a valid Email address';
     }
 
     // Checks to see if Email field is empty using validator module
-    if(Validator.isEmpty(data.Email)){
+    if (Validator.isEmpty(data.Email)) {
         errors.Email = 'Email is required';
     }
 
@@ -39,22 +39,22 @@ module.exports = function validateRegistrationInput(data){
     // }
 
     // Checks to see if Password2 field is empty using validator module
-    if(Validator.isEmpty(data.Password2)) {
+    if (Validator.isEmpty(data.Password2)) {
         errors.Password2 = 'Confirmation password is required';
     }
 
     // Checks to see if Passwords match
-    if(!Validator.equals(data.Password, data.Password2)){
+    if (!Validator.equals(data.Password, data.Password2)) {
         errors.Password = 'Passwords do not match';
     }
 
     // Password must have length with min 8 and max 20
-    if(!Validator.isLength(data.Password, {min: 8, max: 20})) {
+    if (!Validator.isLength(data.Password, {min: 8, max: 20})) {
         errors.Password = 'Password must be between 8 and 20 characters';
     }
 
     // Checks to see if Password field is empty using validator module
-    if(Validator.isEmpty(data.Password)){
+    if (Validator.isEmpty(data.Password)) {
         errors.Password = 'Password is required';
     }
 
@@ -67,4 +67,4 @@ module.exports = function validateRegistrationInput(data){
         errors,
         isValid: isEmpty(errors) // Check to see if errors is empty
     }
-}
+};

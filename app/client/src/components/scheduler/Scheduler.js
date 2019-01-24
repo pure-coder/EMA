@@ -10,7 +10,7 @@ class Scheduler extends Component {
         super(props);
         this.state = {
             errors: {}
-        }
+        };
 
         const scheduler = window.dhtmlXScheduler;
         const dataProcessor = window.dataProcessor;
@@ -30,7 +30,7 @@ class Scheduler extends Component {
                     let month = now.getMonth();
                     let year = now.getFullYear();
                     // Initialising workout scheduler to current date and display the month view
-                    scheduler.init('scheduler', new Date(year, month, date), "month")
+                    scheduler.init('scheduler', new Date(year, month, date), "month");
                     // Load the date from the database
                     scheduler.templates.xml_date = function (value) {
                         return new Date(value);
@@ -45,7 +45,7 @@ class Scheduler extends Component {
         // Add, edit, and delete data in the database
         scheduler.config.xml_date = "%Y-%m-%d %H:%i";
         //Get token for adding/editing/deleting events
-        let token = localStorage.getItem('jwtToken')
+        let token = localStorage.getItem('jwtToken');
 
 
         // Use dataProcessor of dhtmlx scheduler to insert/update/delete data for scheduler
@@ -103,7 +103,7 @@ class Scheduler extends Component {
 // Documents what props are needed for this component and will log a warning in the console in dev mode if not complied to
 Scheduler.propTypes = {
     authenticatedUser: PropTypes.object.isRequired,
-}
+};
 
 // Used to pull auth state and errors into this component
 const stateToProps = (state) => ({
