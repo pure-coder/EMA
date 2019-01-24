@@ -6,7 +6,7 @@ module.exports = function () {
 // //rule.hour = 24;
 //     rule.minute = new schedule.Range(0, 1, 0);
 
-    let now = new Date();
+    const now = new Date();
     now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
 
     // Run scheduler every 24 hours to remove expired tokens (0-23 for hour ranges)
