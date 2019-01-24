@@ -25,11 +25,13 @@ module.exports = function (Email, Token) {
         text: Token,
         html: '<a href="http://localhost:8000/api/verify?activation_link=' + Token + '">Activation Link</a>'
     };
-    var smtpTransport = nodemailer.createTransport(smtpConfig);
+    let smtpTransport = nodemailer.createTransport(smtpConfig);
     smtpTransport.sendMail(message, function (error, response) {
         if (error) {
-        } else {
-            console.log('Mail has been sent');
+          console.log("Email error")
+        }
+        else {
+          console.log('Mail has been sent');
         }
     });
 };

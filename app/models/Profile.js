@@ -45,7 +45,7 @@ const ProfileSchema = mongoose.Schema({
             {
                 body_part: {
                     type: String,
-                    required, true
+                    required: true
                 },
                 metrics: [
                     {
