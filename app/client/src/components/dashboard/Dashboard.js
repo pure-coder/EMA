@@ -49,7 +49,7 @@ class Dashboard extends Component {
         if(this.props.authenticatedUser.user.pt && this.state.clients !== undefined){
             // Get clients from pt client list via redux
             let clients = this.state.clients;
-            console.log("clients", clients);
+            // console.log("clients", clients);
 
             // Define content to display.. in this case the list of clients
             displayContent = (

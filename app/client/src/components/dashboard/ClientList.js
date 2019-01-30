@@ -15,16 +15,45 @@ class ClientList extends Component {
 
     onClientDelete(id, ptId) {
         this.props.deleteClient(id, ptId);
-    }
+    };
 
     onScheduleClick(ptId, id) {
         window.location.href = '/users/' + ptId + '/scheduler/' + id;
-    }
+    };
+
+    sortedMap = (clients) => {
+        const anArray = [];
+
+        // This map pushes FullName of element into an array so that it can be sorted (by the FullName value)
+        clients.map((element) => {
+            anArray.push(element.FullName);
+            return anArray.sort();
+        });
+
+        // To reverse the order alphabetically the array must be sorted (as above) then reversed !!!!!
+        // const DESC = () => {
+        //     anArray.reverse();
+        // };
+
+        // Uncomment to reverse order
+        // DESC();
+
+        // This replaces the original sorted array of just the FullName values from previous map function, to an array
+        // of objects (elements) that are now sorted by the FullName value.
+        clients.map(element => {
+            return anArray[anArray.indexOf(element.FullName)] = element
+        });
+
+        return anArray
+    }; // sortedMap
+
 
     render() {
         // check clients are set properly
         // console.log(this.props.clients)
-        let clients = this.props.clients.map(client => (
+
+        // Use sortedMap function to sort the client names and then send to view
+        const clients = this.sortedMap(this.props.clients).map(client => (
             <tr key={client.id}>
                 <td align="center"><b>{client.FullName}</b></td>
                 <td align="center"><i className="fas fa-columns fa-2x"></i></td>
