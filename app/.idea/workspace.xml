@@ -5,9 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ec8ccf39-8487-4892-a38d-de9c288878a3" name="Default" comment="delete client from pt array - using pull">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/dashboard/ClientList.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/dashboard/ClientList.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/dashboard/Dashboard.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/dashboard/Dashboard.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -44,7 +42,7 @@
           <entry key="css" value="1932" />
           <entry key="editorConfig" value="285" />
           <entry key="html" value="1072" />
-          <entry key="js" value="49874" />
+          <entry key="js" value="49877" />
           <entry key="json" value="26" />
           <entry key="md" value="150" />
           <entry key="txt" value="120" />
@@ -55,7 +53,7 @@
           <entry key="CSS" value="1932" />
           <entry key="HTML" value="1072" />
           <entry key="JSON" value="26" />
-          <entry key="JavaScript" value="49874" />
+          <entry key="JavaScript" value="49877" />
           <entry key="PLAIN_TEXT" value="555" />
         </counts>
       </usages-collector>
@@ -108,7 +106,7 @@
         <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/ClientList.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="153">
-              <caret line="33" column="8" selection-start-line="33" selection-start-column="11" selection-end-line="35" selection-end-column="13" />
+              <caret line="26" column="57" selection-start-line="26" selection-start-column="57" selection-end-line="26" selection-end-column="57" />
             </state>
           </provider>
         </entry>
@@ -398,7 +396,7 @@
       <workItem from="1547654890513" duration="11235000" />
       <workItem from="1547837527280" duration="49596000" />
       <workItem from="1548165767780" duration="37526000" />
-      <workItem from="1548867268665" duration="2633000" />
+      <workItem from="1548867268665" duration="3467000" />
     </task>
     <task id="LOCAL-00001" summary="min height changed for developed pages">
       <created>1534874964132</created>
@@ -446,7 +444,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="543087000" />
+    <option name="totallyTimeSpent" value="543921000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -832,7 +830,7 @@
     <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/ClientList.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="153">
-          <caret line="33" column="8" selection-start-line="33" selection-start-column="11" selection-end-line="35" selection-end-column="13" />
+          <caret line="26" column="57" selection-start-line="26" selection-start-column="57" selection-end-line="26" selection-end-column="57" />
         </state>
       </provider>
     </entry>

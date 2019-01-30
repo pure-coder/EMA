@@ -22,29 +22,10 @@ class ClientList extends Component {
     };
 
     sortedMap = (clients) => {
-        const anArray = [];
-
-        // This map pushes FullName of element into an array so that it can be sorted (by the FullName value)
-        clients.map((element) => {
-            anArray.push(element.FullName);
-            return anArray.sort();
+        return clients.sort((obj1, obj2) =>{
+            if(obj1.FullName < obj2.FullName) {return -1};
+            if(obj1.FullName > obj2.FullName) {return 1};
         });
-
-        // To reverse the order alphabetically the array must be sorted (as above) then reversed !!!!!
-        // const DESC = () => {
-        //     anArray.reverse();
-        // };
-
-        // Uncomment to reverse order
-        // DESC();
-
-        // This replaces the original sorted array of just the FullName values from previous map function, to an array
-        // of objects (elements) that are now sorted by the FullName value.
-        clients.map(element => {
-            return anArray[anArray.indexOf(element.FullName)] = element
-        });
-
-        return anArray
     }; // sortedMap
 
 
