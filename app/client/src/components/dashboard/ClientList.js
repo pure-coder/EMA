@@ -23,8 +23,9 @@ class ClientList extends Component {
 
     sortedMap = (clients) => {
         return clients.sort((obj1, obj2) =>{
-            if(obj1.FullName < obj2.FullName) {return -1};
-            if(obj1.FullName > obj2.FullName) {return 1};
+            if(obj1.FullName < obj2.FullName) {return -1}
+            if(obj1.FullName > obj2.FullName) {return 1}
+            return 0;
         });
     }; // sortedMap
 
