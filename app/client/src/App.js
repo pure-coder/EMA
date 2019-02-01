@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
-import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
-/* mimics server allowing back, forward page routing etc*/
+import {BrowserRouter as Router, Route, Switch, Redirect} from 'react-router-dom'; // mimics server allowing back, forward page routing etc
 import {Provider} from 'react-redux'; // A react component that provides the store (holds state/data for app) for redux
 import store from './store'; // Imports store to be used with redux to hold application state
+import isEmpty from './utilities/is_empty';
 import 'axios';
 import Navigation from './components/layout/Navigator';
 /*import navbar component*/
@@ -51,8 +51,31 @@ if (localStorage.jwtToken) {
 
         // Redirect the user to the login page
         window.location.href = '/login';
-    }
+    } // if decodedToken
+} // if localStorage.jwtToken
 
+// Used to redirect user if they are not authenticated to view a page
+function PrivateRoute ({component: Component, auth, ...rest}){
+    return(
+        <Route
+            {...rest}
+            render={(props) =>
+                {
+                    if (isEmpty(auth.authenticatedUser)) {
+                        return <Redirect to={{pathname: '/login', state: {from: props.location}}}/>
+                    }
+                    else {
+                        if (auth.authenticatedUser.isAuthenticated === true) {
+                            return <Component {...props} />
+                        }
+                        else {
+                            return <Redirect to={{pathname: '/login', state: {from: props.location}}}/>
+                        }
+                    }
+                }
+            }
+        />
+    )
 }
 
 class App extends Component {
@@ -70,7 +93,7 @@ class App extends Component {
                                    component={Landing_page}/> {/* using Route functionality that adds the landing_page component to web app*/}
                             <Route exact path="/register" component={Register}/>
                             {/* Register_client below uses restful url*/}
-                            <Route exact path="/users/:uid?/register_client" component={RegisterClient}/>
+                            <PrivateRoute auth={store.getState()} path="/users/:uid?/register_client" component={RegisterClient}/>
                             <Route exact path="/login" component={Login}/>
                             {/* Register Scheduler below uses restful url*/}
                             <Route exact path="/users/:uid?/scheduler/:Cid?" component={Scheduler}/>
