@@ -18,6 +18,12 @@ class ClientList extends Component {
         this.props.deleteClient(id, ptId);
     };
 
+    // Tried to use Link component but it didn't call the url directly like window.location.href so the scheduler data
+    // for clients was not loaded or saved correctly
+    onScheduleClick(ptId, id) {
+        window.location.href = '/users/' + ptId + '/scheduler/' + id;
+    };
+
     sortedMap = (clients) => {
         return clients.sort((obj1, obj2) =>{
             if(obj1.FullName < obj2.FullName) {return -1}
@@ -36,8 +42,8 @@ class ClientList extends Component {
             <tr key={client.id}>
                 <td align="center"><b>{client.FullName}</b></td>
                 <td align="center"><i className="fas fa-columns fa-2x"></i></td>
-                <td align="center"><Link to={'/users/' + client.ptId + '/scheduler/' + client.id}><i
-                    className="far fa-calendar-alt fa-2x"></i></Link></td>
+                <td align="center"><a onClick={this.onScheduleClick.bind(this, client.ptId, client.id)}><i
+                    className="far fa-calendar-alt fa-2x"></i></a></td>
                 <td align="center"><i className="fas fa-edit fa-2x"></i></td>
                 <td align="center">
                     <button
