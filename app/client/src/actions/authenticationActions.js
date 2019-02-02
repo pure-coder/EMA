@@ -55,12 +55,13 @@ export const loginUser = (Data) => (dispatch) => {
                 dispatch(getClients(decodedToken.id))
             }
         })
-        .catch(err =>
-            dispatch({ // if an error occurs dispatch is called to send the data as an object to the
-                // redux store, in this case the err data
-                type: GET_ERRS,
-                payload: err.response.data // Puts err data into the payload which will be sent to the redux store
-            })
+        .catch(err => {
+                dispatch({ // if an error occurs dispatch is called to send the data as an object to the
+                    // redux store, in this case the err data
+                    type: GET_ERRS,
+                    payload: err.response.data // Puts err data into the payload which will be sent to the redux store
+                })
+            }
         );
 }; // loginUser
 

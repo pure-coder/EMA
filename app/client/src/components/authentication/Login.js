@@ -2,7 +2,7 @@ import React, {Component} from 'react';  // Used to create this component
 import PropTypes from 'prop-types'; // Used to document prop types sent to components
 import { connect } from 'react-redux' // Needed when using redux inside a component (connects redux to this component)
 import { loginUser} from "../../actions/authenticationActions"; // Used to import create action for registering user
-import { withRouter } from 'react-router-dom'; // Allows proper routing and linking using browsers match, location, and history properties
+import { withRouter, Redirect } from 'react-router-dom'; // Allows proper routing and linking using browsers match, location, and history properties
 import FormInputGroup from '../common/FormInputGroup';
 
 
@@ -25,8 +25,8 @@ class Login extends Component {
     // Life cycle method for react which will run when this component receives new properties
     componentDidMount() {
         // Check if isAuthenticated is true then redirect to the dashboard
-        if (this.props.authenticatedUser.isAuthenticated) {
-            this.props.history.push('/users/' + this.props.authenticatedUser.user.id + '/dashboard');
+        if (this.props.authenticatedUser.isAuthenticated === true) {
+            return <Redirect to={{pathname: '/users/' + this.props.authenticatedUser.user.id + '/dashboard', state: {from: this.props.location}}}/>
         }
     }
 

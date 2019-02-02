@@ -55,7 +55,10 @@ if (localStorage.jwtToken) {
 } // if localStorage.jwtToken
 
 // Used to redirect user if they are not authenticated to view a page
-function PrivateRoute ({component: Component, auth, ...rest}){
+function PrivateRoute ({component: Component, ...rest}){
+
+    let auth = store.getState();
+
     return(
         <Route
             {...rest}
@@ -69,7 +72,7 @@ function PrivateRoute ({component: Component, auth, ...rest}){
                             return <Component {...props} />
                         }
                         else {
-                            return <Redirect to={{pathname: '/login', state: {from: props.location}}}/>
+                                return <Redirect to={{pathname: '/login', state: {from: props.location}}}/>
                         }
                     }
                 }
@@ -79,6 +82,7 @@ function PrivateRoute ({component: Component, auth, ...rest}){
 }
 
 class App extends Component {
+
     render() {
         return (
             <Provider store={store}>
@@ -92,13 +96,13 @@ class App extends Component {
                             <Route exact path="/"
                                    component={Landing_page}/> {/* using Route functionality that adds the landing_page component to web app*/}
                             <Route exact path="/register" component={Register}/>
-                            {/* Register_client below uses restful url*/}
-                            <PrivateRoute auth={store.getState()} path="/users/:uid?/register_client" component={RegisterClient}/>
                             <Route exact path="/login" component={Login}/>
                             {/* Register Scheduler below uses restful url*/}
-                            <PrivateRoute auth={store.getState()} path="/users/:uid?/scheduler/:Cid?" component={Scheduler}/>
+                            {/* Register_client below uses restful url*/}
+                            <PrivateRoute path="/users/:uid?/register_client" component={RegisterClient}/>
+                            <PrivateRoute path="/users/:uid?/scheduler/:Cid?" component={Scheduler}/>
                             {/* Register Dashboard below uses restful url*/}
-                            <PrivateRoute auth={store.getState()} path="/users/:uid?/dashboard/:Cid?" component={Dashboard}/>
+                            <PrivateRoute path="/users/:uid?/dashboard/:Cid?" component={Dashboard}/>
 
                             {/*If page doesn't exist * then show error page component*/}
                             <Route component={ErrorComponent}/>
