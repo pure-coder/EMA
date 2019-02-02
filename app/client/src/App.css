@@ -229,3 +229,7 @@ img {
     stroke: steelblue;
     stroke-width: 2px;
 }
+
+.dashboard-new-client  {
+    float: right;
+}

@@ -1,7 +1,7 @@
 import React, {Component} from 'react';  // Used to create this component
 import PropTypes from 'prop-types'; // Used to document prop types sent to components
 import { connect } from 'react-redux' // Needed when using redux inside a component (connects redux to this component)
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 import {getClients} from "../../actions/authenticationActions";
 import ClientList from './ClientList'
 //import * as d3 from 'd3';
@@ -63,7 +63,15 @@ class Dashboard extends Component {
                     <div className="row">
                         <div className="m-auto col-md-10">
                             <h1 className=" text-center display-5">Dashboard</h1>
-                            {displayContent}
+                            <Link to={'/users/' + this.props.authenticatedUser.user.id + '/register_client'}>
+                                <button
+                                    className="btn btn-primary dashboard-new-client">
+                                    Add new Client
+                                </button>
+                            </Link>
+                            <div>
+                                {displayContent}
+                            </div>
                         </div>
                     </div>
                 </div>
