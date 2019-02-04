@@ -127,7 +127,7 @@ img {
 /* login */
 
 .login-custom {
-    min-height: 500px;
+    min-height: 560px;
     height: 100%;
 }
 
@@ -196,11 +196,14 @@ img {
     height: 150px !important;
 }
 
+.dhx_scheduler_week {
+    min-width: 820px;
+}
+
 /* dashboard */
 
 .dashboard-custom {
-    min-height: 800px;
-    height: 100%;
+    min-height: 560px;
 }
 
 .dashboard {
@@ -232,4 +235,10 @@ img {
 
 .dashboard-new-client  {
     float: right;
+}
+
+/* clientList */
+
+.fa-calendar-alt:hover, .fa-edit:hover, .fa-columns:hover {
+    color: blue;
 }
