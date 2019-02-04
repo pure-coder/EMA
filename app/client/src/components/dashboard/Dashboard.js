@@ -58,8 +58,17 @@ class Dashboard extends Component {
             )
         } // If PT
 
-        if(this.state.clients === undefined){
-            return <p>Loading...</p>
+
+
+        // if(this.state.clients === undefined){
+        if(true){
+            return (
+                <div className="container dashboard-custom">
+                    <div className="Loading">
+                        <h1>Loading...</h1>
+                    </div>
+                </div>
+            )
         }
 
         return (

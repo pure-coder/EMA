@@ -237,6 +237,16 @@ img {
     float: right;
 }
 
+/* Loading */
+
+.Loading {
+    position: absolute;
+    height: 50px;
+    min-width: 100%;
+    top: 50%;
+    text-align: center;
+}
+
 /* clientList */
 
 .fa-calendar-alt:hover, .fa-edit:hover, .fa-columns:hover {
