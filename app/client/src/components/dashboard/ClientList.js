@@ -2,7 +2,6 @@ import {connect} from 'react-redux';
 import React, {Component} from 'react';
 import {deleteClient} from "../../actions/authenticationActions";
 import PropTypes from "prop-types";
-import {Link} from 'react-router-dom';
 
 
 class ClientList extends Component {

@@ -244,6 +244,7 @@ img {
     height: 50px;
     min-width: 100%;
     top: 50%;
+    left: -15px;
     text-align: center;
 }
 

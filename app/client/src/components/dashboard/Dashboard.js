@@ -4,6 +4,7 @@ import { connect } from 'react-redux' // Needed when using redux inside a compon
 import { withRouter, Link } from 'react-router-dom';
 import {getClients} from "../../actions/authenticationActions";
 import ClientList from './ClientList'
+//import Loading from "../../elements/Loading";
 //import * as d3 from 'd3';
 
 class Dashboard extends Component {
@@ -60,7 +61,6 @@ class Dashboard extends Component {
 
 
 
-        // if(this.state.clients === undefined){
         if(true){
             return (
                 <div className="container dashboard-custom">
