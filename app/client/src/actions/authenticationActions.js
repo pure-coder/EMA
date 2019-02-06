@@ -148,4 +148,30 @@ export const deleteClient = (id, ptId) => dispatch => {
         })
 };
 
+export const getClient = (id) => dispatch => {
+    axios
+        .get(`/api/client/${id}`)
+        .then(result => {
+                // TODO:
+            }
+        )
+        .catch(err => {
+            console.log(err)
+
+        })
+}
+
+export const editClient = (id, Data) => dispatch => {
+    axios
+        .post(`/api/edit_client/${id}`, Data)
+        .then(result => {
+            // TODO:
+            }
+        )
+        .catch(err => {
+            console.log(err)
+
+        })
+}
+
 

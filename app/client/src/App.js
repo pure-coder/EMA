@@ -4,22 +4,25 @@ import {Provider} from 'react-redux'; // A react component that provides the sto
 import store from './store'; // Imports store to be used with redux to hold application state
 import isEmpty from './utilities/is_empty';
 import 'axios';
-import Navigation from './components/layout/Navigator';
 /*import navbar component*/
-import Landing_page from './components/layout/Landing_page';
+import Navigation from './components/layout/Navigator';
 /*import landing_page component*/
-import Footer from './components/layout/Footer';
+import Landing_page from './components/layout/Landing_page';
 /*import footer component*/
-import Register from './components/authentication/Register';
+import Footer from './components/layout/Footer';
 /*import register component*/
-import RegisterClient from './components/authentication/RegisterClient';
+import Register from './components/authentication/Register';
 /*import register client component*/
-import Login from './components/authentication/Login';
+import RegisterClient from './components/authentication/RegisterClient';
 /*import login component*/
-import Scheduler from './components/scheduler/Scheduler';
+import Login from './components/authentication/Login';
 /*import scheduler component*/
-import Dashboard from './components/dashboard/Dashboard'
+import Scheduler from './components/scheduler/Scheduler';
 /*import dashboard component*/
+import Dashboard from './components/dashboard/Dashboard'
+/*import edit client component*/
+import EditClient from './components/dashboard/EditClient'
+
 import ErrorComponent from './components/error/ErrorComponent';
 
 import './App.css';
@@ -103,6 +106,7 @@ class App extends Component {
                             <PrivateRoute path="/users/:uid?/scheduler/:Cid?" component={Scheduler}/>
                             {/* Register Dashboard below uses restful url*/}
                             <PrivateRoute path="/users/:uid?/dashboard/:Cid?" component={Dashboard}/>
+                            <PrivateRoute path="/users/:uid?/edit_client" component={EditClient}/>
 
                             {/*If page doesn't exist * then show error page component*/}
                             <Route component={ErrorComponent}/>
