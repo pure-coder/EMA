@@ -68,6 +68,8 @@ class EditClient extends Component {
     render() {
         const {errors} = this.state; // This allows errors to be pulled out of this.state with pulling them out directly
 
+        this.props.getClientData(this.props.authenticatedUser.user.id);
+
         return (
             <div className="edit_client">
                 <div className="container  edit_client-custom">

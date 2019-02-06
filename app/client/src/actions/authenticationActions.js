@@ -154,7 +154,7 @@ export const getClientData = (id) => dispatch => {
                 // TODO:
                 dispatch({
                     type: GET_CLIENT_DATA,
-                    payload: result
+                    payload: result.data
                 })
             }
         )
