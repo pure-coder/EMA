@@ -1,6 +1,7 @@
 import React from "react";
 
-export default Loading => {
+const Loading = () =>{
+
     return (
         <div className="container dashboard-custom">
             <div className="Loading">
@@ -9,3 +10,5 @@ export default Loading => {
         </div>
     )
 };
+
+export default Loading;
