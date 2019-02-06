@@ -1,8 +1,7 @@
 import React, { Component } from 'react';  // Used to create this component
 import PropTypes from 'prop-types'; // Used to document prop types sent to components
 import { connect } from 'react-redux' // Needed when using redux inside a component (connects redux to this component)
-import { getClientData } from "../../actions/authenticationActions"; // Used to import create action for getting client data
-import { editClientData } from "../../actions/authenticationActions"; // Used to import create action for editing client data
+import { getClientData, editClientData } from "../../actions/authenticationActions"; // Used to import create action for getting client data and editing client data
 import { withRouter } from 'react-router-dom';
 import FormInputGroup from "../common/FormInputGroup"; // Allows proper routing and linking using browsers match, location, and history properties
 
@@ -48,7 +47,7 @@ class EditClient extends Component {
     onSubmit(event) {
         event.preventDefault();
 
-        const newUser = {
+        const editData = {
             FullName: this.state.FullName,
             Email: this.state.Email,
             ContactNumber: this.state.ContactNumber,
@@ -63,7 +62,7 @@ class EditClient extends Component {
         // from actions/authenticationActions.js)
 
         // If no errors occur then register user
-        // this.props.registerUser(newUser, this.props.history);
+        this.props.editClientData(editData, this.props.history);
     }
 
     render() {
@@ -140,4 +139,4 @@ const stateToProps = (state) => ({
     errors: state.errors
     });
 
-export default connect(stateToProps)(withRouter(EditClient));
+export default connect(stateToProps, {getClientData, editClientData })(withRouter(EditClient));

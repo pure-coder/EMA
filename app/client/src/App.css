@@ -237,6 +237,12 @@ img {
     float: right;
 }
 
+/* EditClient */
+
+.edit_client-custom {
+    min-height: 560px;
+}
+
 /* Loading */
 
 .Loading {

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {GET_ERRS, SET_SIGNED_IN_USER, PT_CLIENTS} from "./types"; // import custom defined types
+import {GET_ERRS, SET_SIGNED_IN_USER, PT_CLIENTS, GET_CLIENT_DATA} from "./types"; // import custom defined types
 import setAuthorisationToken from '../utilities/setAuthorisationToken';
 import jwtDecode from 'jwt-decode';
 
@@ -140,10 +140,9 @@ export const deleteClient = (id, ptId) => dispatch => {
             }
         )
         .catch(err => {
-            console.log(err);
             dispatch({
                 type: GET_ERRS,
-                payload: {msg: "Error"}
+                payload: {msg: err}
             })
         })
 };
@@ -153,11 +152,17 @@ export const getClientData = (id) => dispatch => {
         .get(`/api/client/${id}`)
         .then(result => {
                 // TODO:
+                dispatch({
+                    type: GET_CLIENT_DATA,
+                    payload: result
+                })
             }
         )
         .catch(err => {
-            console.log(err)
-
+                dispatch({
+                    type: GET_ERRS,
+                    payload: {msg: err}
+                })
         })
 }
 
@@ -166,11 +171,14 @@ export const editClientData = (id, Data) => dispatch => {
         .post(`/api/edit_client/${id}`, Data)
         .then(result => {
             // TODO:
+
             }
         )
         .catch(err => {
-            console.log(err)
-
+            dispatch({
+                type: GET_ERRS,
+                payload: {msg: err}
+            })
         })
 }
 

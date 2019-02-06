@@ -1,6 +1,6 @@
 // THIS MUST BE IMPORTED INTO INDEX.JS IN REDUCERS FOLDER
 
-import {PT_CLIENTS, SET_SIGNED_IN_USER} from "../actions/types";
+import {PT_CLIENTS, SET_SIGNED_IN_USER, GET_CLIENT_DATA} from "../actions/types";
 import isEmpty from '../validation/is_empty';
 
 const initialisedState = {
@@ -28,6 +28,13 @@ export default function (state = initialisedState, action) {
                 // code being changed in the state.
                 // Add the payload which was returned from from the PT_CLIENTS action in dashboardActions.js
                 clients: action.payload
+            };
+        case GET_CLIENT_DATA:
+            return {
+                ...state, // Using the spread operator allows the state to stay immutable, with only the following
+                // code being changed in the state.
+                // Add the payload which was returned from from the PT_CLIENTS action in dashboardActions.js
+                client_data: action.payload
             };
         default:
             return state;
