@@ -1,11 +1,8 @@
 import React, { Component } from 'react';  // Used to create this component
 import PropTypes from 'prop-types'; // Used to document prop types sent to components
 import { connect } from 'react-redux' // Needed when using redux inside a component (connects redux to this component)
-
-
 import { getClientData } from "../../actions/authenticationActions"; // Used to import create action for getting client data
 import { editClientData } from "../../actions/authenticationActions"; // Used to import create action for editing client data
-
 import { withRouter } from 'react-router-dom';
 import FormInputGroup from "../common/FormInputGroup"; // Allows proper routing and linking using browsers match, location, and history properties
 
@@ -29,14 +26,6 @@ class EditClient extends Component {
 
         // This binds the onSubmit function to this.OnSubmit
         this.onSubmit = this.onSubmit.bind(this);
-    }
-
-    // Life cycle method for react which will run when this component receives new properties
-    componentDidMount() {
-        // Check if isAuthenticated is true then redirect to the dashboard
-        if (this.props.authenticatedUser.isAuthenticated) {
-            this.props.history.push('/dashboard');
-        }
     }
 
     // Life cycle method for react which will run when this component receives new properties
@@ -74,7 +63,7 @@ class EditClient extends Component {
         // from actions/authenticationActions.js)
 
         // If no errors occur then register user
-        this.props.registerUser(newUser, this.props.history);
+        // this.props.registerUser(newUser, this.props.history);
     }
 
     render() {
@@ -85,7 +74,7 @@ class EditClient extends Component {
                 <div className="container  edit_client-custom">
                     <div className="row">
                         <div className="m-auto col-md-8">
-                            <h1 className=" text-center display-5">Client <br/> Edit Profile</h1>
+                            <h1 className=" text-center display-5">Edit Profile</h1>
                             <p className="description text-center">Edit your profile</p>
                             <form onSubmit={this.onSubmit}> {/* onSubmit used instead of normal action*/}
                                 <FormInputGroup
@@ -140,7 +129,7 @@ class EditClient extends Component {
 
 // Documents what props are needed for this component and will log a warning in the console in dev mode if not complied to
 EditClient.propTypes = {
-    registerUser: PropTypes.func.isRequired,
+    getClientData: PropTypes.func.isRequired,
     authenticatedUser: PropTypes.object.isRequired,
     errors: PropTypes.object.isRequired
 };
@@ -151,4 +140,4 @@ const stateToProps = (state) => ({
     errors: state.errors
     });
 
-export default connect(stateToProps, {getClientData, editClientData})(withRouter(EditClient));
+export default connect(stateToProps)(withRouter(EditClient));

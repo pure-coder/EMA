@@ -23,14 +23,6 @@ class Login extends Component {
     }
 
     // Life cycle method for react which will run when this component receives new properties
-    componentDidMount() {
-        // Check if isAuthenticated is true then redirect to the dashboard
-        if (this.props.authenticatedUser.isAuthenticated === true) {
-            return <Redirect to={{pathname: '/users/' + this.props.authenticatedUser.user.id + '/dashboard', state: {from: this.props.location}}}/>
-        }
-    }
-
-    // Life cycle method for react which will run when this component receives new properties
     componentWillReceiveProps(nextProps) {
 
         // Check if isAuthenticated is true then redirect to the dashboard
@@ -69,6 +61,11 @@ class Login extends Component {
     render() {
 
         const {errors} = this.state; // This allows errors to be pulled out of this.state with pulling them out directly
+
+        if (this.props.authenticatedUser.isAuthenticated === true) {
+            console.log("component mounted")
+            return <Redirect to={{pathname: '/users/' + this.props.authenticatedUser.user.id + '/dashboard', state: {from: this.props.location}}}/>
+        }
 
         return (
             <div className="login">
