@@ -613,5 +613,25 @@ router.delete('/delete_client/:cid', passport.authenticate('pt_rule', {session: 
 
 }); // router post /delete_client
 
+// @route  GET api/client/:id
+// @desc   get client data
+// @access private for PT's and client
+router.get('/client/:id', passport.authenticate('both_rule', {session: false}), (req, res) => {
+    let id = req.params.id;
+    // get client data
+    Client.findOne({_id: id})
+        .then(client => {
+                if (client) {
+                    return res.json(client)
+                }
+            }
+        ) // then Client.findOne
+        .catch(err => {
+            return res.json("No data for id: " + err.stringValue)
+        })
+
+});
+// router post /pt_clients
+
 //Export router so it can work with the main restful api server
 module.exports = router;

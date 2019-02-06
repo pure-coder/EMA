@@ -3,8 +3,8 @@ import PropTypes from 'prop-types'; // Used to document prop types sent to compo
 import { connect } from 'react-redux' // Needed when using redux inside a component (connects redux to this component)
 
 // TODO:
-import { getClient } from "../../actions/authenticationActions"; // Used to import create action for getting client data
-import { editClient } from "../../actions/authenticationActions"; // Used to import create action for editing client data
+import { getClientData } from "../../actions/authenticationActions"; // Used to import create action for getting client data
+import { editClientData } from "../../actions/authenticationActions"; // Used to import create action for editing client data
 
 import { withRouter } from 'react-router-dom';
 import FormInputGroup from "../common/FormInputGroup"; // Allows proper routing and linking using browsers match, location, and history properties
@@ -151,4 +151,4 @@ const stateToProps = (state) => ({
     errors: state.errors
     });
 
-export default connect(stateToProps, {getClient ,editClient})(withRouter(EditClient));
+export default connect(stateToProps, {getClientData, editClientData})(withRouter(EditClient));

@@ -148,7 +148,7 @@ export const deleteClient = (id, ptId) => dispatch => {
         })
 };
 
-export const getClient = (id) => dispatch => {
+export const getClientData = (id) => dispatch => {
     axios
         .get(`/api/client/${id}`)
         .then(result => {
@@ -161,7 +161,7 @@ export const getClient = (id) => dispatch => {
         })
 }
 
-export const editClient = (id, Data) => dispatch => {
+export const editClientData = (id, Data) => dispatch => {
     axios
         .post(`/api/edit_client/${id}`, Data)
         .then(result => {
