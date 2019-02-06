@@ -2,16 +2,17 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
 
-
 class ErrorComponent extends Component {
     render() {
         return (
-            <div className="ErrorPageNotFound">
-                <div className="container ErrorPageNotFound_div">
-                    <div className="row">
-                        <div className="text-center col-md-12 landing_div text-info">
-                            <h1 className="display-1-md display-3-sm">404 - Page Not Found!
-                            </h1>
+            <div className="container dashboard-custom">
+                <div className="ErrorPageNotFound">
+                    <div className="ErrorPageNotFound_div">
+                        <div className="row">
+                            <div className="text-center col-md-12 landing_div text-info">
+                                <h1 className="display-1-md display-3-sm">404 - Page Not Found!
+                                </h1>
+                            </div>
                         </div>
                     </div>
                 </div>

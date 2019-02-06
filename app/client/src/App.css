@@ -253,3 +253,15 @@ img {
 .fa-calendar-alt:hover, .fa-edit:hover, .fa-columns:hover {
     color: blue;
 }
+
+/* error page */
+
+.ErrorPageNotFound {
+    min-width: 100%;
+    top: 70px;
+    left: -15px;
+    text-align: center;
+}
+
+
+
