@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import {BrowserRouter as Router, Route, Switch, Redirect} from 'react-router-dom'; // mimics server allowing back, forward page routing etc
 import {Provider} from 'react-redux'; // A react component that provides the store (holds state/data for app) for redux
 import store from './store'; // Imports store to be used with redux to hold application state
-import isEmpty from './utilities/is_empty';
 import 'axios';
 /*import navbar component*/
 import Navigation from './components/layout/Navigator';
@@ -24,8 +23,11 @@ import Dashboard from './components/dashboard/Dashboard'
 import EditClient from './components/dashboard/EditClient'
 
 import ErrorComponent from './components/error/ErrorComponent';
+/* import PrivateRoute function for authorised access of pages */
+import PrivateRoute from './elements/PrivateRoute';
 
 import './App.css';
+
 
 // To use tokens for signed in users on every request
 import jwtDecode from 'jwt-decode';
@@ -57,32 +59,32 @@ if (localStorage.jwtToken) {
     } // if decodedToken
 } // if localStorage.jwtToken
 
-// Used to redirect user if they are not authenticated to view a page
-function PrivateRoute ({component: Component, ...rest}){
-
-    let auth = store.getState();
-
-    return(
-        <Route
-            {...rest}
-            render={(props) =>
-                {
-                    if (isEmpty(auth.authenticatedUser)) {
-                        return <Redirect to={{pathname: '/login', state: {from: props.location}}}/>
-                    }
-                    else {
-                        if (auth.authenticatedUser.isAuthenticated === true) {
-                            return <Component {...props} />
-                        }
-                        else {
-                                return <Redirect to={{pathname: '/login', state: {from: props.location}}}/>
-                        }
-                    }
-                }
-            }
-        />
-    )
-}
+// // Used to redirect user if they are not authenticated to view a page
+// function PrivateRoute ({component: Component, ...rest}){
+//
+//     let auth = store.getState();
+//
+//     return(
+//         <Route
+//             {...rest}
+//             render={(props) =>
+//                 {
+//                     if (isEmpty(auth.authenticatedUser)) {
+//                         return <Redirect to={{pathname: '/login', state: {from: props.location}}}/>
+//                     }
+//                     else {
+//                         if (auth.authenticatedUser.isAuthenticated === true) {
+//                             return <Component {...props} />
+//                         }
+//                         else {
+//                                 return <Redirect to={{pathname: '/login', state: {from: props.location}}}/>
+//                         }
+//                     }
+//                 }
+//             }
+//         />
+//     )
+// }
 
 class App extends Component {
 

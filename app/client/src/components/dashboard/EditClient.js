@@ -2,7 +2,7 @@ import React, { Component } from 'react';  // Used to create this component
 import PropTypes from 'prop-types'; // Used to document prop types sent to components
 import { connect } from 'react-redux' // Needed when using redux inside a component (connects redux to this component)
 
-// TODO:
+
 import { getClientData } from "../../actions/authenticationActions"; // Used to import create action for getting client data
 import { editClientData } from "../../actions/authenticationActions"; // Used to import create action for editing client data
 
@@ -81,12 +81,12 @@ class EditClient extends Component {
         const {errors} = this.state; // This allows errors to be pulled out of this.state with pulling them out directly
 
         return (
-            <div className="register">
-                <div className="container  register-custom">
+            <div className="edit_client">
+                <div className="container  edit_client-custom">
                     <div className="row">
                         <div className="m-auto col-md-8">
-                            <h1 className=" text-center display-5">Personal Trainer <br/> Sign Up</h1>
-                            <p className="description text-center">Create your Personal Trainer account</p>
+                            <h1 className=" text-center display-5">Client <br/> Edit Profile</h1>
+                            <p className="description text-center">Edit your profile</p>
                             <form onSubmit={this.onSubmit}> {/* onSubmit used instead of normal action*/}
                                 <FormInputGroup
                                     name="FullName"
