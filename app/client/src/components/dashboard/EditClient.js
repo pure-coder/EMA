@@ -68,17 +68,19 @@ class EditClient extends Component {
         event.preventDefault();
 
         const editData = {
-            FullName: this.state.FullName,
-            Email: this.state.Email,
-            ContactNumber: this.state.ContactNumber,
-            ProfilePicUrl: this.state.ProfilePicUrl,
-            Sex: this.state.Sex,
-            Password: this.state.Password,
-            Password2: this.state.Password2
+            FullName: this.state.client_data.FullName,
+            Email: this.state.client_data.Email,
+            ContactNumber: this.state.client_data.ContactNumber,
+            ProfilePicUrl: this.state.client_data.ProfilePicUrl,
+            Sex: this.state.client_data.Sex,
+            Password: this.state.client_data.Password,
+            Password2: this.state.client_data.Password2
         };
 
+        console.log(editData);
+
         // If no errors occur then update client profile
-        this.props.editClientData(editData, this.props.history);
+        this.props.editClientData(this.props.match.params.uid ,editData);
     }
 
     render() {

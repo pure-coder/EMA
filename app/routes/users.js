@@ -643,7 +643,7 @@ router.get('/client/:id', passport.authenticate('both_rule', {session: false}), 
 // @route  POST /register
 // @desc   Register Personal Trainer
 // @access Public
-router.post('/edit_client/:id', (req, res) => {
+router.post('/edit_client/:id', passport.authenticate('both_rule', {session: false}), (req, res) => {
     // Set up validation checking for every field that has been posted
     const {errors, isValid} = validateRegistrationInput(req.body);
     const clientId = req.params.id;
@@ -653,40 +653,38 @@ router.post('/edit_client/:id', (req, res) => {
         return res.status(400).json(errors);
     }
 
-    console.log(clientId)
+    let updateClient = {};
+    updateClient.FullName = req.body.FullName;
+    updateClient.Email = req.body.Email;
+    updateClient.DateOfBirth = req.body.DateOfBirth;
+    updateClient.Password = req.body.Password;
+    updateClient.ContactNumber = req.body.ContactNumber;
+    updateClient.Sex = req.body.Sex;
+    updateClient.ProfilePicUrl = req.body.ProfilePicUrl;
 
-    // let updateClient = {};
-    // updateClient.FullName = req.body.FullName;
-    // updateClient.Email = req.body.Email;
-    // updateClient.DateOfBirth = req.body.DateOfBirth;
-    // updateClient.Password = req.body.Password;
-    // updateClient.ContactNumber = req.body.ContactNumber;
-    // updateClient.Sex = req.body.Sex;
-    // updateClient.ProfilePicUrl = req.body.ProfilePicUrl;
-    //
-    // // Find client by id
-    // Client.findOne({_id: clientId})
-    //     .then(client => {
-    //
-    //         if (client) {
-    //
-    //
-    //         }
-    //
-    //         // Encrypt Password
-    //         bcrypt.genSalt(12, (err, salt) => {
-    //             bcrypt.hash(client.Password, salt, (err, hash) => {
-    //                 if (err) throw err;
-    //                 // Set plain Password to the hash that was created for the Password
-    //                 newPT.Password = hash;
-    //                 // Save new Personal Trainer to the database
-    //                 newPT.save()
-    //                     .then(PT => res.json(PT))
-    //                     .catch(err => console.log(err));
-    //             })
-    //         })
-    //
-    //     })
+    // Find client by id
+    Client.findOne({_id: clientId})
+        .then(client => {
+
+            if (client) {
+
+
+            }
+
+            // Encrypt Password
+            bcrypt.genSalt(12, (err, salt) => {
+                bcrypt.hash(client.Password, salt, (err, hash) => {
+                    if (err) throw err;
+                    // Set plain Password to the hash that was created for the Password
+                    newPT.Password = hash;
+                    // Save new Personal Trainer to the database
+                    newPT.save()
+                        .then(PT => res.json(PT))
+                        .catch(err => console.log(err));
+                })
+            })
+
+        })
 });
 
 //Export router so it can work with the main restful api server
