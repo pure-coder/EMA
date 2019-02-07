@@ -1,11 +1,12 @@
 import React, {Component} from 'react';  // Used to create this component
 import PropTypes from 'prop-types'; // Used to document prop types sent to components
-import { connect } from 'react-redux' // Needed when using redux inside a component (connects redux to this component)
-import { withRouter, Link } from 'react-router-dom';
+import {connect} from 'react-redux' // Needed when using redux inside a component (connects redux to this component)
+import {withRouter, Link} from 'react-router-dom';
 import {getClients} from "../../actions/authenticationActions";
 import ClientList from './ClientList'
 import Loading from "../../elements/Loading";
 import ClientData from "./ClientData";
+
 //import * as d3 from 'd3';
 
 class Dashboard extends Component {
@@ -21,8 +22,8 @@ class Dashboard extends Component {
     }
 
     // Set clients in state to those retrieved from database (from props), as on refresh state clients will always be undefined
-    static getDerivedStateFromProps(props, state){
-        if (props.authenticatedUser.clients !== state.clients){
+    static getDerivedStateFromProps(props, state) {
+        if (props.authenticatedUser.clients !== state.clients) {
             return {clients: props.authenticatedUser.clients}
         }
         return null
@@ -37,26 +38,26 @@ class Dashboard extends Component {
 
         this.update()
 
+        if (this.state.clients === undefined) {
+            return <Loading/>
+        }
+
     } // ComponentDidMount
 
     // update client list after change
-    update(){
+    update() {
         // Get updated client list from database
         this.props.getClients(this.state.id)
     }
-    
+
     render() {
         let displayContent;
 
         // If user is a PT then display pt dashboard of clients
-        if(this.props.authenticatedUser.user.pt && this.state.clients !== undefined){
+        if (this.props.authenticatedUser.user.pt && this.state.clients !== undefined) {
             // Get clients from pt client list via redux
             let clients = this.state.clients;
             // console.log("clients", clients);
-
-            if(this.state.clients === undefined){
-                return <Loading/>
-            }
 
             // Define content to display.. in this case the list of clients
             displayContent = (
@@ -66,7 +67,7 @@ class Dashboard extends Component {
         } // If PT
 
         // If user is a PT then display pt dashboard of clients
-        if(!this.props.authenticatedUser.user.pt){
+        if (!this.props.authenticatedUser.user.pt) {
 
             // Define content to display..
             displayContent = (
@@ -76,18 +77,16 @@ class Dashboard extends Component {
         } // If PT
 
         return (
-                <div className="container  dashboard-custom">
-
-                                {displayContent}
-
-                </div>
+            <div className="container  dashboard-custom">
+                {displayContent}
+            </div>
         );
     }
 }
 
 // Documents what props are needed for this component and will log a warning in the console in dev mode if not complied to
 Dashboard.propTypes = {
-    authenticatedUser : PropTypes.object.isRequired,
+    authenticatedUser: PropTypes.object.isRequired,
     errors: PropTypes.object.isRequired
 };
 

@@ -5,11 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ec8ccf39-8487-4892-a38d-de9c288878a3" name="Default" comment="delete client from pt array - using pull">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/App.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/dashboard/Dashboard.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/dashboard/Dashboard.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/dashboard/EditClient.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/dashboard/EditClient.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/users.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/users.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -48,7 +45,7 @@
           <entry key="css" value="2611" />
           <entry key="editorConfig" value="285" />
           <entry key="html" value="1072" />
-          <entry key="js" value="56241" />
+          <entry key="js" value="56309" />
           <entry key="json" value="26" />
           <entry key="md" value="150" />
           <entry key="txt" value="120" />
@@ -59,7 +56,7 @@
           <entry key="CSS" value="2611" />
           <entry key="HTML" value="1072" />
           <entry key="JSON" value="26" />
-          <entry key="JavaScript" value="56241" />
+          <entry key="JavaScript" value="56309" />
           <entry key="PLAIN_TEXT" value="555" />
         </counts>
       </usages-collector>
@@ -96,11 +93,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/Dashboard.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="304">
-              <caret line="73" column="28" selection-start-line="73" selection-start-column="28" selection-end-line="73" selection-end-column="28" />
+            <state relative-caret-position="321">
+              <caret line="80" column="32" selection-start-line="80" selection-start-column="32" selection-end-line="80" selection-end-column="32" />
               <folding>
                 <element signature="e#279#331#0" expanded="true" />
               </folding>
@@ -156,11 +153,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/EditClient.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="221">
-              <caret line="92" column="51" selection-start-line="92" selection-start-column="51" selection-end-line="92" selection-end-column="51" />
+            <state relative-caret-position="219">
+              <caret line="55" column="14" lean-forward="true" selection-start-line="55" selection-start-column="14" selection-end-line="55" selection-end-column="14" />
               <folding>
                 <element signature="e#446#492#0" expanded="true" />
               </folding>
@@ -308,13 +305,13 @@
         <option value="$PROJECT_DIR$/client/src/actions/types.js" />
         <option value="$PROJECT_DIR$/client/src/reducers/authenticationReducer.js" />
         <option value="$PROJECT_DIR$/client/src/components/dashboard/ClientList.js" />
-        <option value="$PROJECT_DIR$/client/src/components/dashboard/Dashboard.js" />
         <option value="$PROJECT_DIR$/client/src/components/dashboard/ClientData.js" />
         <option value="$PROJECT_DIR$/routes/users.js" />
         <option value="$PROJECT_DIR$/client/src/actions/authenticationActions.js" />
         <option value="$PROJECT_DIR$/client/src/App.css" />
         <option value="$PROJECT_DIR$/client/src/App.js" />
         <option value="$PROJECT_DIR$/client/src/components/dashboard/EditClient.js" />
+        <option value="$PROJECT_DIR$/client/src/components/dashboard/Dashboard.js" />
       </list>
     </option>
   </component>
@@ -522,7 +519,7 @@
       <workItem from="1548165767780" duration="37526000" />
       <workItem from="1548867268665" duration="8556000" />
       <workItem from="1549101548708" duration="20564000" />
-      <workItem from="1549386832105" duration="32337000" />
+      <workItem from="1549386832105" duration="33637000" />
     </task>
     <task id="LOCAL-00001" summary="min height changed for developed pages">
       <created>1534874964132</created>
@@ -570,7 +567,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="601911000" />
+    <option name="totallyTimeSpent" value="603211000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -585,7 +582,7 @@
     <frame x="-8" y="-8" width="1382" height="784" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24107143" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24107143" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Messages" order="0" weight="0.32923076" />
@@ -597,7 +594,7 @@
       <window_info anchor="bottom" id="Inspection" order="6" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="7" weight="0.3276923" />
       <window_info anchor="bottom" id="Docker" order="8" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Terminal" order="9" visible="true" weight="0.24923077" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="9" visible="true" weight="0.24923077" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" weight="0.3276923" />
       <window_info anchor="bottom" id="Version Control" order="11" weight="0.32923076" />
       <window_info anchor="bottom" id="Inspection Results" order="12" weight="0.3276923" />
@@ -908,16 +905,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/Dashboard.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="304">
-          <caret line="73" column="28" selection-start-line="73" selection-start-column="28" selection-end-line="73" selection-end-column="28" />
-          <folding>
-            <element signature="e#279#331#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/ClientList.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="136">
@@ -988,10 +975,20 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/EditClient.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="92" column="51" selection-start-line="92" selection-start-column="51" selection-end-line="92" selection-end-column="51" />
+        <state relative-caret-position="219">
+          <caret line="55" column="14" lean-forward="true" selection-start-line="55" selection-start-column="14" selection-end-line="55" selection-end-column="14" />
           <folding>
             <element signature="e#446#492#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/Dashboard.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="321">
+          <caret line="80" column="32" selection-start-line="80" selection-start-column="32" selection-end-line="80" selection-end-column="32" />
+          <folding>
+            <element signature="e#279#331#0" expanded="true" />
           </folding>
         </state>
       </provider>

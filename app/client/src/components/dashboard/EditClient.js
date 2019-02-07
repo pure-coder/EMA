@@ -47,8 +47,7 @@ class EditClient extends Component {
         this.setState({[event.target.name]: event.target.value})
     }
 
-    componentDidMount(){
-        // If direct url used... didn't come through dashboard, ie bookmarked url, get uid from url
+    componentDidMount(){// If direct url used... didn't come through dashboard, ie bookmarked url, get uid from url
         // If clientId is undefined as explained above use url uid
         if(!this.props.authenticatedUser.clientId){
             this.props.getClientData(this.props.match.params.uid);
@@ -57,6 +56,16 @@ class EditClient extends Component {
         else {
             this.props.getClientData(this.state.clientId);
             this.setState({loaded: true});
+        }
+
+        // if loaded is false then return loading screen
+        if(!this.state.loaded) {
+            return <Loading/>;
+        }
+
+        // if there is no data for user display error screen
+        if(this.props.authenticatedUser.client_data === undefined){
+            this.props.history.push('/error_page')
         }
     }
 
@@ -84,15 +93,7 @@ class EditClient extends Component {
     render() {
         const {errors} = this.state; // This allows errors to be pulled out of this.state without pulling them out directly
 
-        // if loaded is false then return loading screen
-        if(!this.state.loaded) {
-            return <Loading/>;
-        }
 
-        // if there is no data for user display error screen
-        if(this.props.authenticatedUser.client_data === undefined){
-            this.props.history.push('/error_page')
-        }
 
         return (
             <div className="edit_client">
