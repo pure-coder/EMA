@@ -1,7 +1,7 @@
 import React, {Component} from 'react';  // Used to create this component
 import PropTypes from 'prop-types'; // Used to document prop types sent to components
 import {connect} from 'react-redux' // Needed when using redux inside a component (connects redux to this component)
-import {withRouter, Link} from 'react-router-dom';
+import {withRouter} from 'react-router-dom';
 import {getClients} from "../../actions/authenticationActions";
 import ClientList from './ClientList'
 import Loading from "../../elements/Loading";
@@ -46,8 +46,9 @@ class Dashboard extends Component {
 
     // update client list after change
     update() {
-        // Get updated client list from database
-        this.props.getClients(this.state.id)
+        // Get updated client list from database if pt
+        if (this.props.authenticatedUser.user.pt)
+            this.props.getClients(this.state.id)
     }
 
     render() {

@@ -67,20 +67,23 @@ class EditClient extends Component {
         if(this.props.authenticatedUser.client_data === undefined){
             this.props.history.push('/error_page')
         }
+
+        this.setState({FullName: this.props.authenticatedUser.client_data.FullName})
+        console.log(this.state);
     }
 
     onSubmit(event) {
         event.preventDefault();
 
-        const editData = {
-            FullName: this.state.FullName,
-            Email: this.state.Email,
-            ContactNumber: this.state.ContactNumber,
-            ProfilePicUrl: this.state.ProfilePicUrl,
-            Sex: this.state.Sex,
-            Password: this.state.Password,
-            Password2: this.state.Password2
-        };
+        // const editData = {
+        //     FullName: this.state.FullName,
+        //     Email: this.state.Email,
+        //     ContactNumber: this.state.ContactNumber,
+        //     ProfilePicUrl: this.state.ProfilePicUrl,
+        //     Sex: this.state.Sex,
+        //     Password: this.state.Password,
+        //     Password2: this.state.Password2
+        // };
 
         // Calls the action/reducer loginUser with the user data as well
         // as using the history function of withRouter for directing user to another link/route. (calls registerUser
@@ -92,8 +95,6 @@ class EditClient extends Component {
 
     render() {
         const {errors} = this.state; // This allows errors to be pulled out of this.state without pulling them out directly
-
-
 
         return (
             <div className="edit_client">
@@ -123,7 +124,7 @@ class EditClient extends Component {
                                     name="ContactNumber"
                                     placeholder="Enter Contact Number"
                                     value={this.state.ContactNumber}
-                                    type="Password"
+                                    type="text"
                                     onChange={this.onChange}
                                     error={errors.ContactNumber}
                                 />
