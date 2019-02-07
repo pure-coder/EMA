@@ -155,7 +155,7 @@ export const getClientData = (id, history) => dispatch => {
         .get(`/api/client/${id}`)
         .then(result => {
             if (typeof result.data === "string"){
-                history.push('/error_page')
+                history.replace('/error_page');
             }
             dispatch({
                 type: GET_CLIENT_DATA,

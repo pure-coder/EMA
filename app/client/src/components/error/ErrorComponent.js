@@ -3,7 +3,11 @@ import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
 
 class ErrorComponent extends Component {
+    constructor(props){
+        super(props)
+    }
     render() {
+
         return (
             <div className="container dashboard-custom">
                 <div className="ErrorPageNotFound">
