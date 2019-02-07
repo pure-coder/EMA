@@ -175,7 +175,7 @@ export const editClientData = (id, Data) => dispatch => {
     axios
         .post(`/api/edit_client/${id}`, Data)
         .then(result => {
-            // TODO:
+            console.log(result)
 
             }
         )

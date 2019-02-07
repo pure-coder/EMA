@@ -11,7 +11,9 @@ class EditClient extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            client_data: {},
+            client_data: {
+                password2: ''
+            },
             clientId: props.authenticatedUser.clientId,
             errors: {}
         };
@@ -26,6 +28,9 @@ class EditClient extends Component {
     static getDerivedStateFromProps(props, state) {
         if (props.authenticatedUser.client_data !== state.client_data) {
             return {client_data: props.authenticatedUser.client_data}
+        }
+        if(props.errors !== state.errors){
+            return {errors: props.errors}
         }
         return null
     }
@@ -52,16 +57,6 @@ class EditClient extends Component {
         }
     }
 
-    // // Life cycle method for react which will run when this component receives new properties
-    // componentWillReceiveProps(nextProps) {
-    //     // If property (nextProps) contains errors (contains the "errors" prop) then set the component state of errors
-    //     // defined in the constructor above to the errors that was sent to it via the dispatch call from
-    //     // authenicationActions.js
-    //     if(nextProps.errors){
-    //         this.setState({errors: nextProps.errors})
-    //     }
-    // }
-
     // This captures what the user types and sets the specific input to the respective state variable
     onChange(event) {
         // event.target.name is used instead of a specific named state (ie "event.target.FullName") as there is more then
@@ -69,34 +64,30 @@ class EditClient extends Component {
         this.setState({[event.target.name]: event.target.value})
     }
 
-
-
     onSubmit(event) {
         event.preventDefault();
 
-        // const editData = {
-        //     FullName: this.state.FullName,
-        //     Email: this.state.Email,
-        //     ContactNumber: this.state.ContactNumber,
-        //     ProfilePicUrl: this.state.ProfilePicUrl,
-        //     Sex: this.state.Sex,
-        //     Password: this.state.Password,
-        //     Password2: this.state.Password2
-        // };
+        const editData = {
+            FullName: this.state.FullName,
+            Email: this.state.Email,
+            ContactNumber: this.state.ContactNumber,
+            ProfilePicUrl: this.state.ProfilePicUrl,
+            Sex: this.state.Sex,
+            Password: this.state.Password,
+            Password2: this.state.Password2
+        };
 
-        // Calls the action/reducer loginUser with the user data as well
-        // as using the history function of withRouter for directing user to another link/route. (calls registerUser
-        // from actions/authenticationActions.js)
-
-        // If no errors occur then register user
-        // this.props.editClientData(editData, this.props.history);
+        // If no errors occur then update client profile
+        this.props.editClientData(editData, this.props.history);
     }
 
     render() {
         const {errors} = this.state; // This allows errors to be pulled out of this.state without pulling them out directly
 
         // This update is used if user clicks back button on browser which stops a render of the EditClient page being displayed with a wrong id
-        this.update();
+        if(this.state.client_data === undefined){
+            this.update();
+        }
 
         // if loaded is false then return loading screen
         if(this.state.client_data === undefined) {
@@ -151,7 +142,7 @@ class EditClient extends Component {
                                     onChange={this.onChange}
                                     error={errors.Password2}
                                 />
-                                <input type="submit" className="btn btn-info btn-block mt-5"/>
+                                <input type="submit" value="update" className="btn btn-info btn-block mt-5"/>
                             </form>
                         </div>
                     </div>
