@@ -154,7 +154,6 @@ export const getClientData = (id, history) => dispatch => {
     axios
         .get(`/api/client/${id}`)
         .then(result => {
-            console.log(typeof result.data)
             if (typeof result.data === "string"){
                 history.push('/error_page')
             }
