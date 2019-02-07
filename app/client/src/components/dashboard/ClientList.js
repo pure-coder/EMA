@@ -45,7 +45,6 @@ class ClientList extends Component {
         // check clients are set properly
         // console.log(this.props.clients)
 
-
         // Use sortedMap function to sort the client names and then send to view
         const clients = this.sortedMap(this.props.clients).map(client => (
             <tr key={client.id}>

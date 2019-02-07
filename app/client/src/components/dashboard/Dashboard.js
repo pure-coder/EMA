@@ -5,6 +5,7 @@ import { withRouter, Link } from 'react-router-dom';
 import {getClients} from "../../actions/authenticationActions";
 import ClientList from './ClientList'
 import Loading from "../../elements/Loading";
+import ClientData from "./ClientData";
 //import * as d3 from 'd3';
 
 class Dashboard extends Component {
@@ -53,6 +54,10 @@ class Dashboard extends Component {
             let clients = this.state.clients;
             // console.log("clients", clients);
 
+            if(this.state.clients === undefined){
+                return <Loading/>
+            }
+
             // Define content to display.. in this case the list of clients
             displayContent = (
                 // send clients data to client component, and render client component
@@ -62,21 +67,13 @@ class Dashboard extends Component {
 
         // If user is a PT then display pt dashboard of clients
         if(!this.props.authenticatedUser.user.pt){
-            // Get clients from pt client list via redux
-            let clients = this.state.clients;
-            // console.log("clients", clients);
 
-            // Define content to display.. in this case the list of clients
+            // Define content to display..
             displayContent = (
                 // send clients data to client component, and render client component
-                <ClientList clients={clients}/>
+                <ClientData/>
             )
         } // If PT
-
-
-        if(this.state.clients === undefined){
-            return <Loading/>
-        }
 
         return (
                 <div className="container  dashboard-custom">
