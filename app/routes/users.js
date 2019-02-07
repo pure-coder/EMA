@@ -626,7 +626,11 @@ router.get('/client/:id', passport.authenticate('both_rule', {session: false}), 
                     data.ProfilePicUrl = client.ProfilePicUrl;
                     data.Sex = client.Sex;
                     return res.json(data)
-                    }
+                }
+                // if client is null
+                else {
+                    return res.json("No data for id: " + id)
+                }
             }
         ) // then Client.findOne
         .catch(err => {

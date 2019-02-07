@@ -3,7 +3,8 @@ import PropTypes from 'prop-types'; // Used to document prop types sent to compo
 import { connect } from 'react-redux' // Needed when using redux inside a component (connects redux to this component)
 import { getClientData, editClientData } from "../../actions/authenticationActions"; // Used to import create action for getting client data and editing client data
 import { withRouter } from 'react-router-dom';
-import FormInputGroup from "../common/FormInputGroup"; // Allows proper routing and linking using browsers match, location, and history properties
+import FormInputGroup from "../common/FormInputGroup";
+import Loading from "../../elements/Loading"; // Allows proper routing and linking using browsers match, location, and history properties
 
 class EditClient extends Component {
     // This allows the component states to be updated and re-rendered
@@ -18,6 +19,7 @@ class EditClient extends Component {
             Password: '',
             Password2: '',
             clientId: this.props.authenticatedUser.clientId,
+            loaded: false,
             errors: {}
         };
 
@@ -46,7 +48,16 @@ class EditClient extends Component {
     }
 
     componentDidMount(){
-        this.props.getClientData(this.state.clientId);
+        // If direct url used... didn't come through dashboard, ie bookmarked url, get uid from url
+        // If clientId is undefined as explained above use url uid
+        if(!this.props.authenticatedUser.clientId){
+            this.props.getClientData(this.props.match.params.uid);
+            this.setState({loaded: true});
+        }
+        else {
+            this.props.getClientData(this.state.clientId);
+            this.setState({loaded: true});
+        }
     }
 
     onSubmit(event) {
@@ -73,8 +84,15 @@ class EditClient extends Component {
     render() {
         const {errors} = this.state; // This allows errors to be pulled out of this.state without pulling them out directly
 
+        // if loaded is false then return loading screen
+        if(!this.state.loaded) {
+            return <Loading/>;
+        }
 
-        // console.log(this.props);
+        // if there is no data for user display error screen
+        if(this.props.authenticatedUser.client_data === undefined){
+            this.props.history.push('/error_page')
+        }
 
         return (
             <div className="edit_client">
