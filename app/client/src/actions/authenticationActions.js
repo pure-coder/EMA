@@ -150,16 +150,19 @@ export const deleteClient = (id, ptId) => dispatch => {
         })
 };
 
-export const getClientData = (id) => dispatch => {
+export const getClientData = (id, history) => dispatch => {
     axios
         .get(`/api/client/${id}`)
         .then(result => {
-                // TODO:
-                dispatch({
-                    type: GET_CLIENT_DATA,
-                    payload: result.data
-                })
+            console.log(typeof result.data)
+            if (typeof result.data === "string"){
+                history.push('/error_page')
             }
+            dispatch({
+                type: GET_CLIENT_DATA,
+                payload: result.data
+            })
+        }
         )
         .catch(err => {
                 dispatch({

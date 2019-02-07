@@ -38,10 +38,6 @@ class Dashboard extends Component {
 
         this.update()
 
-        if (this.state.clients === undefined) {
-            return <Loading/>
-        }
-
     } // ComponentDidMount
 
     // update client list after change
@@ -53,6 +49,10 @@ class Dashboard extends Component {
 
     render() {
         let displayContent;
+
+        if (this.state.clients === undefined) {
+            return <Loading/>
+        }
 
         // If user is a PT then display pt dashboard of clients
         if (this.props.authenticatedUser.user.pt && this.state.clients !== undefined) {

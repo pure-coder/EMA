@@ -11,15 +11,8 @@ class EditClient extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            FullName: '',
-            Email: '',
-            ContactNumber: '',
-            ProfilePicUrl: '',
-            Sex: '',
-            Password: '',
-            Password2: '',
-            clientId: this.props.authenticatedUser.clientId,
-            loaded: false,
+            client_data: {},
+            clientId: props.authenticatedUser.clientId,
             errors: {}
         };
 
@@ -30,15 +23,45 @@ class EditClient extends Component {
         this.onSubmit = this.onSubmit.bind(this);
     }
 
-    // Life cycle method for react which will run when this component receives new properties
-    componentWillReceiveProps(nextProps) {
-        // If property (nextProps) contains errors (contains the "errors" prop) then set the component state of errors
-        // defined in the constructor above to the errors that was sent to it via the dispatch call from
-        // authenicationActions.js
-        if(nextProps.errors){
-            this.setState({errors: nextProps.errors})
+    static getDerivedStateFromProps(props, state) {
+        if (props.authenticatedUser.client_data !== state.client_data) {
+            return {client_data: props.authenticatedUser.client_data}
+        }
+        return null
+    }
+
+    componentDidMount(){// If direct url used... didn't come through dashboard, ie bookmarked url, get uid from url
+
+        // Check if isAuthenticated is true then redirect to the dashboard
+        if (!this.props.authenticatedUser.isAuthenticated) {
+            this.props.history.push('/login');
+        }
+
+        // if there is no data for user display get data or display error page
+        if(this.state.client_data === undefined){
+            this.update();
         }
     }
+
+    update() {
+        // If clientId is undefined as explained above use url uid
+        if(!this.props.authenticatedUser.clientId){
+            this.props.getClientData(this.props.match.params.uid, this.props.history);
+        }
+        else {
+            this.props.getClientData(this.state.clientId, this.props.history);
+        }
+    }
+
+    // // Life cycle method for react which will run when this component receives new properties
+    // componentWillReceiveProps(nextProps) {
+    //     // If property (nextProps) contains errors (contains the "errors" prop) then set the component state of errors
+    //     // defined in the constructor above to the errors that was sent to it via the dispatch call from
+    //     // authenicationActions.js
+    //     if(nextProps.errors){
+    //         this.setState({errors: nextProps.errors})
+    //     }
+    // }
 
     // This captures what the user types and sets the specific input to the respective state variable
     onChange(event) {
@@ -47,30 +70,7 @@ class EditClient extends Component {
         this.setState({[event.target.name]: event.target.value})
     }
 
-    componentDidMount(){// If direct url used... didn't come through dashboard, ie bookmarked url, get uid from url
-        // If clientId is undefined as explained above use url uid
-        if(!this.props.authenticatedUser.clientId){
-            this.props.getClientData(this.props.match.params.uid);
-            this.setState({loaded: true});
-        }
-        else {
-            this.props.getClientData(this.state.clientId);
-            this.setState({loaded: true});
-        }
 
-        // if loaded is false then return loading screen
-        if(!this.state.loaded) {
-            return <Loading/>;
-        }
-
-        // if there is no data for user display error screen
-        if(this.props.authenticatedUser.client_data === undefined){
-            this.props.history.push('/error_page')
-        }
-
-        this.setState({FullName: this.props.authenticatedUser.client_data.FullName})
-        console.log(this.state);
-    }
 
     onSubmit(event) {
         event.preventDefault();
@@ -96,6 +96,11 @@ class EditClient extends Component {
     render() {
         const {errors} = this.state; // This allows errors to be pulled out of this.state without pulling them out directly
 
+        // if loaded is false then return loading screen
+        if(this.state.client_data === undefined) {
+            return <Loading/>;
+        }
+
         return (
             <div className="edit_client">
                 <div className="container  edit_client-custom">
@@ -107,7 +112,7 @@ class EditClient extends Component {
                                 <FormInputGroup
                                     name="FullName"
                                     placeholder="Full Name"
-                                    value={this.state.FullName}
+                                    value={this.state.client_data.FullName}
                                     type="text"
                                     onChange={this.onChange}
                                     error={errors.FullName}
@@ -115,7 +120,7 @@ class EditClient extends Component {
                                 <FormInputGroup
                                     name="Email"
                                     placeholder="Email Address"
-                                    value={this.state.Email}
+                                    value={this.state.client_data.Email}
                                     type="Email"
                                     onChange={this.onChange}
                                     error={errors.Email}
@@ -123,7 +128,7 @@ class EditClient extends Component {
                                 <FormInputGroup
                                     name="ContactNumber"
                                     placeholder="Enter Contact Number"
-                                    value={this.state.ContactNumber}
+                                    value={this.state.client_data.ContactNumber}
                                     type="text"
                                     onChange={this.onChange}
                                     error={errors.ContactNumber}
