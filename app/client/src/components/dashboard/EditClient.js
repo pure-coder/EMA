@@ -84,11 +84,6 @@ class EditClient extends Component {
     render() {
         const {errors} = this.state; // This allows errors to be pulled out of this.state without pulling them out directly
 
-        // This update is used if user clicks back button on browser which stops a render of the EditClient page being displayed with a wrong id
-        if(this.state.client_data === undefined){
-            this.update();
-        }
-
         // if loaded is false then return loading screen
         if(this.state.client_data === undefined) {
             return <Loading/>;

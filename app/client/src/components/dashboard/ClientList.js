@@ -25,7 +25,7 @@ class ClientList extends Component {
     };
 
     onEditProfile(id) {
-        this.props.editProfile(id, this.props.history);
+        this.props.editProfile(id);
     };
 
     sortedMap = (clients) => {

@@ -187,8 +187,8 @@ export const editClientData = (id, Data) => dispatch => {
         })
 };
 
-export const editProfile = (id, history) => dispatch => {
-    history.push('/users/' + id + '/edit_client');
+export const editProfile = (id) => dispatch => {
+    window.location.href = '/users/' + id + '/edit_client';
     dispatch({
         type: EDIT_PROFILE,
         payload: id
