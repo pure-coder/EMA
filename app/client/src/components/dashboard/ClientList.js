@@ -1,6 +1,6 @@
 import {connect} from 'react-redux';
 import React, {Component} from 'react';
-import {deleteClient} from "../../actions/authenticationActions";
+import {deleteClient, editProfile} from "../../actions/authenticationActions";
 import PropTypes from "prop-types";
 
 
@@ -23,6 +23,10 @@ class ClientList extends Component {
         window.location.href = '/users/' + ptId + '/scheduler/' + id;
     };
 
+    onEditProfile(id) {
+        this.props.editProfile(id);
+    };
+
     sortedMap = (clients) => {
         return clients.sort((obj1, obj2) =>{
             if(obj1.FullName < obj2.FullName) {return -1}
@@ -43,7 +47,7 @@ class ClientList extends Component {
                 <td align="center"><i className="fas fa-columns fa-2x"></i></td>
                 <td align="center"><a onClick={this.onScheduleClick.bind(this, client.ptId, client.id)}><i
                     className="far fa-calendar-alt fa-2x"></i></a></td>
-                <td align="center"><i className="fas fa-edit fa-2x"></i></td>
+                <td align="center"><a onClick={this.onEditProfile.bind(this, client.id)}><i className="fas fa-edit fa-2x"></i></a></td>
                 <td align="center">
                     <button
                         onClick={this.onClientDelete.bind(this, client.id, client.ptId)}
@@ -82,4 +86,4 @@ const stateToProps = (state) => ({
     errors: state.errors
 });
 
-export default connect(stateToProps, {deleteClient})(ClientList);
+export default connect(stateToProps, {deleteClient, editProfile})(ClientList);

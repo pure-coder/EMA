@@ -297,9 +297,6 @@ router.post('/login', (req, res) => {
 router.get('/verify', (req, res) => {
     let activationLink = req.query.activation_link;
 
-    // Create object of errors
-    let errors = {};
-
     // Check that activation link is captured properly
     // console.log(activationLink);
 
@@ -622,8 +619,16 @@ router.get('/client/:id', passport.authenticate('both_rule', {session: false}), 
     Client.findOne({_id: id})
         .then(client => {
                 if (client) {
-                    return res.json(client)
-                }
+                    let data = {};
+                    data.FullName = client.FullName;
+                    data.Email = client.Email;
+                    data.ContactNumber = client.ContactNumber;
+                    data.ProfilePicUrl = client.ProfilePicUrl;
+                    data.Sex = client.Sex;
+                    return res.json(data)
+                    }
+
+
             }
         ) // then Client.findOne
         .catch(err => {

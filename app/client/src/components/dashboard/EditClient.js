@@ -17,6 +17,7 @@ class EditClient extends Component {
             Sex: '',
             Password: '',
             Password2: '',
+            clientId: this.props.authenticatedUser.clientId,
             errors: {}
         };
 
@@ -44,6 +45,10 @@ class EditClient extends Component {
         this.setState({[event.target.name]: event.target.value})
     }
 
+    componentDidMount(){
+        this.props.getClientData('5c2e2e604489901a743d87db');
+    }
+
     onSubmit(event) {
         event.preventDefault();
 
@@ -62,13 +67,14 @@ class EditClient extends Component {
         // from actions/authenticationActions.js)
 
         // If no errors occur then register user
-        this.props.editClientData(editData, this.props.history);
+        // this.props.editClientData(editData, this.props.history);
     }
 
     render() {
-        const {errors} = this.state; // This allows errors to be pulled out of this.state with pulling them out directly
+        const {errors} = this.state; // This allows errors to be pulled out of this.state without pulling them out directly
 
-        this.props.getClientData(this.props.authenticatedUser.user.id);
+
+        // console.log(this.props);
 
         return (
             <div className="edit_client">

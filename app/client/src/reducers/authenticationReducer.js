@@ -1,6 +1,6 @@
 // THIS MUST BE IMPORTED INTO INDEX.JS IN REDUCERS FOLDER
 
-import {PT_CLIENTS, SET_SIGNED_IN_USER, GET_CLIENT_DATA} from "../actions/types";
+import {PT_CLIENTS, SET_SIGNED_IN_USER, GET_CLIENT_DATA, EDIT_PROFILE} from "../actions/types";
 import isEmpty from '../validation/is_empty';
 
 const initialisedState = {
@@ -36,6 +36,11 @@ export default function (state = initialisedState, action) {
                 // Add the payload which was returned from from the PT_CLIENTS action in dashboardActions.js
                 client_data: action.payload
             };
+        // case EDIT_PROFILE:
+        //     return {
+        //         ...state,
+        //         clientId: action.payload
+        //     };
         default:
             return state;
     }

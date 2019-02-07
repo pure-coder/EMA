@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {GET_ERRS, SET_SIGNED_IN_USER, PT_CLIENTS, GET_CLIENT_DATA} from "./types"; // import custom defined types
+import {GET_ERRS, SET_SIGNED_IN_USER, PT_CLIENTS, GET_CLIENT_DATA, EDIT_PROFILE} from "./types"; // import custom defined types
 import setAuthorisationToken from '../utilities/setAuthorisationToken';
 import jwtDecode from 'jwt-decode';
 
@@ -164,7 +164,7 @@ export const getClientData = (id) => dispatch => {
                     payload: {msg: err}
                 })
         })
-}
+};
 
 export const editClientData = (id, Data) => dispatch => {
     axios
@@ -180,6 +180,14 @@ export const editClientData = (id, Data) => dispatch => {
                 payload: {msg: err}
             })
         })
-}
+};
+
+export const editProfile = (id) => dispatch => {
+    window.location.href = '/users/' + id + '/Edit_client';
+    dispatch({
+        type: EDIT_PROFILE,
+        payload: id
+    })
+};
 
 
