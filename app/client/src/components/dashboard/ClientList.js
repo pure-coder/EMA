@@ -1,6 +1,6 @@
 import {connect} from 'react-redux';
 import React, {Component} from 'react';
-import{withRouter} from 'react-router-dom';
+import {Link, withRouter} from 'react-router-dom';
 import {deleteClient, editProfile} from "../../actions/authenticationActions";
 import PropTypes from "prop-types";
 
@@ -25,14 +25,17 @@ class ClientList extends Component {
     };
 
     onEditProfile(id) {
-        console.log(this.props.history)
         this.props.editProfile(id, this.props.history);
     };
 
     sortedMap = (clients) => {
-        return clients.sort((obj1, obj2) =>{
-            if(obj1.FullName < obj2.FullName) {return -1}
-            if(obj1.FullName > obj2.FullName) {return 1}
+        return clients.sort((obj1, obj2) => {
+            if (obj1.FullName < obj2.FullName) {
+                return -1
+            }
+            if (obj1.FullName > obj2.FullName) {
+                return 1
+            }
             return 0;
         });
     }; // sortedMap
@@ -42,6 +45,7 @@ class ClientList extends Component {
         // check clients are set properly
         // console.log(this.props.clients)
 
+
         // Use sortedMap function to sort the client names and then send to view
         const clients = this.sortedMap(this.props.clients).map(client => (
             <tr key={client.id}>
@@ -49,7 +53,8 @@ class ClientList extends Component {
                 <td align="center"><i className="fas fa-columns fa-2x"></i></td>
                 <td align="center"><a onClick={this.onScheduleClick.bind(this, client.ptId, client.id)}><i
                     className="far fa-calendar-alt fa-2x"></i></a></td>
-                <td align="center"><a onClick={this.onEditProfile.bind(this, client.id)}><i className="fas fa-edit fa-2x"></i></a></td>
+                <td align="center"><a onClick={this.onEditProfile.bind(this, client.id)}><i
+                    className="fas fa-edit fa-2x"></i></a></td>
                 <td align="center">
                     <button
                         onClick={this.onClientDelete.bind(this, client.id, client.ptId)}
@@ -60,20 +65,33 @@ class ClientList extends Component {
             </tr>
         ));
         return (
-            <div>
-                <h3 className="mb-3">Clients</h3>
-                <table className="table client-table">
-                    <thead>
-                    <tr>
-                        <th align="center">Name</th>
-                        <th align="center">Profile</th>
-                        <th align="center">workout Schedule</th>
-                        <th align="center">Edit details</th>
-                        <th align="center">Delete User</th>
-                    </tr>
-                    {clients}
-                    </thead>
-                </table>
+            <div className="row">
+                <div className="m-auto col-md-10">
+                    <h1 className=" text-center display-5">Dashboard</h1>
+                    <Link to={'/users/' + this.props.authenticatedUser.user.id + '/register_client'}>
+                        <button
+                            className="btn btn-primary dashboard-new-client">
+                            Add new Client
+                        </button>
+                    </Link>
+                    <div>
+                        <div>
+                            <h3 className="mb-3">Clients</h3>
+                            <table className="table client-table">
+                                <thead>
+                                <tr>
+                                    <th align="center">Name</th>
+                                    <th align="center">Profile</th>
+                                    <th align="center">workout Schedule</th>
+                                    <th align="center">Edit details</th>
+                                    <th align="center">Delete User</th>
+                                </tr>
+                                {clients}
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                </div>
             </div>
         );
     }

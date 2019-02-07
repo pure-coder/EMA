@@ -46,7 +46,7 @@ class EditClient extends Component {
     }
 
     componentDidMount(){
-        this.props.getClientData('5c2e2e604489901a743d87db');
+        this.props.getClientData(this.state.clientId);
     }
 
     onSubmit(event) {

@@ -1,6 +1,5 @@
 import axios from 'axios';
-import {push} from 'react-router-redux';
-import {GET_ERRS, SET_SIGNED_IN_USER, PT_CLIENTS, GET_CLIENT_DATA, EDIT_PROFILE} from "./types"; // import custom defined types
+import {GET_ERRS, SET_SIGNED_IN_USER, PT_CLIENTS, GET_CLIENT_DATA, EDIT_PROFILE, LOGGED_OUT} from "./types"; // import custom defined types
 import setAuthorisationToken from '../utilities/setAuthorisationToken';
 import jwtDecode from 'jwt-decode';
 
@@ -85,7 +84,10 @@ export const logOutUser = () => dispatch => {
     // Set signed in user to an empty object and isAuthenticated to false by passing in {} (empty object)
     dispatch(setSignedInUser({}));
     // remove state from local storage
-    localStorage.removeItem('state')
+    localStorage.removeItem('state');
+    dispatch({
+        type: LOGGED_OUT
+    })
 };
 
 // Register client
@@ -184,7 +186,6 @@ export const editClientData = (id, Data) => dispatch => {
 };
 
 export const editProfile = (id, history) => dispatch => {
-    //window.location.href = '/users/' + id + '/Edit_client';
     history.push('/users/' + id + '/edit_client');
     dispatch({
         type: EDIT_PROFILE,

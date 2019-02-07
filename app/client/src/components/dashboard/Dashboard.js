@@ -46,8 +46,22 @@ class Dashboard extends Component {
     
     render() {
         let displayContent;
+
         // If user is a PT then display pt dashboard of clients
         if(this.props.authenticatedUser.user.pt && this.state.clients !== undefined){
+            // Get clients from pt client list via redux
+            let clients = this.state.clients;
+            // console.log("clients", clients);
+
+            // Define content to display.. in this case the list of clients
+            displayContent = (
+                // send clients data to client component, and render client component
+                <ClientList clients={clients}/>
+            )
+        } // If PT
+
+        // If user is a PT then display pt dashboard of clients
+        if(!this.props.authenticatedUser.user.pt){
             // Get clients from pt client list via redux
             let clients = this.state.clients;
             // console.log("clients", clients);
@@ -66,20 +80,9 @@ class Dashboard extends Component {
 
         return (
                 <div className="container  dashboard-custom">
-                    <div className="row">
-                        <div className="m-auto col-md-10">
-                            <h1 className=" text-center display-5">Dashboard</h1>
-                            <Link to={'/users/' + this.props.authenticatedUser.user.id + '/register_client'}>
-                                <button
-                                    className="btn btn-primary dashboard-new-client">
-                                    Add new Client
-                                </button>
-                            </Link>
-                            <div>
+
                                 {displayContent}
-                            </div>
-                        </div>
-                    </div>
+
                 </div>
         );
     }
