@@ -183,7 +183,8 @@ export const editClientData = (id, Data) => dispatch => {
 };
 
 export const editProfile = (id) => dispatch => {
-    window.location.href = '/users/' + id + '/Edit_client';
+    //window.location.href = '/users/' + id + '/Edit_client';
+    dispatch(push('/users/' + id + '/edit_client'));
     dispatch({
         type: EDIT_PROFILE,
         payload: id

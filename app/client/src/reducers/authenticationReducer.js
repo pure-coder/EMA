@@ -36,11 +36,11 @@ export default function (state = initialisedState, action) {
                 // Add the payload which was returned from from the PT_CLIENTS action in dashboardActions.js
                 client_data: action.payload
             };
-        // case EDIT_PROFILE:
-        //     return {
-        //         ...state,
-        //         clientId: action.payload
-        //     };
+        case EDIT_PROFILE:
+            return {
+                ...state,
+                clientId: action.payload
+            };
         default:
             return state;
     }

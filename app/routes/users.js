@@ -627,8 +627,6 @@ router.get('/client/:id', passport.authenticate('both_rule', {session: false}), 
                     data.Sex = client.Sex;
                     return res.json(data)
                     }
-
-
             }
         ) // then Client.findOne
         .catch(err => {
