@@ -1,4 +1,5 @@
 import axios from 'axios';
+import {push} from 'react-router-redux';
 import {GET_ERRS, SET_SIGNED_IN_USER, PT_CLIENTS, GET_CLIENT_DATA, EDIT_PROFILE} from "./types"; // import custom defined types
 import setAuthorisationToken from '../utilities/setAuthorisationToken';
 import jwtDecode from 'jwt-decode';
@@ -182,9 +183,9 @@ export const editClientData = (id, Data) => dispatch => {
         })
 };
 
-export const editProfile = (id) => dispatch => {
+export const editProfile = (id, history) => dispatch => {
     //window.location.href = '/users/' + id + '/Edit_client';
-    dispatch(push('/users/' + id + '/edit_client'));
+    history.push('/users/' + id + '/edit_client');
     dispatch({
         type: EDIT_PROFILE,
         payload: id

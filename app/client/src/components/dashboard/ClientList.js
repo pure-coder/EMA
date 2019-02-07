@@ -1,5 +1,6 @@
 import {connect} from 'react-redux';
 import React, {Component} from 'react';
+import{withRouter} from 'react-router-dom';
 import {deleteClient, editProfile} from "../../actions/authenticationActions";
 import PropTypes from "prop-types";
 
@@ -24,7 +25,8 @@ class ClientList extends Component {
     };
 
     onEditProfile(id) {
-        this.props.editProfile(id);
+        console.log(this.props.history)
+        this.props.editProfile(id, this.props.history);
     };
 
     sortedMap = (clients) => {
@@ -86,4 +88,4 @@ const stateToProps = (state) => ({
     errors: state.errors
 });
 
-export default connect(stateToProps, {deleteClient, editProfile})(ClientList);
+export default connect(stateToProps, {deleteClient, editProfile})(withRouter(ClientList));
