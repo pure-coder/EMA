@@ -172,11 +172,13 @@ export const getClientData = (id, history) => dispatch => {
         })
 };
 
-export const editClientData = (id, Data) => dispatch => {
+export const editClientData = (id, Data, history) => dispatch => {
     axios
         .put(`/api/edit_client/${id}`, Data)
         .then(result => {
-            console.log(result)
+            alert("updated");
+            // Go back to dashboard after successful update
+            history.goBack();
             }
         )
         .catch(err => {

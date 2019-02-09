@@ -87,7 +87,7 @@ class EditClient extends Component {
         };
 
         if (this.state.Password === this.state.Password2) {
-            this.props.editClientData(this.props.match.params.uid, editData);
+            this.props.editClientData(this.props.match.params.uid, editData, this.props.history);
             // if passwords match
             this.props.passwordsMatchError({errors: {}})
         }
