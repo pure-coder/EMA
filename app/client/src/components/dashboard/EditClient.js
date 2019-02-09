@@ -1,7 +1,7 @@
 import React, {Component} from 'react';  // Used to create this component
 import PropTypes from 'prop-types'; // Used to document prop types sent to components
 import {connect} from 'react-redux' // Needed when using redux inside a component (connects redux to this component)
-import {getClientData, editClientData} from "../../actions/authenticationActions"; // Used to import create action for getting client data and editing client data
+import {getClientData, editClientData, passwordsMatchError} from "../../actions/authenticationActions"; // Used to import create action for getting client data and editing client data
 import {withRouter} from 'react-router-dom';
 import FormInputGroup from "../common/FormInputGroup";
 import Loading from "../../elements/Loading"; // Allows proper routing and linking using browsers match, location, and history properties
@@ -88,7 +88,6 @@ class EditClient extends Component {
 
         if (this.state.Password === this.state.Password2) {
             this.props.getClientData(this.props.match.params.uid, editData);
-
         }
         else {
             // Set state with separate calls on nested state
@@ -99,7 +98,7 @@ class EditClient extends Component {
             let errors = {...this.state.errors};
             errors.Password = "Passwords must match";
             errors.Password2 = "Passwords must match";
-            this.setState({errors});
+            this.props.passwordsMatchError(errors);
         }
     }
 
@@ -110,9 +109,6 @@ class EditClient extends Component {
         if (this.state.client_data === undefined) {
             return <Loading/>;
         }
-
-        console.log(this.state.errors);
-        console.log(this.state.Password);
 
         return (
             <div className="edit_client">
@@ -192,6 +188,7 @@ class EditClient extends Component {
 // Documents what props are needed for this component and will log a warning in the console in dev mode if not complied to
 EditClient.propTypes = {
     getClientData: PropTypes.func.isRequired,
+    passwordsMatchError: PropTypes.func.isRequired,
     authenticatedUser: PropTypes.object.isRequired,
     errors: PropTypes.object.isRequired
 };
@@ -202,4 +199,4 @@ const stateToProps = (state) => ({
     errors: state.errors
 });
 
-export default connect(stateToProps, {getClientData, editClientData})(withRouter(EditClient));
+export default connect(stateToProps, {getClientData, editClientData, passwordsMatchError})(withRouter(EditClient));

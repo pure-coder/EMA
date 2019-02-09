@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {GET_ERRS, SET_SIGNED_IN_USER, PT_CLIENTS, GET_CLIENT_DATA, EDIT_PROFILE, LOGGED_OUT} from "./types"; // import custom defined types
+import {GET_ERRS, SET_SIGNED_IN_USER, PT_CLIENTS, GET_CLIENT_DATA, EDIT_PROFILE, LOGGED_OUT, PASSWORD_ERROR} from "./types"; // import custom defined types
 import setAuthorisationToken from '../utilities/setAuthorisationToken';
 import jwtDecode from 'jwt-decode';
 
@@ -193,6 +193,14 @@ export const editProfile = (id) => dispatch => {
         type: EDIT_PROFILE,
         payload: id
     })
+};
+
+export const passwordsMatchError = (error) => dispatch => {
+    dispatch ({
+        type: PASSWORD_ERROR,
+        payload: error
+        }
+    )
 };
 
 
