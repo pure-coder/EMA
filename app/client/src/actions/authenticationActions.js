@@ -154,6 +154,7 @@ export const getClientData = (id, history) => dispatch => {
     axios
         .get(`/api/client/${id}`)
         .then(result => {
+            // If no data is returned (no data === string) then direct user to error page
             if (typeof result.data === "string"){
                 history.replace('/error_page');
             }
@@ -173,10 +174,9 @@ export const getClientData = (id, history) => dispatch => {
 
 export const editClientData = (id, Data) => dispatch => {
     axios
-        .post(`/api/edit_client/${id}`, Data)
+        .put(`/api/edit_client/${id}`, Data)
         .then(result => {
             console.log(result)
-
             }
         )
         .catch(err => {

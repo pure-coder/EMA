@@ -621,6 +621,7 @@ router.get('/client/:id', passport.authenticate('both_rule', {session: false}), 
                 if (client) {
                     let data = {};
                     data.FullName = client.FullName;
+                    data.DateOfBirth = client.DateOfBirth;
                     data.Email = client.Email;
                     data.ContactNumber = client.ContactNumber;
                     data.ProfilePicUrl = client.ProfilePicUrl;
@@ -640,18 +641,18 @@ router.get('/client/:id', passport.authenticate('both_rule', {session: false}), 
 });
 // router GET /client/:id
 
-// @route  POST /register
-// @desc   Register Personal Trainer
-// @access Public
-router.post('/edit_client/:id', passport.authenticate('both_rule', {session: false}), (req, res) => {
+// @route  PUT /edit_client/:id
+// @desc   Update client profile data
+// @access Private access for either personal trainer or client
+router.put('/edit_client/:id', passport.authenticate('both_rule', {session: false}), (req, res) => {
     // Set up validation checking for every field that has been posted
     const {errors, isValid} = validateRegistrationInput(req.body);
     const clientId = req.params.id;
 
-    // Check validation (so if it isn't valid give 400 error and message of error
-    if (!isValid) {
-        return res.status(400).json(errors);
-    }
+    // // Check validation (so if it isn't valid give 400 error and message of error
+    // if (!isValid) {
+    //     return res.status(400).json(errors);
+    // }
 
     let updateClient = {};
     updateClient.FullName = req.body.FullName;
@@ -662,30 +663,33 @@ router.post('/edit_client/:id', passport.authenticate('both_rule', {session: fal
     updateClient.Sex = req.body.Sex;
     updateClient.ProfilePicUrl = req.body.ProfilePicUrl;
 
-    // Find client by id
-    Client.findOne({_id: clientId})
-        .then(client => {
+    console.log(clientId, updateClient)
 
-            if (client) {
-
-
-            }
-
-            // Encrypt Password
-            bcrypt.genSalt(12, (err, salt) => {
-                bcrypt.hash(client.Password, salt, (err, hash) => {
-                    if (err) throw err;
-                    // Set plain Password to the hash that was created for the Password
-                    newPT.Password = hash;
-                    // Save new Personal Trainer to the database
-                    newPT.save()
-                        .then(PT => res.json(PT))
-                        .catch(err => console.log(err));
-                })
-            })
-
-        })
-});
+    // // Find client by id
+    // Client.findOne({_id: clientId})
+    //     .then(client => {
+    //
+    //         if (client) {
+    //
+    //
+    //         }
+    //
+    //         // Encrypt Password
+    //         bcrypt.genSalt(12, (err, salt) => {
+    //             bcrypt.hash(client.Password, salt, (err, hash) => {
+    //                 if (err) throw err;
+    //                 // Set plain Password to the hash that was created for the Password
+    //                 client.Password = hash;
+    //                 // TODO::
+    //                 // Update password in client database
+    //                 // client.save()
+    //                 //     .then(PT => res.json(PT))
+    //                 //     .catch(err => console.log(err));
+    //             })
+    //         })
+    //
+    //     })
+}); // PUT /edit_client/:id
 
 //Export router so it can work with the main restful api server
 module.exports = router;

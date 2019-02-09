@@ -17,6 +17,7 @@ class EditClient extends Component {
             FullName: '' ,
             Email: '' ,
             ContactNumber: '' ,
+            DateOfBirth: '',
             Sex: '' ,
             Password: '' ,
             Password2: '',
@@ -35,9 +36,6 @@ class EditClient extends Component {
     static getDerivedStateFromProps(props, state) {
         if (props.authenticatedUser.client_data !== state.client_data) {
             return {client_data: props.authenticatedUser.client_data}
-        }
-        if(props.errors !== state.errors){
-            return {errors: props.errors}
         }
         return null
     }
@@ -79,6 +77,7 @@ class EditClient extends Component {
             Email: this.state.Email,
             ContactNumber: this.state.ContactNumber,
             //ProfilePicUrl: this.state.ProfilePicUrl,
+            DateOfBirth: this.state.DateOfBirth,
             Sex: this.state.Sex,
             Password: this.state.Password,
             Password2: this.state.Password2
@@ -86,8 +85,22 @@ class EditClient extends Component {
 
         console.log(editData);
 
-        // If no errors occur then update client profile
-        // this.props.editClientData(this.props.match.params.uid ,editData);
+        if(editData.Password === editData.Password2){
+            // If no errors occur then update client profile
+            this.props.editClientData(this.props.match.params.uid ,editData);
+        }
+        else{
+            // Set state with separate calls on nested state
+            // this.setState({errors: {Password: "Passwords must match"}});
+            // this.setState({errors: {Password2: "Passwords must match"}});
+
+            // // Set errors using spread operator on nested state (only calls setState once)
+            let errors = {...this.state.errors};
+            errors.Password = "Passwords must match";
+            errors.Password2 = "Passwords must match";
+            this.setState({errors});
+
+        }
     }
 
     render() {
@@ -104,7 +117,6 @@ class EditClient extends Component {
                     <div className="row">
                         <div className="m-auto col-md-8">
                             <h1 className=" text-center display-5">Edit Profile</h1>
-                            <p className="description text-center">Edit your profile</p>
                             <form onSubmit={this.onSubmit}> {/* onSubmit used instead of normal action*/}
                                 <FormInputGroup
                                     name="FullName"
@@ -130,12 +142,20 @@ class EditClient extends Component {
                                     onChange={this.onChange}
                                     error={errors.ContactNumber}
                                 />
-                                <div className="form-group">
-                                    <select name="Sex" onChange={this.onChange} className='form-control form-control-lg'>
-                                        <option value="">Please select</option>
-                                        <option value="Male">Male</option>
-                                        <option value="Female">Female</option>
-                                    </select>
+                                <div className="form-group edit-profile-date-div">
+                                    <label className="control-label form-control-lg edit-profile-label">Date of Birth:</label>
+                                    <div className="edit-date-div">
+                                        <input className='form-control form-control-lg' name="DateOfBirth" onChange={this.onChange} type="Date"/>
+                                    </div>
+                                    <label className="control-label form-control-lg edit-profile-label gender">Gender:</label>
+                                    <div className="edit-date-div">
+                                        <select name="Sex" onChange={this.onChange} className='form-control
+                                            form-control-lg'>
+                                            <option value="">Please select</option>
+                                            <option value="Male">Male</option>
+                                            <option value="Female">Female</option>
+                                        </select>
+                                    </div>
                                 </div>
                                 <FormInputGroup
                                     name="Password"
@@ -143,7 +163,7 @@ class EditClient extends Component {
                                     value={this.state.password}
                                     type="Password"
                                     onChange={this.onChange}
-                                    error={errors.Password}
+                                    error={this.state.errors.Password}
                                 />
                                 <FormInputGroup
                                     name="Password2"
@@ -151,7 +171,7 @@ class EditClient extends Component {
                                     value={this.state.password2}
                                     type="Password"
                                     onChange={this.onChange}
-                                    error={errors.Password2}
+                                    error={this.state.errors.Password2}
                                 />
                                 <input type="submit" value="update" className="btn btn-info btn-block mt-5"/>
                             </form>

@@ -240,7 +240,21 @@ img {
 /* EditClient */
 
 .edit_client-custom {
-    min-height: 560px;
+    min-height: 600px;
+    min-width: 560px;
+}
+
+.edit-profile-label {
+    padding-left: 0px;
+}
+
+.edit-date-div {
+    display: inline-block;
+    width: auto;
+}
+
+.gender {
+    display: block;
 }
 
 /* Loading */
