@@ -176,9 +176,11 @@ export const editClientData = (id, Data) => dispatch => {
     axios
         .put(`/api/edit_client/${id}`, Data)
         .then(result => {
+            console.log(result)
             }
         )
         .catch(err => {
+            console.log(err)
             dispatch({
                 type: GET_ERRS,
                 payload: err.response.data

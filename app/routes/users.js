@@ -118,7 +118,6 @@ router.post('/new_client', passport.authenticate('pt_rule', {session: false}), (
         return res.status(400).json(errors);
     }
 
-
     let token = req.headers.authorization.split(' ')[1];
     let payload = jwt.decode(token, keys.secretOrKey);
     let PersonalTrainerId = payload.id;
@@ -666,34 +665,39 @@ router.put('/edit_client/:id', passport.authenticate('both_rule', {session: fals
         return res.status(400).json(errors);
     }
 
-    console.log(clientId, updateClient)
+    // If it exists as the for loop above checked if password was null or undefined, hash the password and update client profile if password doesn't exist update profile without hashing non existent password
+    if(updateClient.Password){
+        bcrypt.genSalt(12, (err, salt) => {
+            bcrypt.hash(updateClient.Password, salt, (err, hash) => {
+                if (err) throw err;
+                // Set plain Password to the hash that was created for the Password
+                updateClient.Password = hash;
+                // TODO::
+                // Update password in client database
+                Client.findByIdAndUpdate( clientId, updateClient, {new: true})
+                    .then(result => {
+                        return res.json(result)
+                    })
+                    .catch(err => {
+                        return res.json(err)
+                    });
+            })
+        })
+    }
+    else {
+        // Find client by id
+        Client.findByIdAndUpdate( clientId, updateClient, {new: true})
+            .then(client => {
+                if (client) {
+                    return res.json(client)
+                }
+            })
+            .catch(err =>{
+                return res.json(err)
+            });
+    }
 
-    return res.json("success");
 
-    // // Find client by id
-    // Client.findOne({_id: clientId})
-    //     .then(client => {
-    //
-    //         if (client) {
-    //
-    //
-    //         }
-    //
-    //         // Encrypt Password
-    //         bcrypt.genSalt(12, (err, salt) => {
-    //             bcrypt.hash(client.Password, salt, (err, hash) => {
-    //                 if (err) throw err;
-    //                 // Set plain Password to the hash that was created for the Password
-    //                 client.Password = hash;
-    //                 // TODO::
-    //                 // Update password in client database
-    //                 // client.save()
-    //                 //     .then(PT => res.json(PT))
-    //                 //     .catch(err => console.log(err));
-    //             })
-    //         })
-    //
-    //     })
 }); // PUT /edit_client/:id
 
 //Export router so it can work with the main restful api server

@@ -191,7 +191,8 @@ class EditClient extends Component {
 EditClient.propTypes = {
     getClientData: PropTypes.func.isRequired,
     passwordsMatchError: PropTypes.func.isRequired,
-    authenticatedUser: PropTypes.object.isRequired
+    authenticatedUser: PropTypes.object.isRequired,
+    //errors: PropTypes.object.isRequired
 };
 
 // Used to pull auth state and errors into this component.... DEFINED IN reducers/index.js {combineReducers}

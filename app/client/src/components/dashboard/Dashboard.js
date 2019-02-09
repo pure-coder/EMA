@@ -50,12 +50,13 @@ class Dashboard extends Component {
     render() {
         let displayContent;
 
-        if (this.state.clients === undefined) {
-            return <Loading/>
-        }
-
         // If user is a PT then display pt dashboard of clients
         if (this.props.authenticatedUser.user.pt && this.state.clients !== undefined) {
+
+            if (this.state.clients === undefined) {
+                return <Loading/>
+            }
+
             // Get clients from pt client list via redux
             let clients = this.state.clients;
             // console.log("clients", clients);
