@@ -14,6 +14,12 @@ class EditClient extends Component {
             client_data: {
                 password2: ''
             },
+            FullName: '' ,
+            Email: '' ,
+            ContactNumber: '' ,
+            Sex: '' ,
+            Password: '' ,
+            Password2: '',
             clientId: props.authenticatedUser.clientId,
             errors: {}
         };
@@ -25,6 +31,7 @@ class EditClient extends Component {
         this.onSubmit = this.onSubmit.bind(this);
     }
 
+    // Populate state data with data from the database for the client
     static getDerivedStateFromProps(props, state) {
         if (props.authenticatedUser.client_data !== state.client_data) {
             return {client_data: props.authenticatedUser.client_data}
@@ -68,19 +75,19 @@ class EditClient extends Component {
         event.preventDefault();
 
         const editData = {
-            FullName: this.state.client_data.FullName,
-            Email: this.state.client_data.Email,
-            ContactNumber: this.state.client_data.ContactNumber,
-            ProfilePicUrl: this.state.client_data.ProfilePicUrl,
-            Sex: this.state.client_data.Sex,
-            Password: this.state.client_data.Password,
-            Password2: this.state.client_data.Password2
+            FullName: this.state.FullName,
+            Email: this.state.Email,
+            ContactNumber: this.state.ContactNumber,
+            //ProfilePicUrl: this.state.ProfilePicUrl,
+            Sex: this.state.Sex,
+            Password: this.state.Password,
+            Password2: this.state.Password2
         };
 
         console.log(editData);
 
         // If no errors occur then update client profile
-        this.props.editClientData(this.props.match.params.uid ,editData);
+        // this.props.editClientData(this.props.match.params.uid ,editData);
     }
 
     render() {
@@ -101,28 +108,35 @@ class EditClient extends Component {
                             <form onSubmit={this.onSubmit}> {/* onSubmit used instead of normal action*/}
                                 <FormInputGroup
                                     name="FullName"
-                                    placeholder="Full Name"
-                                    value={this.state.client_data.FullName}
+                                    placeholder={this.state.client_data.FullName}
+                                    value={this.state.FullName}
                                     type="text"
                                     onChange={this.onChange}
                                     error={errors.FullName}
                                 />
                                 <FormInputGroup
                                     name="Email"
-                                    placeholder="Email Address"
-                                    value={this.state.client_data.Email}
+                                    placeholder={this.state.client_data.Email}
+                                    value={this.state.Email}
                                     type="Email"
                                     onChange={this.onChange}
                                     error={errors.Email}
                                 />
                                 <FormInputGroup
                                     name="ContactNumber"
-                                    placeholder="Enter Contact Number"
-                                    value={this.state.client_data.ContactNumber}
+                                    placeholder={this.state.client_data.ContactNumber}
+                                    value={this.state.ContactNumber}
                                     type="text"
                                     onChange={this.onChange}
                                     error={errors.ContactNumber}
                                 />
+                                <div className="form-group">
+                                    <select name="Sex" onChange={this.onChange} className='form-control form-control-lg'>
+                                        <option value="">Please select</option>
+                                        <option value="Male">Male</option>
+                                        <option value="Female">Female</option>
+                                    </select>
+                                </div>
                                 <FormInputGroup
                                     name="Password"
                                     placeholder="Enter Password"
