@@ -16,6 +16,9 @@ const validateRegistrationInput = require('../validation/registration');
 // Require Input validation for new Client
 const validateClientInput = require('../validation/newClient');
 
+// Require Input validation for editing client profile
+const validateEditClientInput = require('../validation/editClient');
+
 // Require Input validation for logging in PT or Client
 const validateLoginInput = require('../validation/Login');
 
@@ -646,24 +649,24 @@ router.get('/client/:id', passport.authenticate('both_rule', {session: false}), 
 // @access Private access for either personal trainer or client
 router.put('/edit_client/:id', passport.authenticate('both_rule', {session: false}), (req, res) => {
     // Set up validation checking for every field that has been posted
-    const {errors, isValid} = validateRegistrationInput(req.body);
     const clientId = req.params.id;
 
-    // // Check validation (so if it isn't valid give 400 error and message of error
-    // if (!isValid) {
-    //     return res.status(400).json(errors);
-    // }
-
     let updateClient = {};
-    updateClient.FullName = req.body.FullName;
-    updateClient.Email = req.body.Email;
-    updateClient.DateOfBirth = req.body.DateOfBirth;
-    updateClient.Password = req.body.Password;
-    updateClient.ContactNumber = req.body.ContactNumber;
-    updateClient.Sex = req.body.Sex;
-    updateClient.ProfilePicUrl = req.body.ProfilePicUrl;
+    // Enter data into updateClient only if the value of req.body is not undefined or an empty string
+    for (let value in req.body){
+        if (req.body[value] !== '' && req.body[value] !== undefined){
+            updateClient[value] = req.body[value];
+        }
+    } // for value in req.body
 
-    console.log(clientId, updateClient)
+    const {errors, isValid} = validateEditClientInput(updateClient);
+
+    // Check validation (so if it isn't valid give 400 error and message of error
+    if (!isValid) {
+        return res.status(400).json(errors);
+    }
+
+    // console.log(clientId, updateClient)
 
     // // Find client by id
     // Client.findOne({_id: clientId})

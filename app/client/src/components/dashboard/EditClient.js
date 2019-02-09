@@ -1,8 +1,8 @@
-import React, { Component } from 'react';  // Used to create this component
+import React, {Component} from 'react';  // Used to create this component
 import PropTypes from 'prop-types'; // Used to document prop types sent to components
-import { connect } from 'react-redux' // Needed when using redux inside a component (connects redux to this component)
-import { getClientData, editClientData } from "../../actions/authenticationActions"; // Used to import create action for getting client data and editing client data
-import { withRouter } from 'react-router-dom';
+import {connect} from 'react-redux' // Needed when using redux inside a component (connects redux to this component)
+import {getClientData, editClientData} from "../../actions/authenticationActions"; // Used to import create action for getting client data and editing client data
+import {withRouter} from 'react-router-dom';
 import FormInputGroup from "../common/FormInputGroup";
 import Loading from "../../elements/Loading"; // Allows proper routing and linking using browsers match, location, and history properties
 
@@ -14,12 +14,12 @@ class EditClient extends Component {
             client_data: {
                 password2: ''
             },
-            FullName: '' ,
-            Email: '' ,
-            ContactNumber: '' ,
+            FullName: '',
+            Email: '',
+            ContactNumber: '',
             DateOfBirth: '',
-            Sex: '' ,
-            Password: '' ,
+            Sex: '',
+            Password: '',
             Password2: '',
             clientId: props.authenticatedUser.clientId,
             errors: {}
@@ -37,24 +37,27 @@ class EditClient extends Component {
         if (props.authenticatedUser.client_data !== state.client_data) {
             return {client_data: props.authenticatedUser.client_data}
         }
+        if (props.errors !== state.errors) {
+            return {errors: props.errors}
+        }
         return null
     }
 
-    componentDidMount(){// If direct url used... didn't come through dashboard, ie bookmarked url, get uid from url
+    componentDidMount() {// If direct url used... didn't come through dashboard, ie bookmarked url, get uid from url
         // Check if isAuthenticated is true then redirect to the dashboard
         if (!this.props.authenticatedUser.isAuthenticated) {
             this.props.history.push('/login');
         }
 
         // if there is no data for user display get data or display error page
-        if(this.state.client_data === undefined){
+        if (this.state.client_data === undefined) {
             this.update();
         }
     }
 
     update() {
         // If clientId is undefined as explained above use url uid
-        if(!this.props.authenticatedUser.clientId){
+        if (!this.props.authenticatedUser.clientId) {
             this.props.getClientData(this.props.match.params.uid, this.props.history);
         }
         else {
@@ -66,7 +69,7 @@ class EditClient extends Component {
     onChange(event) {
         // event.target.name is used instead of a specific named state (ie "event.target.FullName") as there is more then
         // one, making it easier to capture all of them with this onChange function.
-        this.setState({[event.target.name]: event.target.value})
+        this.setState({[event.target.name]: event.target.value});
     }
 
     onSubmit(event) {
@@ -83,13 +86,11 @@ class EditClient extends Component {
             Password2: this.state.Password2
         };
 
-        console.log(editData);
+        if (this.state.Password === this.state.Password2) {
+            this.props.getClientData(this.props.match.params.uid, editData);
 
-        if(editData.Password === editData.Password2){
-            // If no errors occur then update client profile
-            this.props.editClientData(this.props.match.params.uid ,editData);
         }
-        else{
+        else {
             // Set state with separate calls on nested state
             // this.setState({errors: {Password: "Passwords must match"}});
             // this.setState({errors: {Password2: "Passwords must match"}});
@@ -99,7 +100,6 @@ class EditClient extends Component {
             errors.Password = "Passwords must match";
             errors.Password2 = "Passwords must match";
             this.setState({errors});
-
         }
     }
 
@@ -107,9 +107,12 @@ class EditClient extends Component {
         const {errors} = this.state; // This allows errors to be pulled out of this.state without pulling them out directly
 
         // if loaded is false then return loading screen
-        if(this.state.client_data === undefined) {
+        if (this.state.client_data === undefined) {
             return <Loading/>;
         }
+
+        console.log(this.state.errors);
+        console.log(this.state.Password);
 
         return (
             <div className="edit_client">
@@ -143,11 +146,14 @@ class EditClient extends Component {
                                     error={errors.ContactNumber}
                                 />
                                 <div className="form-group edit-profile-date-div">
-                                    <label className="control-label form-control-lg edit-profile-label">Date of Birth:</label>
+                                    <label className="control-label form-control-lg edit-profile-label">Date of
+                                        Birth:</label>
                                     <div className="edit-date-div">
-                                        <input className='form-control form-control-lg' name="DateOfBirth" onChange={this.onChange} type="Date"/>
+                                        <input className='form-control form-control-lg' name="DateOfBirth"
+                                               onChange={this.onChange} type="Date"/>
                                     </div>
-                                    <label className="control-label form-control-lg edit-profile-label gender">Gender:</label>
+                                    <label
+                                        className="control-label form-control-lg edit-profile-label gender">Gender:</label>
                                     <div className="edit-date-div">
                                         <select name="Sex" onChange={this.onChange} className='form-control
                                             form-control-lg'>
@@ -163,7 +169,7 @@ class EditClient extends Component {
                                     value={this.state.password}
                                     type="Password"
                                     onChange={this.onChange}
-                                    error={this.state.errors.Password}
+                                    error={errors.Password}
                                 />
                                 <FormInputGroup
                                     name="Password2"
@@ -171,7 +177,7 @@ class EditClient extends Component {
                                     value={this.state.password2}
                                     type="Password"
                                     onChange={this.onChange}
-                                    error={this.state.errors.Password2}
+                                    error={errors.Password2}
                                 />
                                 <input type="submit" value="update" className="btn btn-info btn-block mt-5"/>
                             </form>
@@ -194,6 +200,6 @@ EditClient.propTypes = {
 const stateToProps = (state) => ({
     authenticatedUser: state.authenticatedUser,
     errors: state.errors
-    });
+});
 
-export default connect(stateToProps, {getClientData, editClientData })(withRouter(EditClient));
+export default connect(stateToProps, {getClientData, editClientData})(withRouter(EditClient));

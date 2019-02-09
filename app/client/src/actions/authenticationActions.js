@@ -182,7 +182,7 @@ export const editClientData = (id, Data) => dispatch => {
         .catch(err => {
             dispatch({
                 type: GET_ERRS,
-                payload: {msg: err}
+                payload: err.response.data
             })
         })
 };
