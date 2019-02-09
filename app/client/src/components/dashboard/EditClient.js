@@ -87,7 +87,9 @@ class EditClient extends Component {
         };
 
         if (this.state.Password === this.state.Password2) {
-            this.props.getClientData(this.props.match.params.uid, editData);
+            this.props.editClientData(this.props.match.params.uid, editData);
+            // if passwords match
+            this.props.passwordsMatchError({errors: {}})
         }
         else {
             // Set state with separate calls on nested state
@@ -189,8 +191,7 @@ class EditClient extends Component {
 EditClient.propTypes = {
     getClientData: PropTypes.func.isRequired,
     passwordsMatchError: PropTypes.func.isRequired,
-    authenticatedUser: PropTypes.object.isRequired,
-    errors: PropTypes.object.isRequired
+    authenticatedUser: PropTypes.object.isRequired
 };
 
 // Used to pull auth state and errors into this component.... DEFINED IN reducers/index.js {combineReducers}

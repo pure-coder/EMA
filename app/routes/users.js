@@ -661,12 +661,14 @@ router.put('/edit_client/:id', passport.authenticate('both_rule', {session: fals
 
     const {errors, isValid} = validateEditClientInput(updateClient);
 
-    // Check validation (so if it isn't valid give 400 error and message of error
+    // Check validation (so if it isn't valid give 400 error and message of error, status(400) makes sure the response is caught and not successful for authenticationAction editClientData
     if (!isValid) {
         return res.status(400).json(errors);
     }
 
-    // console.log(clientId, updateClient)
+    console.log(clientId, updateClient)
+
+    return res.json("success");
 
     // // Find client by id
     // Client.findOne({_id: clientId})

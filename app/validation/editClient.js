@@ -25,7 +25,6 @@ module.exports = function validateRegistrationInput(data) {
         if (!Validator.isMobilePhone(data.ContactNumber, 'any' )) {
             errors.ContactNumber = 'Must be a valid Phone Number';
         }
-        console.log(errors)
     }
 
     if (data.Password !== undefined){
