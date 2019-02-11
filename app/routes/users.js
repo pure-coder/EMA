@@ -667,6 +667,9 @@ router.put('/edit_client/:id', passport.authenticate('both_rule', {session: fals
 
     // If it exists as the for loop above checked if password was null or undefined, hash the password and update client profile if password doesn't exist update profile without hashing non existent password
     if(updateClient.Password){
+
+        // This can be done synchronously via bcrypt.genSaltSync and bcrypt.hashSync, but for better performance async is used so the
+        // encrypting of users passwords does not tie up the node.js thread.
         bcrypt.genSalt(12, (err, salt) => {
             bcrypt.hash(updateClient.Password, salt, (err, hash) => {
                 if (err) throw err;
