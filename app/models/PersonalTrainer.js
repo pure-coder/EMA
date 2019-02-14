@@ -67,7 +67,7 @@ const PersonalTrainerSchema = mongoose.Schema({
     }
     ,
     ClientIDs: [
-        {type: Schema.Types.ObjectId, ref: 'clients', unique: true}
+        {type: mongoose.Schema.Types.ObjectId, ref: 'clients', unique: true}
         ]
     // collection value is the name of the collection that is stored in the database
 }, {collection: "Personal_Trainers"}, {timestamps: true});
