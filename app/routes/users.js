@@ -161,12 +161,7 @@ router.post('/new_client', passport.authenticate('pt_rule', {session: false}), (
                             .then(client => {
                                     // Send verification email to client
                                     verification(req.body.Email);
-                                    let client_id_object = {
-                                        FullName: client.FullName,
-                                        email: client.Email,
-                                        id: client.id,
-                                        ptId: PersonalTrainerId
-                                    };
+
                                     // Add client id to associated personal trainer ClientIDs
                                     PersonalTrainer.findByIdAndUpdate(PersonalTrainerId,
                                         {$push: {ClientIDs: client._id}}, // changed from client_id_object to client._id (for ref)
