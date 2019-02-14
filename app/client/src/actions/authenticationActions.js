@@ -194,8 +194,7 @@ export const editClientData = (id, Data, history) => dispatch => {
 export const editProfile = (id, history) => dispatch => {
     dispatch({
         type: EDIT_PROFILE,
-        payload: id,
-        location: history,
+        payload: id
     })
     // window.location.href = '/users/' + id + '/edit_client';
     // Went back to using push as the error of being able to back button the browser history was sorted, this solves the state of redux too

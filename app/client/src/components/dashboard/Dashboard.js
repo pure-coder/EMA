@@ -39,9 +39,6 @@ class Dashboard extends Component {
         }
 
         this.update()
-
-        this.setState({location: this.props.location.pathname})
-
     } // ComponentDidMount
 
     // update client list after change

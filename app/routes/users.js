@@ -38,6 +38,11 @@ const ActivationTokens = require('../models/AcitvationTokens');
 // Require events
 const Events = require('../models/Events');
 
+// Capitalise 1st letter !!!!!!!!!!!!!!!!!! MOVE THIS TO SEPARATE FILE
+function capitaliseFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
 // @route  POST /register
 // @desc   Register Personal Trainer
 // @access Public
@@ -650,6 +655,10 @@ router.put('/edit_client/:id', passport.authenticate('both_rule', {session: fals
     // Enter data into updateClient only if the value of req.body is not undefined or an empty string
     for (let value in req.body){
         if (req.body[value] !== '' && req.body[value] !== undefined){
+            // Capitalise first name if not alread done
+            if (req.body.FullName) {
+                req.body.FullName = capitaliseFirstLetter(req.body.FullName);
+            }
             updateClient[value] = req.body[value];
         }
     } // for value in req.body
