@@ -543,16 +543,18 @@ router.post('/:id/scheduler/:cid', passport.authenticate('pt_rule', {session: fa
 router.get('/pt_clients/:ptid', passport.authenticate('pt_rule', {session: false}), (req, res) => {
     let ptId = req.params.ptid;
     // get personal trainers client list
-    PersonalTrainer.findOne({_id: ptId})
-        .then(pt => {
-                if (pt) {
-                    return res.json(pt.ClientIDs)
+    PersonalTrainer.findOne({_id: ptId}).populate('ClientIDs')
+        .exec( function(err, personalTrainer)
+            {
+                if (err) return res.json("No data for ptid: " + err.stringValue);
+
+                if (personalTrainer) {
+
+                    return res.json(personalTrainer.ClientIDs)
                 }
             }
-        ) // then Client.findOne
-        .catch(err => {
-            return res.json("No data for ptid: " + err.stringValue)
-        })
+        ) // Client.findOne
+
 
 });
 // router post /pt_clients

@@ -1,7 +1,8 @@
 const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
 // Create Schema
-const ClientSchema = mongoose.Schema({
+const ClientSchema = new Schema({
     FullName: {
         // Trim
         type: String, index: true, trim: true
@@ -35,7 +36,7 @@ const ClientSchema = mongoose.Schema({
     ptId: {
         type: String
     }
-}, {collection: "Clients"}, {timestamps: true});
+})
 
-
-module.exports = mongoose.model('Client', ClientSchema);
+const Clients = mongoose.model('Client', ClientSchema);
+module.exports = Clients;
