@@ -169,7 +169,7 @@ router.post('/new_client', passport.authenticate('pt_rule', {session: false}), (
                                     };
                                     // Add client id to associated personal trainer ClientIDs
                                     PersonalTrainer.findByIdAndUpdate(PersonalTrainerId,
-                                        {$push: {ClientIDs: client_id_object}},
+                                        {$push: {ClientIDs: client._id}}, // changed from client_id_object to client._id (for ref)
                                         {safe: true})
                                         .then(result => {
                                             // console.log(client_id_object),
