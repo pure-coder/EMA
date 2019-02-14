@@ -353,8 +353,6 @@ router.get('/verify', (req, res) => {
 // @access private for PT's and clients
 router.get('/:id/scheduler/:cid?', passport.authenticate('both_rule', {session: false}), (req, res) => {
 
-    // TODO - retrieve specific clients data
-
     // Get clientId from frontEnd
     let userId = req.params.id;
     let clientId = req.params.cid;
@@ -367,7 +365,7 @@ router.get('/:id/scheduler/:cid?', passport.authenticate('both_rule', {session: 
 
     // If user is pt check to see if the client id is in their list, if so allow them access to data
     if (isPT) {
-        PersonalTrainer.findOne({"_id": userTokenId})
+        PersonalTrainer.findOne({"_id": userTokenId}).populate('ClientIDs')
             .then(pt => {
                 // Make sure that the pt exists
                 if (pt) {

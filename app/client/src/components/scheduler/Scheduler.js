@@ -35,7 +35,6 @@ class Scheduler extends Component {
                     scheduler.templates.xml_date = function (value) {
                         return new Date(value);
                     };
-
                     // Parse data from database and populate scheduler
                     scheduler.parse(result.data, "json");
                 }
