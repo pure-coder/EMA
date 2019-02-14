@@ -17,12 +17,14 @@ class Dashboard extends Component {
         this.state = {
             id: this.props.authenticatedUser.user.id,
             clients: {},
-            errors: {}
+            errors: {},
+            location: this.props.location.pathname
         }
     }
 
     // Set clients in state to those retrieved from database (from props), as on refresh state clients will always be undefined
     static getDerivedStateFromProps(props, state) {
+        console.log(props)
         if (props.authenticatedUser.clients !== state.clients) {
             return {clients: props.authenticatedUser.clients}
         }
@@ -37,6 +39,8 @@ class Dashboard extends Component {
         }
 
         this.update()
+
+        this.setState({location: this.props.location.pathname})
 
     } // ComponentDidMount
 
@@ -92,10 +96,11 @@ Dashboard.propTypes = {
     errors: PropTypes.object.isRequired
 };
 
-// Used to pull auth state and errors into this component.... DEFINED IN reducers/index.js {combineReducers}
+// Used to pull auth state and errors into this component.... DEFINED IN reducers/index.js {combineReducers} !!!! USED FOR THE REDUX STORE
 const stateToProps = (state) => ({
     authenticatedUser: state.authenticatedUser, // authenticatedUser is set in index.js file in the reducers folder
-    errors: state.errors // errors is set in index.js file in the reducers folder
+    errors: state.errors, // errors is set in index.js file in the reducers folder
+    location: state.location
 });
 
 export default connect(stateToProps, {getClients})(withRouter(Dashboard));

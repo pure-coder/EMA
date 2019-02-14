@@ -43,7 +43,8 @@ export default function (state = initialisedState, action) {
         case EDIT_PROFILE:
             return {
                 ...state,
-                clientId: action.payload
+                clientId: action.payload,
+                location: action.location
             };
         default:
             return state;

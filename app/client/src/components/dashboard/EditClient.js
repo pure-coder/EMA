@@ -22,7 +22,8 @@ class EditClient extends Component {
             Password: '',
             Password2: '',
             clientId: props.authenticatedUser.clientId,
-            errors: {}
+            errors: {},
+            location: this.props.location
         };
 
         // This sets the state value to it's respective state (via binding)
@@ -34,6 +35,7 @@ class EditClient extends Component {
 
     // Populate state data with data from the database for the client
     static getDerivedStateFromProps(props, state) {
+        // console.log(props)
         if (props.authenticatedUser.client_data !== state.client_data) {
             return {client_data: props.authenticatedUser.client_data}
         }

@@ -139,7 +139,6 @@ export const deleteClient = (id, ptId) => dispatch => {
     axios
         .delete(`/api/delete_client/${id}`)
         .then(() => {
-            console.log(id)
                 // causes refresh of dashboard with updated client list
                 dispatch(getClients(ptId))
             }
@@ -192,12 +191,14 @@ export const editClientData = (id, Data, history) => dispatch => {
         })
 };
 
-export const editProfile = (id) => dispatch => {
-    window.location.href = '/users/' + id + '/edit_client';
+export const editProfile = (id, history) => dispatch => {
     dispatch({
         type: EDIT_PROFILE,
-        payload: id
+        payload: id,
+        location: history,
     })
+    // window.location.href = '/users/' + id + '/edit_client';
+    history.push('/users/' + id + '/edit_client')
 };
 
 export const passwordsMatchError = (error) => dispatch => {
