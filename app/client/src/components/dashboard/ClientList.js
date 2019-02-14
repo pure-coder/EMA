@@ -50,13 +50,13 @@ class ClientList extends Component {
             <tr key={client._id}>
                 <td align="center"><b>{client.FullName}</b></td>
                 <td align="center"><i className="fas fa-columns fa-2x"></i></td>
-                <td align="center"><a onClick={this.onScheduleClick.bind(this, client.ptId, client.id)}><i
+                <td align="center"><a onClick={this.onScheduleClick.bind(this, client.ptId, client._id)}><i
                     className="far fa-calendar-alt fa-2x"></i></a></td>
-                <td align="center"><a onClick={this.onEditProfile.bind(this, client.id)}><i
+                <td align="center"><a onClick={this.onEditProfile.bind(this, client._id)}><i
                     className="fas fa-edit fa-2x"></i></a></td>
                 <td align="center">
                     <button
-                        onClick={this.onClientDelete.bind(this, client.id, client.ptId)}
+                        onClick={this.onClientDelete.bind(this, client._id, client.ptId)}
                         className="btn btn-danger">
                         Delete
                     </button>

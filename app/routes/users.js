@@ -549,9 +549,6 @@ router.get('/pt_clients/:ptid', passport.authenticate('pt_rule', {session: false
                 if (err) return res.json("No data for ptid: " + err.stringValue);
 
                 if (personalTrainer) {
-
-                    console.log(personalTrainer.ClientIDs)
-
                     return res.json(personalTrainer.ClientIDs)
                 }
             }

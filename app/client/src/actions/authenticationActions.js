@@ -114,7 +114,6 @@ export const getClients = ptid => dispatch => {
     axios
         .get(`/api/pt_clients/${ptid}`)
         .then(result => {
-            console.log(result)
                 // return {clients : result.data}
                 // dispatch this action to the action below so the data can be sent to the respective reducer
                 dispatch(setPtClients(result.data))
@@ -140,6 +139,8 @@ export const deleteClient = (id, ptId) => dispatch => {
     axios
         .delete(`/api/delete_client/${id}`)
         .then(() => {
+            console.log(id)
+                // causes refresh of dashboard with updated client list
                 dispatch(getClients(ptId))
             }
         )
