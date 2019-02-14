@@ -550,6 +550,8 @@ router.get('/pt_clients/:ptid', passport.authenticate('pt_rule', {session: false
 
                 if (personalTrainer) {
 
+                    console.log(personalTrainer.ClientIDs)
+
                     return res.json(personalTrainer.ClientIDs)
                 }
             }

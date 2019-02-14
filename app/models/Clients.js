@@ -36,7 +36,8 @@ const ClientSchema = new Schema({
     ptId: {
         type: String
     }
-})
+});
 
-const Clients = mongoose.model('Client', ClientSchema);
+const Clients = mongoose.model('client', ClientSchema);
+
 module.exports = Clients;

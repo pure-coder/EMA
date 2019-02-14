@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-// Create Client Schema
+// Create Schema
 const ClientSchema = new Schema({
     FullName: {
         // Trim
@@ -38,15 +38,15 @@ const ClientSchema = new Schema({
     }
 });
 
-// Create Personal Trainer Schema
+// Create Schema
 const PersonalTrainerSchema = new Schema({
     FullName: {
         // Trim
-        type: String, index: true, trim: true
+        type: String, trim: true
     },
     Email: {
         // Trim and lowercase
-        type: String, index: {unique: true}, lowercase: true, trim: true,
+        type: String, index: true, lowercase: true, trim: true,
     },
     DateOfBirth: {
         type: Date, trim: true,
@@ -68,11 +68,12 @@ const PersonalTrainerSchema = new Schema({
     }
     ,
     ClientIDs: [
-        {type: Schema.Types.ObjectId, ref: 'Clients', unique: true}
-        ]
+        {type: Schema.Types.ObjectId, ref: 'clients', unique: true}
+    ]
     // collection value is the name of the collection that is stored in the database
-})
+});
 
-const PersonalTrainers = mongoose.model('Personal_Trainers', PersonalTrainerSchema);
-const Clients = mongoose.model('Clients', ClientSchema);
+const PersonalTrainers = mongoose.model('personalTrainers', PersonalTrainerSchema);
+const Clients = mongoose.model('clients', ClientSchema); //
+
 module.exports = PersonalTrainers;
