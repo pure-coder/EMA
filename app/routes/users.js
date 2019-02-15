@@ -431,6 +431,7 @@ router.post('/:id/scheduler/:cid', passport.authenticate('pt_rule', {session: fa
     let data = req.body;
     let schedId, docId; // initialising schedule id and document id
 
+    console.log(data);
 
     // Get clientId from frontEnd
     let userId = req.params.id;
@@ -460,6 +461,7 @@ router.post('/:id/scheduler/:cid', passport.authenticate('pt_rule', {session: fa
 
     // Get data's operation type which is either inserted/updated/deleted
     let type = data["!nativeeditor_status"];
+    console.log(type);
 
     // Get the id of current record as inserted code id is different from updated/delete as dhtmlxscheduler changes
     // the id to the document id from mongodb database for edited events
@@ -470,37 +472,29 @@ router.post('/:id/scheduler/:cid', passport.authenticate('pt_rule', {session: fa
         docId = data.id;
     }
 
+    // Added for key to updating/removing event as the scheduler was weird when creating (new event) then updating an event as the id would change length
+    let thisId;
+    data.id.length === 24 ? thisId = "_id" : thisId = "id";
+
     // Take away data properties that won't be saved to the database
     delete data["!nativeeditor_status"];
-
-    // only perform database operations if client is in the pt's clients list (security logic)
-
 
     // Add, edit or delete depending on the type
     if (type === "updated") {
         // Update the existing workout using the document id
-        Events.update({id: docId},
+        Events.update({[thisId]: docId},
             {
-                id: docId,
                 text: data.text,
                 start_date: data.start_date,
                 end_date: data.end_date,
                 clientId: clientId
-            }, {upsert: true, overwrite: true, runValidators: true})
+            }, {upsert: true, runValidators: true, new: true})
             .then(result => {
                 if (result) {
                     // Because of the way mongoose update works update needs to be performed as it makes a new
                     // doc as id are unique, have to delete old doc with previous id so new and updated doc
                     // do not appear on schedule
-                    Events.remove({_id: docId}).remove()
-                        .then(
-                            result => {
-                                return res.status(200).json(result);
-                            }//console.log(result)
-                        )
-                        .catch(err => {
-                            return res.status(400).json(err);
-                        })
+                    return res.status(200).json(result);
                 }
             })
             .catch(err => {
@@ -509,7 +503,6 @@ router.post('/:id/scheduler/:cid', passport.authenticate('pt_rule', {session: fa
     }
     else if (type === "inserted") {
         // Create new workout for client
-        console.log('fired');
         const newWorkout = new Events({
             id: schedId,
             text: data.text,
@@ -521,20 +514,18 @@ router.post('/:id/scheduler/:cid', passport.authenticate('pt_rule', {session: fa
         newWorkout.save()
             .then(events => {
                     //console.log(events);
-                console.log('fired saved');
                 return res.status(200).json(events);
                 }
             )
             .catch(err => {
-                console.log('fired not saved ');
                 return res.status(400).json(err);
             })
     }
     else if (type === "deleted") {
         // Remove the workout from the schedule that user has deleted
-        Events.remove({_id: docId}).remove()
+
+        Events.remove({[thisId]: docId}).remove()
             .then(result => {
-                console.log("docId",docId, "data.id", data.id)
                     return res.status(200).json(result)
                 }
             )

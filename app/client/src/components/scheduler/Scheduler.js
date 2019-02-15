@@ -30,6 +30,7 @@ class Scheduler extends Component {
                     let month = now.getMonth();
                     let year = now.getFullYear();
                     // Initialising workout scheduler to current date and display the month view
+                    scheduler.config.show_loading = true;
                     scheduler.init('scheduler', new Date(year, month, date), "month");
                     // Load the date from the database
                     scheduler.templates.xml_date = function (value) {
@@ -37,6 +38,7 @@ class Scheduler extends Component {
                     };
                     // Parse data from database and populate scheduler
                     scheduler.parse(result.data, "json");
+                    return result;
                 }
             })
             .catch(err => console.log(err)); // log error of collecting data to console
@@ -56,6 +58,19 @@ class Scheduler extends Component {
         // Add token to header to allow access to the POST function on API
         dataProc.setTransactionMode({mode: "POST", headers:{ "Content-Type": "application/x-www-form-urlencoded",
         Authorization: token}});
+
+        // // Custom scheduler lightbox
+        // scheduler.config.buttons_right = ["dhx_save_btn","update","dhx_delete_btn"];
+        // scheduler.config.buttons_left = ["dhx_cancel_btn"];
+        // scheduler.locale.labels["update"] = "Update";
+        //
+        // scheduler.attachEvent("onLightboxButton", function(button_id, node, e){
+        //     if(button_id === "update"){
+        //         const id = scheduler.getState().select_id;
+        //         alert(id);
+        //     }
+        // });
+
 
     }// constructor
 
