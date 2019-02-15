@@ -113,4 +113,3 @@ const stateToProps = (state) => ({
 // allowing the functions of the package to be used with the component eg, proper routing, and direct parameters of
 // stateToProps for the 1st parameter and the action which is registerUser as the 2nd parameter
 export default connect(stateToProps)(withRouter(Scheduler));
-

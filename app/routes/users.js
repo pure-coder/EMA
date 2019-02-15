@@ -484,7 +484,8 @@ router.post('/:id/scheduler/:cid', passport.authenticate('pt_rule', {session: fa
                 id: docId,
                 text: data.text,
                 start_date: data.start_date,
-                end_date: data.end_date
+                end_date: data.end_date,
+                clientId: clientId
             }, {upsert: true, overwrite: true, runValidators: true})
             .then(result => {
                 if (result) {
@@ -494,20 +495,21 @@ router.post('/:id/scheduler/:cid', passport.authenticate('pt_rule', {session: fa
                     Events.remove({_id: docId}).remove()
                         .then(
                             result => {
+                                return res.status(200).json(result);
                             }//console.log(result)
                         )
                         .catch(err => {
-                            return res.json({err})
+                            return res.status(400).json(err);
                         })
                 }
             })
             .catch(err => {
-                return res.json({err})
+                return res.status(400).json(err);
             })
     }
     else if (type === "inserted") {
         // Create new workout for client
-        // TODO - add client id to database so only their data is shown
+        console.log('fired');
         const newWorkout = new Events({
             id: schedId,
             text: data.text,
@@ -519,20 +521,26 @@ router.post('/:id/scheduler/:cid', passport.authenticate('pt_rule', {session: fa
         newWorkout.save()
             .then(events => {
                     //console.log(events);
+                console.log('fired saved');
+                return res.status(200).json(events);
                 }
             )
             .catch(err => {
-                console.log(err)
+                console.log('fired not saved ');
+                return res.status(400).json(err);
             })
     }
     else if (type === "deleted") {
         // Remove the workout from the schedule that user has deleted
         Events.remove({_id: docId}).remove()
             .then(result => {
+                console.log("docId",docId, "data.id", data.id)
+                    return res.status(200).json(result)
                 }
-                // console.log(result)
             )
-            .catch(err => console.log(err))
+            .catch(err => {
+                return res.status(400).json(err)
+            })
     }
     else {
         res.send("Not supported operation");
