@@ -13,15 +13,7 @@ const app = express();
 
 // require the routes
 const users = require('./routes/users');
-const personalTrainer = require('./routes/personalTrainer');
-const client = require('./routes/client');
-const profile = require('./routes/profile');
-const profiles = require('./routes/profiles');
-const calendar = require('./routes/calendar');
 
-////////////////// FOR DEV --- REMOVE /////////////////////////
-const assert = require('assert');
-///////////////////////////////////////////////////////////////
 
 const log = require('./config/logger').logger;
 
@@ -55,11 +47,6 @@ require('./config/passport')(passport);
 
 // Use the routes that have been set up
 app.use('/api/', users);
-// app.use('/api/personal_trainer', personalTrainer);
-// app.use('/api/client', client);
-// app.use('/api/personal_trainer/client/profile', profiles);
-// app.use('/api/client/profile', profile);
-// app.use('/api/client/calendar', calendar);
 
 app.listen(port, () => {
     console.log('We are live on ' + port);
