@@ -45,7 +45,7 @@ app.use(passport.initialize());
 // Require Passport config and pass in passport
 require('./config/passport')(passport);
 
-// Use the routes that have been set up
+// Use the routes that have been set up, this uses express route for our rest api (route.DELETE/GET/POST/PUT etc)
 app.use('/api/', users);
 
 app.listen(port, () => {
