@@ -1,27 +1,25 @@
 import React, {Component} from 'react';  // Used to create this component
 import PropTypes from 'prop-types'; // Used to document prop types sent to components
 import {connect} from 'react-redux' // Needed when using redux inside a component (connects redux to this component)
-import {getClientData, editClientData, passwordsMatchError} from "../../actions/authenticationActions"; // Used to import create action for getting client data and editing client data
+import {getPtData,  editPtData, passwordsMatchError} from "../../actions/authenticationActions"; // Used to import create action for getting pt data and editing pt data
 import {withRouter} from 'react-router-dom';
 import FormInputGroup from "../common/FormInputGroup";
 import Loading from "../../elements/Loading"; // Allows proper routing and linking using browsers match, location, and history properties
 
-class EditClient extends Component {
+class EditPersonalTrainer extends Component {
     // This allows the component states to be updated and re-rendered
     constructor(props) {
         super(props);
         this.state = {
-            client_data: {
+            pt_data: {
                 password2: ''
             },
             FullName: '',
             Email: '',
-            ContactNumber: '',
             DateOfBirth: '',
             Sex: '',
             Password: '',
             Password2: '',
-            clientId: props.authenticatedUser.clientId,
             errors: {},
             location: this.props.location
         };
@@ -33,11 +31,11 @@ class EditClient extends Component {
         this.onSubmit = this.onSubmit.bind(this);
     }
 
-    // Populate state data with data from the database for the client
+    // Populate state data with data from the database for the pt
     static getDerivedStateFromProps(props, state) {
         // console.log(props)
-        if (props.authenticatedUser.client_data !== state.client_data) {
-            return {client_data: props.authenticatedUser.client_data}
+        if (props.authenticatedUser.pt_data !== state.pt_data) {
+            return {pt_data: props.authenticatedUser.pt_data}
         }
         if (props.errors !== state.errors) {
             return {errors: props.errors}
@@ -52,20 +50,14 @@ class EditClient extends Component {
         }
 
         // if there is no data for user display get data or display error page
-        if (this.state.client_data === undefined) {
+        if (this.state.pt_data === undefined) {
             this.update();
         }
     }
 
     update() {
-        // If clientId is undefined as explained above use url uid
-        if (!this.props.authenticatedUser.clientId) {
-            this.props.getClientData(this.props.match.params.uid, this.props.history);
+        this.props.getPtData(this.props.match.params.uid, this.props.history);
         }
-        else {
-            this.props.getClientData(this.state.clientId, this.props.history);
-        }
-    }
 
     // This captures what the user types and sets the specific input to the respective state variable
     onChange(event) {
@@ -80,16 +72,14 @@ class EditClient extends Component {
         const editData = {
             FullName: this.state.FullName,
             Email: this.state.Email,
-            ContactNumber: this.state.ContactNumber,
             //ProfilePicUrl: this.state.ProfilePicUrl,
-            DateOfBirth: this.state.DateOfBirth,
             Sex: this.state.Sex,
             Password: this.state.Password,
             Password2: this.state.Password2
         };
 
         if (this.state.Password === this.state.Password2) {
-            this.props.editClientData(this.props.match.params.uid, editData, this.props.history);
+            this.props.editPtData(this.props.match.params.uid, editData, this.props.history);
             // if passwords match
             this.props.passwordsMatchError({errors: {}})
         }
@@ -110,9 +100,11 @@ class EditClient extends Component {
         const {errors} = this.state; // This allows errors to be pulled out of this.state without pulling them out directly
 
         // if loaded is false then return loading screen
-        if (this.state.client_data === undefined) {
+        if (this.state.pt_data === undefined) {
             return <Loading/>;
         }
+
+        // console.log()
 
         return (
             <div className="edit_client">
@@ -123,7 +115,7 @@ class EditClient extends Component {
                             <form onSubmit={this.onSubmit}> {/* onSubmit used instead of normal action*/}
                                 <FormInputGroup
                                     name="FullName"
-                                    placeholder={this.state.client_data.FullName}
+                                    placeholder={this.state.pt_data.FullName}
                                     value={this.state.FullName}
                                     type="text"
                                     onChange={this.onChange}
@@ -131,19 +123,11 @@ class EditClient extends Component {
                                 />
                                 <FormInputGroup
                                     name="Email"
-                                    placeholder={this.state.client_data.Email}
+                                    placeholder={this.state.pt_data.Email}
                                     value={this.state.Email}
                                     type="Email"
                                     onChange={this.onChange}
                                     error={errors.Email}
-                                />
-                                <FormInputGroup
-                                    name="ContactNumber"
-                                    placeholder={this.state.client_data.ContactNumber}
-                                    value={this.state.ContactNumber}
-                                    type="text"
-                                    onChange={this.onChange}
-                                    error={errors.ContactNumber}
                                 />
                                 <div className="form-group edit-profile-date-div">
                                     <label className="control-label form-control-lg edit-profile-label">Date of
@@ -191,8 +175,8 @@ class EditClient extends Component {
 }
 
 // Documents what props are needed for this component and will log a warning in the console in dev mode if not complied to
-EditClient.propTypes = {
-    getClientData: PropTypes.func.isRequired,
+EditPersonalTrainer.propTypes = {
+    getPtData: PropTypes.func.isRequired,
     passwordsMatchError: PropTypes.func.isRequired,
     authenticatedUser: PropTypes.object.isRequired,
     //errors: PropTypes.object.isRequired
@@ -204,4 +188,4 @@ const stateToProps = (state) => ({
     errors: state.errors
 });
 
-export default connect(stateToProps, {getClientData, editClientData, passwordsMatchError})(withRouter(EditClient));
+export default connect(stateToProps, {getPtData, editPtData, passwordsMatchError})(withRouter(EditPersonalTrainer));

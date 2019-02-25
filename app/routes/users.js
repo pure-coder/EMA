@@ -705,5 +705,97 @@ router.put('/edit_client/:id', passport.authenticate('both_rule', {session: fals
 
 }); // PUT /edit_client/:id
 
+// @route  GET api/personal_trainer/:id
+// @desc   get personal trainer data
+// @access private for PT's and client
+router.get('/personal_trainer/:id', passport.authenticate('pt_rule', {session: false}), (req, res) => {
+    let id = req.params.id;
+    // get client data
+    PersonalTrainer.findOne({_id: id})
+        .then(pt => {
+                if (pt) {
+                    let data = {};
+                    data.FullName = pt.FullName;
+                    data.Email = pt.Email;
+                    data.Sex = pt.Sex;
+                    data.ProfilePicUrl = pt.ProfilePicUrl;
+                    return res.json(data)
+                }
+                // if pt is null
+                else {
+                    return res.json("No data for id: " + id)
+                }
+            }
+        ) // then PersonalTrainer.findOne
+        .catch(err => {
+            return res.json("No data for id: " + err.stringValue)
+        })
+
+});
+// router GET /api/personal_trainer/:id
+
+// @route  PUT api/edit_personal_trainer/:id
+// @desc   Update personal trainer profile data
+// @access Private access for either personal trainer
+router.put('/edit_personal_trainer/:id', passport.authenticate('pt_rule', {session: false}), (req, res) => {
+    // Set up validation checking for every field that has been posted
+    const ptId = req.params.id;
+
+    let updatePt = {};
+    // Enter data into updateClient only if the value of req.body is not undefined or an empty string
+    for (let value in req.body){
+        if (req.body[value] !== '' && req.body[value] !== undefined){
+            // Capitalise first name if not alread done
+            if (req.body.FullName) {
+                req.body.FullName = capitaliseFirstLetter(req.body.FullName);
+            }
+            updatePt[value] = req.body[value];
+        }
+    } // for value in req.body
+
+    const {errors, isValid} = validateEditClientInput(updatePt);
+
+    // Check validation (so if it isn't valid give 400 error and message of error, status(400) makes sure the response is caught and not successful for authenticationAction editClientData
+    if (!isValid) {
+        return res.status(400).json(errors);
+    }
+
+    // If it exists as the for loop above checked if password was null or undefined, hash the password and update client profile if password doesn't exist update profile without hashing non existent password
+    if(updatePt.Password){
+
+        // This can be done synchronously via bcrypt.genSaltSync and bcrypt.hashSync, but for better performance async is used so the
+        // encrypting of users passwords does not tie up the node.js thread.
+        bcrypt.genSalt(12, (err, salt) => {
+            bcrypt.hash(updatePt.Password, salt, (err, hash) => {
+                if (err) throw err;
+                // Set plain Password to the hash that was created for the Password
+                updatePt.Password = hash;
+                // TODO::
+                // Update password in client database
+                PersonalTrainer.findByIdAndUpdate( ptId, updatePt, {new: true})
+                    .then(result => {
+                        return res.json(result)
+                    })
+                    .catch(err => {
+                        return res.json(err)
+                    });
+            })
+        })
+    }
+    else {
+        // Find client by id
+        PersonalTrainer.findByIdAndUpdate( ptId, updatePt, {new: true})
+            .then(client => {
+                if (client) {
+                    return res.json(client)
+                }
+            })
+            .catch(err =>{
+                return res.json(err)
+            });
+    }
+
+}); // PUT /edit_personal_trainer/:id
+
 //Export router so it can work with the main restful api server
 module.exports = router;

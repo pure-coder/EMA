@@ -98,7 +98,8 @@ class RegisterClient extends Component {
                                     onChange={this.onChange}
                                     error={errors.ContactNumber}
                                 />
-                                <input type="submit" className="btn btn-info btn-block mt-5"/>
+                                <input type="submit" className="btn btn-info btn-block mt-4"/>
+                                <button type="button" className="btn btn-danger btn-block mt-3 mb-3" onClick={this.props.history.goBack}>Back</button>
                             </form>
                         </div>
                     </div>

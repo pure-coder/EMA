@@ -24,7 +24,6 @@ class Dashboard extends Component {
 
     // Set clients in state to those retrieved from database (from props), as on refresh state clients will always be undefined
     static getDerivedStateFromProps(props, state) {
-        console.log(props)
         if (props.authenticatedUser.clients !== state.clients) {
             return {clients: props.authenticatedUser.clients}
         }
@@ -69,7 +68,7 @@ class Dashboard extends Component {
             )
         } // If PT
 
-        // If user is a PT then display pt dashboard of clients
+        // If user is not a PT then display dashboard of client data
         if (!this.props.authenticatedUser.user.pt) {
 
             // Define content to display..

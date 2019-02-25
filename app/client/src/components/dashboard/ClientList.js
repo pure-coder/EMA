@@ -73,6 +73,12 @@ class ClientList extends Component {
                             Add new Client
                         </button>
                     </Link>
+                    <Link to={'/users/' + this.props.authenticatedUser.user.id + '/edit_personal_trainer'}>
+                        <button
+                            className="btn btn-success dashboard-edit-own-profile">
+                            Edit own profile
+                        </button>
+                    </Link>
                     <div>
                         <div>
                             <h3 className="mb-3">Clients</h3>

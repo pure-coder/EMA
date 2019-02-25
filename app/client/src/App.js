@@ -36,6 +36,7 @@ import {setSignedInUser} from './actions/authenticationActions';
 
 // Used to log the user out
 import {logOutUser} from './actions/authenticationActions';
+import EditPersonalTrainer from "./components/dashboard/EditPersonalTrainer";
 
 // check if token exists in local storage
 if (localStorage.jwtToken) {
@@ -78,6 +79,7 @@ class App extends Component {
                             {/* Register Dashboard below uses restful url*/}
                             <PrivateRoute path="/users/:uid?/dashboard/:Cid?" component={Dashboard}/>
                             <PrivateRoute path="/users/:uid?/edit_client" component={EditClient}/>
+                            <PrivateRoute path="/users/:uid?/edit_personal_trainer" component={EditPersonalTrainer}/>
 
                             <Route exact path="/"
                                    component={Landing_page}/> {/* using Route functionality that adds the landing_page component to web app*/}

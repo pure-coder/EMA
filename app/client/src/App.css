@@ -28,6 +28,10 @@ img {
 
 /* navbar */
 
+.navbar {
+    min-width: 500px;
+}
+
 .navbar-container {
     max-width: 100%;
     padding: 0px;
@@ -52,8 +56,10 @@ img {
 
 .footer-custom {
     position: relative;
+    float: bottom;
     bottom: 0;
     height: 60px;
+    min-width: 500px;
     width: 100%;
 }
 
@@ -62,16 +68,11 @@ img {
 @media only Screen and (max-width: 500px) {
 
     html, body, #root, .App {
-        overflow-x: hidden;
+        overflow-x: visible;
     }
 
-    img {
-        width: 3em;
-        padding-right: 12px;
-    }
-
-    .navbar-brand {
-        font-size: 1.2em;
+    navbar-container {
+        max-width: 100%;
     }
 
     .landing_page {
@@ -150,6 +151,11 @@ img {
 
 /* scheduler */
 
+#scheduler-container {
+    position: relative;
+    top: -30px;
+}
+
 .scheduler {
     position: relative;
     min-width: 692px;
@@ -200,6 +206,12 @@ img {
     min-width: 820px;
 }
 
+.back-button {
+    margin-left: 16px;
+    height: 50px;
+    width: 100px;
+}
+
 /* dashboard */
 
 .dashboard-custom {
@@ -237,11 +249,16 @@ img {
     float: right;
 }
 
+.dashboard-edit-own-profile  {
+    float: right;
+    margin-right: 5px;
+}
+
 /* EditClient */
 
 .edit_client-custom {
     min-height: 600px;
-    min-width: 560px;
+    min-width: 500px;
 }
 
 .edit-profile-label {
@@ -273,6 +290,11 @@ img {
 .fa-calendar-alt:hover, .fa-edit:hover, .fa-columns:hover {
     color: blue;
 }
+
+.m-auto {
+    min-width: 400px;
+}
+
 
 /* EditClient */
 

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {GET_ERRS, SET_SIGNED_IN_USER, PT_CLIENTS, GET_CLIENT_DATA, EDIT_PROFILE, LOGGED_OUT, PASSWORD_ERROR} from "./types"; // import custom defined types
+import {GET_ERRS, SET_SIGNED_IN_USER, PT_CLIENTS, GET_CLIENT_DATA, GET_PT_DATA, EDIT_PROFILE, LOGGED_OUT, PASSWORD_ERROR} from "./types"; // import custom defined types
 import setAuthorisationToken from '../utilities/setAuthorisationToken';
 import jwtDecode from 'jwt-decode';
 
@@ -179,6 +179,45 @@ export const editClientData = (id, Data, history) => dispatch => {
         .then(result => {
             // Go back to dashboard after successful update
             history.goBack();
+            }
+        )
+        .catch(err => {
+            console.log(err)
+            dispatch({
+                type: GET_ERRS,
+                payload: err.response.data
+            })
+        })
+};
+
+export const getPtData = (id, history) => dispatch => {
+    axios
+        .get(`/api/personal_trainer/${id}`)
+        .then(result => {
+                // If no data is returned (no data === string) then direct user to error page
+                if (typeof result.data === "string"){
+                    history.replace('/error_page');
+                }
+                dispatch({
+                    type: GET_PT_DATA,
+                    payload: result.data
+                })
+            }
+        )
+        .catch(err => {
+            dispatch({
+                type: GET_ERRS,
+                payload: {msg: err}
+            })
+        })
+};
+
+export const editPtData = (id, Data, history) => dispatch => {
+    axios
+        .put(`/api/edit_personal_trainer/${id}`, Data)
+        .then(result => {
+                // Go back to dashboard after successful update
+                history.goBack();
             }
         )
         .catch(err => {
