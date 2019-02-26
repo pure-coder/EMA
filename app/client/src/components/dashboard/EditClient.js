@@ -11,9 +11,7 @@ class EditClient extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            client_data: {
-                password2: ''
-            },
+            client_data: undefined,
             FullName: '',
             Email: '',
             ContactNumber: '',
@@ -23,7 +21,8 @@ class EditClient extends Component {
             Password2: '',
             clientId: props.authenticatedUser.clientId,
             errors: {},
-            location: this.props.location
+            location: this.props.location,
+            loaded: false
         };
 
         // This sets the state value to it's respective state (via binding)
@@ -35,9 +34,11 @@ class EditClient extends Component {
 
     // Populate state data with data from the database for the client
     static getDerivedStateFromProps(props, state) {
-        // console.log(props)
         if (props.authenticatedUser.client_data !== state.client_data) {
-            return {client_data: props.authenticatedUser.client_data}
+            return {
+                client_data: props.authenticatedUser.client_data,
+                loaded: true
+            }
         }
         if (props.errors !== state.errors) {
             return {errors: props.errors}
@@ -51,19 +52,10 @@ class EditClient extends Component {
             this.props.history.push('/login');
         }
 
-        // if there is no data for user display get data or display error page
-        if (this.state.client_data === undefined) {
-            this.update();
-        }
-    }
-
-    update() {
-        // If clientId is undefined as explained above use url uid
-        if (!this.props.authenticatedUser.clientId) {
+        // This call is used if direct url is used... for RESTful, client_data is loaded into redux store if coming from dashboard (getClientData called in ClientList) instead of direct
+        if(!this.state.loaded){
+            console.log("loaded false")
             this.props.getClientData(this.props.match.params.uid, this.props.history);
-        }
-        else {
-            this.props.getClientData(this.state.clientId, this.props.history);
         }
     }
 
@@ -108,6 +100,8 @@ class EditClient extends Component {
 
     render() {
         const {errors} = this.state; // This allows errors to be pulled out of this.state without pulling them out directly
+
+        console.log(this.state);
 
         // if loaded is false then return loading screen
         if (this.state.client_data === undefined) {

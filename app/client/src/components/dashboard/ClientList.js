@@ -1,7 +1,7 @@
 import {connect} from 'react-redux';
 import React, {Component} from 'react';
 import {Link, withRouter} from 'react-router-dom';
-import {deleteClient, editProfile} from "../../actions/authenticationActions";
+import {deleteClient, editProfile, getClientData} from "../../actions/authenticationActions";
 import PropTypes from "prop-types";
 
 
@@ -25,6 +25,7 @@ class ClientList extends Component {
     };
 
     onEditProfile(id) {
+        this.props.getClientData(id, this.props.history);
         this.props.editProfile(id, this.props.history);
     };
 
@@ -103,7 +104,8 @@ class ClientList extends Component {
 }
 
 ClientList.propTypes = {
-    deleteClient: PropTypes.func.isRequired
+    deleteClient: PropTypes.func.isRequired,
+    getClientData: PropTypes.func.isRequired
 };
 
 const stateToProps = (state) => ({
@@ -111,4 +113,4 @@ const stateToProps = (state) => ({
     errors: state.errors
 });
 
-export default connect(stateToProps, {deleteClient, editProfile})(withRouter(ClientList));
+export default connect(stateToProps, {deleteClient, editProfile, getClientData})(withRouter(ClientList));
