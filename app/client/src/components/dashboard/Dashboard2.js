@@ -1,12 +1,11 @@
 import React, {Component} from 'react';  // Used to create this component
 import PropTypes from 'prop-types'; // Used to document prop types sent to components
 import { connect } from 'react-redux' // Needed when using redux inside a component (connects redux to this component)
-import { dashboard} from "../../actions/authenticationActions"; // Used to import create action for dashboarding user
 import { withRouter } from 'react-router-dom';
 import * as d3 from 'd3';
 // import FormInputGroup from "../common/FormInputGroup"; // Allows proper routing and linking using browsers match, location, and history properties
 
-class Dashboard extends Component {
+class Dashboard2 extends Component {
     // This allows the component states to be up{dated and re-rendered
     constructor(props) {
         super(props);
@@ -48,24 +47,24 @@ class Dashboard extends Component {
             {date: '10-Aug-13', frequency: 76},
         ];
 
-        // set data
-        let myData2 = [
-            {date: '01-May-12', frequency: 10},
-            {date: '01-Jun-12', frequency: 15},
-            {date: '01-Jul-12', frequency: 10},
-            {date: '01-Aug-12', frequency: 11},
-            {date: '01-Sep-12', frequency: 52},
-            {date: '01-Nov-12', frequency: 35},
-            {date: '01-Dec-12', frequency: 42},
-            {date: '01-Jan-13', frequency: 68},
-            {date: '05-Feb-13', frequency: 55},
-            {date: '05-Mar-13', frequency: 25},
-            {date: '05-Apr-13', frequency: 66},
-            {date: '05-may-13', frequency: 68},
-            {date: '10-Jun-13', frequency: 62},
-            {date: '10-Jul-13', frequency: 70},
-            {date: '10-Aug-13', frequency: 76},
-        ];
+        // // set data
+        // let myData2 = [
+        //     {date: '01-May-12', frequency: 10},
+        //     {date: '01-Jun-12', frequency: 15},
+        //     {date: '01-Jul-12', frequency: 10},
+        //     {date: '01-Aug-12', frequency: 11},
+        //     {date: '01-Sep-12', frequency: 52},
+        //     {date: '01-Nov-12', frequency: 35},
+        //     {date: '01-Dec-12', frequency: 42},
+        //     {date: '01-Jan-13', frequency: 68},
+        //     {date: '05-Feb-13', frequency: 55},
+        //     {date: '05-Mar-13', frequency: 25},
+        //     {date: '05-Apr-13', frequency: 66},
+        //     {date: '05-may-13', frequency: 68},
+        //     {date: '10-Jun-13', frequency: 62},
+        //     {date: '10-Jul-13', frequency: 70},
+        //     {date: '10-Aug-13', frequency: 76},
+        // ];
 
         // 1st parameter takes array of objects as data to plot graph, 2nd parameter takes div as position to display graph
         function addGraph(data, position) {// set the dimensions and margins of the graph
@@ -133,7 +132,12 @@ class Dashboard extends Component {
                 // Add the X Axis
                 svg.append("g")
                     .attr("transform", "translate(0," + height + ")")
-                    .call(d3.axisBottom(x));
+                    .call(d3.axisBottom(x))
+                    .selectAll("text")
+                    .style("text-anchor", "end")
+                    .attr("dx", "-.8em")
+                    .attr("dy", ".15em")
+                    .attr("transform", "rotate(-65)" );
 
                 // Add the Y Axis
                 svg.append("g")
@@ -145,7 +149,7 @@ class Dashboard extends Component {
 
         // 1st argument takes array of objects as data to plot graph, 2nd argument takes div as position to display graph
         addGraph(myData, ".progression-data");
-        addGraph(myData2, ".progression-data2");
+        // addGraph(myData2, ".progression-data2");
 
     }
 
@@ -169,38 +173,32 @@ class Dashboard extends Component {
     onSubmit(event) {
         event.preventDefault();
 
-        const newUser = {
-
-        };
-
         // Calls the action/reducer loginUser with the user data as well
         // as using the history function of withRouter for directing user to another link/route. (calls dashboard
         // from actions/authenticationActions.js)
 
         // If no errors occur then dashboard user
-        this.props.dashboard(newUser, this.props.history);
     }
 
     render() {
         //const {errors} = this.state; // This allows errors to be pulled out of this.state with pulling them out directly
 
         return (
-                <div className="container  dashboard-custom">
-                    <div className="row">
-                        <div className="m-auto col-md-8">
-                            <h1 className=" text-center display-5">Dashboard</h1>
-                            <div className="progression-data"></div>
-                            <div className="progression-data2"></div>
-                        </div>
+            <div className="container  dashboard-custom">
+                <div className="row">
+                    <div className="m-auto col-md-8">
+                        <h1 className=" text-center display-5">Dashboard</h1>
+                        <div className="progression-data"></div>
+                        <div className="progression-data2"></div>
                     </div>
                 </div>
+            </div>
         );
     }
 }
 
 // Documents what props are needed for this component and will log a warning in the console in dev mode if not complied to
-Dashboard.propTypes = {
-    dashboard: PropTypes.func.isRequired,
+Dashboard2.propTypes = {
     authenticatedUser: PropTypes.object.isRequired,
     //errors: PropTypes.object.isRequired
 };
@@ -214,4 +212,4 @@ const stateToProps = (state) => ({
 // connect must be exported with a passed parameter (not direct parameter) of Dashboard this is wrapped with withRouter
 // allowing the functions of the package to be used with the component eg, proper routing, and direct parameters of
 // stateToProps for the 1st parameter and the action which is dashboard as the 2nd parameter
-export default connect(stateToProps, { dashboard })(withRouter(Dashboard));
+export default connect(stateToProps, null)(withRouter(Dashboard2));

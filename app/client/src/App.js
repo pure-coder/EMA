@@ -19,6 +19,7 @@ import Login from './components/authentication/Login';
 import Scheduler from './components/scheduler/Scheduler';
 /*import dashboard component*/
 import Dashboard from './components/dashboard/Dashboard'
+import Dashboard2 from './components/dashboard/Dashboard2'
 /*import edit client component*/
 import EditClient from './components/dashboard/EditClient'
 
@@ -78,6 +79,7 @@ class App extends Component {
                             <PrivateRoute path="/users/:uid?/scheduler/:Cid?" component={Scheduler}/>
                             {/* Register Dashboard below uses restful url*/}
                             <PrivateRoute path="/users/:uid?/dashboard/:Cid?" component={Dashboard}/>
+                            <PrivateRoute path="/users/:uid?/dashboard2/:Cid?" component={Dashboard2}/>
                             <PrivateRoute path="/users/:uid?/edit_client" component={EditClient}/>
                             <PrivateRoute path="/users/:uid?/edit_personal_trainer" component={EditPersonalTrainer}/>
 
