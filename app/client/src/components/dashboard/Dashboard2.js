@@ -170,7 +170,7 @@ class Dashboard2 extends Component {
                 // Add the X Axis
                 svg.append("g")
                     .attr("transform", "translate(0," + height + ")")
-                    .call(d3.axisBottom(x))
+                    .call(d3.axisBottom(x).tickFormat(d3.timeFormat("%m %b %Y")))
                     .selectAll("text")
                     .style("text-anchor", "end")
                     .attr("dx", "-.8em")
