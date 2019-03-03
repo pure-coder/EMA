@@ -29,42 +29,42 @@ class Dashboard2 extends Component {
         }
 
 
-        // let myData = [
-        //     {date: '2019-May-03', frequency: 1.13},
-        //     // {date: '2019-02-03T15:42:00.238+0000', frequency: 5.00},
-        //     // {date: '2019-03-03T15:42:00.238+0000', frequency: 10},
-        //     // {date: '2019-04-03T15:42:00.238+0000', frequency: 20},
-        //     // {date: '2019-05-03T15:42:00.238+0000', frequency: 30},
-        //     // {date: '2019-06-03T15:42:00.238+0000', frequency: 35},
-        //     // {date: '2019-07-03T15:42:00.238+0000', frequency: 42},
-        //     // {date: '2019-08-03T15:42:00.238+0000', frequency: 55},
-        //     // {date: '2019-09-03T15:42:00.238+0000', frequency: 55},
-        //     // {date: '2019-10-03T15:42:00.238+0000', frequency: 60},
-        //     // {date: '2019-12-03T15:42:00.238+0000', frequency: 66},
-        //     // {date: '2019-01-03T15:42:00.238+0000', frequency: 68},
-        //     // {date: '2019-02-03T15:42:00.238+0000', frequency: 62},
-        //     // {date: '2019-04-03T15:42:00.238+0000', frequency: 70},
-        //     // {date: '2019-05-03T15:42:00.238+0000', frequency: 76},
-        // ];
-
-        // set data
         let myData = [
-            {date: '2012-05-01', frequency: 1.13},
-            {date: '2012-06-01', frequency: 5.00},
-            {date: '2012-07-01', frequency: 10},
-            {date: '2012-08-01', frequency: 20},
-            {date: '2012-09-01', frequency: 30},
-            {date: '2012-11-01', frequency: 35},
-            {date: '2012-12-01', frequency: 42},
-            {date: '2013-01-01', frequency: 55},
-            {date: '2013-02-05', frequency: 55},
-            {date: '2013-03-05', frequency: 60},
-            {date: '2013-04-05', frequency: 66},
-            {date: '2013-05-05', frequency: 68},
-            {date: '2013-06-10', frequency: 62},
-            {date: '2013-07-10', frequency: 70},
-            {date: '2013-08-10', frequency: 76},
+            {date: '2019-01-03T15:42:00.238+0000', frequency: 1.13},
+            {date: '2019-02-03T15:42:00.238+0000', frequency: 5.00},
+            {date: '2019-03-03T15:42:00.238+0000', frequency: 10},
+            {date: '2019-04-03T15:42:00.238+0000', frequency: 20},
+            {date: '2019-05-03T15:42:00.238+0000', frequency: 30},
+            {date: '2019-06-03T15:42:00.238+0000', frequency: 35},
+            {date: '2019-07-03T15:42:00.238+0000', frequency: 42},
+            {date: '2019-08-03T15:42:00.238+0000', frequency: 55},
+            {date: '2019-09-03T15:42:00.238+0000', frequency: 55},
+            {date: '2019-10-03T15:42:00.238+0000', frequency: 60},
+            {date: '2019-12-03T15:42:00.238+0000', frequency: 66},
+            {date: '2020-01-03T15:42:00.238+0000', frequency: 68},
+            {date: '2020-02-03T15:42:00.238+0000', frequency: 62},
+            {date: '2020-04-03T15:42:00.238+0000', frequency: 70},
+            {date: '2020-05-03T15:42:00.238+0000', frequency: 76}
         ];
+
+        // // set data
+        // let myData = [
+        //     {date: '2012-05-01', frequency: 1.13},
+        //     {date: '2012-06-01', frequency: 5.00},
+        //     {date: '2012-07-01', frequency: 10},
+        //     {date: '2012-08-01', frequency: 20},
+        //     {date: '2012-09-01', frequency: 30},
+        //     {date: '2012-11-01', frequency: 35},
+        //     {date: '2012-12-01', frequency: 42},
+        //     {date: '2013-01-01', frequency: 55},
+        //     {date: '2013-02-05', frequency: 55},
+        //     {date: '2013-03-05', frequency: 60},
+        //     {date: '2013-04-05', frequency: 66},
+        //     {date: '2013-05-05', frequency: 68},
+        //     {date: '2013-06-10', frequency: 62},
+        //     {date: '2013-07-10', frequency: 70},
+        //     {date: '2013-08-10', frequency: 76},
+        // ];
 
         // // set data
         // let myData = [
@@ -118,7 +118,7 @@ class Dashboard2 extends Component {
             let height = 300 - marginTop - marginBottom;
 
             // parse the {date / time
-            let parseTime = d3.timeParse("%Y-%m-%d");
+            let parseTime = d3.timeParse("%Y-%m-%dT%H:%M:%S.%L%Z");
 
             // set the ranges
             let x = d3.scaleTime().range([0, width]);
