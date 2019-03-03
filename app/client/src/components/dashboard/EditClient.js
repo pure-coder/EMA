@@ -19,7 +19,6 @@ class EditClient extends Component {
             Sex: '',
             Password: '',
             Password2: '',
-            clientId: props.authenticatedUser.clientId,
             errors: {},
             location: this.props.location,
             loaded: false
@@ -54,7 +53,6 @@ class EditClient extends Component {
 
         // This call is used if direct url is used... for RESTful, client_data is loaded into redux store if coming from dashboard (getClientData called in ClientList) instead of direct
         if(!this.state.loaded){
-            console.log("loaded false")
             this.props.getClientData(this.props.match.params.uid, this.props.history);
         }
     }
@@ -101,8 +99,6 @@ class EditClient extends Component {
     render() {
         const {errors} = this.state; // This allows errors to be pulled out of this.state without pulling them out directly
 
-        console.log(this.state);
-
         // if loaded is false then return loading screen
         if (this.state.client_data === undefined) {
             return <Loading/>;
@@ -114,11 +110,12 @@ class EditClient extends Component {
                     <div className="row">
                         <div className="m-auto col-md-8">
                             <h1 className=" text-center display-5">Edit Profile</h1>
-                            <form onSubmit={this.onSubmit}> {/* onSubmit used instead of normal action*/}
+                            <form autoComplete="off" onSubmit={this.onSubmit}> {/* onSubmit used instead of normal action*/}
+                            <input type="hidden" value="something"/>
                                 <FormInputGroup
                                     name="FullName"
                                     placeholder={this.state.client_data.FullName}
-                                    value={this.state.FullName}
+                                    value={this.state.FullName === "" ? this.props.authenticatedUser.client_data.FullName : this.state.FullName}
                                     type="text"
                                     onChange={this.onChange}
                                     error={errors.FullName}
@@ -126,7 +123,7 @@ class EditClient extends Component {
                                 <FormInputGroup
                                     name="Email"
                                     placeholder={this.state.client_data.Email}
-                                    value={this.state.Email}
+                                    value={this.state.Email === "" ? this.props.authenticatedUser.client_data.Email : this.state.Email}
                                     type="Email"
                                     onChange={this.onChange}
                                     error={errors.Email}
@@ -134,7 +131,7 @@ class EditClient extends Component {
                                 <FormInputGroup
                                     name="ContactNumber"
                                     placeholder={this.state.client_data.ContactNumber}
-                                    value={this.state.ContactNumber}
+                                    value={this.state.ContactNumber === "" ? this.props.authenticatedUser.client_data.ContactNumber : this.state.ContactNumber}
                                     type="text"
                                     onChange={this.onChange}
                                     error={errors.ContactNumber}

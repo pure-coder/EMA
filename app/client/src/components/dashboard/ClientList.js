@@ -25,7 +25,9 @@ class ClientList extends Component {
     };
 
     onEditProfile(id) {
+        // Get client data for link clicked and save it to redux store
         this.props.getClientData(id, this.props.history);
+        // Direct user with history push to edit profile of user id
         this.props.editProfile(id, this.props.history);
     };
 

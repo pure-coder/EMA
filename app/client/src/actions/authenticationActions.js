@@ -236,7 +236,7 @@ export const editProfile = (id, history) => dispatch => {
     })
     // window.location.href = '/users/' + id + '/edit_client';
     // Went back to using push as the error of being able to back button the browser history was sorted, this solves the state of redux too
-    history.push('/users/' + id + '/edit_client')
+    history.push('/users/' + id + '/edit_client');
 };
 
 export const passwordsMatchError = (error) => dispatch => {
