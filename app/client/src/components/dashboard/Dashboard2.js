@@ -115,7 +115,7 @@ class Dashboard2 extends Component {
             let marginBottom = 30;
             let marginLeft = 50;
             let width = 500 - marginLeft - marginRight;
-            let height = 300 - marginTop - marginBottom;
+            let height = 310 - marginTop - marginBottom;
 
             // parse the {date / time
             let parseTime = d3.timeParse("%Y-%m-%dT%H:%M:%S.%L%Z");
@@ -177,9 +177,27 @@ class Dashboard2 extends Component {
                     .attr("dy", ".15em")
                     .attr("transform", "rotate(-65)" );
 
+                // text label for the x axis
+                svg.append("text")
+                    .attr("transform",
+                        "translate(" + (width/2) + " ," +
+                        (height + marginTop + 62) + ")")
+                    .style("text-anchor", "middle")
+                    .text("Date");
+
                 // Add the Y Axis
                 svg.append("g")
-                    .call(d3.axisLeft(y))
+                    .call(d3.axisLeft(y));
+
+                // text label for the y axis
+                svg.append("text")
+                    .attr("transform", "rotate(-90)")
+                    .attr("y", 0 - marginLeft)
+                    .attr("x",0 - (height / 2))
+                    .attr("dy", "1em")
+                    .style("text-anchor", "middle")
+                    .text("Weight (Kg)"); // y-axis label
+
             } // d3.json
 
             draw(myData);
