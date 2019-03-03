@@ -47,69 +47,14 @@ class Dashboard2 extends Component {
             {date: '2020-05-03T15:42:00.238+0000', frequency: 76}
         ];
 
-        // // set data
-        // let myData = [
-        //     {date: '2012-05-01', frequency: 1.13},
-        //     {date: '2012-06-01', frequency: 5.00},
-        //     {date: '2012-07-01', frequency: 10},
-        //     {date: '2012-08-01', frequency: 20},
-        //     {date: '2012-09-01', frequency: 30},
-        //     {date: '2012-11-01', frequency: 35},
-        //     {date: '2012-12-01', frequency: 42},
-        //     {date: '2013-01-01', frequency: 55},
-        //     {date: '2013-02-05', frequency: 55},
-        //     {date: '2013-03-05', frequency: 60},
-        //     {date: '2013-04-05', frequency: 66},
-        //     {date: '2013-05-05', frequency: 68},
-        //     {date: '2013-06-10', frequency: 62},
-        //     {date: '2013-07-10', frequency: 70},
-        //     {date: '2013-08-10', frequency: 76},
-        // ];
-
-        // // set data
-        // let myData = [
-        //     {date: '01-May-2012', frequency: 1.13},
-        //     {date: '01-Jun-2012', frequency: 5.00},
-        //     {date: '01-Jul-2012', frequency: 10},
-        //     {date: '01-Aug-2012', frequency: 20},
-        //     {date: '01-Sep-2012', frequency: 30},
-        //     {date: '01-Nov-2012', frequency: 35},
-        //     {date: '01-Dec-2012', frequency: 42},
-        //     {date: '01-Jan-2013', frequency: 55},
-        //     {date: '05-Feb-2013', frequency: 55},
-        //     {date: '05-Mar-2013', frequency: 60},
-        //     {date: '05-Apr-2013', frequency: 66},
-        //     {date: '05-may-2013', frequency: 68},
-        //     {date: '10-Jun-2013', frequency: 62},
-        //     {date: '10-Jul-2013', frequency: 70},
-        //     {date: '10-Aug-2013', frequency: 76},
-        // ];
-
-        // // set data
-        // let myData2 = [
-        //     {date: '01-May-12', frequency: 10},
-        //     {date: '01-Jun-12', frequency: 15},
-        //     {date: '01-Jul-12', frequency: 10},
-        //     {date: '01-Aug-12', frequency: 11},
-        //     {date: '01-Sep-12', frequency: 52},
-        //     {date: '01-Nov-12', frequency: 35},
-        //     {date: '01-Dec-12', frequency: 42},
-        //     {date: '01-Jan-13', frequency: 68},
-        //     {date: '05-Feb-13', frequency: 55},
-        //     {date: '05-Mar-13', frequency: 25},
-        //     {date: '05-Apr-13', frequency: 66},
-        //     {date: '05-may-13', frequency: 68},
-        //     {date: '10-Jun-13', frequency: 62},
-        //     {date: '10-Jul-13', frequency: 70},
-        //     {date: '10-Aug-13', frequency: 76},
-        // ];
-
         // 1st parameter takes array of objects as data to plot graph, 2nd parameter takes div as position to display graph
         function addGraph(data, position) {// set the dimensions and margins of the graph
 
             // Takes data given in function
             let myData = data;
 
+            let top;
+            let left;
             let marginTop = 20;
             let marginRight = 20;
             let marginBottom = 30;
@@ -166,6 +111,14 @@ class Dashboard2 extends Component {
                     .data([data])
                     .attr("class", "line")
                     .attr("d", valueline);
+
+                // text label for the graph title
+                svg.append("text")
+                    .attr("transform",
+                        "translate(" + (width/2) + " ," + // first value is distance from left, second is distance from top
+                        (-5) + ")")
+                    .style("text-anchor", "middle")
+                    .text("Title");
 
                 // Add the X Axis
                 svg.append("g")
