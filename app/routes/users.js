@@ -28,6 +28,7 @@ const isEmpty = require('../validation/is_empty');
 // Require PersonalTrainer model
 const PersonalTrainer = require('../models/PersonalTrainer');
 const Client = require('../models/Clients');
+const ClientProgression = require('../models/ClientProgression');
 
 // Require verification functionality
 const verification = require('../validation/verification');
@@ -420,8 +421,6 @@ router.get('/:id/scheduler/:cid?', passport.authenticate('both_rule', {session: 
         let data = [];
         return res.send(data);
     }
-
-
 }); // router get /scheduler
 
 // @route  POST api/scheduler
@@ -558,7 +557,7 @@ router.get('/pt_clients/:ptid', passport.authenticate('pt_rule', {session: false
 
 
 });
-// router post /pt_clients
+// router get /pt_clients
 
 
 // @route  DELETE api/delete_client
@@ -796,6 +795,33 @@ router.put('/edit_personal_trainer/:id', passport.authenticate('pt_rule', {sessi
     }
 
 }); // PUT /edit_personal_trainer/:id
+
+// @route  POST api/client_progression/:cid
+// @desc   Add, edit and delete data in database
+// @access private for PT's - clients can't post to the scheduler
+router.post('/:id/client_progression/:cid', passport.authenticate('both_rule', {session: false}), (req, res) => {
+    let data = req.body;
+
+    console.log(data);
+
+    // Get clientId from frontEnd
+    let userId = req.params.id;
+    let clientId = req.params.cid;
+
+    // Check authentication of the current user, will also be used to verify if they can access data
+    let token = req.headers.authorization.split(' ')[1];
+    let payload = jwt.decode(token, keys.secretOrKey);
+    let isPT = payload.pt;
+
+    // If user is PT then userId will be of pt so change clientId to userId
+    if (isPT) {
+        userId = clientId;
+    }
+
+    return res.json({data});
+
+
+}); // router post /scheduler
 
 //Export router so it can work with the main restful api server
 module.exports = router;
