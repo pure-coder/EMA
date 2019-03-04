@@ -53,8 +53,6 @@ class Dashboard2 extends Component {
             // Takes data given in function
             let myData = data;
 
-            let top;
-            let left;
             let marginTop = 20;
             let marginRight = 20;
             let marginBottom = 30;

@@ -2,16 +2,21 @@ const mongoose = require('mongoose');
 
 // Create Schema
 const progressionSchema = mongoose.Schema({
-    PT_id: {
-        type: String, require: true,
-    },
-    Client_id: {
+    clientId: {
         type: String, required: true,
     },
-    // exercises will be separate objects with progression data put in arrays in those exercise objects
-    Exercises: {
-        type: {}
-    }
+    ptId: {
+        type: String, require: true,
+    },
+    exerciseName : {
+        type: String, require: true,
+    },
+    metrics: [
+        {
+            maxWeight : {type: String, require: true},
+            Date : {type: Date, require: true}
+        }
+    ]
 }, {collection: "Client_progression"}, {timestamps: true});
 
 
