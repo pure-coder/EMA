@@ -794,9 +794,9 @@ router.put('/edit_personal_trainer/:id', passport.authenticate('pt_rule', {sessi
 
 }); // PUT /edit_personal_trainer/:id
 
-// @route  POST api/client_progression/:cid
-// @desc   Add, edit and delete data in database
-// @access private for PT's - clients can't post to the scheduler
+// @route  POST api/:id/client_progression/:cid
+// @desc   Add client progression data to db
+// @access private for PT's - clients can't post to the progression db collection
 router.post('/:id/client_progression/:cid', passport.authenticate('pt_rule', {session: false}), (req, res) => {
     let data = req.body;
 
@@ -808,15 +808,15 @@ router.post('/:id/client_progression/:cid', passport.authenticate('pt_rule', {se
     Client.findOne({_id: clientId})
         .then(result => {
             // If client is found
-            if(result){
+            if (result) {
 
                 // Check to see if ptId is allowed
-                if(result.ptId === ptId){
+                if (result.ptId === ptId) {
 
                     // Check to see if a client progression document exists (then = does already exist so update, catch = doesn't exist so create one)
-                    ClientProgression.findOne({$and: [{clientId : clientId},{exerciseName: data.exerciseName}]})
+                    ClientProgression.findOne({$and: [{clientId: clientId}, {exerciseName: data.exerciseName}]})
                         .then(result => {
-                            if(result){
+                            if (result) {
                                 // Client progress exists for exercise so insert new metrics for document (update), but only if metrics for date are new.
 
                                 // Create newMetrics object which is populated with metrics sent by user, and push into document if not already present!
@@ -832,16 +832,16 @@ router.post('/:id/client_progression/:cid', passport.authenticate('pt_rule', {se
                                 // Initialise duplicate date check boolean to false
                                 let metricDuplicate = false;
 
-                                documentMetrics.map(elements =>{
-                                    if (elements.Date.getTime() === newMetrics.Date.getTime()){ // Had to use getTime() for comparison of date
+                                documentMetrics.map(elements => {
+                                    if (elements.Date.getTime() === newMetrics.Date.getTime()) { // Had to use getTime() for comparison of date
                                         metricDuplicate = true;
                                     }
                                 });
 
                                 // If metricDuplicate is false then insert new metrics else return message stating duplication
-                                if(!metricDuplicate){
+                                if (!metricDuplicate) {
                                     // Update metrics of this document using its unique id (_id), pushing in new metric data with the $push operator.
-                                    ClientProgression.update({_id: result._id}, {$push : {metrics: newMetrics}}, {safe: true})
+                                    ClientProgression.update({_id: result._id}, {$push: {metrics: newMetrics}}, {safe: true})
                                         .then(update => {
                                             return res.json(update);
                                         })
@@ -849,12 +849,12 @@ router.post('/:id/client_progression/:cid', passport.authenticate('pt_rule', {se
                                             return res.json(err);
                                         });
                                 }
-                                else{
+                                else {
                                     return res.json({err: "Date duplication found for exercise!"})
                                 }
 
                             }
-                            else{
+                            else {
                                 // Client progress doesn't exist for exercise so create one
                                 const newProgression = new ClientProgression({
                                     clientId: clientId,
@@ -882,7 +882,7 @@ router.post('/:id/client_progression/:cid', passport.authenticate('pt_rule', {se
                         });
 
                 }
-                else{
+                else {
                     return res.json({err: "Personal Trainer not authorised to access Progression"});
                 }
             }
@@ -891,9 +891,49 @@ router.post('/:id/client_progression/:cid', passport.authenticate('pt_rule', {se
             return res.json({err: "Client not found!"})
         }); // Client.findOne()
 
+}); // router post /client_progression
 
+// @route  get api/:id/client_progression/:cid
+// @desc   Retrieve client progression data from db
+// @access private for PT's - clients can't get to the progression db collection
+router.get('/:id/client_progression/:cid', passport.authenticate('pt_rule', {session: false}), (req, res) => {
 
-}); // router post /scheduler
+    // Get clientId from url
+    let clientId = req.params.cid;
+    // Get pttId from url which is used to make sure that they are allowed to access data
+    let ptId = req.params.id;
+
+    // Verify that client exists and that personal trainer id is linked to client
+    Client.findOne({_id: clientId})
+        .then(result => {
+            // If client is found
+            if (result) {
+
+                // Check to see if ptId is allowed
+                if (result.ptId === ptId) {
+
+                    ClientProgression.find({clientId: clientId})
+                        .then(result => {
+                            if (result) {
+                                return res.json(result);
+                            }
+                        })
+                        .catch(err => {
+                                return res.json(err)
+                            }
+                        ); // router get client progression
+
+                }
+                else {
+                    return res.json({err: "Personal Trainer not authorised to access Progression"});
+                }
+            }
+        })
+        .catch(err => {
+            return res.json({err: "Client not found!"})
+        }); // Client.findOne()
+
+}); // router get /client_progression
 
 //Export router so it can work with the main restful api server
-module.exports = router;
+    module.exports = router;
