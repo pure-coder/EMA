@@ -809,37 +809,45 @@ router.post('/:id/client_progression/:cid', passport.authenticate('both_rule', {
     let token = req.headers.authorization.split(' ')[1];
     let payload = jwt.decode(token, keys.secretOrKey);
 
-    // Check to see if user is pt, if so check to see if they are authorised to access client data
-
-    // Todo:: pt auth
-    // if(payload.pt){
-    //     PersonalTrainer.find({_id: userId})
-    //         .then(pt =>{
-    //             return res.json({msg:"found"});
-    //         })
-    //         .catch(err => {
-    //             return res.json({msg: "Personal Trainer not found"});
-    //         })
-    // }
-
     // Check to see if a client progression document exists (then = does already exist so update, catch = doesn't exist so create one)
     ClientProgression.findOne({$and: [{clientId : clientId},{exerciseName: data.exerciseName}]})
         .then(result => {
             if(result){
                 // Client progress exists for exercise so insert new metrics for document (update), but only if metrics for date are new.
 
-                // let metrics = result.metrics;
-                // metrics.map(elements =>{
-                // })
+                // Create newMetrics object which is populated with metrics sent by user, and push into document if not already present!
+                let newMetrics = {
+                    maxWeight: data.maxWeight,
+                    Date: new Date(data.Date) // Had to convert time into same format used by the database ie from '01-08-2019' to '2019-01-06T00:00:00.000Z'
 
-                // Update metrics of this document using its unique id (_id), with the $push operator.
-                ClientProgression.update({_id: result._id}, {$push : {metrics: result.metrics}}, {safe: true})
-                    .then(update => {
-                        return res.json(update);
-                    })
-                    .catch(err => {
-                        return res.json(err);
-                    });
+                }
+
+                // Array of current metrics in document
+                let documentMetrics = result.metrics;
+
+                // Initialise duplicate date check boolean to false
+                let metricDuplicate = false;
+
+                documentMetrics.map(elements =>{
+                    if (elements.Date.getTime() === newMetrics.Date.getTime()){ // Had to use getTime() for comparison of date
+                        metricDuplicate = true;
+                    }
+                });
+
+                // If metricDuplicate is false then insert new metrics else return message stating duplication
+                if(!metricDuplicate){
+                    // Update metrics of this document using its unique id (_id), pushing in new metric data with the $push operator.
+                    ClientProgression.update({_id: result._id}, {$push : {metrics: newMetrics}}, {safe: true})
+                        .then(update => {
+                            return res.json(update);
+                        })
+                        .catch(err => {
+                            return res.json(err);
+                        });
+                }
+                else{
+                    return res.json({err: "Date duplication found for exercise!"})
+                }
 
             }
             else{
