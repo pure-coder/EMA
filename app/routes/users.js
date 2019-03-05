@@ -823,13 +823,27 @@ router.post('/:id/client_progression/:cid', passport.authenticate('both_rule', {
     // }
 
     // Check to see if a client progression document exists (then = does already exist so update, catch = doesn't exist so create one)
-    ClientProgression.findOne({$and: [{clientId : clientId}, {exerciseName: data.exerciseName}]})
+    ClientProgression.findOne({$and: [{clientId : clientId},{exerciseName: data.exerciseName}]})
         .then(result => {
             if(result){
-                return res.json({msg: "does exist"});
+                // Client progress exists for exercise so insert new metrics for document (update), but only if metrics for date are new.
+
+                // let metrics = result.metrics;
+                // metrics.map(elements =>{
+                // })
+
+                // Update metrics of this document using its unique id (_id), with the $push operator.
+                ClientProgression.update({_id: result._id}, {$push : {metrics: result.metrics}}, {safe: true})
+                    .then(update => {
+                        return res.json(update);
+                    })
+                    .catch(err => {
+                        return res.json(err);
+                    });
+
             }
             else{
-                // Client progress doesn't exist so create one
+                // Client progress doesn't exist for exercise so create one
                 const newProgression = new ClientProgression({
                     clientId: clientId,
                     ptId: data.ptId,
