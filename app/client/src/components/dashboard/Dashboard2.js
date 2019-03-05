@@ -160,33 +160,6 @@ class Dashboard2 extends Component {
 
     }
 
-    // Life cycle method for react which will run when this component receives new properties
-    componentWillReceiveProps(nextProps) {
-        // If property (nextProps) contains errors (contains the "errors" prop) then set the component state of errors
-        // defined in the constructor above to the errors that was sent to it via the dispatch call from
-        // authenicationActions.js
-        if(nextProps.errors){
-            this.setState({errors: nextProps.errors})
-        }
-    }
-
-    // This captures what the user types and sets the specific input to the respective state variable
-    onChange(event) {
-        // event.target.name is used instead of a specific named state (ie "event.target.FullName") as there is more then
-        // one, making it easier to capture all of them with this onChange function.
-        this.setState({[event.target.name]: event.target.value})
-    }
-
-    onSubmit(event) {
-        event.preventDefault();
-
-        // Calls the action/reducer loginUser with the user data as well
-        // as using the history function of withRouter for directing user to another link/route. (calls dashboard
-        // from actions/authenticationActions.js)
-
-        // If no errors occur then dashboard user
-    }
-
     render() {
         //const {errors} = this.state; // This allows errors to be pulled out of this.state with pulling them out directly
 
