@@ -41,7 +41,7 @@
             <file pinned="false" current-in-tab="true">
               <entry file="file://$PROJECT_DIR$/routes/users.js">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="134">
+                  <state relative-caret-position="2958">
                     <caret line="174" column="58" selection-start-line="174" selection-start-column="49" selection-end-line="174" selection-end-column="58" />
                   </state>
                 </provider>
@@ -81,7 +81,7 @@
           <entry key="css" value="3500" />
           <entry key="editorConfig" value="285" />
           <entry key="html" value="1072" />
-          <entry key="js" value="76427" />
+          <entry key="js" value="76934" />
           <entry key="json" value="26" />
           <entry key="md" value="150" />
           <entry key="txt" value="120" />
@@ -92,7 +92,7 @@
           <entry key="CSS" value="3500" />
           <entry key="HTML" value="1072" />
           <entry key="JSON" value="26" />
-          <entry key="JavaScript" value="76427" />
+          <entry key="JavaScript" value="76934" />
           <entry key="PLAIN_TEXT" value="555" />
         </counts>
       </usages-collector>
@@ -144,8 +144,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/routes/users.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret line="809" column="54" selection-start-line="809" selection-start-column="54" selection-end-line="809" selection-end-column="54" />
+            <state relative-caret-position="200">
+              <caret line="885" column="98" selection-start-line="885" selection-start-column="98" selection-end-line="885" selection-end-column="98" />
             </state>
           </provider>
         </entry>
@@ -487,7 +487,7 @@
       <workItem from="1549386832105" duration="138225000" />
       <workItem from="1550396514850" duration="599000" />
       <workItem from="1550910770209" duration="56984000" />
-      <workItem from="1551774400661" duration="14240000" />
+      <workItem from="1551774400661" duration="15226000" />
     </task>
     <task id="LOCAL-00001" summary="min height changed for developed pages">
       <created>1534874964132</created>
@@ -535,7 +535,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="779622000" />
+    <option name="totallyTimeSpent" value="780608000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -946,8 +946,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/routes/users.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret line="809" column="54" selection-start-line="809" selection-start-column="54" selection-end-line="809" selection-end-column="54" />
+        <state relative-caret-position="200">
+          <caret line="885" column="98" selection-start-line="885" selection-start-column="98" selection-end-line="885" selection-end-column="98" />
         </state>
       </provider>
     </entry>

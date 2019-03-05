@@ -797,87 +797,100 @@ router.put('/edit_personal_trainer/:id', passport.authenticate('pt_rule', {sessi
 // @route  POST api/client_progression/:cid
 // @desc   Add, edit and delete data in database
 // @access private for PT's - clients can't post to the scheduler
-router.post('/:id/client_progression/:cid', passport.authenticate('both_rule', {session: false}), (req, res) => {
+router.post('/:id/client_progression/:cid', passport.authenticate('pt_rule', {session: false}), (req, res) => {
     let data = req.body;
 
     // Get clientId from frontEnd
-    let userId = req.params.id;
+    let ptId = req.params.id;
     let clientId = req.params.cid;
-    let authorised = false;
 
-    // Check authentication of the current user, will also be used to verify if they can access data
-    let token = req.headers.authorization.split(' ')[1];
-    let payload = jwt.decode(token, keys.secretOrKey);
-
-    // Check to see if a client progression document exists (then = does already exist so update, catch = doesn't exist so create one)
-    ClientProgression.findOne({$and: [{clientId : clientId},{exerciseName: data.exerciseName}]})
+    // Verify that client exists and that personal trainer id is linked to client
+    Client.findOne({_id: clientId})
         .then(result => {
+            // If client is found
             if(result){
-                // Client progress exists for exercise so insert new metrics for document (update), but only if metrics for date are new.
 
-                // Create newMetrics object which is populated with metrics sent by user, and push into document if not already present!
-                let newMetrics = {
-                    maxWeight: data.maxWeight,
-                    Date: new Date(data.Date) // Had to convert time into same format used by the database ie from '01-08-2019' to '2019-01-06T00:00:00.000Z'
+                // Check to see if ptId is allowed
+                if(result.ptId === ptId){
 
-                }
+                    // Check to see if a client progression document exists (then = does already exist so update, catch = doesn't exist so create one)
+                    ClientProgression.findOne({$and: [{clientId : clientId},{exerciseName: data.exerciseName}]})
+                        .then(result => {
+                            if(result){
+                                // Client progress exists for exercise so insert new metrics for document (update), but only if metrics for date are new.
 
-                // Array of current metrics in document
-                let documentMetrics = result.metrics;
+                                // Create newMetrics object which is populated with metrics sent by user, and push into document if not already present!
+                                let newMetrics = {
+                                    maxWeight: data.maxWeight,
+                                    Date: new Date(data.Date) // Had to convert time into same format used by the database ie from '01-08-2019' to '2019-01-06T00:00:00.000Z'
 
-                // Initialise duplicate date check boolean to false
-                let metricDuplicate = false;
+                                }
 
-                documentMetrics.map(elements =>{
-                    if (elements.Date.getTime() === newMetrics.Date.getTime()){ // Had to use getTime() for comparison of date
-                        metricDuplicate = true;
-                    }
-                });
+                                // Array of current metrics in document
+                                let documentMetrics = result.metrics;
 
-                // If metricDuplicate is false then insert new metrics else return message stating duplication
-                if(!metricDuplicate){
-                    // Update metrics of this document using its unique id (_id), pushing in new metric data with the $push operator.
-                    ClientProgression.update({_id: result._id}, {$push : {metrics: newMetrics}}, {safe: true})
-                        .then(update => {
-                            return res.json(update);
+                                // Initialise duplicate date check boolean to false
+                                let metricDuplicate = false;
+
+                                documentMetrics.map(elements =>{
+                                    if (elements.Date.getTime() === newMetrics.Date.getTime()){ // Had to use getTime() for comparison of date
+                                        metricDuplicate = true;
+                                    }
+                                });
+
+                                // If metricDuplicate is false then insert new metrics else return message stating duplication
+                                if(!metricDuplicate){
+                                    // Update metrics of this document using its unique id (_id), pushing in new metric data with the $push operator.
+                                    ClientProgression.update({_id: result._id}, {$push : {metrics: newMetrics}}, {safe: true})
+                                        .then(update => {
+                                            return res.json(update);
+                                        })
+                                        .catch(err => {
+                                            return res.json(err);
+                                        });
+                                }
+                                else{
+                                    return res.json({err: "Date duplication found for exercise!"})
+                                }
+
+                            }
+                            else{
+                                // Client progress doesn't exist for exercise so create one
+                                const newProgression = new ClientProgression({
+                                    clientId: clientId,
+                                    ptId: data.ptId,
+                                    exerciseName: data.exerciseName,
+                                    metrics: {
+                                        maxWeight: data.maxWeight,
+                                        Date: data.Date
+                                    }
+                                }); // newProgression
+
+                                // Save newProgression to ClientProgression collection
+                                newProgression.save()
+                                    .then(result => {
+                                        //console.log(events);
+                                        return res.status(200).json(result);
+                                    })
+                                    .catch(err => {
+                                        return res.status(400).json(err);
+                                    });
+                            }
                         })
                         .catch(err => {
-                            return res.json(err);
+                            return res.json(err)
                         });
+
                 }
                 else{
-                    return res.json({err: "Date duplication found for exercise!"})
+                    return res.json({err: "Personal Trainer not authorised to access Progression"});
                 }
-
-            }
-            else{
-                // Client progress doesn't exist for exercise so create one
-                const newProgression = new ClientProgression({
-                    clientId: clientId,
-                    ptId: data.ptId,
-                    exerciseName: data.exerciseName,
-                    metrics: {
-                        maxWeight: data.maxWeight,
-                        Date: data.Date
-                    }
-                }); // newProgression
-
-                // Save newProgression to ClientProgression collection
-                newProgression.save()
-                    .then(result => {
-                        //console.log(events);
-                        return res.status(200).json(result);
-                    })
-                    .catch(err => {
-                        return res.status(400).json(err);
-                    });
             }
         })
         .catch(err => {
-            return res.json(err)
-        });
+            return res.json({err: "Client not found!"})
+        }); // Client.findOne()
 
-    // return res.json({data, userId, clientId, payload});
 
 
 }); // router post /scheduler
