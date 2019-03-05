@@ -1,7 +1,8 @@
 const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
 // Create Schema
-const ActivationTokensSchema = mongoose.Schema({
+const ActivationTokensSchema = new Schema({
     Email: {
         type: String, require: true,
     },
@@ -12,4 +13,6 @@ const ActivationTokensSchema = mongoose.Schema({
 }, {collection: "ActivationTokens"}, {timestamps: true});
 
 
-module.exports = mongoose.model('ActivationTokens', ActivationTokensSchema);
+const ActivationTokens = mongoose.model('ActivationTokens', ActivationTokensSchema);
+
+module.exports = ActivationTokens

@@ -1,7 +1,8 @@
 const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
 // Create Schema
-const progressionSchema = mongoose.Schema({
+const progressionSchema = new Schema({
     clientId: {
         type: String, required: true,
     },
@@ -17,7 +18,9 @@ const progressionSchema = mongoose.Schema({
             Date : {type: Date, require: true}
         }
     ]
-}, {collection: "Client_progression"}, {timestamps: true});
+}, {collection: "Client_Progression"}, {timestamps: true});
 
 
-module.exports = mongoose.model('Client_progression', progressionSchema);
+const ClientProgression = mongoose.model('Client_Progression', progressionSchema);
+
+module.exports = ClientProgression;

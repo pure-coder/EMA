@@ -28,16 +28,18 @@ const isEmpty = require('../validation/is_empty');
 // Require PersonalTrainer model
 const PersonalTrainer = require('../models/PersonalTrainer');
 const Client = require('../models/Clients');
-const ClientProgression = require('../models/ClientProgression');
 
-// Require verification functionality
-const verification = require('../validation/verification');
+// Require ClientProgression model
+const ClientProgression = require('../models/ClientProgression');
 
 // Require verification / activation model
 const ActivationTokens = require('../models/AcitvationTokens');
 
 // Require events
 const Events = require('../models/Events');
+
+// Require verification functionality
+const verification = require('../validation/verification');
 
 // Capitalise 1st letter !!!!!!!!!!!!!!!!!! MOVE THIS TO SEPARATE FILE
 function capitaliseFirstLetter(string) {
@@ -304,7 +306,7 @@ router.get('/verify', (req, res) => {
     // console.log(activationLink);
 
     // Find token then update client to activated if found, also delete token after activation is complete
-    ActivationTokens.find({"TokenData.Token": activationLink})
+    ActivationTokens.findOne({"TokenData.Token": activationLink})
         .then(token => {
             // Check if token is found in the database (returns empty array if token isn't found so used isEmpty)
             if (!isEmpty(token)) {
@@ -404,16 +406,16 @@ router.get('/:id/scheduler/:cid?', passport.authenticate('both_rule', {session: 
     }
     else if (userTokenId === userId) {
         //Events.findOne({"clientId": })
-        Events.find({clientId: userId})
+        Events.findOne({clientId: userId})
             .then(data => {
                 // set id property for all records
                 for (let i = 0; i < data.length; i++)
                     data[i].id = data[i]._id;
 
-                return res.send(data);
+                return res.json(data);
             })
             .catch(err => {
-                console.log(err)
+                return res.json(err);
             })
     }
     else {
@@ -429,8 +431,6 @@ router.get('/:id/scheduler/:cid?', passport.authenticate('both_rule', {session: 
 router.post('/:id/scheduler/:cid', passport.authenticate('pt_rule', {session: false}), (req, res) => {
     let data = req.body;
     let schedId, docId; // initialising schedule id and document id
-
-    console.log(data);
 
     // Get clientId from frontEnd
     let userId = req.params.id;
@@ -460,7 +460,6 @@ router.post('/:id/scheduler/:cid', passport.authenticate('pt_rule', {session: fa
 
     // Get data's operation type which is either inserted/updated/deleted
     let type = data["!nativeeditor_status"];
-    console.log(type);
 
     // Get the id of current record as inserted code id is different from updated/delete as dhtmlxscheduler changes
     // the id to the document id from mongodb database for edited events
@@ -513,7 +512,7 @@ router.post('/:id/scheduler/:cid', passport.authenticate('pt_rule', {session: fa
         newWorkout.save()
             .then(events => {
                     //console.log(events);
-                return res.status(200).json(events);
+                    return res.status(200).json(events);
                 }
             )
             .catch(err => {
@@ -545,8 +544,7 @@ router.get('/pt_clients/:ptid', passport.authenticate('pt_rule', {session: false
     let ptId = req.params.ptid;
     // get personal trainers client list
     PersonalTrainer.findOne({_id: ptId}).populate('ClientIDs')
-        .exec( function(err, personalTrainer)
-            {
+        .exec(function (err, personalTrainer) {
                 if (err) return res.json("No data for ptid: " + err.stringValue);
 
                 if (personalTrainer) {
@@ -649,8 +647,8 @@ router.put('/edit_client/:id', passport.authenticate('both_rule', {session: fals
 
     let updateClient = {};
     // Enter data into updateClient only if the value of req.body is not undefined or an empty string
-    for (let value in req.body){
-        if (req.body[value] !== '' && req.body[value] !== undefined){
+    for (let value in req.body) {
+        if (req.body[value] !== '' && req.body[value] !== undefined) {
             // Capitalise first name if not alread done
             if (req.body.FullName) {
                 req.body.FullName = capitaliseFirstLetter(req.body.FullName);
@@ -667,7 +665,7 @@ router.put('/edit_client/:id', passport.authenticate('both_rule', {session: fals
     }
 
     // If it exists as the for loop above checked if password was null or undefined, hash the password and update client profile if password doesn't exist update profile without hashing non existent password
-    if(updateClient.Password){
+    if (updateClient.Password) {
 
         // This can be done synchronously via bcrypt.genSaltSync and bcrypt.hashSync, but for better performance async is used so the
         // encrypting of users passwords does not tie up the node.js thread.
@@ -678,7 +676,7 @@ router.put('/edit_client/:id', passport.authenticate('both_rule', {session: fals
                 updateClient.Password = hash;
                 // TODO::
                 // Update password in client database
-                Client.findByIdAndUpdate( clientId, updateClient, {new: true})
+                Client.findByIdAndUpdate(clientId, updateClient, {new: true})
                     .then(result => {
                         return res.json(result)
                     })
@@ -690,13 +688,13 @@ router.put('/edit_client/:id', passport.authenticate('both_rule', {session: fals
     }
     else {
         // Find client by id
-        Client.findByIdAndUpdate( clientId, updateClient, {new: true})
+        Client.findByIdAndUpdate(clientId, updateClient, {new: true})
             .then(client => {
                 if (client) {
                     return res.json(client)
                 }
             })
-            .catch(err =>{
+            .catch(err => {
                 return res.json(err)
             });
     }
@@ -742,8 +740,8 @@ router.put('/edit_personal_trainer/:id', passport.authenticate('pt_rule', {sessi
 
     let updatePt = {};
     // Enter data into updateClient only if the value of req.body is not undefined or an empty string
-    for (let value in req.body){
-        if (req.body[value] !== '' && req.body[value] !== undefined){
+    for (let value in req.body) {
+        if (req.body[value] !== '' && req.body[value] !== undefined) {
             // Capitalise first name if not alread done
             if (req.body.FullName) {
                 req.body.FullName = capitaliseFirstLetter(req.body.FullName);
@@ -760,7 +758,7 @@ router.put('/edit_personal_trainer/:id', passport.authenticate('pt_rule', {sessi
     }
 
     // If it exists as the for loop above checked if password was null or undefined, hash the password and update client profile if password doesn't exist update profile without hashing non existent password
-    if(updatePt.Password){
+    if (updatePt.Password) {
 
         // This can be done synchronously via bcrypt.genSaltSync and bcrypt.hashSync, but for better performance async is used so the
         // encrypting of users passwords does not tie up the node.js thread.
@@ -771,7 +769,7 @@ router.put('/edit_personal_trainer/:id', passport.authenticate('pt_rule', {sessi
                 updatePt.Password = hash;
                 // TODO::
                 // Update password in client database
-                PersonalTrainer.findByIdAndUpdate( ptId, updatePt, {new: true})
+                PersonalTrainer.findByIdAndUpdate(ptId, updatePt, {new: true})
                     .then(result => {
                         return res.json(result)
                     })
@@ -783,13 +781,13 @@ router.put('/edit_personal_trainer/:id', passport.authenticate('pt_rule', {sessi
     }
     else {
         // Find client by id
-        PersonalTrainer.findByIdAndUpdate( ptId, updatePt, {new: true})
+        PersonalTrainer.findByIdAndUpdate(ptId, updatePt, {new: true})
             .then(client => {
                 if (client) {
                     return res.json(client)
                 }
             })
-            .catch(err =>{
+            .catch(err => {
                 return res.json(err)
             });
     }
@@ -825,12 +823,36 @@ router.post('/:id/client_progression/:cid', passport.authenticate('both_rule', {
     // }
 
     // Check to see if a client progression document exists (then = does already exist so update, catch = doesn't exist so create one)
-    ClientProgression.find({$and: [{_id: clientId},{exerciseName: data.exerciseName}, {$exists: true, $not: null}]})
-        .then( result => {
-            return res.json({msg: "does exist"});
+    ClientProgression.findOne({$and: [{clientId : clientId}, {exerciseName: data.exerciseName}]})
+        .then(result => {
+            if(result){
+                return res.json({msg: "does exist"});
+            }
+            else{
+                // Client progress doesn't exist so create one
+                const newProgression = new ClientProgression({
+                    clientId: clientId,
+                    ptId: data.ptId,
+                    exerciseName: data.exerciseName,
+                    metrics: {
+                        maxWeight: data.maxWeight,
+                        Date: data.Date
+                    }
+                }); // newProgression
+
+                // Save newProgression to ClientProgression collection
+                newProgression.save()
+                    .then(result => {
+                        //console.log(events);
+                        return res.status(200).json(result);
+                    })
+                    .catch(err => {
+                        return res.status(400).json(err);
+                    });
+            }
         })
         .catch(err => {
-            return res.json({msg: "does not exist"});
+            return res.json(err)
         });
 
     // return res.json({data, userId, clientId, payload});
