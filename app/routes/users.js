@@ -802,23 +802,38 @@ router.put('/edit_personal_trainer/:id', passport.authenticate('pt_rule', {sessi
 router.post('/:id/client_progression/:cid', passport.authenticate('both_rule', {session: false}), (req, res) => {
     let data = req.body;
 
-    console.log(data);
-
     // Get clientId from frontEnd
     let userId = req.params.id;
     let clientId = req.params.cid;
+    let authorised = false;
 
     // Check authentication of the current user, will also be used to verify if they can access data
     let token = req.headers.authorization.split(' ')[1];
     let payload = jwt.decode(token, keys.secretOrKey);
-    let isPT = payload.pt;
 
-    // If user is PT then userId will be of pt so change clientId to userId
-    if (isPT) {
-        userId = clientId;
-    }
+    // Check to see if user is pt, if so check to see if they are authorised to access client data
 
-    return res.json({data});
+    // Todo:: pt auth
+    // if(payload.pt){
+    //     PersonalTrainer.find({_id: userId})
+    //         .then(pt =>{
+    //             return res.json({msg:"found"});
+    //         })
+    //         .catch(err => {
+    //             return res.json({msg: "Personal Trainer not found"});
+    //         })
+    // }
+
+    // Check to see if a client progression document exists (then = does already exist so update, catch = doesn't exist so create one)
+    ClientProgression.find({$and: [{_id: clientId},{exerciseName: data.exerciseName}, {$exists: true, $not: null}]})
+        .then( result => {
+            return res.json({msg: "does exist"});
+        })
+        .catch(err => {
+            return res.json({msg: "does not exist"});
+        });
+
+    // return res.json({data, userId, clientId, payload});
 
 
 }); // router post /scheduler
