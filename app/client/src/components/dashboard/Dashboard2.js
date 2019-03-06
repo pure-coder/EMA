@@ -46,7 +46,7 @@ class Dashboard2 extends Component {
         let height = 310 - marginTop - marginBottom;
 
         // parse the {Date / time
-        let parseTime = d3.timeParse("%Y-%m-%dT%H:%M:%S.%L%Z");
+        let parseTime = d3.timeParse("%Y-%d-%mT%H:%M:%S.%L%Z");
 
         // set the ranges
         let x = d3.scaleTime().range([0, width]);
@@ -77,18 +77,18 @@ class Dashboard2 extends Component {
 
             // format the data
             data.forEach(function (d) {
+                console.log(d.Date)
                 d.Date = parseTime(d.Date);
+                console.log(d.Date);
                 d.maxWeight = +d.maxWeight;
             });
 
             // Scale the range of the data
             x.domain(d3.extent(data, function (d) {
-                console.log(d)
                 return d.Date;
             }));
             // Changed y-axis to use the min to max range of data like what is used in x-axis
             y.domain(d3.extent(data, function (d) {
-                console.log(d)
                 return d.maxWeight;
             }));
 
@@ -109,7 +109,8 @@ class Dashboard2 extends Component {
             // Add the X Axis
             svg.append("g")
                 .attr("transform", "translate(0," + height + ")")
-                .call(d3.axisBottom(x).tickFormat(d3.timeFormat("%d %b %Y")))
+                // tickValues used to display only the dates given in the data
+                .call(d3.axisBottom(x).tickFormat(d3.timeFormat("%d %b %Y")).tickValues(data.map(elements =>{return elements.Date})))
                 .selectAll("text")
                 .style("text-anchor", "end")
                 .attr("dx", "-.8em")
@@ -154,11 +155,9 @@ class Dashboard2 extends Component {
             client_progression.map(element => {
                 let progressData = [];
                 element.metrics.map(data =>{
-                    console.log(data.Date);
                     return progressData.push(data);
                 });
                 // 1st argument takes array of objects as data to plot graph, 2nd argument takes div as position to display graph, 3rd is title of graph
-                console.log(element.metrics)
                 this.addGraph(progressData, ".progression-data", element.exerciseName);
                 return null;
             });
