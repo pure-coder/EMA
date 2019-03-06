@@ -39,13 +39,18 @@ class Dashboard2 extends Component {
         //const {errors} = this.state; // This allows errors to be pulled out of this.state with pulling them out directly
 
         let client_progression = this.state.client_Progression;
-        // console.log(client_progression !== undefined ? client_progression[0] : null);
+
+        const sortedProgressionMap = (data) => {
+            return data.sort((obj1, obj2) => {
+                return new Date(obj1.Date) - new Date(obj2.Date);
+            });
+        }; // sortedMap
 
         // Do from dashboard on client click so this check is not needed as it would be populated
         if (client_progression !== undefined) {
             client_progression.map(element => {
                 let progressData = [];
-                element.metrics.map(data => {
+                sortedProgressionMap(element.metrics).map(data => {
                     return progressData.push(data);
                 });
                 // 1st argument takes array of objects as data to plot graph, 2nd argument takes div as position to display graph, 3rd is title of graph
