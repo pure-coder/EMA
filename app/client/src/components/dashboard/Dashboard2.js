@@ -33,7 +33,7 @@ class Dashboard2 extends Component {
         }
     } // did mount
 
-    addGraph(data, position) {// set the dimensions and margins of the graph
+    addGraph(data, position, title) {// set the dimensions and margins of the graph
 
         // Takes data given in function
         let dataToDraw = data;
@@ -101,7 +101,7 @@ class Dashboard2 extends Component {
                     "translate(" + (width / 2) + " ," + // first value is distance from left, second is distance from top
                     (-5) + ")")
                 .style("text-anchor", "middle")
-                .text("Title");
+                .text(title);
 
             // Add the X Axis
             svg.append("g")
@@ -157,7 +157,7 @@ class Dashboard2 extends Component {
                 element.metrics.map(data =>{
                     return progressData.push(data);
                 });
-                this.addGraph(progressData, ".progression-data");
+                this.addGraph(progressData, ".progression-data", element.exerciseName);
                 return null;
             });
 
