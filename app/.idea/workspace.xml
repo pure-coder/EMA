@@ -5,11 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ec8ccf39-8487-4892-a38d-de9c288878a3" name="Default" comment="delete client from pt array - using pull">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/actions/authenticationActions.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/actions/authenticationActions.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/actions/types.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/actions/types.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/dashboard/Dashboard2.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/dashboard/Dashboard2.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/reducers/authenticationReducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/reducers/authenticationReducer.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/users.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/users.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -50,7 +46,7 @@
           <entry key="css" value="3500" />
           <entry key="editorConfig" value="285" />
           <entry key="html" value="1072" />
-          <entry key="js" value="79116" />
+          <entry key="js" value="79168" />
           <entry key="json" value="26" />
           <entry key="md" value="150" />
           <entry key="txt" value="120" />
@@ -61,7 +57,7 @@
           <entry key="CSS" value="3500" />
           <entry key="HTML" value="1072" />
           <entry key="JSON" value="26" />
-          <entry key="JavaScript" value="79116" />
+          <entry key="JavaScript" value="79168" />
           <entry key="PLAIN_TEXT" value="555" />
         </counts>
       </usages-collector>
@@ -114,7 +110,7 @@
         <entry file="file://$PROJECT_DIR$/routes/users.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="68">
-              <caret line="915" column="77" selection-start-line="915" selection-start-column="77" selection-end-line="915" selection-end-column="77" />
+              <caret line="915" column="52" selection-start-line="915" selection-start-column="52" selection-end-line="915" selection-end-column="52" />
             </state>
           </provider>
         </entry>
@@ -134,8 +130,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/client/src/actions/authenticationActions.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="129">
-              <caret line="261" column="30" selection-start-line="261" selection-start-column="30" selection-end-line="261" selection-end-column="30" />
+            <state relative-caret-position="112">
+              <caret line="260" column="25" selection-start-line="260" selection-start-column="25" selection-end-line="260" selection-end-column="25" />
               <folding>
                 <element signature="e#0#26#0" expanded="true" />
               </folding>
@@ -456,7 +452,7 @@
       <workItem from="1549386832105" duration="138225000" />
       <workItem from="1550396514850" duration="599000" />
       <workItem from="1550910770209" duration="56984000" />
-      <workItem from="1551774400661" duration="24843000" />
+      <workItem from="1551774400661" duration="25080000" />
     </task>
     <task id="LOCAL-00001" summary="min height changed for developed pages">
       <created>1534874964132</created>
@@ -504,7 +500,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="790225000" />
+    <option name="totallyTimeSpent" value="790462000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -911,8 +907,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/client/src/actions/authenticationActions.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="129">
-          <caret line="261" column="30" selection-start-line="261" selection-start-column="30" selection-end-line="261" selection-end-column="30" />
+        <state relative-caret-position="112">
+          <caret line="260" column="25" selection-start-line="260" selection-start-column="25" selection-end-line="260" selection-end-column="25" />
           <folding>
             <element signature="e#0#26#0" expanded="true" />
           </folding>
@@ -922,7 +918,7 @@
     <entry file="file://$PROJECT_DIR$/routes/users.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
-          <caret line="915" column="77" selection-start-line="915" selection-start-column="77" selection-end-line="915" selection-end-column="77" />
+          <caret line="915" column="52" selection-start-line="915" selection-start-column="52" selection-end-line="915" selection-end-column="52" />
         </state>
       </provider>
     </entry>

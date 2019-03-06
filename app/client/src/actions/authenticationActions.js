@@ -259,7 +259,6 @@ export const getClientProgression = (ptId, clientId) => dispatch => {
     // axios.get('/api/' + ptId + '/client_progression/' + clientId )
     axios.get(`/api/${ptId}/client_progression/${clientId}` ) // using grave accent instead of single quote
         .then(result => {
-            console.log(result);
             dispatch({
                 type: CLIENT_PROGRESSION,
                 payload: result.data
