@@ -83,11 +83,14 @@ class Dashboard2 extends Component {
 
             // Scale the range of the data
             x.domain(d3.extent(data, function (d) {
+                console.log(d)
                 return d.Date;
             }));
-            y.domain([0, d3.max(data, function (d) {
+            // Changed y-axis to use the min to max range of data like what is used in x-axis
+            y.domain(d3.extent(data, function (d) {
+                console.log(d)
                 return d.maxWeight;
-            })]);
+            }));
 
             // Add the valueline path.
             svg.append("path")
@@ -106,7 +109,7 @@ class Dashboard2 extends Component {
             // Add the X Axis
             svg.append("g")
                 .attr("transform", "translate(0," + height + ")")
-                .call(d3.axisBottom(x).tickFormat(d3.timeFormat("%m %b %Y")))
+                .call(d3.axisBottom(x).tickFormat(d3.timeFormat("%d %b %Y")))
                 .selectAll("text")
                 .style("text-anchor", "end")
                 .attr("dx", "-.8em")
@@ -143,10 +146,6 @@ class Dashboard2 extends Component {
     render() {
         //const {errors} = this.state; // This allows errors to be pulled out of this.state with pulling them out directly
 
-        // 1st argument takes array of objects as data to plot graph, 2nd argument takes div as position to display graph
-        // addGraph(myData, ".progression-data");
-        // addGraph(myData2, ".progression-data2");
-
         let client_progression = this.state.client_Progression;
         // console.log(client_progression !== undefined ? client_progression[0] : null);
 
@@ -155,13 +154,14 @@ class Dashboard2 extends Component {
             client_progression.map(element => {
                 let progressData = [];
                 element.metrics.map(data =>{
+                    console.log(data.Date);
                     return progressData.push(data);
                 });
+                // 1st argument takes array of objects as data to plot graph, 2nd argument takes div as position to display graph, 3rd is title of graph
+                console.log(element.metrics)
                 this.addGraph(progressData, ".progression-data", element.exerciseName);
                 return null;
             });
-
-            console.log(client_progression);
         } // if client_progression is not undefined
 
         return (
@@ -170,7 +170,6 @@ class Dashboard2 extends Component {
                     <div className="m-auto col-md-8">
                         <h1 className=" text-center display-5">Dashboard</h1>
                         <div className="progression-data"></div>
-                        <div className="progression-data2"></div>
                     </div>
                 </div>
             </div>
