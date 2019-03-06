@@ -52,6 +52,12 @@ class Dashboard2 extends Component {
         let x = d3.scaleTime().range([0, width]);
         let y = d3.scaleLinear().range([height, 0]);
 
+        // define the area to shade (fill)
+        let area = d3.area()
+            .x(function(d) { return x(d.Date); })
+            .y0(height)
+            .y1(function(d) { return y(d.maxWeight); });
+
         // define the line
         let valueline = d3.line()
             .x(function (d) {
@@ -91,6 +97,12 @@ class Dashboard2 extends Component {
             y.domain(d3.extent(data, function (d) {
                 return d.maxWeight;
             }));
+
+            // add the area
+            svg.append("path")
+                .data([data])
+                .attr("class", "area")
+                .attr("d", area);
 
             // Add the valueline path.
             svg.append("path")

@@ -305,5 +305,10 @@ svg {
     text-align: center;
 }
 
+/* progression Data (graph) */
+.progression-data .area {
+    fill: lightsteelblue;
+}
+
 
 
