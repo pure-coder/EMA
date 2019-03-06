@@ -1,10 +1,10 @@
 import React, {Component} from 'react';  // Used to create this component
 import PropTypes from 'prop-types'; // Used to document prop types sent to components
-import { connect } from 'react-redux' // Needed when using redux inside a component (connects redux to this component)
-import { withRouter } from 'react-router-dom';
+import {connect} from 'react-redux' // Needed when using redux inside a component (connects redux to this component)
+import {withRouter} from 'react-router-dom';
 import {getClientProgression} from "../../actions/authenticationActions";
 import {addGraph} from '../../utilities/progressGraph'
-import * as d3 from 'd3';
+
 // import FormInputGroup from "../common/FormInputGroup"; // Allows proper routing and linking using browsers match, location, and history properties
 
 class Dashboard2 extends Component {
@@ -35,7 +35,6 @@ class Dashboard2 extends Component {
     } // did mount
 
 
-
     render() {
         //const {errors} = this.state; // This allows errors to be pulled out of this.state with pulling them out directly
 
@@ -43,10 +42,10 @@ class Dashboard2 extends Component {
         // console.log(client_progression !== undefined ? client_progression[0] : null);
 
         // Do from dashboard on client click so this check is not needed as it would be populated
-        if (client_progression !== undefined){
+        if (client_progression !== undefined) {
             client_progression.map(element => {
                 let progressData = [];
-                element.metrics.map(data =>{
+                element.metrics.map(data => {
                     return progressData.push(data);
                 });
                 // 1st argument takes array of objects as data to plot graph, 2nd argument takes div as position to display graph, 3rd is title of graph
@@ -60,7 +59,10 @@ class Dashboard2 extends Component {
                 <div className="row">
                     <div className="m-auto col-md-8">
                         <h1 className=" text-center display-5">Dashboard</h1>
-                        <div className="progression-data"></div>
+                        <div className="Progression">
+                            <h2 className=" text-center display-5 mt-3 mb-2">Client progression data</h2>
+                            <div className="progression-data"></div>
+                        </div>
                     </div>
                 </div>
             </div>

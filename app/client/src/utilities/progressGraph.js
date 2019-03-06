@@ -9,8 +9,8 @@ function addGraph(data, position, title) {// set the dimensions and margins of t
     let marginRight = 20;
     let marginBottom = 30;
     let marginLeft = 50;
-    let width = 500 - marginLeft - marginRight;
-    let height = 310 - marginTop - marginBottom;
+    let width = 400 - marginLeft - marginRight;
+    let height = 270 - marginTop - marginBottom;
 
     // parse the {Date / time
     let parseTime = d3.timeParse("%Y-%d-%mT%H:%M:%S.%L%Z");
@@ -51,7 +51,6 @@ function addGraph(data, position, title) {// set the dimensions and margins of t
         // format the data
         data.forEach(function (d) {
             d.Date = parseTime(d.Date);
-            console.log(d.Date);
             d.maxWeight = +d.maxWeight;
         });
 
@@ -88,7 +87,7 @@ function addGraph(data, position, title) {// set the dimensions and margins of t
         svg.append("g")
             .attr("transform", "translate(0," + height + ")")
             // tickValues used to display only the dates given in the data
-            .call(d3.axisBottom(x).tickFormat(d3.timeFormat("%d %b %Y")))
+            .call(d3.axisBottom(x).tickFormat(d3.timeFormat("%d %b %Y")).tickValues(data.map(elements => {return elements.Date})))
             .selectAll("text")
             .style("text-anchor", "end")
             .attr("dx", "-.8em")
