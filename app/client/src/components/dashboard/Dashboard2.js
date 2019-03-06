@@ -110,7 +110,7 @@ class Dashboard2 extends Component {
             svg.append("g")
                 .attr("transform", "translate(0," + height + ")")
                 // tickValues used to display only the dates given in the data
-                .call(d3.axisBottom(x).tickFormat(d3.timeFormat("%d %b %Y")).tickValues(data.map(elements =>{return elements.Date})))
+                .call(d3.axisBottom(x).tickFormat(d3.timeFormat("%d %b %Y")))
                 .selectAll("text")
                 .style("text-anchor", "end")
                 .attr("dx", "-.8em")
