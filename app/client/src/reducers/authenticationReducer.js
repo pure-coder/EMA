@@ -1,6 +1,14 @@
 // THIS MUST BE IMPORTED INTO INDEX.JS IN REDUCERS FOLDER
 
-import {PT_CLIENTS, SET_SIGNED_IN_USER, GET_CLIENT_DATA, GET_PT_DATA, EDIT_PROFILE, LOGGED_OUT} from "../actions/types";
+import {
+    PT_CLIENTS,
+    SET_SIGNED_IN_USER,
+    GET_CLIENT_DATA,
+    GET_PT_DATA,
+    EDIT_PROFILE,
+    LOGGED_OUT,
+    CLIENT_PROGRESSION
+} from "../actions/types";
 import isEmpty from '../validation/is_empty';
 
 const initialisedState = {
@@ -52,6 +60,11 @@ export default function (state = initialisedState, action) {
                 ...state,
                 clientId: action.payload
             };
+        case CLIENT_PROGRESSION:
+            return {
+                ...state,
+                client_Progression: action.payload
+            }
         default:
             return state;
     }

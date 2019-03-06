@@ -2,6 +2,7 @@ import React, {Component} from 'react';  // Used to create this component
 import PropTypes from 'prop-types'; // Used to document prop types sent to components
 import { connect } from 'react-redux' // Needed when using redux inside a component (connects redux to this component)
 import { withRouter } from 'react-router-dom';
+import {getClientProgression} from "../../actions/authenticationActions";
 import * as d3 from 'd3';
 // import FormInputGroup from "../common/FormInputGroup"; // Allows proper routing and linking using browsers match, location, and history properties
 
@@ -10,15 +11,14 @@ class Dashboard2 extends Component {
     constructor(props) {
         super(props);
         this.state = {
-
             errors: {}
         };
 
-        // This sets the state value to it's respective state (via binding)
-        this.onChange = this.onChange.bind(this);
-
-        // This binds the onSubmit function to this.OnSubmit
-        this.onSubmit = this.onSubmit.bind(this);
+        // // This sets the state value to it's respective state (via binding)
+        // this.onChange = this.onChange.bind(this);
+        //
+        // // This binds the onSubmit function to this.OnSubmit
+        // this.onSubmit = this.onSubmit.bind(this);
     }
 
     // Life cycle method for react which will run when this component receives new properties
@@ -27,6 +27,8 @@ class Dashboard2 extends Component {
         if (!this.props.authenticatedUser.isAuthenticated) {
             this.props.history.push('/login');
         }
+
+        this.props.getClientProgression('5c2e2d484489901a743d87da', '5c2e2e604489901a743d87db');
 
 
         let myData = [
@@ -180,6 +182,7 @@ class Dashboard2 extends Component {
 // Documents what props are needed for this component and will log a warning in the console in dev mode if not complied to
 Dashboard2.propTypes = {
     authenticatedUser: PropTypes.object.isRequired,
+    getClientProgression: PropTypes.func.isRequired
     //errors: PropTypes.object.isRequired
 };
 
@@ -192,4 +195,4 @@ const stateToProps = (state) => ({
 // connect must be exported with a passed parameter (not direct parameter) of Dashboard this is wrapped with withRouter
 // allowing the functions of the package to be used with the component eg, proper routing, and direct parameters of
 // stateToProps for the 1st parameter and the action which is dashboard as the 2nd parameter
-export default connect(stateToProps, null)(withRouter(Dashboard2));
+export default connect(stateToProps, {getClientProgression})(withRouter(Dashboard2));

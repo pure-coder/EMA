@@ -912,7 +912,9 @@ router.get('/:id/client_progression/:cid', passport.authenticate('pt_rule', {ses
                 // Check to see if ptId is allowed
                 if (result.ptId === ptId) {
 
-                    ClientProgression.find({clientId: clientId})
+                    // '-_id exerciseName metrics' part allows only exerciseName and metrics to be returned, as _id is returned by default
+                    // use the minus sign with it to explicitly ignore it ie '-_id'
+                    ClientProgression.find({clientId: clientId}, '-_id exerciseName metrics')
                         .then(result => {
                             if (result) {
                                 return res.json(result);

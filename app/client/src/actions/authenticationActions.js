@@ -1,5 +1,15 @@
 import axios from 'axios';
-import {GET_ERRS, SET_SIGNED_IN_USER, PT_CLIENTS, GET_CLIENT_DATA, GET_PT_DATA, EDIT_PROFILE, LOGGED_OUT, PASSWORD_ERROR} from "./types"; // import custom defined types
+import {
+    GET_ERRS,
+    SET_SIGNED_IN_USER,
+    PT_CLIENTS,
+    GET_CLIENT_DATA,
+    GET_PT_DATA,
+    EDIT_PROFILE,
+    LOGGED_OUT,
+    PASSWORD_ERROR,
+    CLIENT_PROGRESSION
+} from "./types"; // import custom defined types
 import setAuthorisationToken from '../utilities/setAuthorisationToken';
 import jwtDecode from 'jwt-decode';
 
@@ -176,13 +186,12 @@ export const getClientData = (id, history) => dispatch => {
 export const editClientData = (id, Data, history) => dispatch => {
     axios
         .put(`/api/edit_client/${id}`, Data)
-        .then(result => {
+        .then(() => {
             // Go back to dashboard after successful update
             history.goBack();
             }
         )
         .catch(err => {
-            console.log(err)
             dispatch({
                 type: GET_ERRS,
                 payload: err.response.data
@@ -215,13 +224,12 @@ export const getPtData = (id, history) => dispatch => {
 export const editPtData = (id, Data, history) => dispatch => {
     axios
         .put(`/api/edit_personal_trainer/${id}`, Data)
-        .then(result => {
+        .then(() => {
                 // Go back to dashboard after successful update
                 history.goBack();
             }
         )
         .catch(err => {
-            console.log(err)
             dispatch({
                 type: GET_ERRS,
                 payload: err.response.data
@@ -233,7 +241,7 @@ export const editProfile = (id, history) => dispatch => {
     dispatch({
         type: EDIT_PROFILE,
         payload: id
-    })
+    });
     // window.location.href = '/users/' + id + '/edit_client';
     // Went back to using push as the error of being able to back button the browser history was sorted, this solves the state of redux too
     history.push('/users/' + id + '/edit_client');
@@ -245,6 +253,21 @@ export const passwordsMatchError = (error) => dispatch => {
         payload: error
         }
     )
+};
+
+export const getClientProgression = (ptId, clientId) => dispatch => {
+    // axios.get('/api/' + ptId + '/client_progression/' + clientId )
+    axios.get(`/api/${ptId}/client_progression/${clientId}` ) // using grave accent instead of single quote
+        .then(result => {
+            console.log(result);
+            dispatch({
+                type: CLIENT_PROGRESSION,
+                payload: result.data
+            });
+        })
+        .catch(err => {
+            console.log(err);
+        });
 };
 
 
