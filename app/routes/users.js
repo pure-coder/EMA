@@ -351,10 +351,10 @@ router.get('/verify', (req, res) => {
 
 });
 
-// @route  GET api/data
+// @route  GET api/:id/scheduler/:cid?
 // @desc   Workout scheduler - retrieve data from database for client
 // @access private for PT's and clients
-router.get('/:id/scheduler/:cid?', passport.authenticate('both_rule', {session: false}), (req, res) => {
+router.get('/:id/scheduler/:cid', passport.authenticate('both_rule', {session: false}), (req, res) => {
 
     // Get clientId from frontEnd
     let userId = req.params.id;
@@ -367,7 +367,7 @@ router.get('/:id/scheduler/:cid?', passport.authenticate('both_rule', {session: 
     let isPT = payload.pt;
 
     // If user is pt check to see if the client id is in their list, if so allow them access to data
-    if (isPT) {
+    if (isPT && userTokenId === userId) {
         PersonalTrainer.findOne({"_id": userTokenId}).populate('ClientIDs')
             .then(pt => {
                 // Make sure that the pt exists
@@ -379,6 +379,7 @@ router.get('/:id/scheduler/:cid?', passport.authenticate('both_rule', {session: 
                     });
                     // If id is in pt client id list then display events for client
                     if (checkClientId !== undefined) {
+                        // Find all events that have clientId
                         Events.find({clientId})
                             .then(data => {
                                 // set id property for all records
@@ -386,7 +387,6 @@ router.get('/:id/scheduler/:cid?', passport.authenticate('both_rule', {session: 
                                     data[i].id = data[i]._id;
 
                                 //output response
-                                // console.log(data)
                                 return res.send(data);
                             })
                             .catch(err => {
@@ -396,7 +396,7 @@ router.get('/:id/scheduler/:cid?', passport.authenticate('both_rule', {session: 
                     else {
                         // Send empty data so scheduler gets rendered
                         let data = [];
-                        return res.send(data);
+                        return res.json(data);
                     }
                 }
             })
@@ -404,9 +404,10 @@ router.get('/:id/scheduler/:cid?', passport.authenticate('both_rule', {session: 
                 return res.json({err})
             }) // catch pt find
     }
-    else if (userTokenId === userId) {
-        //Events.findOne({"clientId": })
-        Events.findOne({clientId: userId})
+    // Make sure that params id and cid match and that they match userTokenId
+    else if (clientId === userId && clientId === userTokenId) {
+        // Find all events for clientId
+        Events.find({clientId})
             .then(data => {
                 // set id property for all records
                 for (let i = 0; i < data.length; i++)
@@ -421,7 +422,7 @@ router.get('/:id/scheduler/:cid?', passport.authenticate('both_rule', {session: 
     else {
         // Send empty data so scheduler gets rendered
         let data = [];
-        return res.send(data);
+        return res.json(data);
     }
 }); // router get /scheduler
 

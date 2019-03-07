@@ -15,11 +15,9 @@ class ClientData extends Component {
         }
     }
 
-    // Tried to use Link component but it didn't call the url directly like window.location.href so the scheduler data
-    // for clients was not loaded or saved correctly
-    // onScheduleClick(ptId, id) {
-    //     window.location.href = '/users/' + ptId + '/scheduler/' + id;
-    // };
+    onScheduleClick(id) {
+        window.location.href = `/users/${id}/scheduler/${id}`;
+    };
 
     onEditProfile(id) {
         this.props.editProfile(id, this.props.history);
@@ -37,6 +35,8 @@ class ClientData extends Component {
                             <table className="table client-table">
                                 <thead>
                                 <tr>
+                                    <td align="center"><a onClick={this.onScheduleClick.bind(this, this.state.id)}><i
+                                        className="far fa-calendar-alt fa-2x"></i></a></td>
                                 <td align="center"><a onClick={this.onEditProfile.bind(this, this.state.id)}><i
                                     className="fas fa-edit fa-2x"></i></a></td>
                                 </tr>

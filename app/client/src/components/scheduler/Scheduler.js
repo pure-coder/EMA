@@ -16,14 +16,13 @@ class Scheduler extends Component {
         const dataProcessor = window.dataProcessor;
 
         // Connect via API to get data for a specific client
-        let userId = this.props.authenticatedUser.user.id;
-        let clientId = this.props.authenticatedUser.user.pt? this.props.match.params.Cid : '';
+        let userId = this.props.match.params.uid;
+        let clientId = this.props.match.params.Cid;
         // If client - userId will only be used, will show their events, if pt userId is pt, clientId is client events that
         // pt wishes to view (clientId added when pt clicks client on their dashboard)
-        axios.get('/api/' + userId + '/scheduler/' + clientId)
+        axios.get(`/api/${userId}/scheduler/${clientId}`)
             .then(result => {
                 if (result) {
-
                     // Initialise scheduler to current date (month)
                     let now = new Date();
                     let date = now.getDate();
@@ -53,7 +52,7 @@ class Scheduler extends Component {
         // for the current client (the id of the client is sent to the api so that the event can be
         // associated with them, allowing client events to be filtered so only their events are retrieved
         // and shown with GET method
-        let dataProc = new dataProcessor("/api/" + this.props.authenticatedUser.user.id + "/scheduler/" + this.props.match.params.Cid );
+        let dataProc = new dataProcessor(`/api/${userId}/scheduler/${clientId}` );
         dataProc.init(scheduler);
         // Add token to header to allow access to the POST function on API
         dataProc.setTransactionMode({mode: "POST", headers:{ "Content-Type": "application/x-www-form-urlencoded",
@@ -70,8 +69,6 @@ class Scheduler extends Component {
         //         alert(id);
         //     }
         // });
-
-
     }// constructor
 
     // add init() function to only the scheduler route in index.html (located in public folder) before the component is rendered
