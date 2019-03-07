@@ -896,12 +896,19 @@ router.post('/:id/client_progression/:cid', passport.authenticate('pt_rule', {se
 // @route  get api/:id/client_progression/:cid
 // @desc   Retrieve client progression data from db
 // @access private for PT's - clients can't get to the progression db collection
-router.get('/:id/client_progression/:cid', passport.authenticate('pt_rule', {session: false}), (req, res) => {
+router.get('/:id/client_progression/:cid', passport.authenticate('both_rule', {session: false}), (req, res) => {
 
     // Get clientId from url
     let clientId = req.params.cid;
-    // Get pttId from url which is used to make sure that they are allowed to access data
-    let ptId = req.params.id;
+    // Get usertId from url which is used to make sure that they are allowed to access data
+    let userId = req.params.id;
+    // Initialise to true, if userId is same as clientId set to false (for check if user (pt) is allowed to access data
+    let isPt = true;
+
+    // Check to see if user is pt, if not set isPt to false
+    if (userId === clientId){
+        isPt = false;
+    }
 
     // Verify that client exists and that personal trainer id is linked to client
     Client.findOne({_id: clientId})
@@ -909,8 +916,8 @@ router.get('/:id/client_progression/:cid', passport.authenticate('pt_rule', {ses
             // If client is found
             if (result) {
 
-                // Check to see if ptId is allowed
-                if (result.ptId === ptId) {
+                // Check to see if ptId is allowed, (if isPt is false - is client then allow access)
+                if (result.ptId === userId || !isPt) {
 
                     // '-_id exerciseName metrics.maxWeight metrics.Date' part allows only exerciseName and metrics to be returned,
                     // as _id is returned by default use the minus sign with it to explicitly ignore it ie '-_id'
@@ -927,7 +934,7 @@ router.get('/:id/client_progression/:cid', passport.authenticate('pt_rule', {ses
 
                 }
                 else {
-                    return res.json({err: "Personal Trainer not authorised to access Progression"});
+                    return res.json({err: "User not authorised to access Progression"});
                 }
             }
         })
