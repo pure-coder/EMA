@@ -7,7 +7,7 @@ import {addGraph} from '../../utilities/progressGraph'
 
 // import FormInputGroup from "../common/FormInputGroup"; // Allows proper routing and linking using browsers match, location, and history properties
 
-class Dashboard2 extends Component {
+class ClientProfile extends Component {
     // This allows the component states to be up{dated and re-rendered
     constructor(props) {
         super(props);
@@ -76,7 +76,7 @@ class Dashboard2 extends Component {
 }
 
 // Documents what props are needed for this component and will log a warning in the console in dev mode if not complied to
-Dashboard2.propTypes = {
+ClientProfile.propTypes = {
     authenticatedUser: PropTypes.object.isRequired,
     getClientProgression: PropTypes.func.isRequired
     //errors: PropTypes.object.isRequired
@@ -91,4 +91,4 @@ const stateToProps = (state) => ({
 // connect must be exported with a passed parameter (not direct parameter) of Dashboard this is wrapped with withRouter
 // allowing the functions of the package to be used with the component eg, proper routing, and direct parameters of
 // stateToProps for the 1st parameter and the action which is dashboard as the 2nd parameter
-export default connect(stateToProps, {getClientProgression})(withRouter(Dashboard2));
+export default connect(stateToProps, {getClientProgression})(withRouter(ClientProfile));

@@ -19,7 +19,7 @@ import Login from './components/authentication/Login';
 import Scheduler from './components/scheduler/Scheduler';
 /*import dashboard component*/
 import Dashboard from './components/dashboard/Dashboard'
-import Dashboard2 from './components/dashboard/Dashboard2'
+import Dashboard2 from './components/dashboard/ClientProfile'
 /*import edit client component*/
 import EditClient from './components/dashboard/EditClient'
 
