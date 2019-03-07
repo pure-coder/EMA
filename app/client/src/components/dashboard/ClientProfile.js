@@ -5,7 +5,7 @@ import {withRouter} from 'react-router-dom';
 import {getClientProgression} from "../../actions/authenticationActions";
 //import {addGraph} from '../../utilities/progressGraph'
 import Loading from "../../elements/Loading";
-import CP from "./Graph";
+import Graph from "./Graph";
 
 // import FormInputGroup from "../common/FormInputGroup"; // Allows proper routing and linking using browsers match, location, and history properties
 
@@ -62,7 +62,7 @@ class ClientProfile extends Component {
         // Check to see that client_progression is not undefined or the return data for client_progression is not empty
         if (client_progression !== undefined) {
             displayContent = (
-                <CP client_progression={client_progression}/>
+                <Graph client_progression={client_progression}/>
             )
 
         } // if client_progression is not undefined
