@@ -5,6 +5,8 @@ import {withRouter} from "react-router-dom";
 import axios from 'axios';
 import 'dhtmlx-scheduler';
 
+// Todo :: change save button so clients cant save or edit workout!
+
 class Scheduler extends Component {
     constructor(props) {
         super(props);

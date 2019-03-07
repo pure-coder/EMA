@@ -5,7 +5,7 @@ import {
     SET_SIGNED_IN_USER,
     GET_CLIENT_DATA,
     GET_PT_DATA,
-    EDIT_PROFILE,
+    SAVE_CLIENT_ID,
     LOGGED_OUT,
     CLIENT_PROGRESSION
 } from "../actions/types";
@@ -55,7 +55,7 @@ export default function (state = initialisedState, action) {
                 // Add the payload which was returned from from the PT_CLIENTS action in dashboardActions.js
                 pt_data: action.payload
             };
-        case EDIT_PROFILE:
+        case SAVE_CLIENT_ID:
             return {
                 ...state,
                 clientId: action.payload

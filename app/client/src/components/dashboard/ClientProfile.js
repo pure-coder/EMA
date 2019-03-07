@@ -3,7 +3,9 @@ import PropTypes from 'prop-types'; // Used to document prop types sent to compo
 import {connect} from 'react-redux' // Needed when using redux inside a component (connects redux to this component)
 import {withRouter} from 'react-router-dom';
 import {getClientProgression} from "../../actions/authenticationActions";
-import {addGraph} from '../../utilities/progressGraph'
+//import {addGraph} from '../../utilities/progressGraph'
+import Loading from "../../elements/Loading";
+import CP from "./Graph";
 
 // import FormInputGroup from "../common/FormInputGroup"; // Allows proper routing and linking using browsers match, location, and history properties
 
@@ -12,16 +14,22 @@ class ClientProfile extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            client_Progression: null,
+            client_Progression: undefined,//props.client_Progression !== undefined ? props.client_Progression : undefined,
+            userId: props.authenticatedUser.user.id,
+            // If user is pt then get clientId from otherwise user is client, so use user.id
+            clientId: props.authenticatedUser.clientId !== undefined ? props.authenticatedUser.clientId : props.match.params.Cid,
+            loaded: false,
             errors: {}
         };
 
-        this.props.getClientProgression(this.props.authenticatedUser.user.id, '5c2e2e604489901a743d87db');
     }
 
     static getDerivedStateFromProps(props, state) {
         if (props.authenticatedUser.client_Progression !== state.client_Progression) {
-            return {client_Progression: props.authenticatedUser.client_Progression};
+            return {
+                client_Progression: props.authenticatedUser.client_Progression,
+                loaded: true
+            };
         }
         return null
     }
@@ -32,46 +40,39 @@ class ClientProfile extends Component {
         if (!this.props.authenticatedUser.isAuthenticated) {
             this.props.history.push('/login');
         }
+
+        this.update()
     } // did mount
+
+    update() {
+        // If direct link used then get client progression data
+        if (this.state.loaded === false)
+            this.props.getClientProgression(this.state.userId, this.state.clientId);
+    }
 
 
     render() {
-        //const {errors} = this.state; // This allows errors to be pulled out of this.state with pulling them out directly
-
+        let displayContent;
         let client_progression = this.state.client_Progression;
 
-        const sortedProgressionMap = (data) => {
-            return data.sort((obj1, obj2) => {
-                return new Date(obj1.Date) - new Date(obj2.Date);
-            });
-        }; // sortedMap
+        if (this.state.loaded === false) {
+            return <Loading/>
+        }
 
-        // Do from dashboard on client click so this check is not needed as it would be populated
+        // Check to see that client_progression is not undefined or the return data for client_progression is not empty
         if (client_progression !== undefined) {
-            client_progression.map(element => {
-                let progressData = [];
-                sortedProgressionMap(element.metrics).map(data => {
-                    return progressData.push(data);
-                });
-                // 1st argument takes array of objects as data to plot graph, 2nd argument takes div as position to display graph, 3rd is title of graph
-                addGraph(progressData, ".progression-data", element.exerciseName);
-                return null;
-            });
+            displayContent = (
+                <CP client_progression={client_progression}/>
+            )
+
         } // if client_progression is not undefined
 
         return (
             <div className="container  dashboard-custom">
-                <div className="row">
-                    <div className="m-auto col-md-8">
-                        <h1 className=" text-center display-5">Dashboard</h1>
-                        <div className="Progression">
-                            <h2 className=" text-center display-5 mt-3 mb-2">Client progression data</h2>
-                            <div className="progression-data"></div>
-                        </div>
-                    </div>
-                </div>
+                {displayContent}
             </div>
         );
+
     }
 }
 

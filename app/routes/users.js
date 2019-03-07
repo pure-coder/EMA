@@ -929,7 +929,7 @@ router.get('/:id/client_progression/:cid', passport.authenticate('both_rule', {s
                             }
                         })
                         .catch(err => {
-                                return res.json(err)
+                                return res.json(err);
                             }
                         ); // router get client progression
 
@@ -940,7 +940,8 @@ router.get('/:id/client_progression/:cid', passport.authenticate('both_rule', {s
             }
         })
         .catch(err => {
-            return res.json({err: "Client not found!"})
+            // Return an empty object
+            return res.json({});
         }); // Client.findOne()
 
 }); // router get /client_progression

@@ -5,13 +5,14 @@ import {
     PT_CLIENTS,
     GET_CLIENT_DATA,
     GET_PT_DATA,
-    EDIT_PROFILE,
+    SAVE_CLIENT_ID,
     LOGGED_OUT,
     PASSWORD_ERROR,
     CLIENT_PROGRESSION
 } from "./types"; // import custom defined types
 import setAuthorisationToken from '../utilities/setAuthorisationToken';
 import jwtDecode from 'jwt-decode';
+import is_Empty from '../utilities/is_empty'
 
 // Register User
 // Used to dispatch (action) data to a reducer, in this case it is the registerUser action with the sign up data
@@ -237,14 +238,11 @@ export const editPtData = (id, Data, history) => dispatch => {
         })
 };
 
-export const editProfile = (id, history) => dispatch => {
+export const saveClientId = (id) => dispatch => {
     dispatch({
-        type: EDIT_PROFILE,
+        type: SAVE_CLIENT_ID,
         payload: id
     });
-    // window.location.href = '/users/' + id + '/edit_client';
-    // Went back to using push as the error of being able to back button the browser history was sorted, this solves the state of redux too
-    history.push('/users/' + id + '/edit_client');
 };
 
 export const passwordsMatchError = (error) => dispatch => {
@@ -255,14 +253,19 @@ export const passwordsMatchError = (error) => dispatch => {
     )
 };
 
-export const getClientProgression = (ptId, clientId) => dispatch => {
-    // axios.get('/api/' + ptId + '/client_progression/' + clientId )
-    axios.get(`/api/${ptId}/client_progression/${clientId}` ) // using grave accent instead of single quote
+export const getClientProgression = (userId, clientId) => dispatch => {
+    // userId can either be same as clientId or the id of the personal trainer
+    axios.get(`/api/${userId}/client_progression/${clientId}` ) // using grave accent instead of single quote
         .then(result => {
-            dispatch({
-                type: CLIENT_PROGRESSION,
-                payload: result.data
-            });
+            if(!is_Empty(result.data)) {
+                dispatch({
+                    type: CLIENT_PROGRESSION,
+                    payload: result.data
+                });
+            }
+            else{
+                window.location.href = '/error';
+            }
         })
         .catch(err => {
             console.log(err);

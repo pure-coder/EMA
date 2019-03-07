@@ -1,0 +1,54 @@
+import {connect} from 'react-redux';
+import React, {Component} from 'react';
+import {addGraph} from "../../utilities/progressGraph";
+import {withRouter} from 'react-router-dom';
+
+
+class Graph extends Component {
+    // This allows the component states to be up{dated and re-rendered)
+    constructor(props) {
+        super(props);
+        this.state = {
+            errors: {}
+        }
+    }
+
+    render() {
+        const sortedProgressionMap = (data) => {
+            return data.sort((obj1, obj2) => {
+                return new Date(obj1.Date) - new Date(obj2.Date);
+            });
+        }; // sortedMap
+
+        const progressCharts = this.props.client_progression.map(element => {
+            let progressData = [];
+            sortedProgressionMap(element.metrics).map(data => {
+                return progressData.push(data);
+            });
+            // 1st argument takes array of objects as data to plot graph, 2nd argument takes div as position to display graph, 3rd is title of graph
+
+            return addGraph(progressData, ".progression-data", element.exerciseName);
+        });
+
+        return (
+                <div className="row">
+                    <div className="m-auto col-md-8">
+                        <h1 className=" text-center display-5">Dashboard</h1>
+                        <div className="Progression">
+                            <h2 className=" text-center display-5 mt-3 mb-2">Client progression data</h2>
+                            <div className="progression-data">
+                                {progressCharts}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        );
+    }
+}
+
+const stateToProps = (state) => ({
+    authenticatedUser: state.authenticatedUser,
+    errors: state.errors
+});
+
+export default connect(stateToProps, null)(withRouter(Graph));

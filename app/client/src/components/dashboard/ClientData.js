@@ -1,7 +1,7 @@
 import {connect} from 'react-redux';
 import React, {Component} from 'react';
 import {withRouter} from 'react-router-dom';
-import {editProfile} from "../../actions/authenticationActions";
+import {saveClientId} from "../../actions/authenticationActions";
 // import PropTypes from "prop-types";
 
 
@@ -20,7 +20,7 @@ class ClientData extends Component {
     };
 
     onEditProfile(id) {
-        this.props.editProfile(id, this.props.history);
+        this.props.saveClientId(id, this.props.history);
     };
 
     render() {
@@ -59,4 +59,4 @@ const stateToProps = (state) => ({
     errors: state.errors
 });
 
-export default connect(stateToProps, {editProfile})(withRouter(ClientData));
+export default connect(stateToProps, {saveClientId})(withRouter(ClientData));
