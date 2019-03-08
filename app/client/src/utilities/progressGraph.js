@@ -12,7 +12,7 @@ function addGraph(data, position, title) {// set the dimensions and margins of t
     let height = 250 - marginTop - marginBottom;
 
     // parse the {Date / time
-    let parseTime = d3.timeParse("%Y-%d-%mT%H:%M:%S.%L%Z");
+    let parseTime = d3.timeParse("%Y-%m-%dT%H:%M:%S.%L%Z");
 
     // set the ranges
     let x = d3.scaleTime().range([0, width]);
