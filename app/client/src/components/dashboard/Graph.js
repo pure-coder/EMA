@@ -21,20 +21,17 @@ class Graph extends Component {
             });
         }; // sortedMap
 
-        sortedProgressionMap(this.props.graphData).map(element => {
+        console.log(this.props.graphData);
+
+        this.props.graphData.map(element => {
             let progressData = [];
             sortedProgressionMap(element.metrics).map(data => {
                 return progressData.push(data)
             });
             // 1st argument takes array of objects as data to plot graph, 2nd argument takes div as position to display graph, 3rd is title of graph
-            addGraph(progressData, ".progression-data", element.exerciseName);
-            return null;
+            //console.log(progressData)
+            return addGraph(progressData, ".progression-data", element.exerciseName);
         });
-
-        // for(let value in progressCharts){
-        //     console.log(progressCharts[value])
-        //     addGraph(progressCharts[value], ".progression-data");
-        // }
     }
 
     render() {
