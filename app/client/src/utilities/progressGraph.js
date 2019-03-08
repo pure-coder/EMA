@@ -1,7 +1,6 @@
 import * as d3 from "d3";
 
 function addGraph(data, position, title) {// set the dimensions and margins of the graph
-
     // Takes data given in function
     let dataToDraw = data;
 
@@ -116,8 +115,7 @@ function addGraph(data, position, title) {// set the dimensions and margins of t
             .text("Weight (Kg)"); // y-axis label
 
     } // draw
-
-    draw(dataToDraw);
+    return draw(dataToDraw);
 
 } // addGraph
 

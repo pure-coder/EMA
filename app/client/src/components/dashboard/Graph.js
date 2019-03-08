@@ -2,6 +2,7 @@ import {connect} from 'react-redux';
 import React, {Component} from 'react';
 import {addGraph} from "../../utilities/progressGraph";
 import {withRouter} from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 
 class Graph extends Component {
@@ -20,15 +21,19 @@ class Graph extends Component {
             });
         }; // sortedMap
 
-        const progressCharts = this.props.client_progression.map(element => {
+        const progressCharts = this.props.graphData.map(element => {
             let progressData = [];
             sortedProgressionMap(element.metrics).map(data => {
-                return progressData.push(data);
+                return progressData.push(data)
             });
             // 1st argument takes array of objects as data to plot graph, 2nd argument takes div as position to display graph, 3rd is title of graph
-
-            return addGraph(progressData, ".progression-data", element.exerciseName);
+            return progressData;
         });
+
+
+
+
+        addGraph(progressCharts, ".progression-data");
 
         return (
                 <div className="row">
@@ -37,13 +42,17 @@ class Graph extends Component {
                         <div className="Progression">
                             <h2 className=" text-center display-5 mt-3 mb-2">Client progression data</h2>
                             <div className="progression-data">
-                                {progressCharts}
+                                {/*{progressCharts}*/}
                             </div>
                         </div>
                     </div>
                 </div>
         );
     }
+}
+
+Graph.propTypes = {
+    graphData: PropTypes.array.isRequired
 }
 
 const stateToProps = (state) => ({

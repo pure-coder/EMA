@@ -12,6 +12,7 @@ import {
 import isEmpty from '../validation/is_empty';
 
 const initialisedState = {
+    loaded: false
 };
 
 export default function (state = initialisedState, action) {
@@ -64,7 +65,7 @@ export default function (state = initialisedState, action) {
             return {
                 ...state,
                 client_Progression: action.payload
-            }
+            };
         default:
             return state;
     }

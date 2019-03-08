@@ -20,7 +20,6 @@ class ClientList extends Component {
 
     onProfileClick(ptId, id){
         this.props.saveClientId(id, this.props.history);
-        this.props.getClientProgression(ptId, id);
         this.props.history.push(`/users/${ptId}/client_profile/${id}`);
     }
 
