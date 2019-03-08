@@ -14,27 +14,30 @@ class Graph extends Component {
         }
     }
 
-    render() {
+    componentDidMount(){
         const sortedProgressionMap = (data) => {
             return data.sort((obj1, obj2) => {
                 return new Date(obj1.Date) - new Date(obj2.Date);
             });
         }; // sortedMap
 
-        const progressCharts = this.props.graphData.map(element => {
+        sortedProgressionMap(this.props.graphData).map(element => {
             let progressData = [];
             sortedProgressionMap(element.metrics).map(data => {
                 return progressData.push(data)
             });
             // 1st argument takes array of objects as data to plot graph, 2nd argument takes div as position to display graph, 3rd is title of graph
-            return progressData;
+            addGraph(progressData, ".progression-data", element.exerciseName);
+            return null;
         });
 
+        // for(let value in progressCharts){
+        //     console.log(progressCharts[value])
+        //     addGraph(progressCharts[value], ".progression-data");
+        // }
+    }
 
-
-
-        addGraph(progressCharts, ".progression-data");
-
+    render() {
         return (
                 <div className="row">
                     <div className="m-auto col-md-8">
@@ -42,7 +45,7 @@ class Graph extends Component {
                         <div className="Progression">
                             <h2 className=" text-center display-5 mt-3 mb-2">Client progression data</h2>
                             <div className="progression-data">
-                                {/*{progressCharts}*/}
+
                             </div>
                         </div>
                     </div>
