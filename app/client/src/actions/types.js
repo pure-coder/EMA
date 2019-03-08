@@ -7,4 +7,5 @@ export const GET_CLIENT_DATA = 'GET_CLIENT_DATA';
 export const GET_PT_DATA = 'GET_PT_DATA';
 export const SAVE_CLIENT_ID = 'SAVE_CLIENT_ID';
 export const PASSWORD_ERROR = 'PASSWORD_ERROR';
-export const CLIENT_PROGRESSION = 'export const CLIENT_PROGRESSION'
+export const CLIENT_PROGRESSION = 'export const CLIENT_PROGRESSION';
+export const CLEAR_PROGRESSION = 'CLEAR_PROGRESSION';

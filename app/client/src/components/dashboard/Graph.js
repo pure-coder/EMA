@@ -21,8 +21,6 @@ class Graph extends Component {
             });
         }; // sortedMap
 
-        console.log(this.props.graphData);
-
         this.props.graphData.map(element => {
             let progressData = [];
             sortedProgressionMap(element.metrics).map(data => {
@@ -32,7 +30,7 @@ class Graph extends Component {
             //console.log(progressData)
             return addGraph(progressData, ".progression-data", element.exerciseName);
         });
-    }
+    } // cdm
 
     render() {
         return (

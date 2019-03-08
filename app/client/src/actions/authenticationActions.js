@@ -8,7 +8,8 @@ import {
     SAVE_CLIENT_ID,
     LOGGED_OUT,
     PASSWORD_ERROR,
-    CLIENT_PROGRESSION
+    CLIENT_PROGRESSION,
+    CLEAR_PROGRESSION
 } from "./types"; // import custom defined types
 import setAuthorisationToken from '../utilities/setAuthorisationToken';
 import jwtDecode from 'jwt-decode';
@@ -253,7 +254,7 @@ export const passwordsMatchError = (error) => dispatch => {
     )
 };
 
-export const getClientProgression = (userId, clientId) => dispatch => {
+export const getClientProgression = (userId, clientId, history) => dispatch => {
     // userId can either be same as clientId or the id of the personal trainer
     axios.get(`/api/${userId}/client_progression/${clientId}` ) // using grave accent instead of single quote
         .then(result => {
@@ -264,7 +265,7 @@ export const getClientProgression = (userId, clientId) => dispatch => {
                 });
             }
             else{
-                window.location.href = '/error';
+                history.push('/error');
             }
         })
         .catch(err => {
@@ -272,4 +273,9 @@ export const getClientProgression = (userId, clientId) => dispatch => {
         });
 };
 
+export const clearProgression = () => dispatch => {
+    dispatch({
+        type: CLEAR_PROGRESSION
+    });
+}
 

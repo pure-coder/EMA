@@ -2,7 +2,7 @@ import React, {Component} from 'react';  // Used to create this component
 import PropTypes from 'prop-types'; // Used to document prop types sent to components
 import {connect} from 'react-redux' // Needed when using redux inside a component (connects redux to this component)
 import {withRouter} from 'react-router-dom';
-import {getClientProgression} from "../../actions/authenticationActions";
+import {getClientProgression, clearProgression} from "../../actions/authenticationActions";
 //import {addGraph} from '../../utilities/progressGraph'
 import Loading from "../../elements/Loading";
 import Graph from "./Graph";
@@ -31,14 +31,21 @@ class ClientProfile extends Component {
 
         // If direct link used then get client progression data
         if (this.state.loaded === false) {
-            this.props.getClientProgression(this.state.userId, this.state.clientId);
+            this.props.getClientProgression(this.state.userId, this.state.clientId, this.props.history);
             this.setState({loaded: true});
         }
     } // did mount
 
+    componentWillUnmount(){
+        // This got rid of the Date: null bug for now, need to find route cause!!!
+        this.props.clearProgression();
+        this.setState({loaded: false})
+    }
+
     render() {
         let displayContent;
         let client_progression = this.props.authenticatedUser.client_Progression;
+        console.log(this.state.loaded, client_progression);
 
         if (this.state.loaded === false) {
             return <Loading/>
@@ -63,7 +70,8 @@ class ClientProfile extends Component {
 // Documents what props are needed for this component and will log a warning in the console in dev mode if not complied to
 ClientProfile.propTypes = {
     authenticatedUser: PropTypes.object.isRequired,
-    getClientProgression: PropTypes.func.isRequired
+    getClientProgression: PropTypes.func.isRequired,
+    clearProgression: PropTypes.func.isRequired
     //errors: PropTypes.object.isRequired
 };
 
@@ -74,4 +82,4 @@ const stateToProps = (state) => {
     errors: state.errors
 }};
 
-export default connect(stateToProps, {getClientProgression})(withRouter(ClientProfile));
+export default connect(stateToProps, {getClientProgression, clearProgression})(withRouter(ClientProfile));

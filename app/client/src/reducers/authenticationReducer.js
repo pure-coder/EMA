@@ -7,12 +7,12 @@ import {
     GET_PT_DATA,
     SAVE_CLIENT_ID,
     LOGGED_OUT,
-    CLIENT_PROGRESSION
+    CLIENT_PROGRESSION,
+    CLEAR_PROGRESSION
 } from "../actions/types";
 import isEmpty from '../validation/is_empty';
 
 const initialisedState = {
-    loaded: false
 };
 
 export default function (state = initialisedState, action) {
@@ -66,6 +66,11 @@ export default function (state = initialisedState, action) {
                 ...state,
                 client_Progression: action.payload
             };
+        case CLEAR_PROGRESSION:
+            return {
+                ...state,
+                client_Progression: null
+            }
         default:
             return state;
     }
