@@ -157,7 +157,7 @@ router.post('/new_client', passport.authenticate('pt_rule', {session: false}), (
                         now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
 
                         const newClient = new Client({
-                            FullName: req.body.FullName,
+                            FullName: req.body.FullName = capitaliseFirstLetter(req.body.FullName),
                             Email: req.body.Email,
                             ContactNumber: req.body.ContactNumber,
                             Date: now,

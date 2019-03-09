@@ -132,23 +132,6 @@ img {
     height: 100%;
 }
 
-/* Error page */
-
-.ErrorPageNotFound {
-    position: relative;
-    max-width: 2560px;
-    min-height: 490px;
-    max-height: 490px;
-    height: 100%;
-    overflow: hidden;
-}
-
-.ErrorPageNotFound_div {
-    position: relative;
-    top: 100px;
-    bottom: 50%;
-}
-
 /* scheduler */
 
 #scheduler-container {
@@ -215,7 +198,7 @@ img {
 /* dashboard */
 
 .dashboard-custom {
-    min-height: 560px;
+    min-height: 550px;
 }
 
 .dashboard {
@@ -296,13 +279,30 @@ svg {
 
 /* EditClient */
 
-/* error page */
+/* Error page */
 
 .ErrorPageNotFound {
-    min-width: 100%;
-    top: 70px;
-    left: -15px;
+    position: relative;
+    max-width: 2560px;
+    min-height: 475px;
+    max-height: 490px;
+    height: 100%;
+    overflow: hidden;
     text-align: center;
+}
+
+.ErrorPageNotFound_div {
+    position: relative;
+    top: 100px;
+    bottom: 50%;
+}
+
+
+
+
+.error-button {
+    width: 150px;
+    margin: auto;
 }
 
 /* progression Data (graph) */

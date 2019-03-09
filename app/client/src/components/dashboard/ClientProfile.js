@@ -20,6 +20,8 @@ class ClientProfile extends Component {
             loaded: false,
             errors: {}
         };
+        console.log(props.history.location.pathname);
+        console.log(document.referrer);
     }
 
     // Life cycle method for react which will run when this component receives new properties
@@ -45,7 +47,6 @@ class ClientProfile extends Component {
     render() {
         let displayContent;
         let client_progression = this.props.authenticatedUser.client_Progression;
-        console.log(this.state.loaded, client_progression);
 
         if (this.state.loaded === false) {
             return <Loading/>
