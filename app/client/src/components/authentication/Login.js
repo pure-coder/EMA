@@ -1,8 +1,8 @@
 import React, {Component} from 'react';  // Used to create this component
 import PropTypes from 'prop-types'; // Used to document prop types sent to components
-import { connect } from 'react-redux' // Needed when using redux inside a component (connects redux to this component)
-import { loginUser} from "../../actions/authenticationActions"; // Used to import create action for registering user
-import { withRouter, Redirect } from 'react-router-dom'; // Allows proper routing and linking using browsers match, location, and history properties
+import {connect} from 'react-redux' // Needed when using redux inside a component (connects redux to this component)
+import {loginUser} from "../../actions/authenticationActions"; // Used to import create action for registering user
+import {withRouter, Redirect} from 'react-router-dom'; // Allows proper routing and linking using browsers match, location, and history properties
 import FormInputGroup from '../common/FormInputGroup';
 
 
@@ -26,14 +26,14 @@ class Login extends Component {
     componentWillReceiveProps(nextProps) {
 
         // Check if isAuthenticated is true then redirect to the dashboard
-        if(nextProps.authenticatedUser.isAuthenticated){
+        if (nextProps.authenticatedUser.isAuthenticated) {
             this.props.history.push('/users/' + nextProps.authenticatedUser.user.id + '/dashboard');
         }
 
         // If property (nextProps) contains errors (contains the "errors" prop) then set the component state of errors
         // defined in the constructor above to the errors that was sent to it via the dispatch call from
         // authenicationActions.js
-        if(nextProps.errors){
+        if (nextProps.errors) {
             this.setState({errors: nextProps.errors})
         }
     }
@@ -45,7 +45,7 @@ class Login extends Component {
         this.setState({[event.target.name]: event.target.value})
     }
 
-    onSubmit(event){
+    onSubmit(event) {
         event.preventDefault();
 
         const user = {
@@ -63,40 +63,40 @@ class Login extends Component {
         const {errors} = this.state; // This allows errors to be pulled out of this.state with pulling them out directly
 
         if (this.props.authenticatedUser.isAuthenticated === true) {
-            return <Redirect to={{pathname: '/users/' + this.props.authenticatedUser.user.id + '/dashboard', state: {from: this.props.location}}}/>
+            return <Redirect to={{
+                pathname: '/users/' + this.props.authenticatedUser.user.id + '/dashboard',
+                state: {from: this.props.location}
+            }}/>
         }
 
         return (
-            <div className="login">
-                <div className="container  login-custom">
-                    <div className="row">
-                        <div className="col-md-8 m-auto">
-                            <h1 className="text-center display-5">Log In</h1>
-                            <p className="description text-center">Sign into Fitness App account</p>
-                            <form onSubmit={this.onSubmit}>  {/* onSubmit used instead of normal action*/}
-                                <FormInputGroup
-                                    name="Email"
-                                    placeholder="Email Address"
-                                    value={this.state.Email}
-                                    type="Email"
-                                    onChange={this.onChange}
-                                    error={errors.Email}
-                                />
-                                <FormInputGroup
-                                    name="Password"
-                                    placeholder="Enter Password"
-                                    value={this.state.password}
-                                    type="Password"
-                                    onChange={this.onChange}
-                                    error={errors.Password}
-                                />
-                                <input type="submit" className="btn btn-info btn-block mt-5"/>
-                            </form>
-                        </div>
+            <div className="container  login-custom">
+                <div className="row">
+                    <div className="col-md-8 m-auto">
+                        <h1 className="text-center display-5">Log In</h1>
+                        <p className="description text-center">Sign into Fitness App account</p>
+                        <form onSubmit={this.onSubmit}>  {/* onSubmit used instead of normal action*/}
+                            <FormInputGroup
+                                name="Email"
+                                placeholder="Email Address"
+                                value={this.state.Email}
+                                type="Email"
+                                onChange={this.onChange}
+                                error={errors.Email}
+                            />
+                            <FormInputGroup
+                                name="Password"
+                                placeholder="Enter Password"
+                                value={this.state.password}
+                                type="Password"
+                                onChange={this.onChange}
+                                error={errors.Password}
+                            />
+                            <input type="submit" className="btn btn-info btn-block mt-5"/>
+                        </form>
                     </div>
                 </div>
             </div>
-
         );
     }
 }
@@ -117,4 +117,4 @@ const stateToProps = (state) => ({
 // connect must be exported with a passed parameter (not direct parameter) of Login this is wrapped with withRouter
 // allowing the functions of the package to be used with the component eg, proper routing, and direct parameters of
 // stateToProps for the 1st parameter and the action which is registerUser as the 2nd parameter
-export default connect(stateToProps, { loginUser })(withRouter(Login));
+export default connect(stateToProps, {loginUser})(withRouter(Login));

@@ -80,7 +80,7 @@ img {
         background-size: 550px;
         max-width: 2560px;
         margin-top: -50px;
-        max-height: 515px;
+        min-height: 475px;
     }
 
     .landing_div {
@@ -106,10 +106,10 @@ img {
     /*position: relative;*/
     background-size: 100% 100vh;
     background-position: center;
-    height: 100vh;
     margin-top: -48px;
     margin-bottom: -50px;
     max-width: 2560px;
+    height: 581px;
 }
 
 .landing_div {
@@ -121,15 +121,15 @@ img {
 /* Register */
 
 .register-custom {
-    min-height: 550px;
+    min-height: 500px;
     height: 100%;
 }
 
 /* login */
 
 .login-custom {
-    min-height: 560px;
-    height: 100%;
+    min-height: 484px;
+    height: 484px;
 }
 
 /* scheduler */
@@ -284,7 +284,7 @@ svg {
 .ErrorPageNotFound {
     position: relative;
     max-width: 2560px;
-    min-height: 475px;
+    min-height: 484px;
     max-height: 490px;
     height: 100%;
     overflow: hidden;
