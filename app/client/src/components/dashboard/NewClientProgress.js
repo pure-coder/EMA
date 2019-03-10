@@ -33,6 +33,7 @@ class NewClientProgress extends Component {
     }
 
     onChange(e) {
+        console.log(e.target.value)
         this.setState({[e.target.name]: e.target.value});
     }
 
@@ -55,11 +56,13 @@ class NewClientProgress extends Component {
 
         let {errors} = this.state;
 
+
+
         return (
             <div className="newClientProgress">
                 <form onSubmit={this.onSubmit}>
                     <FormInputGroup
-                        name="ExerciseName"
+                        name="exerciseName"
                         PlaceHolder="Exercise Name"
                         value={this.state.exerciseName}
                         type="text"
