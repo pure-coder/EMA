@@ -277,5 +277,9 @@ export const clearProgression = () => dispatch => {
     dispatch({
         type: CLEAR_PROGRESSION
     });
+};
+
+export const newClientProgression = (id, cid ,data) => dispatch => {
+    axios.post(`/api/${id}/client_progression/${cid}`, data)
 }
 

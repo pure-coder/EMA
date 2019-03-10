@@ -6,6 +6,7 @@ import {getClientProgression, clearProgression} from "../../actions/authenticati
 //import {addGraph} from '../../utilities/progressGraph'
 import Loading from "../../elements/Loading";
 import Graph from "./Graph";
+import NewClientProgress from "./NewClientProgress";
 
 // import FormInputGroup from "../common/FormInputGroup"; // Allows proper routing and linking using browsers match, location, and history properties
 
@@ -20,8 +21,6 @@ class ClientProfile extends Component {
             loaded: false,
             errors: {}
         };
-        console.log(props.history.location.pathname);
-        console.log(document.referrer);
     }
 
     // Life cycle method for react which will run when this component receives new properties
@@ -58,6 +57,10 @@ class ClientProfile extends Component {
                 <Graph graphData={client_progression}/>
             )
         } // if client_progression is not undefined
+
+        if(false){
+            return <NewClientProgress/>
+        }
 
         return (
             <div className="container  dashboard-custom">
