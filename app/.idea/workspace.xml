@@ -5,9 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ec8ccf39-8487-4892-a38d-de9c288878a3" name="Default" comment="delete client from pt array - using pull">
-      <change beforePath="$PROJECT_DIR$/client/src/actions/authenticationActions.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/actions/authenticationActions.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/actions/types.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/actions/types.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/dashboard/ClientProfile.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/dashboard/ClientProfile.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/dashboard/NewClientProgress.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/dashboard/NewClientProgress.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -48,7 +45,7 @@
           <entry key="css" value="3871" />
           <entry key="editorConfig" value="285" />
           <entry key="html" value="1072" />
-          <entry key="js" value="90978" />
+          <entry key="js" value="91234" />
           <entry key="json" value="26" />
           <entry key="md" value="150" />
           <entry key="txt" value="120" />
@@ -59,7 +56,7 @@
           <entry key="CSS" value="3871" />
           <entry key="HTML" value="1072" />
           <entry key="JSON" value="26" />
-          <entry key="JavaScript" value="90978" />
+          <entry key="JavaScript" value="91234" />
           <entry key="PLAIN_TEXT" value="555" />
         </counts>
       </usages-collector>
@@ -119,8 +116,11 @@
           <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/client/src/components/authentication/Register.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="-224">
-                  <caret line="41" column="5" lean-forward="true" selection-start-line="41" selection-start-column="5" selection-end-line="41" selection-end-column="5" />
+                <state relative-caret-position="68">
+                  <caret line="27" column="4" selection-start-line="27" selection-start-column="4" selection-end-line="34" selection-end-column="5" />
+                  <folding>
+                    <element signature="e#402#458#0" expanded="true" />
+                  </folding>
                 </state>
               </provider>
             </entry>
@@ -154,8 +154,8 @@
           <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/NewClientProgress.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="68">
-                  <caret line="50" column="33" lean-forward="true" selection-start-line="50" selection-start-column="33" selection-end-line="50" selection-end-column="33" />
+                <state relative-caret-position="231">
+                  <caret line="87" column="10" lean-forward="true" selection-start-line="87" selection-start-column="10" selection-end-line="87" selection-end-column="10" />
                   <folding>
                     <element signature="e#109#153#0" expanded="true" />
                   </folding>
@@ -484,7 +484,7 @@
       <workItem from="1549386832105" duration="138225000" />
       <workItem from="1550396514850" duration="599000" />
       <workItem from="1550910770209" duration="56984000" />
-      <workItem from="1551774400661" duration="103553000" />
+      <workItem from="1551774400661" duration="104134000" />
     </task>
     <task id="LOCAL-00001" summary="min height changed for developed pages">
       <created>1534874964132</created>
@@ -532,7 +532,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="868935000" />
+    <option name="totallyTimeSpent" value="869516000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -947,15 +947,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/client/src/components/authentication/Register.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-224">
-          <caret line="41" column="5" lean-forward="true" selection-start-line="41" selection-start-column="5" selection-end-line="41" selection-end-column="5" />
+        <state relative-caret-position="68">
+          <caret line="27" column="4" selection-start-line="27" selection-start-column="4" selection-end-line="34" selection-end-column="5" />
+          <folding>
+            <element signature="e#402#458#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/NewClientProgress.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="50" column="33" lean-forward="true" selection-start-line="50" selection-start-column="33" selection-end-line="50" selection-end-column="33" />
+        <state relative-caret-position="231">
+          <caret line="87" column="10" lean-forward="true" selection-start-line="87" selection-start-column="10" selection-end-line="87" selection-end-column="10" />
           <folding>
             <element signature="e#109#153#0" expanded="true" />
           </folding>

@@ -6,15 +6,14 @@ import {newClientProgression} from "../../actions/authenticationActions";
 import FormInputGroup from "../common/FormInputGroup";
 
 
-
 class NewClientProgress extends Component {
-    constructor(props){
+    constructor(props) {
         super(props);
         this.state = {
             userId: '',
             clientId: '',
             exerciseName: '',
-            metrics : {
+            metrics: {
                 maxWeight: '',
                 Date: '',
             },
@@ -27,40 +26,65 @@ class NewClientProgress extends Component {
 
     } // constructor
 
-    onChange(e){
-        this.setState({[e.target.name] : e.target.value});
+    componentWillReceiveProps(nextProps) {
+        if(nextProps.errors){
+            this.setState({errors: nextProps.errors})
+        }
     }
 
-    onSubmit(e){
+    onChange(e) {
+        this.setState({[e.target.name]: e.target.value});
+    }
+
+    onSubmit(e) {
         e.preventDefault();
 
         const clientProgressData = {
             exerciseName: this.state.exerciseName,
-            metrics : {
+            metrics: {
                 maxWeight: this.state.metrics.maxWeight,
                 Date: this.state.metrics.Date
             }
         };
 
-        this.props.newClientProgress(this.state.userId, this.state.clientId ,clientProgressData);
+        this.props.newClientProgress(this.state.userId, this.state.clientId, clientProgressData);
 
     } // onSubmit
 
-    render(){
+    render() {
 
         let {errors} = this.state;
 
         return (
-            <form onSubmit={this.onSubmit}>
-                <FormInputGroup
-                    name="ExerciseName"
-                    PlaceHolder="ExerciseName"
-                    value={this.state.exerciseName}
-                    type="text"
-                    onChange={this.onChange}
-                    error={errors.exerciseName}
-                />
-            </form>
+            <div className="newClientProgress">
+                <form onSubmit={this.onSubmit}>
+                    <FormInputGroup
+                        name="ExerciseName"
+                        PlaceHolder="ExerciseName"
+                        value={this.state.exerciseName}
+                        type="text"
+                        onChange={this.onChange}
+                        error={errors.exerciseName}
+                    />
+                    <FormInputGroup
+                        name="maxWeight"
+                        PlaceHolder="MaxWeight"
+                        value={this.state.metrics.maxWeight}
+                        type="text"
+                        onChange={this.onChange}
+                        error={errors.maxWeight}
+                    />
+                    <FormInputGroup
+                        name="Date"
+                        PlaceHolder="Date"
+                        value={this.state.metrics.Date}
+                        type="Date"
+                        onChange={this.onChange}
+                        error={errors.Date}
+                    />
+                    <input type="submit" className="btn btn-info btn-block mt-5 mb-5"/>
+                </form>
+            </div>
         );
 
     }; // render
@@ -70,5 +94,11 @@ NewClientProgress.propTypes = {
     newClientProgress: PropTypes.func.isRequired
 };
 
+const stateToProps = (state) => ({
+    authenticatedUser: state.authenticatedUser,
+    errors: state.errors
 
-export default connect(null, {newClientProgression})(withRouter(NewClientProgress));
+});
+
+
+export default connect(stateToProps, {newClientProgression})(withRouter(NewClientProgress));
