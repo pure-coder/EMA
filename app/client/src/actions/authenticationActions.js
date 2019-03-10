@@ -9,7 +9,7 @@ import {
     LOGGED_OUT,
     PASSWORD_ERROR,
     CLIENT_PROGRESSION,
-    CLEAR_PROGRESSION
+    CLEAR_PROGRESSION, NEW_PROGRESS_DATA
 } from "./types"; // import custom defined types
 import setAuthorisationToken from '../utilities/setAuthorisationToken';
 import jwtDecode from 'jwt-decode';
@@ -279,7 +279,19 @@ export const clearProgression = () => dispatch => {
     });
 };
 
-export const newClientProgression = (id, cid ,data) => dispatch => {
+export const newClientProgress = (id, cid ,data) => dispatch => {
     axios.post(`/api/${id}/client_progression/${cid}`, data)
+        .then(result => {
+            dispatch({
+                type: NEW_PROGRESS_DATA,
+                payload: result.data
+            })
+        })
+        .catch(err => {
+            dispatch({
+                type: GET_ERRS,
+                payload: err.response.data
+            })
+        })
 }
 

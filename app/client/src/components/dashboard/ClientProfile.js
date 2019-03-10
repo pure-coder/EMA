@@ -65,6 +65,7 @@ class ClientProfile extends Component {
         return (
             <div className="container  dashboard-custom">
                 {displayContent}
+                <NewClientProgress/>
             </div>
         );
 

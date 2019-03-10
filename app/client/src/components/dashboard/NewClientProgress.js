@@ -2,7 +2,7 @@ import React, {Component} from 'react' // React is need for rendering JSX HTML e
 import {withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
-import {newClientProgression} from "../../actions/authenticationActions";
+import {newClientProgress} from "../../actions/authenticationActions";
 import FormInputGroup from "../common/FormInputGroup";
 
 
@@ -60,7 +60,7 @@ class NewClientProgress extends Component {
                 <form onSubmit={this.onSubmit}>
                     <FormInputGroup
                         name="ExerciseName"
-                        PlaceHolder="ExerciseName"
+                        PlaceHolder="Exercise Name"
                         value={this.state.exerciseName}
                         type="text"
                         onChange={this.onChange}
@@ -68,7 +68,7 @@ class NewClientProgress extends Component {
                     />
                     <FormInputGroup
                         name="maxWeight"
-                        PlaceHolder="MaxWeight"
+                        PlaceHolder="Max Weight"
                         value={this.state.metrics.maxWeight}
                         type="text"
                         onChange={this.onChange}
@@ -91,7 +91,9 @@ class NewClientProgress extends Component {
 }
 
 NewClientProgress.propTypes = {
-    newClientProgress: PropTypes.func.isRequired
+    newClientProgress: PropTypes.func.isRequired,
+    authenticatedUser: PropTypes.object.isRequired,
+    errors: PropTypes.object.isRequired
 };
 
 const stateToProps = (state) => ({
@@ -101,4 +103,4 @@ const stateToProps = (state) => ({
 });
 
 
-export default connect(stateToProps, {newClientProgression})(withRouter(NewClientProgress));
+export default connect(stateToProps, {newClientProgress})(withRouter(NewClientProgress));
