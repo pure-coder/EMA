@@ -64,7 +64,6 @@ class Register extends Component {
 
         // Check if isAuthenticated is true then redirect to the dashboard
         if (this.props.authenticatedUser.isAuthenticated === true) {
-            console.log("component mounted")
             return <Redirect to={{pathname: '/users/' + this.props.authenticatedUser.user.id + '/dashboard', state: {from: this.props.location}}}/>
         }
 
