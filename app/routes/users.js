@@ -817,27 +817,27 @@ router.post('/:id/client_progression/:cid', passport.authenticate('pt_rule', {se
 
     // Verify that client exists and that personal trainer id is linked to client
     Client.findOne({_id: clientId})
-        .then(result => {
+        .then(resultClient => {
             // If client is found
-            if (result) {
+            if (resultClient) {
 
                 // Check to see if ptId is allowed
-                if (result.ptId === ptId) {
+                if (resultClient.ptId === ptId) {
 
                     // Check to see if a client progression document exists (then = does already exist so update, catch = doesn't exist so create one)
                     ClientProgression.findOne({$and: [{clientId: clientId}, {exerciseName: data.exerciseName}]})
                         .then(result => {
                             if (result) {
                                 // Client progress exists for exercise so insert new metrics for document (update), but only if metrics for date are new.
-
+                                //console.log(result);
                                 // Create newMetrics object which is populated with metrics sent by user, and push into document if not already present!
                                 let newMetrics = {
                                     maxWeight: data.metrics.maxWeight,
-                                    Date: data.metrics.Date
-                                    // (EDIT - moved conversion to client component)Had to convert time into same format used by the database ie from '01-08-2019' to '2019-01-06T00:00:00.000Z'
+                                    Date: new Date(data.metrics.Date)
+                                    // Had to convert time into same format used by the database ie from '01-08-2019' to '2019-01-06T00:00:00.000Z'
+                                    // It is also used with getTime() below for comparison of duplicates
 
                                 }
-
                                 // Array of current metrics in document
                                 let documentMetrics = result.metrics;
 
@@ -890,17 +890,18 @@ router.post('/:id/client_progression/:cid', passport.authenticate('pt_rule', {se
                             }
                         })
                         .catch(err => {
-                            return res.json(err)
+                            console.log(err)
+                            return res.status(400).json(err)
                         });
 
                 }
                 else {
-                    return res.json({err: "Personal Trainer not authorised to access Progression"});
+                    return res.status(400).json({err: "Personal Trainer not authorised to access Progression"});
                 }
             }
         })
-        .catch(err => {
-            return res.json({err: "Client not found!"})
+        .catch(() => {
+            return res.status(400).json({err: "Client not found!"})
         }); // Client.findOne()
 
 }); // router post /client_progression
