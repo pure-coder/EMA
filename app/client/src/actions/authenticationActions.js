@@ -9,7 +9,7 @@ import {
     LOGGED_OUT,
     PASSWORD_ERROR,
     CLIENT_PROGRESSION,
-    CLEAR_PROGRESSION, NEW_PROGRESS_DATA
+    CLEAR_PROGRESSION,
 } from "./types"; // import custom defined types
 import setAuthorisationToken from '../utilities/setAuthorisationToken';
 import jwtDecode from 'jwt-decode';
@@ -282,11 +282,6 @@ export const clearProgression = () => dispatch => {
 export const newClientProgress = (id, cid ,data) => dispatch => {
     axios.post(`/api/${id}/client_progression/${cid}`, data)
         .then(result => {
-            console.log(result)
-            dispatch({
-                type: GET_ERRS,
-                payload: result.data.err
-            })
         })
         .catch(err => {
             console.log(err)
