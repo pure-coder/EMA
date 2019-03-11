@@ -58,9 +58,6 @@ class ClientProfile extends Component {
             )
         } // if client_progression is not undefined
 
-        if(false){
-            return <NewClientProgress/>
-        }
 
         return (
             <div className="container  dashboard-custom">

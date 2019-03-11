@@ -13,10 +13,8 @@ class NewClientProgress extends Component {
             userId: '',
             clientId: '',
             exerciseName: '',
-            metrics: {
-                maxWeight: '',
-                Date: '',
-            },
+            maxWeight: '',
+            Date: '',
             errors: {}
         };
 
@@ -33,7 +31,6 @@ class NewClientProgress extends Component {
     }
 
     onChange(e) {
-        console.log(e.target.value)
         this.setState({[e.target.name]: e.target.value});
     }
 
@@ -43,8 +40,8 @@ class NewClientProgress extends Component {
         const clientProgressData = {
             exerciseName: this.state.exerciseName,
             metrics: {
-                maxWeight: this.state.metrics.maxWeight,
-                Date: this.state.metrics.Date
+                maxWeight: this.state.maxWeight,
+                Date: this.state.Date
             }
         };
 
@@ -72,7 +69,7 @@ class NewClientProgress extends Component {
                     <FormInputGroup
                         name="maxWeight"
                         PlaceHolder="Max Weight"
-                        value={this.state.metrics.maxWeight}
+                        value={this.state.maxWeight}
                         type="text"
                         onChange={this.onChange}
                         error={errors.maxWeight}
@@ -80,7 +77,7 @@ class NewClientProgress extends Component {
                     <FormInputGroup
                         name="Date"
                         PlaceHolder="Date"
-                        value={this.state.metrics.Date}
+                        value={this.state.Date}
                         type="Date"
                         onChange={this.onChange}
                         error={errors.Date}
