@@ -7,6 +7,7 @@ import {getClientProgression, clearProgression} from "../../actions/authenticati
 import Loading from "../../elements/Loading";
 import Graph from "./Graph";
 import NewClientProgress from "./NewClientProgress";
+import Modal from 'react-awesome-modal';
 
 // import FormInputGroup from "../common/FormInputGroup"; // Allows proper routing and linking using browsers match, location, and history properties
 
@@ -19,6 +20,7 @@ class ClientProfile extends Component {
             // If user is pt then get clientId from otherwise user is client, so use user.id
             clientId: props.authenticatedUser.clientId !== undefined ? props.authenticatedUser.clientId : props.match.params.Cid,
             loaded: false,
+            visable: false, // For modal
             errors: {}
         };
     }
@@ -43,6 +45,18 @@ class ClientProfile extends Component {
         this.setState({loaded: false})
     }
 
+    openModal() {
+        this.setState({
+            visible : true
+        });
+    }
+
+    closeModal() {
+        this.setState({
+            visible : false
+        });
+    }
+
     render() {
         let displayContent;
         let client_progression = this.props.authenticatedUser.client_Progression;
@@ -54,7 +68,14 @@ class ClientProfile extends Component {
         // Check to see that client_progression is not undefined or the return data for client_progression is not empty
         if (client_progression) {
             displayContent = (
+
                 <Graph graphData={client_progression}/>
+               return  <input type="button" className="btn btn-info btn-block mt-5 mb-5" value="Add Progress" onClick={() => this.openModal()} />
+              <Modal visible={this.state.visible} width="500" height="450" effect="fadeInUp" onClickAway={() => this.closeModal()}>
+                    <div>
+                        <NewClientProgress/>
+                    </div>
+                </Modal>
             )
         } // if client_progression is not undefined
 
@@ -62,7 +83,6 @@ class ClientProfile extends Component {
         return (
             <div className="container  dashboard-custom">
                 {displayContent}
-                <NewClientProgress/>
             </div>
         );
 
