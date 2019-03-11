@@ -282,12 +282,14 @@ export const clearProgression = () => dispatch => {
 export const newClientProgress = (id, cid ,data) => dispatch => {
     axios.post(`/api/${id}/client_progression/${cid}`, data)
         .then(result => {
+            console.log(result)
             dispatch({
-                type: NEW_PROGRESS_DATA,
-                payload: result.data
+                type: GET_ERRS,
+                payload: result.data.err
             })
         })
         .catch(err => {
+            console.log(err)
             dispatch({
                 type: GET_ERRS,
                 payload: err.response.data

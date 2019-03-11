@@ -801,6 +801,8 @@ router.put('/edit_personal_trainer/:id', passport.authenticate('pt_rule', {sessi
 router.post('/:id/client_progression/:cid', passport.authenticate('pt_rule', {session: false}), (req, res) => {
     let data = req.body;
 
+    const {errors, isValid} = validateEditClientInput(data);
+
     // Get clientId from frontEnd
     let ptId = req.params.id;
     let clientId = req.params.cid;
@@ -822,8 +824,8 @@ router.post('/:id/client_progression/:cid', passport.authenticate('pt_rule', {se
 
                                 // Create newMetrics object which is populated with metrics sent by user, and push into document if not already present!
                                 let newMetrics = {
-                                    maxWeight: data.maxWeight,
-                                    Date: new Date(data.Date) // Had to convert time into same format used by the database ie from '01-08-2019' to '2019-01-06T00:00:00.000Z'
+                                    maxWeight: data.metrics.maxWeight,
+                                    Date: new Date(data.metrics.Date) // Had to convert time into same format used by the database ie from '01-08-2019' to '2019-01-06T00:00:00.000Z'
 
                                 }
 
@@ -851,7 +853,7 @@ router.post('/:id/client_progression/:cid', passport.authenticate('pt_rule', {se
                                         });
                                 }
                                 else {
-                                    return res.json({err: "Date duplication found for exercise!"})
+                                    return res.status(400).json({Date: "Date duplication found for exercise!"})
                                 }
 
                             }

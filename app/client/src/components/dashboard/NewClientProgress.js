@@ -10,8 +10,8 @@ class NewClientProgress extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            userId: '',
-            clientId: '',
+            userId: props.authenticatedUser.user.id,
+            clientId: props.match.params.Cid,
             exerciseName: '',
             maxWeight: '',
             Date: '',
@@ -21,7 +21,6 @@ class NewClientProgress extends Component {
         this.onChange = this.onChange.bind(this);
 
         this.onSubmit = this.onSubmit.bind(this);
-
     } // constructor
 
     componentWillReceiveProps(nextProps) {
