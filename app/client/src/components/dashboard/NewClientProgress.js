@@ -55,6 +55,9 @@ class NewClientProgress extends Component {
         return (
             <div className="newClientProgress">
                 <form onSubmit={this.onSubmit}>
+                    <label className="control-label form-control-lg edit-profile-label">
+                        Exercise:
+                    </label>
                     <FormInputGroup
                         name="exerciseName"
                         PlaceHolder="Exercise Name"
@@ -63,6 +66,9 @@ class NewClientProgress extends Component {
                         onChange={this.onChange}
                         error={errors.exerciseName}
                     />
+                    <label className="control-label form-control-lg edit-profile-label">
+                        One Rep Max Weight (Kg):
+                    </label>
                     <FormInputGroup
                         name="maxWeight"
                         PlaceHolder="Max Weight"
@@ -71,6 +77,9 @@ class NewClientProgress extends Component {
                         onChange={this.onChange}
                         error={errors.maxWeight}
                     />
+                    <label className="control-label form-control-lg edit-profile-label">
+                        Date:
+                    </label>
                     <FormInputGroup
                         name="Date"
                         PlaceHolder="Date"

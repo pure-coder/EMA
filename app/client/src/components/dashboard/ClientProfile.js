@@ -73,8 +73,8 @@ class ClientProfile extends Component {
 ClientProfile.propTypes = {
     authenticatedUser: PropTypes.object.isRequired,
     getClientProgression: PropTypes.func.isRequired,
-    clearProgression: PropTypes.func.isRequired
-    //errors: PropTypes.object.isRequired
+    clearProgression: PropTypes.func.isRequired,
+    errors: PropTypes.object.isRequired
 };
 
 // Used to pull auth state and errors into this component
