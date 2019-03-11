@@ -22,6 +22,9 @@ const validateEditClientInput = require('../validation/editClient');
 // Require Input validation for logging in PT or Client
 const validateLoginInput = require('../validation/Login');
 
+// Require Input validation for new progress data for client
+const validateNewProgressInput = require('../validation/newProgress');
+
 // Require isEmpty function
 const isEmpty = require('../validation/is_empty');
 
@@ -801,7 +804,12 @@ router.put('/edit_personal_trainer/:id', passport.authenticate('pt_rule', {sessi
 router.post('/:id/client_progression/:cid', passport.authenticate('pt_rule', {session: false}), (req, res) => {
     let data = req.body;
 
-    const {errors, isValid} = validateEditClientInput(data);
+    // Check to make sure exerciseName is string and that maxWeight is number 0-999
+    const {errors, isValid} = validateNewProgressInput(data);
+
+    if (!isValid) {
+        return res.status(400).json(errors);
+    }
 
     // Get clientId from frontEnd
     let ptId = req.params.id;
@@ -825,7 +833,8 @@ router.post('/:id/client_progression/:cid', passport.authenticate('pt_rule', {se
                                 // Create newMetrics object which is populated with metrics sent by user, and push into document if not already present!
                                 let newMetrics = {
                                     maxWeight: data.metrics.maxWeight,
-                                    Date: new Date(data.metrics.Date) // Had to convert time into same format used by the database ie from '01-08-2019' to '2019-01-06T00:00:00.000Z'
+                                    Date: data.metrics.Date
+                                    // (EDIT - moved conversion to client component)Had to convert time into same format used by the database ie from '01-08-2019' to '2019-01-06T00:00:00.000Z'
 
                                 }
 
@@ -849,7 +858,7 @@ router.post('/:id/client_progression/:cid', passport.authenticate('pt_rule', {se
                                             return res.json(update);
                                         })
                                         .catch(err => {
-                                            return res.json(err);
+                                            return res.status(400).json(err);
                                         });
                                 }
                                 else {

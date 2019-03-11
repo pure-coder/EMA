@@ -284,7 +284,6 @@ export const newClientProgress = (id, cid ,data) => dispatch => {
         .then(result => {
         })
         .catch(err => {
-            console.log(err)
             dispatch({
                 type: GET_ERRS,
                 payload: err.response.data

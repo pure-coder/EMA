@@ -40,7 +40,7 @@ class NewClientProgress extends Component {
             exerciseName: this.state.exerciseName,
             metrics: {
                 maxWeight: this.state.maxWeight,
-                Date: this.state.Date
+                Date: new Date(this.state.Date)
             }
         };
 
