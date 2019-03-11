@@ -52,8 +52,6 @@ class NewClientProgress extends Component {
 
         let {errors} = this.state;
 
-
-
         return (
             <div className="newClientProgress">
                 <form onSubmit={this.onSubmit}>

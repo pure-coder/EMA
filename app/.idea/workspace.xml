@@ -5,8 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ec8ccf39-8487-4892-a38d-de9c288878a3" name="Default" comment="delete client from pt array - using pull">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/users.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/users.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/actions/authenticationActions.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/actions/authenticationActions.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/dashboard/NewClientProgress.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/dashboard/NewClientProgress.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -46,7 +46,7 @@
           <entry key="css" value="3871" />
           <entry key="editorConfig" value="285" />
           <entry key="html" value="1072" />
-          <entry key="js" value="92775" />
+          <entry key="js" value="92904" />
           <entry key="json" value="26" />
           <entry key="md" value="150" />
           <entry key="txt" value="120" />
@@ -57,7 +57,7 @@
           <entry key="CSS" value="3871" />
           <entry key="HTML" value="1072" />
           <entry key="JSON" value="26" />
-          <entry key="JavaScript" value="92775" />
+          <entry key="JavaScript" value="92904" />
           <entry key="PLAIN_TEXT" value="555" />
         </counts>
       </usages-collector>
@@ -103,7 +103,7 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/routes/users.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="61">
@@ -136,8 +136,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/NewClientProgress.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="36" column="27" lean-forward="true" selection-start-line="36" selection-start-column="27" selection-end-line="36" selection-end-column="27" />
+            <state relative-caret-position="629">
+              <caret line="52" column="34" selection-start-line="52" selection-start-column="34" selection-end-line="52" selection-end-column="34" />
               <folding>
                 <element signature="e#109#153#0" expanded="true" />
               </folding>
@@ -158,11 +158,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/client/src/actions/authenticationActions.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="135">
-              <caret line="285" column="23" lean-forward="true" selection-start-line="285" selection-start-column="23" selection-end-line="285" selection-end-column="23" />
+            <state relative-caret-position="186">
+              <caret line="288" column="31" selection-start-line="288" selection-start-column="31" selection-end-line="288" selection-end-column="31" />
               <folding>
                 <element signature="e#0#26#0" expanded="true" />
               </folding>
@@ -280,10 +280,10 @@
         <option value="$PROJECT_DIR$/client/src/components/authentication/Register.js" />
         <option value="$PROJECT_DIR$/client/src/components/dashboard/ClientProfile.js" />
         <option value="$PROJECT_DIR$/client/src/actions/types.js" />
-        <option value="$PROJECT_DIR$/client/src/actions/authenticationActions.js" />
-        <option value="$PROJECT_DIR$/client/src/components/dashboard/NewClientProgress.js" />
         <option value="$PROJECT_DIR$/validation/newProgress.js" />
         <option value="$PROJECT_DIR$/routes/users.js" />
+        <option value="$PROJECT_DIR$/client/src/components/dashboard/NewClientProgress.js" />
+        <option value="$PROJECT_DIR$/client/src/actions/authenticationActions.js" />
       </list>
     </option>
   </component>
@@ -465,7 +465,7 @@
       <workItem from="1549386832105" duration="138225000" />
       <workItem from="1550396514850" duration="599000" />
       <workItem from="1550910770209" duration="56984000" />
-      <workItem from="1551774400661" duration="114694000" />
+      <workItem from="1551774400661" duration="116184000" />
     </task>
     <task id="LOCAL-00001" summary="min height changed for developed pages">
       <created>1534874964132</created>
@@ -513,7 +513,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="880076000" />
+    <option name="totallyTimeSpent" value="881566000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -912,26 +912,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/actions/authenticationActions.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="285" column="23" lean-forward="true" selection-start-line="285" selection-start-column="23" selection-end-line="285" selection-end-column="23" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/NewClientProgress.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="36" column="27" lean-forward="true" selection-start-line="36" selection-start-column="27" selection-end-line="36" selection-end-column="27" />
-          <folding>
-            <element signature="e#109#153#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/validation/newProgress.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="299">
@@ -943,6 +923,26 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="61">
           <caret line="835" column="69" selection-start-line="835" selection-start-column="69" selection-end-line="835" selection-end-column="69" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/NewClientProgress.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="629">
+          <caret line="52" column="34" selection-start-line="52" selection-start-column="34" selection-end-line="52" selection-end-column="34" />
+          <folding>
+            <element signature="e#109#153#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/actions/authenticationActions.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="186">
+          <caret line="288" column="31" selection-start-line="288" selection-start-column="31" selection-end-line="288" selection-end-column="31" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
