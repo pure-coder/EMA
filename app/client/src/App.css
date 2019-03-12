@@ -322,5 +322,17 @@ svg {
     fill: lightsteelblue;
 }
 
+/* Enter progress Modal */
+
+.newClientProgress {
+    width: 450px;
+    height: 550px;
+    margin: auto;
+}
+
+.newClientProgress .form-group {
+    height: 45px;
+    margin-bottom: 25px;
+}
 
 
