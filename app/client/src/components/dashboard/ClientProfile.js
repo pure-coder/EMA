@@ -20,9 +20,11 @@ class ClientProfile extends Component {
             // If user is pt then get clientId from otherwise user is client, so use user.id
             clientId: props.authenticatedUser.clientId !== undefined ? props.authenticatedUser.clientId : props.match.params.Cid,
             loaded: false,
-            visable: false, // For modal
+            visible: false, // For modal
             errors: {}
         };
+
+        this.onClickAway = this.onClickAway.bind(this)
     }
 
     // Life cycle method for react which will run when this component receives new properties
@@ -51,7 +53,7 @@ class ClientProfile extends Component {
         });
     }
 
-    closeModal() {
+    onClickAway() {
         this.setState({
             visible : false
         });
@@ -79,9 +81,11 @@ class ClientProfile extends Component {
                 {displayContent}
                 <input type="button" className="btn btn-info btn-block mt-5 mb-5" value="Add Progress" onClick={() => this.openModal()} />
                 <Modal visible={this.state.visible} width="500" height="450" effect="fadeInUp"
-                       onClickAway={() => this.closeModal()}>
+                       onClickAway={this.onClickAway}>
                     <div>
-                        <NewClientProgress/>
+                        {console.log(this.state)}
+                        {/*Sending onClickAway into child component NewClientProgress allows the child to affect this parents state!!! */}
+                        <NewClientProgress onClickAway={this.onClickAway}/>
                     </div>
                 </Modal>
             </div>

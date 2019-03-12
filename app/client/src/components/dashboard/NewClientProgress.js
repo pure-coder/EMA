@@ -23,10 +23,14 @@ class NewClientProgress extends Component {
         this.onSubmit = this.onSubmit.bind(this);
     } // constructor
 
-    componentWillReceiveProps(nextProps) {
-        if(nextProps.errors){
-            this.setState({errors: nextProps.errors})
+    static getDerivedStateFromProps(props, state) {
+        if (props.visibility !== state.visible) {
+            return {visible: props.visibility}
         }
+        if (props.errors !== state.errors) {
+            return {errors: props.errors}
+        }
+        return null
     }
 
     onChange(e) {
@@ -51,6 +55,7 @@ class NewClientProgress extends Component {
     render() {
 
         let {errors} = this.state;
+        console.log(this.state)
 
         return (
             <div className="newClientProgress">
@@ -88,7 +93,8 @@ class NewClientProgress extends Component {
                         onChange={this.onChange}
                         error={errors.Date}
                     />
-                    <input type="submit" className="btn btn-info btn-block mt-5 mb-5"/>
+                    {/* The use of onClick with this.props.onClickAway allows this to call the parents onClickAway (note the use of props)*/}
+                    <input type="submit" className="btn btn-info btn-block mt-5 mb-5 " onClick={this.props.onClickAway}/>
                 </form>
             </div>
         );
