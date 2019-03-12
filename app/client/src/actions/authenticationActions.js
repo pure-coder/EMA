@@ -296,5 +296,5 @@ export const newClientProgress = (id, cid ,data) => dispatch => {
                 payload: err.response.data
             })
         })
-}
+};
 

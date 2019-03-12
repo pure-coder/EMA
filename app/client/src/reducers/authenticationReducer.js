@@ -70,7 +70,7 @@ export default function (state = initialisedState, action) {
             return {
                 ...state,
                 client_Progression: null
-            }
+            };
         default:
             return state;
     }

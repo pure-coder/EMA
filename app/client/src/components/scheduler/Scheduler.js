@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import connect from "react-redux/es/connect/connect";
 import {withRouter} from "react-router-dom";
 import axios from 'axios';
+import {getClientData} from "../../actions/authenticationActions";
 import 'dhtmlx-scheduler';
 
 // Todo :: change save button so clients cant save or edit workout!
@@ -13,6 +14,8 @@ class Scheduler extends Component {
         this.state = {
             errors: {}
         };
+
+        props.getClientData(props.match.params.Cid, this.props.history)
 
         const scheduler = window.dhtmlXScheduler;
         const dataProcessor = window.dataProcessor;
@@ -86,12 +89,15 @@ class Scheduler extends Component {
     }
 
     render() {
+        const client_data = this.props.authenticatedUser.client_data;
+
         return (
             <div id="scheduler-container">
-                <div className="back-button">
-                    <button type="button" className="btn btn-danger btn-block mt-3 mb-3"onClick={this.props.history.goBack}>Back</button>
-                </div>
-                    <div id="scheduler" className="dhx_cal_container scheduler">
+                        <div className="top-display">
+                            <div className="display-elements"><button type="button" className="scheduler-btn btn btn-danger btn-block mb-3"onClick={this.props.history.goBack}>Back</button></div>
+                            <div className="display-elements"><h3>{client_data !== undefined ? client_data.FullName : "" }</h3></div>
+                        </div>
+                <div id="scheduler" className="dhx_cal_container scheduler">
                         <div className="dhx_cal_navline">
                             <div className="dhx_cal_prev_button">&nbsp;</div>
                             <div className="dhx_cal_next_button">&nbsp;</div>
@@ -113,6 +119,7 @@ class Scheduler extends Component {
 // Documents what props are needed for this component and will log a warning in the console in dev mode if not complied to
 Scheduler.propTypes = {
     authenticatedUser: PropTypes.object.isRequired,
+    getClientData: PropTypes.func.isRequired
 };
 
 // Used to pull auth state and errors into this component
@@ -123,4 +130,4 @@ const stateToProps = (state) => ({
 // connect must be exported with a passed parameter (not direct parameter) of scheduler this is wrapped with withRouter
 // allowing the functions of the package to be used with the component eg, proper routing, and direct parameters of
 // stateToProps for the 1st parameter and the action which is registerUser as the 2nd parameter
-export default connect(stateToProps)(withRouter(Scheduler));
+export default connect(stateToProps, {getClientData})(withRouter(Scheduler));
