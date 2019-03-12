@@ -83,7 +83,6 @@ class ClientProfile extends Component {
                 <Modal visible={this.state.visible} width="500" height="450" effect="fadeInUp"
                        onClickAway={this.onClickAway}>
                     <div>
-                        {console.log(this.state)}
                         {/*Sending onClickAway into child component NewClientProgress allows the child to affect this parents state!!! */}
                         <NewClientProgress onClickAway={this.onClickAway}/>
                     </div>

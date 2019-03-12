@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import {newClientProgress} from "../../actions/authenticationActions";
 import FormInputGroup from "../common/FormInputGroup";
+import is_Empty from '../../utilities/is_empty';
 
 
 class NewClientProgress extends Component {
@@ -21,6 +22,8 @@ class NewClientProgress extends Component {
         this.onChange = this.onChange.bind(this);
 
         this.onSubmit = this.onSubmit.bind(this);
+
+        this.onClick= this.onClick.bind(this);
     } // constructor
 
     static getDerivedStateFromProps(props, state) {
@@ -35,6 +38,15 @@ class NewClientProgress extends Component {
 
     onChange(e) {
         this.setState({[e.target.name]: e.target.value});
+    }
+
+    onClick(){
+        // The use of onClick with this.props.onClickAway() allows this to call the parents onClickAway (note the use of props)
+        // moved from below so checks can be made before it is closed (that no errors were given)
+        console.log(this.props, this.state)
+        if(!is_Empty(this.props.errors)){
+            this.props.onClickAway();
+        }
     }
 
     onSubmit(e) {
@@ -55,8 +67,6 @@ class NewClientProgress extends Component {
     render() {
 
         let {errors} = this.state;
-        console.log(this.state)
-
         return (
             <div className="newClientProgress">
                 <form onSubmit={this.onSubmit}>
@@ -93,8 +103,7 @@ class NewClientProgress extends Component {
                         onChange={this.onChange}
                         error={errors.Date}
                     />
-                    {/* The use of onClick with this.props.onClickAway allows this to call the parents onClickAway (note the use of props)*/}
-                    <input type="submit" className="btn btn-info btn-block mt-5 mb-5 " onClick={this.props.onClickAway}/>
+                    <input type="submit" className="btn btn-info btn-block mt-5 mb-5 " onClick={this.onClick}/>
                 </form>
             </div>
         );

@@ -14,11 +14,6 @@ class ClientList extends Component {
         }
     }
 
-    componentWillUnmount(){
-        // const emptyClientData = null
-        // this.props.scheduleClientData(emptyClientData);
-    }
-
     onClientDelete(id, ptId) {
         this.props.deleteClient(id, ptId);
     };
@@ -127,7 +122,6 @@ ClientList.propTypes = {
     deleteClient: PropTypes.func.isRequired,
     getClientData: PropTypes.func.isRequired,
     getClientProgression: PropTypes.func.isRequired,
-    scheduleClientData: PropTypes.func.isRequired,
 };
 
 const stateToProps = (state) => ({
