@@ -31,8 +31,9 @@ class Scheduler extends Component {
                     let month = now.getMonth();
                     let year = now.getFullYear();
                     // Initialising workout scheduler to current date and display the month view
-                    scheduler.config.show_loading = true;
-                    scheduler.init('scheduler', new Date(year, month, date), "month");
+                    scheduler.config.show_loading = false;
+                    let thisDate = new Date(year, month, date);
+                    scheduler.init('scheduler', thisDate, "month");
                     // Load the date from the database
                     scheduler.templates.xml_date = function (value) {
                         return new Date(value);
@@ -42,7 +43,9 @@ class Scheduler extends Component {
                     return result;
                 }
             })
-            .catch(err => console.log(err)); // log error of collecting data to console
+            .catch(err => {
+                console.log(err)
+            }); // log error of presenting data to console
 
         // Add, edit, and delete data in the database
         scheduler.config.xml_date = "%Y-%m-%d %H:%i";
@@ -58,7 +61,7 @@ class Scheduler extends Component {
         dataProc.init(scheduler);
         // Add token to header to allow access to the POST function on API
         dataProc.setTransactionMode({mode: "POST", headers:{ "Content-Type": "application/x-www-form-urlencoded",
-        Authorization: token}});
+                Authorization: token}});
 
         // // Custom scheduler lightbox
         // scheduler.config.buttons_right = ["dhx_save_btn","update","dhx_delete_btn"];
@@ -82,39 +85,28 @@ class Scheduler extends Component {
         }
     }
 
-
-    // Life cycle method for react which will run when this component receives new properties
-    componentWillReceiveProps(nextProps) {
-
-        // Check if isAuthenticated is false then redirect to the dashboard
-        if (!nextProps.authenticatedUser.isAuthenticated) {
-            this.props.history.push('/login');
-        }
-    }
-
     render() {
         return (
             <div id="scheduler-container">
                 <div className="back-button">
-                    <button type="button" className="btn btn-danger btn-block mt-3 mb-3" onClick={this.props.history.goBack}>Back</button>
+                    <button type="button" className="btn btn-danger btn-block mt-3 mb-3"onClick={this.props.history.goBack}>Back</button>
                 </div>
-                <div id="scheduler" className="dhx_cal_container scheduler">
-                    <div className="dhx_cal_navline">
-                        <div className="dhx_cal_prev_button">&nbsp;</div>
-                        <div className="dhx_cal_next_button">&nbsp;</div>
-                        <div className="dhx_cal_today_button"></div>
-                        <div className="dhx_cal_date"></div>
-                        <div className="dhx_cal_tab" name="day_tab"></div>
-                        <div className="dhx_cal_tab" name="week_tab"></div>
-                        <div className="dhx_cal_tab" name="month_tab"></div>
+                    <div id="scheduler" className="dhx_cal_container scheduler">
+                        <div className="dhx_cal_navline">
+                            <div className="dhx_cal_prev_button">&nbsp;</div>
+                            <div className="dhx_cal_next_button">&nbsp;</div>
+                            <div className="dhx_cal_today_button"></div>
+                            <div className="dhx_cal_date"></div>
+                            <div className="dhx_cal_tab" name="day_tab"></div>
+                            <div className="dhx_cal_tab" name="week_tab"></div>
+                            <div className="dhx_cal_tab" name="month_tab"></div>
+                        </div>
+                        <div className="dhx_cal_header"></div>
+                        <div className="dhx_cal_data"></div>
                     </div>
-                    <div className="dhx_cal_header">
-                    </div>
-                    <div className="dhx_cal_data">
-                    </div>
-                </div>
             </div>
         );
+
     }
 }
 

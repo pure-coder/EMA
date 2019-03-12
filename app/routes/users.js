@@ -547,7 +547,7 @@ router.post('/:id/scheduler/:cid', passport.authenticate('pt_rule', {session: fa
 router.get('/pt_clients/:ptid', passport.authenticate('pt_rule', {session: false}), (req, res) => {
     let ptId = req.params.ptid;
     // get personal trainers client list
-    PersonalTrainer.findOne({_id: ptId}).populate('ClientIDs')
+    PersonalTrainer.findOne({_id: ptId}).populate('ClientIDs', '-Password')
         .exec(function (err, personalTrainer) {
                 if (err) return res.json("No data for ptid: " + err.stringValue);
 
