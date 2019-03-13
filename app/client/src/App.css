@@ -326,13 +326,29 @@ svg {
 
 .newClientProgress {
     width: 450px;
-    height: 550px;
+    height: 600px;
     margin: auto;
 }
 
 .newClientProgress .form-group {
     height: 45px;
     margin-bottom: 25px;
+}
+
+.closeButton {
+    background-color: white;
+    border: none;
+    margin-top: 2px;
+    padding-right: 0px;
+    float: right;
+}
+
+.closeButton:focus {
+    outline: none;
+}
+
+.closeButton:hover {
+    color: red;
 }
 
 

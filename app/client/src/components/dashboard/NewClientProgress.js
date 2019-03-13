@@ -43,7 +43,6 @@ class NewClientProgress extends Component {
     onClick(){
         // The use of onClick with this.props.onClickAway() allows this to call the parents onClickAway (note the use of props)
         // moved from below so checks can be made before it is closed (that no errors were given)
-        console.log(this.props, this.state)
         if(!is_Empty(this.props.errors)){
             this.props.onClickAway();
         }
@@ -69,6 +68,9 @@ class NewClientProgress extends Component {
         let {errors} = this.state;
         return (
             <div className="newClientProgress">
+                <div>
+                    <button className="closeButton"  onClick={this.onClick}><i className="fas fa-window-close 2x"></i></button>
+                </div>
                 <form onSubmit={this.onSubmit}>
                     <label className="control-label form-control-lg edit-profile-label">
                         Exercise:
@@ -103,7 +105,7 @@ class NewClientProgress extends Component {
                         onChange={this.onChange}
                         error={errors.Date}
                     />
-                    <input type="submit" className="btn btn-info btn-block mt-5 mb-5 " onClick={this.onClick}/>
+                    <input type="submit" className="btn btn-info btn-block mt-5 mb-5"/>
                 </form>
             </div>
         );
