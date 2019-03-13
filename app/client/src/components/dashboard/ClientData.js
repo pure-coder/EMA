@@ -36,9 +36,14 @@ class ClientData extends Component {
                     <h1 className=" text-center display-5">Dashboard</h1>
                     <div>
                         <div>
-                            <h3 className="mb-3">Client</h3>
+                            <h3 className="mt-5 mb-4">{this.props.authenticatedUser.user.name}</h3>
                             <table className="table client-table">
                                 <thead>
+                                <tr>
+                                    <th align="center">Profile</th>
+                                    <th align="center">workout Schedule</th>
+                                    <th align="center">Edit details</th>
+                                </tr>
                                 <tr>
                                     <td align="center"><a onClick={this.onProfileClick.bind(this, this.state.id)}>
                                         <i className="fas fa-columns fa-2x"></i></a>

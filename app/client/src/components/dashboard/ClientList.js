@@ -97,7 +97,7 @@ class ClientList extends Component {
                     </Link>
                     <div>
                         <div>
-                            <h3 className="mb-3">Clients</h3>
+                            <h3 className="mt-5 mb-3">Clients</h3>
                             <table className="table client-table">
                                 <thead>
                                 <tr>

@@ -70,16 +70,20 @@ class ClientProfile extends Component {
         // Check to see that client_progression is not undefined or the return data for client_progression is not empty
         if (client_progression) {
             displayContent = (
-
                 <Graph graphData={client_progression}/>
             )
         } // if client_progression is not undefined
 
-
         return (
             <div className="container  dashboard-custom">
                 {displayContent}
-                <input type="button" className="btn btn-info btn-block mt-5 mb-5" value="Add Progress" onClick={() => this.openModal()} />
+                {/*Only display Add progress if user is a pt*/}
+                {this.props.authenticatedUser.user.pt === true ?
+                    <div>
+                        <input id="progression" type="button" className="btn btn-info btn-block mb-4" value="Add Progress" onClick={() => this.openModal()} />
+                    </div>
+                    : null
+                }
                 <Modal visible={this.state.visible} width="500" height="450" effect="fadeInUp"
                        onClickAway={this.onClickAway}>
                     <div>

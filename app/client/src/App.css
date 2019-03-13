@@ -227,9 +227,9 @@ img {
 }
 
 svg {
-    height: 370px;
-    width: 500px;
-    margin: 10px 10px 15px 10px;
+    height: 310px;
+    width: 400px;
+    margin: 15px 10px 20px 10px;
 }
 
 .line {
@@ -245,6 +245,10 @@ svg {
 .dashboard-edit-own-profile  {
     float: right;
     margin-right: 5px;
+}
+
+.client {
+    min-height: 485px
 }
 
 /* EditClient */
@@ -349,6 +353,11 @@ svg {
 
 .closeButton:hover {
     color: red;
+}
+
+#progression{
+    width: 200px;
+    margin: auto;
 }
 
 /* success - valid feedback */

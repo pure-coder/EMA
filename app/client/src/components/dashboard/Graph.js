@@ -36,9 +36,9 @@ class Graph extends Component {
         return (
                 <div className="row">
                     <div className="m-auto col-md-8">
-                        <h1 className=" text-center display-5">Dashboard</h1>
+                        <h1 className=" text-center display-5 mb-3">Dashboard</h1>
                         <div className="Progression">
-                            <h2 className=" text-center display-5 mt-3 mb-2">Client progression data</h2>
+                            <h2 className=" text-center display-5 mt-3 mb-4">Client progression data</h2>
                             <div className="progression-data">
 
                             </div>

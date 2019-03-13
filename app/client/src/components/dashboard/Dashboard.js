@@ -64,7 +64,9 @@ class Dashboard extends Component {
             // Define content to display.. in this case the list of clients
             displayContent = (
                 // send clients data to client component, and render client component
-                <ClientList clients={clients}/>
+                <div className="container  dashboard-custom">
+                    <ClientList clients={clients}/>
+                </div>
             )
         } // If PT
 
@@ -74,12 +76,14 @@ class Dashboard extends Component {
             // Define content to display..
             displayContent = (
                 // send clients data to client component, and render client component
-                <ClientData/>
+                <div className="container  dashboard-custom client">
+                    <ClientData/>
+                </div>
             )
         } // If PT
 
         return (
-            <div className="container  dashboard-custom">
+            <div>
                 {displayContent}
             </div>
         );
