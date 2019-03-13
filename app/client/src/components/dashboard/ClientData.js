@@ -15,6 +15,11 @@ class ClientData extends Component {
         }
     }
 
+    onProfileClick(id){
+        this.props.saveClientId(id, this.props.history);
+        this.props.history.push(`/users/${id}/client_profile/${id}`);
+    }
+
     onScheduleClick(id) {
         window.location.href = `/users/${id}/scheduler/${id}`;
     };
@@ -35,10 +40,15 @@ class ClientData extends Component {
                             <table className="table client-table">
                                 <thead>
                                 <tr>
+                                    <td align="center"><a onClick={this.onProfileClick.bind(this, this.state.id)}>
+                                        <i className="fas fa-columns fa-2x"></i></a>
+                                    </td>
                                     <td align="center"><a onClick={this.onScheduleClick.bind(this, this.state.id)}><i
-                                        className="far fa-calendar-alt fa-2x"></i></a></td>
+                                        className="far fa-calendar-alt fa-2x"></i></a>
+                                    </td>
                                 <td align="center"><a onClick={this.onEditProfile.bind(this, this.state.id)}><i
-                                    className="fas fa-edit fa-2x"></i></a></td>
+                                    className="fas fa-edit fa-2x"></i></a>
+                                </td>
                                 </tr>
                                 </thead>
                             </table>
