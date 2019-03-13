@@ -10,6 +10,7 @@ import {
     PASSWORD_ERROR,
     CLIENT_PROGRESSION,
     CLEAR_PROGRESSION,
+    SUCCESS
 } from "./types"; // import custom defined types
 import setAuthorisationToken from '../utilities/setAuthorisationToken';
 import jwtDecode from 'jwt-decode';
@@ -282,12 +283,16 @@ export const clearProgression = () => dispatch => {
 export const newClientProgress = (id, cid ,data) => dispatch => {
     axios.post(`/api/${id}/client_progression/${cid}`, data)
         .then(result => {
-            // If successful then clear error messages
+            // If successful then clear error messages and send success message
             if(result.data.n === 1 && result.data.nModified === 1){
                 dispatch({
                     type: GET_ERRS,
                     payload: {}
-                })
+                });
+                dispatch({
+                    type: SUCCESS,
+                    payload: {msg :"ENTRY SUCCESSFUL"}
+                });
             }
         })
         .catch(err => {

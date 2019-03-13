@@ -4,7 +4,6 @@ import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import {newClientProgress} from "../../actions/authenticationActions";
 import FormInputGroup from "../common/FormInputGroup";
-import is_Empty from '../../utilities/is_empty';
 
 
 class NewClientProgress extends Component {
@@ -16,7 +15,8 @@ class NewClientProgress extends Component {
             exerciseName: '',
             maxWeight: '',
             Date: '',
-            errors: {}
+            errors: {},
+            success: '',
         };
 
         this.onChange = this.onChange.bind(this);
@@ -31,7 +31,13 @@ class NewClientProgress extends Component {
             return {visible: props.visibility}
         }
         if (props.errors !== state.errors) {
-            return {errors: props.errors}
+            return {
+                success: "",
+                errors: props.errors
+            }
+        }
+        if (props.success !== state.success) {
+            return {success: props.success}
         }
         return null
     }
@@ -42,10 +48,7 @@ class NewClientProgress extends Component {
 
     onClick(){
         // The use of onClick with this.props.onClickAway() allows this to call the parents onClickAway (note the use of props)
-        // moved from below so checks can be made before it is closed (that no errors were given)
-        if(!is_Empty(this.props.errors)){
-            this.props.onClickAway();
-        }
+        this.props.onClickAway();
     }
 
     onSubmit(e) {
@@ -105,7 +108,8 @@ class NewClientProgress extends Component {
                         onChange={this.onChange}
                         error={errors.Date}
                     />
-                    <input type="submit" className="btn btn-info btn-block mt-5 mb-5"/>
+                    <div className="valid-feedback">{this.state.success.msg}</div>
+                    <input type="submit" className="btn btn-info btn-block mt-2 mb-5"/>
                 </form>
             </div>
         );
@@ -116,13 +120,14 @@ class NewClientProgress extends Component {
 NewClientProgress.propTypes = {
     newClientProgress: PropTypes.func.isRequired,
     authenticatedUser: PropTypes.object.isRequired,
-    errors: PropTypes.object.isRequired
+    errors: PropTypes.object.isRequired,
+    success: PropTypes.object.isRequired
 };
 
 const stateToProps = (state) => ({
     authenticatedUser: state.authenticatedUser,
-    errors: state.errors
-
+    errors: state.errors,
+    success: state.success
 });
 
 

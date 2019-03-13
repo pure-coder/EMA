@@ -8,7 +8,7 @@ import {
     SAVE_CLIENT_ID,
     LOGGED_OUT,
     CLIENT_PROGRESSION,
-    CLEAR_PROGRESSION
+    CLEAR_PROGRESSION,
 } from "../actions/types";
 import isEmpty from '../validation/is_empty';
 
