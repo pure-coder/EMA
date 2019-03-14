@@ -56,6 +56,7 @@ class NewClientProgress extends Component {
         this.onClick= this.onClick.bind(this);
 
         this.onFocus = this.onFocus.bind(this);
+        this.onBlur = this.onBlur.bind(this);
     } // constructor
 
 
@@ -100,30 +101,40 @@ class NewClientProgress extends Component {
         })
     }
 
-    onSubmit(e) {
-        e.preventDefault();
+    onBlur(){
+        console.log("this");
+        let selectedExercise = document.getElementById("exerciseName").value;
+        console.log(selectedExercise);
 
         // This is needed as the autocomplete can not set the exercise state within it's external function. This just persist's the
         // chosen exercise in from the list to the input field.
-        this.setState({exerciseName: document.getElementById("exerciseName").value});
+        this.setState({exerciseName: selectedExercise });
+    }
 
+    onSubmit(e) {
+        e.preventDefault();
 
-        const clientProgressData = {
-            // Using document.getElementById("exerciseName").value below actually sends the chosen exercise name to the server.
-            exerciseName: document.getElementById("exerciseName").value,
-            metrics: {
-                maxWeight: this.state.maxWeight,
-                Date: new Date(this.state.Date)
-            }
-        };
+        // const clientProgressData = {
+        //     // Using document.getElementById("exerciseName").value below actually sends the chosen exercise name to the server.
+        //     exerciseName: listExercise,
+        //     metrics: {
+        //         maxWeight: this.state.maxWeight,
+        //         Date: new Date(this.state.Date)
+        //     }
+        // };
+        //
+        // this.props.newClientProgress(this.state.userId, this.state.clientId, clientProgressData);
 
-        this.props.newClientProgress(this.state.userId, this.state.clientId, clientProgressData);
+        let anError = {
+            exerciseName: "Please select an exercise from the list"
+        }
+        this.setState({errors : anError });
 
     } // onSubmit
 
     render() {
         let {errors} = this.state;
-        console.log(this.state.exerciseName);
+        console.log(this.state);
         return (
             <div className="newClientProgress">
                 <div>
@@ -143,6 +154,7 @@ class NewClientProgress extends Component {
                             onChange={this.onChange}
                             error={errors.exerciseName}
                             onClick={this.onFocus}
+                            onBlur={this.onBlur}
                         />
                     </div>
                     <label className="control-label form-control-lg edit-profile-label">

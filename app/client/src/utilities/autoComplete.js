@@ -36,6 +36,8 @@ export default function autocomplete (inp, arr) {
                     (or any other open lists of autocompleted values:*/
                     closeAllLists();
                     document.getElementById("exerciseName").value = inp.value;
+                    // Had to put focus back on element so when onBlur is called in NewClientProgress it loaded value to state!
+                    document.getElementById("exerciseName").focus();
                 });
                 a.appendChild(b);
             }
