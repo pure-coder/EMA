@@ -111,7 +111,6 @@ class NewClientProgress extends Component {
     } // onSubmit
 
     render() {
-        console.log(this.state.errors);
         let {errors} = this.state;
         return (
             <div className="newClientProgress">
