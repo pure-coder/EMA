@@ -2,7 +2,7 @@ import React, {Component} from 'react' // React is need for rendering JSX HTML e
 import {withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
-import {newClientProgress} from "../../actions/authenticationActions";
+import {newClientProgress, clearErrors} from "../../actions/authenticationActions";
 import autocomplete from '../../utilities/autoComplete';
 import FormInputGroup from "../common/FormInputGroup";
 
@@ -49,14 +49,16 @@ class NewClientProgress extends Component {
     onChange(e) {
         this.setState({[e.target.name]: e.target.value});
         if(e.target.name === "exerciseName"){
-            console.log("something")
-            autocomplete(e.target.value, this.state.exercises );
+            // e.target and document.getElementById(e.target.id) return the same output, so using former.
+            autocomplete(e.target, this.state.exercises );
         }
     }
 
     onClick(){
         // The use of onClick with this.props.onClickAway() allows this to call the parents onClickAway (note the use of props)
         this.props.onClickAway();
+        // Clear errors once the modal has been exited
+        this.props.clearErrors();
     }
 
     onSubmit(e) {
@@ -75,7 +77,7 @@ class NewClientProgress extends Component {
     } // onSubmit
 
     render() {
-
+        console.log(this.state.errors);
         let {errors} = this.state;
         return (
             <div className="newClientProgress">
@@ -130,6 +132,7 @@ class NewClientProgress extends Component {
 
 NewClientProgress.propTypes = {
     newClientProgress: PropTypes.func.isRequired,
+    clearErrors: PropTypes.func.isRequired,
     authenticatedUser: PropTypes.object.isRequired,
     errors: PropTypes.object.isRequired,
     success: PropTypes.object.isRequired
@@ -142,4 +145,4 @@ const stateToProps = (state) => ({
 });
 
 
-export default connect(stateToProps, {newClientProgress})(withRouter(NewClientProgress));
+export default connect(stateToProps, {newClientProgress, clearErrors})(withRouter(NewClientProgress));

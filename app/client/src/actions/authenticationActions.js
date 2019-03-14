@@ -303,3 +303,10 @@ export const newClientProgress = (id, cid ,data) => dispatch => {
         })
 };
 
+export const clearErrors = () => dispatch => {
+    dispatch({
+        type: GET_ERRS,
+        payload: {}
+    })
+}
+
