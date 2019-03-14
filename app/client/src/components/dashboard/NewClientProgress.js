@@ -102,9 +102,7 @@ class NewClientProgress extends Component {
     }
 
     onBlur(){
-        console.log("this");
         let selectedExercise = document.getElementById("exerciseName").value;
-        console.log(selectedExercise);
 
         // This is needed as the autocomplete can not set the exercise state within it's external function. This just persist's the
         // chosen exercise in from the list to the input field.
@@ -114,22 +112,16 @@ class NewClientProgress extends Component {
     onSubmit(e) {
         e.preventDefault();
 
-        // const clientProgressData = {
-        //     // Using document.getElementById("exerciseName").value below actually sends the chosen exercise name to the server.
-        //     exerciseName: listExercise,
-        //     metrics: {
-        //         maxWeight: this.state.maxWeight,
-        //         Date: new Date(this.state.Date)
-        //     }
-        // };
-        //
+        const clientProgressData = {
+            exerciseName: this.state.exerciseName,
+            metrics: {
+                maxWeight: this.state.maxWeight,
+                Date: new Date(this.state.Date)
+            }
+        };
+        console.log(clientProgressData);
+
         // this.props.newClientProgress(this.state.userId, this.state.clientId, clientProgressData);
-
-        let anError = {
-            exerciseName: "Please select an exercise from the list"
-        }
-        this.setState({errors : anError });
-
     } // onSubmit
 
     render() {
