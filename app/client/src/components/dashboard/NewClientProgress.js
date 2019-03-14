@@ -77,12 +77,14 @@ class NewClientProgress extends Component {
     }
 
     onChange(e) {
+        console.log(e.target.value);
         this.setState({[e.target.name]: e.target.value});
     }
 
+    // When input field is click (Really on clicked)
     onFocus(e){
         // e.target and document.getElementById(e.target.id) return the same output, so using former.
-        autocomplete(e.target, this.state.exercises );
+        autocomplete(e.target, this.state.exercises, this.state);
     }
 
     onClick(){
@@ -101,8 +103,14 @@ class NewClientProgress extends Component {
     onSubmit(e) {
         e.preventDefault();
 
+        // This is needed as the autocomplete can not set the exercise state within it's external function. This just persist's the
+        // chosen exercise in from the list to the input field.
+        this.setState({exerciseName: document.getElementById("exerciseName").value});
+
+
         const clientProgressData = {
-            exerciseName: this.state.exerciseName,
+            // Using document.getElementById("exerciseName").value below actually sends the chosen exercise name to the server.
+            exerciseName: document.getElementById("exerciseName").value,
             metrics: {
                 maxWeight: this.state.maxWeight,
                 Date: new Date(this.state.Date)
@@ -115,6 +123,7 @@ class NewClientProgress extends Component {
 
     render() {
         let {errors} = this.state;
+        console.log(this.state.exerciseName);
         return (
             <div className="newClientProgress">
                 <div>

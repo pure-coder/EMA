@@ -2,12 +2,10 @@ export default function autocomplete (inp, arr) {
     /*the autocomplete function takes two arguments,
     the text field element and an array of possible autocompleted values:*/
     let currentFocus;
-    console.log("556");
     inp.addEventListener("input", function(e) {
         /*execute a function when someone writes in the text field:*/
         let a, b, i, val = this.value;
         /*close any already open lists of autocompleted values*/
-        console.log(val);
         closeAllLists();
         if (!val) {
             return false;
@@ -37,6 +35,7 @@ export default function autocomplete (inp, arr) {
                     /*close the list of autocompleted values,
                     (or any other open lists of autocompleted values:*/
                     closeAllLists();
+                    document.getElementById("exerciseName").value = inp.value;
                 });
                 a.appendChild(b);
             }
@@ -68,7 +67,6 @@ export default function autocomplete (inp, arr) {
         }
     });
     function addActive(x) {
-        console.log(x)
         /*a function to classify an item as "active":*/
         if (!x) return false;
         /*start by removing the "active" class on all items:*/

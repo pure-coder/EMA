@@ -11,6 +11,7 @@ const FormInputGroup = ({
     type,
     onChange,
     onClick,
+    onBlur,
     error
 }) => {
     return (
@@ -26,6 +27,7 @@ const FormInputGroup = ({
                    onClick={onClick}
                    value={value}
                    onChange={onChange}
+                   onBlur={onBlur}
             />
             {/* This adds the feedback to the user (which was defined in*/}
             {/*  validation/registration.js on the API server*/}
