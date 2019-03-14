@@ -18,7 +18,35 @@ class NewClientProgress extends Component {
             Date: '',
             errors: {},
             success: '',
-            exercises : ['Bench Press', 'squat'],
+            exercises : [
+                "Squat",
+                "Leg press",
+                "Lunge",
+                "Deadlift",
+                "Leg extension",
+                "Leg curl",
+                "Standing calf raise",
+                "Seated calf raise",
+                "Hip adductor",
+                "Bench press",
+                "Chest fly",
+                "Push-up",
+                "Pull-down",
+                "Pull-up",
+                "Bent-over row",
+                "Upright row",
+                "Shoulder press",
+                "Shoulder fly",
+                "Lateral raise",
+                "Shoulder shrug",
+                "Pushdown",
+                "Triceps extension",
+                "Biceps curl",
+                "Crunch",
+                "Russian twist",
+                "Leg raise",
+                "Back extension",
+            ],
         };
 
         this.onChange = this.onChange.bind(this);
@@ -59,6 +87,12 @@ class NewClientProgress extends Component {
         this.props.onClickAway();
         // Clear errors once the modal has been exited
         this.props.clearErrors();
+        // Reset/ Clear input fields once modal has been exited
+        this.setState({
+            exerciseName: '',
+            maxWeight: '',
+            Date: ''
+        })
     }
 
     onSubmit(e) {

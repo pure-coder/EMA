@@ -413,7 +413,9 @@ input[type=submit] {
 }
 
 .autocomplete-items {
-    height: 200px;
+    position: absolute;
+    top: 50px;
+    max-height: 200px;
     overflow-x: auto;
 }
 
