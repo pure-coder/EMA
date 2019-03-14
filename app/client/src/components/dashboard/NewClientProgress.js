@@ -54,6 +54,8 @@ class NewClientProgress extends Component {
         this.onSubmit = this.onSubmit.bind(this);
 
         this.onClick= this.onClick.bind(this);
+
+        this.onFocus = this.onFocus.bind(this);
     } // constructor
 
 
@@ -76,10 +78,11 @@ class NewClientProgress extends Component {
 
     onChange(e) {
         this.setState({[e.target.name]: e.target.value});
-        if(e.target.name === "exerciseName"){
-            // e.target and document.getElementById(e.target.id) return the same output, so using former.
-            autocomplete(e.target, this.state.exercises );
-        }
+    }
+
+    onFocus(e){
+        // e.target and document.getElementById(e.target.id) return the same output, so using former.
+        autocomplete(e.target, this.state.exercises );
     }
 
     onClick(){
@@ -130,6 +133,7 @@ class NewClientProgress extends Component {
                             type="text"
                             onChange={this.onChange}
                             error={errors.exerciseName}
+                            onClick={this.onFocus}
                         />
                     </div>
                     <label className="control-label form-control-lg edit-profile-label">

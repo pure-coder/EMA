@@ -10,6 +10,7 @@ const FormInputGroup = ({
     value,
     type,
     onChange,
+    onClick,
     error
 }) => {
     return (
@@ -22,6 +23,7 @@ const FormInputGroup = ({
                    placeholder={placeholder}
                    id={id}
                    name={name}
+                   onClick={onClick}
                    value={value}
                    onChange={onChange}
             />

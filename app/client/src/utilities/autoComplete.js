@@ -2,12 +2,16 @@ export default function autocomplete (inp, arr) {
     /*the autocomplete function takes two arguments,
     the text field element and an array of possible autocompleted values:*/
     let currentFocus;
-    /*execute a function when someone writes in the text field:*/
+    console.log("556");
     inp.addEventListener("input", function(e) {
+        /*execute a function when someone writes in the text field:*/
         let a, b, i, val = this.value;
         /*close any already open lists of autocompleted values*/
+        console.log(val);
         closeAllLists();
-        if (!val) { return false;}
+        if (!val) {
+            return false;
+        }
         currentFocus = -1;
         /*create a DIV element that will contain the items (values):*/
         a = document.createElement("DIV");
@@ -27,7 +31,7 @@ export default function autocomplete (inp, arr) {
                 /*insert a input field that will hold the current array item's value:*/
                 b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
                 /*execute a function when someone clicks on the item value (DIV element):*/
-                b.addEventListener("click", function(e) {
+                b.addEventListener("click", function (e) {
                     /*insert the value for the autocomplete text field:*/
                     inp.value = this.getElementsByTagName("input")[0].value;
                     /*close the list of autocompleted values,
@@ -64,6 +68,7 @@ export default function autocomplete (inp, arr) {
         }
     });
     function addActive(x) {
+        console.log(x)
         /*a function to classify an item as "active":*/
         if (!x) return false;
         /*start by removing the "active" class on all items:*/
