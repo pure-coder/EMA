@@ -112,16 +112,30 @@ class NewClientProgress extends Component {
     onSubmit(e) {
         e.preventDefault();
 
-        const clientProgressData = {
-            exerciseName: this.state.exerciseName,
-            metrics: {
-                maxWeight: this.state.maxWeight,
-                Date: new Date(this.state.Date)
-            }
-        };
-        console.log(clientProgressData);
+        const exerciseName = this.state.exerciseName;
+        let sendData = false;
 
-        // this.props.newClientProgress(this.state.userId, this.state.clientId, clientProgressData);
+        // Check if exerciseName is in the list, if not show error
+        this.state.exercises.map(element =>{
+            if(element !== exerciseName){
+                return null;
+            }
+            else{
+                return sendData = true;
+            }
+        })
+
+        if(sendData) {
+            const clientProgressData = {
+                exerciseName: this.state.exerciseName,
+                metrics: {
+                    maxWeight: this.state.maxWeight,
+                    Date: new Date(this.state.Date)
+                }
+            };
+
+            this.props.newClientProgress(this.state.userId, this.state.clientId, clientProgressData);
+        }
     } // onSubmit
 
     render() {
