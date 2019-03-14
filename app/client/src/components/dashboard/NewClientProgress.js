@@ -3,6 +3,7 @@ import {withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import {newClientProgress} from "../../actions/authenticationActions";
+import autocomplete from '../../utilities/autoComplete';
 import FormInputGroup from "../common/FormInputGroup";
 
 
@@ -17,6 +18,7 @@ class NewClientProgress extends Component {
             Date: '',
             errors: {},
             success: '',
+            exercises : ['Bench Press', 'squat'],
         };
 
         this.onChange = this.onChange.bind(this);
@@ -25,6 +27,8 @@ class NewClientProgress extends Component {
 
         this.onClick= this.onClick.bind(this);
     } // constructor
+
+
 
     static getDerivedStateFromProps(props, state) {
         if (props.visibility !== state.visible) {
@@ -44,6 +48,10 @@ class NewClientProgress extends Component {
 
     onChange(e) {
         this.setState({[e.target.name]: e.target.value});
+        if(e.target.name === "exerciseName"){
+            console.log("something")
+            autocomplete(e.target.value, this.state.exercises );
+        }
     }
 
     onClick(){
@@ -74,18 +82,21 @@ class NewClientProgress extends Component {
                 <div>
                     <button className="closeButton"  onClick={this.onClick}><i className="fas fa-window-close 2x"></i></button>
                 </div>
-                <form onSubmit={this.onSubmit}>
+                <form autoComplete="off" onSubmit={this.onSubmit}>
                     <label className="control-label form-control-lg edit-profile-label">
                         Exercise:
                     </label>
-                    <FormInputGroup
-                        name="exerciseName"
-                        PlaceHolder="Exercise Name"
-                        value={this.state.exerciseName}
-                        type="text"
-                        onChange={this.onChange}
-                        error={errors.exerciseName}
-                    />
+                    <div className="autocomplete">
+                        <FormInputGroup
+                            name="exerciseName"
+                            PlaceHolder="Exercise Name"
+                            value={this.state.exerciseName}
+                            id="exerciseName"
+                            type="text"
+                            onChange={this.onChange}
+                            error={errors.exerciseName}
+                        />
+                    </div>
                     <label className="control-label form-control-lg edit-profile-label">
                         One Rep Max Weight (Kg):
                     </label>

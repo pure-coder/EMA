@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 const FormInputGroup = ({
     name,
     placeholder,
+    id,
     value,
     type,
     onChange,
@@ -19,6 +20,7 @@ const FormInputGroup = ({
                 // parameter adds 'is-invalid' if errors.FullName exists
                    className={classnames('form-control form-control-lg', {'is-invalid': error})}
                    placeholder={placeholder}
+                   id={id}
                    name={name}
                    value={value}
                    onChange={onChange}

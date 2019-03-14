@@ -370,4 +370,9 @@ svg {
     font-weight: bold;
 }
 
+/* input auto complete */
+
+.autocomplete {
+    width: 100%;
+}
 
