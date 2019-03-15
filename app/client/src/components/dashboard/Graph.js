@@ -27,8 +27,12 @@ class Graph extends Component {
                 return progressData.push(data)
             });
             // 1st argument takes array of objects as data to plot graph, 2nd argument takes div as position to display graph, 3rd is title of graph
-            //console.log(progressData)
-            return addGraph(progressData, ".progression-data", element.exerciseName);
+            // console.log(element.metrics.length)
+            // Only create graph for exercise that has 2+ metric data
+            if(element.metrics.length >= 2) {
+                return addGraph(progressData, ".progression-data", element.exerciseName);
+            }
+            return null;
         });
     } // cdm
 
