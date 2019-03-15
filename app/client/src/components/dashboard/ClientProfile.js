@@ -78,7 +78,7 @@ class ClientProfile extends Component {
             <div className="container  dashboard-custom">
                 {displayContent}
                 {/*Only display Add progress if user is a pt*/}
-                {this.props.authenticatedUser.user.pt === true ?
+                {this.props.authenticatedUser.user.pt === true && client_progression ?
                     <div>
                         <input id="progression" type="button" className="btn btn-info btn-block mb-4" value="Add Progress" onClick={() => this.openModal()} />
                     </div>
