@@ -83,7 +83,7 @@ class Dashboard extends Component {
         } // If PT
 
         return (
-            <div>
+            <div className="dashboard-container">
                 {displayContent}
             </div>
         );

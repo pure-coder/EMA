@@ -83,18 +83,20 @@ class ClientList extends Component {
             <div className="row">
                 <div className="m-auto col-md-10">
                     <h1 className=" text-center display-5">Dashboard</h1>
-                    <Link to={'/users/' + this.props.authenticatedUser.user.id + '/register_client'}>
-                        <button
-                            className="btn btn-primary dashboard-new-client">
-                            Add new Client
-                        </button>
-                    </Link>
-                    <Link to={'/users/' + this.props.authenticatedUser.user.id + '/edit_personal_trainer'}>
-                        <button
-                            className="btn btn-success dashboard-edit-own-profile">
-                            Edit own profile
-                        </button>
-                    </Link>
+                    <div className="pt-buttons">
+                        <Link to={'/users/' + this.props.authenticatedUser.user.id + '/register_client'}>
+                            <button
+                                className="btn btn-primary dashboard-new-client">
+                                Add new Client
+                            </button>
+                        </Link>
+                        <Link to={'/users/' + this.props.authenticatedUser.user.id + '/edit_personal_trainer'}>
+                            <button
+                                className="btn btn-success dashboard-edit-own-profile">
+                                Edit own profile
+                            </button>
+                        </Link>
+                    </div>
                     <div>
                         <div>
                             <h3 className="mt-5 mb-3">Clients</h3>

@@ -209,6 +209,10 @@ img {
 
 /* dashboard */
 
+.dashboard-container {
+    min-height: 550px;
+}
+
 .dashboard-custom {
     min-height: 550px;
 }
