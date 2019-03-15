@@ -75,6 +75,10 @@ class NewClientProgress extends Component {
         return null
     }
 
+    componentDidMount(){
+        document.body.scrollTo(0,0);
+    }
+
     onChange(e) {
         this.setState({[e.target.name]: e.target.value});
     }

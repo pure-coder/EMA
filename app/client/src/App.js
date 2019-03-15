@@ -59,7 +59,6 @@ if (localStorage.jwtToken) {
     } // if decodedToken
 } // if localStorage.jwtToken
 
-
 class App extends Component {
 
     render() {

@@ -32,6 +32,8 @@ class Dashboard extends Component {
 
     // Life cycle method for react which will run when this component receives new properties
     componentDidMount() {
+        document.body.scrollTo(0,0);
+
         // Check if isAuthenticated is true then redirect to the dashboard
         if (!this.props.authenticatedUser.isAuthenticated) {
             this.props.history.push('/login');

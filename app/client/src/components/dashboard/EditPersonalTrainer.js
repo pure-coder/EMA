@@ -43,7 +43,12 @@ class EditPersonalTrainer extends Component {
         return null
     }
 
-    componentDidMount() {// If direct url used... didn't come through dashboard, ie bookmarked url, get uid from url
+    componentDidMount() {
+
+        document.body.scrollTo(0,0);
+
+
+        // If direct url used... didn't come through dashboard, ie bookmarked url, get uid from url
         // Check if isAuthenticated is true then redirect to the dashboard
         if (!this.props.authenticatedUser.isAuthenticated) {
             this.props.history.push('/login');

@@ -16,7 +16,6 @@ class ClientList extends Component {
 
     componentDidMount(){
         document.body.scrollTo(0,0);
-        console.log("this");
     }
 
     onClientDelete(id, ptId) {
