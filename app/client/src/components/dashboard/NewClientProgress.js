@@ -81,8 +81,10 @@ class NewClientProgress extends Component {
 
     // When input field is click (Really on clicked)
     onFocus(e){
+        // Sort the array, this is then used as argument for autocomplete
+        const exerciseList = this.state.exercises.sort();
         // e.target and document.getElementById(e.target.id) return the same output, so using former.
-        autocomplete(e.target, this.state.exercises, this.state);
+        autocomplete(e.target, exerciseList, this.state);
     }
 
     onClick(){
@@ -110,28 +112,13 @@ class NewClientProgress extends Component {
         const exerciseName = this.state.exerciseName;
         let sendData = false;
 
-        let t0 = performance.now();
-        // // Check if exerciseName is in the list, if not show error
-        // this.state.exercises.map(element =>{
-        //     if(element !== exerciseName){
-        //         // Show error to user
-        //         this.props.setErrors({exerciseName: "Please select an exercise from those provided"});
-        //         return sendData;
-        //     }
-        //     else{
-        //         return sendData = true;
-        //     }
-        // });
-
         if (!this.state.exercises.includes(exerciseName)){
-            this.props.setErrors({exerciseName: "Please select an exercise from those provided"});
+            this.props.setErrors({exerciseName: "Please select an exercise from those provided!"});
         }
         else{
             sendData = true;
         }
-        let t1 = performance.now();
 
-        console.log(t1-t0);
 
 
         if(sendData) {
