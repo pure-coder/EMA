@@ -65,7 +65,7 @@ class ClientProfile extends Component {
         let displayContent;
         let client_progression = this.props.authenticatedUser.client_Progression;
 
-        if (this.state.loaded === false) {
+        if (!client_progression) {
             return <Loading/>
         }
 

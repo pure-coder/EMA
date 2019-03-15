@@ -35,13 +35,11 @@ class Graph extends Component {
     render() {
         return (
                 <div className="row">
-                    <div className="m-auto col-md-8">
+                    <div className="m-auto col-1">
                         <h1 className=" text-center display-5 mb-3">Dashboard</h1>
+                        <h2 className=" text-center display-5 mt-3 mb-4">Client progression data</h2>
                         <div className="Progression">
-                            <h2 className=" text-center display-5 mt-3 mb-4">Client progression data</h2>
-                            <div className="progression-data">
-
-                            </div>
+                            <div className="progression-data"></div>
                         </div>
                     </div>
                 </div>
@@ -51,7 +49,7 @@ class Graph extends Component {
 
 Graph.propTypes = {
     graphData: PropTypes.array.isRequired
-}
+};
 
 const stateToProps = (state) => ({
     authenticatedUser: state.authenticatedUser,

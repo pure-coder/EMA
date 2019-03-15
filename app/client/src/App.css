@@ -330,6 +330,10 @@ svg {
     fill: lightsteelblue;
 }
 
+.Progression, .progression-data {
+    margin: auto;
+}
+
 /* Enter progress Modal */
 
 .newClientProgress {
@@ -359,6 +363,7 @@ svg {
     color: red;
 }
 
+/* id for button */
 #progression{
     width: 200px;
     margin: auto;

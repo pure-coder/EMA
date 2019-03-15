@@ -26,6 +26,16 @@ export default function autocomplete (inp, arr) {
             /*insert a input field that will hold the current array item's value:*/
             b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
             /*execute a function when someone clicks on the item value (DIV element):*/
+            b.addEventListener("click", function () {
+                /*insert the value for the autocomplete text field:*/
+                inp.value = this.getElementsByTagName("input")[0].value;
+                /*close the list of autocompleted values,
+                (or any other open lists of autocompleted values:*/
+                closeAllLists();
+                document.getElementById(inp.id).value = inp.value;
+                // Had to put focus back on element so when onBlur is called in NewClientProgress it loaded value to state!
+                document.getElementById(inp.id).focus();
+            });
             a.appendChild(b);
         }
     }
