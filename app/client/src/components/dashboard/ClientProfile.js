@@ -57,9 +57,10 @@ class ClientProfile extends Component {
 
     onClickAway() {
         this.setState({
-            visible : false
+            visible: false
         });
     }
+
 
     render() {
         let displayContent;

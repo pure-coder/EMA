@@ -824,7 +824,7 @@ router.post('/:id/client_progression/:cid', passport.authenticate('pt_rule', {se
                 // Check to see if ptId is allowed
                 if (resultClient.ptId === ptId) {
 
-                    // Check to see if a client progression document exists (then = does already exist so update, catch = doesn't exist so create one)
+                    // Check to see if a client progression document exists (if (result) means it exists so update, else creates new exercise as it doesn't exist
                     ClientProgression.findOne({$and: [{clientId: clientId}, {exerciseName: data.exerciseName}]})
                         .then(result => {
                             if (result) {
@@ -868,14 +868,21 @@ router.post('/:id/client_progression/:cid', passport.authenticate('pt_rule', {se
                             }
                             else {
                                 // Client progress doesn't exist for exercise so create one
+                                console.log("create exercise progress", data)
+
+                                let newMetrics = {
+                                    maxWeight: data.metrics.maxWeight,
+                                    Date: new Date(data.metrics.Date)
+                                    // Had to convert time into same format used by the database ie from '01-08-2019' to '2019-01-06T00:00:00.000Z'
+                                    // It is also used with getTime() below for comparison of duplicates
+
+                                }
+
                                 const newProgression = new ClientProgression({
                                     clientId: clientId,
-                                    ptId: data.ptId,
+                                    ptId: ptId,
                                     exerciseName: data.exerciseName,
-                                    metrics: {
-                                        maxWeight: data.maxWeight,
-                                        Date: data.Date
-                                    }
+                                    metrics: newMetrics
                                 }); // newProgression
 
                                 // Save newProgression to ClientProgression collection

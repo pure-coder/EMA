@@ -114,18 +114,11 @@ class NewClientProgress extends Component {
         e.preventDefault();
 
         const exerciseName = this.state.exerciseName;
-        let sendData = false;
 
         if (!this.state.exercises.includes(exerciseName)){
             this.props.setErrors({exerciseName: "Please select an exercise from those provided!"});
         }
         else{
-            sendData = true;
-        }
-
-
-
-        if(sendData) {
             const clientProgressData = {
                 exerciseName: this.state.exerciseName,
                 metrics: {

@@ -4,7 +4,6 @@ export default function autocomplete (inp, arr) {
     let currentFocus;
     // Show whole list of exercises if input field is empty
     if(inp.value.length === 0){
-        console.log(inp.value.length);
         /*execute a function when someone writes in the text field:*/
         let a, b, i, val = inp.value;
         currentFocus = -1;
