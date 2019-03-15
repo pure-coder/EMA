@@ -868,8 +868,6 @@ router.post('/:id/client_progression/:cid', passport.authenticate('pt_rule', {se
                             }
                             else {
                                 // Client progress doesn't exist for exercise so create one
-                                console.log("create exercise progress", data)
-
                                 let newMetrics = {
                                     maxWeight: data.metrics.maxWeight,
                                     Date: new Date(data.metrics.Date)
@@ -888,8 +886,9 @@ router.post('/:id/client_progression/:cid', passport.authenticate('pt_rule', {se
                                 // Save newProgression to ClientProgression collection
                                 newProgression.save()
                                     .then(result => {
-                                        //console.log(events);
-                                        return res.status(200).json(result);
+                                        // Send back response expected in authenticatedActions for newClientProgress action
+                                        let data = {n: 1, nModified: 1}
+                                        return res.status(200).json(data);
                                     })
                                     .catch(err => {
                                         return res.status(400).json(err);

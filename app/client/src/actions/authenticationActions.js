@@ -287,7 +287,7 @@ export const newClientProgress = (id, cid ,data) => dispatch => {
             if(result.data.n === 1 && result.data.nModified === 1){
                 dispatch({
                     type: GET_ERRS,
-                    payload: {}
+                    payload: {}  // Empty object payload clears errors in component
                 });
                 dispatch({
                     type: SUCCESS,
