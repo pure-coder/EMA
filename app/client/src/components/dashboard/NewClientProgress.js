@@ -2,7 +2,7 @@ import React, {Component} from 'react' // React is need for rendering JSX HTML e
 import {withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
-import {newClientProgress, clearErrors} from "../../actions/authenticationActions";
+import {newClientProgress, setErrors, clearErrors} from "../../actions/authenticationActions";
 import autocomplete from '../../utilities/autoComplete';
 import FormInputGroup from "../common/FormInputGroup";
 
@@ -45,7 +45,7 @@ class NewClientProgress extends Component {
                 "Crunch",
                 "Russian twist",
                 "Leg raise",
-                "Back extension",
+                "Back extension"
             ],
         };
 
@@ -58,8 +58,6 @@ class NewClientProgress extends Component {
         this.onFocus = this.onFocus.bind(this);
         this.onBlur = this.onBlur.bind(this);
     } // constructor
-
-
 
     static getDerivedStateFromProps(props, state) {
         if (props.visibility !== state.visible) {
@@ -78,7 +76,6 @@ class NewClientProgress extends Component {
     }
 
     onChange(e) {
-        console.log(e.target.value);
         this.setState({[e.target.name]: e.target.value});
     }
 
@@ -104,8 +101,6 @@ class NewClientProgress extends Component {
     onBlur(){
         let selectedExercise = document.getElementById("exerciseName").value;
 
-        // This is needed as the autocomplete can not set the exercise state within it's external function. This just persist's the
-        // chosen exercise in from the list to the input field.
         this.setState({exerciseName: selectedExercise });
     }
 
@@ -115,15 +110,29 @@ class NewClientProgress extends Component {
         const exerciseName = this.state.exerciseName;
         let sendData = false;
 
-        // Check if exerciseName is in the list, if not show error
-        this.state.exercises.map(element =>{
-            if(element !== exerciseName){
-                return null;
-            }
-            else{
-                return sendData = true;
-            }
-        })
+        let t0 = performance.now();
+        // // Check if exerciseName is in the list, if not show error
+        // this.state.exercises.map(element =>{
+        //     if(element !== exerciseName){
+        //         // Show error to user
+        //         this.props.setErrors({exerciseName: "Please select an exercise from those provided"});
+        //         return sendData;
+        //     }
+        //     else{
+        //         return sendData = true;
+        //     }
+        // });
+
+        if (!this.state.exercises.includes(exerciseName)){
+            this.props.setErrors({exerciseName: "Please select an exercise from those provided"});
+        }
+        else{
+            sendData = true;
+        }
+        let t1 = performance.now();
+
+        console.log(t1-t0);
+
 
         if(sendData) {
             const clientProgressData = {
@@ -133,14 +142,12 @@ class NewClientProgress extends Component {
                     Date: new Date(this.state.Date)
                 }
             };
-
             this.props.newClientProgress(this.state.userId, this.state.clientId, clientProgressData);
         }
     } // onSubmit
 
     render() {
         let {errors} = this.state;
-        console.log(this.state);
         return (
             <div className="newClientProgress">
                 <div>
@@ -196,6 +203,7 @@ class NewClientProgress extends Component {
 
 NewClientProgress.propTypes = {
     newClientProgress: PropTypes.func.isRequired,
+    setErrors: PropTypes.func.isRequired,
     clearErrors: PropTypes.func.isRequired,
     authenticatedUser: PropTypes.object.isRequired,
     errors: PropTypes.object.isRequired,
@@ -209,4 +217,4 @@ const stateToProps = (state) => ({
 });
 
 
-export default connect(stateToProps, {newClientProgress, clearErrors})(withRouter(NewClientProgress));
+export default connect(stateToProps, {newClientProgress, setErrors, clearErrors})(withRouter(NewClientProgress));
