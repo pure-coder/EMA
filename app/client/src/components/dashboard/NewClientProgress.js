@@ -16,6 +16,7 @@ class NewClientProgress extends Component {
             exerciseName: '',
             maxWeight: '',
             Date: '',
+            visible: false,
             errors: {},
             success: '',
             exercises : [
@@ -60,8 +61,8 @@ class NewClientProgress extends Component {
     } // constructor
 
     static getDerivedStateFromProps(props, state) {
-        if (props.visibility !== state.visible) {
-            return {visible: props.visibility}
+        if (props.visible !== state.visible) {
+            return {visible: props.visible}
         }
         if (props.errors !== state.errors) {
             return {
@@ -77,6 +78,20 @@ class NewClientProgress extends Component {
 
     componentDidMount(){
         document.body.scrollTo(0,0);
+
+    }
+
+    // Checking if previous props modal visibility and this states visibility is not equal (stops reacts maximum loop message when
+    // setting state) so that fields and errors can be cleared when exiting modal (using onClickAway instead of close button).
+    componentDidUpdate(prevProps){
+        if(prevProps.visible !== this.state.visible){
+            this.setState({
+                exerciseName: '',
+                maxWeight: '',
+                Date: ''
+            });
+            this.props.clearErrors();
+        }
     }
 
     onChange(e) {
@@ -101,7 +116,7 @@ class NewClientProgress extends Component {
             exerciseName: '',
             maxWeight: '',
             Date: ''
-        })
+        });
     }
 
     onBlur(){
