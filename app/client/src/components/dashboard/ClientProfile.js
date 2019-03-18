@@ -3,10 +3,9 @@ import PropTypes from 'prop-types'; // Used to document prop types sent to compo
 import {connect} from 'react-redux' // Needed when using redux inside a component (connects redux to this component)
 import {withRouter} from 'react-router-dom';
 import {getClientProgression, clearProgression} from "../../actions/authenticationActions";
-//import {addGraph} from '../../utilities/progressGraph'
 import Loading from "../../elements/Loading";
 import Graph from "./Graph";
-import NewClientProgress from "./NewClientProgress";
+import NewClientProgressForm from "./NewClientProgressForm";
 import Modal from 'react-awesome-modal';
 
 // import FormInputGroup from "../common/FormInputGroup"; // Allows proper routing and linking using browsers match, location, and history properties
@@ -19,17 +18,20 @@ class ClientProfile extends Component {
             userId: props.authenticatedUser.user.id,
             // If user is pt then get clientId from otherwise user is client, so use user.id
             clientId: props.authenticatedUser.clientId !== undefined ? props.authenticatedUser.clientId : props.match.params.Cid,
+            clientProgression: props.authenticatedUser.client_Progression,
             loaded: false,
             visible: false, // For modal
             errors: {}
         };
 
+        this.getProgressForPage = this.getProgressForPage.bind(this);
         this.onClickAway = this.onClickAway.bind(this)
     }
 
     // Life cycle method for react which will run when this component receives new properties
     componentDidMount() {
         document.body.scrollTo(0,0);
+        console.log(this.state.clientProgression);
 
         // Check if isAuthenticated is true then redirect to the dashboard
         if (!this.props.authenticatedUser.isAuthenticated) {
@@ -38,7 +40,7 @@ class ClientProfile extends Component {
 
         // If direct link used then get client progression data
         if (this.state.loaded === false) {
-            this.props.getClientProgression(this.state.userId, this.state.clientId, this.props.history);
+            this.getProgressForPage();
             this.setState({loaded: true});
         }
     } // did mount
@@ -59,12 +61,19 @@ class ClientProfile extends Component {
         this.setState({
             visible: false
         });
+        this.getProgressForPage();
     }
 
+    getProgressForPage(){
+        // console.log("this")
+        // console.log(this.props.authenticatedUser.client_Progression);
+        this.props.getClientProgression(this.state.userId, this.state.clientId, this.props.history);
+    }
 
     render() {
         let displayContent;
-        let client_progression = this.props.authenticatedUser.client_Progression;
+        let client_progression;
+        this.state.clientProgression !== undefined ? client_progression = this.state.clientProgression : client_progression = this.props.authenticatedUser.client_Progression;
 
         if (!client_progression) {
             return <Loading/>
@@ -78,7 +87,7 @@ class ClientProfile extends Component {
         } // if client_progression is not undefined
 
         return (
-            <div className="container  dashboard-custom">
+            <div className="container dashboard-custom">
                 {displayContent}
                 {/*Only display Add progress if user is a pt*/}
                 {this.props.authenticatedUser.user.pt === true && client_progression ?
@@ -90,8 +99,13 @@ class ClientProfile extends Component {
                 <Modal visible={this.state.visible} width="500" height="450" effect="fadeInUp"
                        onClickAway={this.onClickAway}>
                     <div>
-                        {/*Sending onClickAway into child component NewClientProgress allows the child to affect this parents state!!! */}
-                        <NewClientProgress onClickAway={this.onClickAway} visible={this.state.visible}/>
+                        {/*Sending onClickAway into child component NewClientProgress allows the child to affect this parents state!!!
+                         Also sending modal visibility so fields and errors can be cleared when visibility is false.
+                         Also sending getClientProgression so that the page can be updated once a new progress submission
+                           has been successful.*/}
+                        <NewClientProgressForm onClickAway={this.onClickAway}
+                                           visible={this.state.visible}
+                        />
                     </div>
                 </Modal>
             </div>

@@ -7,7 +7,7 @@ import autocomplete from '../../utilities/autoComplete';
 import FormInputGroup from "../common/FormInputGroup";
 
 
-class NewClientProgress extends Component {
+class NewClientProgressForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -78,7 +78,10 @@ class NewClientProgress extends Component {
 
     componentDidMount(){
         document.body.scrollTo(0,0);
+    }
 
+    componentWillUnmount(){
+        console.log(this);
     }
 
     // Checking if previous props modal visibility and this states visibility is not equal (stops reacts maximum loop message when
@@ -121,7 +124,6 @@ class NewClientProgress extends Component {
 
     onBlur(){
         let selectedExercise = document.getElementById("exerciseName").value;
-
         this.setState({exerciseName: selectedExercise });
     }
 
@@ -200,7 +202,7 @@ class NewClientProgress extends Component {
     }; // render
 }
 
-NewClientProgress.propTypes = {
+NewClientProgressForm.propTypes = {
     newClientProgress: PropTypes.func.isRequired,
     setErrors: PropTypes.func.isRequired,
     clearErrors: PropTypes.func.isRequired,
@@ -216,4 +218,4 @@ const stateToProps = (state) => ({
 });
 
 
-export default connect(stateToProps, {newClientProgress, setErrors, clearErrors})(withRouter(NewClientProgress));
+export default connect(stateToProps, {newClientProgress, setErrors, clearErrors})(withRouter(NewClientProgressForm));

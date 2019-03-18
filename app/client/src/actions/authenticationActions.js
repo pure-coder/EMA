@@ -289,10 +289,8 @@ export const newClientProgress = (id, cid ,data) => dispatch => {
                     type: GET_ERRS,
                     payload: {}  // Empty object payload clears errors in component
                 });
-                dispatch({
-                    type: SUCCESS,
-                    payload: {msg :"ENTRY SUCCESSFUL"}
-                });
+                // Have to use dispatch to send action function to another action function in the actions file
+                dispatch(setSuccess("ENTRY SUCCESSFUL"));
             }
         })
         .catch(err => {
@@ -309,6 +307,15 @@ export const setErrors = (error) => dispatch => {
         payload: error
     })
 };
+
+export const setSuccess = (message) => dispatch => {
+    console.log("this");
+    dispatch({
+        type: SUCCESS,
+        payload: {msg : message}
+    });
+}
+
 
 export const clearErrors = () => dispatch => {
     dispatch({
