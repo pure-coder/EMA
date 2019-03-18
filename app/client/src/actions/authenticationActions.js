@@ -309,7 +309,6 @@ export const setErrors = (error) => dispatch => {
 };
 
 export const setSuccess = (message) => dispatch => {
-    console.log("this");
     dispatch({
         type: SUCCESS,
         payload: {msg : message}

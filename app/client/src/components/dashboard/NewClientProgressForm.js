@@ -2,7 +2,7 @@ import React, {Component} from 'react' // React is need for rendering JSX HTML e
 import {withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
-import {newClientProgress, setErrors, clearErrors} from "../../actions/authenticationActions";
+import {newClientProgress, setErrors, clearErrors, setSuccess} from "../../actions/authenticationActions";
 import autocomplete from '../../utilities/autoComplete';
 import FormInputGroup from "../common/FormInputGroup";
 
@@ -18,7 +18,7 @@ class NewClientProgressForm extends Component {
             Date: '',
             visible: false,
             errors: {},
-            success: '',
+            success: props.success,
             exercises : [
                 "Squat",
                 "Leg press",
@@ -54,9 +54,9 @@ class NewClientProgressForm extends Component {
 
         this.onSubmit = this.onSubmit.bind(this);
 
-        this.onClick= this.onClick.bind(this);
+        this.onClose= this.onClose.bind(this);
 
-        this.onFocus = this.onFocus.bind(this);
+        this.onClick = this.onClick.bind(this);
         this.onBlur = this.onBlur.bind(this);
     } // constructor
 
@@ -97,19 +97,28 @@ class NewClientProgressForm extends Component {
         }
     }
 
+    onClick(e){
+        // If input field is for exerciseName, complete the auto list
+        if(e.target.name === 'exerciseName') {
+            this.onLoadList(e);
+        }
+
+    }
+
     onChange(e) {
         this.setState({[e.target.name]: e.target.value});
+        this.props.setSuccess('');
     }
 
     // When input field is click (Really on clicked)
-    onFocus(e){
+    onLoadList(e){
         // Sort the array, this is then used as argument for autocomplete
         const exerciseList = this.state.exercises.sort();
         // e.target and document.getElementById(e.target.id) return the same output, so using former.
         autocomplete(e.target, exerciseList, this.state);
     }
 
-    onClick(){
+    onClose(){
         // The use of onClick with this.props.onClickAway() allows this to call the parents onClickAway (note the use of props)
         this.props.onClickAway();
         // Clear errors once the modal has been exited
@@ -122,6 +131,7 @@ class NewClientProgressForm extends Component {
         });
     }
 
+    // This is needed to set the exercise name to state on blur, as can't set state in the autocomplete external function
     onBlur(){
         let selectedExercise = document.getElementById("exerciseName").value;
         this.setState({exerciseName: selectedExercise });
@@ -152,7 +162,7 @@ class NewClientProgressForm extends Component {
         return (
             <div className="newClientProgress">
                 <div>
-                    <button className="closeButton"  onClick={this.onClick}><i className="fas fa-window-close 2x"></i></button>
+                    <button className="closeButton"  onClick={this.onClose}><i className="fas fa-window-close 2x"></i></button>
                 </div>
                 <form autoComplete="off" onSubmit={this.onSubmit}>
                     <label className="control-label form-control-lg edit-profile-label">
@@ -167,7 +177,7 @@ class NewClientProgressForm extends Component {
                             type="text"
                             onChange={this.onChange}
                             error={errors.exerciseName}
-                            onClick={this.onFocus}
+                            onClick={this.onClick}
                             onBlur={this.onBlur}
                         />
                     </div>
@@ -193,6 +203,7 @@ class NewClientProgressForm extends Component {
                         onChange={this.onChange}
                         error={errors.Date}
                     />
+                    {console.log(this.state.success)}
                     <div className="valid-feedback">{this.state.success.msg}</div>
                     <input type="submit" className="btn btn-info btn-block mt-2 mb-5"/>
                 </form>
@@ -218,4 +229,4 @@ const stateToProps = (state) => ({
 });
 
 
-export default connect(stateToProps, {newClientProgress, setErrors, clearErrors})(withRouter(NewClientProgressForm));
+export default connect(stateToProps, {newClientProgress, setErrors, clearErrors, setSuccess})(withRouter(NewClientProgressForm));
