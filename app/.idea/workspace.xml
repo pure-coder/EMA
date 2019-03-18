@@ -5,8 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ec8ccf39-8487-4892-a38d-de9c288878a3" name="Default" comment="delete client from pt array - using pull">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/actions/authenticationActions.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/actions/authenticationActions.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/dashboard/NewClientProgressForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/dashboard/NewClientProgressForm.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -48,7 +46,7 @@
           <entry key="css" value="5155" />
           <entry key="editorConfig" value="285" />
           <entry key="html" value="1072" />
-          <entry key="js" value="107249" />
+          <entry key="js" value="107371" />
           <entry key="json" value="26" />
           <entry key="md" value="150" />
           <entry key="txt" value="120" />
@@ -59,7 +57,7 @@
           <entry key="CSS" value="5155" />
           <entry key="HTML" value="1072" />
           <entry key="JSON" value="26" />
-          <entry key="JavaScript" value="107249" />
+          <entry key="JavaScript" value="107371" />
           <entry key="PLAIN_TEXT" value="555" />
         </counts>
       </usages-collector>
@@ -99,8 +97,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/NewClientProgressForm.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="133" column="121" selection-start-line="133" selection-start-column="121" selection-end-line="133" selection-end-column="121" />
+            <state relative-caret-position="163">
+              <caret line="206" column="22" selection-start-line="206" selection-start-column="22" selection-end-line="206" selection-end-column="22" />
               <folding>
                 <element signature="e#109#153#0" expanded="true" />
               </folding>
@@ -444,7 +442,7 @@
       <workItem from="1550910770209" duration="56984000" />
       <workItem from="1551774400661" duration="160491000" />
       <workItem from="1552586754943" duration="31533000" />
-      <workItem from="1552821747373" duration="16614000" />
+      <workItem from="1552821747373" duration="16913000" />
     </task>
     <task id="LOCAL-00001" summary="min height changed for developed pages">
       <created>1534874964132</created>
@@ -492,7 +490,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="974020000" />
+    <option name="totallyTimeSpent" value="974319000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -901,8 +899,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/NewClientProgressForm.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="133" column="121" selection-start-line="133" selection-start-column="121" selection-end-line="133" selection-end-column="121" />
+        <state relative-caret-position="163">
+          <caret line="206" column="22" selection-start-line="206" selection-start-column="22" selection-end-line="206" selection-end-column="22" />
           <folding>
             <element signature="e#109#153#0" expanded="true" />
           </folding>

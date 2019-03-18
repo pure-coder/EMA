@@ -102,12 +102,14 @@ class NewClientProgressForm extends Component {
         if(e.target.name === 'exerciseName') {
             this.onLoadList(e);
         }
-
+        // Set success message to empty if re-entering data after a successful previous submission.
+        if(this.state.success.msg !== '') {
+            this.props.setSuccess('');
+        }
     }
 
     onChange(e) {
         this.setState({[e.target.name]: e.target.value});
-        this.props.setSuccess('');
     }
 
     // When input field is click (Really on clicked)
@@ -203,7 +205,6 @@ class NewClientProgressForm extends Component {
                         onChange={this.onChange}
                         error={errors.Date}
                     />
-                    {console.log(this.state.success)}
                     <div className="valid-feedback">{this.state.success.msg}</div>
                     <input type="submit" className="btn btn-info btn-block mt-2 mb-5"/>
                 </form>
