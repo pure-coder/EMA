@@ -31,7 +31,6 @@ class ClientProfile extends Component {
     // Life cycle method for react which will run when this component receives new properties
     componentDidMount() {
         document.body.scrollTo(0,0);
-        console.log(this.state.clientProgression);
 
         // Check if isAuthenticated is true then redirect to the dashboard
         if (!this.props.authenticatedUser.isAuthenticated) {
@@ -43,7 +42,16 @@ class ClientProfile extends Component {
             this.getProgressForPage();
             this.setState({loaded: true});
         }
+
     } // did mount
+
+    // componentDidUpdate(prevProps){
+    //     if(prevProps.authenticatedUser.client_Progression !== this.props.authenticatedUser.client_Progression) {
+    //         this.setState({clientProgression: this.props.authenticatedUser.client_Progression});
+    //     }
+    //     console.log(this.state.clientProgression === undefined ? this.state.clientProgression : this.state.clientProgression[2])
+    //     console.log(this.props.authenticatedUser.client_Progression  === undefined ? this.props.authenticatedUser.client_Progression :this.props.authenticatedUser.client_Progression[2]);
+    // }
 
     componentWillUnmount(){
         // This got rid of the Date: null bug for now, need to find route cause!!!
@@ -65,24 +73,23 @@ class ClientProfile extends Component {
     }
 
     getProgressForPage(){
-        // console.log("this")
-        // console.log(this.props.authenticatedUser.client_Progression);
         this.props.getClientProgression(this.state.userId, this.state.clientId, this.props.history);
     }
 
     render() {
         let displayContent;
-        let client_progression;
-        this.state.clientProgression !== undefined ? client_progression = this.state.clientProgression : client_progression = this.props.authenticatedUser.client_Progression;
+        //let client_progression;
+        //this.state.clientProgression !== undefined ? client_progression = this.state.clientProgression : client_progression = this.props.authenticatedUser.client_Progression;
 
-        if (!client_progression) {
+        if (!this.props.authenticatedUser.client_Progression) {
             return <Loading/>
         }
 
         // Check to see that client_progression is not undefined or the return data for client_progression is not empty
-        if (client_progression) {
+        if (this.props.authenticatedUser.client_Progression) {
+            // console.log(this.props.authenticatedUser.client_Progression[2])
             displayContent = (
-                <Graph graphData={client_progression}/>
+                <Graph graphData={this.props.authenticatedUser.client_Progression}/>
             )
         } // if client_progression is not undefined
 
@@ -90,7 +97,7 @@ class ClientProfile extends Component {
             <div className="container dashboard-custom">
                 {displayContent}
                 {/*Only display Add progress if user is a pt*/}
-                {this.props.authenticatedUser.user.pt === true && client_progression ?
+                {this.props.authenticatedUser.user.pt === true && this.props.authenticatedUser.client_Progression ?
                     <div>
                         <input id="progression" type="button" className="btn btn-info btn-block mb-4" value="Add Progress" onClick={() => this.openModal()} />
                     </div>

@@ -192,6 +192,7 @@ class NewClientProgressForm extends Component {
                         value={this.state.maxWeight}
                         type="text"
                         onChange={this.onChange}
+                        onClick={this.onClick}
                         error={errors.maxWeight}
                     />
                     <label className="control-label form-control-lg edit-profile-label">
@@ -203,6 +204,7 @@ class NewClientProgressForm extends Component {
                         value={this.state.Date}
                         type="Date"
                         onChange={this.onChange}
+                        onClick={this.onClick}
                         error={errors.Date}
                     />
                     <div className="valid-feedback">{this.state.success.msg}</div>
