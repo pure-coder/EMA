@@ -1,5 +1,5 @@
 import * as d3 from "d3";
-import $ from 'jquery';
+//import $ from 'jquery';
 
 function addGraph(data, position, title1) {// set the dimensions and margins of the graph
 

@@ -22,13 +22,24 @@ class Graph extends Component {
         this.createGraph();
     } // cdm
 
-    componentDidUpdate(){
-        this.createGraph();
+    componentDidUpdate(prevProps){
+        //this.createGraph();
+        // console.log(prevProps.graphData);
+        // console.log(this.props.graphData); // this changes (was other way around in shouldComponentUpdate - has to do with rendering cycle)
+        this.props.graphData.map((element, index) => {
+            // if(prevProps.graphData !== this.props.graphData){
+            //     console.log(this.props.graphData)
+            // }
+            // console.log(prevProps.graphData[index]);
+            // console.log(element);
+            if(prevProps.graphData[index].metrics.length !== element.metrics.length){
+                console.log(element.exerciseName);
+            }
+            return null;
+        });
     }
 
     shouldComponentUpdate(prevProps){
-        console.log(prevProps.graphData); // this changes
-        console.log(this.props.graphData);
         return prevProps.graphData !== this.props.graphData;
     }
 
