@@ -1,6 +1,15 @@
 import * as d3 from "d3";
+import $ from 'jquery';
 
-function addGraph(data, position, title) {// set the dimensions and margins of the graph
+function addGraph(data, position, title1) {// set the dimensions and margins of the graph
+
+    let svg;
+    let idName;
+    // Remove classname identifier '.'
+    idName = position.substring(1, position.length);
+    // Remove hyphen from position to use for title (used idName as it already stripped the '.')
+    let title = idName.replace(/-+/g, ' ');
+
     // Takes data given in function
     let dataToDraw = data;
 
@@ -37,12 +46,28 @@ function addGraph(data, position, title) {// set the dimensions and margins of t
     // appends a 'group' element to 'svg'
     // moves the 'group' element to the top left margin
     // setPosition - sets specific graph to div specified as position parameter
-    let svg = d3.select(position).append("svg")
+
+    // if($(position).length === 1){
+    svg = d3.select(position).append("svg")
         .attr("width", width + marginLeft + marginRight)
         .attr("height", height + marginTop + marginBottom)
+        .attr("id", idName)
         .append("g")
         .attr("transform",
             "translate(" + marginLeft + "," + marginTop + ")");
+    // }
+    // else{
+    //     let element = document.getElementById(idName);
+    //     element.parentNode.removeChild(element);
+    //
+    //     svg = d3.select(position).append("svg")
+    //         .attr("width", width + marginLeft + marginRight)
+    //         .attr("height", height + marginTop + marginBottom)
+    //         .attr("id", idName)
+    //         .append("g")
+    //         .attr("transform",
+    //             "translate(" + marginLeft + "," + marginTop + ")");
+    // }
 
     // Get the data
     function draw(data) {

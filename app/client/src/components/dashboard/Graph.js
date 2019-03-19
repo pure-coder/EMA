@@ -4,8 +4,6 @@ import {addGraph} from "../../utilities/progressGraph";
 import {withRouter} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import $ from 'jquery';
-import isEmpty from "../../validation/is_empty";
-
 
 class Graph extends Component {
     // This allows the component states to be up{dated and re-rendered)
@@ -26,15 +24,11 @@ class Graph extends Component {
 
     componentDidUpdate(){
         this.createGraph();
-        // if (!isEmpty(this.state.exercises)){
-        //     for(let key in this.state.exercises){
-        //         //console.log(this.state.exercises[key])
-        //         addGraph(this.state.exercises[key], "progressive-data", key);
-        //     }
-        // }
     }
 
     shouldComponentUpdate(prevProps){
+        console.log(prevProps.graphData); // this changes
+        console.log(this.props.graphData);
         return prevProps.graphData !== this.props.graphData;
     }
 
@@ -51,23 +45,26 @@ class Graph extends Component {
             sortedProgressionMap(element.metrics).map(data => {
                 return progressData.push(data)
             });
-            // console.log(element.metrics.length)
+
             // Only create graph for exercise that has 2+ metric data
             if(element.metrics.length >= 2) {
                 let addToClassName = element.exerciseName.toString();
-                // Replace space ' ' with hyphen '-' in string
-                addToClassName = addToClassName.replace(/\s+/g, '-');
-                let newNode = document.createElement('div');
-                newNode.className = addToClassName;
-                // Check if element already exists, only add class to div if it doesn't
+                // Check if element already exists, only create and add class to div if it doesn't
                 if (!($('.'+ addToClassName).length > 0)){
+                    // Replace space ' ' with hyphen '-' in string
+                    addToClassName = addToClassName.replace(/\s+/g, '-');
+                    let newNode = document.createElement('div');
+                    newNode.className = addToClassName;
                     document.getElementById('Progression').appendChild(newNode);
                 }
+
+                // Create object to merge into exercise state
                 let exercise = {
                     [element.exerciseName] : progressData
                 }
                 merge = Object.assign(this.state.exercises, exercise);
                 this.setState({exercises: merge})
+
                 // 1st argument takes array of objects as data to plot graph, 2nd argument takes div as position to display graph,
                 // 3rd is title of graph
                 return addGraph(progressData, "."+addToClassName, element.exerciseName);
@@ -78,14 +75,6 @@ class Graph extends Component {
     }
 
     render() {
-        //console.log(this.state.exercises)
-        // if (!isEmpty(this.state.exercises)){
-        //     for(let key in this.state.exercises){
-        //         //console.log(this.state.exercises[key])
-        //         addGraph(this.state.exercises[key], key, key);
-        //     }
-        // }
-
         return (
                 <div className="row">
                     <div className="m-auto col-1">
@@ -93,7 +82,6 @@ class Graph extends Component {
                         <h2 className=" text-center display-5 mt-3 mb-4">Client progression data</h2>
                         <div id="Progression" className="Progression">
                             <div className="progression-data"></div>
-                            <div className="Bench-Press"></div>
                         </div>
                     </div>
                 </div>
