@@ -4,6 +4,7 @@ import {addGraph} from "../../utilities/progressGraph";
 import {withRouter} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import $ from 'jquery';
+import isEmpty from "../../validation/is_empty";
 
 
 class Graph extends Component {
@@ -25,6 +26,12 @@ class Graph extends Component {
 
     componentDidUpdate(){
         this.createGraph();
+        // if (!isEmpty(this.state.exercises)){
+        //     for(let key in this.state.exercises){
+        //         //console.log(this.state.exercises[key])
+        //         addGraph(this.state.exercises[key], "progressive-data", key);
+        //     }
+        // }
     }
 
     shouldComponentUpdate(prevProps){
@@ -60,7 +67,7 @@ class Graph extends Component {
                 this.setState({exercises: merge})
                 // 1st argument takes array of objects as data to plot graph, 2nd argument takes div as position to display graph,
                 // 3rd is title of graph
-                // return addGraph(progressData, addToClassName, element.exerciseName);
+                return addGraph(progressData, "."+addToClassName, element.exerciseName);
             }
             return null;
         });
@@ -68,7 +75,13 @@ class Graph extends Component {
     }
 
     render() {
-        console.log(this.state.exercises);
+        //console.log(this.state.exercises)
+        // if (!isEmpty(this.state.exercises)){
+        //     for(let key in this.state.exercises){
+        //         //console.log(this.state.exercises[key])
+        //         addGraph(this.state.exercises[key], key, key);
+        //     }
+        // }
 
         return (
                 <div className="row">
@@ -76,6 +89,8 @@ class Graph extends Component {
                         <h1 className=" text-center display-5 mb-3">Dashboard</h1>
                         <h2 className=" text-center display-5 mt-3 mb-4">Client progression data</h2>
                         <div id="Progression" className="Progression">
+                            <div className="progression-data"></div>
+                            <div className="Bench-Press"></div>
                         </div>
                     </div>
                 </div>
