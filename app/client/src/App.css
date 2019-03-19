@@ -326,7 +326,7 @@ svg {
 }
 
 /* progression Data (graph) */
-.progression-data .area {
+.Progression .area {
     fill: lightsteelblue;
 }
 
