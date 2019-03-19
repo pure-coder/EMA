@@ -12,6 +12,7 @@ class Graph extends Component {
         super(props);
         this.state = {
             graphData: this.props.graphData,
+            exercises : {},
             errors: {},
             mounted: false,
         }
@@ -39,21 +40,27 @@ class Graph extends Component {
 
         this.state.graphData.map(element => {
             let progressData = [];
+            let merge;
             sortedProgressionMap(element.metrics).map(data => {
                 return progressData.push(data)
             });
-            // 1st argument takes array of objects as data to plot graph, 2nd argument takes div as position to display graph, 3rd is title of graph
             // console.log(element.metrics.length)
             // Only create graph for exercise that has 2+ metric data
             if(element.metrics.length >= 2) {
                 let addToClassName = element.exerciseName.toString();
                 // Replace space ' ' with hyphen '-' in string
                 addToClassName = addToClassName.replace(/\s+/g, '-');
-                console.log(addToClassName);
                 let newNode = document.createElement('div');
                 newNode.className = addToClassName;
                 document.getElementById('Progression').appendChild(newNode);
-                return addGraph(progressData, addToClassName, element.exerciseName);
+                let exercise = {
+                    [element.exerciseName] : progressData
+                }
+                merge = Object.assign(this.state.exercises, exercise);
+                this.setState({exercises: merge})
+                // 1st argument takes array of objects as data to plot graph, 2nd argument takes div as position to display graph,
+                // 3rd is title of graph
+                // return addGraph(progressData, addToClassName, element.exerciseName);
             }
             return null;
         });
@@ -61,6 +68,7 @@ class Graph extends Component {
     }
 
     render() {
+        console.log(this.state.exercises);
 
         return (
                 <div className="row">
