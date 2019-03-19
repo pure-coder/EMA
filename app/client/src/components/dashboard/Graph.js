@@ -59,7 +59,10 @@ class Graph extends Component {
                 addToClassName = addToClassName.replace(/\s+/g, '-');
                 let newNode = document.createElement('div');
                 newNode.className = addToClassName;
-                document.getElementById('Progression').appendChild(newNode);
+                // Check if element already exists, only add class to div if it doesn't
+                if (!($('.'+ addToClassName).length > 0)){
+                    document.getElementById('Progression').appendChild(newNode);
+                }
                 let exercise = {
                     [element.exerciseName] : progressData
                 }
