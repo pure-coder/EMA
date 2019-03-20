@@ -1,8 +1,10 @@
 import * as d3 from "d3";
 
-function addGraph(data, position, title) {// set the dimensions and margins of the graph
+function addGraph(data, position) {// set the dimensions and margins of the graph
     // Takes data given in function
     let dataToDraw = data;
+    // Remove class '.' definition and replace hyphens with spaces
+    let title = position.substring(1, position.length).replace(/-+/g, " ");
 
     let marginTop = 20;
     let marginRight = 20;
