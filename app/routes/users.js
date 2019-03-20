@@ -242,10 +242,15 @@ router.post('/login', (req, res) => {
                                         // Sign Token (needs payload, secret key, and expiry detail (3600 = 1hr) for re-login
                                         // and callback for token
                                         jwt.sign(payload, keys.secretOrKey, {expiresIn: 3600}, (err, token) => {
-                                            res.json({
-                                                success: true,
-                                                token: 'Bearer ' + token // Using Bearer token protocol
-                                            })
+                                            if (token){
+                                                res.json({
+                                                    success: true,
+                                                    token: 'Bearer ' + token // Using Bearer token protocol
+                                                })
+                                            }
+                                            else{
+                                                res.json(err);
+                                            }
                                         });
                                     }
                                     // If a match is not found provide a 400 error
@@ -278,14 +283,20 @@ router.post('/login', (req, res) => {
                             // User matched so create payload for pt
                             const payload = {id: pt.id, name: pt.FullName, pt: true};
 
-                            // Sign Token (needs payload, secret key, and expiry detail (3600 = 1hr) for re-login
-                            // and callback for token
+                            // Sign Token (needs payload, secret key, and expiry detail expressed in seconds
+                            //  60s * 60m = (3600s = 1hr) for re-login and callback for token
+                            // exp and iat for expired time sent with token (format is in epoch timestamp
                             jwt.sign(payload, keys.secretOrKey, {expiresIn: 3600}, (err, token) => {
                                 //res.setHeader('Set-Cookie', 'localFitnessToken=Bearer ' + token + '; HttpOnly')
-                                res.json({
-                                    success: true,
-                                    token: 'Bearer ' + token // Using Bearer token protocol
-                                })
+                                if (token){
+                                    res.json({
+                                        success: true,
+                                        token: 'Bearer ' + token // Using Bearer token protocol
+                                    })
+                                }
+                                else{
+                                    res.json(err);
+                                }
                             });
                         }
                         // If a match is not found provide a 400 error
@@ -885,7 +896,7 @@ router.post('/:id/client_progression/:cid', passport.authenticate('pt_rule', {se
 
                                 // Save newProgression to ClientProgression collection
                                 newProgression.save()
-                                    .then(result => {
+                                    .then(() => {
                                         // Send back response expected in authenticatedActions for newClientProgress action
                                         let data = {n: 1, nModified: 1}
                                         return res.status(200).json(data);

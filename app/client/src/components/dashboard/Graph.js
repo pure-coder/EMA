@@ -62,38 +62,40 @@ class Graph extends Component {
 
         // Check to see if this is a call for graph to be updated.
         if(!updated) {
-            this.state.graphData.map(element => {
-                let progressData = [];
-                let merge;
-                this.sortedProgressionMap(element.metrics).map(data => {
-                    return progressData.push(data)
+            if (Array.isArray(this.state.graphData) && !isEmpty(this.state.graphData)) {
+                this.state.graphData.map(element => {
+                    let progressData = [];
+                    let merge;
+                    this.sortedProgressionMap(element.metrics).map(data => {
+                        return progressData.push(data)
+                    });
+
+                    // Only create graph for exercise that has 2+ metric data
+                    if (element.metrics.length >= 2) {
+                        let addToClassName = element.exerciseName.toString();
+                        // Check if element already exists, only create and add class to div if it doesn't
+                        if (!($('.' + addToClassName).length > 0)) {
+                            // Replace space ' ' with hyphen '-' in string
+                            addToClassName = addToClassName.replace(/\s+/g, '-');
+                            let newNode = document.createElement('div');
+                            newNode.className = addToClassName;
+                            document.getElementById('Progression').appendChild(newNode);
+                        }
+
+                        // Create object to merge into exercise state
+                        let exercise = {
+                            [element.exerciseName]: progressData
+                        }
+                        merge = Object.assign(this.state.exercises, exercise);
+                        this.setState({exercises: merge})
+
+                        // 1st argument takes array of objects as data to plot graph, 2nd argument takes div as position to display graph
+                        return addGraph(progressData, "." + addToClassName);
+                    }
+                    return null;
                 });
-
-                // Only create graph for exercise that has 2+ metric data
-                if (element.metrics.length >= 2) {
-                    let addToClassName = element.exerciseName.toString();
-                    // Check if element already exists, only create and add class to div if it doesn't
-                    if (!($('.' + addToClassName).length > 0)) {
-                        // Replace space ' ' with hyphen '-' in string
-                        addToClassName = addToClassName.replace(/\s+/g, '-');
-                        let newNode = document.createElement('div');
-                        newNode.className = addToClassName;
-                        document.getElementById('Progression').appendChild(newNode);
-                    }
-
-                    // Create object to merge into exercise state
-                    let exercise = {
-                        [element.exerciseName]: progressData
-                    }
-                    merge = Object.assign(this.state.exercises, exercise);
-                    this.setState({exercises: merge})
-
-                    // 1st argument takes array of objects as data to plot graph, 2nd argument takes div as position to display graph
-                    return addGraph(progressData, "." + addToClassName);
-                }
-                return null;
-            });
-            this.setState({mounted: true});
+                this.setState({mounted: true});
+            }
         }
         else{
 
