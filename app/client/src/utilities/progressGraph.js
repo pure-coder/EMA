@@ -101,6 +101,7 @@ function addGraph(data, position, title) {// set the dimensions and margins of t
             .call(make_x_gridlines()
                 .tickSize(-height)
                 .tickFormat("")
+                .ticks(d3.timeMonth)
             );
 
         // add the Y gridlines
