@@ -3,8 +3,6 @@ import * as d3 from "d3";
 function addGraph(data, position) {// set the dimensions and margins of the graph
     // Takes data given in function
     let dataToDraw = data;
-    // Remove class '.' definition and replace hyphens with spaces
-    let title = position.substring(1, position.length).replace(/-+/g, " ");
 
     let marginTop = 20;
     let marginRight = 20;
@@ -93,8 +91,7 @@ function addGraph(data, position) {// set the dimensions and margins of the grap
             .attr("transform",
                 "translate(" + (width / 2) + " ," + // first value is distance from left, second is distance from top
                 (-5) + ")")
-            .style("text-anchor", "middle")
-            .text(title);
+
 
         // add the X gridlines
         svg.append("g")

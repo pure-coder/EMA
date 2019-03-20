@@ -72,14 +72,22 @@ class Graph extends Component {
 
                     // Only create graph for exercise that has 2+ metric data
                     if (element.metrics.length >= 2) {
-                        let addToClassName = element.exerciseName.toString();
+                        let className = element.exerciseName.toString();
+                        let addToClassName;
                         // Check if element already exists, only create and add class to div if it doesn't
-                        if (!($('.' + addToClassName).length > 0)) {
+                        if (!($('.' + className).length > 0)) {
                             // Replace space ' ' with hyphen '-' in string
-                            addToClassName = addToClassName.replace(/\s+/g, '-');
+                            addToClassName = className.replace(/\s+/g, '-');
+                            console.log(addToClassName)
                             let newNode = document.createElement('div');
                             newNode.className = addToClassName;
                             document.getElementById('Progression').appendChild(newNode);
+
+                            // Create heading for graph
+                            let title = className
+                            let heading = document.createElement('h4');
+                            let headingText = document.createTextNode(title)
+                            document.getElementsByClassName(addToClassName)[0].appendChild(heading).appendChild(headingText);
                         }
 
                         // Create object to merge into exercise state
@@ -110,7 +118,6 @@ class Graph extends Component {
                         <h1 className=" text-center display-5 mb-3">Dashboard</h1>
                         <h2 className=" text-center display-5 mt-3 mb-4">Client progression data</h2>
                         <div id="Progression" className="Progression">
-                            <div className="progression-data"></div>
                         </div>
                     </div>
                 </div>

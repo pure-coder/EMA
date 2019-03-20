@@ -233,7 +233,7 @@ img {
 svg {
     height: 310px;
     width: 400px;
-    margin: 15px 10px 20px 10px;
+    margin: 0px 10px 20px 10px;
 }
 
 .line {
@@ -323,6 +323,10 @@ svg {
 }
 
 /* progression Data (graph) */
+.Progression {
+    min-width: 420px;
+}
+
 .Progression .area {
     fill: lightsteelblue;
 }
@@ -341,6 +345,11 @@ svg {
     stroke: darkgray;
     stroke-opacity: 0.3;
     shape-rendering: crispEdges;
+}
+
+.Progression h4, .Progression text {
+    text-align: center;
+    margin: 0px;
 }
 
 /*Removes border around whole graph*/
