@@ -338,7 +338,7 @@ svg {
 }
 
 .Progression .grid line {
-    stroke: lightgrey;
+    stroke: darkgray;
     stroke-opacity: 0.3;
     shape-rendering: crispEdges;
 }

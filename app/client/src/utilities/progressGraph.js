@@ -159,6 +159,19 @@ function addGraph(data, position, title) {// set the dimensions and margins of t
             .style("stroke", "black")
             .style("stroke-width", 1);
 
+        // Add (lines) strokes to ticks on x and y axis, as adding the grid changed it.
+        d3.selectAll(".y-axis")
+            .selectAll(".tick")
+            .selectAll("line")
+            .style("stroke", "black")
+            .style("stroke-width", 1);
+
+        d3.selectAll(".x-axis")
+            .selectAll(".tick")
+            .selectAll("line")
+            .style("stroke", "black")
+            .style("stroke-width", 1);
+
     } // draw
     return draw(dataToDraw);
 
