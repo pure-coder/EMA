@@ -39,7 +39,7 @@ class Graph extends Component {
                     if (prevProps.graphData[index].metrics.length !== element.metrics.length) {
                         // Replace spaces with hyphens
                         let exerciseId = element.exerciseName.replace(/\s+/g, '-');
-                        // Remove
+                        // Remove div for replacing
                         let pageElement = document.getElementById(exerciseId);
                         pageElement.parentNode.removeChild(pageElement);
                         let metrics = this.sortedProgressionMap(element.metrics);
@@ -78,7 +78,6 @@ class Graph extends Component {
                         if (!($('.' + className).length > 0)) {
                             // Replace space ' ' with hyphen '-' in string
                             addToClassName = className.replace(/\s+/g, '-');
-                            console.log(addToClassName)
                             let newNode = document.createElement('div');
                             newNode.className = addToClassName;
                             document.getElementById('Progression').appendChild(newNode);
@@ -106,7 +105,6 @@ class Graph extends Component {
             }
         }
         else{
-
             return addGraph(data, "." + exerciseName);
         }
     }

@@ -63,7 +63,6 @@ export const loginUser = (Data) => (dispatch) => {
             // result.data (which was put into token, then token was decoded and put into decodedToken). The object
             // data is sent to setSignedInUser which is then added to the store under user, which is in InitialisedState
             // in authenticatedReducer.js
-            console.log(decodedToken);
             dispatch(setSignedInUser(decodedToken));
             if (decodedToken.pt === true) {
                 dispatch(getClients(decodedToken.id))

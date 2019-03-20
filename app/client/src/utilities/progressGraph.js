@@ -3,6 +3,7 @@ import * as d3 from "d3";
 function addGraph(data, position) {// set the dimensions and margins of the graph
     // Takes data given in function
     let dataToDraw = data;
+    let exerciseId = position.substring(1, position.length);
 
     let marginTop = 20;
     let marginRight = 20;
@@ -40,6 +41,7 @@ function addGraph(data, position) {// set the dimensions and margins of the grap
     let svg = d3.select(position).append("svg")
         .attr("width", width + marginLeft + marginRight)
         .attr("height", height + marginTop + marginBottom)
+        .attr("id", exerciseId)
         .append("g")
         .attr("transform",
             "translate(" + marginLeft + "," + marginTop + ")");
@@ -90,7 +92,7 @@ function addGraph(data, position) {// set the dimensions and margins of the grap
         svg.append("text")
             .attr("transform",
                 "translate(" + (width / 2) + " ," + // first value is distance from left, second is distance from top
-                (-5) + ")")
+                (-5) + ")");
 
 
         // add the X gridlines
@@ -122,7 +124,7 @@ function addGraph(data, position) {// set the dimensions and margins of the grap
             .style("text-anchor", "end")
             .attr("dx", "-.8em")
             .attr("dy", ".15em")
-            .attr("transform", "rotate(-65)")
+            .attr("transform", "rotate(-65)");
 
 
         // text label for the x axis
@@ -136,7 +138,7 @@ function addGraph(data, position) {// set the dimensions and margins of the grap
         // Add the Y Axis
         svg.append("g")
             .attr("class", "grid y-axis")
-            .call(d3.axisLeft(y))
+            .call(d3.axisLeft(y));
 
 
         // text label for the y axis
