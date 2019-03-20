@@ -27,13 +27,14 @@ class Graph extends Component {
         // console.log(prevProps.graphData);
         // console.log(this.props.graphData); // this changes (was other way around in shouldComponentUpdate - has to do with rendering cycle)
         this.props.graphData.map((element, index) => {
-            // if(prevProps.graphData !== this.props.graphData){
-            //     console.log(this.props.graphData)
-            // }
-            // console.log(prevProps.graphData[index]);
-            // console.log(element);
-            if(prevProps.graphData[index].metrics.length !== element.metrics.length){
-                console.log(element.exerciseName);
+            // console.log(prevProps.graphData[index].exerciseName);
+            // console.log(element.exerciseName);
+            // Make sure that the exercise names match before comparing the metrics
+            if(prevProps.graphData[index].exerciseName === element.exerciseName){
+                // If data has been changed for exercise update the graph for the exercise
+                if (prevProps.graphData[index].metrics.length !== element.metrics.length) {
+                    console.log(element.exerciseName);
+                }
             }
             return null;
         });
