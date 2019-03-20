@@ -1,15 +1,6 @@
 import * as d3 from "d3";
-//import $ from 'jquery';
 
-function addGraph(data, position, title1) {// set the dimensions and margins of the graph
-
-    let svg;
-    let idName;
-    // Remove classname identifier '.'
-    idName = position.substring(1, position.length);
-    // Remove hyphen from position to use for title (used idName as it already stripped the '.')
-    let title = idName.replace(/-+/g, ' ');
-
+function addGraph(data, position, title) {// set the dimensions and margins of the graph
     // Takes data given in function
     let dataToDraw = data;
 
@@ -46,28 +37,24 @@ function addGraph(data, position, title1) {// set the dimensions and margins of 
     // appends a 'group' element to 'svg'
     // moves the 'group' element to the top left margin
     // setPosition - sets specific graph to div specified as position parameter
-
-    // if($(position).length === 1){
-    svg = d3.select(position).append("svg")
+    let svg = d3.select(position).append("svg")
         .attr("width", width + marginLeft + marginRight)
         .attr("height", height + marginTop + marginBottom)
-        .attr("id", idName)
         .append("g")
         .attr("transform",
             "translate(" + marginLeft + "," + marginTop + ")");
-    // }
-    // else{
-    //     let element = document.getElementById(idName);
-    //     element.parentNode.removeChild(element);
-    //
-    //     svg = d3.select(position).append("svg")
-    //         .attr("width", width + marginLeft + marginRight)
-    //         .attr("height", height + marginTop + marginBottom)
-    //         .attr("id", idName)
-    //         .append("g")
-    //         .attr("transform",
-    //             "translate(" + marginLeft + "," + marginTop + ")");
-    // }
+
+    // gridlines in x axis function
+    function make_x_gridlines() {
+        return d3.axisBottom(x)
+            .ticks(5)
+    }
+
+    // gridlines in y axis function
+    function make_y_gridlines() {
+        return d3.axisLeft(y)
+            .ticks(5)
+    }
 
     // Get the data
     function draw(data) {
@@ -107,8 +94,27 @@ function addGraph(data, position, title1) {// set the dimensions and margins of 
             .style("text-anchor", "middle")
             .text(title);
 
+        // add the X gridlines
+        svg.append("g")
+            .attr("class", "grid")
+            .attr("transform", "translate(0," + height + ")")
+            .call(make_x_gridlines()
+                .tickSize(-height)
+                .tickFormat("")
+            );
+
+        // add the Y gridlines
+        svg.append("g")
+            .attr("class", "grid")
+            .call(make_y_gridlines()
+                .tickSize(-width)
+                .tickFormat("")
+            );
+
+
         // Add the X Axis
         svg.append("g")
+            .attr("class", "grid")
             .attr("transform", "translate(0," + height + ")")
             // tickValues used to display only the dates given in the data
             .call(d3.axisBottom(x).tickFormat(d3.timeFormat("%d %b %Y")).tickValues(data.map(elements => {return elements.Date})))
@@ -128,6 +134,7 @@ function addGraph(data, position, title1) {// set the dimensions and margins of 
 
         // Add the Y Axis
         svg.append("g")
+            .attr("class", "grid")
             .call(d3.axisLeft(y));
 
         // text label for the y axis
@@ -138,6 +145,16 @@ function addGraph(data, position, title1) {// set the dimensions and margins of 
             .attr("dy", "1em")
             .style("text-anchor", "middle")
             .text("Weight (Kg)"); // y-axis label
+
+        // d3.selectAll(".grid")
+        //     .selectAll(".domain")
+        //     .filter(function(d, i){return i === 0})
+        //     .style("stroke", "black")
+        //     .style("stroke-width", 1);
+
+        // d3.selectAll("line")
+        //     .filter(function(d, i){return i === d.length-1})
+        //     .style("stroke", "none");
 
     } // draw
     return draw(dataToDraw);

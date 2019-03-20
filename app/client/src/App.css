@@ -317,9 +317,6 @@ svg {
     bottom: 50%;
 }
 
-
-
-
 .error-button {
     width: 150px;
     margin: auto;
@@ -332,6 +329,23 @@ svg {
 
 .Progression, .progression-data {
     margin: auto;
+}
+
+.Progression .line {
+    fill: none;
+    stroke: steelblue;
+    stroke-width: 2px;
+}
+
+.Progression .grid line {
+    stroke: lightgrey;
+    stroke-opacity: 0.3;
+    shape-rendering: crispEdges;
+}
+
+/*Removes border around whole graph*/
+.Progression .grid path {
+    stroke-width: 0px;
 }
 
 /* Enter progress Modal */
