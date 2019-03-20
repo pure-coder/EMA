@@ -114,7 +114,7 @@ function addGraph(data, position, title) {// set the dimensions and margins of t
 
         // Add the X Axis
         svg.append("g")
-            .attr("class", "grid")
+            .attr("class", "grid x-axis")
             .attr("transform", "translate(0," + height + ")")
             // tickValues used to display only the dates given in the data
             .call(d3.axisBottom(x).tickFormat(d3.timeFormat("%d %b %Y")).tickValues(data.map(elements => {return elements.Date})))
@@ -122,7 +122,8 @@ function addGraph(data, position, title) {// set the dimensions and margins of t
             .style("text-anchor", "end")
             .attr("dx", "-.8em")
             .attr("dy", ".15em")
-            .attr("transform", "rotate(-65)");
+            .attr("transform", "rotate(-65)")
+
 
         // text label for the x axis
         svg.append("text")
@@ -134,8 +135,9 @@ function addGraph(data, position, title) {// set the dimensions and margins of t
 
         // Add the Y Axis
         svg.append("g")
-            .attr("class", "grid")
-            .call(d3.axisLeft(y));
+            .attr("class", "grid y-axis")
+            .call(d3.axisLeft(y))
+
 
         // text label for the y axis
         svg.append("text")
@@ -146,15 +148,16 @@ function addGraph(data, position, title) {// set the dimensions and margins of t
             .style("text-anchor", "middle")
             .text("Weight (Kg)"); // y-axis label
 
-        // d3.selectAll(".grid")
-        //     .selectAll(".domain")
-        //     .filter(function(d, i){return i === 0})
-        //     .style("stroke", "black")
-        //     .style("stroke-width", 1);
+        // Add (lines) strokes to x and y axis, as adding the grid changed it.
+        d3.selectAll(".x-axis")
+            .selectAll(".domain")
+            .style("stroke", "black")
+            .style("stroke-width", 1);
 
-        // d3.selectAll("line")
-        //     .filter(function(d, i){return i === d.length-1})
-        //     .style("stroke", "none");
+        d3.selectAll(".y-axis")
+            .selectAll(".domain")
+            .style("stroke", "black")
+            .style("stroke-width", 1);
 
     } // draw
     return draw(dataToDraw);
