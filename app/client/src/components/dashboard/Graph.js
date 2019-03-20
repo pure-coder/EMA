@@ -4,6 +4,7 @@ import {addGraph} from "../../utilities/progressGraph";
 import {withRouter} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import $ from 'jquery';
+import isEmpty from "../../validation/is_empty";
 
 class Graph extends Component {
     // This allows the component states to be up{dated and re-rendered)
@@ -18,72 +19,86 @@ class Graph extends Component {
         this.createGraph = this.createGraph.bind(this);
     }
 
+    sortedProgressionMap(data){
+        return data.sort((obj1, obj2) => {
+            return new Date(obj1.Date) - new Date(obj2.Date);
+        });
+    }; // sortedMap
+
     componentDidMount(){
         this.createGraph();
     } // cdm
 
-    componentDidUpdate(prevProps){
-        //this.createGraph();
-        // console.log(prevProps.graphData);
-        // console.log(this.props.graphData); // this changes (was other way around in shouldComponentUpdate - has to do with rendering cycle)
-        this.props.graphData.map((element, index) => {
-            // console.log(prevProps.graphData[index].exerciseName);
-            // console.log(element.exerciseName);
-            // Make sure that the exercise names match before comparing the metrics
-            if(prevProps.graphData[index].exerciseName === element.exerciseName){
-                // If data has been changed for exercise update the graph for the exercise
-                if (prevProps.graphData[index].metrics.length !== element.metrics.length) {
-                    console.log(element.exerciseName);
+    componentDidUpdate(prevProps) {
+        // Check to see if graphData is an array and that it is not empty
+        if (Array.isArray(this.props.graphData) && !isEmpty(this.props.graphData)) {
+            this.props.graphData.map((element, index) => {
+                // Make sure that the exercise names match before comparing the metrics
+                if (prevProps.graphData[index].exerciseName === element.exerciseName) {
+                    // If data has been changed for exercise update the graph for the exercise
+                    if (prevProps.graphData[index].metrics.length !== element.metrics.length) {
+                        // Replace spaces with hyphens
+                        let exerciseId = element.exerciseName.replace(/\s+/g, '-');
+                        // Remove
+                        let pageElement = document.getElementById(exerciseId);
+                        pageElement.parentNode.removeChild(pageElement);
+                        let metrics = this.sortedProgressionMap(element.metrics);
+
+                        // Update the graph on page - 1st argument is data to show, 2nd is exercise name (no spaces), 3rd is boolean to indicate
+                        // that it is an update
+                        this.createGraph(metrics, exerciseId, true);
+                    }
                 }
-            }
-            return null;
-        });
+                return null;
+            });
+        }
     }
 
     shouldComponentUpdate(prevProps){
         return prevProps.graphData !== this.props.graphData;
     }
 
-    createGraph(){
-        const sortedProgressionMap = (data) => {
-            return data.sort((obj1, obj2) => {
-                return new Date(obj1.Date) - new Date(obj2.Date);
-            });
-        }; // sortedMap
+    createGraph(data, exerciseName, updated){
 
-        this.state.graphData.map(element => {
-            let progressData = [];
-            let merge;
-            sortedProgressionMap(element.metrics).map(data => {
-                return progressData.push(data)
-            });
+        // Check to see if this is a call for graph to be updated.
+        if(!updated) {
+            this.state.graphData.map(element => {
+                let progressData = [];
+                let merge;
+                this.sortedProgressionMap(element.metrics).map(data => {
+                    return progressData.push(data)
+                });
 
-            // Only create graph for exercise that has 2+ metric data
-            if(element.metrics.length >= 2) {
-                let addToClassName = element.exerciseName.toString();
-                // Check if element already exists, only create and add class to div if it doesn't
-                if (!($('.'+ addToClassName).length > 0)){
-                    // Replace space ' ' with hyphen '-' in string
-                    addToClassName = addToClassName.replace(/\s+/g, '-');
-                    let newNode = document.createElement('div');
-                    newNode.className = addToClassName;
-                    document.getElementById('Progression').appendChild(newNode);
+                // Only create graph for exercise that has 2+ metric data
+                if (element.metrics.length >= 2) {
+                    let addToClassName = element.exerciseName.toString();
+                    // Check if element already exists, only create and add class to div if it doesn't
+                    if (!($('.' + addToClassName).length > 0)) {
+                        // Replace space ' ' with hyphen '-' in string
+                        addToClassName = addToClassName.replace(/\s+/g, '-');
+                        let newNode = document.createElement('div');
+                        newNode.className = addToClassName;
+                        document.getElementById('Progression').appendChild(newNode);
+                    }
+
+                    // Create object to merge into exercise state
+                    let exercise = {
+                        [element.exerciseName]: progressData
+                    }
+                    merge = Object.assign(this.state.exercises, exercise);
+                    this.setState({exercises: merge})
+
+                    // 1st argument takes array of objects as data to plot graph, 2nd argument takes div as position to display graph
+                    return addGraph(progressData, "." + addToClassName);
                 }
+                return null;
+            });
+            this.setState({mounted: true});
+        }
+        else{
 
-                // Create object to merge into exercise state
-                let exercise = {
-                    [element.exerciseName] : progressData
-                }
-                merge = Object.assign(this.state.exercises, exercise);
-                this.setState({exercises: merge})
-
-                // 1st argument takes array of objects as data to plot graph, 2nd argument takes div as position to display graph,
-                // 3rd is title of graph
-                return addGraph(progressData, "."+addToClassName, element.exerciseName);
-            }
-            return null;
-        });
-        this.setState({mounted: true});
+            return addGraph(data, "." + exerciseName);
+        }
     }
 
     render() {
