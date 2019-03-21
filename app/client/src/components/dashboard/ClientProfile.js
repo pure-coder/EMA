@@ -46,14 +46,6 @@ class ClientProfile extends Component {
 
     } // did mount
 
-    // componentDidUpdate(prevProps){
-    //     if(prevProps.authenticatedUser.client_Progression !== this.props.authenticatedUser.client_Progression) {
-    //         this.setState({clientProgression: this.props.authenticatedUser.client_Progression});
-    //     }
-    //     console.log(this.state.clientProgression === undefined ? this.state.clientProgression : this.state.clientProgression[2])
-    //     console.log(this.props.authenticatedUser.client_Progression  === undefined ? this.props.authenticatedUser.client_Progression :this.props.authenticatedUser.client_Progression[2]);
-    // }
-
     componentWillUnmount(){
         // This got rid of the Date: null bug for now, need to find route cause!!!
         this.props.clearProgression();
@@ -97,13 +89,15 @@ class ClientProfile extends Component {
         return (
             <div className="container dashboard-custom">
                 <div className="row">
-                    <div className="m-auto col-1">
+                    <div className="m-auto col-1 graphs">
                         <h1 className=" text-center display-5 mb-3">Dashboard</h1>
                         <h2 className=" text-center display-5 mt-3 mb-4">Client progression data</h2>
                 {/*Only display Add progress if user is a pt*/}
                 {this.props.authenticatedUser.user.pt === true && this.props.authenticatedUser.client_Progression ?
                     <div>
-                        <input id="progress-button" type="button" className="btn btn-info btn-block mb-4" value="Add Progress" onClick={this.openModal} />
+                        <input id="progress-button" type="button" className="btn btn-success btn-block mb-4" value="Add Progress" onClick={this.openModal} />
+                        <input id="edit-progress-button" type="button" className="btn btn-info btn-block mb-4" value="Edit Exercise" onClick={this.openModal} />
+                        <input id="delete-progress-button" type="button" className="btn btn-danger btn-block mb-4" value="Delete Exercise" onClick={this.openModal} />
                     </div>
                     : null
                 }

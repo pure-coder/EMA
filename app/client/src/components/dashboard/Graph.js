@@ -103,27 +103,6 @@ class Graph extends Component {
 
                         // 1st argument takes array of objects as data to plot graph, 2nd argument takes div as position to display graph
                         addGraph(progressData, "." + addToClassName);
-                        // Create edit button
-                        // let editButton = document.createElement('button');
-                        // // Add button to div
-                        // document.getElementById(addToClassName).parentNode.insertBefore(editButton, $('.'+addToClassName)[0].nextSibling);
-                        // // Set id of button to exercise name
-                        // editButton.setAttribute("id", addToClassName+"-edit-button");
-                        // // Set class of edit button
-                        // editButton.setAttribute("class", "edit-button btn btn-info btn-block mb-1");
-                        // editButton.innerHTML = "Edit";
-
-                        let editButton = document.createElement('span');
-                        // Add button to div
-                        document.getElementById(addToClassName).parentNode.insertBefore(editButton, $('.'+addToClassName)[0].nextSibling);
-                        // Set id of button to exercise name
-                        // editButton.setAttribute("id", addToClassName+"-edit-button");
-                        // // Set class of edit button
-                        // editButton.setAttribute("class", "edit-button btn btn-info btn-block mb-1");
-                        let button = `<button id=${addToClassName}-edit-button class="edit-button btn btn-info btn-block mb-1"
-                    onClick=${this.editButton}>Edit</button>`;
-                        editButton.innerHTML = button;
-
                         return null;
                     }
                     return null;

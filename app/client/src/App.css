@@ -233,7 +233,7 @@ img {
 svg {
     height: 310px;
     width: 400px;
-    margin: 0px 10px 5px 10px;
+    margin: 10px 10px 15px 10px;
 }
 
 .line {
@@ -323,8 +323,12 @@ svg {
 }
 
 /* progression Data (graph) */
+.graphs {
+    min-width: 500px;
+}
+
 .Progression {
-    min-width: 420px;
+    min-width: 400px;
 }
 
 .Progression .area {
@@ -370,6 +374,14 @@ svg {
     stroke-width: 0px;
 }
 
+/* id for button */
+#progress-button, #edit-progress-button, #delete-progress-button {
+    width: 130px;
+    float: left;
+    padding: 4px;
+    margin: 0px 10px;
+}
+
 /* Enter progress Modal */
 
 .newClientProgress {
@@ -399,11 +411,6 @@ svg {
     color: red;
 }
 
-/* id for button */
-#progress-button {
-    width: 150px;
-    //margin: auto;
-}
 
 /* success - valid feedback */
 
