@@ -6,8 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="ec8ccf39-8487-4892-a38d-de9c288878a3" name="Default" comment="delete client from pt array - using pull">
       <change beforePath="$PROJECT_DIR$/client/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/App.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/dashboard/ClientProfile.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/dashboard/ClientProfile.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/dashboard/Graph.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/dashboard/Graph.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -45,7 +43,7 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="css" value="5933" />
+          <entry key="css" value="5962" />
           <entry key="editorConfig" value="285" />
           <entry key="html" value="1072" />
           <entry key="js" value="114772" />
@@ -56,7 +54,7 @@
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="CSS" value="5933" />
+          <entry key="CSS" value="5962" />
           <entry key="HTML" value="1079" />
           <entry key="JSON" value="26" />
           <entry key="JavaScript" value="114765" />
@@ -123,8 +121,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/client/src/App.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="157">
-              <caret line="235" column="14" selection-start-line="235" selection-start-column="14" selection-end-line="235" selection-end-column="14" />
+            <state relative-caret-position="140">
+              <caret line="106" column="32" selection-start-line="106" selection-start-column="32" selection-end-line="106" selection-end-column="32" />
             </state>
           </provider>
         </entry>
@@ -141,7 +139,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>edit own</find>
       <find>export co</find>
       <find>!=</find>
       <find>export.default</find>
@@ -171,6 +168,7 @@
       <find>$</find>
       <find>#P</find>
       <find>progress-</find>
+      <find>navbar-con</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -186,8 +184,8 @@
       <replace>.maxWeight</replace>
     </replaceStrings>
     <dirStrings>
-      <dir>C:\TM470\app</dir>
       <dir>C:\TM470\app\client\src\components</dir>
+      <dir>C:\TM470\app</dir>
     </dirStrings>
   </component>
   <component name="Git.Settings">
@@ -434,7 +432,7 @@
       <workItem from="1550910770209" duration="56984000" />
       <workItem from="1551774400661" duration="160491000" />
       <workItem from="1552586754943" duration="31533000" />
-      <workItem from="1552821747373" duration="80187000" />
+      <workItem from="1552821747373" duration="80670000" />
     </task>
     <task id="LOCAL-00001" summary="min height changed for developed pages">
       <created>1534874964132</created>
@@ -482,7 +480,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1037593000" />
+    <option name="totallyTimeSpent" value="1038076000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -900,8 +898,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/client/src/App.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="157">
-          <caret line="235" column="14" selection-start-line="235" selection-start-column="14" selection-end-line="235" selection-end-column="14" />
+        <state relative-caret-position="140">
+          <caret line="106" column="32" selection-start-line="106" selection-start-column="32" selection-end-line="106" selection-end-column="32" />
         </state>
       </provider>
     </entry>
