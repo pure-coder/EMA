@@ -24,6 +24,7 @@ class ClientProfile extends Component {
             errors: {}
         };
 
+        this.openModal = this.openModal.bind(this);
         this.getProgressForPage = this.getProgressForPage.bind(this);
         this.onClickAway = this.onClickAway.bind(this)
     }
@@ -95,14 +96,20 @@ class ClientProfile extends Component {
 
         return (
             <div className="container dashboard-custom">
-                {displayContent}
+                <div className="row">
+                    <div className="m-auto col-1">
+                        <h1 className=" text-center display-5 mb-3">Dashboard</h1>
+                        <h2 className=" text-center display-5 mt-3 mb-4">Client progression data</h2>
                 {/*Only display Add progress if user is a pt*/}
                 {this.props.authenticatedUser.user.pt === true && this.props.authenticatedUser.client_Progression ?
                     <div>
-                        <input id="progression" type="button" className="btn btn-info btn-block mb-4" value="Add Progress" onClick={() => this.openModal()} />
+                        <input id="progress-button" type="button" className="btn btn-info btn-block mb-4" value="Add Progress" onClick={this.openModal} />
                     </div>
                     : null
                 }
+                {displayContent}
+                    </div>
+                </div>
                 <Modal visible={this.state.visible} width="500" height="450" effect="fadeInUp"
                        onClickAway={this.onClickAway}>
                     <div>

@@ -80,9 +80,6 @@ class NewClientProgressForm extends Component {
         document.body.scrollTo(0,0);
     }
 
-    componentWillUnmount(){
-        console.log(this);
-    }
 
     // Checking if previous props modal visibility and this states visibility is not equal (stops reacts maximum loop message when
     // setting state) so that fields and errors can be cleared when exiting modal (using onClickAway instead of close button).

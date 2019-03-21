@@ -400,9 +400,9 @@ svg {
 }
 
 /* id for button */
-#progression{
-    width: 200px;
-    margin: auto;
+#progress-button {
+    width: 150px;
+    //margin: auto;
 }
 
 /* success - valid feedback */

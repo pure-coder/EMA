@@ -17,6 +17,7 @@ class Graph extends Component {
             mounted: false,
         }
         this.createGraph = this.createGraph.bind(this);
+        this.editButton = this.editButton.bind(this);
     }
 
     sortedProgressionMap(data){
@@ -56,6 +57,10 @@ class Graph extends Component {
 
     shouldComponentUpdate(prevProps){
         return prevProps.graphData !== this.props.graphData;
+    }
+
+    editButton(e){
+        console.log("this");
     }
 
     createGraph(data, exerciseName, updated){
@@ -99,15 +104,26 @@ class Graph extends Component {
                         // 1st argument takes array of objects as data to plot graph, 2nd argument takes div as position to display graph
                         addGraph(progressData, "." + addToClassName);
                         // Create edit button
-                        let editButton = document.createElement('button');
+                        // let editButton = document.createElement('button');
+                        // // Add button to div
+                        // document.getElementById(addToClassName).parentNode.insertBefore(editButton, $('.'+addToClassName)[0].nextSibling);
+                        // // Set id of button to exercise name
+                        // editButton.setAttribute("id", addToClassName+"-edit-button");
+                        // // Set class of edit button
+                        // editButton.setAttribute("class", "edit-button btn btn-info btn-block mb-1");
+                        // editButton.innerHTML = "Edit";
+
+                        let editButton = document.createElement('span');
                         // Add button to div
                         document.getElementById(addToClassName).parentNode.insertBefore(editButton, $('.'+addToClassName)[0].nextSibling);
                         // Set id of button to exercise name
-                        editButton.setAttribute("id", addToClassName+"-edit-button");
-                        // Set class of edit button
-                        editButton.setAttribute("class", "edit-button btn btn-info btn-block mb-1");
-                        editButton.innerHTML = "Edit";
-                        //document.getElementById(addToClassName+"-edit-button").setAttribute("onClick", );
+                        // editButton.setAttribute("id", addToClassName+"-edit-button");
+                        // // Set class of edit button
+                        // editButton.setAttribute("class", "edit-button btn btn-info btn-block mb-1");
+                        let button = `<button id=${addToClassName}-edit-button class="edit-button btn btn-info btn-block mb-1"
+                    onClick=${this.editButton}>Edit</button>`;
+                        editButton.innerHTML = button;
+
                         return null;
                     }
                     return null;
@@ -123,14 +139,7 @@ class Graph extends Component {
 
     render() {
         return (
-                <div className="row">
-                    <div className="m-auto col-1">
-                        <h1 className=" text-center display-5 mb-3">Dashboard</h1>
-                        <h2 className=" text-center display-5 mt-3 mb-4">Client progression data</h2>
-                        <div id="Progression" className="Progression">
-                        </div>
-                    </div>
-                </div>
+            <div id="Progression" className="Progression"></div>
         );
     }
 }
