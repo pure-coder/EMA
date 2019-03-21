@@ -233,7 +233,7 @@ img {
 svg {
     height: 310px;
     width: 400px;
-    margin: 0px 10px 20px 10px;
+    margin: 0px 10px 5px 10px;
 }
 
 .line {
@@ -350,6 +350,19 @@ svg {
 .Progression h4, .Progression text {
     text-align: center;
     margin: 0px;
+}
+
+.Progression .graph {
+    clear: both;
+}
+
+.Progression .edit-button {
+    position: relative;
+    width: 60px;
+    height: 30px;
+    display: inline-block;
+    float: right;
+    padding: 1px;
 }
 
 /*Removes border around whole graph*/

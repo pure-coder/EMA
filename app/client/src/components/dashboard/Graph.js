@@ -79,7 +79,7 @@ class Graph extends Component {
                             // Replace space ' ' with hyphen '-' in string
                             addToClassName = className.replace(/\s+/g, '-');
                             let newNode = document.createElement('div');
-                            newNode.className = addToClassName;
+                            newNode.className = addToClassName + " graph";
                             document.getElementById('Progression').appendChild(newNode);
 
                             // Create heading for graph
@@ -97,7 +97,18 @@ class Graph extends Component {
                         this.setState({exercises: merge})
 
                         // 1st argument takes array of objects as data to plot graph, 2nd argument takes div as position to display graph
-                        return addGraph(progressData, "." + addToClassName);
+                        addGraph(progressData, "." + addToClassName);
+                        // Create edit button
+                        let editButton = document.createElement('button');
+                        // Add button to div
+                        document.getElementById(addToClassName).parentNode.insertBefore(editButton, $('.'+addToClassName)[0].nextSibling);
+                        // Set id of button to exercise name
+                        editButton.setAttribute("id", addToClassName+"-edit-button");
+                        // Set class of edit button
+                        editButton.setAttribute("class", "edit-button btn btn-info btn-block mb-1");
+                        editButton.innerHTML = "Edit";
+                        //document.getElementById(addToClassName+"-edit-button").setAttribute("onClick", );
+                        return null;
                     }
                     return null;
                 });
@@ -105,7 +116,8 @@ class Graph extends Component {
             }
         }
         else{
-            return addGraph(data, "." + exerciseName);
+            addGraph(data, "." + exerciseName);
+            return null;
         }
     }
 
