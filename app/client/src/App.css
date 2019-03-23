@@ -103,7 +103,6 @@ img {
 
 .landing_page {
     background: url("img/landing_page_img.jpg") center no-repeat;
-    /*position: relative;*/
     background-size: 100% 100vh;
     margin-top: -48px;
     margin-bottom: -50px;

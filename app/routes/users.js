@@ -968,12 +968,65 @@ router.get('/:id/client_progression/:cid', passport.authenticate('both_rule', {s
                 }
             }
         })
-        .catch(err => {
+        .catch(() => {
             // Return an empty object
             return res.json({});
         }); // Client.findOne()
 
-}); // router get /client_progression
+}); // router get /:id/client_progression/:cid
+
+
+// @route  delete api/:id/client_progression/:cid
+// @desc   delete client progression exercise from db
+// @access private for PT's - clients can't delete progression data for exercises in db collection
+router.delete('/:id/client_progression/:cid', passport.authenticate('pt_rule', {session: false}), (req, res) =>{
+
+    let userId = req.params.id;
+    let clientId = req.params.cid;
+    let data = req.body;
+
+    // Check to see if client exists
+
+    Client.findOne({_id: clientId})
+        .then(result => {
+            if(result) {
+
+                // As pt's are the only ones that can access this route, check to see if uid given matches the ptId for this client
+                if(result.ptId === userId){
+
+                    // res.status(200).json({userId, clientId, data, result});
+
+                    // Remove exercise for client
+                    ClientProgression.remove({$and: [{clientId: clientId}, {exerciseName: data.exerciseName}]})
+                        .then(result => {
+
+                            // Successful removal returns n:1, unsuccessful returns n:0
+                            if(result.n === 1){
+                                // This returns n:1, ok:1 which will be used on client to show appropriate message
+                                res.status(200).json(result);
+                            }
+                            else{
+                                res.status(400).json({msg: "Could not find and delete exercise."});
+                            }
+
+                            }
+                        )
+                        .catch(() => {
+                            res.status(400).json({msg: "Could not delete this exercise."})
+                        })
+
+                }
+                else{
+                    // Respond with a forbidden status code as the uid given is not allowed to access this data
+                    res.status(403).json({msg : "User not allowed to access data."})
+                }
+            }
+        })
+        .catch(() => {
+            res.status(400).json({msg: "Client not found!"});
+        })
+
+}); // router delete /:id/client_progression/:cid
 
 //Export router so it can work with the main restful api server
     module.exports = router;
