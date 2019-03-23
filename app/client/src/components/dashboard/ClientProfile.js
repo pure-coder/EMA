@@ -2,7 +2,7 @@ import React, {Component} from 'react';  // Used to create this component
 import PropTypes from 'prop-types'; // Used to document prop types sent to components
 import {connect} from 'react-redux' // Needed when using redux inside a component (connects redux to this component)
 import {withRouter} from 'react-router-dom';
-import {getClientProgression, clearProgression} from "../../actions/authenticationActions";
+import {getClientProgression, clearProgression, deleteExercise} from "../../actions/authenticationActions";
 import Loading from "../../elements/Loading";
 import Graph from "./Graph";
 import NewClientProgressForm from "./NewClientProgressForm";
@@ -18,13 +18,14 @@ class ClientProfile extends Component {
             userId: props.authenticatedUser.user.id,
             // If user is pt then get clientId from otherwise user is client, so use user.id
             clientId: props.authenticatedUser.clientId !== undefined ? props.authenticatedUser.clientId : props.match.params.Cid,
-            clientProgression: props.authenticatedUser.client_Progression,
+            selectedExercise: 'Squat',
             loaded: false,
             visible: false, // For modal
             errors: {}
         };
 
         this.openModal = this.openModal.bind(this);
+        this.deleteExercise = this.deleteExercise.bind(this);
         this.getProgressForPage = this.getProgressForPage.bind(this);
         this.onClickAway = this.onClickAway.bind(this)
     }
@@ -69,10 +70,12 @@ class ClientProfile extends Component {
         this.props.getClientProgression(this.state.userId, this.state.clientId, this.props.history);
     }
 
+    deleteExercise(){
+        this.props.deleteExercise(this.state.userId, this.state.clientId, this.state.selectedExercise);
+    }
+
     render() {
         let displayContent;
-        //let client_progression;
-        //this.state.clientProgression !== undefined ? client_progression = this.state.clientProgression : client_progression = this.props.authenticatedUser.client_Progression;
 
         if (!this.props.authenticatedUser.client_Progression) {
             return <Loading/>
@@ -89,7 +92,7 @@ class ClientProfile extends Component {
         return (
             <div className="container dashboard-custom">
                 <div className="row">
-                    <div className="m-auto col-1 graphs">
+                    <div className="m-auto col-1 graphs" id="graphs">
                         <h1 className=" text-center display-5 mb-3">Dashboard</h1>
                         <h2 className=" text-center display-5 mt-3 mb-4">Client progression data</h2>
                 {/*Only display Add progress if user is a pt*/}
@@ -97,7 +100,7 @@ class ClientProfile extends Component {
                     <div>
                         <input id="progress-button" type="button" className="btn btn-success btn-block mb-4" value="Add Progress" onClick={this.openModal} />
                         <input id="edit-progress-button" type="button" className="btn btn-info btn-block mb-4" value="Edit Exercise" onClick={this.openModal} />
-                        <input id="delete-progress-button" type="button" className="btn btn-danger btn-block mb-4" value="Delete Exercise" onClick={this.openModal} />
+                        <input id="delete-progress-button" type="button" className="btn btn-danger btn-block mb-4" value="Delete Exercise" onClick={this.deleteExercise} />
                     </div>
                     : null
                 }
@@ -137,4 +140,4 @@ const stateToProps = (state) => {
     errors: state.errors
 }};
 
-export default connect(stateToProps, {getClientProgression, clearProgression})(withRouter(ClientProfile));
+export default connect(stateToProps, {getClientProgression, clearProgression, deleteExercise})(withRouter(ClientProfile));

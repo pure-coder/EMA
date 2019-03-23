@@ -984,6 +984,7 @@ router.delete('/:id/client_progression/:cid', passport.authenticate('pt_rule', {
     let userId = req.params.id;
     let clientId = req.params.cid;
     let data = req.body;
+    console.log(data.exerciseName)
 
     // Check to see if client exists
 

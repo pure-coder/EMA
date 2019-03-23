@@ -301,6 +301,21 @@ export const newClientProgress = (id, cid ,data) => dispatch => {
         })
 };
 
+export const deleteExercise =(uid, cid, data) => dispatch => {
+    axios.delete(`/api/${uid}/client_progression/${cid}`, {data : {exerciseName : data}})
+        .then(() => {
+            dispatch(getClientProgression(uid, cid));
+            dispatch(setSuccess(`${data} exercise Deleted!`));
+        })
+        .catch(err => {
+            console.log(err)
+            dispatch({
+                type: GET_ERRS,
+                payload: err
+            })
+        });
+}
+
 export const setErrors = (error) => dispatch => {
     dispatch({
         type: GET_ERRS,
