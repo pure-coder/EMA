@@ -32,8 +32,7 @@ class Graph2 extends Component {
 
         const graphs = this.props.graphData.map(graph => (
             // Changed key from CreateGraph to div as div was first child, otherwise error was given.
-            <div key={graph._id}>
-                {console.log(graph)}
+            <div className="graphs" key={graph._id}>
                 <CreateGraph data={graph}/>
             </div>
             )
@@ -41,6 +40,7 @@ class Graph2 extends Component {
 
         return (
             <div id="Progression" className="Progression">
+                {console.log(1)}
                 {graphs}
             </div>
         );

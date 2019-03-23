@@ -105,7 +105,7 @@ class ClientProfile extends Component {
                     </div>
                     : null
                 }
-                {displayContent}
+                {/*{displayContent}*/}
                 <Graph2 graphData={this.props.authenticatedUser.client_Progression}/>
                     </div>
                 </div>

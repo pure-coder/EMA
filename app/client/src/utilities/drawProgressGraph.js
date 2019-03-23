@@ -5,6 +5,8 @@ function addGraph(data, position) {// set the dimensions and margins of the grap
     let dataToDraw = data;
     let exerciseId = position.substring(1, position.length);
 
+    console.log(data, position);
+
     let marginTop = 20;
     let marginRight = 20;
     let marginBottom = 30;
