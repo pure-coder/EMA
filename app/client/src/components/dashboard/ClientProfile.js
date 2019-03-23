@@ -5,6 +5,7 @@ import {withRouter} from 'react-router-dom';
 import {getClientProgression, clearProgression, deleteExercise} from "../../actions/authenticationActions";
 import Loading from "../../elements/Loading";
 import Graph from "./Graph";
+import Graph2 from "./Graph2";
 import NewClientProgressForm from "./NewClientProgressForm";
 import Modal from 'react-awesome-modal';
 
@@ -105,6 +106,7 @@ class ClientProfile extends Component {
                     : null
                 }
                 {displayContent}
+                <Graph2 graphData={this.props.authenticatedUser.client_Progression}/>
                     </div>
                 </div>
                 <Modal visible={this.state.visible} width="500" height="450" effect="fadeInUp"

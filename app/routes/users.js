@@ -950,8 +950,8 @@ router.get('/:id/client_progression/:cid', passport.authenticate('both_rule', {s
                 if (result.ptId === userId || !isPt) {
 
                     // '-_id exerciseName metrics.maxWeight metrics.Date' part allows only exerciseName and metrics to be returned,
-                    // as _id is returned by default use the minus sign with it to explicitly ignore it ie '-_id'
-                    ClientProgression.find({clientId: clientId}, '-_id exerciseName metrics.maxWeight metrics.Date')
+                    // as _id is returned by default use the minus sign with it to explicitly ignore it ie '-_id' (deleted -_id as needed for refactoring -- creating component for each graph)
+                    ClientProgression.find({clientId: clientId}, 'exerciseName metrics.maxWeight metrics.Date')
                         .then(result => {
                             if (result) {
                                 return res.json(result);
