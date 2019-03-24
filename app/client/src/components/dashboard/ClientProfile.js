@@ -87,7 +87,7 @@ class ClientProfile extends Component {
             <div className="container dashboard-custom">
                 <div className="row">
                     <div className="m-auto col-1 graphs" id="graphs">
-                        <h1 className=" text-center display-5 mt-3 mb-4">Client progression data</h1>
+                        <h2 className=" text-center display-5 mt-3 mb-4">Client progression data</h2>
                         {/*Only display Add progress if user is a pt*/}
                         {this.props.authenticatedUser.user.pt === true ?
                             <div>

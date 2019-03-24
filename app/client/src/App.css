@@ -322,13 +322,15 @@ svg {
 
 /* progression Data (graph) */
 .graphs {
-    min-width: 510px;
+    margin: inherit;
+    padding: inherit;
     min-height: 250px;
-    padding: 0;
 }
 
 .Progression {
-    min-width: 400px;
+    min-width: inherit;
+    margin: inherit;
+    padding: inherit;
 }
 
 .Progression .area {
@@ -353,6 +355,7 @@ svg {
 
 .Progression h4, .Progression text {
     text-align: center;
+    margin: 20px 15px 0 15px;
 }
 
 .Progression .graph {
@@ -383,19 +386,18 @@ svg {
 .progress-buttons {
     position: relative;
     height: 50px;
-    margin-bottom: 35px;
+    margin: 0 10px 35px 10px;
 }
 
 #edit-progress-button {
     width: 130px;
     float: left;
-    margin-left: 15%;
+    margin-left: 25px;
 }
 
 #delete-progress-button {
     width: 130px;
     float: right;
-    margin-right: 11%;
     margin-top: 0;
 }
 

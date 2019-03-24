@@ -34,22 +34,26 @@ function addGraph(data, position, title, isUpdate) {// set the dimensions and ma
             return y(d.maxWeight);
         });
 
-
     let svg;
 
     if(isUpdate){
         // Remove title of exercise as well as the graph
-        svg = d3.select(position)
-            .select("h4").remove()
-            .select("svg").remove()
+        d3.select(position)
+            .select("h4").remove();
+
+        d3.select(position)
+            .select("svg").remove();
     }
+
+    d3.select(position)
+        .append("h4")
+        .text(title)
 
     // append the svg object to the body of the page
     // appends a 'group' element to 'svg'
     // moves the 'group' element to the top left margin
     // setPosition - sets specific graph to div specified as position parameter
     svg = d3.select(position)
-        .append("h4").text(title)
         .append("svg")
         .attr("width", width + marginLeft + marginRight)
         .attr("height", height + marginTop + marginBottom)
