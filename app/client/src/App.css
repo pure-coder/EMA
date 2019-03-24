@@ -249,28 +249,53 @@ svg {
     margin-right: 5px;
 }
 
+
+
 .client {
     min-height: 485px
 }
 
 /* EditClient */
 
+.edit-profile-date-div{
+    width: 400px;
+    margin: 0;
+}
+
 .edit_client-custom {
     min-height: 600px;
-    min-width: 500px;
+    min-width: 480px;
+    max-width: 480px
 }
 
 .edit-profile-label {
     padding-left: 0;
+    float: left;
 }
 
 .edit-date-div {
     display: inline-block;
-    width: auto;
+    min-width: 450px;
+}
+
+.edit-gender-div {
+    width: 450px;
+    height: 50px;
+    margin: 0 10px 10px 0;
+}
+
+.date-input{
+    width: 235px;
+    float: left;
 }
 
 .gender {
-    display: block;
+    margin-right: 45px;
+}
+
+#Sex {
+    width: 235px;
+    float: left;
 }
 
 /* Loading */

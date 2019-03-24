@@ -141,16 +141,19 @@ class EditClient extends Component {
                                     error={errors.ContactNumber}
                                 />
                                 <div className="form-group edit-profile-date-div">
-                                    <label className="control-label form-control-lg edit-profile-label">Date of
-                                        Birth:</label>
                                     <div className="edit-date-div">
-                                        <input className='form-control form-control-lg' name="DateOfBirth"
+                                        <label className="control-label form-control-lg edit-profile-label">Date of
+                                            Birth:
+                                        </label>
+                                        <input className='form-control form-control-lg date-input' name="DateOfBirth"
                                                onChange={this.onChange} type="Date"/>
                                     </div>
-                                    <label
-                                        className="control-label form-control-lg edit-profile-label gender">Gender:</label>
-                                    <div className="edit-date-div">
-                                        <select name="Sex" onChange={this.onChange} className='form-control
+                                    <div className="edit-gender-div">
+                                        <label
+                                            className="control-label form-control-lg edit-profile-label gender">
+                                            Gender:
+                                        </label>
+                                        <select name="Sex" onChange={this.onChange} id="Sex" className='form-control
                                             form-control-lg'>
                                             <option value="">Please select</option>
                                             <option value="Male">Male</option>

@@ -61,7 +61,6 @@ class Dashboard extends Component {
 
             // Get clients from pt client list via redux
             let clients = this.state.clients;
-            // console.log("clients", clients);
 
             // Define content to display.. in this case the list of clients
             displayContent = (
@@ -74,7 +73,6 @@ class Dashboard extends Component {
 
         // If user is not a PT then display dashboard of client data
         if (!this.props.authenticatedUser.user.pt) {
-
             // Define content to display..
             displayContent = (
                 // send clients data to client component, and render client component

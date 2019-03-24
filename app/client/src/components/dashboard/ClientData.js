@@ -26,6 +26,7 @@ class ClientData extends Component {
 
     onEditProfile(id) {
         this.props.saveClientId(id, this.props.history);
+        this.props.history.push(`/users/${id}/edit_client`);
     };
 
     render() {
