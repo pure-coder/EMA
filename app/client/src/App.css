@@ -231,7 +231,7 @@ img {
 svg {
     height: 310px;
     width: 400px;
-    margin: 10px 10px 15px 10px;
+    margin: 5px 10px 0 10px;
 }
 
 .line {
@@ -352,7 +352,7 @@ svg {
 
 .Progression h4, .Progression text {
     text-align: center;
-    margin: 15px 15px;
+    margin: 20px 15px 0 15px;
 }
 
 .Progression .graph {
@@ -374,11 +374,29 @@ svg {
 }
 
 /* id for button */
-#progress-button, #edit-progress-button, #delete-progress-button {
+#progress-button {
+    width: 130px;
+    text-align: center;
+    margin: 0 auto;
+}
+
+.progress-buttons {
+    position: relative;
+    height: 50px;
+    margin-bottom: 35px;
+}
+
+#edit-progress-button {
     width: 130px;
     float: left;
-    padding: 4px;
-    margin: 0 10px;
+    margin-left: 15%;
+}
+
+#delete-progress-button {
+    width: 130px;
+    float: right;
+    margin-right: 11%;
+    margin-top: 0;
 }
 
 /* Enter progress Modal */

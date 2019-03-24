@@ -4,7 +4,7 @@ import {connect} from 'react-redux' // Needed when using redux inside a componen
 import {withRouter} from 'react-router-dom';
 import {getClientProgression, clearProgression, deleteExercise} from "../../actions/authenticationActions";
 import Loading from "../../elements/Loading";
-import Graph2 from "./Graph2";
+import Graph2 from "./Graph";
 import NewClientProgressForm from "./NewClientProgressForm";
 import Modal from 'react-awesome-modal';
 
@@ -90,11 +90,9 @@ class ClientProfile extends Component {
                 {/*Only display Add progress if user is a pt*/}
                 {this.props.authenticatedUser.user.pt === true && this.props.authenticatedUser.client_Progression ?
                     <div>
-                        <input id="progress-button" type="button" className="btn btn-success btn-block mb-4" value="Add Progress" onClick={this.openModal} />
-                        <input id="edit-progress-button" type="button" className="btn btn-info btn-block mb-4" value="Edit Exercise" onClick={this.openModal} />
-                        <input id="delete-progress-button" type="button" className="btn btn-danger btn-block mb-4" value="Delete Exercise" onClick={this.deleteExercise} />
-                    </div>
-                    : null
+                        <input id="progress-button" type="button" className="btn btn-success btn-block mb-4" value="Add Progress"
+                               onClick={this.openModal} />
+                    </div> : null
                 }
                 <Graph2 graphData={this.props.authenticatedUser.client_Progression}/>
                     </div>
