@@ -146,7 +146,7 @@ function addGraph(data, position, title, isUpdate) {// set the dimensions and ma
                 "translate(" + (width / 2) + " ," +
                 (height + marginTop + 62) + ")")
             .style("text-anchor", "middle")
-            .style("margin", "15px")
+            .style("font-size", "18px")
             .text("Date");
 
         // Add the Y Axis
@@ -162,7 +162,7 @@ function addGraph(data, position, title, isUpdate) {// set the dimensions and ma
             .attr("x", 0 - (height / 2))
             .attr("dy", "1em")
             .style("text-anchor", "middle")
-            .style("margin", "20px")
+            .style("font-size", "18px")
             .text("Weight (Kg)"); // y-axis label
 
         // Add (lines) strokes to x and y axis, as adding the grid changed it.
