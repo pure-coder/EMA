@@ -15,14 +15,14 @@ class Scheduler extends Component {
             errors: {}
         };
 
-        props.getClientData(props.match.params.Cid, this.props.history)
+        props.getClientData(props.match.params.cid, this.props.history)
 
         const scheduler = window.dhtmlXScheduler;
         const dataProcessor = window.dataProcessor;
 
         // Connect via API to get data for a specific client
         let userId = this.props.match.params.uid;
-        let clientId = this.props.match.params.Cid;
+        let clientId = this.props.match.params.cid;
         // If client - userId will only be used, will show their events, if pt userId is pt, clientId is client events that
         // pt wishes to view (clientId added when pt clicks client on their dashboard)
         axios.get(`/api/${userId}/scheduler/${clientId}`)

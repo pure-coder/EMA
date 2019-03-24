@@ -12,7 +12,7 @@ class NewClientProgressForm extends Component {
         super(props);
         this.state = {
             userId: props.authenticatedUser.user.id,
-            clientId: props.match.params.Cid,
+            clientId: props.match.params.cid,
             exerciseName: '',
             maxWeight: '',
             Date: '',
@@ -29,7 +29,7 @@ class NewClientProgressForm extends Component {
                 "Standing calf raise",
                 "Seated calf raise",
                 "Hip adductor",
-                "Bench press",
+                "Bench Press",
                 "Chest fly",
                 "Push-up",
                 "Pull-down",
@@ -79,7 +79,6 @@ class NewClientProgressForm extends Component {
     componentDidMount(){
         document.body.scrollTo(0,0);
     }
-
 
     // Checking if previous props modal visibility and this states visibility is not equal (stops reacts maximum loop message when
     // setting state) so that fields and errors can be cleared when exiting modal (using onClickAway instead of close button).

@@ -352,7 +352,7 @@ svg {
 
 .Progression h4, .Progression text {
     text-align: center;
-    margin: 0;
+    margin: 15px 15px;
 }
 
 .Progression .graph {

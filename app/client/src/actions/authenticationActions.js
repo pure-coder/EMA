@@ -308,13 +308,13 @@ export const deleteExercise =(uid, cid, data) => dispatch => {
             dispatch(setSuccess(`${data} exercise Deleted!`));
         })
         .catch(err => {
-            console.log(err)
+            console.log(err);
             dispatch({
                 type: GET_ERRS,
                 payload: err
             })
         });
-}
+};
 
 export const setErrors = (error) => dispatch => {
     dispatch({
@@ -328,7 +328,7 @@ export const setSuccess = (message) => dispatch => {
         type: SUCCESS,
         payload: {msg : message}
     });
-}
+};
 
 
 export const clearErrors = () => dispatch => {

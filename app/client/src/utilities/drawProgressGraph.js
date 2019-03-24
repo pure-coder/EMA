@@ -1,11 +1,9 @@
 import * as d3 from "d3";
 
-function addGraph(data, position) {// set the dimensions and margins of the graph
+function addGraph(data, position, title, update) {// set the dimensions and margins of the graph
     // Takes data given in function
     let dataToDraw = data;
     let exerciseId = position.substring(1, position.length);
-
-    console.log(data, position);
 
     let marginTop = 20;
     let marginRight = 20;
@@ -36,11 +34,17 @@ function addGraph(data, position) {// set the dimensions and margins of the grap
             return y(d.maxWeight);
         });
 
+    if(update){
+        console.log("this");
+    }
+
     // append the svg object to the body of the page
     // appends a 'group' element to 'svg'
     // moves the 'group' element to the top left margin
     // setPosition - sets specific graph to div specified as position parameter
-    let svg = d3.select(position).append("svg")
+    let svg = d3.select(position)
+        .append("h4").text(title)
+        .append("svg")
         .attr("width", width + marginLeft + marginRight)
         .attr("height", height + marginTop + marginBottom)
         .attr("id", exerciseId)
@@ -124,6 +128,7 @@ function addGraph(data, position) {// set the dimensions and margins of the grap
             .call(d3.axisBottom(x).tickFormat(d3.timeFormat("%d %b %Y")).tickValues(data.map(elements => {return elements.Date})))
             .selectAll("text")
             .style("text-anchor", "end")
+            .style("margin", "15px")
             .attr("dx", "-.8em")
             .attr("dy", ".15em")
             .attr("transform", "rotate(-65)");
@@ -135,6 +140,7 @@ function addGraph(data, position) {// set the dimensions and margins of the grap
                 "translate(" + (width / 2) + " ," +
                 (height + marginTop + 62) + ")")
             .style("text-anchor", "middle")
+            .style("margin", "15px")
             .text("Date");
 
         // Add the Y Axis
@@ -150,6 +156,7 @@ function addGraph(data, position) {// set the dimensions and margins of the grap
             .attr("x", 0 - (height / 2))
             .attr("dy", "1em")
             .style("text-anchor", "middle")
+            .style("margin", "20px")
             .text("Weight (Kg)"); // y-axis label
 
         // Add (lines) strokes to x and y axis, as adding the grid changed it.

@@ -4,7 +4,6 @@ import {connect} from 'react-redux' // Needed when using redux inside a componen
 import {withRouter} from 'react-router-dom';
 import {getClientProgression, clearProgression, deleteExercise} from "../../actions/authenticationActions";
 import Loading from "../../elements/Loading";
-import Graph from "./Graph";
 import Graph2 from "./Graph2";
 import NewClientProgressForm from "./NewClientProgressForm";
 import Modal from 'react-awesome-modal';
@@ -18,7 +17,7 @@ class ClientProfile extends Component {
         this.state = {
             userId: props.authenticatedUser.user.id,
             // If user is pt then get clientId from otherwise user is client, so use user.id
-            clientId: props.authenticatedUser.clientId !== undefined ? props.authenticatedUser.clientId : props.match.params.Cid,
+            clientId: props.authenticatedUser.clientId !== undefined ? props.authenticatedUser.clientId : props.match.params.cid,
             selectedExercise: 'Squat',
             loaded: false,
             visible: false, // For modal
@@ -76,19 +75,11 @@ class ClientProfile extends Component {
     }
 
     render() {
-        let displayContent;
+        // let displayContent;
 
         if (!this.props.authenticatedUser.client_Progression) {
             return <Loading/>
         }
-
-        // Check to see that client_progression is not undefined or the return data for client_progression is not empty
-        if (this.props.authenticatedUser.client_Progression) {
-            // console.log(this.props.authenticatedUser.client_Progression[2])
-            displayContent = (
-                <Graph graphData={this.props.authenticatedUser.client_Progression}/>
-            )
-        } // if client_progression is not undefined
 
         return (
             <div className="container dashboard-custom">
@@ -105,7 +96,6 @@ class ClientProfile extends Component {
                     </div>
                     : null
                 }
-                {/*{displayContent}*/}
                 <Graph2 graphData={this.props.authenticatedUser.client_Progression}/>
                     </div>
                 </div>
