@@ -1,6 +1,6 @@
 import * as d3 from "d3";
 
-function addGraph(data, position, title, update) {// set the dimensions and margins of the graph
+function addGraph(data, position, title, isUpdate) {// set the dimensions and margins of the graph
     // Takes data given in function
     let dataToDraw = data;
     let exerciseId = position.substring(1, position.length);
@@ -34,15 +34,21 @@ function addGraph(data, position, title, update) {// set the dimensions and marg
             return y(d.maxWeight);
         });
 
-    if(update){
-        console.log("this");
+
+    let svg;
+
+    if(isUpdate){
+        // Remove title of exercise as well as the graph
+        svg = d3.select(position)
+            .select("h4").remove()
+            .select("svg").remove()
     }
 
     // append the svg object to the body of the page
     // appends a 'group' element to 'svg'
     // moves the 'group' element to the top left margin
     // setPosition - sets specific graph to div specified as position parameter
-    let svg = d3.select(position)
+    svg = d3.select(position)
         .append("h4").text(title)
         .append("svg")
         .attr("width", width + marginLeft + marginRight)

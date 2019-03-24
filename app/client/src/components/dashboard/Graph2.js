@@ -9,21 +9,19 @@ class Graph2 extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            exercises : {},
-            errors: {},
-            mounted: false,
+            graphData: props.graphData
         };
     }
 
-    // shouldComponentUpdate(prevProps){
-    //     console.log(prevProps.graphData, this.props.graphData)
-    //     console.log(prevProps.graphData !== this.props.graphData)
-    //     return prevProps.graphData !== this.props.graphData;
-    // }
+    componentDidUpdate(prevProps){
+        if (prevProps.graphData !== this.props.graphData){
+            this.setState({graphData: this.props.graphData});
+        }
+    }
 
     render() {
 
-        const graphs = this.props.graphData.map(graph => (
+        const graphs = this.state.graphData.map(graph => (
             // Changed key from CreateGraph to div as div was first child, otherwise error was given.
             <div className="graphs" key={graph._id}>
                 <CreateGraph graphData={graph}/>
