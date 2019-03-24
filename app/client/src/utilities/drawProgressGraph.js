@@ -159,10 +159,10 @@ function addGraph(data, position, title, isUpdate) {// set the dimensions and ma
             .call(d3.axisLeft(y));
 
 
-        // text label for the y axis
+        // text label for the y axis (EDITED: (marginLeft + 5) so more space is given between ticks and label)
         svg.append("text")
             .attr("transform", "rotate(-90)")
-            .attr("y", 0 - marginLeft)
+            .attr("y", 0 - (marginLeft + 5))
             .attr("x", 0 - (height / 2))
             .attr("dy", "1em")
             .style("text-anchor", "middle")
