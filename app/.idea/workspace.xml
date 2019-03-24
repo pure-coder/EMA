@@ -5,8 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ec8ccf39-8487-4892-a38d-de9c288878a3" name="Default" comment="delete client from pt array - using pull">
-      <change beforePath="$PROJECT_DIR$/client/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/App.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/dashboard/ClientProfile.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/dashboard/ClientProfile.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/utilities/drawProgressGraph.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/utilities/drawProgressGraph.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -48,7 +46,7 @@
           <entry key="css" value="6392" />
           <entry key="editorConfig" value="285" />
           <entry key="html" value="1072" />
-          <entry key="js" value="122437" />
+          <entry key="js" value="122664" />
           <entry key="json" value="26" />
           <entry key="md" value="150" />
           <entry key="txt" value="120" />
@@ -59,7 +57,7 @@
           <entry key="CSS" value="6392" />
           <entry key="HTML" value="1079" />
           <entry key="JSON" value="26" />
-          <entry key="JavaScript" value="122430" />
+          <entry key="JavaScript" value="122657" />
           <entry key="PLAIN_TEXT" value="555" />
         </counts>
       </usages-collector>
@@ -70,7 +68,7 @@
           <entry key="eslintignore" value="2" />
           <entry key="gitignore" value="2" />
           <entry key="html" value="17" />
-          <entry key="js" value="769" />
+          <entry key="js" value="770" />
           <entry key="json" value="9" />
           <entry key="map" value="1" />
           <entry key="md" value="4" />
@@ -84,7 +82,7 @@
           <entry key="CSS" value="49" />
           <entry key="HTML" value="17" />
           <entry key="JSON" value="9" />
-          <entry key="JavaScript" value="769" />
+          <entry key="JavaScript" value="770" />
           <entry key="PLAIN_TEXT" value="12" />
           <entry key="SVG" value="1" />
           <entry key="Scratch" value="1" />
@@ -120,11 +118,20 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/client/src/App.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="394" column="19" selection-start-line="394" selection-start-column="19" selection-end-line="394" selection-end-column="19" />
+            <state relative-caret-position="119">
+              <caret line="389" column="1" lean-forward="true" selection-start-line="389" selection-start-column="1" selection-end-line="389" selection-end-column="1" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/client/src/utilities/drawProgressGraph.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="89">
+              <caret line="146" column="93" selection-start-line="146" selection-start-column="93" selection-end-line="146" selection-end-column="93" />
             </state>
           </provider>
         </entry>
@@ -141,7 +148,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>jwt.sign</find>
       <find>SET_S</find>
       <find>iat</find>
       <find>user</find>
@@ -171,6 +177,7 @@
       <find>Weight (</find>
       <find>deleteExercise</find>
       <find>del</find>
+      <find>D</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -247,9 +254,9 @@
         <option value="$PROJECT_DIR$/client/src/components/dashboard/Graph.js" />
         <option value="$PROJECT_DIR$/client/src/actions/authenticationActions.js" />
         <option value="$PROJECT_DIR$/client/src/components/dashboard/CreateGraph.js" />
-        <option value="$PROJECT_DIR$/client/src/utilities/drawProgressGraph.js" />
         <option value="$PROJECT_DIR$/client/src/components/dashboard/ClientProfile.js" />
         <option value="$PROJECT_DIR$/client/src/App.css" />
+        <option value="$PROJECT_DIR$/client/src/utilities/drawProgressGraph.js" />
       </list>
     </option>
   </component>
@@ -443,7 +450,7 @@
       <workItem from="1550910770209" duration="56984000" />
       <workItem from="1551774400661" duration="160491000" />
       <workItem from="1552586754943" duration="31533000" />
-      <workItem from="1552821747373" duration="124822000" />
+      <workItem from="1552821747373" duration="126675000" />
     </task>
     <task id="LOCAL-00001" summary="min height changed for developed pages">
       <created>1534874964132</created>
@@ -491,7 +498,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1082228000" />
+    <option name="totallyTimeSpent" value="1084081000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -916,13 +923,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/utilities/drawProgressGraph.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="27">
-          <caret line="35" selection-start-line="35" selection-end-line="35" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/CreateGraph.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="78">
@@ -945,8 +945,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/client/src/App.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="394" column="19" selection-start-line="394" selection-start-column="19" selection-end-line="394" selection-end-column="19" />
+        <state relative-caret-position="119">
+          <caret line="389" column="1" lean-forward="true" selection-start-line="389" selection-start-column="1" selection-end-line="389" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/utilities/drawProgressGraph.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="89">
+          <caret line="146" column="93" selection-start-line="146" selection-start-column="93" selection-end-line="146" selection-end-column="93" />
         </state>
       </provider>
     </entry>

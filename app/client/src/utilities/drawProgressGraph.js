@@ -144,10 +144,10 @@ function addGraph(data, position, title, isUpdate) {// set the dimensions and ma
             .attr("transform", "rotate(-65)");
 
 
-        // text label for the x axis
+        // text label for the x axis (EDITED: (width - 25) so is better aligned with buttons)
         svg.append("text")
             .attr("transform",
-                "translate(" + (width / 2) + " ," +
+                "translate(" + ((width - 25) / 2) + " ," +
                 (height + marginTop + 62) + ")")
             .style("text-anchor", "middle")
             .style("font-size", "18px")
