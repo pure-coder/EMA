@@ -1,10 +1,19 @@
 import React, {Component} from 'react';
 import {addGraph} from "../../utilities/drawProgressGraph";
+import {deleteExercise} from "../../actions/authenticationActions";
 import PropTypes from "prop-types";
 import connect from "react-redux/es/connect/connect";
 import {withRouter} from "react-router-dom";
 
 class CreateGraph extends Component {
+    constructor(props){
+        super(props);
+        this.state = {
+            userId : props.match.params.uid || props.authenticatedUser.user.id,
+            clientId: props.authenticatedUser.clientId || props.match.params.cid,
+        }
+        this.deleteExercise = this.deleteExercise.bind(this);
+    }
 
     sortedProgressionMap(graphData){
         return graphData.sort((obj1, obj2) => {
@@ -14,7 +23,7 @@ class CreateGraph extends Component {
 
     drawGraph(isUpdate){
         let exerciseToId = this.props.graphData.exerciseName.replace(/\s+/g, '-');
-        const metrics = this.sortedProgressionMap(this.props.graphData.metrics)
+        const metrics = this.sortedProgressionMap(this.props.graphData.metrics);
         // Graph is drawn here. Had to make sure className in return was rendered 1st before calling this function
         // as it needs it to append on too.
         addGraph(metrics, '.' + exerciseToId, this.props.graphData.exerciseName, isUpdate);
@@ -31,6 +40,9 @@ class CreateGraph extends Component {
         }
     }
 
+    deleteExercise(e){
+        this.props.deleteExercise(this.state.userId, this.state.clientId, e.target.name, this.props.history);
+    }
 
     render(){
 
@@ -43,10 +55,10 @@ class CreateGraph extends Component {
                     : null }
                 {this.props.authenticatedUser.user.pt === true && this.props.authenticatedUser.client_Progression ?
                     <input id="delete-progress-button" type="button" className="btn btn-danger btn-block mb-4"
-                           value="Delete Exercise" onClick={this.deleteExercise} />
+                           value="Delete Exercise" name={this.props.graphData.exerciseName} onClick={this.deleteExercise} />
                     :null }
             </div>
-        )
+        );
 
         return (
             <div>
@@ -58,7 +70,8 @@ class CreateGraph extends Component {
 }
 
 CreateGraph.propTypes = {
-    graphData: PropTypes.object.isRequired
+    graphData: PropTypes.object.isRequired,
+    deleteExercise: PropTypes.func.isRequired
 };
 
 const stateToProps = (state) => ({
@@ -66,4 +79,4 @@ const stateToProps = (state) => ({
     errors: state.errors
 });
 
-export default connect(stateToProps, null)(withRouter(CreateGraph));
+export default connect(stateToProps, {deleteExercise})(withRouter(CreateGraph));

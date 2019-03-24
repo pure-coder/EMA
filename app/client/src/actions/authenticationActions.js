@@ -301,10 +301,10 @@ export const newClientProgress = (id, cid ,data) => dispatch => {
         })
 };
 
-export const deleteExercise =(uid, cid, data) => dispatch => {
+export const deleteExercise =(uid, cid, data, history) => dispatch => {
     axios.delete(`/api/${uid}/client_progression/${cid}`, {data : {exerciseName : data}})
         .then(() => {
-            dispatch(getClientProgression(uid, cid));
+            dispatch(getClientProgression(uid, cid, history));
             dispatch(setSuccess(`${data} exercise Deleted!`));
         })
         .catch(err => {

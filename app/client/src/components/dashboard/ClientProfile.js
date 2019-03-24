@@ -2,7 +2,7 @@ import React, {Component} from 'react';  // Used to create this component
 import PropTypes from 'prop-types'; // Used to document prop types sent to components
 import {connect} from 'react-redux' // Needed when using redux inside a component (connects redux to this component)
 import {withRouter} from 'react-router-dom';
-import {getClientProgression, clearProgression, deleteExercise} from "../../actions/authenticationActions";
+import {getClientProgression, clearProgression} from "../../actions/authenticationActions";
 import Loading from "../../elements/Loading";
 import Graph2 from "./Graph";
 import NewClientProgressForm from "./NewClientProgressForm";
@@ -25,7 +25,6 @@ class ClientProfile extends Component {
         };
 
         this.openModal = this.openModal.bind(this);
-        this.deleteExercise = this.deleteExercise.bind(this);
         this.getProgressForPage = this.getProgressForPage.bind(this);
         this.onClickAway = this.onClickAway.bind(this)
     }
@@ -68,10 +67,6 @@ class ClientProfile extends Component {
 
     getProgressForPage(){
         this.props.getClientProgression(this.state.userId, this.state.clientId, this.props.history);
-    }
-
-    deleteExercise(){
-        this.props.deleteExercise(this.state.userId, this.state.clientId, this.state.selectedExercise);
     }
 
     render() {
@@ -130,4 +125,4 @@ const stateToProps = (state) => {
     errors: state.errors
 }};
 
-export default connect(stateToProps, {getClientProgression, clearProgression, deleteExercise})(withRouter(ClientProfile));
+export default connect(stateToProps, {getClientProgression, clearProgression})(withRouter(ClientProfile));
