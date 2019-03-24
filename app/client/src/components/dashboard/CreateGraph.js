@@ -26,7 +26,11 @@ class CreateGraph extends Component {
         const metrics = this.sortedProgressionMap(this.props.graphData.metrics);
         // Graph is drawn here. Had to make sure className in return was rendered 1st before calling this function
         // as it needs it to append on too.
-        addGraph(metrics, '.' + exerciseToId, this.props.graphData.exerciseName, isUpdate);
+
+        // Only draw graph if metrics length for an exercise is >= 2
+        if (metrics.length >= 2){
+            addGraph(metrics, '.' + exerciseToId, this.props.graphData.exerciseName, isUpdate);
+        }
     }
 
     componentDidMount(){
@@ -48,15 +52,15 @@ class CreateGraph extends Component {
 
         let display = (
             <div className="progress-buttons">
-                {this.props.authenticatedUser.user.pt === true && this.props.authenticatedUser.client_Progression ?
-
-                    <input id="edit-progress-button" type="button" className="btn btn-info btn-block mb-4"
+                {this.props.authenticatedUser.user.pt === true && this.props.graphData.metrics.length >= 2 ?
+                    (
+                        <div>
+                            <input id="edit-progress-button" type="button" className="btn btn-info btn-block mb-4"
                            value="Edit Exercise" onClick={this.openModal} />
-                    : null }
-                {this.props.authenticatedUser.user.pt === true && this.props.authenticatedUser.client_Progression ?
-                    <input id="delete-progress-button" type="button" className="btn btn-danger btn-block mb-4"
+                            <input id="delete-progress-button" type="button" className="btn btn-danger btn-block mb-4"
                            value="Delete Exercise" name={this.props.graphData.exerciseName} onClick={this.deleteExercise} />
-                    :null }
+                         </div>
+                    ) : null}
             </div>
         );
 

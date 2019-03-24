@@ -322,8 +322,9 @@ svg {
 
 /* progression Data (graph) */
 .graphs {
-    min-width: 500px;
+    min-width: 510px;
     min-height: 250px;
+    padding: 0;
 }
 
 .Progression {
@@ -352,7 +353,6 @@ svg {
 
 .Progression h4, .Progression text {
     text-align: center;
-    margin: 20px 15px 0 15px;
 }
 
 .Progression .graph {

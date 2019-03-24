@@ -265,9 +265,6 @@ export const getClientProgression = (userId, clientId, history) => dispatch => {
                     payload: result.data
                 });
             }
-            else{
-                history.push('/error');
-            }
         })
         .catch(err => {
             console.log(err);

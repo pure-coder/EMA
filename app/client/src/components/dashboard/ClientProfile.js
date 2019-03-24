@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'; // Used to document prop types sent to compo
 import {connect} from 'react-redux' // Needed when using redux inside a component (connects redux to this component)
 import {withRouter} from 'react-router-dom';
 import {getClientProgression, clearProgression} from "../../actions/authenticationActions";
-import Loading from "../../elements/Loading";
 import Graph2 from "./Graph";
 import NewClientProgressForm from "./NewClientProgressForm";
 import Modal from 'react-awesome-modal';
@@ -18,7 +17,6 @@ class ClientProfile extends Component {
             userId: props.authenticatedUser.user.id,
             // If user is pt then get clientId from otherwise user is client, so use user.id
             clientId: props.authenticatedUser.clientId !== undefined ? props.authenticatedUser.clientId : props.match.params.cid,
-            selectedExercise: 'Squat',
             loaded: false,
             visible: false, // For modal
             errors: {}
@@ -70,28 +68,39 @@ class ClientProfile extends Component {
     }
 
     render() {
-        // let displayContent;
+        let displayContent;
 
+        // If client has no data then display
         if (!this.props.authenticatedUser.client_Progression) {
-            return <Loading/>
+            displayContent = (
+                <h2 className="text-center text-info mt-5">No client progression data...</h2>
+            )
+        }
+
+        if(this.props.authenticatedUser.client_Progression){
+            displayContent = (
+                <Graph2 graphData={this.props.authenticatedUser.client_Progression}/>
+            )
         }
 
         return (
             <div className="container dashboard-custom">
                 <div className="row">
                     <div className="m-auto col-1 graphs" id="graphs">
-                        <h1 className=" text-center display-5 mb-3">Dashboard</h1>
-                        <h2 className=" text-center display-5 mt-3 mb-4">Client progression data</h2>
-                {/*Only display Add progress if user is a pt*/}
-                {this.props.authenticatedUser.user.pt === true && this.props.authenticatedUser.client_Progression ?
-                    <div>
-                        <input id="progress-button" type="button" className="btn btn-success btn-block mb-4" value="Add Progress"
-                               onClick={this.openModal} />
-                    </div> : null
-                }
-                <Graph2 graphData={this.props.authenticatedUser.client_Progression}/>
+                        <h1 className=" text-center display-5 mt-3 mb-4">Client progression data</h1>
+                        {/*Only display Add progress if user is a pt*/}
+                        {this.props.authenticatedUser.user.pt === true ?
+                            <div>
+                                <input id="progress-button" type="button" className="btn btn-success btn-block mt-4 mb-4" value="Add Progress"
+                                       onClick={this.openModal} />
+                            </div> : null
+                        }
+                        {/*Display the clients progression data*/}
+                        {displayContent}
                     </div>
                 </div>
+
+
                 <Modal visible={this.state.visible} width="500" height="450" effect="fadeInUp"
                        onClickAway={this.onClickAway}>
                     <div>
