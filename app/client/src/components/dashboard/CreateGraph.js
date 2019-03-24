@@ -4,6 +4,9 @@ import {deleteExercise} from "../../actions/authenticationActions";
 import PropTypes from "prop-types";
 import connect from "react-redux/es/connect/connect";
 import {withRouter} from "react-router-dom";
+import Modal from "react-awesome-modal";
+import Loading from "../../elements/Loading";
+import DeleteProgressConfirm from "./DeleteProgressConfirm";
 
 class CreateGraph extends Component {
     constructor(props){
@@ -11,8 +14,27 @@ class CreateGraph extends Component {
         this.state = {
             userId : props.match.params.uid || props.authenticatedUser.user.id,
             clientId: props.authenticatedUser.clientId || props.match.params.cid,
+            visible: false,
+            form: ''
         }
-        this.deleteExercise = this.deleteExercise.bind(this);
+
+        this.openModal = this.openModal.bind(this);
+        this.onClickAway = this.onClickAway.bind(this)
+    }
+
+    openModal(e) {
+        if(e.target.value === "Delete Exercise"){
+            this.setState({form: "Delete"});
+        }
+        this.setState({
+            visible : true
+        });
+    }
+
+    onClickAway() {
+        this.setState({
+            visible: false
+        });
     }
 
     sortedProgressionMap(graphData){
@@ -44,11 +66,8 @@ class CreateGraph extends Component {
         }
     }
 
-    deleteExercise(e){
-        this.props.deleteExercise(this.state.userId, this.state.clientId, e.target.name, this.props.history);
-    }
-
     render(){
+        let displayForm;
 
         let display = (
             <div className="progress-buttons">
@@ -58,16 +77,39 @@ class CreateGraph extends Component {
                             <input id="edit-progress-button" type="button" className="btn btn-info btn-block mb-4"
                            value="Edit Exercise" onClick={this.openModal} />
                             <input id="delete-progress-button" type="button" className="btn btn-danger btn-block mb-4"
-                           value="Delete Exercise" name={this.props.graphData.exerciseName} onClick={this.deleteExercise} />
+                           value="Delete Exercise" name={this.props.graphData.exerciseName} onClick={this.openModal} />
                          </div>
                     ) : null}
             </div>
         );
 
+        // Provide component depending on what button was pressed
+        if(this.state.form === 'Delete') {
+            displayForm = (
+                <div>
+                    <DeleteProgressConfirm exerciseName={this.props.graphData.exerciseName} onClickAway={this.onClickAway}
+                                           visible={this.state.visible}/>
+                </div>
+            )
+        }
+        if(this.state.form === 'Edit') {
+            displayForm = (
+                <div>
+                    <Loading/>
+                </div>
+            )
+        }
+
         return (
             <div>
                 <div className={this.props.graphData.exerciseName.replace(/\s+/g, '-') + " graph"}></div>
                 {display}
+
+                <Modal visible={this.state.visible} width="500" height="450" effect="fadeInUp"
+                       onClickAway={this.onClickAway}>
+                    {displayForm}
+                </Modal>
+
             </div>
         )
     }

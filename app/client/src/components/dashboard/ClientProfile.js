@@ -76,7 +76,6 @@ class ClientProfile extends Component {
                 <h2 className="text-center text-info mt-5">No client progression data...</h2>
             )
         }
-
         if(this.props.authenticatedUser.client_Progression){
             displayContent = (
                 <Graph2 graphData={this.props.authenticatedUser.client_Progression}/>

@@ -302,7 +302,6 @@ export const deleteExercise =(uid, cid, data, history) => dispatch => {
     axios.delete(`/api/${uid}/client_progression/${cid}`, {data : {exerciseName : data}})
         .then(() => {
             dispatch(getClientProgression(uid, cid, history));
-            dispatch(setSuccess(`${data} exercise Deleted!`));
         })
         .catch(err => {
             console.log(err);

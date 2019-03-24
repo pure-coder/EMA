@@ -455,6 +455,20 @@ svg {
     color: red;
 }
 
+/* Delete progress */
+
+.delete-progress {
+    margin: 100px 50px;
+    text-align: center;
+}
+
+.delete-progress input[type=button] {
+    width: 200px;
+}
+
+.delete-progress #confirm, .delete-progress #cancel {
+    margin: auto;
+}
 
 /* success - valid feedback */
 
