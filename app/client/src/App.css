@@ -345,6 +345,13 @@ svg {
     margin: auto;
 }
 
+/* Client profile */
+
+.client-profile {
+    min-height: 450px;
+}
+
+
 /* progression Data (graph) */
 .graphs {
     margin: inherit;

@@ -41,8 +41,12 @@ class ClientProfile extends Component {
             this.getProgressForPage();
             this.setState({loaded: true});
         }
-
     } // did mount
+
+    // shouldComponentUpdate(prevProps){
+    //     console.log(prevProps.authenticatedUser.client_Progression !== this.props.authenticatedUser.client_Progression);
+    //     return prevProps.authenticatedUser.client_Progression !== this.props.authenticatedUser.client_Progression;
+    // }
 
     componentWillUnmount(){
         // This got rid of the Date: null bug for now, need to find route cause!!!
@@ -68,22 +72,23 @@ class ClientProfile extends Component {
     }
 
     render() {
+        let clientProgressData = this.props.authenticatedUser.client_Progression;
         let displayContent;
 
-        // If client has no data then display
-        if (!this.props.authenticatedUser.client_Progression) {
+        // If client has no data then display appropriate message, otherwise
+        if (clientProgressData === undefined || clientProgressData.length === 0) {
             displayContent = (
                 <h2 className="text-center text-info mt-5">No client progression data...</h2>
             )
         }
-        if(this.props.authenticatedUser.client_Progression){
+        else{
             displayContent = (
-                <Graph2 graphData={this.props.authenticatedUser.client_Progression}/>
+                <Graph2 graphData={clientProgressData}/>
             )
         }
 
         return (
-            <div className="container dashboard-custom">
+            <div className="container client-profile">
                 <div className="row">
                     <div className="m-auto col-1 graphs" id="graphs">
                         <h2 className=" text-center display-5 mt-3 mb-4">Client progression data</h2>

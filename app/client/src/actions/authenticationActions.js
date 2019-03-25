@@ -14,7 +14,6 @@ import {
 } from "./types"; // import custom defined types
 import setAuthorisationToken from '../utilities/setAuthorisationToken';
 import jwtDecode from 'jwt-decode';
-import is_Empty from '../utilities/is_empty'
 
 // Register User
 // Used to dispatch (action) data to a reducer, in this case it is the registerUser action with the sign up data
@@ -259,12 +258,10 @@ export const getClientProgression = (userId, clientId, history) => dispatch => {
     // userId can either be same as clientId or the id of the personal trainer
     axios.get(`/api/${userId}/client_progression/${clientId}` ) // using grave accent instead of single quote
         .then(result => {
-            if(!is_Empty(result.data)) {
                 dispatch({
                     type: CLIENT_PROGRESSION,
                     payload: result.data
                 });
-            }
         })
         .catch(err => {
             console.log(err);

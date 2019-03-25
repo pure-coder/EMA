@@ -69,7 +69,9 @@ class CreateGraph extends Component {
     render(){
         let displayForm;
 
-        let display = (
+        let display;
+
+        display = (
             <div className="progress-buttons">
                 {this.props.authenticatedUser.user.pt === true && this.props.graphData.metrics.length >= 2 ?
                     (
