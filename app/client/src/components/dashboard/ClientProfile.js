@@ -32,10 +32,7 @@ class ClientProfile extends Component {
     componentDidMount() {
         document.body.scrollTo(0,0);
 
-        // Check if isAuthenticated is true then redirect to the dashboard
-        if (!this.props.authenticatedUser.isAuthenticated) {
-            this.props.history.push('/login');
-        }
+        this.authCheck();
 
         // If direct link used then get client progression data
         if (this.state.loaded === false) {
@@ -43,11 +40,6 @@ class ClientProfile extends Component {
             this.setState({loaded: true});
         }
     } // did mount
-
-    // shouldComponentUpdate(prevProps){
-    //     console.log(prevProps.authenticatedUser.client_Progression !== this.props.authenticatedUser.client_Progression);
-    //     return prevProps.authenticatedUser.client_Progression !== this.props.authenticatedUser.client_Progression;
-    // }
 
     componentWillUnmount(){
         // This got rid of the Date: null bug for now, need to find route cause!!!
@@ -72,7 +64,16 @@ class ClientProfile extends Component {
         this.props.getClientProgression(this.state.userId, this.state.clientId);
     }
 
+    authCheck(){
+        // Check if isAuthenticated is true
+        if (!this.props.authenticatedUser.isAuthenticated) {
+            this.props.history.push('/login');
+        }
+    }
+
     render() {
+        this.authCheck();
+
         let clientProgressData = this.props.authenticatedUser.client_Progression;
         let displayContent;
 

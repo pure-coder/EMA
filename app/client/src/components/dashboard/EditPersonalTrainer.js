@@ -48,11 +48,7 @@ class EditPersonalTrainer extends Component {
         document.body.scrollTo(0,0);
 
 
-        // If direct url used... didn't come through dashboard, ie bookmarked url, get uid from url
-        // Check if isAuthenticated is true then redirect to the dashboard
-        if (!this.props.authenticatedUser.isAuthenticated) {
-            this.props.history.push('/login');
-        }
+        this.authCheck();
 
         // if there is no data for user display get data or display error page
         if (this.state.pt_data === undefined) {
@@ -101,7 +97,16 @@ class EditPersonalTrainer extends Component {
         }
     }
 
+    authCheck(){
+        // Check if isAuthenticated is true
+        if (!this.props.authenticatedUser.isAuthenticated) {
+            this.props.history.push('/login');
+        }
+    }
+
     render() {
+        this.authCheck();
+
         const {errors} = this.state; // This allows errors to be pulled out of this.state without pulling them out directly
 
         // if loaded is false then return loading screen

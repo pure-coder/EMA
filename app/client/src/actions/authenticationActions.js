@@ -277,6 +277,7 @@ export const clearProgression = () => dispatch => {
 export const newClientProgress = (id, cid ,data) => dispatch => {
     axios.post(`/api/${id}/client_progression/${cid}`, data)
         .then(result => {
+            console.log("client_p", result);
             // If successful then clear error messages and send success message
             if(result.data.n === 1 && result.data.nModified === 1){
                 dispatch({
@@ -288,11 +289,17 @@ export const newClientProgress = (id, cid ,data) => dispatch => {
             }
         })
         .catch(err => {
-            dispatch({
-                type: GET_ERRS,
-                payload: err.response.data
-            })
-        })
+            if(err.response.status === 401){
+                dispatch(logOutUser());
+                //window.location.href = '/re-login';
+            }
+            else{
+                dispatch({
+                    type: GET_ERRS,
+                    payload: err.response.data
+                })
+            }
+        });
 };
 
 export const deleteExercise =(uid, cid, data) => dispatch => {

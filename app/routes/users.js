@@ -241,7 +241,7 @@ router.post('/login', (req, res) => {
 
                                         // Sign Token (needs payload, secret key, and expiry detail (3600 = 1hr) for re-login
                                         // and callback for token
-                                        jwt.sign(payload, keys.secretOrKey, {expiresIn: 3600}, (err, token) => {
+                                        jwt.sign(payload, keys.secretOrKey, {expiresIn: 1}, (err, token) => {
                                             if (token){
                                                 res.json({
                                                     success: true,
@@ -286,7 +286,7 @@ router.post('/login', (req, res) => {
                             // Sign Token (needs payload, secret key, and expiry detail expressed in seconds
                             //  60s * 60m = (3600s = 1hr) for re-login and callback for token
                             // exp and iat for expired time sent with token (format is in epoch timestamp
-                            jwt.sign(payload, keys.secretOrKey, {expiresIn: 3600}, (err, token) => {
+                            jwt.sign(payload, keys.secretOrKey, {expiresIn: 1}, (err, token) => {
                                 //res.setHeader('Set-Cookie', 'localFitnessToken=Bearer ' + token + '; HttpOnly')
                                 if (token){
                                     res.json({

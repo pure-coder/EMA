@@ -38,6 +38,7 @@ import {setSignedInUser} from './actions/authenticationActions';
 // Used to log the user out
 import {logOutUser} from './actions/authenticationActions';
 import EditPersonalTrainer from "./components/dashboard/EditPersonalTrainer";
+import ExpiredLogin from "./components/authentication/ExpiredLogin";
 
 // check if token exists in local storage
 if (localStorage.jwtToken) {
@@ -86,6 +87,7 @@ class App extends Component {
                                    component={Landing_page}/> {/* using Route functionality that adds the landing_page component to web app*/}
                             <Route exact path="/register" component={Register}/>
                             <Route exact path="/login" component={Login}/>
+                            <Route exact path="/re-login" component={ExpiredLogin}/>
                             <Route exact path="/error_page" component={ErrorComponent}/>
                             <Route component={ErrorComponent}/>
                             {/*If page doesn't exist * then show error page component*/}

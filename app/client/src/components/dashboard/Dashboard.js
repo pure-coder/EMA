@@ -34,10 +34,7 @@ class Dashboard extends Component {
     componentDidMount() {
         document.body.scrollTo(0,0);
 
-        // Check if isAuthenticated is true then redirect to the dashboard
-        if (!this.props.authenticatedUser.isAuthenticated) {
-            this.props.history.push('/login');
-        }
+        this.authCheck();
 
         this.update()
     } // ComponentDidMount
@@ -49,7 +46,16 @@ class Dashboard extends Component {
             this.props.getClients(this.state.id)
     }
 
+    authCheck(){
+        // Check if isAuthenticated is true
+        if (!this.props.authenticatedUser.isAuthenticated) {
+            this.props.history.push('/login');
+        }
+    }
+
     render() {
+        this.authCheck();
+
         let displayContent;
 
         // If user is a PT then display pt dashboard of clients

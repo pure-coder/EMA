@@ -13,13 +13,25 @@ class Graph extends Component {
         };
     }
 
+    componentDidMount(){
+        this.authCheck();
+    }
+
     componentDidUpdate(prevProps){
         if (prevProps.graphData !== this.props.graphData){
             this.setState({graphData: this.props.graphData});
         }
     }
 
+    authCheck(){
+        // Check if isAuthenticated is true
+        if (!this.props.authenticatedUser.isAuthenticated) {
+            this.props.history.push('/login');
+        }
+    }
+
     render() {
+        this.authCheck();
 
         const graphs = this.state.graphData.map(graph => (
             // Changed key from CreateGraph to div as div was first child, otherwise error was given.
