@@ -74,7 +74,6 @@ class ClientProfile extends Component {
 
     render() {
         let clientProgressData = this.props.authenticatedUser.client_Progression;
-        console.log(clientProgressData);
         let displayContent;
 
         // If client has no data then display appropriate message, otherwise

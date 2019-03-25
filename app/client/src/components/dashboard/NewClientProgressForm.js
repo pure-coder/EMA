@@ -163,7 +163,7 @@ class NewClientProgressForm extends Component {
                     <button className="closeButton"  onClick={this.onClose}><i className="fas fa-window-close 2x"></i></button>
                 </div>
                 <form autoComplete="off" onSubmit={this.onSubmit}>
-                    <label className="control-label form-control-lg edit-profile-label">
+                    <label className="control-label form-control-lg new-progression">
                         Exercise:
                     </label>
                     <div className="autocomplete">
@@ -179,7 +179,7 @@ class NewClientProgressForm extends Component {
                             onBlur={this.onBlur}
                         />
                     </div>
-                    <label className="control-label form-control-lg edit-profile-label">
+                    <label className="control-label form-control-lg new-progression">
                         One Rep Max Weight (Kg):
                     </label>
                     <FormInputGroup
@@ -191,7 +191,7 @@ class NewClientProgressForm extends Component {
                         onClick={this.onClick}
                         error={errors.maxWeight}
                     />
-                    <label className="control-label form-control-lg edit-profile-label">
+                    <label className="control-label form-control-lg new-progression">
                         Date:
                     </label>
                     <FormInputGroup

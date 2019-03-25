@@ -273,6 +273,11 @@ svg {
     float: left;
 }
 
+.new-progression {
+    padding-left: 0;
+    float: none;
+}
+
 .edit-date-div {
     display: inline-block;
     min-width: 450px;
