@@ -6,6 +6,7 @@ import {getClientProgression, clearProgression} from "../../actions/authenticati
 import Graph2 from "./Graph";
 import NewClientProgressForm from "./NewClientProgressForm";
 import Modal from 'react-awesome-modal';
+import isEmpty from '../../utilities/is_empty';
 
 // import FormInputGroup from "../common/FormInputGroup"; // Allows proper routing and linking using browsers match, location, and history properties
 
@@ -68,15 +69,16 @@ class ClientProfile extends Component {
     }
 
     getProgressForPage(){
-        this.props.getClientProgression(this.state.userId, this.state.clientId, this.props.history);
+        this.props.getClientProgression(this.state.userId, this.state.clientId);
     }
 
     render() {
         let clientProgressData = this.props.authenticatedUser.client_Progression;
+        console.log(clientProgressData);
         let displayContent;
 
         // If client has no data then display appropriate message, otherwise
-        if (clientProgressData === undefined || clientProgressData.length === 0) {
+        if (isEmpty(clientProgressData)) {
             displayContent = (
                 <h2 className="text-center text-info mt-5">No client progression data...</h2>
             )

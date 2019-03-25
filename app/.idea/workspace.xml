@@ -5,11 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ec8ccf39-8487-4892-a38d-de9c288878a3" name="Default" comment="delete client from pt array - using pull">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/App.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/actions/authenticationActions.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/actions/authenticationActions.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/dashboard/ClientProfile.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/dashboard/ClientProfile.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/dashboard/CreateGraph.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/dashboard/CreateGraph.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/dashboard/DeleteProgressConfirm.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/dashboard/DeleteProgressConfirm.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -51,7 +48,7 @@
           <entry key="css" value="7009" />
           <entry key="editorConfig" value="285" />
           <entry key="html" value="1072" />
-          <entry key="js" value="124348" />
+          <entry key="js" value="124441" />
           <entry key="json" value="26" />
           <entry key="md" value="150" />
           <entry key="txt" value="120" />
@@ -62,7 +59,7 @@
           <entry key="CSS" value="7009" />
           <entry key="HTML" value="1079" />
           <entry key="JSON" value="26" />
-          <entry key="JavaScript" value="124341" />
+          <entry key="JavaScript" value="124434" />
           <entry key="PLAIN_TEXT" value="555" />
         </counts>
       </usages-collector>
@@ -103,7 +100,7 @@
         <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/DeleteProgressConfirm.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="153">
-              <caret line="27" column="109" selection-start-line="27" selection-start-column="109" selection-end-line="27" selection-end-column="109" />
+              <caret line="27" column="89" selection-start-line="27" selection-start-column="89" selection-end-line="27" selection-end-column="89" />
               <folding>
                 <element signature="e#109#153#0" expanded="true" />
               </folding>
@@ -114,8 +111,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/client/src/actions/authenticationActions.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="89">
-              <caret line="15" column="35" selection-start-line="15" selection-start-column="35" selection-end-line="15" selection-end-column="35" />
+            <state relative-caret-position="123">
+              <caret line="257" column="78" lean-forward="true" selection-start-line="257" selection-start-column="78" selection-end-line="257" selection-end-column="78" />
               <folding>
                 <element signature="e#0#26#0" expanded="true" />
                 <element signature="e#292#363#0" expanded="true" />
@@ -125,11 +122,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/ClientProfile.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="150">
-              <caret line="90" column="52" selection-start-line="90" selection-start-column="52" selection-end-line="90" selection-end-column="52" />
+            <state relative-caret-position="187">
+              <caret line="80" column="12" lean-forward="true" selection-start-line="80" selection-start-column="12" selection-end-line="80" selection-end-column="12" />
               <folding>
                 <element signature="e#277#321#0" expanded="true" />
               </folding>
@@ -137,7 +134,7 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/client/src/App.css">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="139">
@@ -188,7 +185,6 @@
       <find>Cid</find>
       <find>data</find>
       <find>Weight (</find>
-      <find>deleteExercise</find>
       <find>del</find>
       <find>D</find>
       <find>edit</find>
@@ -196,6 +192,7 @@
       <find>edit-profile-date-div</find>
       <find>edit_client-custom</find>
       <find>progre</find>
+      <find>deleteExercise</find>
       <find>getClientP</find>
     </findStrings>
     <replaceStrings>
@@ -214,8 +211,8 @@
     </replaceStrings>
     <dirStrings>
       <dir>C:\TM470\app\client\src\components</dir>
-      <dir>C:\TM470\app</dir>
       <dir>C:\TM470\app\client</dir>
+      <dir>C:\TM470\app</dir>
     </dirStrings>
   </component>
   <component name="Git.Settings">
@@ -273,9 +270,9 @@
         <option value="$PROJECT_DIR$/client/src/components/dashboard/Graph.js" />
         <option value="$PROJECT_DIR$/client/src/utilities/drawProgressGraph.js" />
         <option value="$PROJECT_DIR$/client/src/components/dashboard/DeleteProgressConfirm.js" />
+        <option value="$PROJECT_DIR$/client/src/App.css" />
         <option value="$PROJECT_DIR$/client/src/actions/authenticationActions.js" />
         <option value="$PROJECT_DIR$/client/src/components/dashboard/ClientProfile.js" />
-        <option value="$PROJECT_DIR$/client/src/App.css" />
       </list>
     </option>
   </component>
@@ -469,7 +466,7 @@
       <workItem from="1550910770209" duration="56984000" />
       <workItem from="1551774400661" duration="160491000" />
       <workItem from="1552586754943" duration="31533000" />
-      <workItem from="1552821747373" duration="143091000" />
+      <workItem from="1552821747373" duration="143806000" />
     </task>
     <task id="LOCAL-00001" summary="min height changed for developed pages">
       <created>1534874964132</created>
@@ -517,7 +514,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1100497000" />
+    <option name="totallyTimeSpent" value="1101212000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -938,20 +935,24 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/DeleteProgressConfirm.js">
+    <entry file="file://$PROJECT_DIR$/client/src/utilities/is_empty.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="27" column="109" selection-start-line="27" selection-start-column="109" selection-end-line="27" selection-end-column="109" />
-          <folding>
-            <element signature="e#109#153#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="119">
+          <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/App.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="139">
+          <caret line="347" column="20" lean-forward="true" selection-start-line="347" selection-start-column="20" selection-end-line="347" selection-end-column="20" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/client/src/actions/authenticationActions.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="89">
-          <caret line="15" column="35" selection-start-line="15" selection-start-column="35" selection-end-line="15" selection-end-column="35" />
+        <state relative-caret-position="123">
+          <caret line="257" column="78" lean-forward="true" selection-start-line="257" selection-start-column="78" selection-end-line="257" selection-end-column="78" />
           <folding>
             <element signature="e#0#26#0" expanded="true" />
             <element signature="e#292#363#0" expanded="true" />
@@ -960,27 +961,23 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/utilities/is_empty.js">
+    <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/DeleteProgressConfirm.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
+        <state relative-caret-position="153">
+          <caret line="27" column="89" selection-start-line="27" selection-start-column="89" selection-end-line="27" selection-end-column="89" />
+          <folding>
+            <element signature="e#109#153#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/ClientProfile.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="90" column="52" selection-start-line="90" selection-start-column="52" selection-end-line="90" selection-end-column="52" />
+        <state relative-caret-position="187">
+          <caret line="80" column="12" lean-forward="true" selection-start-line="80" selection-start-column="12" selection-end-line="80" selection-end-column="12" />
           <folding>
             <element signature="e#277#321#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/App.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="139">
-          <caret line="347" column="20" lean-forward="true" selection-start-line="347" selection-start-column="20" selection-end-line="347" selection-end-column="20" />
         </state>
       </provider>
     </entry>

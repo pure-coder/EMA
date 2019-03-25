@@ -254,7 +254,7 @@ export const passwordsMatchError = (error) => dispatch => {
     )
 };
 
-export const getClientProgression = (userId, clientId, history) => dispatch => {
+export const getClientProgression = (userId, clientId) => dispatch => {
     // userId can either be same as clientId or the id of the personal trainer
     axios.get(`/api/${userId}/client_progression/${clientId}` ) // using grave accent instead of single quote
         .then(result => {
@@ -295,10 +295,10 @@ export const newClientProgress = (id, cid ,data) => dispatch => {
         })
 };
 
-export const deleteExercise =(uid, cid, data, history) => dispatch => {
+export const deleteExercise =(uid, cid, data) => dispatch => {
     axios.delete(`/api/${uid}/client_progression/${cid}`, {data : {exerciseName : data}})
         .then(() => {
-            dispatch(getClientProgression(uid, cid, history));
+            dispatch(getClientProgression(uid, cid));
         })
         .catch(err => {
             console.log(err);
