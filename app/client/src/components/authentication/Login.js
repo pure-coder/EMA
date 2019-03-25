@@ -58,16 +58,9 @@ class Login extends Component {
     }
 
 
+
     render() {
-
         const {errors} = this.state; // This allows errors to be pulled out of this.state with pulling them out directly
-
-        if (this.props.authenticatedUser.isAuthenticated === true) {
-            return <Redirect to={{
-                pathname: '/users/' + this.props.authenticatedUser.user.id + '/dashboard',
-                state: {from: this.props.location}
-            }}/>
-        }
 
         return (
             <div className="container  login-custom">

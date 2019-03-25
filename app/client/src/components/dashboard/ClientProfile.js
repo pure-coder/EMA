@@ -7,6 +7,7 @@ import Graph2 from "./Graph";
 import NewClientProgressForm from "./NewClientProgressForm";
 import Modal from 'react-awesome-modal';
 import isEmpty from '../../utilities/is_empty';
+import ErrorComponent from "../error/ErrorComponent";
 
 // import FormInputGroup from "../common/FormInputGroup"; // Allows proper routing and linking using browsers match, location, and history properties
 
@@ -72,7 +73,9 @@ class ClientProfile extends Component {
     }
 
     render() {
-        this.authCheck();
+        if(isEmpty(this.props.authenticatedUser.user)){
+            return <ErrorComponent/>
+        }
 
         let clientProgressData = this.props.authenticatedUser.client_Progression;
         let displayContent;

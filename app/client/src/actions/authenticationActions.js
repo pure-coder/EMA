@@ -290,8 +290,8 @@ export const newClientProgress = (id, cid ,data) => dispatch => {
         })
         .catch(err => {
             if(err.response.status === 401){
+                window.location.href = '/re-login';
                 dispatch(logOutUser());
-                //window.location.href = '/re-login';
             }
             else{
                 dispatch({
