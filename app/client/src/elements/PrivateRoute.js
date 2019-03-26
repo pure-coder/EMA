@@ -14,22 +14,17 @@ const PrivateRoute = ({component: Component, ...rest}) => {
             render={(props) =>
             {
                 if (isEmpty(auth.authenticatedUser)) {
-                    //console.log("auth empty - pr")
+                    // console.log("auth empty - pr")
                     // If direct url used and auth is empty, this will send user to login screen!
                     return <Redirect to={{pathname: '/login', state: {from: props.location}}}/>
                 }
                 else {
-                    if (auth.errors.error === "Unauthorised") {
-                        //console.log("Unauthorised - pr")
-                        // If direct url used and not logged in, this will send user to login screen!
-                        return <Redirect to={{pathname: '/re-login', state: {from: props.location}}}/>
-                    }
                     if (auth.authenticatedUser.isAuthenticated === true) {
-                        //console.log("auth true - pr")
+                        // console.log("auth true - pr")
                         return <Component {...props} />
                     }
                     else {
-                        //console.log("not logged in - pr")
+                        // console.log("not logged in - pr")
                         // If direct url used and not logged in, this will send user to login screen!
                         return <Redirect to={{pathname: '/login', state: {from: props.location}}}/>
                     }

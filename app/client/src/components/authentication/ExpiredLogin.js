@@ -24,13 +24,11 @@ class ExpiredLogin extends Component {
 
     // Life cycle method for react which will run when this component receives new properties
     componentWillReceiveProps(nextProps) {
-
         // Check if isAuthenticated is true then redirect to the dashboard
         if (nextProps.authenticatedUser.isAuthenticated) {
+            console.log("re-login")
             this.props.history.push('/users/' + nextProps.authenticatedUser.user.id + '/dashboard');
         }
-
-
         if (nextProps.errors) {
             this.setState({errors: nextProps.errors})
         }

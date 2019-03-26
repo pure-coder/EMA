@@ -2,7 +2,7 @@ import React, { Component } from 'react';  // Used to create this component
 import PropTypes from 'prop-types'; // Used to document prop types sent to components
 import { connect } from 'react-redux' // Needed when using redux inside a component (connects redux to this component)
 import { registerUser } from "../../actions/authenticationActions"; // Used to import create action for registering user
-import { withRouter, Redirect } from 'react-router-dom';
+import { withRouter} from 'react-router-dom';
 import FormInputGroup from "../common/FormInputGroup"; // Allows proper routing and linking using browsers match, location, and history properties
 
 class Register extends Component {
@@ -61,11 +61,6 @@ class Register extends Component {
 
     render() {
         const {errors} = this.state; // This allows errors to be pulled out of this.state with pulling them out directly
-
-        // Check if isAuthenticated is true then redirect to the dashboard
-        if (this.props.authenticatedUser.isAuthenticated === true) {
-            return <Redirect to={{pathname: '/users/' + this.props.authenticatedUser.user.id + '/dashboard', state: {from: this.props.location}}}/>
-        }
 
         return (
             <div className="register">

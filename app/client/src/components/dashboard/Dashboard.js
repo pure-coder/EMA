@@ -21,14 +21,18 @@ class Dashboard extends Component {
             id: this.props.authenticatedUser.user.id,
             clients: {},
             errors: {},
-            location: this.props.location.pathname
+            location: this.props.location.pathname,
+            loaded: false
         }
     }
 
     // Set clients in state to those retrieved from database (from props), as on refresh state clients will always be undefined
     static getDerivedStateFromProps(props, state) {
         if (props.authenticatedUser.clients !== state.clients) {
-            return {clients: props.authenticatedUser.clients}
+            return {
+                clients: props.authenticatedUser.clients,
+                loaded: true
+            }
         }
         return null
     }
@@ -37,78 +41,67 @@ class Dashboard extends Component {
     componentDidMount() {
         document.body.scrollTo(0,0);
         this.authCheck();
-        this.update();
+        this.props.getClients(this.state.id)
     } // ComponentDidMount
 
-    // update client list after change
-    update() {
-        console.log("update", this.props)
-        // Get updated client list from database if pt
-        if (this.props.authenticatedUser.user.pt && isEmpty(this.state.clients))
-            this.props.getClients(this.state.id)
+    componentDidUpdate(){
+        this.authCheck();
     }
 
     authCheck(){
-        console.log("check", this.props)
         // Check if isAuthenticated is true
-        if (!this.props.authenticatedUser.isAuthenticated) {
-            this.props.history.push('/login');
+        if(this.props.errors.error_code === 401){
+            console.log("expired");
+            this.props.history.push('/re-login');
         }
     }
 
     render() {
-        if (this.state.clients === undefined) {
+        if (!this.state.loaded) {
             return <Loading/>
         }
-
-        console.log(this.props.errors)
-
-        if(this.props.errors.error_code === 401){
-            console.log("re")
-            this.props.history.push('/re-login');
-        }
-
         if(isEmpty(this.props.authenticatedUser.user)){
             return <ErrorComponent/>
         }
+        else {
+            let displayContent;
 
-        let displayContent;
+            // If user is a PT then display pt dashboard of clients
+            if (this.props.authenticatedUser.user.pt && this.state.clients !== undefined) {
 
-        // If user is a PT then display pt dashboard of clients
-        if (this.props.authenticatedUser.user.pt && this.state.clients !== undefined) {
+                if (this.state.clients === undefined) {
+                    return <Loading/>
+                }
 
-            if (this.state.clients === undefined) {
-                return <Loading/>
-            }
+                // Get clients from pt client list via redux
+                let clients = this.state.clients;
 
-            // Get clients from pt client list via redux
-            let clients = this.state.clients;
+                // Define content to display.. in this case the list of clients
+                displayContent = (
+                    // send clients data to client component, and render client component
+                    <div className="container  dashboard-custom">
+                        <ClientList clients={clients}/>
+                    </div>
+                )
+            } // If PT
 
-            // Define content to display.. in this case the list of clients
-            displayContent = (
-                // send clients data to client component, and render client component
-                <div className="container  dashboard-custom">
-                    <ClientList clients={clients}/>
+            // If user is not a PT then display dashboard of client data
+            if (!this.props.authenticatedUser.user.pt) {
+                // Define content to display..
+                displayContent = (
+                    // send clients data to client component, and render client component
+                    <div className="container  dashboard-custom client">
+                        <ClientData/>
+                    </div>
+                )
+            } // If PT
+
+            return (
+                <div className="dashboard-container">
+                    {displayContent}
                 </div>
-            )
-        } // If PT
-
-        // If user is not a PT then display dashboard of client data
-        if (!this.props.authenticatedUser.user.pt) {
-            // Define content to display..
-            displayContent = (
-                // send clients data to client component, and render client component
-                <div className="container  dashboard-custom client">
-                    <ClientData/>
-                </div>
-            )
-        } // If PT
-
-        return (
-            <div className="dashboard-container">
-                {displayContent}
-            </div>
-        );
+            );
+        }
     }
 }
 

@@ -133,9 +133,9 @@ export const registerClient =(Data, props) => (dispatch) => {
 }; // registerClient
 
 // Get pt Clients
-export const getClients = ptid => dispatch => {
+export const getClients = ptId => dispatch => {
     axios
-        .get(`/api/pt_clients/${ptid}`)
+        .get(`/api/pt_clients/${ptId}`)
         .then(result => {
                 // return {clients : result.data}
                 // dispatch this action to the action below so the data can be sent to the respective reducer
