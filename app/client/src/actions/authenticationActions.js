@@ -15,6 +15,19 @@ import {
 import setAuthorisationToken from '../utilities/setAuthorisationToken';
 import jwtDecode from 'jwt-decode';
 
+function errCheck(err, dispatch){
+    if(err.response.status === 401){
+        window.location.href = '/re-login';
+        dispatch(logOutUser());
+    }
+    else{
+        dispatch({
+            type: GET_ERRS,
+            payload: err.response.data
+        })
+    }
+}
+
 // Register User
 // Used to dispatch (action) data to a reducer, in this case it is the registerUser action with the sign up data
 // from the redux store (the state) entered in the register route and handled by Register.js in components/authentication folder.
@@ -68,11 +81,10 @@ export const loginUser = (Data) => (dispatch) => {
             }
         })
         .catch(err => {
-                dispatch({ // if an error occurs dispatch is called to send the data as an object to the
-                    // redux store, in this case the err data
-                    type: GET_ERRS,
-                    payload: err.response.data // Puts err data into the payload which will be sent to the redux store
-                })
+            dispatch({
+                type: GET_ERRS,
+                payload: err.response.data
+            })
             }
         );
 }; // loginUser
@@ -113,10 +125,9 @@ export const registerClient =(Data, props) => (dispatch) => {
                 props.history.push('/login')
         }) // Uses history.push to direct the user) // Uses history.push to direct the user history.push('/login')
         .catch(err =>
-            dispatch({ // if an error occurs dispatch is called to send the data as an object to the
-                // redux store, in this case the err data
+            dispatch({
                 type: GET_ERRS,
-                payload: err.response.data // Puts err data into the payload which will be sent to the redux store
+                payload: err.response.data
             })
         );
 }; // registerClient
@@ -132,8 +143,11 @@ export const getClients = ptid => dispatch => {
             }
         )
         .catch(err => {
-            console.log(err)
-
+            //errCheck(err, dispatch);
+            dispatch({
+                type: GET_ERRS,
+                payload: err.response.data
+            })
         })
 };
 
@@ -156,10 +170,16 @@ export const deleteClient = (id, ptId) => dispatch => {
             }
         )
         .catch(err => {
-            dispatch({
-                type: GET_ERRS,
-                payload: {msg: err}
-            })
+            // if(err.response.status === 401){
+            //     window.location.href = '/re-login';
+            //     dispatch(logOutUser());
+            // }
+            // else {
+                dispatch({
+                    type: GET_ERRS,
+                    payload: {msg: err}
+                })
+            // }
         })
 };
 
@@ -178,10 +198,16 @@ export const getClientData = (id, history) => dispatch => {
         }
         )
         .catch(err => {
+            // if(err.response.status === 401){
+            //     window.location.href = '/re-login';
+            //     dispatch(logOutUser());
+            // }
+            // else {
                 dispatch({
                     type: GET_ERRS,
                     payload: {msg: err}
                 })
+            // }
         })
 };
 
@@ -194,6 +220,7 @@ export const editClientData = (id, Data, history) => dispatch => {
             }
         )
         .catch(err => {
+            //errCheck(err, dispatch);
             dispatch({
                 type: GET_ERRS,
                 payload: err.response.data
@@ -216,10 +243,16 @@ export const getPtData = (id, history) => dispatch => {
             }
         )
         .catch(err => {
-            dispatch({
-                type: GET_ERRS,
-                payload: {msg: err}
-            })
+            // if(err.response.status === 401){
+            //     window.location.href = '/re-login';
+            //     dispatch(logOutUser());
+            // }
+            // else {
+                dispatch({
+                    type: GET_ERRS,
+                    payload: {msg: err}
+                })
+            // }
         })
 };
 
@@ -232,6 +265,7 @@ export const editPtData = (id, Data, history) => dispatch => {
             }
         )
         .catch(err => {
+            //errCheck(err, dispatch);
             dispatch({
                 type: GET_ERRS,
                 payload: err.response.data
@@ -264,7 +298,11 @@ export const getClientProgression = (userId, clientId) => dispatch => {
                 });
         })
         .catch(err => {
-            console.log(err);
+            //errCheck(err, dispatch);
+            dispatch({
+                type: GET_ERRS,
+                payload: err.response.data
+            })
         });
 };
 
@@ -289,16 +327,11 @@ export const newClientProgress = (id, cid ,data) => dispatch => {
             }
         })
         .catch(err => {
-            if(err.response.status === 401){
-                window.location.href = '/re-login';
-                dispatch(logOutUser());
-            }
-            else{
-                dispatch({
-                    type: GET_ERRS,
-                    payload: err.response.data
-                })
-            }
+            //errCheck(err, dispatch);
+            dispatch({
+                type: GET_ERRS,
+                payload: err.response.data
+            })
         });
 };
 
@@ -308,11 +341,16 @@ export const deleteExercise =(uid, cid, data) => dispatch => {
             dispatch(getClientProgression(uid, cid));
         })
         .catch(err => {
-            console.log(err);
-            dispatch({
-                type: GET_ERRS,
-                payload: err
-            })
+            // if(err.response.status === 401){
+            //     window.location.href = '/re-login';
+            //     dispatch(logOutUser());
+            // }
+            // else {
+                dispatch({
+                    type: GET_ERRS,
+                    payload: err
+                })
+            // }
         });
 };
 

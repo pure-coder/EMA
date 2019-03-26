@@ -6,6 +6,8 @@ import {getClients} from "../../actions/authenticationActions";
 import ClientList from './ClientList'
 import Loading from "../../elements/Loading";
 import ClientData from "./ClientData";
+import isEmpty from "../../utilities/is_empty";
+import ErrorComponent from "../error/ErrorComponent";
 
 //import * as d3 from 'd3';
 
@@ -54,7 +56,9 @@ class Dashboard extends Component {
     }
 
     render() {
-        this.authCheck();
+        if(isEmpty(this.props.authenticatedUser.user)){
+            return <ErrorComponent/>
+        }
 
         let displayContent;
 

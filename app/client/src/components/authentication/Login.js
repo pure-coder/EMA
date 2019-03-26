@@ -4,6 +4,8 @@ import {connect} from 'react-redux' // Needed when using redux inside a componen
 import {loginUser} from "../../actions/authenticationActions"; // Used to import create action for registering user
 import {withRouter, Redirect} from 'react-router-dom'; // Allows proper routing and linking using browsers match, location, and history properties
 import FormInputGroup from '../common/FormInputGroup';
+import isEmpty from "../../utilities/is_empty";
+import ErrorComponent from "../error/ErrorComponent";
 
 
 class Login extends Component {
@@ -58,8 +60,11 @@ class Login extends Component {
     }
 
 
-
     render() {
+        if(isEmpty(this.props.authenticatedUser.user)){
+            return <ErrorComponent/>
+        }
+
         const {errors} = this.state; // This allows errors to be pulled out of this.state with pulling them out directly
 
         return (

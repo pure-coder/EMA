@@ -2,6 +2,8 @@ import {connect} from 'react-redux';
 import React, {Component} from 'react';
 import {withRouter} from 'react-router-dom';
 import {saveClientId} from "../../actions/authenticationActions";
+import isEmpty from "../../utilities/is_empty";
+import ErrorComponent from "../error/ErrorComponent";
 // import PropTypes from "prop-types";
 
 
@@ -30,6 +32,9 @@ class ClientData extends Component {
     };
 
     render() {
+        if(isEmpty(this.props.authenticatedUser.user)){
+            return <ErrorComponent/>
+        }
 
         return (
             <div className="row">

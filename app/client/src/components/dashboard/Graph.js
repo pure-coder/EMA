@@ -3,6 +3,8 @@ import React, {Component} from 'react';
 import {withRouter} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import CreateGraph from './CreateGraph';
+import isEmpty from "../../utilities/is_empty";
+import ErrorComponent from "../error/ErrorComponent";
 
 class Graph extends Component {
     // This allows the component states to be up{dated and re-rendered)
@@ -31,7 +33,9 @@ class Graph extends Component {
     }
 
     render() {
-        this.authCheck();
+        if(isEmpty(this.props.authenticatedUser.user)){
+            return <ErrorComponent/>
+        }
 
         const graphs = this.state.graphData.map(graph => (
             // Changed key from CreateGraph to div as div was first child, otherwise error was given.

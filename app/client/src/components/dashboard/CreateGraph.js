@@ -7,6 +7,8 @@ import {withRouter} from "react-router-dom";
 import Modal from "react-awesome-modal";
 import Loading from "../../elements/Loading";
 import DeleteProgressConfirm from "./DeleteProgressConfirm";
+import isEmpty from "../../utilities/is_empty";
+import ErrorComponent from "../error/ErrorComponent";
 
 class CreateGraph extends Component {
     constructor(props){
@@ -67,6 +69,9 @@ class CreateGraph extends Component {
     }
 
     render(){
+        if(isEmpty(this.props.authenticatedUser.user)){
+            return <ErrorComponent/>
+        }
         let displayForm;
 
         let display;

@@ -3,6 +3,8 @@ import React, {Component} from 'react';
 import {Link, withRouter} from 'react-router-dom';
 import {deleteClient, saveClientId, getClientData, getClientProgression} from "../../actions/authenticationActions";
 import PropTypes from "prop-types";
+import isEmpty from "../../utilities/is_empty";
+import ErrorComponent from "../error/ErrorComponent";
 
 
 class ClientList extends Component {
@@ -56,6 +58,9 @@ class ClientList extends Component {
 
 
     render() {
+        if(isEmpty(this.props.authenticatedUser.user)){
+            return <ErrorComponent/>
+        }
         // check clients are set properly
         // console.log(this.props.clients)
 

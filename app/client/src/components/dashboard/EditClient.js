@@ -4,7 +4,9 @@ import {connect} from 'react-redux' // Needed when using redux inside a componen
 import {getClientData, editClientData, passwordsMatchError} from "../../actions/authenticationActions"; // Used to import create action for getting client data and editing client data
 import {withRouter} from 'react-router-dom';
 import FormInputGroup from "../common/FormInputGroup";
-import Loading from "../../elements/Loading"; // Allows proper routing and linking using browsers match, location, and history properties
+import Loading from "../../elements/Loading";
+import isEmpty from "../../utilities/is_empty";
+import ErrorComponent from "../error/ErrorComponent"; // Allows proper routing and linking using browsers match, location, and history properties
 
 class EditClient extends Component {
     // This allows the component states to be updated and re-rendered
@@ -104,7 +106,9 @@ class EditClient extends Component {
     }
 
     render() {
-        this.authCheck();
+        if(isEmpty(this.props.authenticatedUser.user)){
+            return <ErrorComponent/>
+        }
 
         const {errors} = this.state; // This allows errors to be pulled out of this.state without pulling them out directly
 
