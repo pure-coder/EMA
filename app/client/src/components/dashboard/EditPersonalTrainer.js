@@ -20,7 +20,7 @@ class EditPersonalTrainer extends Component {
             Password: '',
             Password2: '',
             ptId: props.authenticatedUser.user.id,
-            errors: props.errors,
+            errors: {},
             location: this.props.location,
             loaded: false
         };
@@ -34,9 +34,7 @@ class EditPersonalTrainer extends Component {
 
     // Populate state data with data from the database for the pt
     static getDerivedStateFromProps(props, state) {
-        console.log(props)
         if (props.authenticatedUser.pt_data !== state.pt_data) {
-            console.log(props);
             return {
                 pt_data: props.authenticatedUser.pt_data,
                 errors: props.errors,
@@ -98,7 +96,6 @@ class EditPersonalTrainer extends Component {
 
     authCheck(){
         if(this.state.errors.error_code === 401){
-            console.log("this");
             this.props.history.push('/re-login');
         }
     }

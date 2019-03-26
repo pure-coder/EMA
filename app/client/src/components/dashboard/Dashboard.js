@@ -31,6 +31,7 @@ class Dashboard extends Component {
         if (props.authenticatedUser.clients !== state.clients) {
             return {
                 clients: props.authenticatedUser.clients,
+                errors: props.errors,
                 loaded: true
             }
         }
@@ -51,7 +52,8 @@ class Dashboard extends Component {
     authCheck(){
         // Check if isAuthenticated is true
         if(this.props.errors.error_code === 401){
-            this.props.history.push('/re-login');
+            console.log("dash check")
+            this.props.history.replace('/re-login');
         }
     }
 

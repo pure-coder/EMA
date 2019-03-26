@@ -139,8 +139,8 @@ export const getClients = ptId => dispatch => {
                         error_code: err.response.status
                     }
                 });
-                dispatch(setErrors({}));
                 dispatch(logOutUser());
+                dispatch(setErrors({}));
             }
             else {
                 dispatch({
@@ -251,6 +251,8 @@ export const getPtData = (id, history) => dispatch => {
                         error_code: err.response.status
                     }
                 });
+                dispatch(logOutUser());
+                dispatch(setErrors({}));
             }
             else {
                 dispatch({
