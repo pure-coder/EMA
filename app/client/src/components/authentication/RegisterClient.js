@@ -3,7 +3,10 @@ import PropTypes from 'prop-types'; // Used to document prop types sent to compo
 import { connect } from 'react-redux' // Needed when using redux inside a component (connects redux to this component)
 import { registerClient} from "../../actions/authenticationActions"; // Used to import create action for registering user
 import { withRouter } from 'react-router-dom';
-import FormInputGroup from "../common/FormInputGroup"; // Allows proper routing and linking using browsers match, location, and history properties
+import FormInputGroup from "../common/FormInputGroup";
+import Loading from "../../elements/Loading";
+import isEmpty from "../../utilities/is_empty";
+import ErrorComponent from "../error/ErrorComponent"; // Allows proper routing and linking using browsers match, location, and history properties
 
 class RegisterClient extends Component {
     // This allows the component states to be updated and re-rendered
@@ -13,7 +16,8 @@ class RegisterClient extends Component {
             FullName: '',
             Email: '',
             ContactNumber: '',
-            errors: {}
+            errors: {},
+            loaded: false
         };
 
         // This sets the state value to it's respective state (via binding)
@@ -23,21 +27,32 @@ class RegisterClient extends Component {
         this.onSubmit = this.onSubmit.bind(this);
     }
 
-    // Life cycle method for react which will run when this component receives new properties
-    componentDidMount() {
-        // Check if isAuthenticated is true then redirect to the dashboard
-        // if (this.props.authenticatedUser.isAuthenticated) {
-        //     this.props.history.push('/dashboard');
-        // }
+    // Populate state data with data from the database for the pt
+    static getDerivedStateFromProps(props, state) {
+        if (props !== state) {
+            return {
+                errors: props.errors,
+                loaded: true
+            }
+        }
+        if (props.errors !== state.errors) {
+            return {errors: props.errors}
+        }
+        return null
     }
 
-    // Life cycle method for react which will run when this component receives new properties
-    componentWillReceiveProps(nextProps) {
-        // If property (nextProps) contains errors (contains the "errors" prop) then set the component state of errors
-        // defined in the constructor above to the errors that was sent to it via the dispatch call from
-        // authenicationActions.js
-        if(nextProps.errors){
-            this.setState({errors: nextProps.errors})
+    componentDidMount() {
+        document.body.scrollTo(0,0);
+        this.authCheck();
+    }
+
+    componentDidUpdate(){
+        this.authCheck();
+    }
+
+    authCheck(){
+        if(this.state.errors.error_code === 401){
+            this.props.history.push('/re-login');
         }
     }
 
@@ -64,48 +79,59 @@ class RegisterClient extends Component {
     }
 
     render() {
-        const {errors} = this.state; // This allows errors to be pulled out of this.state with pulling them out directly
+        // if loaded is false then return loading screen
+        if (!this.state.loaded) {
+            return <Loading/>;
+        }
+        if(isEmpty(this.props.authenticatedUser.user)){
+            return <ErrorComponent/>
+        }
+        else {
+            const {errors} = this.state; // This allows errors to be pulled out of this.state with pulling them out directly
 
-        return (
-            <div className="register">
-                <div className="container  register-custom">
-                    <div className="row">
-                        <div className="m-auto col-md-8">
-                            <h1 className=" text-center display-5">Client Sign Up</h1>
-                            <p className="description text-center">Enter Client details below</p>
-                            <form onSubmit={this.onSubmit}> {/* onSubmit used instead of normal action*/}
-                                <FormInputGroup
-                                    name="FullName"
-                                    placeholder="Full Name"
-                                    value={this.state.FullName}
-                                    type="text"
-                                    onChange={this.onChange}
-                                    error={errors.FullName}
-                                />
-                                <FormInputGroup
-                                    name="Email"
-                                    placeholder="Email Address"
-                                    value={this.state.Email}
-                                    type="Email"
-                                    onChange={this.onChange}
-                                    error={errors.Email}
-                                />
-                                <FormInputGroup
-                                    name="ContactNumber"
-                                    placeholder="Enter Contact Number"
-                                    value={this.state.ContactNumber}
-                                    type="text"
-                                    onChange={this.onChange}
-                                    error={errors.ContactNumber}
-                                />
-                                <input type="submit" className="btn btn-info btn-block mt-4"/>
-                                <button type="button" className="btn btn-danger btn-block mt-3 mb-3" onClick={this.props.history.goBack}>Back</button>
-                            </form>
+            return (
+                <div className="register">
+                    <div className="container  register-custom">
+                        <div className="row">
+                            <div className="m-auto col-md-8">
+                                <h1 className=" text-center display-5">Client Sign Up</h1>
+                                <p className="description text-center">Enter Client details below</p>
+                                <form onSubmit={this.onSubmit}> {/* onSubmit used instead of normal action*/}
+                                    <FormInputGroup
+                                        name="FullName"
+                                        placeholder="Full Name"
+                                        value={this.state.FullName}
+                                        type="text"
+                                        onChange={this.onChange}
+                                        error={errors.FullName}
+                                    />
+                                    <FormInputGroup
+                                        name="Email"
+                                        placeholder="Email Address"
+                                        value={this.state.Email}
+                                        type="Email"
+                                        onChange={this.onChange}
+                                        error={errors.Email}
+                                    />
+                                    <FormInputGroup
+                                        name="ContactNumber"
+                                        placeholder="Enter Contact Number"
+                                        value={this.state.ContactNumber}
+                                        type="text"
+                                        onChange={this.onChange}
+                                        error={errors.ContactNumber}
+                                    />
+                                    <input type="submit" className="btn btn-info btn-block mt-4"/>
+                                    <button type="button" className="btn btn-danger btn-block mt-3 mb-3"
+                                            onClick={this.props.history.goBack}>Back
+                                    </button>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        );
+            );
+        }
     }
 }
 

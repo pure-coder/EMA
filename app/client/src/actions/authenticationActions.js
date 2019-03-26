@@ -35,12 +35,13 @@ export const registerUser =(Data, history) => (dispatch) => {
             if (response.status === 200)
             history.push('/login')
         }) // Uses history.push to direct the user
-        .catch(err =>
-        dispatch({ // if an error occurs dispatch is called to send the data as an object to the
-                   // redux store, in this case the err data
-            type: GET_ERRS,
-            payload: err.response.data // Puts err data into the payload which will be sent to the redux store
-        })
+        .catch(err => {
+            dispatch({ // if an error occurs dispatch is called to send the data as an object to the
+                // redux store, in this case the err data
+                type: GET_ERRS,
+                payload: err.response.data // Puts err data into the payload which will be sent to the redux store
+            })
+        }
     );
 }; // registerUser
 
@@ -112,11 +113,25 @@ export const registerClient =(Data, props) => (dispatch) => {
             if (response.status === 200)
                 props.history.push('/login')
         }) // Uses history.push to direct the user) // Uses history.push to direct the user history.push('/login')
-        .catch(err =>
-            dispatch({
-                type: GET_ERRS,
-                payload: err.response.data
-            })
+        .catch(err => {
+            if(err.response.status === 401){
+                dispatch({
+                    type: GET_ERRS,
+                    payload: {
+                        error_message: err.response.data,
+                        error_code: err.response.status
+                    }
+                });
+                dispatch(logOutUser());
+                dispatch(setErrors({}));
+            }
+            else {
+                dispatch({
+                    type: GET_ERRS,
+                    payload: err.response.data
+                })
+            }
+            }
         );
 }; // registerClient
 
