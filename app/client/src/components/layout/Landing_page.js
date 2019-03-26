@@ -1,19 +1,16 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
-
-
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
 
 class Landing_page extends Component {
-
     // Life cycle method for react which will run when this component receives new properties
     componentDidMount() {
         // Check if isAuthenticated is true then redirect to the dashboard
         if (this.props.authenticatedUser.isAuthenticated) {
-            this.props.history.push('/dashboard');
+            this.props.history.push('/users/' + this.props.authenticatedUser.user.id + '/dashboard');
         }
     }
 

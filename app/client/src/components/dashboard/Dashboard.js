@@ -9,6 +9,7 @@ import ClientData from "./ClientData";
 import isEmpty from "../../utilities/is_empty";
 import ErrorComponent from "../error/ErrorComponent";
 
+
 //import * as d3 from 'd3';
 
 class Dashboard extends Component {
@@ -35,20 +36,20 @@ class Dashboard extends Component {
     // Life cycle method for react which will run when this component receives new properties
     componentDidMount() {
         document.body.scrollTo(0,0);
-
         this.authCheck();
-
-        this.update()
+        this.update();
     } // ComponentDidMount
 
     // update client list after change
     update() {
+        console.log("update", this.props)
         // Get updated client list from database if pt
-        if (this.props.authenticatedUser.user.pt)
+        if (this.props.authenticatedUser.user.pt && isEmpty(this.state.clients))
             this.props.getClients(this.state.id)
     }
 
     authCheck(){
+        console.log("check", this.props)
         // Check if isAuthenticated is true
         if (!this.props.authenticatedUser.isAuthenticated) {
             this.props.history.push('/login');
@@ -56,6 +57,17 @@ class Dashboard extends Component {
     }
 
     render() {
+        if (this.state.clients === undefined) {
+            return <Loading/>
+        }
+
+        console.log(this.props.errors)
+
+        if(this.props.errors.error_code === 401){
+            console.log("re")
+            this.props.history.push('/re-login');
+        }
+
         if(isEmpty(this.props.authenticatedUser.user)){
             return <ErrorComponent/>
         }
