@@ -15,18 +15,6 @@ import {
 import setAuthorisationToken from '../utilities/setAuthorisationToken';
 import jwtDecode from 'jwt-decode';
 
-// function errCheck(err, dispatch){
-//     if(err.response.status === 401){
-//         window.location.href = '/re-login';
-//         dispatch(logOutUser());
-//     }
-//     else{
-//         dispatch({
-//             type: GET_ERRS,
-//             payload: err.response.data
-//         })
-//     }
-// }
 
 // Register User
 // Used to dispatch (action) data to a reducer, in this case it is the registerUser action with the sign up data
@@ -150,7 +138,9 @@ export const getClients = ptId => dispatch => {
                         error_message: err.response.data,
                         error_code: err.response.status
                     }
-                })
+                });
+                dispatch(setErrors({}));
+                dispatch(logOutUser());
             }
             else {
                 dispatch({
@@ -253,16 +243,21 @@ export const getPtData = (id, history) => dispatch => {
             }
         )
         .catch(err => {
-            // if(err.response.status === 401){
-            //     window.location.href = '/re-login';
-            //     dispatch(logOutUser());
-            // }
-            // else {
+            if(err.response.status === 401){
                 dispatch({
                     type: GET_ERRS,
-                    payload: {msg: err}
+                    payload: {
+                        error_message: err.response.data,
+                        error_code: err.response.status
+                    }
+                });
+            }
+            else {
+                dispatch({
+                    type: GET_ERRS,
+                    payload: err.response.data
                 })
-            // }
+            }
         })
 };
 

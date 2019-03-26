@@ -13,17 +13,16 @@ class EditPersonalTrainer extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            pt_data: {
-                password2: ''
-            },
             FullName: '',
             Email: '',
             DateOfBirth: '',
             Sex: '',
             Password: '',
             Password2: '',
-            errors: {},
-            location: this.props.location
+            ptId: props.authenticatedUser.user.id,
+            errors: props.errors,
+            location: this.props.location,
+            loaded: false
         };
 
         // This sets the state value to it's respective state (via binding)
@@ -35,9 +34,14 @@ class EditPersonalTrainer extends Component {
 
     // Populate state data with data from the database for the pt
     static getDerivedStateFromProps(props, state) {
-        // console.log(props)
+        console.log(props)
         if (props.authenticatedUser.pt_data !== state.pt_data) {
-            return {pt_data: props.authenticatedUser.pt_data}
+            console.log(props);
+            return {
+                pt_data: props.authenticatedUser.pt_data,
+                errors: props.errors,
+                loaded: true
+            }
         }
         if (props.errors !== state.errors) {
             return {errors: props.errors}
@@ -46,21 +50,14 @@ class EditPersonalTrainer extends Component {
     }
 
     componentDidMount() {
-
         document.body.scrollTo(0,0);
-
-
         this.authCheck();
-
-        // if there is no data for user display get data or display error page
-        if (this.state.pt_data === undefined) {
-            this.update();
-        }
+        this.props.getPtData(this.state.ptId, this.props.history);
     }
 
-    update() {
-        this.props.getPtData(this.props.match.params.uid, this.props.history);
-        }
+    componentDidUpdate(){
+        this.authCheck();
+    }
 
     // This captures what the user types and sets the specific input to the respective state variable
     onChange(event) {
@@ -100,94 +97,91 @@ class EditPersonalTrainer extends Component {
     }
 
     authCheck(){
-        // Check if isAuthenticated is true
-        if (!this.props.authenticatedUser.isAuthenticated) {
-            this.props.history.push('/login');
+        if(this.state.errors.error_code === 401){
+            console.log("this");
+            this.props.history.push('/re-login');
         }
     }
 
     render() {
+        // if loaded is false then return loading screen
+        if (!this.state.loaded) {
+            return <Loading/>;
+        }
         if(isEmpty(this.props.authenticatedUser.user)){
             return <ErrorComponent/>
         }
-
-        const {errors} = this.state; // This allows errors to be pulled out of this.state without pulling them out directly
-
-        // if loaded is false then return loading screen
-        if (this.state.pt_data === undefined) {
-            return <Loading/>;
-        }
-
-        // console.log()
-
-        return (
-            <div className="edit_client">
-                <div className="container  edit_client-custom">
-                    <div className="row">
-                        <div className="m-auto col-md-8">
-                            <h1 className=" text-center display-5">Edit Profile</h1>
-                            <form onSubmit={this.onSubmit}> {/* onSubmit used instead of normal action*/}
-                                <FormInputGroup
-                                    name="FullName"
-                                    placeholder={this.state.pt_data.FullName}
-                                    value={this.state.FullName}
-                                    type="text"
-                                    onChange={this.onChange}
-                                    error={errors.FullName}
-                                />
-                                <FormInputGroup
-                                    name="Email"
-                                    placeholder={this.state.pt_data.Email}
-                                    value={this.state.Email}
-                                    type="Email"
-                                    onChange={this.onChange}
-                                    error={errors.Email}
-                                />
-                                <div className="form-group edit-profile-date-div">
-                                    <div className="edit-date-div">
-                                        <label className="control-label form-control-lg edit-profile-label">Date of
-                                            Birth:
-                                        </label>
-                                        <input className='form-control form-control-lg date-input' name="DateOfBirth"
-                                               onChange={this.onChange} type="Date"/>
-                                    </div>
-                                    <div className="edit-gender-div">
-                                        <label
-                                            className="control-label form-control-lg edit-profile-label gender">
-                                            Gender:
-                                        </label>
-                                        <select name="Sex" onChange={this.onChange} id="Sex" className='form-control
+        else{
+            const {errors} = this.state; // This allows errors to be pulled out of this.state without pulling them out directly
+            return (
+                <div className="edit_client">
+                    <div className="container  edit_client-custom">
+                        <div className="row">
+                            <div className="m-auto col-md-8">
+                                <h1 className=" text-center display-5">Edit Profile</h1>
+                                <form onSubmit={this.onSubmit}> {/* onSubmit used instead of normal action*/}
+                                    <FormInputGroup
+                                        name="FullName"
+                                        placeholder={this.state.pt_data.FullName}
+                                        value={this.state.FullName}
+                                        type="text"
+                                        onChange={this.onChange}
+                                        error={errors.FullName}
+                                    />
+                                    <FormInputGroup
+                                        name="Email"
+                                        placeholder={this.state.pt_data.Email}
+                                        value={this.state.Email}
+                                        type="Email"
+                                        onChange={this.onChange}
+                                        error={errors.Email}
+                                    />
+                                    <div className="form-group edit-profile-date-div">
+                                        <div className="edit-date-div">
+                                            <label className="control-label form-control-lg edit-profile-label">Date of
+                                                Birth:
+                                            </label>
+                                            <input className='form-control form-control-lg date-input' name="DateOfBirth"
+                                                   onChange={this.onChange} type="Date"/>
+                                        </div>
+                                        <div className="edit-gender-div">
+                                            <label
+                                                className="control-label form-control-lg edit-profile-label gender">
+                                                Gender:
+                                            </label>
+                                            <select name="Sex" onChange={this.onChange} id="Sex" className='form-control
                                             form-control-lg'>
-                                            <option value="">Please select</option>
-                                            <option value="Male">Male</option>
-                                            <option value="Female">Female</option>
-                                        </select>
+                                                <option value="">Please select</option>
+                                                <option value="Male">Male</option>
+                                                <option value="Female">Female</option>
+                                            </select>
+                                        </div>
                                     </div>
-                                </div>
-                                <FormInputGroup
-                                    name="Password"
-                                    placeholder="Enter Password"
-                                    value={this.state.password}
-                                    type="Password"
-                                    onChange={this.onChange}
-                                    error={errors.Password}
-                                />
-                                <FormInputGroup
-                                    name="Password2"
-                                    placeholder="Confirm Password"
-                                    value={this.state.password2}
-                                    type="Password"
-                                    onChange={this.onChange}
-                                    error={errors.Password2}
-                                />
-                                <input type="submit" value="Update" className="btn btn-info btn-block mt-4"/>
-                                <button type="button" className="btn btn-danger btn-block mt-3 mb-3" onClick={this.props.history.goBack}>Back</button>
-                            </form>
+                                    <FormInputGroup
+                                        name="Password"
+                                        placeholder="Enter Password"
+                                        value={this.state.password}
+                                        type="Password"
+                                        onChange={this.onChange}
+                                        error={errors.Password}
+                                    />
+                                    <FormInputGroup
+                                        name="Password2"
+                                        placeholder="Confirm Password"
+                                        value={this.state.password2}
+                                        type="Password"
+                                        onChange={this.onChange}
+                                        error={errors.Password2}
+                                    />
+                                    <input type="submit" value="Update" className="btn btn-info btn-block mt-4"/>
+                                    <button type="button" className="btn btn-danger btn-block mt-3 mb-3" onClick={this.props.history.goBack}>Back</button>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        );
+            );
+        }
     }
 }
 
