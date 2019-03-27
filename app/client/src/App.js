@@ -74,13 +74,12 @@ class App extends Component {
                         <Switch>
                             {/* Register Scheduler below uses restful url*/}
                             {/* Register_client below uses restful url*/}
-                            <PrivateRoute path="/users/:uid?/edit_client" component={EditClient}/>
+                            <PrivateRoute path="/users/:cid?/edit_client" component={EditClient}/>
                             <PrivateRoute path="/users/:uid?/register_client" component={RegisterClient}/>
                             <PrivateRoute path="/users/:uid?/scheduler/:cid?" component={Scheduler}/>
                             {/* Register Dashboard below uses restful url*/}
                             <PrivateRoute path="/users/:uid?/dashboard/:cid?" component={Dashboard}/>
                             <PrivateRoute path="/users/:uid?/client_profile/:cid?" component={ClientProfile}/>
-                            <PrivateRoute path="/users/:cid?/edit_client" component={EditClient}/>
                             <PrivateRoute path="/users/:uid?/edit_personal_trainer" component={EditPersonalTrainer}/>
 
                             <Route exact path="/"

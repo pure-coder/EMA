@@ -54,18 +54,7 @@ class EditClient extends Component {
 
     componentDidMount() {
         document.body.scrollTo(0,0);
-        // this.authCheck();
     }
-
-    componentDidUpdate(){
-        // this.authCheck();
-    }
-
-    // authCheck(){
-    //     if(this.state.errors.error_code === 401){
-    //         this.props.history.push('/re-login');
-    //     }
-    // }
 
     // This captures what the user types and sets the specific input to the respective state variable
     onChange(event) {
@@ -76,6 +65,11 @@ class EditClient extends Component {
 
     onSubmit(event) {
         event.preventDefault();
+
+        // Check if any data has been changed, don't want to waste server load and bandwidth on empty requests
+        let dataChanged = false;
+        // Set errors using spread operator on nested state (only calls setState once)
+        let errors = {...this.state.errors};
 
         const editData = {
             FullName: this.state.FullName,
@@ -88,21 +82,22 @@ class EditClient extends Component {
             Password2: this.state.Password2
         };
 
-        if (this.state.Password === this.state.Password2) {
-            this.props.editClientData(this.state.userId, editData, this.props.history);
-            // if passwords match
-            this.props.passwordsMatchError({})
+        if (dataChanged){
+            errors.noData = "No data has been modified!";
+            this.props.passwordsMatchError(errors);
+            return null;
         }
-        else {
-            // Set state with separate calls on nested state
-            // this.setState({errors: {Password: "Passwords must match"}});
-            // this.setState({errors: {Password2: "Passwords must match"}});
+        else if (this.state.Password !== this.state.Password2) {
 
-            // // Set errors using spread operator on nested state (only calls setState once)
-            let errors = {...this.state.errors};
             errors.Password = "Passwords must match";
             errors.Password2 = "Passwords must match";
             this.props.passwordsMatchError(errors);
+        }
+        else {
+
+            this.props.editClientData(this.state.userId, editData, this.props.history);
+            // if passwords match
+            this.props.passwordsMatchError({})
         }
     }
 
@@ -203,7 +198,7 @@ EditClient.propTypes = {
     getClientData: PropTypes.func.isRequired,
     passwordsMatchError: PropTypes.func.isRequired,
     authenticatedUser: PropTypes.object.isRequired,
-    //errors: PropTypes.object.isRequired
+    errors: PropTypes.object.isRequired
 };
 
 // Used to pull auth state and errors into this component.... DEFINED IN reducers/index.js {combineReducers}
