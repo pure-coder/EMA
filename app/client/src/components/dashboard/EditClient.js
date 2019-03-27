@@ -1,7 +1,7 @@
 import React, {Component} from 'react';  // Used to create this component
 import PropTypes from 'prop-types'; // Used to document prop types sent to components
 import {connect} from 'react-redux' // Needed when using redux inside a component (connects redux to this component)
-import {getClientData, editClientData, passwordsMatchError} from "../../actions/authenticationActions"; // Used to import create action for getting client data and editing client data
+import {getClientData, editClientData, passwordsMatchError, setErrors} from "../../actions/authenticationActions"; // Used to import create action for getting client data and editing client data
 import {withRouter} from 'react-router-dom';
 import FormInputGroup from "../common/FormInputGroup";
 import Loading from "../../elements/Loading";
@@ -82,22 +82,29 @@ class EditClient extends Component {
             Password2: this.state.Password2
         };
 
-        if (dataChanged){
+        for(let element in editData) {
+            // If an element has been modified (not empty) then the form can be sent
+            if(!isEmpty(editData[element])){
+                dataChanged = true;
+                break;
+            }
+        }
+
+        if (!dataChanged){
             errors.noData = "No data has been modified!";
-            this.props.passwordsMatchError(errors);
+            this.props.setErrors(errors);
             return null;
         }
         else if (this.state.Password !== this.state.Password2) {
-
             errors.Password = "Passwords must match";
             errors.Password2 = "Passwords must match";
             this.props.passwordsMatchError(errors);
+            return null;
         }
         else {
-
             this.props.editClientData(this.state.userId, editData, this.props.history);
-            // if passwords match
-            this.props.passwordsMatchError({})
+            // Clear password match errors
+            this.props.setErrors({})
         }
     }
 
@@ -196,6 +203,7 @@ class EditClient extends Component {
 // Documents what props are needed for this component and will log a warning in the console in dev mode if not complied to
 EditClient.propTypes = {
     getClientData: PropTypes.func.isRequired,
+    setErrors: PropTypes.func.isRequired,
     passwordsMatchError: PropTypes.func.isRequired,
     authenticatedUser: PropTypes.object.isRequired,
     errors: PropTypes.object.isRequired
@@ -207,4 +215,4 @@ const stateToProps = (state) => ({
     errors: state.errors
 });
 
-export default connect(stateToProps, {getClientData, editClientData, passwordsMatchError})(withRouter(EditClient));
+export default connect(stateToProps, {getClientData, editClientData, passwordsMatchError, setErrors})(withRouter(EditClient));

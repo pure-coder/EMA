@@ -16,6 +16,7 @@ import setAuthorisationToken from '../utilities/setAuthorisationToken';
 import jwtDecode from 'jwt-decode';
 
 const expiredLogout = (err, dispatch, history) => {
+    console.log(err.response)
     if(err.response.status === 401){
         dispatch({
             type: GET_ERRS,
@@ -198,9 +199,10 @@ export const getClientData = (id, history) => dispatch => {
 export const editClientData = (cid, data, history) => dispatch => {
     axios
         .put(`/api/edit_client/${cid}`, data)
-        .then(() => {
+        .then(result => {
+            console.log(result)
             // Go back to dashboard after successful update
-            history.goBack();
+            //history.goBack();
             }
         )
         .catch(err => {

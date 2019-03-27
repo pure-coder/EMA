@@ -657,7 +657,7 @@ router.get('/client/:id', passport.authenticate('both_rule', {session: false}), 
 // @route  PUT /edit_client/:cid
 // @desc   Update client profile data
 // @access Private access for either personal trainer or client
-router.put('/edit_client/:id', passport.authenticate('both_rule', {session: false}), (req, res) => {
+router.put('/edit_client/:cid', passport.authenticate('both_rule', {session: false}), (req, res) => {
     // Set up validation checking for every field that has been posted
     const clientId = req.params.cid;
     const data = req.body;
@@ -687,6 +687,7 @@ router.put('/edit_client/:id', passport.authenticate('both_rule', {session: fals
         return res.status(400).json({error : "No data sent to server!"})
     }
 
+
     // If it exists as the for loop above checked if password was null or undefined, hash the password and update client profile if password doesn't exist update profile without hashing non existent password
     if (updateClient.Password) {
 
@@ -701,7 +702,10 @@ router.put('/edit_client/:id', passport.authenticate('both_rule', {session: fals
                 // Update password in client database
                 Client.findByIdAndUpdate(clientId, updateClient, {new: true})
                     .then(result => {
-                        return res.json(result)
+                        if(result) {
+                            return res.json(result)
+                        }
+                        return res.status(400).json({err: "Client does not exist!"})
                     })
                     .catch(err => {
                         return res.json(err)
@@ -714,10 +718,12 @@ router.put('/edit_client/:id', passport.authenticate('both_rule', {session: fals
         Client.findByIdAndUpdate(clientId, updateClient, {new: true})
             .then(client => {
                 if (client) {
-                    return res.json(client)
+                    return res.status(200).json(client);
                 }
+                return res.status(400).json({error: "Client does not exist!"});
             })
             .catch(err => {
+                console.log(err)
                 return res.json(err)
             });
     }
