@@ -72,14 +72,17 @@ class Graph extends Component {
         else{
 
             let graphData = this.sortedProgressionExerciseNames(this.state.graphData);
-            const graphs = graphData.map(graph => (
-                    // Changed key from CreateGraph to div as div was first child, otherwise error was given.
-                    <div className="graphs" key={graph._id}>
-                        {console.log(graph)}
-                        <CreateGraph graphData={graph}/>
-                    </div>
-                )
-            );
+            const graphs = graphData.map(graph => {
+                if(graph.metrics.length > 1){
+                    return (
+                        // Changed key from CreateGraph to div as div was first child, otherwise error was given.
+                        <div className="graphs" key={graph._id}>
+                            <CreateGraph graphData={graph}/>
+                        </div>
+                    )
+                }
+                return null;
+            });
             return (
                 <div id="Progression" className="Progression">
                     {graphs}
