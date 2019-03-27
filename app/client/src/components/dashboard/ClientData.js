@@ -4,6 +4,7 @@ import {withRouter} from 'react-router-dom';
 import {saveClientId} from "../../actions/authenticationActions";
 import isEmpty from "../../utilities/is_empty";
 import ErrorComponent from "../error/ErrorComponent";
+import Loading from "../../elements/Loading";
 // import PropTypes from "prop-types";
 
 
@@ -13,7 +14,34 @@ class ClientData extends Component {
         super(props);
         this.state = {
             id: this.props.authenticatedUser.user.id,
-            errors: {}
+            errors: {},
+            loaded: false
+        }
+    }
+
+    static getDerivedStateFromProps(nextProps, state){
+        console.log(nextProps.errors !== state.errors)
+        if(nextProps.errors !== state.errors){
+            return {
+                errors: nextProps.errors,
+                loaded: true
+            }
+        }
+        return null;
+    }
+
+    componentDidMount(){
+        document.body.scrollTo(0,0);
+        this.authCheck();
+    }
+
+    componentDidUpdate(){
+        this.authCheck();
+    }
+
+    authCheck(){
+        if(this.state.errors.error_code === 401){
+            this.props.history.push('/re-login');
         }
     }
 
@@ -32,42 +60,47 @@ class ClientData extends Component {
     };
 
     render() {
+        if(!this.state.loaded){
+            return <Loading/>;
+        }
         if(isEmpty(this.props.authenticatedUser.user)){
             return <ErrorComponent/>
         }
-
-        return (
-            <div className="row">
-                <div className="m-auto col-md-10">
-                    <h1 className=" text-center display-5">Dashboard</h1>
-                    <div>
+        else {
+            return (
+                <div className="row">
+                    <div className="m-auto col-md-10">
+                        <h1 className=" text-center display-5">Dashboard</h1>
                         <div>
-                            <h3 className="mt-5 mb-4">{this.props.authenticatedUser.user.name}</h3>
-                            <table className="table client-table">
-                                <thead>
-                                <tr>
-                                    <th align="center">Profile</th>
-                                    <th align="center">workout Schedule</th>
-                                    <th align="center">Edit details</th>
-                                </tr>
-                                <tr>
-                                    <td align="center"><a onClick={this.onProfileClick.bind(this, this.state.id)}>
-                                        <i className="fas fa-columns fa-2x"></i></a>
-                                    </td>
-                                    <td align="center"><a onClick={this.onScheduleClick.bind(this, this.state.id)}><i
-                                        className="far fa-calendar-alt fa-2x"></i></a>
-                                    </td>
-                                <td align="center"><a onClick={this.onEditProfile.bind(this, this.state.id)}><i
-                                    className="fas fa-edit fa-2x"></i></a>
-                                </td>
-                                </tr>
-                                </thead>
-                            </table>
+                            <div>
+                                <h3 className="mt-5 mb-4">{this.props.authenticatedUser.user.name}</h3>
+                                <table className="table client-table">
+                                    <thead>
+                                    <tr>
+                                        <th align="center">Profile</th>
+                                        <th align="center">workout Schedule</th>
+                                        <th align="center">Edit details</th>
+                                    </tr>
+                                    <tr>
+                                        <td align="center"><a onClick={this.onProfileClick.bind(this, this.state.id)}>
+                                            <i className="fas fa-columns fa-2x"></i></a>
+                                        </td>
+                                        <td align="center"><a
+                                            onClick={this.onScheduleClick.bind(this, this.state.id)}><i
+                                            className="far fa-calendar-alt fa-2x"></i></a>
+                                        </td>
+                                        <td align="center"><a onClick={this.onEditProfile.bind(this, this.state.id)}><i
+                                            className="fas fa-edit fa-2x"></i></a>
+                                        </td>
+                                    </tr>
+                                    </thead>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        );
+            );
+        }
     }
 }
 

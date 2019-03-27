@@ -42,7 +42,6 @@ class Dashboard extends Component {
     componentDidMount() {
         document.body.scrollTo(0,0);
         this.authCheck();
-        this.props.getClients(this.state.id)
     } // ComponentDidMount
 
     componentDidUpdate(){

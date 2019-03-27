@@ -14,7 +14,8 @@ class EditClient extends Component {
         super(props);
         this.state = {
             client_data: undefined,
-            clientId: props.authenticatedUser.clientId !== undefined ? props.authenticatedUser.clientId : props.match.params.uid,
+            clientId: props.authenticatedUser.clientId !== undefined ? props.authenticatedUser.clientId : props.match.params.cid,
+            userId: props.authenticatedUser.user.id !== undefined ? props.authenticatedUser.user.id : props.match.params.uid,
             FullName: '',
             Email: '',
             ContactNumber: '',
@@ -44,6 +45,7 @@ class EditClient extends Component {
             }
         }
         if (props.errors !== state.errors) {
+            console.log(props.errors !== state.errors)
             return {errors: props.errors}
         }
         return null
@@ -87,7 +89,7 @@ class EditClient extends Component {
         };
 
         if (this.state.Password === this.state.Password2) {
-            this.props.editClientData(this.props.match.params.uid, editData, this.props.history);
+            this.props.editClientData(this.state.userId, editData, this.props.history);
             // if passwords match
             this.props.passwordsMatchError({errors: {}})
         }

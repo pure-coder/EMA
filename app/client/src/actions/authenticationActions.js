@@ -171,16 +171,7 @@ export const deleteClient = (id, ptId) => dispatch => {
             }
         )
         .catch(err => {
-            // if(err.response.status === 401){
-            //     window.location.href = '/re-login';
-            //     dispatch(logOutUser());
-            // }
-            // else {
-                dispatch({
-                    type: GET_ERRS,
-                    payload: {msg: err}
-                })
-            // }
+           expiredLogout(err, dispatch);
         })
 };
 
@@ -212,11 +203,7 @@ export const editClientData = (id, Data, history) => dispatch => {
             }
         )
         .catch(err => {
-            //errCheck(err, dispatch);
-            dispatch({
-                type: GET_ERRS,
-                payload: err.response.data
-            })
+            expiredLogout(err, dispatch);
         })
 };
 

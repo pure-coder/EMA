@@ -5,6 +5,9 @@ import {withRouter} from "react-router-dom";
 import axios from 'axios';
 import {getClientData} from "../../actions/authenticationActions";
 import 'dhtmlx-scheduler';
+import Loading from "../../elements/Loading";
+import isEmpty from "../../utilities/is_empty";
+import ErrorComponent from "../error/ErrorComponent";
 
 // Todo :: change save button so clients cant save or edit workout!
 
@@ -12,20 +15,18 @@ class Scheduler extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            errors: {}
+            clientId: props.authenticatedUser.clientId !== undefined ? props.authenticatedUser.clientId : props.match.params.cid,
+            userId: props.authenticatedUser.user.id !== undefined ? props.authenticatedUser.user.id : props.match.params.uid,
+            errors: {},
+            loaded: false
         };
-
-        props.getClientData(props.match.params.cid, this.props.history)
 
         const scheduler = window.dhtmlXScheduler;
         const dataProcessor = window.dataProcessor;
 
-        // Connect via API to get data for a specific client
-        let userId = this.props.match.params.uid;
-        let clientId = this.props.match.params.cid;
         // If client - userId will only be used, will show their events, if pt userId is pt, clientId is client events that
         // pt wishes to view (clientId added when pt clicks client on their dashboard)
-        axios.get(`/api/${userId}/scheduler/${clientId}`)
+        axios.get(`/api/${this.state.userId}/scheduler/${this.state.clientId}`)
             .then(result => {
                 if (result) {
                     // Initialise scheduler to current date (month)
@@ -60,7 +61,7 @@ class Scheduler extends Component {
         // for the current client (the id of the client is sent to the api so that the event can be
         // associated with them, allowing client events to be filtered so only their events are retrieved
         // and shown with GET method
-        let dataProc = new dataProcessor(`/api/${userId}/scheduler/${clientId}` );
+        let dataProc = new dataProcessor(`/api/${this.state.userId}/scheduler/${this.state.clientId}` );
         dataProc.init(scheduler);
         // Add token to header to allow access to the POST function on API
         dataProc.setTransactionMode({mode: "POST", headers:{ "Content-Type": "application/x-www-form-urlencoded",
@@ -79,25 +80,51 @@ class Scheduler extends Component {
         // });
     }// constructor
 
+    static getDerivedStateFromProps(nextProps, state){
+        if(nextProps.errors !== state.errors){
+            return {
+                errors: nextProps.errors,
+                loaded: true,
+            }
+        }
+        return null;
+    }
+
     // add init() function to only the scheduler route in index.html (located in public folder) before the component is rendered
     // and check if user is authenticated
     componentDidMount() {
         // Check if isAuthenticated is false then redirect to the dashboard
-        if (!this.props.authenticatedUser.isAuthenticated) {
-            this.props.history.push('/login');
+        this.authCheck();
+        this.props.getClientData(this.state.clientId, this.props.history)
+    }
+
+    componentDidUpdate(){
+        this.authCheck();
+    }
+
+    authCheck(){
+        if (!isEmpty(this.state.errors) && this.state.errors.error_code === 401) {
+            this.props.history.push('/re-login');
         }
     }
 
     render() {
-        const client_data = this.props.authenticatedUser.client_data;
+        if(!this.state.loaded){
+            return <Loading/>
+        }
+        if(isEmpty(this.props.authenticatedUser.user)){
+            return <ErrorComponent/>
+        }
+        else{
+            const client_data = this.props.authenticatedUser.client_data;
 
-        return (
-            <div id="scheduler-container">
-                        <div className="top-display">
-                            <div className="display-elements"><button type="button" className="scheduler-btn btn btn-danger btn-block mb-3"onClick={this.props.history.goBack}>Back</button></div>
-                            <div className="display-elements"><h3>{client_data !== undefined ? client_data.FullName : "" }</h3></div>
-                        </div>
-                <div id="scheduler" className="dhx_cal_container scheduler">
+            return (
+                <div id="scheduler-container">
+                    <div className="top-display">
+                        <div className="display-elements"><button type="button" className="scheduler-btn btn btn-danger btn-block mb-3"onClick={this.props.history.goBack}>Back</button></div>
+                        <div className="display-elements"><h3>{client_data !== undefined ? client_data.FullName : "" }</h3></div>
+                    </div>
+                    <div id="scheduler" className="dhx_cal_container scheduler">
                         <div className="dhx_cal_navline">
                             <div className="dhx_cal_prev_button">&nbsp;</div>
                             <div className="dhx_cal_next_button">&nbsp;</div>
@@ -110,9 +137,9 @@ class Scheduler extends Component {
                         <div className="dhx_cal_header"></div>
                         <div className="dhx_cal_data"></div>
                     </div>
-            </div>
-        );
-
+                </div>
+            );
+        }
     }
 }
 
