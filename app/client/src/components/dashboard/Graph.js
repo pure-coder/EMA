@@ -5,14 +5,32 @@ import PropTypes from 'prop-types';
 import CreateGraph from './CreateGraph';
 import isEmpty from "../../utilities/is_empty";
 import ErrorComponent from "../error/ErrorComponent";
+import Loading from "../../elements/Loading";
 
 class Graph extends Component {
     // This allows the component states to be up{dated and re-rendered)
     constructor(props) {
         super(props);
         this.state = {
-            graphData: props.graphData
+            graphData: props.graphData,
+            errors: {},
+            loaded: false
         };
+    }
+
+    static getDerivedStateFromProps(props, state){
+        if(props.graphData !== state.graphData){
+            return {
+                graphData: props.graphData,
+                loaded: true,
+            }
+        }
+        if(props.errors !== state.errors){
+            return {
+                errors: props.errors,
+            }
+        }
+        return null;
     }
 
     componentDidMount(){
@@ -20,36 +38,39 @@ class Graph extends Component {
     }
 
     componentDidUpdate(prevProps){
+        this.authCheck();
         if (prevProps.graphData !== this.props.graphData){
             this.setState({graphData: this.props.graphData});
         }
     }
 
     authCheck(){
-        // Check if isAuthenticated is true
-        if (!this.props.authenticatedUser.isAuthenticated) {
-            this.props.history.push('/login');
+        if(this.state.errors.error_code === 401){
+            this.props.history.push('/re-login');
         }
     }
 
     render() {
+        if(this.state.loaded){
+            return <Loading/>
+        }
         if(isEmpty(this.props.authenticatedUser.user)){
             return <ErrorComponent/>
         }
-
-        const graphs = this.state.graphData.map(graph => (
-            // Changed key from CreateGraph to div as div was first child, otherwise error was given.
-            <div className="graphs" key={graph._id}>
-                <CreateGraph graphData={graph}/>
-            </div>
-            )
-        );
-
-        return (
-            <div id="Progression" className="Progression">
-                {graphs}
-            </div>
-        );
+        else{
+            const graphs = this.state.graphData.map(graph => (
+                    // Changed key from CreateGraph to div as div was first child, otherwise error was given.
+                    <div className="graphs" key={graph._id}>
+                        <CreateGraph graphData={graph}/>
+                    </div>
+                )
+            );
+            return (
+                <div id="Progression" className="Progression">
+                    {graphs}
+                </div>
+            );
+        }
     }
 }
 

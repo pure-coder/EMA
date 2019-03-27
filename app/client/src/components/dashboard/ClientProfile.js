@@ -42,10 +42,14 @@ class ClientProfile extends Component {
         }
     } // did mount
 
+    componentDidUpdate(){
+        this.authCheck();
+    }
+
     componentWillUnmount(){
         // This got rid of the Date: null bug for now, need to find route cause!!!
         this.props.clearProgression();
-        this.setState({loaded: false})
+        //this.setState({loaded: false})
     }
 
     openModal() {
@@ -67,13 +71,15 @@ class ClientProfile extends Component {
 
     authCheck(){
         // Check if isAuthenticated is true
-        if (!this.props.authenticatedUser.isAuthenticated) {
-            this.props.history.push('/login');
+        if (this.props.errors.error_code === 401) {
+            this.props.history.push('/re-login');
         }
     }
 
     render() {
+        console.log(this.props.authenticatedUser.user)
         if(isEmpty(this.props.authenticatedUser.user)){
+            console.log(this.props.authenticatedUser.user)
             return <ErrorComponent/>
         }
 

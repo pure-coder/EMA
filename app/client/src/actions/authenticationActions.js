@@ -268,11 +268,7 @@ export const getClientProgression = (userId, clientId) => dispatch => {
                 });
         })
         .catch(err => {
-            //errCheck(err, dispatch);
-            dispatch({
-                type: GET_ERRS,
-                payload: err.response.data
-            })
+            expiredLogout(err, dispatch);
         });
 };
 
@@ -297,11 +293,7 @@ export const newClientProgress = (id, cid ,data) => dispatch => {
             }
         })
         .catch(err => {
-            //errCheck(err, dispatch);
-            dispatch({
-                type: GET_ERRS,
-                payload: err.response.data
-            })
+            expiredLogout(err, dispatch);
         });
 };
 
@@ -311,16 +303,7 @@ export const deleteExercise =(uid, cid, data) => dispatch => {
             dispatch(getClientProgression(uid, cid));
         })
         .catch(err => {
-            // if(err.response.status === 401){
-            //     window.location.href = '/re-login';
-            //     dispatch(logOutUser());
-            // }
-            // else {
-                dispatch({
-                    type: GET_ERRS,
-                    payload: err
-                })
-            // }
+            expiredLogout(err, dispatch);
         });
 };
 
