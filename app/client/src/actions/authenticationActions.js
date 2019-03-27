@@ -15,6 +15,25 @@ import {
 import setAuthorisationToken from '../utilities/setAuthorisationToken';
 import jwtDecode from 'jwt-decode';
 
+const expiredLogout = (err, dispatch) => {
+    if(err.response.status === 401){
+        dispatch({
+            type: GET_ERRS,
+            payload: {
+                error_message: err.response.data,
+                error_code: err.response.status
+            }
+        });
+        dispatch(logOutUser());
+        dispatch(setErrors({}));
+    }
+    else {
+        dispatch({
+            type: GET_ERRS,
+            payload: err.response.data
+        })
+    }
+};
 
 // Register User
 // Used to dispatch (action) data to a reducer, in this case it is the registerUser action with the sign up data
@@ -114,25 +133,8 @@ export const registerClient =(Data, props) => (dispatch) => {
                 props.history.push('/login')
         }) // Uses history.push to direct the user) // Uses history.push to direct the user history.push('/login')
         .catch(err => {
-            if(err.response.status === 401){
-                dispatch({
-                    type: GET_ERRS,
-                    payload: {
-                        error_message: err.response.data,
-                        error_code: err.response.status
-                    }
-                });
-                dispatch(logOutUser());
-                dispatch(setErrors({}));
-            }
-            else {
-                dispatch({
-                    type: GET_ERRS,
-                    payload: err.response.data
-                })
-            }
-            }
-        );
+            expiredLogout(err, dispatch);
+        });
 }; // registerClient
 
 // Get pt Clients
@@ -146,23 +148,7 @@ export const getClients = ptId => dispatch => {
             }
         )
         .catch(err => {
-            if(err.response.status === 401){
-                dispatch({
-                    type: GET_ERRS,
-                    payload: {
-                        error_message: err.response.data,
-                        error_code: err.response.status
-                    }
-                });
-                dispatch(logOutUser());
-                dispatch(setErrors({}));
-            }
-            else {
-                dispatch({
-                    type: GET_ERRS,
-                    payload: err.response.data
-                })
-            }
+            expiredLogout(err, dispatch);
         })
 };
 
@@ -213,17 +199,8 @@ export const getClientData = (id, history) => dispatch => {
         }
         )
         .catch(err => {
-            // if(err.response.status === 401){
-            //     window.location.href = '/re-login';
-            //     dispatch(logOutUser());
-            // }
-            // else {
-                dispatch({
-                    type: GET_ERRS,
-                    payload: {msg: err}
-                })
-            // }
-        })
+            expiredLogout(err, dispatch);
+        });
 };
 
 export const editClientData = (id, Data, history) => dispatch => {
@@ -258,23 +235,7 @@ export const getPtData = (id, history) => dispatch => {
             }
         )
         .catch(err => {
-            if(err.response.status === 401){
-                dispatch({
-                    type: GET_ERRS,
-                    payload: {
-                        error_message: err.response.data,
-                        error_code: err.response.status
-                    }
-                });
-                dispatch(logOutUser());
-                dispatch(setErrors({}));
-            }
-            else {
-                dispatch({
-                    type: GET_ERRS,
-                    payload: err.response.data
-                })
-            }
+            expiredLogout(err, dispatch);
         })
 };
 

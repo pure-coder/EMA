@@ -52,7 +52,6 @@ class Dashboard extends Component {
     authCheck(){
         // Check if isAuthenticated is true
         if(this.props.errors.error_code === 401){
-            console.log("dash check")
             this.props.history.replace('/re-login');
         }
     }

@@ -14,6 +14,7 @@ class EditClient extends Component {
         super(props);
         this.state = {
             client_data: undefined,
+            clientId: props.authenticatedUser.clientId !== undefined ? props.authenticatedUser.clientId : props.match.params.uid,
             FullName: '',
             Email: '',
             ContactNumber: '',
@@ -38,6 +39,7 @@ class EditClient extends Component {
         if (props.authenticatedUser.client_data !== state.client_data) {
             return {
                 client_data: props.authenticatedUser.client_data,
+                errors: props.errors,
                 loaded: true
             }
         }
@@ -48,14 +50,18 @@ class EditClient extends Component {
     }
 
     componentDidMount() {
-
         document.body.scrollTo(0,0);
-
         this.authCheck();
+        this.props.getClientData(this.state.clientId, this.props.history);
+    }
 
-        // This call is used if direct url is used... for RESTful, client_data is loaded into redux store if coming from dashboard (getClientData called in ClientList) instead of direct
-        if(!this.state.loaded){
-            this.props.getClientData(this.props.match.params.uid, this.props.history);
+    componentDidUpdate(){
+        this.authCheck();
+    }
+
+    authCheck(){
+        if(this.state.errors.error_code === 401){
+            this.props.history.push('/re-login');
         }
     }
 
@@ -98,103 +104,95 @@ class EditClient extends Component {
         }
     }
 
-    authCheck(){
-        // Check if isAuthenticated is true
-        if (!this.props.authenticatedUser.isAuthenticated) {
-            this.props.history.push('/login');
-        }
-    }
-
     render() {
+        // if loaded is false then return loading screen
+        if (!this.state.loaded) {
+            return <Loading/>;
+        }
         if(isEmpty(this.props.authenticatedUser.user)){
             return <ErrorComponent/>
         }
+        else {
 
-        const {errors} = this.state; // This allows errors to be pulled out of this.state without pulling them out directly
-
-        // if loaded is false then return loading screen
-        if (this.state.client_data === undefined) {
-            return <Loading/>;
-        }
-
-
-        return (
-            <div className="edit_client">
-                <div className="container  edit_client-custom">
-                    <div className="row">
-                        <div className="m-auto col-md-8">
-                            <h1 className=" text-center display-5">Edit Profile</h1>
-                            <form autoComplete="off" onSubmit={this.onSubmit}> {/* onSubmit used instead of normal action*/}
-                            <input type="hidden" value="something"/>
-                                <FormInputGroup
-                                    name="FullName"
-                                    placeholder={this.state.client_data.FullName}
-                                    value={this.state.FullName === "" ? this.props.authenticatedUser.client_data.FullName : this.state.FullName}
-                                    type="text"
-                                    onChange={this.onChange}
-                                    error={errors.FullName}
-                                />
-                                <FormInputGroup
-                                    name="Email"
-                                    placeholder={this.state.client_data.Email}
-                                    value={this.state.Email === "" ? this.props.authenticatedUser.client_data.Email : this.state.Email}
-                                    type="Email"
-                                    onChange={this.onChange}
-                                    error={errors.Email}
-                                />
-                                <FormInputGroup
-                                    name="ContactNumber"
-                                    placeholder={this.state.client_data.ContactNumber}
-                                    value={this.state.ContactNumber === "" ? this.props.authenticatedUser.client_data.ContactNumber : this.state.ContactNumber}
-                                    type="text"
-                                    onChange={this.onChange}
-                                    error={errors.ContactNumber}
-                                />
-                                <div className="form-group edit-profile-date-div">
-                                    <div className="edit-date-div">
-                                        <label className="control-label form-control-lg edit-profile-label">Date of
-                                            Birth:
-                                        </label>
-                                        <input className='form-control form-control-lg date-input' name="DateOfBirth"
-                                               onChange={this.onChange} type="Date"/>
-                                    </div>
-                                    <div className="edit-gender-div">
-                                        <label
-                                            className="control-label form-control-lg edit-profile-label gender">
-                                            Gender:
-                                        </label>
-                                        <select name="Sex" onChange={this.onChange} id="Sex" className='form-control
+            let {errors} = this.state;
+            return (
+                <div className="edit_client">
+                    <div className="container  edit_client-custom">
+                        <div className="row">
+                            <div className="m-auto col-md-8">
+                                <h1 className=" text-center display-5">Edit Profile</h1>
+                                <form autoComplete="off" onSubmit={this.onSubmit}> {/* onSubmit used instead of normal action*/}
+                                    <input type="hidden" value="something"/>
+                                    <FormInputGroup
+                                        name="FullName"
+                                        placeholder={this.state.client_data.FullName}
+                                        value={this.state.FullName === "" ? this.props.authenticatedUser.client_data.FullName : this.state.FullName}
+                                        type="text"
+                                        onChange={this.onChange}
+                                        error={errors.FullName}
+                                    />
+                                    <FormInputGroup
+                                        name="Email"
+                                        placeholder={this.state.client_data.Email}
+                                        value={this.state.Email === "" ? this.props.authenticatedUser.client_data.Email : this.state.Email}
+                                        type="Email"
+                                        onChange={this.onChange}
+                                        error={errors.Email}
+                                    />
+                                    <FormInputGroup
+                                        name="ContactNumber"
+                                        placeholder={this.state.client_data.ContactNumber}
+                                        value={this.state.ContactNumber === "" ? this.props.authenticatedUser.client_data.ContactNumber : this.state.ContactNumber}
+                                        type="text"
+                                        onChange={this.onChange}
+                                        error={errors.ContactNumber}
+                                    />
+                                    <div className="form-group edit-profile-date-div">
+                                        <div className="edit-date-div">
+                                            <label className="control-label form-control-lg edit-profile-label">Date of
+                                                Birth:
+                                            </label>
+                                            <input className='form-control form-control-lg date-input' name="DateOfBirth"
+                                                   onChange={this.onChange} type="Date"/>
+                                        </div>
+                                        <div className="edit-gender-div">
+                                            <label
+                                                className="control-label form-control-lg edit-profile-label gender">
+                                                Gender:
+                                            </label>
+                                            <select name="Sex" onChange={this.onChange} id="Sex" className='form-control
                                             form-control-lg'>
-                                            <option value="">Please select</option>
-                                            <option value="Male">Male</option>
-                                            <option value="Female">Female</option>
-                                        </select>
+                                                <option value="">Please select</option>
+                                                <option value="Male">Male</option>
+                                                <option value="Female">Female</option>
+                                            </select>
+                                        </div>
                                     </div>
-                                </div>
-                                <FormInputGroup
-                                    name="Password"
-                                    placeholder="Enter Password"
-                                    value={this.state.password}
-                                    type="Password"
-                                    onChange={this.onChange}
-                                    error={errors.Password}
-                                />
-                                <FormInputGroup
-                                    name="Password2"
-                                    placeholder="Confirm Password"
-                                    value={this.state.password2}
-                                    type="Password"
-                                    onChange={this.onChange}
-                                    error={errors.Password2}
-                                />
-                                <input type="submit" value="Update" className="btn btn-info btn-block mt-4"/>
-                                <button type="button" className="btn btn-danger btn-block mt-3 mb-3" onClick={this.props.history.goBack}>Back</button>
-                            </form>
+                                    <FormInputGroup
+                                        name="Password"
+                                        placeholder="Enter Password"
+                                        value={this.state.password}
+                                        type="Password"
+                                        onChange={this.onChange}
+                                        error={errors.Password}
+                                    />
+                                    <FormInputGroup
+                                        name="Password2"
+                                        placeholder="Confirm Password"
+                                        value={this.state.password2}
+                                        type="Password"
+                                        onChange={this.onChange}
+                                        error={errors.Password2}
+                                    />
+                                    <input type="submit" value="Update" className="btn btn-info btn-block mt-4"/>
+                                    <button type="button" className="btn btn-danger btn-block mt-3 mb-3" onClick={this.props.history.goBack}>Back</button>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        );
+            );
+        }
     }
 }
 
