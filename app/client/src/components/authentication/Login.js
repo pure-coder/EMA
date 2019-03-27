@@ -54,7 +54,7 @@ class Login extends Component {
         };
 
         // Calls the action/reducer loginUser with the user data (defined in actions/authenticatedActions.js)
-        this.props.loginUser(user);
+        this.props.loginUser(user, this.props.history);
     }
 
 

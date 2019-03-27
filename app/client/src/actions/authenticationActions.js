@@ -15,7 +15,7 @@ import {
 import setAuthorisationToken from '../utilities/setAuthorisationToken';
 import jwtDecode from 'jwt-decode';
 
-const expiredLogout = (err, dispatch) => {
+const expiredLogout = (err, dispatch, history) => {
     if(err.response.status === 401){
         dispatch({
             type: GET_ERRS,
@@ -26,6 +26,7 @@ const expiredLogout = (err, dispatch) => {
         });
         dispatch(logOutUser());
         dispatch(setErrors({}));
+        history.push('/re-login');
     }
     else {
         dispatch({
@@ -66,7 +67,7 @@ export const registerUser =(Data, history) => (dispatch) => {
 
 // Login User - get JWT for user
 
-export const loginUser = (Data) => (dispatch) => {
+export const loginUser = (Data, history) => (dispatch) => {
     // Post user data to the API specifically the user/register route
     axios
         .post('/api/login', Data)
@@ -85,7 +86,7 @@ export const loginUser = (Data) => (dispatch) => {
             // in authenticatedReducer.js
             dispatch(setSignedInUser(decodedToken));
             if (decodedToken.pt === true) {
-                dispatch(getClients(decodedToken.id))
+                dispatch(getClients(decodedToken.id, history))
             }
         })
         .catch(err => {
@@ -123,7 +124,7 @@ export const logOutUser = () => dispatch => {
 };
 
 // Register client
-export const registerClient =(Data, props) => (dispatch) => {
+export const registerClient =(Data, props, history) => (dispatch) => {
     // Post user data to the API specifically the user/register route
     axios
         .post('/api/new_client', Data)
@@ -133,12 +134,12 @@ export const registerClient =(Data, props) => (dispatch) => {
                 props.history.push('/login')
         }) // Uses history.push to direct the user) // Uses history.push to direct the user history.push('/login')
         .catch(err => {
-            expiredLogout(err, dispatch);
+            expiredLogout(err, dispatch, history);
         });
 }; // registerClient
 
 // Get pt Clients
-export const getClients = ptId => dispatch => {
+export const getClients = (ptId, history) => dispatch => {
     axios
         .get(`/api/pt_clients/${ptId}`)
         .then(result => {
@@ -148,7 +149,7 @@ export const getClients = ptId => dispatch => {
             }
         )
         .catch(err => {
-            expiredLogout(err, dispatch);
+            expiredLogout(err, dispatch, history);
         })
 };
 
@@ -162,16 +163,16 @@ export const setPtClients = (data) => {
 };
 
 // Delete Client
-export const deleteClient = (id, ptId) => dispatch => {
+export const deleteClient = (id, ptId, history) => dispatch => {
     axios
         .delete(`/api/delete_client/${id}`)
         .then(() => {
                 // causes refresh of dashboard with updated client list
-                dispatch(getClients(ptId))
+                dispatch(getClients(ptId, history))
             }
         )
         .catch(err => {
-           expiredLogout(err, dispatch);
+           expiredLogout(err, dispatch, history);
         })
 };
 
@@ -190,20 +191,20 @@ export const getClientData = (id, history) => dispatch => {
         }
         )
         .catch(err => {
-            expiredLogout(err, dispatch);
+            expiredLogout(err, dispatch, history);
         });
 };
 
-export const editClientData = (id, Data, history) => dispatch => {
+export const editClientData = (cid, data, history) => dispatch => {
     axios
-        .put(`/api/edit_client/${id}`, Data)
+        .put(`/api/edit_client/${cid}`, data)
         .then(() => {
             // Go back to dashboard after successful update
             history.goBack();
             }
         )
         .catch(err => {
-            expiredLogout(err, dispatch);
+            expiredLogout(err, dispatch, history);
         })
 };
 
@@ -222,7 +223,7 @@ export const getPtData = (id, history) => dispatch => {
             }
         )
         .catch(err => {
-            expiredLogout(err, dispatch);
+            expiredLogout(err, dispatch, history);
         })
 };
 
@@ -235,11 +236,7 @@ export const editPtData = (id, Data, history) => dispatch => {
             }
         )
         .catch(err => {
-            //errCheck(err, dispatch);
-            dispatch({
-                type: GET_ERRS,
-                payload: err.response.data
-            })
+            expiredLogout(err, dispatch, history);
         })
 };
 
@@ -258,7 +255,7 @@ export const passwordsMatchError = (error) => dispatch => {
     )
 };
 
-export const getClientProgression = (userId, clientId) => dispatch => {
+export const getClientProgression = (userId, clientId, history) => dispatch => {
     // userId can either be same as clientId or the id of the personal trainer
     axios.get(`/api/${userId}/client_progression/${clientId}` ) // using grave accent instead of single quote
         .then(result => {
@@ -268,7 +265,7 @@ export const getClientProgression = (userId, clientId) => dispatch => {
                 });
         })
         .catch(err => {
-            expiredLogout(err, dispatch);
+            expiredLogout(err, dispatch, history);
         });
 };
 
@@ -278,7 +275,7 @@ export const clearProgression = () => dispatch => {
     });
 };
 
-export const newClientProgress = (id, cid ,data) => dispatch => {
+export const newClientProgress = (id, cid ,data, history) => dispatch => {
     axios.post(`/api/${id}/client_progression/${cid}`, data)
         .then(result => {
             console.log("client_p", result);
@@ -293,17 +290,17 @@ export const newClientProgress = (id, cid ,data) => dispatch => {
             }
         })
         .catch(err => {
-            expiredLogout(err, dispatch);
+            expiredLogout(err, dispatch,history);
         });
 };
 
-export const deleteExercise =(uid, cid, data) => dispatch => {
+export const deleteExercise =(uid, cid, data, history) => dispatch => {
     axios.delete(`/api/${uid}/client_progression/${cid}`, {data : {exerciseName : data}})
         .then(() => {
-            dispatch(getClientProgression(uid, cid));
+            dispatch(getClientProgression(uid, cid, history));
         })
         .catch(err => {
-            expiredLogout(err, dispatch);
+            expiredLogout(err, dispatch, history);
         });
 };
 

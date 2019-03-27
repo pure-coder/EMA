@@ -34,21 +34,21 @@ class Graph extends Component {
     }
 
     componentDidMount(){
-        this.authCheck();
+        // this.authCheck();
     }
 
     componentDidUpdate(prevProps){
-        this.authCheck();
+        // this.authCheck();
         if (prevProps.graphData !== this.props.graphData){
             this.setState({graphData: this.props.graphData});
         }
     }
 
-    authCheck(){
-        if(this.state.errors.error_code === 401){
-            this.props.history.push('/re-login');
-        }
-    }
+    // authCheck(){
+    //     if(this.state.errors.error_code === 401){
+    //         this.props.history.push('/re-login');
+    //     }
+    // }
 
     sortedProgressionExerciseNames(graphData){
         return graphData.sort((obj1, obj2) => {

@@ -151,7 +151,7 @@ class NewClientProgressForm extends Component {
                     Date: new Date(this.state.Date)
                 }
             };
-            this.props.newClientProgress(this.state.userId, this.state.clientId, clientProgressData);
+            this.props.newClientProgress(this.state.userId, this.state.clientId, clientProgressData, this.props.history);
         }
     } // onSubmit
 

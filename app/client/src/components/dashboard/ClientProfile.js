@@ -45,13 +45,13 @@ class ClientProfile extends Component {
     componentDidMount() {
         document.body.scrollTo(0,0);
 
-        this.authCheck();
+        // this.authCheck();
         this.getProgressForPage();
 
     } // did mount
 
     componentDidUpdate(){
-        this.authCheck();
+        // this.authCheck();
     }
 
     componentWillUnmount(){
@@ -74,15 +74,15 @@ class ClientProfile extends Component {
     }
 
     getProgressForPage(){
-        this.props.getClientProgression(this.state.userId, this.state.clientId);
+        this.props.getClientProgression(this.state.userId, this.state.clientId, this.props.history);
     }
 
-    authCheck(){
-        // Check if isAuthenticated is true
-        if (this.props.errors.error_code === 401) {
-            this.props.history.push('/re-login');
-        }
-    }
+    // authCheck(){
+    //     // Check if isAuthenticated is true
+    //     if (this.props.errors.error_code === 401) {
+    //         this.props.history.push('/re-login');
+    //     }
+    // }
 
     render() {
         if(!this.state.loaded){

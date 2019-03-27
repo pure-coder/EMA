@@ -15,7 +15,7 @@ class EditClient extends Component {
         this.state = {
             client_data: undefined,
             clientId: props.authenticatedUser.clientId !== undefined ? props.authenticatedUser.clientId : props.match.params.cid,
-            userId: props.authenticatedUser.user.id !== undefined ? props.authenticatedUser.user.id : props.match.params.uid,
+            userId: props.authenticatedUser.user.id,
             FullName: '',
             Email: '',
             ContactNumber: '',
@@ -27,6 +27,8 @@ class EditClient extends Component {
             location: this.props.location,
             loaded: false
         };
+
+        this.props.getClientData(this.state.clientId, this.props.history);
 
         // This sets the state value to it's respective state (via binding)
         this.onChange = this.onChange.bind(this);
@@ -45,7 +47,6 @@ class EditClient extends Component {
             }
         }
         if (props.errors !== state.errors) {
-            console.log(props.errors !== state.errors)
             return {errors: props.errors}
         }
         return null
@@ -53,19 +54,18 @@ class EditClient extends Component {
 
     componentDidMount() {
         document.body.scrollTo(0,0);
-        this.authCheck();
-        this.props.getClientData(this.state.clientId, this.props.history);
+        // this.authCheck();
     }
 
     componentDidUpdate(){
-        this.authCheck();
+        // this.authCheck();
     }
 
-    authCheck(){
-        if(this.state.errors.error_code === 401){
-            this.props.history.push('/re-login');
-        }
-    }
+    // authCheck(){
+    //     if(this.state.errors.error_code === 401){
+    //         this.props.history.push('/re-login');
+    //     }
+    // }
 
     // This captures what the user types and sets the specific input to the respective state variable
     onChange(event) {
@@ -91,7 +91,7 @@ class EditClient extends Component {
         if (this.state.Password === this.state.Password2) {
             this.props.editClientData(this.state.userId, editData, this.props.history);
             // if passwords match
-            this.props.passwordsMatchError({errors: {}})
+            this.props.passwordsMatchError({})
         }
         else {
             // Set state with separate calls on nested state

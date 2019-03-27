@@ -49,12 +49,12 @@ class EditPersonalTrainer extends Component {
 
     componentDidMount() {
         document.body.scrollTo(0,0);
-        this.authCheck();
+        // this.authCheck();
         this.props.getPtData(this.state.ptId, this.props.history);
     }
 
     componentDidUpdate(){
-        this.authCheck();
+        // this.authCheck();
     }
 
     // This captures what the user types and sets the specific input to the respective state variable
@@ -94,11 +94,11 @@ class EditPersonalTrainer extends Component {
         }
     }
 
-    authCheck(){
-        if(this.state.errors.error_code === 401){
-            this.props.history.push('/re-login');
-        }
-    }
+    // authCheck(){
+    //     if(this.state.errors.error_code === 401){
+    //         this.props.history.push('/re-login');
+    //     }
+    // }
 
     render() {
         // if loaded is false then return loading screen

@@ -200,7 +200,7 @@ router.post('/new_client', passport.authenticate('pt_rule', {session: false}), (
 router.post('/login', (req, res) => {
     const Email = req.body.Email;
     const Password = req.body.Password;
-    const expirationTime = 3600; // Expiration access token set to 1hr (3600)
+    const expirationTime = 1000; // Expiration access token set to 1hr (3600)
 
     // Set up validation checking for every field that has been posted
     const {errors, isValid} = validateLoginInput(req.body);
@@ -654,30 +654,37 @@ router.get('/client/:id', passport.authenticate('both_rule', {session: false}), 
 });
 // router GET /client/:id
 
-// @route  PUT /edit_client/:id
+// @route  PUT /edit_client/:cid
 // @desc   Update client profile data
 // @access Private access for either personal trainer or client
 router.put('/edit_client/:id', passport.authenticate('both_rule', {session: false}), (req, res) => {
     // Set up validation checking for every field that has been posted
-    const clientId = req.params.id;
+    const clientId = req.params.cid;
+    const data = req.body;
 
     let updateClient = {};
+    // Checked on client if empty, but make sure!!
     // Enter data into updateClient only if the value of req.body is not undefined or an empty string
-    for (let value in req.body) {
-        if (req.body[value] !== '' && req.body[value] !== undefined) {
-            // Capitalise first name if not alread done
-            if (req.body.FullName) {
-                req.body.FullName = capitaliseFirstLetter(req.body.FullName);
+    for (let value in data) {
+        if (!isEmpty(data[value]) && data[value] !== undefined) {
+            // Capitalise first name if not already done
+            if (data.FullName) {
+                data.FullName = capitaliseFirstLetter(data.FullName);
             }
-            updateClient[value] = req.body[value];
+            updateClient[value] = data[value];
         }
     } // for value in req.body
 
-    const {errors, isValid} = validateEditClientInput(updateClient);
-
-    // Check validation (so if it isn't valid give 400 error and message of error, status(400) makes sure the response is caught and not successful for authenticationAction editClientData
-    if (!isValid) {
-        return res.status(400).json(errors);
+    // If array isn't empty then check data given
+    if(!isEmpty(updateClient)) {
+        const {errors, isValid} = validateEditClientInput(updateClient);
+        // Check validation (so if it isn't valid give 400 error and message of error, status(400) makes sure the response is caught and not successful for authenticationAction editClientData
+        if (!isValid) {
+            return res.status(400).json(errors);
+        }
+    }
+    else{
+        return res.status(400).json({error : "No data sent to server!"})
     }
 
     // If it exists as the for loop above checked if password was null or undefined, hash the password and update client profile if password doesn't exist update profile without hashing non existent password
@@ -955,7 +962,6 @@ router.get('/:id/client_progression/:cid', passport.authenticate('both_rule', {s
                     ClientProgression.find({clientId: clientId}, 'exerciseName metrics.maxWeight metrics.Date')
                         .then(result => {
                             if (result) {
-                                return res.json(result);
                             }
                         })
                         .catch(err => {

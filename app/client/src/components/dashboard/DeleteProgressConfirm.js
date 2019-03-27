@@ -25,7 +25,7 @@ class DeleteProgressConfirm extends Component {
     }
 
     onConfirm(e){
-        this.props.deleteExercise(this.state.userId, this.state.clientId, e.target.name);
+        this.props.deleteExercise(this.state.userId, this.state.clientId, e.target.name, this.props.history);
         this.props.onClickAway();
     }
 

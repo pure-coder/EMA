@@ -41,10 +41,10 @@ class Dashboard extends Component {
     // Life cycle method for react which will run when this component receives new properties
     componentDidMount() {
         document.body.scrollTo(0,0);
-        this.authCheck();
+        // this.authCheck();
         // pt get client data
         if(this.props.authenticatedUser.user.pt){
-            this.props.getClients(this.state.id);
+            this.props.getClients(this.state.id, this.props.history);
         }
         // else is client so set loaded to true, which calls clientData in render
         else{
@@ -53,15 +53,15 @@ class Dashboard extends Component {
     } // ComponentDidMount
 
     componentDidUpdate(){
-        this.authCheck();
+        // this.authCheck();
     }
 
-    authCheck(){
-        // Check if isAuthenticated is true
-        if(this.props.errors.error_code === 401){
-            this.props.history.replace('/re-login');
-        }
-    }
+    // authCheck(){
+    //     // Check if isAuthenticated is true
+    //     if(this.props.errors.error_code === 401){
+    //         this.props.history.replace('/re-login');
+    //     }
+    // }
 
     render() {
         if (!this.state.loaded) {

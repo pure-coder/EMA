@@ -31,18 +31,18 @@ class ClientData extends Component {
 
     componentDidMount(){
         document.body.scrollTo(0,0);
-        this.authCheck();
+        // this.authCheck();
     }
 
     componentDidUpdate(){
-        this.authCheck();
+        // this.authCheck();
     }
 
-    authCheck(){
-        if(this.state.errors.error_code === 401){
-            this.props.history.push('/re-login');
-        }
-    }
+    // authCheck(){
+    //     if(this.state.errors.error_code === 401){
+    //         this.props.history.push('/re-login');
+    //     }
+    // }
 
     onProfileClick(id){
         this.props.saveClientId(id, this.props.history);

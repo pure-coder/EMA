@@ -94,19 +94,19 @@ class Scheduler extends Component {
     // and check if user is authenticated
     componentDidMount() {
         // Check if isAuthenticated is false then redirect to the dashboard
-        this.authCheck();
+        // this.authCheck();
         this.props.getClientData(this.state.clientId, this.props.history)
     }
 
     componentDidUpdate(){
-        this.authCheck();
+        // this.authCheck();
     }
 
-    authCheck(){
-        if (!isEmpty(this.state.errors) && this.state.errors.error_code === 401) {
-            this.props.history.push('/re-login');
-        }
-    }
+    // authCheck(){
+    //     if (!isEmpty(this.state.errors) && this.state.errors.error_code === 401) {
+    //         this.props.history.push('/re-login');
+    //     }
+    // }
 
     render() {
         if(!this.state.loaded){
