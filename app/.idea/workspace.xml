@@ -6,7 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="ec8ccf39-8487-4892-a38d-de9c288878a3" name="Default" comment="delete client from pt array - using pull">
       <change beforePath="$PROJECT_DIR$/client/src/components/dashboard/Graph.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/dashboard/Graph.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/users.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/users.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -47,7 +46,7 @@
           <entry key="css" value="7087" />
           <entry key="editorConfig" value="285" />
           <entry key="html" value="1072" />
-          <entry key="js" value="130273" />
+          <entry key="js" value="130366" />
           <entry key="json" value="26" />
           <entry key="md" value="150" />
           <entry key="txt" value="120" />
@@ -58,7 +57,7 @@
           <entry key="CSS" value="7087" />
           <entry key="HTML" value="1079" />
           <entry key="JSON" value="26" />
-          <entry key="JavaScript" value="130266" />
+          <entry key="JavaScript" value="130359" />
           <entry key="PLAIN_TEXT" value="555" />
         </counts>
       </usages-collector>
@@ -69,7 +68,7 @@
           <entry key="eslintignore" value="2" />
           <entry key="gitignore" value="2" />
           <entry key="html" value="17" />
-          <entry key="js" value="863" />
+          <entry key="js" value="864" />
           <entry key="json" value="9" />
           <entry key="map" value="1" />
           <entry key="md" value="4" />
@@ -83,7 +82,7 @@
           <entry key="CSS" value="52" />
           <entry key="HTML" value="17" />
           <entry key="JSON" value="9" />
-          <entry key="JavaScript" value="863" />
+          <entry key="JavaScript" value="864" />
           <entry key="PLAIN_TEXT" value="12" />
           <entry key="SVG" value="1" />
           <entry key="Scratch" value="1" />
@@ -111,10 +110,22 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/Graph.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="198">
-              <caret line="20" column="50" selection-start-line="20" selection-start-column="50" selection-end-line="20" selection-end-column="50" />
+            <state relative-caret-position="232">
+              <caret line="56" column="13" lean-forward="true" selection-start-line="56" selection-start-column="13" selection-end-line="56" selection-end-column="13" />
               <folding>
                 <element signature="e#0#36#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/CreateGraph.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="238">
+              <caret line="41" column="4" selection-start-line="41" selection-start-column="4" selection-end-line="45" selection-end-column="19" />
+              <folding>
+                <element signature="e#0#39#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -469,7 +480,7 @@
       <workItem from="1550910770209" duration="56984000" />
       <workItem from="1551774400661" duration="160491000" />
       <workItem from="1552586754943" duration="31533000" />
-      <workItem from="1552821747373" duration="199074000" />
+      <workItem from="1552821747373" duration="199455000" />
     </task>
     <task id="LOCAL-00001" summary="min height changed for developed pages">
       <created>1534874964132</created>
@@ -517,7 +528,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1156480000" />
+    <option name="totallyTimeSpent" value="1156861000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -532,7 +543,7 @@
     <frame x="-7" y="2" width="1377" height="768" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.16803585" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.16803585" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Messages" order="0" weight="0.32923076" />
@@ -544,7 +555,7 @@
       <window_info anchor="bottom" id="Inspection" order="6" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="7" weight="0.3276923" />
       <window_info anchor="bottom" id="Docker" order="8" show_stripe_button="false" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="9" visible="true" weight="0.39747635" />
+      <window_info anchor="bottom" id="Terminal" order="9" visible="true" weight="0.39747635" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" weight="0.3276923" />
       <window_info anchor="bottom" id="Version Control" order="11" weight="0.32923076" />
       <window_info anchor="bottom" id="Inspection Results" order="12" weight="0.3276923" />
@@ -937,16 +948,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/CreateGraph.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1258">
-          <caret line="28" column="44" lean-forward="true" selection-start-line="28" selection-start-column="44" selection-end-line="28" selection-end-column="44" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/client/src/actions/authenticationActions.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="134">
@@ -985,10 +986,20 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/CreateGraph.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="41" column="4" selection-start-line="41" selection-start-column="4" selection-end-line="45" selection-end-column="19" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/Graph.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="20" column="50" selection-start-line="20" selection-start-column="50" selection-end-line="20" selection-end-column="50" />
+        <state relative-caret-position="232">
+          <caret line="56" column="13" lean-forward="true" selection-start-line="56" selection-start-column="13" selection-end-line="56" selection-end-column="13" />
           <folding>
             <element signature="e#0#36#0" expanded="true" />
           </folding>

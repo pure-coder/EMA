@@ -50,6 +50,18 @@ class Graph extends Component {
         }
     }
 
+    sortedProgressionExerciseNames(graphData){
+        return graphData.sort((obj1, obj2) => {
+            if (obj1.exerciseName > obj2.exerciseName) {
+                return 1;
+            }
+            if (obj1.exerciseName < obj2.exerciseName){
+                return -1;
+            }
+            return 0;
+        });
+    }; // sortedMap
+
     render() {
         if(!this.state.loaded){
             return <Loading/>
@@ -58,7 +70,9 @@ class Graph extends Component {
             return <ErrorComponent/>
         }
         else{
-            const graphs = this.state.graphData.map(graph => (
+
+            let graphData = this.sortedProgressionExerciseNames(this.state.graphData);
+            const graphs = graphData.map(graph => (
                     // Changed key from CreateGraph to div as div was first child, otherwise error was given.
                     <div className="graphs" key={graph._id}>
                         <CreateGraph graphData={graph}/>
