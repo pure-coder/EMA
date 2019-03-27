@@ -75,6 +75,7 @@ class Graph extends Component {
             const graphs = graphData.map(graph => (
                     // Changed key from CreateGraph to div as div was first child, otherwise error was given.
                     <div className="graphs" key={graph._id}>
+                        {console.log(graph)}
                         <CreateGraph graphData={graph}/>
                     </div>
                 )

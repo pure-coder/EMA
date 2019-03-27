@@ -19,7 +19,7 @@ class Dashboard extends Component {
         super(props);
         this.state = {
             id: this.props.authenticatedUser.user.id,
-            clients: {},
+            clients: props.authenticatedUser.clients,
             errors: {},
             location: this.props.location.pathname,
             loaded: false
@@ -42,6 +42,14 @@ class Dashboard extends Component {
     componentDidMount() {
         document.body.scrollTo(0,0);
         this.authCheck();
+        // pt get client data
+        if(this.props.authenticatedUser.user.pt){
+            this.props.getClients(this.state.id);
+        }
+        // else is client so set loaded to true, which calls clientData in render
+        else{
+            this.setState({loaded: true});
+        }
     } // ComponentDidMount
 
     componentDidUpdate(){
@@ -71,15 +79,11 @@ class Dashboard extends Component {
                 if (this.state.clients === undefined) {
                     return <Loading/>
                 }
-
-                // Get clients from pt client list via redux
-                let clients = this.state.clients;
-
                 // Define content to display.. in this case the list of clients
                 displayContent = (
                     // send clients data to client component, and render client component
                     <div className="container  dashboard-custom">
-                        <ClientList clients={clients}/>
+                        <ClientList clients={this.state.clients}/>
                     </div>
                 )
             } // If PT
