@@ -19,7 +19,7 @@ class Graph extends Component {
     }
 
     static getDerivedStateFromProps(props, state){
-        if(props.graphData !== state.graphData){
+        if(props.graphData === state.graphData){
             return {
                 graphData: props.graphData,
                 loaded: true,
@@ -51,7 +51,7 @@ class Graph extends Component {
     }
 
     render() {
-        if(this.state.loaded){
+        if(!this.state.loaded){
             return <Loading/>
         }
         if(isEmpty(this.props.authenticatedUser.user)){
