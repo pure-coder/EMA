@@ -51,10 +51,7 @@ class CreateGraph extends Component {
         // Graph is drawn here. Had to make sure className in return was rendered 1st before calling this function
         // as it needs it to append on too.
 
-        // Only draw graph if metrics length for an exercise is >= 2
-        if (metrics.length >= 2){
-            addGraph(metrics, '.' + exerciseToId, this.props.graphData.exerciseName, isUpdate);
-        }
+        addGraph(metrics, '.' + exerciseToId, this.props.graphData.exerciseName, isUpdate);
     }
 
     componentDidMount(){
