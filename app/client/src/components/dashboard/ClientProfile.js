@@ -8,6 +8,7 @@ import NewClientProgressForm from "./NewClientProgressForm";
 import Modal from 'react-awesome-modal';
 import isEmpty from '../../utilities/is_empty';
 import ErrorComponent from "../error/ErrorComponent";
+import Loading from "../../elements/Loading";
 
 // import FormInputGroup from "../common/FormInputGroup"; // Allows proper routing and linking using browsers match, location, and history properties
 
@@ -16,6 +17,7 @@ class ClientProfile extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            client_Progression: props.authenticatedUser.client_Progression,
             userId: props.authenticatedUser.user.id,
             // If user is pt then get clientId from otherwise user is client, so use user.id
             clientId: props.authenticatedUser.clientId !== undefined ? props.authenticatedUser.clientId : props.match.params.cid,
@@ -29,17 +31,23 @@ class ClientProfile extends Component {
         this.onClickAway = this.onClickAway.bind(this)
     }
 
+    static getDerivedStateFromProps(props, state){
+        if(props.authenticatedUser.client_Progression !== state.client_Progression){
+            return {
+                client_Progression: props.authenticatedUser.client_Progression,
+                loaded: true,
+            }
+        }
+        return null;
+    }
+
     // Life cycle method for react which will run when this component receives new properties
     componentDidMount() {
         document.body.scrollTo(0,0);
 
         this.authCheck();
+        this.getProgressForPage();
 
-        // If direct link used then get client progression data
-        if (this.state.loaded === false) {
-            this.getProgressForPage();
-            this.setState({loaded: true});
-        }
     } // did mount
 
     componentDidUpdate(){
@@ -49,7 +57,7 @@ class ClientProfile extends Component {
     componentWillUnmount(){
         // This got rid of the Date: null bug for now, need to find route cause!!!
         this.props.clearProgression();
-        //this.setState({loaded: false})
+        this.setState({loaded: false})
     }
 
     openModal() {
@@ -77,60 +85,61 @@ class ClientProfile extends Component {
     }
 
     render() {
-        console.log(this.props.authenticatedUser.user)
+        if(!this.state.loaded){
+            return <Loading/>
+        }
         if(isEmpty(this.props.authenticatedUser.user)){
-            console.log(this.props.authenticatedUser.user)
             return <ErrorComponent/>
         }
-
-        let clientProgressData = this.props.authenticatedUser.client_Progression;
-        let displayContent;
-
-        // If client has no data then display appropriate message, otherwise
-        if (isEmpty(clientProgressData)) {
-            displayContent = (
-                <h2 className="text-center text-info mt-5">No client progression data...</h2>
-            )
-        }
         else{
-            displayContent = (
-                <Graph2 graphData={clientProgressData}/>
-            )
-        }
+            let displayContent;
+            let clientProgressData = this.state.client_Progression;
 
-        return (
-            <div className="container client-profile">
-                <div className="row">
-                    <div className="m-auto col-1 graphs" id="graphs">
-                        <h2 className=" text-center display-5 mt-3 mb-4">Client progression data</h2>
-                        {/*Only display Add progress if user is a pt*/}
-                        {this.props.authenticatedUser.user.pt === true ?
-                            <div>
-                                <input id="progress-button" type="button" className="btn btn-success btn-block mt-4 mb-4" value="Add Progress"
-                                       onClick={this.openModal} />
-                            </div> : null
-                        }
-                        {/*Display the clients progression data*/}
-                        {displayContent}
+            // If client has no data then display appropriate message, otherwise
+            if (isEmpty(clientProgressData)) {
+                displayContent = (
+                    <h2 className="text-center text-info mt-5">No client progression data...</h2>
+                )
+            }
+            else{
+                displayContent = (
+                    <Graph2 graphData={clientProgressData}/>
+                )
+            }
+
+            return (
+                <div className="container client-profile">
+                    <div className="row">
+                        <div className="m-auto col-1 graphs" id="graphs">
+                            <h2 className=" text-center display-5 mt-3 mb-4">Client progression data</h2>
+                            {/*Only display Add progress if user is a pt*/}
+                            {this.props.authenticatedUser.user.pt === true ?
+                                <div>
+                                    <input id="progress-button" type="button" className="btn btn-success btn-block mt-4 mb-4" value="Add Progress"
+                                           onClick={this.openModal} />
+                                </div> : null
+                            }
+                            {/*Display the clients progression data*/}
+                            {displayContent}
+                        </div>
                     </div>
-                </div>
 
 
-                <Modal visible={this.state.visible} width="500" height="450" effect="fadeInUp"
-                       onClickAway={this.onClickAway}>
-                    <div>
-                        {/*Sending onClickAway into child component NewClientProgress allows the child to affect this parents state!!!
+                    <Modal visible={this.state.visible} width="500" height="450" effect="fadeInUp"
+                           onClickAway={this.onClickAway}>
+                        <div>
+                            {/*Sending onClickAway into child component NewClientProgress allows the child to affect this parents state!!!
                          Also sending modal visibility so fields and errors can be cleared when visibility is false.
                          Also sending getClientProgression so that the page can be updated once a new progress submission
                            has been successful.*/}
-                        <NewClientProgressForm onClickAway={this.onClickAway}
-                                           visible={this.state.visible}
-                        />
-                    </div>
-                </Modal>
-            </div>
-        );
-
+                            <NewClientProgressForm onClickAway={this.onClickAway}
+                                                   visible={this.state.visible}
+                            />
+                        </div>
+                    </Modal>
+                </div>
+            );
+        }
     }
 }
 

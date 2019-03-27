@@ -20,7 +20,6 @@ class ClientData extends Component {
     }
 
     static getDerivedStateFromProps(nextProps, state){
-        console.log(nextProps.errors !== state.errors)
         if(nextProps.errors !== state.errors){
             return {
                 errors: nextProps.errors,
