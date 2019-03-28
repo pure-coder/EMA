@@ -15,8 +15,7 @@ import {
 import setAuthorisationToken from '../utilities/setAuthorisationToken';
 import jwtDecode from 'jwt-decode';
 
-const expiredLogout = (err, dispatch, history) => {
-    console.log(err.response)
+const manageErrors = (err, dispatch, history) => {
     if(err.response.status === 401){
         dispatch({
             type: GET_ERRS,
@@ -28,6 +27,10 @@ const expiredLogout = (err, dispatch, history) => {
         dispatch(logOutUser());
         dispatch(setErrors({}));
         history.push('/re-login');
+    }
+    // If used direct url, and id doesn't exist send user to error page
+    else if (err.response.status === 400){
+        history.replace('/error_page');
     }
     else {
         dispatch({
@@ -135,7 +138,7 @@ export const registerClient =(Data, props, history) => (dispatch) => {
                 props.history.push('/login')
         }) // Uses history.push to direct the user) // Uses history.push to direct the user history.push('/login')
         .catch(err => {
-            expiredLogout(err, dispatch, history);
+            manageErrors(err, dispatch, history);
         });
 }; // registerClient
 
@@ -150,7 +153,7 @@ export const getClients = (ptId, history) => dispatch => {
             }
         )
         .catch(err => {
-            expiredLogout(err, dispatch, history);
+            manageErrors(err, dispatch, history);
         })
 };
 
@@ -173,7 +176,7 @@ export const deleteClient = (id, ptId, history) => dispatch => {
             }
         )
         .catch(err => {
-           expiredLogout(err, dispatch, history);
+           manageErrors(err, dispatch, history);
         })
 };
 
@@ -181,32 +184,26 @@ export const getClientData = (id, history) => dispatch => {
     axios
         .get(`/api/client/${id}`)
         .then(result => {
-            // If no data is returned (no data === string) then direct user to error page
-            if (typeof result.data === "string"){
-                history.replace('/error_page');
-            }
             dispatch({
                 type: GET_CLIENT_DATA,
                 payload: result.data
             })
-        }
-        )
+        })
         .catch(err => {
-            expiredLogout(err, dispatch, history);
+            manageErrors(err, dispatch, history);
         });
 };
 
 export const editClientData = (cid, data, history) => dispatch => {
     axios
         .put(`/api/edit_client/${cid}`, data)
-        .then(result => {
-            console.log(result)
+        .then(() => {
             // Go back to dashboard after successful update
-            //history.goBack();
+            history.goBack();
             }
         )
         .catch(err => {
-            expiredLogout(err, dispatch, history);
+            manageErrors(err, dispatch, history);
         })
 };
 
@@ -225,7 +222,7 @@ export const getPtData = (id, history) => dispatch => {
             }
         )
         .catch(err => {
-            expiredLogout(err, dispatch, history);
+            manageErrors(err, dispatch, history);
         })
 };
 
@@ -238,7 +235,7 @@ export const editPtData = (id, Data, history) => dispatch => {
             }
         )
         .catch(err => {
-            expiredLogout(err, dispatch, history);
+            manageErrors(err, dispatch, history);
         })
 };
 
@@ -267,7 +264,7 @@ export const getClientProgression = (userId, clientId, history) => dispatch => {
                 });
         })
         .catch(err => {
-            expiredLogout(err, dispatch, history);
+            manageErrors(err, dispatch, history);
         });
 };
 
@@ -292,7 +289,7 @@ export const newClientProgress = (id, cid ,data, history) => dispatch => {
             }
         })
         .catch(err => {
-            expiredLogout(err, dispatch,history);
+            manageErrors(err, dispatch,history);
         });
 };
 
@@ -302,7 +299,7 @@ export const deleteExercise =(uid, cid, data, history) => dispatch => {
             dispatch(getClientProgression(uid, cid, history));
         })
         .catch(err => {
-            expiredLogout(err, dispatch, history);
+            manageErrors(err, dispatch, history);
         });
 };
 

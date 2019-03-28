@@ -623,13 +623,13 @@ router.delete('/delete_client/:cid', passport.authenticate('pt_rule', {session: 
 
 }); // router post /delete_client
 
-// @route  GET api/client/:id
+// @route  GET api/client/:cid
 // @desc   get client data
 // @access private for PT's and client
-router.get('/client/:id', passport.authenticate('both_rule', {session: false}), (req, res) => {
-    let id = req.params.id;
+router.get('/client/:cid', passport.authenticate('both_rule', {session: false}), (req, res) => {
+    let cid = req.params.cid;
     // get client data
-    Client.findOne({_id: id})
+    Client.findOne({_id: cid})
         .then(client => {
                 if (client) {
                     let data = {};
@@ -643,12 +643,12 @@ router.get('/client/:id', passport.authenticate('both_rule', {session: false}), 
                 }
                 // if client is null
                 else {
-                    return res.json("No data for id: " + id)
+                    return res.status(400).json({error: `Client with id: ${cid} does not exist.`})
                 }
             }
         ) // then Client.findOne
-        .catch(err => {
-            return res.json("No data for id: " + err.stringValue)
+        .catch(() => {
+            return res.status(400).json({error: `Client with id: ${cid} does not exist.`})
         })
 
 });
