@@ -16,20 +16,12 @@ class EditClient extends Component {
             client_data: undefined,
             clientId: props.authenticatedUser.clientId !== undefined ? props.authenticatedUser.clientId : props.match.params.cid,
             userId: props.authenticatedUser.user.id,
-            FullName: props.authenticatedUser.client_data !== undefined ? props.authenticatedUser.client_data.FullName : "",
-            Email: '',
-            ContactNumber: '',
-            DateOfBirth: '',
-            Sex: '',
             Password: '',
             Password2: '',
             errors: {},
             location: this.props.location,
-            loaded: false
+            loaded: false,
         };
-
-        console.log(props.authenticatedUser.client_data);
-        console.log(this.state.client_data);
 
         this.props.getClientData(this.state.clientId, this.props.history);
 
@@ -63,10 +55,12 @@ class EditClient extends Component {
         this.props.setErrors({});
     }
 
+    // componentDidUpdate(){
+    //
+    // }
+
     // This captures what the user types and sets the specific input to the respective state variable
     onChange(event) {
-        // event.target.name is used instead of a specific named state (ie "event.target.FullName") as there is more then
-        // one, making it easier to capture all of them with this onChange function.
         this.setState({[event.target.name]: event.target.value});
     }
 
@@ -79,12 +73,12 @@ class EditClient extends Component {
         let errors = {...this.state.errors};
 
         const editData = {
-            FullName: this.state.FullName,
-            Email: this.state.Email,
-            ContactNumber: this.state.ContactNumber,
-            //ProfilePicUrl: this.state.ProfilePicUrl,
-            DateOfBirth: this.state.DateOfBirth,
-            Sex: this.state.Sex,
+            FullName: this.state.client_data.FullName,
+            Email: this.state.client_data.Email,
+            ContactNumber: this.state.client_data.ContactNumber,
+            //ProfilePicUrl: this.state.client_data.ProfilePicUrl,
+            DateOfBirth: this.state.client_data.DateOfBirth,
+            Sex: this.state.client_data.Sex,
             Password: this.state.Password,
             Password2: this.state.Password2
         };
@@ -102,7 +96,7 @@ class EditClient extends Component {
             this.props.setErrors(errors);
             return null;
         }
-        else if (this.state.Password !== this.state.Password2) {
+        else if (!(this.state.Password === this.state.Password2)) {
             errors.Password = "Passwords must match";
             errors.Password2 = "Passwords must match";
             this.props.passwordsMatchError(errors);
@@ -132,28 +126,29 @@ class EditClient extends Component {
                         <div className="row">
                             <div className="m-auto col-md-8">
                                 <h1 className=" text-center display-5">Edit Profile</h1>
-                                <form autoComplete="off" onSubmit={this.onSubmit}> {/* onSubmit used instead of normal action*/}
-                                    <input type="hidden" value="something"/>
+                                <form autoComplete="off" onSubmit={this.onSubmit}>
+                                    {/*// Deals with Chromes password auto complete*/}
+                                    <input type="password" style={{height: 0, width: 0, opacity: 0, padding: 0, border: "none"}}></input>
                                     <FormInputGroup
                                         name="FullName"
                                         placeholder="Full Name"
-                                        value={this.state.FullName}
+                                        value={this.state.client_data.FullName}
                                         type="text"
                                         onChange={this.onChange}
                                         error={errors.FullName}
                                     />
                                     <FormInputGroup
                                         name="Email"
-                                        placeholder={this.state.client_data.Email}
-                                        value={this.state.Email === "" ? this.props.authenticatedUser.client_data.Email : this.state.Email}
+                                        placeholder="Email"
+                                        value={this.state.client_data.Email}
                                         type="Email"
                                         onChange={this.onChange}
                                         error={errors.Email}
                                     />
                                     <FormInputGroup
                                         name="ContactNumber"
-                                        placeholder={this.state.client_data.ContactNumber}
-                                        value={this.state.ContactNumber === "" ? this.props.authenticatedUser.client_data.ContactNumber : this.state.ContactNumber}
+                                        placeholder="ContactNumber"
+                                        value={this.state.client_data.ContactNumber}
                                         type="text"
                                         onChange={this.onChange}
                                         error={errors.ContactNumber}
@@ -182,16 +177,16 @@ class EditClient extends Component {
                                     <FormInputGroup
                                         name="Password"
                                         placeholder="Enter Password"
-                                        value={this.state.password}
-                                        type="Password"
+                                        value={this.state.Password}
+                                        type="password"
                                         onChange={this.onChange}
                                         error={errors.Password}
                                     />
                                     <FormInputGroup
                                         name="Password2"
                                         placeholder="Confirm Password"
-                                        value={this.state.password2}
-                                        type="Password"
+                                        value={this.state.Password2}
+                                        type="password"
                                         onChange={this.onChange}
                                         error={errors.Password2}
                                     />
