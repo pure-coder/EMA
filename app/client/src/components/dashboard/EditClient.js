@@ -16,7 +16,7 @@ class EditClient extends Component {
             client_data: undefined,
             clientId: props.authenticatedUser.clientId !== undefined ? props.authenticatedUser.clientId : props.match.params.cid,
             userId: props.authenticatedUser.user.id,
-            FullName: '',
+            FullName: props.authenticatedUser.client_data !== undefined ? props.authenticatedUser.client_data.FullName : "",
             Email: '',
             ContactNumber: '',
             DateOfBirth: '',
@@ -27,6 +27,9 @@ class EditClient extends Component {
             location: this.props.location,
             loaded: false
         };
+
+        console.log(props.authenticatedUser.client_data);
+        console.log(this.state.client_data);
 
         this.props.getClientData(this.state.clientId, this.props.history);
 
@@ -54,6 +57,10 @@ class EditClient extends Component {
 
     componentDidMount() {
         document.body.scrollTo(0,0);
+    }
+
+    componentWillUnmount(){
+        this.props.setErrors({});
     }
 
     // This captures what the user types and sets the specific input to the respective state variable
@@ -129,8 +136,8 @@ class EditClient extends Component {
                                     <input type="hidden" value="something"/>
                                     <FormInputGroup
                                         name="FullName"
-                                        placeholder={this.state.client_data.FullName}
-                                        value={this.state.FullName === "" ? this.props.authenticatedUser.client_data.FullName : this.state.FullName}
+                                        placeholder="Full Name"
+                                        value={this.state.FullName}
                                         type="text"
                                         onChange={this.onChange}
                                         error={errors.FullName}
@@ -188,6 +195,7 @@ class EditClient extends Component {
                                         onChange={this.onChange}
                                         error={errors.Password2}
                                     />
+                                    <div className="text-danger">{errors.noData ? errors.noData : null}</div>
                                     <input type="submit" value="Update" className="btn btn-info btn-block mt-4"/>
                                     <button type="button" className="btn btn-danger btn-block mt-3 mb-3" onClick={this.props.history.goBack}>Back</button>
                                 </form>
