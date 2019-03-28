@@ -87,7 +87,6 @@ class EditClient extends Component {
         };
 
         for(let element in editData) {
-            // If an element has been modified (not empty) then the form can be sent
             if(!isEmpty(editData[element])){
                 dataChanged = true;
                 break;
@@ -121,8 +120,6 @@ class EditClient extends Component {
             return <ErrorComponent/>
         }
         else {
-            console.log(this.state.client_data.FullName)
-
             let {errors} = this.state;
             return (
                 <div className="edit_client">
