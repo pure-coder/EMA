@@ -24,13 +24,11 @@ class Register extends Component {
         this.onSubmit = this.onSubmit.bind(this);
     }
 
-    // Life cycle method for react which will run when this component receives new properties
-    componentWillReceiveProps(nextProps) {
-        // If property (nextProps) contains errors (contains the "errors" prop) then set the component state of errors
-        // defined in the constructor above to the errors that was sent to it via the dispatch call from
-        // authenicationActions.js
-        if(nextProps.errors){
-            this.setState({errors: nextProps.errors})
+    static getDerivedStateFromProps(props, state){
+        if(props.errors !== state.props){
+            return {
+                errors: props.errors
+            }
         }
     }
 
@@ -50,10 +48,6 @@ class Register extends Component {
             Password: this.state.Password,
             Password2: this.state.Password2
         };
-
-        // Calls the action/reducer loginUser with the user data as well
-        // as using the history function of withRouter for directing user to another link/route. (calls registerUser
-        // from actions/authenticationActions.js)
 
         // If no errors occur then register user
         this.props.registerUser(newUser, this.props.history);

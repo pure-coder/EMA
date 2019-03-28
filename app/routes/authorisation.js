@@ -13,8 +13,8 @@ const passport = require('passport');
 const {capitaliseFirstLetter} = require('../services/capitalise');
 
 
-const PersonalTrainer = require('../models/PersonalTrainer');
-const Client = require('../models/Clients');
+const {PersonalTrainer, Client} = require('../models/PersonalTrainer');
+//const Client = require('../models/Clients');
 const ActivationTokens = require('../models/AcitvationTokens');
 
 
@@ -209,13 +209,16 @@ router.post('/register', (req, res) => {
                                 newPT.Password = hash;
                                 // Save new Personal Trainer to the database
                                 newPT.save()
-                                    .then(PT => res.json(PT))
-                                    .catch(err => console.log(err));
+                                    .then(() => res.status(200).json())
+                                    .catch(err => {
+                                        console.log(err);
+                                        res.status(400).json("User could not be registered.")
+                                    });
                             })
                         })
                     }
-                })
-        })
+                }).catch(() => res.status(400).json());
+        }).catch(() => res.status(400).json());
 });
 
 // @route  POST api/new_client

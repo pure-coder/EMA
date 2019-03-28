@@ -9,7 +9,7 @@ const ClientSchema = new Schema({
     },
     Email: {
         // Trim and lowercase
-        type: String, index: {unique: true}, lowercase: true, trim: true,
+        type: String, lowercase: true, trim: true,
     },
     DateOfBirth: {
         type: Date, trim: true,
@@ -68,12 +68,12 @@ const PersonalTrainerSchema = new Schema({
     }
     ,
     ClientIDs: [
-        {type: Schema.Types.ObjectId, ref: 'clients', unique: true}
+        { type: Schema.Types.ObjectId, ref: 'client'}
     ]
     // collection value is the name of the collection that is stored in the database
 });
 
-const PersonalTrainers = mongoose.model('personalTrainers', PersonalTrainerSchema);
-const Clients = mongoose.model('clients', ClientSchema); //
+const PersonalTrainer = mongoose.model('personalTrainers', PersonalTrainerSchema);
+const Client = mongoose.model('clients', ClientSchema); //
 
-module.exports = PersonalTrainers;
+module.exports = {PersonalTrainer, Client};
