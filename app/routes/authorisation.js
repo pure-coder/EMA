@@ -13,10 +13,9 @@ const passport = require('passport');
 const {capitaliseFirstLetter} = require('../services/capitalise');
 
 
-const {PersonalTrainer, Client} = require('../models/PersonalTrainer');
-//const Client = require('../models/Clients');
+const PersonalTrainer = require('../models/PersonalTrainer');
+const Client = require('../models/Clients');
 const ActivationTokens = require('../models/AcitvationTokens');
-
 
 // Require verification functionality
 const verification = require('../validation/verification');

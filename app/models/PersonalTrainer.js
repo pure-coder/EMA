@@ -68,12 +68,11 @@ const PersonalTrainerSchema = new Schema({
     }
     ,
     ClientIDs: [
-        { type: Schema.Types.ObjectId, ref: 'client'}
+        { type: Schema.Types.ObjectId, ref: 'clients'}
     ]
     // collection value is the name of the collection that is stored in the database
 });
 
 const PersonalTrainer = mongoose.model('personalTrainers', PersonalTrainerSchema);
-const Client = mongoose.model('clients', ClientSchema); //
 
-module.exports = {PersonalTrainer, Client};
+module.exports = PersonalTrainer;

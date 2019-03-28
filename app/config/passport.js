@@ -3,7 +3,7 @@ const ExtractJWT = require('passport-jwt').ExtractJwt;
 // Mongoose is needed to find user that comes with the payload
 const mongoose = require('mongoose');
 const PT = mongoose.model('personalTrainers');
-const Client = mongoose.model('client');
+const Client = mongoose.model('clients');
 const keys = require('../config/db');
 
 const opts = {};
