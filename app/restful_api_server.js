@@ -13,6 +13,8 @@ const app = express();
 
 // require the routes
 const users = require('./routes/users');
+const authorisation = require('./routes/authorisation');
+const scheduler = require('./routes/scheduler');
 
 
 const log = require('./config/logger').logger;
@@ -47,6 +49,8 @@ require('./config/passport')(passport);
 
 // Use the routes that have been set up, this uses express route for our rest api (route.DELETE/GET/POST/PUT etc)
 app.use('/api/', users);
+app.use('/api/', authorisation);
+// app.use('/api/', scheduler);
 
 app.listen(port, () => {
     console.log('We are live on ' + port);

@@ -43,18 +43,10 @@ class RegisterClient extends Component {
 
     componentDidMount() {
         document.body.scrollTo(0,0);
-        // this.authCheck();
     }
 
     componentDidUpdate(){
-        // this.authCheck();
     }
-
-    // authCheck(){
-    //     if(this.state.errors.error_code === 401){
-    //         this.props.history.push('/re-login');
-    //     }
-    // }
 
     // This captures what the user types and sets the specific input to the respective state variable
     onChange(event) {
@@ -72,9 +64,6 @@ class RegisterClient extends Component {
             ContactNumber: this.state.ContactNumber
         };
 
-        // Calls the action/reducer loginUser with the user data as well
-        // as using the history function of withRouter for directing user to another link/route. (calls registerClient
-        // from actions/authenticationActions.js)
         this.props.registerClient(newUser , this.props, this.props.history);
     }
 

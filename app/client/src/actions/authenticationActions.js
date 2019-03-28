@@ -16,6 +16,7 @@ import setAuthorisationToken from '../utilities/setAuthorisationToken';
 import jwtDecode from 'jwt-decode';
 
 const manageErrors = (err, dispatch, history) => {
+    console.log(err.response)
     if(err.response.status === 401){
         dispatch({
             type: GET_ERRS,
@@ -28,8 +29,8 @@ const manageErrors = (err, dispatch, history) => {
         dispatch(setErrors({}));
         history.push('/re-login');
     }
-    // If used direct url, and id doesn't exist send user to error page
-    else if (err.response.status === 400){
+    // If used direct url, and id doesn't exist send user to error page (404 - Not Found)
+    else if (err.response.status === 404){
         history.replace('/error_page');
     }
     else {
@@ -132,10 +133,11 @@ export const registerClient =(Data, props, history) => (dispatch) => {
     // Post user data to the API specifically the user/register route
     axios
         .post('/api/new_client', Data)
-        .then(response => {
-            // If registering was successful (having status code of 200) then redirect user to login page
-            if (response.status === 200)
-                props.history.push('/login')
+        .then(result => {
+            if(result.status === 200){
+                console.log(result)
+                dispatch(setSuccess("Client added successfully."));
+            }
         }) // Uses history.push to direct the user) // Uses history.push to direct the user history.push('/login')
         .catch(err => {
             manageErrors(err, dispatch, history);
