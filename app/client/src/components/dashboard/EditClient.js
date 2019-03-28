@@ -16,6 +16,9 @@ class EditClient extends Component {
             client_data: undefined,
             clientId: props.authenticatedUser.clientId !== undefined ? props.authenticatedUser.clientId : props.match.params.cid,
             userId: props.authenticatedUser.user.id,
+            FullName: '',
+            Email: '',
+            ContactNumber: '',
             Password: '',
             Password2: '',
             errors: {},
@@ -73,12 +76,12 @@ class EditClient extends Component {
         let errors = {...this.state.errors};
 
         const editData = {
-            FullName: this.state.client_data.FullName,
-            Email: this.state.client_data.Email,
-            ContactNumber: this.state.client_data.ContactNumber,
-            //ProfilePicUrl: this.state.client_data.ProfilePicUrl,
-            DateOfBirth: this.state.client_data.DateOfBirth,
-            Sex: this.state.client_data.Sex,
+            FullName: this.state.FullName,
+            Email: this.state.Email,
+            ContactNumber: this.state.ContactNumber,
+            //ProfilePicUrl: this.state.ProfilePicUrl,
+            DateOfBirth: this.state.DateOfBirth,
+            Sex: this.state.Sex,
             Password: this.state.Password,
             Password2: this.state.Password2
         };
@@ -118,6 +121,7 @@ class EditClient extends Component {
             return <ErrorComponent/>
         }
         else {
+            console.log(this.state.client_data.FullName)
 
             let {errors} = this.state;
             return (
@@ -131,8 +135,8 @@ class EditClient extends Component {
                                     <input type="password" style={{height: 0, width: 0, opacity: 0, padding: 0, border: "none"}}></input>
                                     <FormInputGroup
                                         name="FullName"
-                                        placeholder="Full Name"
-                                        value={this.state.client_data.FullName}
+                                        placeholder={this.state.client_data.FullName}
+                                        value={this.state.FullName === '' ? this.state.client_data.FullName : this.state.FullName}
                                         type="text"
                                         onChange={this.onChange}
                                         error={errors.FullName}
@@ -140,7 +144,7 @@ class EditClient extends Component {
                                     <FormInputGroup
                                         name="Email"
                                         placeholder="Email"
-                                        value={this.state.client_data.Email}
+                                        value={this.state.Email === '' ? this.state.client_data.Email : this.state.Email}
                                         type="Email"
                                         onChange={this.onChange}
                                         error={errors.Email}
@@ -148,7 +152,7 @@ class EditClient extends Component {
                                     <FormInputGroup
                                         name="ContactNumber"
                                         placeholder="ContactNumber"
-                                        value={this.state.client_data.ContactNumber}
+                                        value={this.state.ContactNumber === '' ? this.state.client_data.ContactNumber : this.state.ContactNumber}
                                         type="text"
                                         onChange={this.onChange}
                                         error={errors.ContactNumber}

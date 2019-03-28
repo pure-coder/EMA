@@ -13,16 +13,23 @@ class ClientData extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            id: this.props.authenticatedUser.user.id,
+            id: props.authenticatedUser.user.id,
+            authenticatedUser: props.authenticatedUser,
             errors: {},
             loaded: false
         }
     }
 
-    static getDerivedStateFromProps(nextProps, state){
-        if(nextProps.errors !== state.errors){
+    static getDerivedStateFromProps(props, state){
+        if(props.authenticatedUser !== state.authenticatedUser){
             return {
-                errors: nextProps.errors,
+                authenticatedUser: props.authenticatedUser,
+                loaded: true
+            }
+        }
+        if(props.errors !== state.errors){
+            return {
+                errors: props.errors,
                 loaded: true
             }
         }
@@ -31,18 +38,11 @@ class ClientData extends Component {
 
     componentDidMount(){
         document.body.scrollTo(0,0);
-        // this.authCheck();
     }
 
     componentDidUpdate(){
-        // this.authCheck();
     }
 
-    // authCheck(){
-    //     if(this.state.errors.error_code === 401){
-    //         this.props.history.push('/re-login');
-    //     }
-    // }
 
     onProfileClick(id){
         this.props.saveClientId(id, this.props.history);
@@ -62,7 +62,7 @@ class ClientData extends Component {
         if(!this.state.loaded){
             return <Loading/>;
         }
-        if(isEmpty(this.props.authenticatedUser.user)){
+        if(isEmpty(this.state.authenticatedUser.user)){
             return <ErrorComponent/>
         }
         else {
@@ -72,7 +72,7 @@ class ClientData extends Component {
                         <h1 className=" text-center display-5">Dashboard</h1>
                         <div>
                             <div>
-                                <h3 className="mt-5 mb-4">{this.props.authenticatedUser.user.name}</h3>
+                                <h3 className="mt-5 mb-4">{this.state.authenticatedUser.user.name}</h3>
                                 <table className="table client-table">
                                     <thead>
                                     <tr>
