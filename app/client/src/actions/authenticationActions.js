@@ -167,11 +167,14 @@ export const setPtClients = (data) => {
 export const deleteClient = (id, ptId, history) => dispatch => {
     axios
         .delete(`/api/delete_client/${id}`)
-        .then(() => {
-                // causes refresh of dashboard with updated client list
+        .then(result => {
+            // causes refresh of dashboard with updated client list
+            console.log(result)
+            if(result.status === 200) {
                 dispatch(getClients(ptId, history))
+                dispatch(setSuccess("Client deleted successfully."))
             }
-        )
+        })
         .catch(err => {
            manageErrors(err, dispatch, history);
         })
@@ -274,7 +277,6 @@ export const clearProgression = () => dispatch => {
 export const newClientProgress = (id, cid ,data, history) => dispatch => {
     axios.post(`/api/${id}/client_progression/${cid}`, data)
         .then(result => {
-            console.log("client_p", result);
             // If successful then clear error messages and send success message
             if(result.data.n === 1 && result.data.nModified === 1){
                 dispatch({

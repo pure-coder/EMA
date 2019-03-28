@@ -17,6 +17,7 @@ class RegisterClient extends Component {
             Email: '',
             ContactNumber: '',
             errors: {},
+            success: undefined,
             loaded: false
         };
 
@@ -30,8 +31,10 @@ class RegisterClient extends Component {
     // Populate state data with data from the database for the pt
     static getDerivedStateFromProps(props, state) {
         if (props !== state) {
+            console.log(state.success)
             return {
                 errors: props.errors,
+                success: props.success,
                 loaded: true
             }
         }
@@ -110,6 +113,7 @@ class RegisterClient extends Component {
                                         onChange={this.onChange}
                                         error={errors.ContactNumber}
                                     />
+                                    <div className="text-success">{this.state.success !== undefined ? this.state.success.msg: null}</div>
                                     <input type="submit" className="btn btn-info btn-block mt-4"/>
                                     <button type="button" className="btn btn-danger btn-block mt-3 mb-3"
                                             onClick={this.props.history.goBack}>Back
@@ -134,7 +138,8 @@ RegisterClient.propTypes = {
 // Used to pull auth state and errors into this component.... DEFINED IN reducers/index.js {combineReducers}
 const stateToProps = (state) => ({
     authenticatedUser: state.authenticatedUser,
-    errors: state.errors
+    errors: state.errors,
+    success: state.success
 });
 
 // connect must be exported with a passed parameter (not direct parameter) of Register this is wrapped with withRouter
