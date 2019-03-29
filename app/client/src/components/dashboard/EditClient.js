@@ -27,6 +27,7 @@ class EditClient extends Component {
             location: this.props.location,
             success: {},
             loaded: false,
+            message: null, // Set to null so null is returned from SuccessOrError by default
         };
 
         this.props.getClientData(this.state.clientId, this.props.history);
@@ -76,6 +77,7 @@ class EditClient extends Component {
 
     onSubmit(event) {
         event.preventDefault();
+        this.setState({message: null}); // reset to null
 
         // Check if any data has been changed, don't want to waste server load and bandwidth on empty requests
         let dataChanged = false;
@@ -102,8 +104,7 @@ class EditClient extends Component {
         }
 
         if (!dataChanged){
-            this.setState({success: {}});
-            errors.noData = "No data has been modified!";
+            this.setState({message: "No data has been modified!"});
             this.props.setErrors(errors);
             return null;
         }
@@ -121,6 +122,7 @@ class EditClient extends Component {
                 ContactNumber: '',
                 Password: '',
                 Password2: '',
+                message: "Client profile has been updated."
             });
             this.props.editClientData(this.state.clientId, editData, this.props.history);
             // Clear password match errors
@@ -137,7 +139,7 @@ class EditClient extends Component {
             return <ErrorComponent/>
         }
         else {
-            let {errors, success} = this.state;
+            let {errors, message} = this.state;
             return (
                 <div className="edit_client">
                     <div className="container  edit_client-custom">
@@ -208,7 +210,7 @@ class EditClient extends Component {
                                         onChange={this.onChange}
                                         error={errors.Password2}
                                     />
-                                    <SuccessOrError isSuccess={null} msg={"something"}/>
+                                    <SuccessOrError msg={message}/>
                                     <input type="submit" value="Update" className="btn btn-info btn-block mt-4"/>
                                     <button type="button" className="btn btn-danger btn-block mt-3 mb-3" onClick={this.props.history.goBack}>Back</button>
                                 </form>

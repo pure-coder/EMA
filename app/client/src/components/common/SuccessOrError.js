@@ -6,12 +6,13 @@ import React from 'react';
  function SuccessOrError (props) {
 
     // Only two options (true and false) with default being null
-    const isSuccess = props.isSuccess;
-    if (isSuccess === true) {
-        return  <div className="text-success"> {props.msg} </div>
+    const msg = props.msg;
+    console.log(msg);
+    if (msg === "Client profile has been updated.") {
+        return  <div className="text-success"> {msg} </div>
     }
-    if (isSuccess === false) {
-        return  <div className="text-danger"> {props.msg} </div>
+    if (msg === "No data has been modified!") {
+        return  <div className="text-danger"> {msg} </div>
     }
     return null;
 };
