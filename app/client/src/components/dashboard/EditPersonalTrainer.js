@@ -1,7 +1,7 @@
 import React, {Component} from 'react';  // Used to create this component
 import PropTypes from 'prop-types'; // Used to document prop types sent to components
 import {connect} from 'react-redux' // Needed when using redux inside a component (connects redux to this component)
-import {getPtData,  editPtData, passwordsMatchError} from "../../actions/authenticationActions"; // Used to import create action for getting pt data and editing pt data
+import {getPtData,  editPtData, passwordsMatchError, setErrors} from "../../actions/authenticationActions"; // Used to import create action for getting pt data and editing pt data
 import {withRouter} from 'react-router-dom';
 import FormInputGroup from "../common/FormInputGroup";
 import Loading from "../../elements/Loading";
@@ -13,6 +13,7 @@ class EditPersonalTrainer extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            pt_data: undefined,
             FullName: '',
             Email: '',
             DateOfBirth: '',
@@ -21,9 +22,12 @@ class EditPersonalTrainer extends Component {
             Password2: '',
             ptId: props.authenticatedUser.user.id,
             errors: {},
+            success: undefined,
             location: this.props.location,
             loaded: false
         };
+
+        this.props.getPtData(this.state.ptId, this.props.history);
 
         // This sets the state value to it's respective state (via binding)
         this.onChange = this.onChange.bind(this);
@@ -41,6 +45,11 @@ class EditPersonalTrainer extends Component {
                 loaded: true
             }
         }
+        if(props.success !== state.success){
+            return {
+                success: props.success,
+            }
+        }
         if (props.errors !== state.errors) {
             return {errors: props.errors}
         }
@@ -49,23 +58,24 @@ class EditPersonalTrainer extends Component {
 
     componentDidMount() {
         document.body.scrollTo(0,0);
-        // this.authCheck();
-        this.props.getPtData(this.state.ptId, this.props.history);
     }
 
-    componentDidUpdate(){
-        // this.authCheck();
+    componentWillUnmount(){
+        this.props.setErrors({});
     }
 
     // This captures what the user types and sets the specific input to the respective state variable
     onChange(event) {
-        // event.target.name is used instead of a specific named state (ie "event.target.FullName") as there is more then
-        // one, making it easier to capture all of them with this onChange function.
         this.setState({[event.target.name]: event.target.value});
     }
 
     onSubmit(event) {
         event.preventDefault();
+
+        // Check if any data has been changed, don't want to waste server load and bandwidth on empty requests
+        let dataChanged = false;
+        // Set errors using spread operator on nested state (only calls setState once)
+        let errors = {...this.state.errors};
 
         const editData = {
             FullName: this.state.FullName,
@@ -76,29 +86,31 @@ class EditPersonalTrainer extends Component {
             Password2: this.state.Password2
         };
 
-        if (this.state.Password === this.state.Password2) {
-            this.props.editPtData(this.props.match.params.uid, editData, this.props.history);
-            // if passwords match
-            this.props.passwordsMatchError({errors: {}})
+        for(let element in editData) {
+            if(!isEmpty(editData[element])){
+                dataChanged = true;
+                break;
+            }
         }
-        else {
-            // Set state with separate calls on nested state
-            // this.setState({errors: {Password: "Passwords must match"}});
-            // this.setState({errors: {Password2: "Passwords must match"}});
 
-            // // Set errors using spread operator on nested state (only calls setState once)
-            let errors = {...this.state.errors};
+
+        if (!dataChanged){
+            errors.noData = "No data has been modified!";
+            this.props.setErrors(errors);
+            return null;
+        }
+        else if (!(this.state.Password === this.state.Password2)) {
             errors.Password = "Passwords must match";
             errors.Password2 = "Passwords must match";
             this.props.passwordsMatchError(errors);
+            return null;
+        }
+        else {
+            this.props.editPtData(this.state.ptId, editData, this.props.history);
+            // Clear password match errors
+            this.props.setErrors({})
         }
     }
-
-    // authCheck(){
-    //     if(this.state.errors.error_code === 401){
-    //         this.props.history.push('/re-login');
-    //     }
-    // }
 
     render() {
         // if loaded is false then return loading screen
@@ -116,11 +128,13 @@ class EditPersonalTrainer extends Component {
                         <div className="row">
                             <div className="m-auto col-md-8">
                                 <h1 className=" text-center display-5">Edit Profile</h1>
-                                <form onSubmit={this.onSubmit}> {/* onSubmit used instead of normal action*/}
+                                <form autoComplete="off" onSubmit={this.onSubmit}>
+                                    {/*// Deals with Chromes password auto complete*/}
+                                    <input type="password" style={{height: 0, width: 0, opacity: 0, padding: 0, border: "none"}}></input>
                                     <FormInputGroup
                                         name="FullName"
                                         placeholder={this.state.pt_data.FullName}
-                                        value={this.state.FullName}
+                                        value={this.state.FullName === '' ? this.state.pt_data.FullName : this.state.FullName}
                                         type="text"
                                         onChange={this.onChange}
                                         error={errors.FullName}
@@ -128,7 +142,7 @@ class EditPersonalTrainer extends Component {
                                     <FormInputGroup
                                         name="Email"
                                         placeholder={this.state.pt_data.Email}
-                                        value={this.state.Email}
+                                        value={this.state.Email === '' ? this.state.pt_data.Email : this.state.Email}
                                         type="Email"
                                         onChange={this.onChange}
                                         error={errors.Email}
@@ -170,6 +184,7 @@ class EditPersonalTrainer extends Component {
                                         onChange={this.onChange}
                                         error={errors.Password2}
                                     />
+                                    <div className="text-danger">{errors.noData ? errors.noData : null}</div>
                                     <input type="submit" value="Update" className="btn btn-info btn-block mt-4"/>
                                     <button type="button" className="btn btn-danger btn-block mt-3 mb-3" onClick={this.props.history.goBack}>Back</button>
                                 </form>
@@ -185,15 +200,17 @@ class EditPersonalTrainer extends Component {
 // Documents what props are needed for this component and will log a warning in the console in dev mode if not complied to
 EditPersonalTrainer.propTypes = {
     getPtData: PropTypes.func.isRequired,
+    setErrors: PropTypes.func.isRequired,
     passwordsMatchError: PropTypes.func.isRequired,
     authenticatedUser: PropTypes.object.isRequired,
-    //errors: PropTypes.object.isRequired
+    errors: PropTypes.object.isRequired
 };
 
 // Used to pull auth state and errors into this component.... DEFINED IN reducers/index.js {combineReducers}
 const stateToProps = (state) => ({
     authenticatedUser: state.authenticatedUser,
-    errors: state.errors
+    errors: state.errors,
+    success: state.success
 });
 
-export default connect(stateToProps, {getPtData, editPtData, passwordsMatchError})(withRouter(EditPersonalTrainer));
+export default connect(stateToProps, {getPtData, editPtData, passwordsMatchError, setErrors})(withRouter(EditPersonalTrainer));

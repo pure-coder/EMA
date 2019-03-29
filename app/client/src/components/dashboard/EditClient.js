@@ -23,6 +23,7 @@ class EditClient extends Component {
             Password2: '',
             errors: {},
             location: this.props.location,
+            success: undefined,
             loaded: false,
         };
 
@@ -40,8 +41,14 @@ class EditClient extends Component {
         if (props.authenticatedUser.client_data !== state.client_data) {
             return {
                 client_data: props.authenticatedUser.client_data,
+                success: props.success,
                 errors: props.errors,
                 loaded: true
+            }
+        }
+        if(props.success !== state.success){
+            return {
+                success: props.success
             }
         }
         if (props.errors !== state.errors) {
@@ -57,10 +64,6 @@ class EditClient extends Component {
     componentWillUnmount(){
         this.props.setErrors({});
     }
-
-    // componentDidUpdate(){
-    //
-    // }
 
     // This captures what the user types and sets the specific input to the respective state variable
     onChange(event) {
@@ -191,6 +194,7 @@ class EditClient extends Component {
                                         onChange={this.onChange}
                                         error={errors.Password2}
                                     />
+                                    <div className="text-success">{this.state.success !== undefined ? this.state.success.msg : null}</div>
                                     <div className="text-danger">{errors.noData ? errors.noData : null}</div>
                                     <input type="submit" value="Update" className="btn btn-info btn-block mt-4"/>
                                     <button type="button" className="btn btn-danger btn-block mt-3 mb-3" onClick={this.props.history.goBack}>Back</button>
@@ -216,7 +220,8 @@ EditClient.propTypes = {
 // Used to pull auth state and errors into this component.... DEFINED IN reducers/index.js {combineReducers}
 const stateToProps = (state) => ({
     authenticatedUser: state.authenticatedUser,
-    errors: state.errors
+    errors: state.errors,
+    success: state.success
 });
 
 export default connect(stateToProps, {getClientData, editClientData, passwordsMatchError, setErrors})(withRouter(EditClient));

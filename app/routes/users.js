@@ -5,7 +5,7 @@ const router = express();
 const bcrypt = require('bcryptjs');
 /* require passport*/
 const passport = require('passport');
-const capitaliseFirstLetter = require('../services/capitalise');
+const {capitaliseFirstLetter} = require('../services/capitalise');
 
 
 // Require Input validation for editing client profile
@@ -184,7 +184,7 @@ router.put('/edit_client/:cid', passport.authenticate('both_rule', {session: fal
                 Client.findByIdAndUpdate(clientId, updateClient, {new: true})
                     .then(result => {
                         if(result) {
-                            return res.json(result)
+                            return res.status(200).json(result)
                         }
                         return res.status(404).json({err: "Client does not exist!"})
                     })

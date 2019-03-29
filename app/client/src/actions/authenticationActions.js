@@ -169,10 +169,9 @@ export const deleteClient = (id, ptId, history) => dispatch => {
         .delete(`/api/delete_client/${id}`)
         .then(result => {
             // causes refresh of dashboard with updated client list
-            console.log(result)
             if(result.status === 200) {
-                dispatch(getClients(ptId, history))
-                dispatch(setSuccess("Client deleted successfully."))
+                dispatch(getClients(ptId, history));
+                dispatch(setSuccess("Client deleted successfully."));
             }
         })
         .catch(err => {
@@ -197,11 +196,11 @@ export const getClientData = (id, history) => dispatch => {
 export const editClientData = (cid, data, history) => dispatch => {
     axios
         .put(`/api/edit_client/${cid}`, data)
-        .then(() => {
-            // Go back to dashboard after successful update
-            history.goBack();
+        .then(result => {
+            if(result.status === 200){
+                dispatch(setSuccess("Client data successfully updated."))
             }
-        )
+        })
         .catch(err => {
             manageErrors(err, dispatch, history);
         })
