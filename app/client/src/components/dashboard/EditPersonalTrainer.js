@@ -8,6 +8,8 @@ import Loading from "../../elements/Loading";
 import isEmpty from "../../utilities/is_empty";
 import ErrorComponent from "../error/ErrorComponent"; // Allows proper routing and linking using browsers match, location, and history properties
 
+import DisplayMessage from '../common/DisplayMessage';
+
 class EditPersonalTrainer extends Component {
     // This allows the component states to be updated and re-rendered
     constructor(props) {
@@ -24,7 +26,10 @@ class EditPersonalTrainer extends Component {
             errors: {},
             success: {},
             location: this.props.location,
-            loaded: false
+            loaded: false,
+            message: {
+                type: null
+            } // Set to null so null is returned from DisplayMessage by default
         };
 
         this.props.getPtData(this.state.ptId, this.props.history);
@@ -70,6 +75,7 @@ class EditPersonalTrainer extends Component {
 
     onSubmit(event) {
         event.preventDefault();
+        this.setState({message: {type: null}}); // reset to null
 
         // Check if any data has been changed, don't want to waste server load and bandwidth on empty requests
         let dataChanged = false;
@@ -92,10 +98,17 @@ class EditPersonalTrainer extends Component {
             }
         }
 
+        let message;
+        let merge;
 
         if (!dataChanged){
-            this.setState({success: {}});
-            errors.noData = "No data has been modified!";
+            message = {
+                type: "error",
+                msg: "No data has been modified!"
+            }
+
+            merge = Object.assign(this.state.message, message);
+            this.setState({message: merge})
             this.props.setErrors(errors);
             return null;
         }
@@ -106,6 +119,13 @@ class EditPersonalTrainer extends Component {
             return null;
         }
         else {
+            message = {
+                type: "success",
+                msg: "Personal Trainer profile has been updated."
+            }
+
+            merge = Object.assign(this.state.message, message);
+
             // Reset state field to empty for error messages
             this.setState({
                 FullName: '',
@@ -114,10 +134,11 @@ class EditPersonalTrainer extends Component {
                 Sex: '',
                 Password: '',
                 Password2: '',
+                message: merge
             });
             this.props.editPtData(this.state.ptId, editData, this.props.history);
             // Clear password match errors
-            this.props.setErrors({})
+            this.props.setErrors()
         }
     }
 
@@ -130,16 +151,7 @@ class EditPersonalTrainer extends Component {
             return <ErrorComponent/>
         }
         else{
-            const {errors, success} = this.state; // This allows errors to be pulled out of this.state without pulling them out directly
-            let displayErrors;
-
-            if(!isEmpty(success)){
-                displayErrors = <div className="text-success"> {success.msg} </div>;
-            }
-
-            if(!isEmpty(errors)){
-                displayErrors = <div className="text-danger"> {errors.noData} </div>;
-            }
+            const {errors, message} = this.state; // This allows errors to be pulled out of this.state without pulling them out directly
 
             return (
                 <div className="edit_client">
@@ -203,7 +215,7 @@ class EditPersonalTrainer extends Component {
                                         onChange={this.onChange}
                                         error={errors.Password2}
                                     />
-                                    {displayErrors}
+                                    <DisplayMessage message={message}/>
                                     <input type="submit" value="Update" className="btn btn-info btn-block mt-4"/>
                                     <button type="button" className="btn btn-danger btn-block mt-3 mb-3" onClick={this.props.history.goBack}>Back</button>
                                 </form>

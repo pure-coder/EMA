@@ -8,7 +8,7 @@ import Loading from "../../elements/Loading";
 import isEmpty from "../../utilities/is_empty";
 import ErrorComponent from "../error/ErrorComponent"; // Allows proper routing and linking using browsers match, location, and history properties
 
-import SuccessOrError from '../common/SuccessOrError';
+import DisplayMessage from '../common/DisplayMessage';
 
 class EditClient extends Component {
     // This allows the component states to be updated and re-rendered
@@ -27,7 +27,9 @@ class EditClient extends Component {
             location: this.props.location,
             success: {},
             loaded: false,
-            message: null, // Set to null so null is returned from SuccessOrError by default
+            message: {
+                type: null
+            } // Set to null so null is returned from DisplayMessage by default
         };
 
         this.props.getClientData(this.state.clientId, this.props.history);
@@ -77,7 +79,7 @@ class EditClient extends Component {
 
     onSubmit(event) {
         event.preventDefault();
-        this.setState({message: null}); // reset to null
+        this.setState({message: {type: null}}); // reset to null
 
         // Check if any data has been changed, don't want to waste server load and bandwidth on empty requests
         let dataChanged = false;
@@ -103,8 +105,17 @@ class EditClient extends Component {
             }
         }
 
+        let message;
+        let merge;
+
         if (!dataChanged){
-            this.setState({message: "No data has been modified!"});
+            message = {
+                type: "error",
+                msg: "No data has been modified!"
+            }
+
+            merge = Object.assign(this.state.message, message);
+            this.setState({message: merge})
             this.props.setErrors(errors);
             return null;
         }
@@ -115,6 +126,13 @@ class EditClient extends Component {
             return null;
         }
         else {
+            message = {
+                type: "success",
+                msg: "Client profile has been updated."
+            }
+
+            merge = Object.assign(this.state.message, message);
+
             // reset state fields to empty for error messages
             this.setState({
                 FullName: '',
@@ -122,7 +140,7 @@ class EditClient extends Component {
                 ContactNumber: '',
                 Password: '',
                 Password2: '',
-                message: "Client profile has been updated."
+                message: merge
             });
             this.props.editClientData(this.state.clientId, editData, this.props.history);
             // Clear password match errors
@@ -210,7 +228,7 @@ class EditClient extends Component {
                                         onChange={this.onChange}
                                         error={errors.Password2}
                                     />
-                                    <SuccessOrError msg={message}/>
+                                    <DisplayMessage message={message}/>
                                     <input type="submit" value="Update" className="btn btn-info btn-block mt-4"/>
                                     <button type="button" className="btn btn-danger btn-block mt-3 mb-3" onClick={this.props.history.goBack}>Back</button>
                                 </form>
