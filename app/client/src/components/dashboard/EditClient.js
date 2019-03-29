@@ -8,6 +8,8 @@ import Loading from "../../elements/Loading";
 import isEmpty from "../../utilities/is_empty";
 import ErrorComponent from "../error/ErrorComponent"; // Allows proper routing and linking using browsers match, location, and history properties
 
+import SuccessOrError from '../common/SuccessOrError';
+
 class EditClient extends Component {
     // This allows the component states to be updated and re-rendered
     constructor(props) {
@@ -63,8 +65,8 @@ class EditClient extends Component {
     }
 
     componentWillUnmount(){
-        this.props.setErrors({});
-        this.props.setSuccess({});
+        this.props.setErrors();
+        this.props.setSuccess();
     }
 
     // This captures what the user types and sets the specific input to the respective state variable
@@ -100,7 +102,7 @@ class EditClient extends Component {
         }
 
         if (!dataChanged){
-            this.setState({success: {}})
+            this.setState({success: {}});
             errors.noData = "No data has been modified!";
             this.props.setErrors(errors);
             return null;
@@ -122,7 +124,7 @@ class EditClient extends Component {
             });
             this.props.editClientData(this.state.clientId, editData, this.props.history);
             // Clear password match errors
-            this.props.setErrors({})
+            this.props.setErrors();
         }
     }
 
@@ -136,16 +138,6 @@ class EditClient extends Component {
         }
         else {
             let {errors, success} = this.state;
-
-            let displayErrors;
-
-            if(!isEmpty(success)){
-                displayErrors = <div className="text-success"> {success.msg} </div>;
-            }
-            else if(!isEmpty(errors)){
-                displayErrors = <div className="text-danger"> {errors.noData} </div>;
-            }
-
             return (
                 <div className="edit_client">
                     <div className="container  edit_client-custom">
@@ -216,7 +208,7 @@ class EditClient extends Component {
                                         onChange={this.onChange}
                                         error={errors.Password2}
                                     />
-                                    {displayErrors}
+                                    <SuccessOrError isSuccess={null} msg={"something"}/>
                                     <input type="submit" value="Update" className="btn btn-info btn-block mt-4"/>
                                     <button type="button" className="btn btn-danger btn-block mt-3 mb-3" onClick={this.props.history.goBack}>Back</button>
                                 </form>
