@@ -189,13 +189,13 @@ router.put('/edit_client/:cid', passport.authenticate('both_rule', {session: fal
                         return res.status(404).json({err: "Client does not exist!"})
                     })
                     .catch(err => {
-                        return res.json(err)
+                        return res.status(400).json(err)
                     });
             }).catch(err => {
-                return res.json(err)
+                return res.status(400).json(err)
             });
         }).catch(err => {
-            return res.json(err)
+            return res.status(400).json(err)
         });
     }
     else {
@@ -208,11 +208,9 @@ router.put('/edit_client/:cid', passport.authenticate('both_rule', {session: fal
                 return res.status(400).json({error: "Client does not exist!"});
             })
             .catch(err => {
-                return res.json(err)
+                return res.status(400).json(err)
             });
     }
-
-
 }); // PUT /edit_client/:id
 
 // @route  GET api/personal_trainer/:id
@@ -250,24 +248,31 @@ router.get('/personal_trainer/:id', passport.authenticate('pt_rule', {session: f
 router.put('/edit_personal_trainer/:id', passport.authenticate('pt_rule', {session: false}, null), (req, res) => {
     // Set up validation checking for every field that has been posted
     const ptId = req.params.id;
+    const data = req.body;
 
     let updatePt = {};
-    // Enter data into updateClient only if the value of req.body is not undefined or an empty string
-    for (let value in req.body) {
-        if (req.body[value] !== '' && req.body[value] !== undefined) {
-            // Capitalise first name if not alread done
-            if (req.body.FullName) {
-                req.body.FullName = capitaliseFirstLetter(req.body.FullName);
+    // Checked on pt if empty, but make sure!!
+    // Enter data into updatePt only if the value of req.body is not undefined or an empty string
+    for (let value in data) {
+        if (!isEmpty(data[value]) && data[value] !== undefined) {
+            // Capitalise first name if not already done
+            if (data.FullName) {
+                data.FullName = capitaliseFirstLetter(data.FullName);
             }
-            updatePt[value] = req.body[value];
+            updatePt[value] = data[value];
         }
     } // for value in req.body
 
-    const {errors, isValid} = validateEditClientInput(updatePt);
-
-    // Check validation (so if it isn't valid give 400 error and message of error, status(400) makes sure the response is caught and not successful for authenticationAction editClientData
-    if (!isValid) {
-        return res.status(400).json(errors);
+    // If array isn't empty then check data given
+    if(!isEmpty(updatePt)) {
+        const {errors, isValid} = validateEditClientInput(updatePt);
+        // Check validation (so if it isn't valid give 400 error and message of error, status(400) makes sure the response is caught and not successful for authenticationAction editClientData
+        if (!isValid) {
+            return res.status(400).json(errors);
+        }
+    }
+    else{
+        return res.status(400).json({error : "No data sent to server!"})
     }
 
     // If it exists as the for loop above checked if password was null or undefined, hash the password and update client profile if password doesn't exist update profile without hashing non existent password
@@ -283,31 +288,34 @@ router.put('/edit_personal_trainer/:id', passport.authenticate('pt_rule', {sessi
                 // Update password in client database
                 PersonalTrainer.findByIdAndUpdate(ptId, updatePt, {new: true})
                     .then(result => {
-                        return res.json(result)
+                        if(result) {
+                            return res.status(200).json(result)
+                        }
+                        return res.status(404).json({err: "Personal Trainer does not exist!"})
                     })
                     .catch(err => {
-                        return res.json(err)
+                        return res.status(400).json(err)
                     });
             }).catch(err => {
-                return res.json(err)
+                return res.status(400).json(err)
             });
         }).catch(err => {
-            return res.json(err)
+            return res.status(400).json(err)
         });
     }
     else {
         // Find client by id
         PersonalTrainer.findByIdAndUpdate(ptId, updatePt, {new: true})
-            .then(client => {
-                if (client) {
-                    return res.json(client)
+            .then(pt => {
+                if (pt) {
+                    return res.status(200).json(pt);
                 }
+                return res.status(400).json({error: "Personal Trainer does not exist!"});
             })
             .catch(err => {
-                return res.json(err)
+                return res.status(400).json(err)
             });
     }
-
 }); // PUT /edit_personal_trainer/:id
 
 // @route  POST api/:id/client_progression/:cid

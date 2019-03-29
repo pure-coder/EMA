@@ -30,18 +30,10 @@ class ClientList extends Component {
 
     componentDidMount(){
         document.body.scrollTo(0,0);
-        // this.authCheck();
     }
 
     componentDidUpdate(){
-        // this.authCheck();
     }
-
-    // authCheck(){
-    //     if(this.state.errors.error_code === 401){
-    //         this.props.history.push('/re-login');
-    //     }
-    // }
 
     onClientDelete(id, ptId) {
         this.props.deleteClient(id, ptId, this.props.history);

@@ -228,9 +228,10 @@ export const getPtData = (id, history) => dispatch => {
 export const editPtData = (id, Data, history) => dispatch => {
     axios
         .put(`/api/edit_personal_trainer/${id}`, Data)
-        .then(() => {
-                // Go back to dashboard after successful update
-                history.goBack();
+        .then(result => {
+                if(result.status === 200){
+                    dispatch(setSuccess("Personal Trainer profile has been updated successfully"));
+                }
             }
         )
         .catch(err => {

@@ -1,7 +1,7 @@
 import React, {Component} from 'react';  // Used to create this component
 import PropTypes from 'prop-types'; // Used to document prop types sent to components
 import {connect} from 'react-redux' // Needed when using redux inside a component (connects redux to this component)
-import {getPtData,  editPtData, passwordsMatchError, setErrors} from "../../actions/authenticationActions"; // Used to import create action for getting pt data and editing pt data
+import {getPtData,  editPtData, passwordsMatchError, setErrors, setSuccess} from "../../actions/authenticationActions"; // Used to import create action for getting pt data and editing pt data
 import {withRouter} from 'react-router-dom';
 import FormInputGroup from "../common/FormInputGroup";
 import Loading from "../../elements/Loading";
@@ -22,7 +22,7 @@ class EditPersonalTrainer extends Component {
             Password2: '',
             ptId: props.authenticatedUser.user.id,
             errors: {},
-            success: undefined,
+            success: {},
             location: this.props.location,
             loaded: false
         };
@@ -45,13 +45,11 @@ class EditPersonalTrainer extends Component {
                 loaded: true
             }
         }
-        if(props.success !== state.success){
+        if(props.success !== state.success || props.errors !== state.errors){
             return {
                 success: props.success,
+                errors: props.errors
             }
-        }
-        if (props.errors !== state.errors) {
-            return {errors: props.errors}
         }
         return null
     }
@@ -62,6 +60,7 @@ class EditPersonalTrainer extends Component {
 
     componentWillUnmount(){
         this.props.setErrors({});
+        this.props.setSuccess({});
     }
 
     // This captures what the user types and sets the specific input to the respective state variable
@@ -95,6 +94,7 @@ class EditPersonalTrainer extends Component {
 
 
         if (!dataChanged){
+            this.setState({success: {}});
             errors.noData = "No data has been modified!";
             this.props.setErrors(errors);
             return null;
@@ -106,6 +106,15 @@ class EditPersonalTrainer extends Component {
             return null;
         }
         else {
+            // Reset state field to empty for error messages
+            this.setState({
+                FullName: '',
+                Email: '',
+                DateOfBirth: '',
+                Sex: '',
+                Password: '',
+                Password2: '',
+            });
             this.props.editPtData(this.state.ptId, editData, this.props.history);
             // Clear password match errors
             this.props.setErrors({})
@@ -121,13 +130,23 @@ class EditPersonalTrainer extends Component {
             return <ErrorComponent/>
         }
         else{
-            const {errors} = this.state; // This allows errors to be pulled out of this.state without pulling them out directly
+            const {errors, success} = this.state; // This allows errors to be pulled out of this.state without pulling them out directly
+            let displayErrors;
+
+            if(!isEmpty(success)){
+                displayErrors = <div className="text-success"> {success.msg} </div>;
+            }
+
+            if(!isEmpty(errors)){
+                displayErrors = <div className="text-danger"> {errors.noData} </div>;
+            }
+
             return (
                 <div className="edit_client">
                     <div className="container  edit_client-custom">
                         <div className="row">
                             <div className="m-auto col-md-8">
-                                <h1 className=" text-center display-5">Edit Profile</h1>
+                                <h1 className=" text-center display-5">Edit Personal Trainer Profile</h1>
                                 <form autoComplete="off" onSubmit={this.onSubmit}>
                                     {/*// Deals with Chromes password auto complete*/}
                                     <input type="password" style={{height: 0, width: 0, opacity: 0, padding: 0, border: "none"}}></input>
@@ -179,12 +198,12 @@ class EditPersonalTrainer extends Component {
                                     <FormInputGroup
                                         name="Password2"
                                         placeholder="Confirm Password"
-                                        value={this.state.password2}
+                                        value={this.state.Password2}
                                         type="Password"
                                         onChange={this.onChange}
                                         error={errors.Password2}
                                     />
-                                    <div className="text-danger">{errors.noData ? errors.noData : null}</div>
+                                    {displayErrors}
                                     <input type="submit" value="Update" className="btn btn-info btn-block mt-4"/>
                                     <button type="button" className="btn btn-danger btn-block mt-3 mb-3" onClick={this.props.history.goBack}>Back</button>
                                 </form>
@@ -201,6 +220,7 @@ class EditPersonalTrainer extends Component {
 EditPersonalTrainer.propTypes = {
     getPtData: PropTypes.func.isRequired,
     setErrors: PropTypes.func.isRequired,
+    setSuccess: PropTypes.func.isRequired,
     passwordsMatchError: PropTypes.func.isRequired,
     authenticatedUser: PropTypes.object.isRequired,
     errors: PropTypes.object.isRequired
@@ -213,4 +233,4 @@ const stateToProps = (state) => ({
     success: state.success
 });
 
-export default connect(stateToProps, {getPtData, editPtData, passwordsMatchError, setErrors})(withRouter(EditPersonalTrainer));
+export default connect(stateToProps, {getPtData, editPtData, passwordsMatchError, setErrors, setSuccess})(withRouter(EditPersonalTrainer));
