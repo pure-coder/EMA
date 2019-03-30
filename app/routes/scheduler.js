@@ -16,7 +16,6 @@ const passport = require('passport');
 // @desc   Workout scheduler - retrieve data from database for client
 // @access private for PT's and clients
 router.get('/:id/scheduler/:cid', passport.authenticate('both_rule', {session: false}, null), (req, res) => {
-
     // Get clientId from frontEnd
     let userId = req.params.id;
     let clientId = req.params.cid;
@@ -26,6 +25,7 @@ router.get('/:id/scheduler/:cid', passport.authenticate('both_rule', {session: f
     let payload = jwt.decode(token, keys.secretOrKey);
     let userTokenId = payload.id;
     let isPT = payload.pt;
+
 
     // If user is pt check to see if the client id is in their list, if so allow them access to data
     if (isPT && userTokenId === userId) {

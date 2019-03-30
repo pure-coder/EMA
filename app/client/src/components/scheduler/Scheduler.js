@@ -24,6 +24,8 @@ class Scheduler extends Component {
         const scheduler = window.dhtmlXScheduler;
         const dataProcessor = window.dataProcessor;
 
+        console.log(this.state.userId, this.state.clientId);
+
         // If client - userId will only be used, will show their events, if pt userId is pt, clientId is client events that
         // pt wishes to view (clientId added when pt clicks client on their dashboard)
         axios.get(`/api/${this.state.userId}/scheduler/${this.state.clientId}`)

@@ -10,6 +10,7 @@ const {capitaliseFirstLetter} = require('../services/capitalise');
 
 // Require Input validation for editing client profile
 const validateEditClientInput = require('../validation/editClient');
+const validateNewProgressInput = require('../validation/newProgress');
 
 // Require isEmpty function
 const isEmpty = require('../validation/is_empty');
@@ -55,11 +56,9 @@ router.delete('/delete_client/:cid', passport.authenticate('pt_rule', {session: 
     Client.findOne({_id: clientId})
         .then(client => {
             if (client) {
-                console.log("client",client)
                 // Had to change $unset to $pull
                 PersonalTrainer.update({_id: client.ptId}, {$pull: {ClientIDs: {id: client.id}}})
                     .then(pt => {
-                        console.log("pt",pt)
                         if (pt) {
                             Client.remove({_id: clientId}).remove()
                                 .then(result => {
@@ -435,7 +434,6 @@ router.post('/:id/client_progression/:cid', passport.authenticate('pt_rule', {se
 // @desc   Retrieve client progression data from db
 // @access Private for PT's - clients can't get to the progression db collection
 router.get('/:id/client_progression/:cid', passport.authenticate('both_rule', {session: false}), (req, res) => {
-
     // Get clientId from url
     let clientId = req.params.cid;
     // Get usertId from url which is used to make sure that they are allowed to access data
@@ -462,17 +460,26 @@ router.get('/:id/client_progression/:cid', passport.authenticate('both_rule', {s
                     ClientProgression.find({clientId: clientId}, 'exerciseName metrics.maxWeight metrics.Date')
                         .then(result => {
                             if (result) {
+                                return res.status(200).json(result);
+                            }
+                            else{
+                                return res.status(400).json();
                             }
                         })
                         .catch(err => {
-                                return res.json(err);
+                                return res.status(400).json(err);
                             }
                         ); // router get client progression
 
                 }
                 else {
-                    return res.json({err: "User not authorised to access Progression"});
+                    // 401 Unauthorised
+                    return res.status(401).json({err: "User not authorised to access Progression"});
                 }
+            }
+            else{
+                // 404 Not found
+                return res.status(404).json();
             }
         })
         .catch(() => {

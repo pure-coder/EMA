@@ -18,6 +18,7 @@ import isEmpty from '../utilities/is_empty';
 
 const manageErrors = (err, dispatch, history) => {
     console.log(err.response);
+    // 401 Unauthorised
     if(err.response.status === 401){
         dispatch({
             type: GET_ERRS,

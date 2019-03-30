@@ -26,8 +26,10 @@ class ClientProfile extends Component {
             errors: {}
         };
 
+        this.getClientProgression();
+
         this.openModal = this.openModal.bind(this);
-        this.getProgressForPage = this.getProgressForPage.bind(this);
+        this.getClientProgression = this.getClientProgression.bind(this);
         this.onClickAway = this.onClickAway.bind(this)
     }
 
@@ -44,14 +46,9 @@ class ClientProfile extends Component {
     // Life cycle method for react which will run when this component receives new properties
     componentDidMount() {
         document.body.scrollTo(0,0);
-
-        // this.authCheck();
-        this.getProgressForPage();
-
     } // did mount
 
     componentDidUpdate(){
-        // this.authCheck();
     }
 
     componentWillUnmount(){
@@ -70,19 +67,12 @@ class ClientProfile extends Component {
         this.setState({
             visible: false
         });
-        this.getProgressForPage();
+        this.getClientProgression();
     }
 
-    getProgressForPage(){
+    getClientProgression(){
         this.props.getClientProgression(this.state.userId, this.state.clientId, this.props.history);
     }
-
-    // authCheck(){
-    //     // Check if isAuthenticated is true
-    //     if (this.props.errors.error_code === 401) {
-    //         this.props.history.push('/re-login');
-    //     }
-    // }
 
     render() {
         if(!this.state.loaded){
