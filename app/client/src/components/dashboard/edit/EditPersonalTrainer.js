@@ -99,7 +99,6 @@ class EditPersonalTrainer extends Component {
         }
 
         let message;
-        let merge;
 
         if (!dataChanged){
             message = {
@@ -107,8 +106,7 @@ class EditPersonalTrainer extends Component {
                 msg: "No data has been modified!"
             };
 
-            merge = Object.assign(this.state.message, message);
-            this.setState({message: merge});
+            this.setState({message});
             this.props.setErrors(errors);
             return null;
         }
@@ -124,8 +122,6 @@ class EditPersonalTrainer extends Component {
                 msg: "Personal Trainer profile has been updated."
             };
 
-            merge = Object.assign(this.state.message, message);
-
             // Reset state field to empty for error messages
             this.setState({
                 FullName: '',
@@ -134,7 +130,7 @@ class EditPersonalTrainer extends Component {
                 Sex: '',
                 Password: '',
                 Password2: '',
-                message: merge
+                message: message
             });
             this.props.editPtData(this.state.ptId, editData, this.props.history);
             // Clear password match errors
