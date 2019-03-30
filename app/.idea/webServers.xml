@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="f539ec2e-574c-4f8d-9654-df829678c8a6" name="VersionControl" url="http://localhost">
+        <fileTransfer port="0" mountedRoot="C:\My Backups" accessType="MOUNT" />
+      </webServer>
+    </option>
+  </component>
+</project>
