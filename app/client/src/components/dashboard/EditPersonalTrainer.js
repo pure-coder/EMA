@@ -105,10 +105,10 @@ class EditPersonalTrainer extends Component {
             message = {
                 type: "error",
                 msg: "No data has been modified!"
-            }
+            };
 
             merge = Object.assign(this.state.message, message);
-            this.setState({message: merge})
+            this.setState({message: merge});
             this.props.setErrors(errors);
             return null;
         }
@@ -122,7 +122,7 @@ class EditPersonalTrainer extends Component {
             message = {
                 type: "success",
                 msg: "Personal Trainer profile has been updated."
-            }
+            };
 
             merge = Object.assign(this.state.message, message);
 
