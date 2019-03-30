@@ -1,38 +1,38 @@
 import React, {Component} from 'react';  // Used to create this component
 import PropTypes from 'prop-types'; // Used to document prop types sent to components
 import {connect} from 'react-redux' // Needed when using redux inside a component (connects redux to this component)
-import {getClientData, editClientData, passwordsMatchError, setErrors, setSuccess} from "../../actions/authenticationActions"; // Used to import create action for getting client data and editing client data
+import {getPtData,  editPtData, passwordsMatchError, setErrors, setSuccess} from "../../../actions/authenticationActions"; // Used to import create action for getting pt data and editing pt data
 import {withRouter} from 'react-router-dom';
-import FormInputGroup from "../common/FormInputGroup";
-import Loading from "../../elements/Loading";
-import isEmpty from "../../utilities/is_empty";
-import ErrorComponent from "../error/ErrorComponent"; // Allows proper routing and linking using browsers match, location, and history properties
+import FormInputGroup from "../../common/FormInputGroup";
+import Loading from "../../../elements/Loading";
+import isEmpty from "../../../utilities/is_empty";
+import ErrorComponent from "../../error/ErrorComponent"; // Allows proper routing and linking using browsers match, location, and history properties
 
-import DisplayMessage from '../common/DisplayMessage';
+import DisplayMessage from '../../common/DisplayMessage';
 
-class EditClient extends Component {
+class EditPersonalTrainer extends Component {
     // This allows the component states to be updated and re-rendered
     constructor(props) {
         super(props);
         this.state = {
-            client_data: undefined,
-            clientId: props.authenticatedUser.clientId !== undefined ? props.authenticatedUser.clientId : props.match.params.cid,
-            userId: props.authenticatedUser.user.id,
+            pt_data: undefined,
             FullName: '',
             Email: '',
-            ContactNumber: '',
+            DateOfBirth: '',
+            Sex: '',
             Password: '',
             Password2: '',
+            ptId: props.authenticatedUser.user.id,
             errors: {},
-            location: this.props.location,
             success: {},
+            location: this.props.location,
             loaded: false,
             message: {
-                type: undefined
+                type: null
             } // Set to null so null is returned from DisplayMessage by default
         };
 
-        this.props.getClientData(this.state.clientId, this.props.history);
+        this.props.getPtData(this.state.ptId, this.props.history);
 
         // This sets the state value to it's respective state (via binding)
         this.onChange = this.onChange.bind(this);
@@ -41,12 +41,11 @@ class EditClient extends Component {
         this.onSubmit = this.onSubmit.bind(this);
     }
 
-    // Populate state data with data from the database for the client
+    // Populate state data with data from the database for the pt
     static getDerivedStateFromProps(props, state) {
-        if (props.authenticatedUser.client_data !== state.client_data) {
+        if (props.authenticatedUser.pt_data !== state.pt_data) {
             return {
-                client_data: props.authenticatedUser.client_data,
-                success: props.success,
+                pt_data: props.authenticatedUser.pt_data,
                 errors: props.errors,
                 loaded: true
             }
@@ -57,9 +56,6 @@ class EditClient extends Component {
                 errors: props.errors
             }
         }
-        // if (props.errors !== state.errors) {
-        //     return {errors: props.errors}
-        // }
         return null
     }
 
@@ -68,15 +64,8 @@ class EditClient extends Component {
     }
 
     componentWillUnmount(){
-        this.props.setErrors();
-        this.props.setSuccess();
-    }
-
-    componentDidUpdate(){
-        // this.props.getClientData(this.state.clientId, this.props.history);
-        if(this.state.message.type === "success"){
-            //this.setState({message: {type : null}})
-        }
+        this.props.setErrors({});
+        this.props.setSuccess({});
     }
 
     // This captures what the user types and sets the specific input to the respective state variable
@@ -86,7 +75,7 @@ class EditClient extends Component {
 
     onSubmit(event) {
         event.preventDefault();
-        //this.setState({message: {type: null}}); // reset to null
+        this.setState({message: {type: null}}); // reset to null
 
         // Check if any data has been changed, don't want to waste server load and bandwidth on empty requests
         let dataChanged = false;
@@ -96,15 +85,12 @@ class EditClient extends Component {
         const editData = {
             FullName: this.state.FullName,
             Email: this.state.Email,
-            ContactNumber: this.state.ContactNumber,
             //ProfilePicUrl: this.state.ProfilePicUrl,
-            DateOfBirth: this.state.DateOfBirth,
             Sex: this.state.Sex,
             Password: this.state.Password,
             Password2: this.state.Password2
         };
 
-        // Check if any of the fields have been modified, break as soon asap if one has, no need to continue loop.
         for(let element in editData) {
             if(!isEmpty(editData[element])){
                 dataChanged = true;
@@ -113,6 +99,7 @@ class EditClient extends Component {
         }
 
         let message;
+        let merge;
 
         if (!dataChanged){
             message = {
@@ -120,7 +107,8 @@ class EditClient extends Component {
                 msg: "No data has been modified!"
             };
 
-            this.setState({message});
+            merge = Object.assign(this.state.message, message);
+            this.setState({message: merge});
             this.props.setErrors(errors);
             return null;
         }
@@ -131,16 +119,26 @@ class EditClient extends Component {
             return null;
         }
         else {
-            this.props.editClientData(this.state.clientId, editData, this.props.history);
-            // Clear password match errors
-            this.props.setErrors();
-            this.props.getClientData(this.state.clientId, this.props.history);
-
-            let message = {
+            message = {
                 type: "success",
-                msg: "Client profile has been updated."
+                msg: "Personal Trainer profile has been updated."
             };
-            this.setState({message});
+
+            merge = Object.assign(this.state.message, message);
+
+            // Reset state field to empty for error messages
+            this.setState({
+                FullName: '',
+                Email: '',
+                DateOfBirth: '',
+                Sex: '',
+                Password: '',
+                Password2: '',
+                message: merge
+            });
+            this.props.editPtData(this.state.ptId, editData, this.props.history);
+            // Clear password match errors
+            this.props.setErrors()
         }
     }
 
@@ -152,41 +150,33 @@ class EditClient extends Component {
         if(isEmpty(this.props.authenticatedUser.user)){
             return <ErrorComponent/>
         }
-        else {
-            let {errors, message} = this.state;
+        else{
+            const {errors, message} = this.state; // This allows errors to be pulled out of this.state without pulling them out directly
 
             return (
                 <div className="edit_client">
                     <div className="container  edit_client-custom">
                         <div className="row">
                             <div className="m-auto col-md-8">
-                                <h1 className=" text-center display-5">Edit Client Profile</h1>
+                                <h1 className=" text-center display-5">Edit Personal Trainer Profile</h1>
                                 <form autoComplete="off" onSubmit={this.onSubmit}>
                                     {/*// Deals with Chromes password auto complete*/}
                                     <input type="password" style={{height: 0, width: 0, opacity: 0, padding: 0, border: "none"}}></input>
                                     <FormInputGroup
                                         name="FullName"
-                                        placeholder={this.state.client_data.FullName}
-                                        value={this.state.FullName === '' ? this.state.client_data.FullName : this.state.FullName}
+                                        placeholder={this.state.pt_data.FullName}
+                                        value={this.state.FullName === '' ? this.state.pt_data.FullName : this.state.FullName}
                                         type="text"
                                         onChange={this.onChange}
                                         error={errors.FullName}
                                     />
                                     <FormInputGroup
                                         name="Email"
-                                        placeholder="Email"
-                                        value={this.state.Email === '' ? this.state.client_data.Email : this.state.Email}
+                                        placeholder={this.state.pt_data.Email}
+                                        value={this.state.Email === '' ? this.state.pt_data.Email : this.state.Email}
                                         type="Email"
                                         onChange={this.onChange}
                                         error={errors.Email}
-                                    />
-                                    <FormInputGroup
-                                        name="ContactNumber"
-                                        placeholder="ContactNumber"
-                                        value={this.state.ContactNumber === '' ? this.state.client_data.ContactNumber : this.state.ContactNumber}
-                                        type="text"
-                                        onChange={this.onChange}
-                                        error={errors.ContactNumber}
                                     />
                                     <div className="form-group edit-profile-date-div">
                                         <div className="edit-date-div">
@@ -212,8 +202,8 @@ class EditClient extends Component {
                                     <FormInputGroup
                                         name="Password"
                                         placeholder="Enter Password"
-                                        value={this.state.Password}
-                                        type="password"
+                                        value={this.state.password}
+                                        type="Password"
                                         onChange={this.onChange}
                                         error={errors.Password}
                                     />
@@ -221,7 +211,7 @@ class EditClient extends Component {
                                         name="Password2"
                                         placeholder="Confirm Password"
                                         value={this.state.Password2}
-                                        type="password"
+                                        type="Password"
                                         onChange={this.onChange}
                                         error={errors.Password2}
                                     />
@@ -239,8 +229,8 @@ class EditClient extends Component {
 }
 
 // Documents what props are needed for this component and will log a warning in the console in dev mode if not complied to
-EditClient.propTypes = {
-    getClientData: PropTypes.func.isRequired,
+EditPersonalTrainer.propTypes = {
+    getPtData: PropTypes.func.isRequired,
     setErrors: PropTypes.func.isRequired,
     setSuccess: PropTypes.func.isRequired,
     passwordsMatchError: PropTypes.func.isRequired,
@@ -255,4 +245,4 @@ const stateToProps = (state) => ({
     success: state.success
 });
 
-export default connect(stateToProps, {getClientData, editClientData, passwordsMatchError, setErrors, setSuccess})(withRouter(EditClient));
+export default connect(stateToProps, {getPtData, editPtData, passwordsMatchError, setErrors, setSuccess})(withRouter(EditPersonalTrainer));

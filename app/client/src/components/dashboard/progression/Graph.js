@@ -3,9 +3,9 @@ import React, {Component} from 'react';
 import {withRouter} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import CreateGraph from './CreateGraph';
-import isEmpty from "../../utilities/is_empty";
-import ErrorComponent from "../error/ErrorComponent";
-import Loading from "../../elements/Loading";
+import isEmpty from "../../../utilities/is_empty";
+import ErrorComponent from "../../error/ErrorComponent";
+import Loading from "../../../elements/Loading";
 
 class Graph extends Component {
     // This allows the component states to be up{dated and re-rendered)

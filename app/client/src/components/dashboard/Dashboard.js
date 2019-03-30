@@ -3,9 +3,9 @@ import PropTypes from 'prop-types'; // Used to document prop types sent to compo
 import {connect} from 'react-redux' // Needed when using redux inside a component (connects redux to this component)
 import {withRouter} from 'react-router-dom';
 import {getClients} from "../../actions/authenticationActions";
-import ClientList from './ClientList'
+import ClientList from './clients/ClientList'
 import Loading from "../../elements/Loading";
-import ClientData from "./ClientData";
+import ClientData from "./clients/ClientData";
 import isEmpty from "../../utilities/is_empty";
 import ErrorComponent from "../error/ErrorComponent";
 

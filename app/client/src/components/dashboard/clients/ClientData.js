@@ -1,10 +1,10 @@
 import {connect} from 'react-redux';
 import React, {Component} from 'react';
 import {withRouter} from 'react-router-dom';
-import {saveClientId} from "../../actions/authenticationActions";
-import isEmpty from "../../utilities/is_empty";
-import ErrorComponent from "../error/ErrorComponent";
-import Loading from "../../elements/Loading";
+import {saveClientId} from "../../../actions/authenticationActions";
+import isEmpty from "../../../utilities/is_empty";
+import ErrorComponent from "../../error/ErrorComponent";
+import Loading from "../../../elements/Loading";
 // import PropTypes from "prop-types";
 
 

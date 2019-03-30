@@ -19,9 +19,9 @@ import Login from './components/authentication/Login';
 import Scheduler from './components/scheduler/Scheduler';
 /*import dashboard component*/
 import Dashboard from './components/dashboard/Dashboard'
-import ClientProfile from './components/dashboard/ClientProfile'
+import ClientProfile from './components/dashboard/clients/ClientProfile'
 /*import edit client component*/
-import EditClient from './components/dashboard/EditClient'
+import EditClient from './components/dashboard/edit/EditClient'
 
 import ErrorComponent from './components/error/ErrorComponent';
 /* import PrivateRoute function for authorised access of pages */
@@ -37,7 +37,7 @@ import {setSignedInUser} from './actions/authenticationActions';
 
 // Used to log the user out
 import {logOutUser} from './actions/authenticationActions';
-import EditPersonalTrainer from "./components/dashboard/EditPersonalTrainer";
+import EditPersonalTrainer from "./components/dashboard/edit/EditPersonalTrainer";
 import ExpiredLogin from "./components/authentication/ExpiredLogin";
 
 // check if token exists in local storage

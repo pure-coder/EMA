@@ -1,11 +1,11 @@
 import {connect} from 'react-redux';
 import React, {Component} from 'react';
 import {Link, withRouter} from 'react-router-dom';
-import {deleteClient, saveClientId, getClientData, getClientProgression} from "../../actions/authenticationActions";
+import {deleteClient, saveClientId, getClientData, getClientProgression} from "../../../actions/authenticationActions";
 import PropTypes from "prop-types";
-import isEmpty from "../../utilities/is_empty";
-import ErrorComponent from "../error/ErrorComponent";
-import Loading from "../../elements/Loading";
+import isEmpty from "../../../utilities/is_empty";
+import ErrorComponent from "../../error/ErrorComponent";
+import Loading from "../../../elements/Loading";
 
 
 class ClientList extends Component {

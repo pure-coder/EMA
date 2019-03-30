@@ -2,9 +2,9 @@ import React, {Component} from 'react' // React is need for rendering JSX HTML e
 import {withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
-import {newClientProgress, setErrors, clearErrors, setSuccess} from "../../actions/authenticationActions";
-import autocomplete from '../../utilities/autoComplete';
-import FormInputGroup from "../common/FormInputGroup";
+import {newClientProgress, setErrors, clearErrors, setSuccess} from "../../../actions/authenticationActions";
+import autocomplete from '../../../utilities/autoComplete';
+import FormInputGroup from "../../common/FormInputGroup";
 
 
 class NewClientProgressForm extends Component {

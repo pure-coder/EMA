@@ -2,13 +2,13 @@ import React, {Component} from 'react';  // Used to create this component
 import PropTypes from 'prop-types'; // Used to document prop types sent to components
 import {connect} from 'react-redux' // Needed when using redux inside a component (connects redux to this component)
 import {withRouter} from 'react-router-dom';
-import {getClientProgression, clearProgression} from "../../actions/authenticationActions";
-import Graph2 from "./Graph";
-import NewClientProgressForm from "./NewClientProgressForm";
+import {getClientProgression, clearProgression} from "../../../actions/authenticationActions";
+import Graph2 from "../progression/Graph";
+import NewClientProgressForm from "../progression/NewClientProgressForm";
 import Modal from 'react-awesome-modal';
-import isEmpty from '../../utilities/is_empty';
-import ErrorComponent from "../error/ErrorComponent";
-import Loading from "../../elements/Loading";
+import isEmpty from '../../../utilities/is_empty';
+import ErrorComponent from "../../error/ErrorComponent";
+import Loading from "../../../elements/Loading";
 
 // import FormInputGroup from "../common/FormInputGroup"; // Allows proper routing and linking using browsers match, location, and history properties
 
