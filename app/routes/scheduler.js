@@ -15,7 +15,7 @@ const passport = require('passport');
 // @route  GET api/:id/scheduler/:cid?
 // @desc   Workout scheduler - retrieve data from database for client
 // @access private for PT's and clients
-router.get('/:id/scheduler/:cid', passport.authenticate('both_rule', {session: false}), (req, res) => {
+router.get('/:id/scheduler/:cid', passport.authenticate('both_rule', {session: false}, null), (req, res) => {
 
     // Get clientId from frontEnd
     let userId = req.params.id;
@@ -90,7 +90,7 @@ router.get('/:id/scheduler/:cid', passport.authenticate('both_rule', {session: f
 // @route  POST api/scheduler
 // @desc   Add, edit and delete data in database
 // @access private for PT's - clients can't post to the scheduler
-router.post('/:id/scheduler/:cid', passport.authenticate('pt_rule', {session: false}), (req, res) => {
+router.post('/:id/scheduler/:cid', passport.authenticate('pt_rule', {session: false}, null), (req, res) => {
     let data = req.body;
     let schedId, docId; // initialising schedule id and document id
 

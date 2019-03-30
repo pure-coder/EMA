@@ -19,13 +19,10 @@ const ActivationTokens = require('../models/AcitvationTokens');
 
 // Require verification functionality
 const verification = require('../validation/verification');
-
 // Require Input validation for PT Registration
 const validateRegistrationInput = require('../validation/registration');
-
 // Require Input validation for new Client
 const validateClientInput = require('../validation/newClient');
-
 // Require Input validation for logging in PT or Client
 const validateLoginInput = require('../validation/Login');
 
