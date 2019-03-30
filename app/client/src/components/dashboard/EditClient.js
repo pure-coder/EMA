@@ -160,7 +160,7 @@ class EditClient extends Component {
             let {errors, message} = this.state;
 
             if(!isEmpty(this.state.client_data.FullName)){
-                console.log(this.state.client_data.FullName)
+                console.log(this.state.client_data.FullName);
             }
             return (
                 <div className="edit_client">
