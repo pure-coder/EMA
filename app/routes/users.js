@@ -145,14 +145,18 @@ router.put('/edit_client/:cid', passport.authenticate('both_rule', {session: fal
 
     let updateClient = {};
     // Checked on client if empty, but make sure!!
-    // Enter data into updateClient only if the value of req.body is not undefined or an empty string
-    for (let value in data) {
-        if (!isEmpty(data[value]) && data[value] !== undefined) {
+
+    // Turn object into array for at least 50% performance increase of iteration (otherwise using hasOwnProperty decreases
+    // performance.
+    const entries = Object.entries(data);
+
+    for (let [key ,value] of entries) {
+        if (!isEmpty(value) && value !== undefined) {
             // Capitalise first name if not already done
-            if (data.FullName) {
-                data.FullName = capitaliseFirstLetter(data.FullName);
+            if (key === "FullName") {
+                value = capitaliseFirstLetter(value);
             }
-            updateClient[value] = data[value];
+            updateClient[key] = value;
         }
     } // for value in req.body
 
@@ -251,14 +255,15 @@ router.put('/edit_personal_trainer/:id', passport.authenticate('pt_rule', {sessi
 
     let updatePt = {};
     // Checked on pt if empty, but make sure!!
-    // Enter data into updatePt only if the value of req.body is not undefined or an empty string
-    for (let value in data) {
-        if (!isEmpty(data[value]) && data[value] !== undefined) {
+    const entries = Object.entries(data);
+
+    for (let [key ,value] of entries) {
+        if (!isEmpty(value) && value !== undefined) {
             // Capitalise first name if not already done
-            if (data.FullName) {
-                data.FullName = capitaliseFirstLetter(data.FullName);
+            if (key === "FullName") {
+                value = capitaliseFirstLetter(value);
             }
-            updatePt[value] = data[value];
+            updatePt[key] = value;
         }
     } // for value in req.body
 

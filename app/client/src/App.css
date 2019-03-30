@@ -353,12 +353,13 @@ svg {
 /* Client profile */
 
 .client-profile {
-    min-height: 450px;
+    min-height: 500px;
 }
 
 
 /* progression Data (graph) */
 .graphs {
+    display: inline-block;
     margin: inherit;
     padding: inherit;
     min-height: 250px;
@@ -423,17 +424,17 @@ svg {
 .progress-buttons {
     position: relative;
     height: 50px;
-    margin: 0 10px 35px 10px;
+    margin: 0 30px 35px 10px;
 }
 
 #edit-progress-button {
-    width: 130px;
+    width: 135px;
     float: left;
     margin-left: 25px;
 }
 
 #delete-progress-button {
-    width: 130px;
+    width: 135px;
     float: right;
     margin-top: 0;
 }
