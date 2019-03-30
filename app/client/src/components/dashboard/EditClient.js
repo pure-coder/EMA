@@ -28,7 +28,7 @@ class EditClient extends Component {
             success: {},
             loaded: false,
             message: {
-                type: null
+                type: undefined
             } // Set to null so null is returned from DisplayMessage by default
         };
 
@@ -72,6 +72,13 @@ class EditClient extends Component {
         this.props.setSuccess();
     }
 
+    componentDidUpdate(){
+        // this.props.getClientData(this.state.clientId, this.props.history);
+        if(this.state.message.type === "success"){
+            //this.setState({message: {type : null}})
+        }
+    }
+
     // This captures what the user types and sets the specific input to the respective state variable
     onChange(event) {
         this.setState({[event.target.name]: event.target.value});
@@ -79,7 +86,7 @@ class EditClient extends Component {
 
     onSubmit(event) {
         event.preventDefault();
-        this.setState({message: {type: null}}); // reset to null
+        //this.setState({message: {type: null}}); // reset to null
 
         // Check if any data has been changed, don't want to waste server load and bandwidth on empty requests
         let dataChanged = false;
@@ -106,7 +113,6 @@ class EditClient extends Component {
         }
 
         let message;
-        let merge;
 
         if (!dataChanged){
             message = {
@@ -114,8 +120,7 @@ class EditClient extends Component {
                 msg: "No data has been modified!"
             };
 
-            merge = Object.assign(this.state.message, message);
-            this.setState({message: merge});
+            this.setState({message});
             this.props.setErrors(errors);
             return null;
         }
@@ -126,25 +131,16 @@ class EditClient extends Component {
             return null;
         }
         else {
-            message = {
-                type: "success",
-                msg: "Client profile has been updated."
-            };
-
-            merge = Object.assign(this.state.message, message);
-
-            // reset state fields to empty for error messages
-            this.setState({
-                FullName: '',
-                Email: '',
-                ContactNumber: '',
-                Password: '',
-                Password2: '',
-                message: merge
-            });
             this.props.editClientData(this.state.clientId, editData, this.props.history);
             // Clear password match errors
             this.props.setErrors();
+            this.props.getClientData(this.state.clientId, this.props.history);
+
+            let message = {
+                type: "success",
+                msg: "Client profile has been updated."
+            };
+            this.setState({message});
         }
     }
 
@@ -159,10 +155,6 @@ class EditClient extends Component {
         else {
             let {errors, message} = this.state;
 
-            // Check what is being modified
-            if(!isEmpty(this.state.client_data.FullName)){
-                console.log(this.state.client_data.FullName);
-            }
             return (
                 <div className="edit_client">
                     <div className="container  edit_client-custom">

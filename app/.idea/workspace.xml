@@ -4,7 +4,7 @@
     <bookmark url="file://C:/Learning/clientObjectData.js" description="export {&quot;_id&quot;:&quot;5c2e3454d27ace097420b414&quot;,&quot;FullName..." line="2" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ec8ccf39-8487-4892-a38d-de9c288878a3" name="Default" comment="30/03/19">
+    <list default="true" id="ec8ccf39-8487-4892-a38d-de9c288878a3" name="Default" comment="new commit, webstorm was not pushing only commiting which is why github was not receiving commits">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/dashboard/EditClient.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/dashboard/EditClient.js" afterDir="false" />
     </list>
@@ -47,10 +47,10 @@
           <entry key="css" value="7087" />
           <entry key="editorConfig" value="285" />
           <entry key="html" value="1072" />
-          <entry key="js" value="140457" />
+          <entry key="js" value="141376" />
           <entry key="json" value="26" />
           <entry key="md" value="150" />
-          <entry key="txt" value="128" />
+          <entry key="txt" value="255" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
@@ -58,8 +58,8 @@
           <entry key="CSS" value="7087" />
           <entry key="HTML" value="1079" />
           <entry key="JSON" value="26" />
-          <entry key="JavaScript" value="140450" />
-          <entry key="PLAIN_TEXT" value="563" />
+          <entry key="JavaScript" value="141369" />
+          <entry key="PLAIN_TEXT" value="690" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -101,17 +101,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/routes/users.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="5134">
-              <caret line="302" column="44" selection-start-line="302" selection-start-column="44" selection-end-line="302" selection-end-column="44" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/EditPersonalTrainer.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="60">
-              <caret line="107" column="14" selection-start-line="107" selection-start-column="14" selection-end-line="107" selection-end-column="14" />
+            <state relative-caret-position="765">
+              <caret line="325" lean-forward="true" selection-start-line="325" selection-end-line="325" />
             </state>
           </provider>
         </entry>
@@ -119,8 +110,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/EditClient.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="75">
-              <caret line="162" column="60" selection-start-line="162" selection-start-column="60" selection-end-line="162" selection-end-column="60" />
+            <state relative-caret-position="476">
+              <caret line="141" column="14" selection-start-line="141" selection-start-column="14" selection-end-line="141" selection-end-column="14" />
             </state>
           </provider>
         </entry>
@@ -376,7 +367,7 @@
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="settings.editor.selected.configurable" value="settings.github" />
+    <property name="settings.editor.selected.configurable" value="preferences.customizations" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -461,7 +452,7 @@
       <workItem from="1551774400661" duration="160491000" />
       <workItem from="1552586754943" duration="31533000" />
       <workItem from="1552821747373" duration="253700000" />
-      <workItem from="1553867120171" duration="11077000" />
+      <workItem from="1553867120171" duration="17107000" />
     </task>
     <task id="LOCAL-00001" summary="min height changed for developed pages">
       <created>1534874964132</created>
@@ -540,11 +531,39 @@
       <option name="project" value="LOCAL" />
       <updated>1553946804423</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="30/03/19">
+      <created>1553947347584</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1553947347584</updated>
+    </task>
+    <task id="LOCAL-00013" summary="30/03/19">
+      <created>1553947482662</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1553947482662</updated>
+    </task>
+    <task id="LOCAL-00014" summary="30/03/19">
+      <created>1553947534685</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1553947534685</updated>
+    </task>
+    <task id="LOCAL-00015" summary="new commit, webstorm was not pushing only commiting which is why github was not receiving commits">
+      <created>1553947654218</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1553947654218</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1222183000" />
+    <option name="totallyTimeSpent" value="1228213000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -572,9 +591,9 @@
       <window_info anchor="bottom" id="Inspection" order="6" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="7" weight="0.3276923" />
       <window_info anchor="bottom" id="Docker" order="8" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Terminal" order="9" weight="0.39747635" />
-      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.19342794" side_tool="true" visible="true" weight="0.22082019" />
-      <window_info anchor="bottom" id="Version Control" order="11" sideWeight="0.8065721" visible="true" weight="0.22082019" />
+      <window_info anchor="bottom" id="Terminal" order="9" sideWeight="0.49962658" weight="0.3170347" />
+      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.5003734" side_tool="true" weight="0.7097792" />
+      <window_info anchor="bottom" id="Version Control" order="11" sideWeight="0.8065721" weight="0.22082019" />
       <window_info anchor="bottom" id="Inspection Results" order="12" weight="0.3276923" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -643,7 +662,8 @@
     <MESSAGE value="delete client from pt array" />
     <MESSAGE value="delete client from pt array - using pull" />
     <MESSAGE value="30/03/19" />
-    <option name="LAST_COMMIT_MESSAGE" value="30/03/19" />
+    <MESSAGE value="new commit, webstorm was not pushing only commiting which is why github was not receiving commits" />
+    <option name="LAST_COMMIT_MESSAGE" value="new commit, webstorm was not pushing only commiting which is why github was not receiving commits" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/validation/editClient.js">
@@ -949,13 +969,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/routes/users.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5134">
-          <caret line="302" column="44" selection-start-line="302" selection-start-column="44" selection-end-line="302" selection-end-column="44" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/routes/authorisation.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="101">
@@ -1013,15 +1026,22 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/EditPersonalTrainer.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
+        <state relative-caret-position="-42">
           <caret line="107" column="14" selection-start-line="107" selection-start-column="14" selection-end-line="107" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/users.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="765">
+          <caret line="325" lean-forward="true" selection-start-line="325" selection-end-line="325" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/EditClient.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="162" column="60" selection-start-line="162" selection-start-column="60" selection-end-line="162" selection-end-column="60" />
+        <state relative-caret-position="476">
+          <caret line="141" column="14" selection-start-line="141" selection-start-column="14" selection-end-line="141" selection-end-column="14" />
         </state>
       </provider>
     </entry>
