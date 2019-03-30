@@ -6,6 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="ec8ccf39-8487-4892-a38d-de9c288878a3" name="Default" comment="30/03/19">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/dashboard/EditClient.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/dashboard/EditClient.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -46,7 +47,7 @@
           <entry key="css" value="7087" />
           <entry key="editorConfig" value="285" />
           <entry key="html" value="1072" />
-          <entry key="js" value="140401" />
+          <entry key="js" value="140457" />
           <entry key="json" value="26" />
           <entry key="md" value="150" />
           <entry key="txt" value="128" />
@@ -57,7 +58,7 @@
           <entry key="CSS" value="7087" />
           <entry key="HTML" value="1079" />
           <entry key="JSON" value="26" />
-          <entry key="JavaScript" value="140394" />
+          <entry key="JavaScript" value="140450" />
           <entry key="PLAIN_TEXT" value="563" />
         </counts>
       </usages-collector>
@@ -92,6 +93,9 @@
       </usages-collector>
     </session>
   </component>
+  <component name="FavoritesManager">
+    <favorites_list name="app" />
+  </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
@@ -115,8 +119,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/EditClient.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="126">
-              <caret line="114" column="13" selection-start-line="114" selection-start-column="13" selection-end-line="114" selection-end-column="13" />
+            <state relative-caret-position="75">
+              <caret line="162" column="60" selection-start-line="162" selection-start-column="60" selection-end-line="162" selection-end-column="60" />
             </state>
           </provider>
         </entry>
@@ -206,7 +210,7 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="GithubDefaultAccount">
-    <option name="defaultAccountId" value="76f16427-99a4-4cf2-b4bd-7eacbda2a0b1" />
+    <option name="defaultAccountId" value="c111feb5-8ff8-4837-a498-2ff1c1342f54" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
@@ -457,7 +461,7 @@
       <workItem from="1551774400661" duration="160491000" />
       <workItem from="1552586754943" duration="31533000" />
       <workItem from="1552821747373" duration="253700000" />
-      <workItem from="1553867120171" duration="9888000" />
+      <workItem from="1553867120171" duration="11077000" />
     </task>
     <task id="LOCAL-00001" summary="min height changed for developed pages">
       <created>1534874964132</created>
@@ -522,11 +526,25 @@
       <option name="project" value="LOCAL" />
       <updated>1553945655702</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="30/03/19">
+      <created>1553946152558</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1553946152558</updated>
+    </task>
+    <task id="LOCAL-00011" summary="30/03/19">
+      <created>1553946804423</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1553946804423</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1220994000" />
+    <option name="totallyTimeSpent" value="1222183000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -539,10 +557,11 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-10" y="4" width="1377" height="768" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" weight="0.16803585" />
-      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.24943988" />
+      <window_info id="Favorites" order="2" side_tool="true" weight="0.32935026" />
       <window_info anchor="bottom" id="File Transfer" weight="0.329653" />
       <window_info anchor="bottom" id="Messages" order="0" weight="0.3280757" />
       <window_info anchor="bottom" id="Message" order="1" />
@@ -554,8 +573,8 @@
       <window_info anchor="bottom" id="TODO" order="7" weight="0.3276923" />
       <window_info anchor="bottom" id="Docker" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="Terminal" order="9" weight="0.39747635" />
-      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.5003734" side_tool="true" weight="0.3280757" />
-      <window_info active="true" anchor="bottom" id="Version Control" order="11" sideWeight="0.49962658" visible="true" weight="0.3280757" />
+      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.19342794" side_tool="true" visible="true" weight="0.22082019" />
+      <window_info anchor="bottom" id="Version Control" order="11" sideWeight="0.8065721" visible="true" weight="0.22082019" />
       <window_info anchor="bottom" id="Inspection Results" order="12" weight="0.3276923" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -585,6 +604,32 @@
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="RECENTLY_FILTERED_USER_GROUPS">
+                <collection />
+              </option>
+              <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
+                <collection />
+              </option>
+              <option name="COLUMN_ORDER">
+                <list>
+                  <option value="0" />
+                  <option value="1" />
+                  <option value="2" />
+                  <option value="3" />
+                </list>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myShow1" value="true" />
@@ -975,8 +1020,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/EditClient.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="126">
-          <caret line="114" column="13" selection-start-line="114" selection-start-column="13" selection-end-line="114" selection-end-column="13" />
+        <state relative-caret-position="75">
+          <caret line="162" column="60" selection-start-line="162" selection-start-column="60" selection-end-line="162" selection-end-column="60" />
         </state>
       </provider>
     </entry>
