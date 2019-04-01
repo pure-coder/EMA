@@ -28,7 +28,7 @@ const manageErrors = (err, dispatch, history) => {
             }
         });
         dispatch(logOutUser());
-        dispatch(setErrors({}));
+        dispatch(setErrors());
         history.push('/re-login');
     }
     // If used direct url, and id doesn't exist send user to error page (404 - Not Found)
@@ -307,22 +307,32 @@ export const deleteExercise =(uid, cid, data, history) => dispatch => {
 export const setErrors = (error) => dispatch => {
     // If error hasn't been defined then make error an empty object
     if(isEmpty(error)){
-        error = {};
+        error = {
+            type: null,
+        };
     }
     dispatch({
         type: GET_ERRS,
-        payload: error
+        payload: {
+            type: "ERROR",
+            msg: error
+        }
     })
 };
 
 export const setSuccess = (message) => dispatch => {
     // If error hasn't been defined then make error an empty object
     if(isEmpty(message)){
-        message = {};
+        message = {
+            type: null,
+        };
     }
     dispatch({
         type: SUCCESS,
-        payload: {msg : message}
+        payload: {
+            type: "SUCCESS",
+            msg: message
+        }
     });
 };
 

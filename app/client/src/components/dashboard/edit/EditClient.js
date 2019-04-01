@@ -28,7 +28,7 @@ class EditClient extends Component {
             success: {},
             loaded: false,
             message: {
-                type: undefined
+                type: null
             } // Set to null so null is returned from DisplayMessage by default
         };
 
@@ -51,9 +51,13 @@ class EditClient extends Component {
                 loaded: true
             }
         }
-        if(props.success !== state.success || props.errors !== state.errors){
+        if(isEmpty(props.success) !== isEmpty(state.success)){
             return {
-                success: props.success,
+                message: props.success
+            }
+        }
+        if(isEmpty(props.errors) !== isEmpty(state.errors)){
+            return {
                 errors: props.errors
             }
         }
@@ -109,7 +113,7 @@ class EditClient extends Component {
 
         if (!dataChanged){
             message = {
-                type: "error",
+                type: "ERROR",
                 msg: "No data has been modified!"
             };
 
@@ -129,7 +133,7 @@ class EditClient extends Component {
             this.props.setErrors();
 
             let message = {
-                type: "success",
+                type: "SUCCESS",
                 msg: "Client profile has been updated."
             };
             this.setState({

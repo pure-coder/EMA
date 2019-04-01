@@ -561,3 +561,9 @@ input[type=submit] {
     color: #ffffff;
 }
 
+/*  Invalid feedback error div */
+
+.invalid-feedback {
+    margin: 4px 0;
+}
+

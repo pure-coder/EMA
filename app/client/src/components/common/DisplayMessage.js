@@ -7,10 +7,10 @@ import React from 'react';
 
     // Only two options (true and false) with default being null
     const message = props.message;
-    if (message.type === "success") {
+    if (message.type === "SUCCESS") {
         return  <div className="text-success"> {message.msg} </div>
     }
-    if (message.type === "error") {
+    if (message.type === "ERROR") {
         return  <div className="text-danger"> {message.msg} </div>
     }
     return null;

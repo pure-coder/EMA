@@ -368,11 +368,17 @@ router.post('/:id/client_progression/:cid', passport.authenticate('pt_rule', {se
                                 // Initialise duplicate date check boolean to false
                                 let metricDuplicate = false;
 
+                                let start = performance.now();
+
                                 documentMetrics.map(elements => {
                                     if (elements.Date.getTime() === newMetrics.Date.getTime()) { // Had to use getTime() for comparison of date
                                         metricDuplicate = true;
                                     }
                                 });
+
+                                let end = performance.now();
+
+                                console.log(end - start);
 
                                 // If metricDuplicate is false then insert new metrics else return message stating duplication
                                 if (!metricDuplicate) {

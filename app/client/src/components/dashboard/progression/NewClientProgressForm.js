@@ -5,6 +5,8 @@ import PropTypes from 'prop-types';
 import {newClientProgress, setErrors, clearErrors, setSuccess} from "../../../actions/authenticationActions";
 import autocomplete from '../../../utilities/autoComplete';
 import FormInputGroup from "../../common/FormInputGroup";
+import DisplayMessage from "../../common/DisplayMessage";
+import isEmpty from "../../../validation/is_empty";
 
 
 class NewClientProgressForm extends Component {
@@ -18,7 +20,10 @@ class NewClientProgressForm extends Component {
             Date: '',
             visible: false,
             errors: {},
-            success: props.success,
+            success: {},
+            message: {
+                type: null
+            },
             exercises : [
                 "Squat",
                 "Leg press",
@@ -51,11 +56,8 @@ class NewClientProgressForm extends Component {
         };
 
         this.onChange = this.onChange.bind(this);
-
         this.onSubmit = this.onSubmit.bind(this);
-
         this.onClose= this.onClose.bind(this);
-
         this.onClick = this.onClick.bind(this);
         this.onBlur = this.onBlur.bind(this);
     } // constructor
@@ -64,14 +66,15 @@ class NewClientProgressForm extends Component {
         if (props.visible !== state.visible) {
             return {visible: props.visible}
         }
-        if (props.errors !== state.errors) {
+        if (isEmpty(props.errors) !== isEmpty(state.errors)){
             return {
-                success: "",
                 errors: props.errors
             }
         }
-        if (props.success !== state.success) {
-            return {success: props.success}
+        if (isEmpty(props.success) !== isEmpty(state.success)) {
+            return {
+                message: props.success
+            }
         }
         return null
     }
@@ -99,8 +102,8 @@ class NewClientProgressForm extends Component {
             this.onLoadList(e);
         }
         // Set success message to empty if re-entering data after a successful previous submission.
-        if(this.state.success.msg !== '') {
-            this.props.setSuccess('');
+        if(!isEmpty(this.state.success)) {
+            this.props.setSuccess();
         }
     }
 
@@ -141,7 +144,7 @@ class NewClientProgressForm extends Component {
         const exerciseName = this.state.exerciseName;
 
         if (!this.state.exercises.includes(exerciseName)){
-            this.props.setErrors({exerciseName: "Please select an exercise from those provided!"});
+            this.props.setErrors("Please select an exercise from those provided!");
         }
         else{
             const clientProgressData = {
@@ -156,7 +159,7 @@ class NewClientProgressForm extends Component {
     } // onSubmit
 
     render() {
-        let {errors} = this.state;
+        let {errors, message} = this.state;
         return (
             <div className="newClientProgress">
                 <div>
@@ -203,7 +206,8 @@ class NewClientProgressForm extends Component {
                         onClick={this.onClick}
                         error={errors.Date}
                     />
-                    <div className="valid-feedback">{this.state.success.msg}</div>
+                    <DisplayMessage message={message}/>
+                    {/*<div className="valid-feedback">{this.state.success.msg}</div>*/}
                     <input type="submit" className="btn btn-info btn-block mt-2 mb-5"/>
                 </form>
             </div>

@@ -50,12 +50,17 @@ class EditPersonalTrainer extends Component {
                 loaded: true
             }
         }
-        if(props.success !== state.success || props.errors !== state.errors){
+        if(isEmpty(props.success) !== isEmpty(state.success)){
             return {
-                success: props.success,
+                message: props.success
+            }
+        }
+        if(isEmpty(props.errors) !== isEmpty(state.errors)){
+            return {
                 errors: props.errors
             }
         }
+
         return null
     }
 
@@ -64,8 +69,8 @@ class EditPersonalTrainer extends Component {
     }
 
     componentWillUnmount(){
-        this.props.setErrors({});
-        this.props.setSuccess({});
+        this.props.setErrors();
+        this.props.setSuccess();
     }
 
     // This captures what the user types and sets the specific input to the respective state variable
@@ -102,7 +107,7 @@ class EditPersonalTrainer extends Component {
 
         if (!dataChanged){
             message = {
-                type: "error",
+                type: "ERROR",
                 msg: "No data has been modified!"
             };
 
@@ -117,10 +122,10 @@ class EditPersonalTrainer extends Component {
             return null;
         }
         else {
-            message = {
-                type: "success",
-                msg: "Personal Trainer profile has been updated."
-            };
+            // message = {
+            //     type: "SUCCESS",
+            //     msg: "Personal Trainer profile has been updated."
+            // };
 
             // Reset state field to empty for error messages
             this.setState({
@@ -130,7 +135,7 @@ class EditPersonalTrainer extends Component {
                 Sex: '',
                 Password: '',
                 Password2: '',
-                message: message
+                //message: message
             });
             this.props.editPtData(this.state.ptId, editData, this.props.history);
             // Clear password match errors
