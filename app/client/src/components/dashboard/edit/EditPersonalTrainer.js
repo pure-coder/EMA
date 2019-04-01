@@ -1,7 +1,7 @@
 import React, {Component} from 'react';  // Used to create this component
 import PropTypes from 'prop-types'; // Used to document prop types sent to components
 import {connect} from 'react-redux' // Needed when using redux inside a component (connects redux to this component)
-import {getPtData,  editPtData, passwordsMatchError, setErrors, setSuccess} from "../../../actions/authenticationActions"; // Used to import create action for getting pt data and editing pt data
+import {getPtData,  editPtData, passwordsMatchError, setErrors, clearErrors, setSuccess, clearSuccess} from "../../../actions/authenticationActions"; // Used to import create action for getting pt data and editing pt data
 import {withRouter} from 'react-router-dom';
 import FormInputGroup from "../../common/FormInputGroup";
 import Loading from "../../../elements/Loading";
@@ -69,18 +69,24 @@ class EditPersonalTrainer extends Component {
     }
 
     componentWillUnmount(){
-        this.props.setErrors();
-        this.props.setSuccess();
+        this.props.clearErrors();
+        this.props.clearSuccess();
     }
 
     // This captures what the user types and sets the specific input to the respective state variable
     onChange(event) {
         this.setState({[event.target.name]: event.target.value});
+
+        this.props.clearErrors();
+        if(!isEmpty(this.props.success)){
+            this.props.clearSuccess();
+            this.setState({message: {type: null}}); // reset to null
+        }
     }
 
     onSubmit(event) {
         event.preventDefault();
-        this.setState({message: {type: null}}); // reset to null
+        this.props.clearSuccess();
 
         // Check if any data has been changed, don't want to waste server load and bandwidth on empty requests
         let dataChanged = false;
@@ -122,11 +128,6 @@ class EditPersonalTrainer extends Component {
             return null;
         }
         else {
-            // message = {
-            //     type: "SUCCESS",
-            //     msg: "Personal Trainer profile has been updated."
-            // };
-
             // Reset state field to empty for error messages
             this.setState({
                 FullName: '',
@@ -135,11 +136,10 @@ class EditPersonalTrainer extends Component {
                 Sex: '',
                 Password: '',
                 Password2: '',
-                //message: message
             });
             this.props.editPtData(this.state.ptId, editData, this.props.history);
             // Clear password match errors
-            this.props.setErrors()
+            this.props.clearErrors()
         }
     }
 
@@ -232,8 +232,10 @@ class EditPersonalTrainer extends Component {
 // Documents what props are needed for this component and will log a warning in the console in dev mode if not complied to
 EditPersonalTrainer.propTypes = {
     getPtData: PropTypes.func.isRequired,
+    clearErrors: PropTypes.func.isRequired,
     setErrors: PropTypes.func.isRequired,
     setSuccess: PropTypes.func.isRequired,
+    clearSuccess: PropTypes.func.isRequired,
     passwordsMatchError: PropTypes.func.isRequired,
     authenticatedUser: PropTypes.object.isRequired,
     errors: PropTypes.object.isRequired
@@ -246,4 +248,4 @@ const stateToProps = (state) => ({
     success: state.success
 });
 
-export default connect(stateToProps, {getPtData, editPtData, passwordsMatchError, setErrors, setSuccess})(withRouter(EditPersonalTrainer));
+export default connect(stateToProps, {getPtData, editPtData, passwordsMatchError, setErrors, clearErrors, setSuccess, clearSuccess})(withRouter(EditPersonalTrainer));

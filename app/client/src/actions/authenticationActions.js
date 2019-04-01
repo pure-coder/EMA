@@ -14,7 +14,6 @@ import {
 } from "./types"; // import custom defined types
 import setAuthorisationToken from '../utilities/setAuthorisationToken';
 import jwtDecode from 'jwt-decode';
-import isEmpty from '../utilities/is_empty';
 
 const manageErrors = (err, dispatch, history) => {
     console.log(err.response);
@@ -305,13 +304,7 @@ export const deleteExercise =(uid, cid, data, history) => dispatch => {
 };
 
 export const setErrors = (error) => dispatch => {
-    // If error hasn't been defined then make error an empty object
     if(typeof error === "string"){
-        if(isEmpty(error)){
-            error = {
-                type: null,
-            };
-        }
         dispatch({
             type: GET_ERRS,
             payload: {
@@ -323,12 +316,6 @@ export const setErrors = (error) => dispatch => {
     if(typeof error === "object"){
         // Object error message should only have one value so extract the message error to string
         let message = Object.values(error).toString();
-
-        if(isEmpty(error)){
-            error = {
-                type: null,
-            };
-        }
         dispatch({
             type: GET_ERRS,
             payload: {
@@ -337,17 +324,9 @@ export const setErrors = (error) => dispatch => {
             }
         })
     } // typeof string
-
-
 };
 
 export const setSuccess = (message) => dispatch => {
-    // If error hasn't been defined then make error an empty object
-    if(isEmpty(message)){
-        message = {
-            type: null,
-        };
-    }
     dispatch({
         type: SUCCESS,
         payload: {
@@ -361,6 +340,13 @@ export const setSuccess = (message) => dispatch => {
 export const clearErrors = () => dispatch => {
     dispatch({
         type: GET_ERRS,
+        payload: {}
+    })
+};
+
+export const clearSuccess = () => dispatch => {
+    dispatch({
+        type: SUCCESS,
         payload: {}
     })
 };
