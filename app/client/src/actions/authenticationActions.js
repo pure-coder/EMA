@@ -306,18 +306,39 @@ export const deleteExercise =(uid, cid, data, history) => dispatch => {
 
 export const setErrors = (error) => dispatch => {
     // If error hasn't been defined then make error an empty object
-    if(isEmpty(error)){
-        error = {
-            type: null,
-        };
-    }
-    dispatch({
-        type: GET_ERRS,
-        payload: {
-            type: "ERROR",
-            msg: error
+    if(typeof error === "string"){
+        if(isEmpty(error)){
+            error = {
+                type: null,
+            };
         }
-    })
+        dispatch({
+            type: GET_ERRS,
+            payload: {
+                type: "ERROR",
+                msg: error
+            }
+        })
+    } // typeof string
+    if(typeof error === "object"){
+        // Object error message should only have one value so extract the message error to string
+        let message = Object.values(error).toString();
+
+        if(isEmpty(error)){
+            error = {
+                type: null,
+            };
+        }
+        dispatch({
+            type: GET_ERRS,
+            payload: {
+                type: "ERROR",
+                msg: message
+            }
+        })
+    } // typeof string
+
+
 };
 
 export const setSuccess = (message) => dispatch => {

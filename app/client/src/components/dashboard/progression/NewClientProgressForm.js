@@ -140,20 +140,38 @@ class NewClientProgressForm extends Component {
 
     onSubmit(e) {
         e.preventDefault();
+        console.log(1);
 
         const exerciseName = this.state.exerciseName;
 
+        // Check if any data has been changed, don't want to waste server load and bandwidth on empty requests
+        let dataChanged = false;
+
+        const clientProgressData = {
+            exerciseName: this.state.exerciseName,
+            metrics: {
+                maxWeight: this.state.maxWeight,
+                Date: new Date(this.state.Date)
+            }
+        };
+
+        // Check if any of the fields have been modified, break as soon asap if one has, no need to continue loop.
+        for(let element in clientProgressData) {
+            if(!isEmpty(clientProgressData[element])){
+                dataChanged = true;
+                break;
+            }
+        }
+
+        if(dataChanged){
+
+        }
+
         if (!this.state.exercises.includes(exerciseName)){
-            this.props.setErrors("Please select an exercise from those provided!");
+            this.props.setErrors({exerciseName: "Please select an exercise from those provided!"});
         }
         else{
-            const clientProgressData = {
-                exerciseName: this.state.exerciseName,
-                metrics: {
-                    maxWeight: this.state.maxWeight,
-                    Date: new Date(this.state.Date)
-                }
-            };
+            this.props.clearErrors();
             this.props.newClientProgress(this.state.userId, this.state.clientId, clientProgressData, this.props.history);
         }
     } // onSubmit
@@ -177,7 +195,7 @@ class NewClientProgressForm extends Component {
                             id="exerciseName"
                             type="text"
                             onChange={this.onChange}
-                            error={errors.exerciseName}
+                            error={errors.msg}
                             onClick={this.onClick}
                             onBlur={this.onBlur}
                         />
@@ -208,7 +226,7 @@ class NewClientProgressForm extends Component {
                     />
                     <DisplayMessage message={message}/>
                     {/*<div className="valid-feedback">{this.state.success.msg}</div>*/}
-                    <input type="submit" className="btn btn-info btn-block mt-2 mb-5"/>
+                    <input type="submit" className="btn btn-info btn-block mt-5 mb-5"/>
                 </form>
             </div>
         );
