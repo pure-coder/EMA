@@ -2,7 +2,7 @@ import React, {Component} from 'react' // React is need for rendering JSX HTML e
 import {withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
-import {newClientProgress, setErrors, clearErrors, setSuccess} from "../../../actions/authenticationActions";
+import {newClientProgress, setErrors, clearErrors, clearSuccess} from "../../../actions/authenticationActions";
 import autocomplete from '../../../utilities/autoComplete';
 import FormInputGroup from "../../common/FormInputGroup";
 import DisplayMessage from "../../common/DisplayMessage";
@@ -93,6 +93,7 @@ class NewClientProgressForm extends Component {
                 Date: ''
             });
             this.props.clearErrors();
+            this.props.clearSuccess();
         }
     }
 
@@ -103,12 +104,18 @@ class NewClientProgressForm extends Component {
         }
         // Set success message to empty if re-entering data after a successful previous submission.
         if(!isEmpty(this.state.success)) {
-            this.props.setSuccess();
+            this.props.clearSuccess();
         }
     }
 
     onChange(e) {
         this.setState({[e.target.name]: e.target.value});
+
+        this.props.clearErrors();
+        if(!isEmpty(this.props.success)){
+            this.props.clearSuccess();
+            this.setState({message: {type: null}}); // reset to null
+        }
     }
 
     // When input field is click (Really on clicked)
@@ -243,6 +250,7 @@ class NewClientProgressForm extends Component {
 NewClientProgressForm.propTypes = {
     newClientProgress: PropTypes.func.isRequired,
     setErrors: PropTypes.func.isRequired,
+    clearSuccess: PropTypes.func.isRequired,
     clearErrors: PropTypes.func.isRequired,
     authenticatedUser: PropTypes.object.isRequired,
     errors: PropTypes.object.isRequired,
@@ -256,4 +264,4 @@ const stateToProps = (state) => ({
 });
 
 
-export default connect(stateToProps, {newClientProgress, setErrors, clearErrors, setSuccess})(withRouter(NewClientProgressForm));
+export default connect(stateToProps, {newClientProgress, setErrors, clearErrors, clearSuccess})(withRouter(NewClientProgressForm));

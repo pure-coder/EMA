@@ -352,6 +352,7 @@ router.post('/:id/client_progression/:cid', passport.authenticate('pt_rule', {se
                     ClientProgression.findOne({$and: [{clientId: clientId}, {exerciseName: data.exerciseName}]})
                         .then(result => {
                             if (result) {
+
                                 // Client progress exists for exercise so insert new metrics for document (update), but only if metrics for date are new.
                                 //console.log(result);
                                 // Create newMetrics object which is populated with metrics sent by user, and push into document if not already present!
@@ -368,17 +369,12 @@ router.post('/:id/client_progression/:cid', passport.authenticate('pt_rule', {se
                                 // Initialise duplicate date check boolean to false
                                 let metricDuplicate = false;
 
-                                let start = performance.now();
-
                                 documentMetrics.map(elements => {
                                     if (elements.Date.getTime() === newMetrics.Date.getTime()) { // Had to use getTime() for comparison of date
                                         metricDuplicate = true;
                                     }
                                 });
 
-                                let end = performance.now();
-
-                                console.log(end - start);
 
                                 // If metricDuplicate is false then insert new metrics else return message stating duplication
                                 if (!metricDuplicate) {
@@ -426,6 +422,7 @@ router.post('/:id/client_progression/:cid', passport.authenticate('pt_rule', {se
                             }
                         })
                         .catch(err => {
+                            console.log(err)
                             return res.status(400).json(err)
                         });
 
