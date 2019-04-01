@@ -140,12 +140,13 @@ class NewClientProgressForm extends Component {
 
     onSubmit(e) {
         e.preventDefault();
-        console.log(1);
+        this.setState({message: {type: null}});
 
-        const exerciseName = this.state.exerciseName;
+        let exerciseName = this.state.exerciseName;
 
         // Check if any data has been changed, don't want to waste server load and bandwidth on empty requests
         let dataChanged = false;
+        let message;
 
         const clientProgressData = {
             exerciseName: this.state.exerciseName,
@@ -155,19 +156,24 @@ class NewClientProgressForm extends Component {
             }
         };
 
-        // Check if any of the fields have been modified, break as soon asap if one has, no need to continue loop.
-        for(let element in clientProgressData) {
-            if(!isEmpty(clientProgressData[element])){
+        console.log(clientProgressData);
+        console.log(this.state.message);
+
+        // Check to see if data has been entered or modified
+        if(!isEmpty(clientProgressData.exerciseName) || !isEmpty(clientProgressData.metrics.maxWeight) ||
+            !isEmpty(clientProgressData.metrics.Date)){
                 dataChanged = true;
-                break;
-            }
         }
 
-        if(dataChanged){
-
+        if(!dataChanged){
+            message = {
+                type: "ERROR",
+                msg: "No data has been entered or modified!"
+            };
+            this.setState({message});
+            return null;
         }
-
-        if (!this.state.exercises.includes(exerciseName)){
+        else if (!this.state.exercises.includes(exerciseName)){
             this.props.setErrors({exerciseName: "Please select an exercise from those provided!"});
         }
         else{

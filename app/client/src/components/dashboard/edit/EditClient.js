@@ -119,12 +119,11 @@ class EditClient extends Component {
         let message;
 
         if (!dataChanged){
-            this.setState({message: {type: null}}); // reset to null
             message = {
                 type: "ERROR",
                 msg: "No data has been modified!"
             };
-            this.setState({message: message});
+            this.setState({message});
             this.props.setErrors(errors);
             return null;
         }
