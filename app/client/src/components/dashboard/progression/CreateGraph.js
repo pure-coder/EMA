@@ -63,6 +63,7 @@ class CreateGraph extends Component {
         if(prevProps.graphData.metrics.length !== this.props.graphData.metrics.length) {
             this.drawGraph(true)
         }
+        this.props.modalSize(this.props.progressFormHeight);
     }
 
     render(){
@@ -90,10 +91,10 @@ class CreateGraph extends Component {
         // Provide component depending on what button was pressed
         if(this.state.form === 'Delete') {
             displayForm = (
-                <div>
                     <DeleteProgressConfirm exerciseName={this.props.graphData.exerciseName} onClickAway={this.onClickAway}
-                                           visible={this.state.visible}/>
-                </div>
+                                           visible={this.state.visible}
+                                            modalSize={this.props.modalSize}
+                                            progressFormHeight={this.props.progressFormHeight}/>
             )
         }
         if(this.state.form === 'Edit') {
@@ -121,7 +122,9 @@ class CreateGraph extends Component {
 
 CreateGraph.propTypes = {
     graphData: PropTypes.object.isRequired,
-    deleteExercise: PropTypes.func.isRequired
+    deleteExercise: PropTypes.func.isRequired,
+    modalSize: PropTypes.func.isRequired,
+    progressFormHeight: PropTypes.string.isRequired,
 };
 
 const stateToProps = (state) => ({

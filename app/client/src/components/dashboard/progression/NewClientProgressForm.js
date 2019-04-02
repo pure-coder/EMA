@@ -266,6 +266,7 @@ class NewClientProgressForm extends Component {
 
 NewClientProgressForm.propTypes = {
     modalSize: PropTypes.func.isRequired,
+    progressFormHeight: PropTypes.string.isRequired,
     newClientProgress: PropTypes.func.isRequired,
     setErrors: PropTypes.func.isRequired,
     clearSuccess: PropTypes.func.isRequired,

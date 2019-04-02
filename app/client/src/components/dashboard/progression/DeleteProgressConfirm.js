@@ -11,13 +11,33 @@ class DeleteProgressConfirm extends Component {
         this.state = {
             userId: props.authenticatedUser.user.id,
             clientId: props.match.params.cid,
+            progressFormHeight: props.progressFormHeight,
         };
         this.onCancel = this.onCancel.bind(this);
         this.onConfirm = this.onConfirm.bind(this);
     } // constructor
 
+    static getDerivedStateFromProps(props, state) {
+        if (props.progressFormHeight < state.progressFormHeight) {
+            return {
+                progressFormHeight: props.progressFormHeight
+            }
+        }
+        return null;
+    }
+
     componentDidMount(){
         document.body.scrollTo(0,0);
+        let formHeight = document.getElementsByClassName("delete-progress")[0].offsetHeight;
+        this.setState({progressFormHeight: formHeight});
+    }
+
+    componentDidUpdate(prevProps){
+        if(this.state.progressFormHeight < prevProps.progressFormHeight ){
+            console.log(this.state.progressFormHeight)
+            let newHeight = this.state.progressFormHeight;
+            this.props.modalSize(newHeight.toString())
+        }
     }
 
     onCancel(){
@@ -44,7 +64,9 @@ class DeleteProgressConfirm extends Component {
 }
 
 DeleteProgressConfirm.proptypes = {
-    deleteExercise: PropTypes.func.isRequired
+    deleteExercise: PropTypes.func.isRequired,
+    modalSize: PropTypes.func.isRequired,
+    progressFormHeight: PropTypes.string.isRequired,
 };
 
 const stateToProps = (state) => ({
