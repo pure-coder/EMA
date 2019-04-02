@@ -24,6 +24,7 @@ class NewClientProgressForm extends Component {
             message: {
                 type: null
             },
+            progressFormHeight: props.progressFormHeight,
             exercises : [
                 "Squat",
                 "Leg press",
@@ -63,6 +64,11 @@ class NewClientProgressForm extends Component {
     } // constructor
 
     static getDerivedStateFromProps(props, state) {
+        if(props.progressFormHeight < state.progressFormHeight){
+            return {
+                progressFormHeight: props.progressFormHeight
+            }
+        }
         if (props.visible !== state.visible) {
             return {visible: props.visible}
         }
@@ -81,6 +87,8 @@ class NewClientProgressForm extends Component {
 
     componentDidMount(){
         document.body.scrollTo(0,0);
+        let formHeight = document.getElementsByClassName("progress-form-div")[0].offsetHeight;
+        this.setState({progressFormHeight: formHeight});
     }
 
     // Checking if previous props modal visibility and this states visibility is not equal (stops reacts maximum loop message when
@@ -94,6 +102,11 @@ class NewClientProgressForm extends Component {
             });
             this.props.clearErrors();
             this.props.clearSuccess();
+        }
+
+        if(this.state.progressFormHeight < prevProps.progressFormHeight ){
+            let newHeight = this.state.progressFormHeight;
+            this.props.modalSize(newHeight.toString())
         }
     }
 
@@ -131,6 +144,7 @@ class NewClientProgressForm extends Component {
         this.props.onClickAway();
         // Clear errors once the modal has been exited
         this.props.clearErrors();
+        this.setState({message: {type: null}});
         // Reset/ Clear input fields once modal has been exited
         this.setState({
             exerciseName: '',
@@ -147,7 +161,10 @@ class NewClientProgressForm extends Component {
 
     onSubmit(e) {
         e.preventDefault();
-        this.setState({message: {type: null}});
+        this.setState({
+            message: {type: null},
+        });
+        this.props.clearSuccess();
 
         let exerciseName = this.state.exerciseName;
 
@@ -162,9 +179,6 @@ class NewClientProgressForm extends Component {
                 Date: new Date(this.state.Date)
             }
         };
-
-        console.log(clientProgressData);
-        console.log(this.state.message);
 
         // Check to see if data has been entered or modified
         if(!isEmpty(clientProgressData.exerciseName) || !isEmpty(clientProgressData.metrics.maxWeight) ||
@@ -196,51 +210,54 @@ class NewClientProgressForm extends Component {
                 <div>
                     <button className="closeButton"  onClick={this.onClose}><i className="fas fa-window-close 2x"></i></button>
                 </div>
-                <form autoComplete="off" onSubmit={this.onSubmit}>
-                    <label className="control-label form-control-lg new-progression">
-                        Exercise:
-                    </label>
-                    <div className="autocomplete">
+                <div className="progress-form-div">
+                    <form autoComplete="off" onSubmit={this.onSubmit}>
+                        <label className="control-label form-control-lg new-progression">
+                            Exercise:
+                        </label>
+                        <div className="autocomplete">
+                            <FormInputGroup
+                                name="exerciseName"
+                                PlaceHolder="Exercise Name"
+                                value={this.state.exerciseName}
+                                id="exerciseName"
+                                type="text"
+                                onChange={this.onChange}
+                                error={errors.msg}
+                                onClick={this.onClick}
+                                onBlur={this.onBlur}
+                            />
+                        </div>
+                        <label className="control-label form-control-lg new-progression">
+                            One Rep Max Weight (Kg):
+                        </label>
                         <FormInputGroup
-                            name="exerciseName"
-                            PlaceHolder="Exercise Name"
-                            value={this.state.exerciseName}
-                            id="exerciseName"
+                            name="maxWeight"
+                            PlaceHolder="Max Weight"
+                            value={this.state.maxWeight}
                             type="text"
                             onChange={this.onChange}
-                            error={errors.msg}
                             onClick={this.onClick}
-                            onBlur={this.onBlur}
+                            error={errors.maxWeight}
                         />
-                    </div>
-                    <label className="control-label form-control-lg new-progression">
-                        One Rep Max Weight (Kg):
-                    </label>
-                    <FormInputGroup
-                        name="maxWeight"
-                        PlaceHolder="Max Weight"
-                        value={this.state.maxWeight}
-                        type="text"
-                        onChange={this.onChange}
-                        onClick={this.onClick}
-                        error={errors.maxWeight}
-                    />
-                    <label className="control-label form-control-lg new-progression">
-                        Date:
-                    </label>
-                    <FormInputGroup
-                        name="Date"
-                        PlaceHolder="Date"
-                        value={this.state.Date}
-                        type="Date"
-                        onChange={this.onChange}
-                        onClick={this.onClick}
-                        error={errors.Date}
-                    />
-                    <DisplayMessage message={message}/>
-                    {/*<div className="valid-feedback">{this.state.success.msg}</div>*/}
-                    <input type="submit" className="btn btn-info btn-block mt-5 mb-5"/>
-                </form>
+                        <label className="control-label form-control-lg new-progression">
+                            Date:
+                        </label>
+                        <FormInputGroup
+                            myClassName="progress-date"
+                            name="Date"
+                            PlaceHolder="Date"
+                            value={this.state.Date}
+                            type="Date"
+                            onChange={this.onChange}
+                            onClick={this.onClick}
+                            error={errors.Date}
+                        />
+                        <DisplayMessage message={message}/>
+                        {/*<div className="valid-feedback">{this.state.success.msg}</div>*/}
+                        <input type="submit" className="btn btn-info btn-block mt-4 mb-5"/>
+                    </form>
+                </div>
             </div>
         );
 
@@ -248,6 +265,7 @@ class NewClientProgressForm extends Component {
 }
 
 NewClientProgressForm.propTypes = {
+    modalSize: PropTypes.func.isRequired,
     newClientProgress: PropTypes.func.isRequired,
     setErrors: PropTypes.func.isRequired,
     clearSuccess: PropTypes.func.isRequired,

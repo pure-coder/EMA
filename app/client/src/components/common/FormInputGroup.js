@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 
 // Input all properties as parameters
 const FormInputGroup = ({
+    myClassName,
     name,
     placeholder,
     id,
@@ -15,12 +16,12 @@ const FormInputGroup = ({
     error
 }) => {
     return (
-        <div className="form-group">
+        <div className={"form-group " + myClassName}>
             <input type={type}
                 // Using classnames package to display errors to user if they occur
                 // 1st parameter are default classes that should always be used, the 2nd
                 // parameter adds 'is-invalid' if errors.FullName exists
-                   className={classnames('form-control form-control-lg', {'is-invalid': error})}
+                   className={classnames(`form-control form-control-lg`, {'is-invalid': error})}
                    placeholder={placeholder}
                    id={id}
                    name={name}

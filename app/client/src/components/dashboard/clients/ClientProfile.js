@@ -22,9 +22,13 @@ class ClientProfile extends Component {
             // If user is pt then get clientId from otherwise user is client, so use user.id
             clientId: props.authenticatedUser.clientId !== undefined ? props.authenticatedUser.clientId : props.match.params.cid,
             loaded: false,
+            modalWidth: "500",
+            modalHeight: "500",
             visible: false, // For modal
             errors: {}
         };
+
+        this.modalSize = this.modalSize.bind(this);
 
         this.getClientProgression();
 
@@ -54,7 +58,12 @@ class ClientProfile extends Component {
     componentWillUnmount(){
         // This got rid of the Date: null bug for now, need to find route cause!!!
         this.props.clearProgression();
+
         this.setState({loaded: false})
+    }
+
+    modalSize(height){
+        this.setState({modalHeight: height});
     }
 
     openModal() {
@@ -115,7 +124,7 @@ class ClientProfile extends Component {
                     </div>
 
 
-                    <Modal visible={this.state.visible} width="500" height="450" effect="fadeInUp"
+                    <Modal visible={this.state.visible} width={this.state.modalWidth} height={this.state.modalHeight} effect="fadeInUp"
                            onClickAway={this.onClickAway}>
                         <div>
                             {/*Sending onClickAway into child component NewClientProgress allows the child to affect this parents state!!!
@@ -124,6 +133,8 @@ class ClientProfile extends Component {
                            has been successful.*/}
                             <NewClientProgressForm onClickAway={this.onClickAway}
                                                    visible={this.state.visible}
+                                                    modalSize={this.modalSize}
+                                                   progressFormHeight={this.state.modalHeight}
                             />
                         </div>
                     </Modal>

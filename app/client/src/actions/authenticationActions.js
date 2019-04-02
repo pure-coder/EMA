@@ -16,7 +16,7 @@ import setAuthorisationToken from '../utilities/setAuthorisationToken';
 import jwtDecode from 'jwt-decode';
 
 const manageErrors = (err, dispatch, history) => {
-    console.log(err.response);
+    // console.log(err.response);
     // 401 Unauthorised
     if(err.response.status === 401){
         dispatch({
@@ -27,7 +27,7 @@ const manageErrors = (err, dispatch, history) => {
             }
         });
         dispatch(logOutUser());
-        dispatch(setErrors());
+        dispatch(clearErrors());
         history.push('/re-login');
     }
     // If used direct url, and id doesn't exist send user to error page (404 - Not Found)

@@ -468,6 +468,10 @@ svg {
     color: red;
 }
 
+.progress-form-div input[type=submit] {
+    display: inline-block;
+}
+
 /* Delete progress */
 
 .delete-progress {
@@ -564,6 +568,10 @@ input[type=submit] {
 /*  Invalid feedback error div */
 
 .invalid-feedback {
-    margin: 4px 0;
+    margin: 6px 0 12px 0;
+}
+
+#display-message {
+    font-size: 80%;
 }
 
