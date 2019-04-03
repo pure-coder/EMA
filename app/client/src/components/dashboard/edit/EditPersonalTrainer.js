@@ -210,7 +210,7 @@ class EditPersonalTrainer extends Component {
                                     <FormInputGroup
                                         name="Password"
                                         placeholder="Enter Password"
-                                        value={this.state.password}
+                                        value={this.state.Password}
                                         type="Password"
                                         onChange={this.onChange}
                                         error={errors.Password}
