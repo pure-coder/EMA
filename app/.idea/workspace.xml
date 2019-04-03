@@ -4,17 +4,9 @@
     <bookmark url="file://C:/Learning/clientObjectData.js" description="export {&quot;_id&quot;:&quot;5c2e3454d27ace097420b414&quot;,&quot;FullName..." line="2" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ec8ccf39-8487-4892-a38d-de9c288878a3" name="Default" comment="Need to figure out grandchildren lifting state up">
+    <list default="true" id="ec8ccf39-8487-4892-a38d-de9c288878a3" name="Default" comment="Modal size for delete progress fixed, I was updating the wrong modal, found better way to get size of div along with padding and margin.&#10;&#10;Changed DisplayMessage default return from null to an empty div, so that it is always presented, this increases UX as the submit button does not hop up and down.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/App.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/common/DisplayMessage.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/common/DisplayMessage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/dashboard/clients/ClientProfile.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/dashboard/clients/ClientProfile.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/dashboard/edit/EditClient.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/dashboard/edit/EditClient.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/dashboard/edit/EditPersonalTrainer.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/dashboard/edit/EditPersonalTrainer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/dashboard/progression/CreateGraph.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/dashboard/progression/CreateGraph.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/dashboard/progression/DeleteProgressConfirm.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/dashboard/progression/DeleteProgressConfirm.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/dashboard/progression/Graph.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/dashboard/progression/Graph.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/dashboard/progression/NewClientProgressForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/dashboard/progression/NewClientProgressForm.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -56,10 +48,10 @@
           <entry key="css" value="7574" />
           <entry key="editorConfig" value="285" />
           <entry key="html" value="1072" />
-          <entry key="js" value="147689" />
+          <entry key="js" value="148728" />
           <entry key="json" value="26" />
           <entry key="md" value="150" />
-          <entry key="txt" value="1657" />
+          <entry key="txt" value="1989" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
@@ -67,8 +59,8 @@
           <entry key="CSS" value="7574" />
           <entry key="HTML" value="1079" />
           <entry key="JSON" value="26" />
-          <entry key="JavaScript" value="147682" />
-          <entry key="PLAIN_TEXT" value="2092" />
+          <entry key="JavaScript" value="148721" />
+          <entry key="PLAIN_TEXT" value="2424" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -78,7 +70,7 @@
           <entry key="eslintignore" value="2" />
           <entry key="gitignore" value="2" />
           <entry key="html" value="17" />
-          <entry key="js" value="981" />
+          <entry key="js" value="982" />
           <entry key="json" value="9" />
           <entry key="map" value="1" />
           <entry key="md" value="4" />
@@ -92,7 +84,7 @@
           <entry key="CSS" value="55" />
           <entry key="HTML" value="17" />
           <entry key="JSON" value="9" />
-          <entry key="JavaScript" value="981" />
+          <entry key="JavaScript" value="982" />
           <entry key="PLAIN_TEXT" value="12" />
           <entry key="SVG" value="1" />
           <entry key="Scratch" value="1" />
@@ -110,8 +102,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/routes/users.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret line="376" selection-start-line="376" selection-end-line="376" />
+            <state relative-caret-position="-344">
+              <caret line="137" column="22" selection-start-line="137" selection-start-column="16" selection-end-line="137" selection-end-column="22" />
             </state>
           </provider>
         </entry>
@@ -128,8 +120,20 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/edit/EditClient.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="211">
-              <caret line="96" column="36" selection-start-line="96" selection-start-column="36" selection-end-line="96" selection-end-column="36" />
+            <state relative-caret-position="153">
+              <caret line="115" column="30" selection-start-line="115" selection-start-column="30" selection-end-line="115" selection-end-column="30" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/client/src/actions/authenticationActions.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="115">
+              <caret line="196" column="17" selection-start-line="196" selection-start-column="13" selection-end-line="196" selection-end-column="17" />
+              <folding>
+                <element signature="e#292#363#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -165,11 +169,9 @@
       <find>capi</find>
       <find>Events</find>
       <find>registerC</find>
-      <find>edit</find>
       <find>editPt</find>
       <find>edit_cl</find>
       <find>edit_pe</find>
-      <find>edit_c</find>
       <find>editCli</find>
       <find>getClientD</find>
       <find>msg</find>
@@ -185,6 +187,8 @@
       <find>setError</find>
       <find>progress</find>
       <find>delete</find>
+      <find>edit</find>
+      <find>edit_c</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -260,7 +264,6 @@
         <option value="$PROJECT_DIR$/routes/scheduler.js" />
         <option value="$PROJECT_DIR$/client/src/components/scheduler/Scheduler.js" />
         <option value="$PROJECT_DIR$/routes/users.js" />
-        <option value="$PROJECT_DIR$/client/src/actions/authenticationActions.js" />
         <option value="$PROJECT_DIR$/client/src/components/common/FormInputGroup.js" />
         <option value="$PROJECT_DIR$/client/src/components/dashboard/clients/ClientProfile.js" />
         <option value="$PROJECT_DIR$/client/src/components/dashboard/progression/Graph.js" />
@@ -270,6 +273,7 @@
         <option value="$PROJECT_DIR$/client/src/components/common/DisplayMessage.js" />
         <option value="$PROJECT_DIR$/client/src/App.css" />
         <option value="$PROJECT_DIR$/client/src/components/dashboard/edit/EditPersonalTrainer.js" />
+        <option value="$PROJECT_DIR$/client/src/actions/authenticationActions.js" />
         <option value="$PROJECT_DIR$/client/src/components/dashboard/edit/EditClient.js" />
       </list>
     </option>
@@ -477,7 +481,7 @@
       <workItem from="1553964400921" duration="761000" />
       <workItem from="1553966516735" duration="7764000" />
       <workItem from="1554114803122" duration="38602000" />
-      <workItem from="1554297617343" duration="4106000" />
+      <workItem from="1554297617343" duration="9875000" />
     </task>
     <task id="LOCAL-00001" summary="min height changed for developed pages">
       <created>1534874964132</created>
@@ -668,11 +672,18 @@
       <option name="project" value="LOCAL" />
       <updated>1554219969095</updated>
     </task>
-    <option name="localTasksCounter" value="28" />
+    <task id="LOCAL-00028" summary="Modal size for delete progress fixed, I was updating the wrong modal, found better way to get size of div along with padding and margin.&#10;&#10;Changed DisplayMessage default return from null to an empty div, so that it is always presented, this increases UX as the submit button does not hop up and down.">
+      <created>1554301947176</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1554301947176</updated>
+    </task>
+    <option name="localTasksCounter" value="29" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1282741000" />
+    <option name="totallyTimeSpent" value="1288510000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -687,7 +698,7 @@
     <frame x="-7" y="7" width="1377" height="768" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25840178" />
+      <window_info content_ui="combo" id="Project" order="0" weight="0.25840178" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.24943988" />
       <window_info id="Favorites" order="2" side_tool="true" weight="0.32935026" />
       <window_info anchor="bottom" id="Messages" order="0" sideWeight="0.49813294" weight="0.3280757" />
@@ -699,7 +710,7 @@
       <window_info anchor="bottom" id="Inspection" order="6" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="7" weight="0.3276923" />
       <window_info anchor="bottom" id="Docker" order="8" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Terminal" order="9" sideWeight="0.49962658" visible="true" weight="0.3170347" />
+      <window_info anchor="bottom" id="Terminal" order="9" sideWeight="0.49962658" weight="0.3170347" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.50186706" side_tool="true" weight="0.3280757" />
       <window_info anchor="bottom" id="Version Control" order="11" sideWeight="0.8065721" weight="0.22082019" />
       <window_info anchor="bottom" id="Inspection Results" order="12" weight="0.3276923" />
@@ -786,7 +797,8 @@
     <MESSAGE value="Error and success done for client progression." />
     <MESSAGE value="Progress form modal height dynamically changed to suit form. Progress form submit button set to display inline-block. Error font-size for DisplayMessage set to 80%." />
     <MESSAGE value="Need to figure out grandchildren lifting state up" />
-    <option name="LAST_COMMIT_MESSAGE" value="Need to figure out grandchildren lifting state up" />
+    <MESSAGE value="Modal size for delete progress fixed, I was updating the wrong modal, found better way to get size of div along with padding and margin.&#10;&#10;Changed DisplayMessage default return from null to an empty div, so that it is always presented, this increases UX as the submit button does not hop up and down." />
+    <option name="LAST_COMMIT_MESSAGE" value="Modal size for delete progress fixed, I was updating the wrong modal, found better way to get size of div along with padding and margin.&#10;&#10;Changed DisplayMessage default return from null to an empty div, so that it is always presented, this increases UX as the submit button does not hop up and down." />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/validation/editClient.js">
@@ -1031,23 +1043,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/actions/authenticationActions.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="20" column="36" lean-forward="true" selection-start-line="20" selection-start-column="36" selection-end-line="20" selection-end-column="36" />
-          <folding>
-            <element signature="e#292#363#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/routes/users.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret line="376" selection-start-line="376" selection-end-line="376" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/progression/Graph.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1360">
@@ -1110,10 +1105,27 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/actions/authenticationActions.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="115">
+          <caret line="196" column="17" selection-start-line="196" selection-start-column="13" selection-end-line="196" selection-end-column="17" />
+          <folding>
+            <element signature="e#292#363#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/users.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-344">
+          <caret line="137" column="22" selection-start-line="137" selection-start-column="16" selection-end-line="137" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/edit/EditClient.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="211">
-          <caret line="96" column="36" selection-start-line="96" selection-start-column="36" selection-end-line="96" selection-end-column="36" />
+        <state relative-caret-position="153">
+          <caret line="115" column="30" selection-start-line="115" selection-start-column="30" selection-end-line="115" selection-end-column="30" />
         </state>
       </provider>
     </entry>

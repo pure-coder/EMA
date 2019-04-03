@@ -95,7 +95,6 @@ class EditClient extends Component {
         // Clear errors
         this.props.clearErrors();
         this.setState({errors: {}});
-        console.log(this.state.errors);
 
         // Check if any data has been changed, don't want to waste server load and bandwidth on empty requests
         let dataChanged = false;
@@ -113,11 +112,18 @@ class EditClient extends Component {
             Password2: this.state.Password2
         };
 
+        // Use client data supplied to form for managing form field data after data has been submitted (keeps view the same whilst resetting
+        // state.FullName etc.
+        let client_data = this.state.client_data;
+
         // Check if any of the fields have been modified, break as soon asap if one has, no need to continue loop.
         for(let element in editData) {
             if(!isEmpty(editData[element])){
                 dataChanged = true;
-                break;
+                if(client_data.hasOwnProperty(element)){
+                    client_data[element] = editData[element];
+                }
+                //break;
             }
         }
 
@@ -148,6 +154,7 @@ class EditClient extends Component {
                 ContactNumber: '',
                 Password: '',
                 Password2: '',
+                client_data: client_data
             });
         }
     }
