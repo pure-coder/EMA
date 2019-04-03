@@ -28,13 +28,16 @@ class DeleteProgressConfirm extends Component {
 
     componentDidMount(){
         document.body.scrollTo(0,0);
-        let formHeight = document.getElementsByClassName("delete-progress")[0].offsetHeight;
+        let formHeight;
+        let el = document.querySelector(".delete-progress")
+        formHeight = el.offsetHeight;
+        formHeight += parseInt(window.getComputedStyle(el).getPropertyValue('margin-top'), 10);
+        formHeight += parseInt(window.getComputedStyle(el).getPropertyValue('margin-bottom'), 10);
         this.setState({progressFormHeight: formHeight});
     }
 
     componentDidUpdate(prevProps){
         if(this.state.progressFormHeight < prevProps.progressFormHeight ){
-            console.log(this.state.progressFormHeight)
             let newHeight = this.state.progressFormHeight;
             this.props.modalSize(newHeight.toString())
         }

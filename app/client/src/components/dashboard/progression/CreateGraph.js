@@ -17,11 +17,14 @@ class CreateGraph extends Component {
             userId : props.match.params.uid || props.authenticatedUser.user.id,
             clientId: props.authenticatedUser.clientId || props.match.params.cid,
             visible: false,
+            modalHeight: "400",
+            modalWidth: "500",
             form: ''
-        }
+        };
 
         this.openModal = this.openModal.bind(this);
-        this.onClickAway = this.onClickAway.bind(this)
+        this.onClickAway = this.onClickAway.bind(this);
+        this.modalSize = this.modalSize.bind(this);
     }
 
     openModal(e) {
@@ -37,6 +40,10 @@ class CreateGraph extends Component {
         this.setState({
             visible: false
         });
+    }
+
+    modalSize(height){
+        this.setState({modalHeight: height});
     }
 
     sortedProgressionMap(graphData){
@@ -63,7 +70,6 @@ class CreateGraph extends Component {
         if(prevProps.graphData.metrics.length !== this.props.graphData.metrics.length) {
             this.drawGraph(true)
         }
-        this.props.modalSize(this.props.progressFormHeight);
     }
 
     render(){
@@ -93,8 +99,8 @@ class CreateGraph extends Component {
             displayForm = (
                     <DeleteProgressConfirm exerciseName={this.props.graphData.exerciseName} onClickAway={this.onClickAway}
                                            visible={this.state.visible}
-                                            modalSize={this.props.modalSize}
-                                            progressFormHeight={this.props.progressFormHeight}/>
+                                            modalSize={this.modalSize}
+                                            progressFormHeight={this.state.modalHeight}/>
             )
         }
         if(this.state.form === 'Edit') {
@@ -110,7 +116,7 @@ class CreateGraph extends Component {
                 <div className={this.props.graphData.exerciseName.replace(/\s+/g, '-') + " graph"}></div>
                 {display}
 
-                <Modal visible={this.state.visible} width="500" height="450" effect="fadeInUp"
+                <Modal visible={this.state.visible} width={this.state.modalWidth} height={this.state.modalHeight} effect="fadeInUp"
                        onClickAway={this.onClickAway}>
                     {displayForm}
                 </Modal>
@@ -122,9 +128,7 @@ class CreateGraph extends Component {
 
 CreateGraph.propTypes = {
     graphData: PropTypes.object.isRequired,
-    deleteExercise: PropTypes.func.isRequired,
-    modalSize: PropTypes.func.isRequired,
-    progressFormHeight: PropTypes.string.isRequired,
+    deleteExercise: PropTypes.func.isRequired
 };
 
 const stateToProps = (state) => ({

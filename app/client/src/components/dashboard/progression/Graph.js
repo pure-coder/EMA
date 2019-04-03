@@ -37,11 +37,9 @@ class Graph extends Component {
     }
 
     componentDidUpdate(prevProps){
-        // this.authCheck();
         if (prevProps.graphData !== this.props.graphData){
             this.setState({graphData: this.props.graphData});
         }
-        this.props.modalSize(this.props.progressFormHeight);
     }
 
     sortedProgressionExerciseNames(graphData){
@@ -71,7 +69,7 @@ class Graph extends Component {
                     return (
                         // Changed key from CreateGraph to div as div was first child, otherwise error was given.
                         <div className="graphs" key={graph._id}>
-                            <CreateGraph graphData={graph} modalSize={this.props.modalSize} progressFormHeight={this.props.progressFormHeight}/>
+                            <CreateGraph graphData={graph}/>
                         </div>
                     )
                 }
@@ -87,9 +85,7 @@ class Graph extends Component {
 }
 
 Graph.propTypes = {
-    graphData: PropTypes.array.isRequired,
-    modalSize: PropTypes.func.isRequired,
-    progressFormHeight: PropTypes.string.isRequired,
+    graphData: PropTypes.array.isRequired
 };
 
 const stateToProps = (state) => ({

@@ -87,7 +87,11 @@ class NewClientProgressForm extends Component {
 
     componentDidMount(){
         document.body.scrollTo(0,0);
-        let formHeight = document.getElementsByClassName("progress-form-div")[0].offsetHeight;
+        let formHeight;
+        let el = document.querySelector(".progress-form-div");
+        formHeight = el.offsetHeight;
+        formHeight += parseInt(window.getComputedStyle(el).getPropertyValue('margin-top'), 10);
+        formHeight += parseInt(window.getComputedStyle(el).getPropertyValue('margin-bottom'), 10);
         this.setState({progressFormHeight: formHeight});
     }
 
@@ -114,6 +118,7 @@ class NewClientProgressForm extends Component {
         // If input field is for exerciseName, complete the auto list
         if(e.target.name === 'exerciseName') {
             this.onLoadList(e);
+            this.setState({message: {type: null}}); // reset to null
         }
         // Set success message to empty if re-entering data after a successful previous submission.
         if(!isEmpty(this.state.success)) {
@@ -125,9 +130,9 @@ class NewClientProgressForm extends Component {
         this.setState({[e.target.name]: e.target.value});
 
         this.props.clearErrors();
+        this.setState({message: {type: null}}); // reset to null
         if(!isEmpty(this.props.success)){
             this.props.clearSuccess();
-            this.setState({message: {type: null}}); // reset to null
         }
     }
 

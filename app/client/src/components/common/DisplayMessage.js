@@ -13,7 +13,7 @@ import React from 'react';
     if (message.type === "ERROR") {
         return  <div className="text-danger" id="display-message"> {message.msg} </div>
     }
-    return null;
+    return <div id="display-message"></div>;
 }
 
 export default DisplayMessage;

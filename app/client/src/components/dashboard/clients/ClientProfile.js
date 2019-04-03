@@ -44,11 +44,7 @@ class ClientProfile extends Component {
                 loaded: true,
             }
         }
-        // if(props.modalHeight !== state.modalHeight){
-        //     return {
-        //         modalHeight: props.modalHeight,
-        //     }
-        // }
+
         return null;
     }
 
@@ -107,7 +103,7 @@ class ClientProfile extends Component {
             }
             else{
                 displayContent = (
-                    <Graph graphData={clientProgressData} modalSize={this.modalSize} progressFormHeight={this.state.modalHeight}/>
+                    <Graph graphData={clientProgressData}/>
                 )
             }
 

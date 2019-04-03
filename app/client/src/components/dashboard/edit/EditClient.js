@@ -81,9 +81,9 @@ class EditClient extends Component {
         this.setState({[event.target.name]: event.target.value});
 
         this.props.clearErrors();
+        this.setState({message: {type: null}}); // reset to null
         if(!isEmpty(this.props.success)){
             this.props.clearSuccess();
-            this.setState({message: {type: null}}); // reset to null
         }
 
     }
@@ -91,6 +91,11 @@ class EditClient extends Component {
     onSubmit(event) {
         event.preventDefault();
         this.props.clearSuccess();
+
+        // Clear errors
+        this.props.clearErrors();
+        this.setState({errors: {}});
+        console.log(this.state.errors);
 
         // Check if any data has been changed, don't want to waste server load and bandwidth on empty requests
         let dataChanged = false;
@@ -229,7 +234,7 @@ class EditClient extends Component {
                                         error={errors.Password2}
                                     />
                                     <DisplayMessage message={message}/>
-                                    <input type="submit" value="Update" className="btn btn-info btn-block mt-4"/>
+                                    <input type="submit" value="Update" className="btn btn-info btn-block mt-3"/>
                                     <button type="button" className="btn btn-danger btn-block mt-3 mb-3" onClick={this.props.history.goBack}>Back</button>
                                 </form>
                             </div>
