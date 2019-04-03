@@ -194,12 +194,8 @@ router.put('/edit_client/:cid', passport.authenticate('both_rule', {session: fal
                     .catch(err => {
                         return res.status(400).json(err)
                     });
-            }).catch(err => {
-                return res.status(400).json(err)
-            });
-        }).catch(err => {
-            return res.status(400).json(err)
-        });
+            })
+        })
     }
     else {
         // Find client by id
@@ -300,12 +296,8 @@ router.put('/edit_personal_trainer/:id', passport.authenticate('pt_rule', {sessi
                     .catch(err => {
                         return res.status(400).json(err)
                     });
-            }).catch(err => {
-                return res.status(400).json(err)
-            });
-        }).catch(err => {
-            return res.status(400).json(err)
-        });
+            })
+        })
     }
     else {
         // Find client by id
