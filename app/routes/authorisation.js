@@ -73,7 +73,7 @@ router.post('/login', (req, res) => {
                                     // If it is matched then provide a token
                                     if (isMatch) {
                                         // User matched so create payload for client
-                                        const payload = {id: client.id, name: client.FullName, pt: false};
+                                        const payload = {id: client.id, pt: false};
 
                                         // Sign Token (needs payload, secret key, and expiry detail (3600 = 1hr) for re-login
                                         // and callback for token
@@ -117,7 +117,7 @@ router.post('/login', (req, res) => {
                         // If it is matched then provide a token
                         if (isMatch) {
                             // User matched so create payload for pt
-                            const payload = {id: pt.id, name: pt.FullName, pt: true};
+                            const payload = {id: pt.id, pt: true};
 
                             // Sign Token (needs payload, secret key, and expiry detail expressed in seconds
                             //  60s * 60m = (3600s = 1hr) for re-login and callback for token

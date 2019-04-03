@@ -5,10 +5,39 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { logOutUser } from "../../actions/authenticationActions";
 import { withRouter } from 'react-router-dom';
+import {getPtData, getClientData} from "../../actions/authenticationActions";
 
 import defaultUserImage from '../../img/user-regular.svg';
 
 class Navigation extends Component {
+    constructor(props){
+        super(props);
+        this.state = {
+            userData: undefined
+        }
+    }
+
+
+
+
+    componentDidUpdate(){
+        if(this.props.authenticatedUser.isAuthenticated && this.state.userData === undefined){
+            if(this.props.authenticatedUser.user.pt){
+                this.props.getPtData(this.props.authenticatedUser.user.id, this.props.history);
+            }
+            else{
+                this.props.getClientData(this.props.authenticatedUser.user.id, this.props.history);
+            }
+
+            if(this.props.authenticatedUser.pt_data){
+                this.setState({userData: this.props.authenticatedUser.pt_data})
+            }
+            else if (this.props.authenticatedUser.client_data){
+                this.setState({userData: this.props.authenticatedUser.client_data})
+            }
+        }
+        console.log(this.state)
+    }
 
     // Create log out link functionality
     onLogOutClick(event) {
@@ -20,10 +49,8 @@ class Navigation extends Component {
     render() {
 
         // // This allows specified data to be pulled out of this.prop.authenticatedUser without pulling them out directly
-        // const { isAuthenticated, user} = this.props.authenticatedUser;
-        const user = this.props.authenticatedUser.user;
-        const isAuthenticated = this.props.authenticatedUser.isAuthenticated;
-        const Guest = "Guest";
+        const {isAuthenticated} = this.props.authenticatedUser;
+        let userData = this.state.userData !== undefined ? this.state.userData : undefined;
 
         // Define navbar for dynamic navbar
         const authorisedLinks = (
@@ -35,12 +62,12 @@ class Navigation extends Component {
                             // If user has profile pic display it otherwise display default user image
                             // Todo - src={isAuthenticated ? user.profilePic : defaultUserImage} --- and add profilePic to user
                             src={isAuthenticated ? defaultUserImage : defaultUserImage}
-                            alt={isAuthenticated ? user.name : Guest}
+                            alt={userData ? userData.FullName: null}
                             style={{backgroundColor: 'white', width: 30, height: 27, paddingRight: 0}}
                         />
                         {/*{' '} is used to provide space */}
                         {' '}
-                        {isAuthenticated ? user.name : Guest}
+                        {userData ? userData.FullName: null}
                         {' '}
                         - Log Out</a>
                 </ul>
@@ -89,6 +116,8 @@ class Navigation extends Component {
 Navigation.propTypes = {
     logOutUser: PropTypes.func.isRequired,
     authenticatedUser: PropTypes.object.isRequired,
+    getClientData: PropTypes.func.isRequired,
+    getPtData: PropTypes.func.isRequired
 };
 
 // Used to pull auth state into this component
@@ -100,4 +129,4 @@ const stateToProps = (state) => ({
 // connect must be exported with a passed parameter (not direct parameter) of Register this is wrapped with withRouter
 // allowing the functions of the package to be used with the component eg, proper routing, and direct parameters of
 // stateToProps for the 1st parameter and the action which is registerUser as the 2nd parameter
-export default connect(stateToProps, { logOutUser })(withRouter(Navigation));
+export default connect(stateToProps, { logOutUser, getClientData, getPtData })(withRouter(Navigation));

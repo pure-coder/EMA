@@ -33,12 +33,13 @@ import './App.css';
 // To use tokens for signed in users on every request
 import jwtDecode from 'jwt-decode';
 import setAuthorisationToken from './utilities/setAuthorisationToken';
-import {setSignedInUser} from './actions/authenticationActions';
+import { setSignedInUser} from './actions/authenticationActions';
 
 // Used to log the user out
 import {logOutUser} from './actions/authenticationActions';
 import EditPersonalTrainer from "./components/dashboard/edit/EditPersonalTrainer";
 import ExpiredLogin from "./components/authentication/ExpiredLogin";
+// import connect from "react-redux/es/connect/connect";
 
 // check if token exists in local storage
 if (localStorage.jwtToken) {
