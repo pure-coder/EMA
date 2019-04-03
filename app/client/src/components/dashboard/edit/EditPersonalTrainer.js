@@ -102,10 +102,16 @@ class EditPersonalTrainer extends Component {
             Password2: this.state.Password2
         };
 
+        let pt_data = this.state.pt_data;
+
+        // Check if any of the fields have been modified, break as soon asap if one has, no need to continue loop.
         for(let element in editData) {
             if(!isEmpty(editData[element])){
                 dataChanged = true;
-                break;
+                if(pt_data.hasOwnProperty(element)){
+                    pt_data[element] = editData[element];
+                }
+                //break;
             }
         }
 
@@ -136,6 +142,7 @@ class EditPersonalTrainer extends Component {
                 Sex: '',
                 Password: '',
                 Password2: '',
+                pt_data: pt_data
             });
             this.props.editPtData(this.state.ptId, editData, this.props.history);
             // Clear password match errors
