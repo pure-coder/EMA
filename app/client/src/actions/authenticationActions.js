@@ -88,7 +88,11 @@ export const loginUser = (Data, history) => (dispatch) => {
             // in authenticatedReducer.js
             dispatch(setSignedInUser(decodedToken));
             if (decodedToken.pt === true) {
-                dispatch(getClients(decodedToken.id, history))
+                dispatch(getClients(decodedToken.id, history));
+                dispatch(getPtData(decodedToken.id, history))
+            }
+            else{
+                dispatch(getClientData(decodedToken.id, history))
             }
         })
         .catch(err => {
@@ -118,8 +122,7 @@ export const logOutUser = () => dispatch => {
     setAuthorisationToken(false);
     // Set signed in user to an empty object and isAuthenticated to false by passing in {} (empty object)
     dispatch(setSignedInUser({}));
-    // remove state from local storage
-    localStorage.removeItem('state');
+    // Remove data based on user (either pt or client)
     dispatch({
         type: LOGGED_OUT
     })

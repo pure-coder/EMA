@@ -13,30 +13,35 @@ class Navigation extends Component {
     constructor(props){
         super(props);
         this.state = {
-            userData: undefined
+            userData: {}
         }
     }
 
-
-
-
-    componentDidUpdate(){
-        if(this.props.authenticatedUser.isAuthenticated && this.state.userData === undefined){
-            if(this.props.authenticatedUser.user.pt){
-                this.props.getPtData(this.props.authenticatedUser.user.id, this.props.history);
+    static getDerivedStateFromProps(props, state){
+        if(props.authenticatedUser.isAuthenticated){
+            if(props.authenticatedUser.user.pt){
+                if(props.authenticatedUser.pt_data !== state.userData){
+                    return {
+                        userData: props.authenticatedUser.pt_data
+                    }
+                }
+                else{
+                    props.getPtData(props.authenticatedUser.user.id, props.history)
+                }
             }
-            else{
-                this.props.getClientData(this.props.authenticatedUser.user.id, this.props.history);
-            }
-
-            if(this.props.authenticatedUser.pt_data){
-                this.setState({userData: this.props.authenticatedUser.pt_data})
-            }
-            else if (this.props.authenticatedUser.client_data){
-                this.setState({userData: this.props.authenticatedUser.client_data})
+            else {
+                if(props.authenticatedUser.client_data !== state.userData){
+                    return {
+                        userData: props.authenticatedUser.client_data
+                    }
+                }
+                else{
+                    props.getClientData(props.authenticatedUser.user.id, props.history)
+                }
             }
         }
-        console.log(this.state)
+        
+        return null;
     }
 
     // Create log out link functionality
@@ -47,10 +52,9 @@ class Navigation extends Component {
     }
 
     render() {
-
-        // // This allows specified data to be pulled out of this.prop.authenticatedUser without pulling them out directly
-        const {isAuthenticated} = this.props.authenticatedUser;
-        let userData = this.state.userData !== undefined ? this.state.userData : undefined;
+        const isAuthenticated = this.props.authenticatedUser.isAuthenticated;
+        let user = this.state.userData;
+        console.log(user)
 
         // Define navbar for dynamic navbar
         const authorisedLinks = (
@@ -60,19 +64,20 @@ class Navigation extends Component {
                         <img
                             className="rounded-circle"
                             // If user has profile pic display it otherwise display default user image
-                            // Todo - src={isAuthenticated ? user.profilePic : defaultUserImage} --- and add profilePic to user
+                            // Todo - src={isLoggedIn ? user.profilePic : defaultUserImage} --- and add profilePic to user
                             src={isAuthenticated ? defaultUserImage : defaultUserImage}
-                            alt={userData ? userData.FullName: null}
+                            alt={isAuthenticated ? "User profile picture." : "Default user image."}
                             style={{backgroundColor: 'white', width: 30, height: 27, paddingRight: 0}}
                         />
                         {/*{' '} is used to provide space */}
                         {' '}
-                        {userData ? userData.FullName: null}
+                        {user !== undefined ? user.FullName : null}
                         {' '}
                         - Log Out</a>
                 </ul>
             </div>
         );
+
 
         const guestLinks = (
             <div className="collapse navbar-collapse" id="mobile-navigation">
@@ -103,9 +108,8 @@ class Navigation extends Component {
                         <span className="navbar-toggler-icon"></span>
                     </button>
 
-                    {/*Depending on isAuthenticated the navbar will display either authorisedLinks or guestLinks*/}
-                    {isAuthenticated ? authorisedLinks : guestLinks}
-
+                    {/*Depending on isLoggedIn the navbar will display either authorisedLinks or guestLinks*/}
+                    {!isAuthenticated ? guestLinks : isAuthenticated && !user ? guestLinks : authorisedLinks}
                 </div>
             </nav>
         );
