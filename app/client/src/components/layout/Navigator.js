@@ -25,6 +25,7 @@ class Navigation extends Component {
                         userData: props.authenticatedUser.pt_data
                     }
                 }
+                // If props.authenticatedUser.pt_data does not exist then get data
                 else{
                     props.getPtData(props.authenticatedUser.user.id, props.history)
                 }
@@ -35,6 +36,7 @@ class Navigation extends Component {
                         userData: props.authenticatedUser.client_data
                     }
                 }
+                // If props.authenticatedUser.client_data does not exist then get data
                 else{
                     props.getClientData(props.authenticatedUser.user.id, props.history)
                 }
@@ -54,7 +56,7 @@ class Navigation extends Component {
     render() {
         const isAuthenticated = this.props.authenticatedUser.isAuthenticated;
         let user = this.state.userData;
-        console.log(user)
+        //console.table(user)
 
         // Define navbar for dynamic navbar
         const authorisedLinks = (
@@ -109,7 +111,7 @@ class Navigation extends Component {
                     </button>
 
                     {/*Depending on isLoggedIn the navbar will display either authorisedLinks or guestLinks*/}
-                    {!isAuthenticated ? guestLinks : isAuthenticated && !user ? guestLinks : authorisedLinks}
+                    {isAuthenticated ? authorisedLinks :  guestLinks}
                 </div>
             </nav>
         );

@@ -229,6 +229,7 @@ img {
 }
 
 svg {
+    display: block;
     height: 310px;
     width: 400px;
     margin: 5px 10px 0 10px;
@@ -367,6 +368,7 @@ svg {
 
 .Progression {
     min-width: inherit;
+    width: 450px;
     margin: inherit;
     padding: inherit;
 }
@@ -424,19 +426,26 @@ svg {
 .progress-buttons {
     position: relative;
     height: 50px;
-    margin: 0 30px 35px 10px;
+    margin: auto;
 }
 
 #edit-progress-button {
     width: 135px;
     float: left;
-    margin-left: 25px;
+    margin-right: 23px;
+}
+
+#add-progress-button {
+    width: 135px;
+    float: left;
+    margin: auto;
 }
 
 #delete-progress-button {
     width: 135px;
     float: right;
     margin-top: 0;
+    margin-left: 22px;
 }
 
 /* Enter progress Modal */

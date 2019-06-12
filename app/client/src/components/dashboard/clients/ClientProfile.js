@@ -112,6 +112,7 @@ class ClientProfile extends Component {
                     <div className="row">
                         <div className="m-auto col-1 graphs" id="graphs">
                             <h2 className=" text-center display-5 mt-3 mb-4">Client progression data</h2>
+                            <h5 className=" text-center display-5 mt-3 mb-4">(Data only shown with 2+ entries)</h5>
                             {/*Only display Add progress if user is a pt*/}
                             {this.props.authenticatedUser.user.pt === true ?
                                 <div>
