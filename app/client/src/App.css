@@ -232,7 +232,7 @@ svg {
     display: block;
     height: 310px;
     width: 400px;
-    margin: 5px 10px 0 10px;
+    margin: 5px 10px 10px 10px;
 }
 
 .line {
@@ -363,6 +363,7 @@ svg {
     display: inline-block;
     margin: inherit;
     padding: inherit;
+    min-width: 450px;
     min-height: 250px;
 }
 
