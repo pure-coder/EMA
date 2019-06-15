@@ -4,11 +4,9 @@
     <bookmark url="file://C:/Learning/clientObjectData.js" description="export {&quot;_id&quot;:&quot;5c2e3454d27ace097420b414&quot;,&quot;FullName..." line="2" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ec8ccf39-8487-4892-a38d-de9c288878a3" name="Default" comment="Styling css changes made to progressions page (ClientProfile)">
-      <change afterPath="$PROJECT_DIR$/client/src/components/dashboard/progression/AddDataProgressForm.js" afterDir="false" />
+    <list default="true" id="ec8ccf39-8487-4892-a38d-de9c288878a3" name="Default" comment="getClientDataProgression add to both AddDataProgressionForm and ClientGraph for submitting new data and closing Modal respectively. Gives a more dynamic effect, showing that data is added in real time.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/App.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/dashboard/progression/CreateGraph.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/dashboard/progression/CreateGraph.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/dashboard/progression/AddDataProgressForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/dashboard/progression/AddDataProgressForm.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -51,10 +49,10 @@
           <entry key="css" value="7694" />
           <entry key="editorConfig" value="285" />
           <entry key="html" value="1072" />
-          <entry key="js" value="154114" />
+          <entry key="js" value="154548" />
           <entry key="json" value="26" />
           <entry key="md" value="150" />
-          <entry key="txt" value="2967" />
+          <entry key="txt" value="3367" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
@@ -62,8 +60,8 @@
           <entry key="CSS" value="7694" />
           <entry key="HTML" value="1079" />
           <entry key="JSON" value="26" />
-          <entry key="JavaScript" value="154107" />
-          <entry key="PLAIN_TEXT" value="3402" />
+          <entry key="JavaScript" value="154541" />
+          <entry key="PLAIN_TEXT" value="3802" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -73,7 +71,7 @@
           <entry key="eslintignore" value="2" />
           <entry key="gitignore" value="2" />
           <entry key="html" value="17" />
-          <entry key="js" value="1009" />
+          <entry key="js" value="1013" />
           <entry key="json" value="9" />
           <entry key="map" value="1" />
           <entry key="md" value="4" />
@@ -87,7 +85,7 @@
           <entry key="CSS" value="56" />
           <entry key="HTML" value="17" />
           <entry key="JSON" value="9" />
-          <entry key="JavaScript" value="1009" />
+          <entry key="JavaScript" value="1013" />
           <entry key="PLAIN_TEXT" value="12" />
           <entry key="SVG" value="1" />
           <entry key="Scratch" value="1" />
@@ -112,12 +110,36 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/clients/ClientProfile.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-1037">
+              <caret line="82" column="13" selection-start-line="82" selection-start-column="4" selection-end-line="84" selection-end-column="5" />
+              <folding>
+                <element signature="e#277#321#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/progression/CreateGraph.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="578">
-              <caret line="124" column="13" lean-forward="true" selection-start-line="124" selection-start-column="13" selection-end-line="124" selection-end-column="13" />
+            <state relative-caret-position="180">
+              <caret line="49" column="11" lean-forward="true" selection-start-line="49" selection-start-column="4" selection-end-line="51" selection-end-column="5" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/client/src/actions/authenticationActions.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-3298">
+              <caret line="93" column="17" selection-start-line="93" selection-start-column="17" selection-end-line="93" selection-end-column="17" />
+              <folding>
+                <element signature="e#292#363#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -147,8 +169,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/progression/AddDataProgressForm.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-476">
-              <caret line="113" lean-forward="true" selection-start-line="113" selection-end-line="113" />
+            <state relative-caret-position="129">
+              <caret line="146" lean-forward="true" selection-start-line="146" selection-end-line="146" />
               <folding>
                 <element signature="e#109#153#0" expanded="true" />
               </folding>
@@ -157,12 +179,12 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/src/actions/authenticationActions.js">
+        <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/progression/NewClientProgressForm.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1343">
-              <caret line="93" column="17" selection-start-line="93" selection-start-column="17" selection-end-line="93" selection-end-column="17" />
+            <state relative-caret-position="1496">
+              <caret line="274" column="21" selection-start-line="274" selection-start-column="21" selection-end-line="274" selection-end-column="21" />
               <folding>
-                <element signature="e#292#363#0" expanded="true" />
+                <element signature="e#109#153#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -281,7 +303,6 @@
         <option value="$PROJECT_DIR$/client/src/components/common/FormInputGroup.js" />
         <option value="$PROJECT_DIR$/client/src/components/dashboard/progression/Graph.js" />
         <option value="$PROJECT_DIR$/client/src/components/dashboard/progression/DeleteProgressConfirm.js" />
-        <option value="$PROJECT_DIR$/client/src/components/dashboard/progression/NewClientProgressForm.js" />
         <option value="$PROJECT_DIR$/client/src/components/common/DisplayMessage.js" />
         <option value="$PROJECT_DIR$/client/src/components/dashboard/edit/EditClient.js" />
         <option value="$PROJECT_DIR$/routes/users.js" />
@@ -294,6 +315,7 @@
         <option value="$PROJECT_DIR$/client/src/components/layout/Navigator.js" />
         <option value="$PROJECT_DIR$/client/src/components/dashboard/clients/ClientProfile.js" />
         <option value="$PROJECT_DIR$/client/src/App.css" />
+        <option value="$PROJECT_DIR$/client/src/components/dashboard/progression/NewClientProgressForm.js" />
         <option value="$PROJECT_DIR$/client/src/components/dashboard/progression/CreateGraph.js" />
         <option value="$PROJECT_DIR$/client/src/components/dashboard/progression/AddDataProgressForm.js" />
       </list>
@@ -363,6 +385,13 @@
               <item name="app" type="462c0819:PsiDirectoryNode" />
               <item name="client" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="actions" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="app" type="b2602c69:ProjectViewProjectNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="client" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="components" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -380,7 +409,14 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="components" type="462c0819:PsiDirectoryNode" />
               <item name="dashboard" type="462c0819:PsiDirectoryNode" />
-              <item name="progression" type="462c0819:PsiDirectoryNode" />
+              <item name="clients" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="app" type="b2602c69:ProjectViewProjectNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="client" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="reducers" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -497,7 +533,7 @@
       <workItem from="1554114803122" duration="38602000" />
       <workItem from="1554297617343" duration="32175000" />
       <workItem from="1558698681483" duration="9461000" />
-      <workItem from="1560344433218" duration="12931000" />
+      <workItem from="1560344433218" duration="17206000" />
     </task>
     <task id="LOCAL-00001" summary="min height changed for developed pages">
       <created>1534874964132</created>
@@ -751,11 +787,25 @@
       <option name="project" value="LOCAL" />
       <updated>1560525823620</updated>
     </task>
-    <option name="localTasksCounter" value="37" />
+    <task id="LOCAL-00037" summary="AddDataProgressForm Modal created for adding data to existing exercise for client, functionality working except for the instant change to graph in ClientProfile.">
+      <created>1560597846370</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1560597846370</updated>
+    </task>
+    <task id="LOCAL-00038" summary="getClientDataProgression add to both AddDataProgressionForm and ClientGraph for submitting new data and closing Modal respectively. Gives a more dynamic effect, showing that data is added in real time.">
+      <created>1560608176269</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1560608176269</updated>
+    </task>
+    <option name="localTasksCounter" value="39" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1333202000" />
+    <option name="totallyTimeSpent" value="1337477000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -782,9 +832,9 @@
       <window_info anchor="bottom" id="Inspection" order="6" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="7" weight="0.3276923" />
       <window_info anchor="bottom" id="Docker" order="8" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Terminal" order="9" sideWeight="0.49865952" weight="0.30923077" />
+      <window_info anchor="bottom" id="Terminal" order="9" sideWeight="0.49865952" visible="true" weight="0.30923077" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.5013405" side_tool="true" weight="0.2218543" />
-      <window_info anchor="bottom" id="Version Control" order="11" sideWeight="0.6152815" visible="true" weight="0.22" />
+      <window_info anchor="bottom" id="Version Control" order="11" sideWeight="0.6152815" weight="0.22" />
       <window_info anchor="bottom" id="Inspection Results" order="12" weight="0.3276923" />
       <window_info anchor="bottom" id="File Transfer" order="13" weight="0.3276923" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -855,8 +905,6 @@
   <component name="VcsManagerConfiguration">
     <option name="SHOW_DIRTY_RECURSIVELY" value="true" />
     <option name="LIMIT_HISTORY" value="false" />
-    <MESSAGE value="30/03/19" />
-    <MESSAGE value="new commit, webstorm was not pushing only commiting which is why github was not receiving commits" />
     <MESSAGE value="Object.assign not needed, call setState directly with message object." />
     <MESSAGE value="Refactor of Dashboard (Added folders to separate features)" />
     <MESSAGE value="EditPersonalTrainer modified like EditClient" />
@@ -880,7 +928,9 @@
     <MESSAGE value="Get user data for navigation if refreshed/copy &amp; pasted, so that it is up to date if edited. (Added call to get data for user in getDerivedStateFromProps depending on user status (pt/client) if data is not already in state)." />
     <MESSAGE value="Added add data button to CreateGraph so that data can be added to exercise without using add progress button at top of page, functionality has not yet been added to Modal yet." />
     <MESSAGE value="Styling css changes made to progressions page (ClientProfile)" />
-    <option name="LAST_COMMIT_MESSAGE" value="Styling css changes made to progressions page (ClientProfile)" />
+    <MESSAGE value="AddDataProgressForm Modal created for adding data to existing exercise for client, functionality working except for the instant change to graph in ClientProfile." />
+    <MESSAGE value="getClientDataProgression add to both AddDataProgressionForm and ClientGraph for submitting new data and closing Modal respectively. Gives a more dynamic effect, showing that data is added in real time." />
+    <option name="LAST_COMMIT_MESSAGE" value="getClientDataProgression add to both AddDataProgressionForm and ClientGraph for submitting new data and closing Modal respectively. Gives a more dynamic effect, showing that data is added in real time." />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/client/src/reducers/errReducer.js">
@@ -1136,26 +1186,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/actions/authenticationActions.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1343">
-          <caret line="93" column="17" selection-start-line="93" selection-start-column="17" selection-end-line="93" selection-end-column="17" />
-          <folding>
-            <element signature="e#292#363#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/clients/ClientProfile.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-86">
-          <caret line="114" column="31" selection-start-line="114" selection-start-column="31" selection-end-line="114" selection-end-column="31" />
-          <folding>
-            <element signature="e#277#321#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/client/src/components/layout/Navigator.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="357">
@@ -1191,20 +1221,30 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/progression/NewClientProgressForm.js">
+    <entry file="file://$PROJECT_DIR$/client/src/actions/authenticationActions.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
+        <state relative-caret-position="-3298">
+          <caret line="93" column="17" selection-start-line="93" selection-start-column="17" selection-end-line="93" selection-end-column="17" />
           <folding>
-            <element signature="e#109#153#0" expanded="true" />
+            <element signature="e#292#363#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/clients/ClientProfile.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1037">
+          <caret line="82" column="13" selection-start-line="82" selection-start-column="4" selection-end-line="84" selection-end-column="5" />
+          <folding>
+            <element signature="e#277#321#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/progression/CreateGraph.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="578">
-          <caret line="124" column="13" lean-forward="true" selection-start-line="124" selection-start-column="13" selection-end-line="124" selection-end-column="13" />
+        <state relative-caret-position="180">
+          <caret line="49" column="11" lean-forward="true" selection-start-line="49" selection-start-column="4" selection-end-line="51" selection-end-column="5" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>
@@ -1221,10 +1261,20 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/progression/NewClientProgressForm.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1496">
+          <caret line="274" column="21" selection-start-line="274" selection-start-column="21" selection-end-line="274" selection-end-column="21" />
+          <folding>
+            <element signature="e#109#153#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/progression/AddDataProgressForm.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-476">
-          <caret line="113" lean-forward="true" selection-start-line="113" selection-end-line="113" />
+        <state relative-caret-position="129">
+          <caret line="146" lean-forward="true" selection-start-line="146" selection-end-line="146" />
           <folding>
             <element signature="e#109#153#0" expanded="true" />
           </folding>

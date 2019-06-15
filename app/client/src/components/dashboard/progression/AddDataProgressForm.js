@@ -88,6 +88,10 @@ class AddDataProgressForm extends Component {
         }
     }
 
+    onFocus(){
+        document.getElementsByName('maxWeight')[0].focus();
+    }
+
     onChange(e) {
         this.setState({[e.target.name]: e.target.value});
 
@@ -110,7 +114,6 @@ class AddDataProgressForm extends Component {
 
     getClientProgression(){
         this.props.getClientProgression(this.state.userId, this.state.clientId, this.props.history);
-        console.log("client progression")
     }
 
     clearFields(){
@@ -155,7 +158,10 @@ class AddDataProgressForm extends Component {
             this.props.newClientProgress(this.state.userId, this.state.clientId, clientProgressData, this.props.history);
             // Clear data from fields
             this.clearFields();
+            // Show data added to database and updated on page in real time
             this.getClientProgression();
+            // Once data is submitted focus on adding new data (via focusing on 1st input element, in this case max weight!)
+            this.onFocus();
         }
     } // onSubmit
 
