@@ -7,6 +7,7 @@ import {withRouter} from "react-router-dom";
 import Modal from "react-awesome-modal";
 import Loading from "../../../elements/Loading";
 import DeleteProgressConfirm from "./DeleteProgressConfirm";
+import AddDataProgressForm from "./AddDataProgressForm";
 import isEmpty from "../../../utilities/is_empty";
 import ErrorComponent from "../../error/ErrorComponent";
 
@@ -30,6 +31,9 @@ class CreateGraph extends Component {
     openModal(e) {
         if(e.target.value === "Delete Exercise"){
             this.setState({form: "Delete"});
+        }
+        if(e.target.value === "Add Data"){
+            this.setState({form: "Add"});
         }
         this.setState({
             visible : true
@@ -86,9 +90,9 @@ class CreateGraph extends Component {
                     (
                         <div>
                             <input id="edit-progress-button" type="button" className="btn btn-info btn-block mb-4"
-                           value="Edit Exercise" onClick={this.openModal} />
+                           value="Edit Exercise" name={this.props.graphData.exerciseName} onClick={this.openModal} />
                             <input id="add-progress-button" type="button" className="btn btn-success btn-block mb-4"
-                                   value="Add Data" onClick={this.openModal} />
+                                   value="Add Data" name={this.props.graphData.exerciseName} onClick={this.openModal} />
                             <input id="delete-progress-button" type="button" className="btn btn-danger btn-block mb-4"
                            value="Delete Exercise" name={this.props.graphData.exerciseName} onClick={this.openModal} />
                          </div>
@@ -99,10 +103,18 @@ class CreateGraph extends Component {
         // Provide component depending on what button was pressed
         if(this.state.form === 'Delete') {
             displayForm = (
-                    <DeleteProgressConfirm exerciseName={this.props.graphData.exerciseName} onClickAway={this.onClickAway}
-                                           visible={this.state.visible}
-                                            modalSize={this.modalSize}
-                                            progressFormHeight={this.state.modalHeight}/>
+                <DeleteProgressConfirm exerciseName={this.props.graphData.exerciseName} onClickAway={this.onClickAway}
+                                       visible={this.state.visible}
+                                        modalSize={this.modalSize}
+                                        progressFormHeight={this.state.modalHeight}/>
+            )
+        }
+        if(this.state.form === 'Add') {
+            displayForm = (
+                <AddDataProgressForm exerciseName={this.props.graphData.exerciseName} onClickAway={this.onClickAway}
+                                       visible={this.state.visible}
+                                       modalSize={this.modalSize}
+                                       progressFormHeight={this.state.modalHeight}/>
             )
         }
         if(this.state.form === 'Edit') {
