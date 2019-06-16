@@ -54,7 +54,6 @@ class AddDataProgressForm extends Component {
     }
 
     componentDidMount(){
-        document.body.scrollTo(0,0);
         let formHeight;
         let el = document.querySelector(".progress-form-div");
         formHeight = el.offsetHeight;

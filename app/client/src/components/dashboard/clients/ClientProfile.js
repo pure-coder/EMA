@@ -50,11 +50,8 @@ class ClientProfile extends Component {
 
     // Life cycle method for react which will run when this component receives new properties
     componentDidMount() {
-        document.body.scrollTo(0,0);
-    } // did mount
 
-    componentDidUpdate(){
-    }
+    } // did mount
 
     componentWillUnmount(){
         // This got rid of the Date: null bug for now, need to find route cause!!!

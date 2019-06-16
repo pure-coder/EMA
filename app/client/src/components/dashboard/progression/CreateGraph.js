@@ -30,7 +30,7 @@ class CreateGraph extends Component {
 
     openModal(e) {
         if(e.target.value === "Delete Exercise"){
-            this.setState({form: "Delete"});
+            this.setState({form: "Delete"})
         }
         if(e.target.value === "Add Data"){
             this.setState({form: "Add"});
@@ -88,7 +88,6 @@ class CreateGraph extends Component {
         let displayForm;
 
         let display;
-
         display = (
             <div className="progress-buttons">
                 {this.props.authenticatedUser.user.pt === true && this.props.graphData.metrics.length >= 2 ?

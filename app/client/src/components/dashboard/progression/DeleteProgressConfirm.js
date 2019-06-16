@@ -27,7 +27,6 @@ class DeleteProgressConfirm extends Component {
     }
 
     componentDidMount(){
-        document.body.scrollTo(0,0);
         let formHeight;
         let el = document.querySelector(".delete-progress")
         formHeight = el.offsetHeight;
