@@ -3,10 +3,11 @@ import React, {Component} from 'react';
 import {Link, withRouter} from 'react-router-dom';
 import {deleteClient, saveClientId, getClientData, getClientProgression} from "../../../actions/authenticationActions";
 import PropTypes from "prop-types";
+import Modal from "react-awesome-modal";
+import DeleteConfirm from './DeleteConfirm'
 import isEmpty from "../../../utilities/is_empty";
 import ErrorComponent from "../../error/ErrorComponent";
 import Loading from "../../../elements/Loading";
-
 
 class ClientList extends Component {
     // This allows the component states to be up{dated and re-rendered)
@@ -14,8 +15,38 @@ class ClientList extends Component {
         super(props);
         this.state = {
             loaded: false,
-            errors: {}
-        }
+            userId : props.match.params.uid || props.authenticatedUser.user.id,
+            clientId: props.authenticatedUser.clientId || props.match.params.cid,
+            deleteId: "",
+            ptId: "",
+            clientName: "",
+            visible: false,
+            modalHeight: "400",
+            modalWidth: "500",
+        };
+
+        this.openModal = this.openModal.bind(this);
+        this.onClickAway = this.onClickAway.bind(this);
+        this.modalSize = this.modalSize.bind(this);
+    }
+
+    openModal(clientId, ptId, clientName) {
+        this.setState({
+            visible : true,
+            deleteId: clientId,
+            ptId: ptId,
+            clientName: clientName
+        });
+    }
+
+    onClickAway() {
+        this.setState({
+            visible: false
+        });
+    }
+
+    modalSize(height){
+        this.setState({modalHeight: height});
     }
 
     static getDerivedStateFromProps(nextProps, state){
@@ -31,13 +62,6 @@ class ClientList extends Component {
     componentDidMount(){
         document.body.scrollTo(0,0);
     }
-
-    componentDidUpdate(){
-    }
-
-    onClientDelete(id, ptId) {
-        this.props.deleteClient(id, ptId, this.props.history);
-    };
 
     onProfileClick(ptId, id){
         this.props.saveClientId(id, this.props.history);
@@ -100,7 +124,7 @@ class ClientList extends Component {
                     </td>
                     <td align="center">
                         <button
-                            onClick={this.onClientDelete.bind(this, client._id, client.ptId)}
+                            onClick={this.openModal.bind(this, client._id, client.ptId, client.FullName)}
                             className="btn btn-danger">
                             Delete
                         </button>
@@ -143,8 +167,23 @@ class ClientList extends Component {
                             </div>
                         </div>
                     </div>
+
+                    <Modal visible={this.state.visible} width={this.state.modalWidth} height={this.state.modalHeight} effect="fadeInUp"
+                           onClickAway={this.onClickAway}>
+
+                        <DeleteConfirm name={this.state.clientName} clientId={this.state.deleteId} ptId={this.state.ptId} onClickAway={this.onClickAway}
+                                       visible={this.state.visible}
+                                       modalSize={this.modalSize}
+                                       progressFormHeight={this.state.modalHeight}/>
+
+                    </Modal>
+
                 </div>
             );
+
+
+
+
         }
 
     }

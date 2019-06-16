@@ -172,6 +172,7 @@ export const deleteClient = (id, ptId, history) => dispatch => {
     axios
         .delete(`/api/delete_client/${id}`)
         .then(result => {
+            console.log(result)
             // causes refresh of dashboard with updated client list
             if(result.status === 200) {
                 dispatch(getClients(ptId, history));

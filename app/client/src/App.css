@@ -502,6 +502,22 @@ svg {
     margin: auto;
 }
 
+/* Delete confirm */
+
+.delete-confirm {
+    /* margin is separated so modal can calculate size dynamically */
+    margin: 40px 50px;
+    text-align: center;
+}
+
+.delete-confirm input[type=button] {
+    width: 200px;
+}
+
+.delete--confirm #confirm, .delete-progress #cancel {
+    margin: auto;
+}
+
 /* success - valid feedback */
 
 .valid-feedback {
