@@ -73,7 +73,14 @@ class Graph extends Component {
                         </div>
                     )
                 }
-                return null;
+                else {
+                    // If progression data entry is 1 or less then indicate that data exists but not enough to plot on a graph.
+                    return (
+                        <div className="graphs" key={graph._id}>
+                            <h2 className="text-center text-info mt-5">Data exists for 1 or more exercises but not enough to plot a graph...</h2>
+                        </div>
+                    )
+                }
             });
             return (
                 <div id="Progression" className="Progression">
