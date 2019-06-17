@@ -518,6 +518,12 @@ svg {
     margin: auto;
 }
 
+.confirm-buttons {
+    display: block;
+    width: 200px;
+    margin: auto;
+}
+
 /* success - valid feedback */
 
 .valid-feedback {
