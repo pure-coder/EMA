@@ -228,6 +228,10 @@ img {
     text-align: center;
 }
 
+#client-table-name {
+    text-align: left;
+}
+
 svg {
     display: block;
     height: 310px;

@@ -110,7 +110,7 @@ class ClientList extends Component {
             // Use sortedMap function to sort the client names and then send to view
             const clients = this.sortedMap(this.props.clients).map(client => (
                 <tr key={client._id}>
-                    <td align="center"><b>{client.FullName}</b></td>
+                    <td><b>{client.FullName}</b></td>
                     <td align="center"><a onClick={this.onProfileClick.bind(this, client.ptId, client._id)}>
                         <i className="fas fa-columns fa-2x"></i></a>
                     </td>
@@ -155,10 +155,10 @@ class ClientList extends Component {
                                 <table className="table client-table">
                                     <thead>
                                     <tr>
-                                        <th align="center">Name</th>
+                                        <th id="client-table-name">Name</th>
                                         <th align="center">Profile</th>
-                                        <th align="center">workout Schedule</th>
-                                        <th align="center">Edit details</th>
+                                        <th align="center">Workout Schedule</th>
+                                        <th align="center">Edit Details</th>
                                         <th align="center">Delete User</th>
                                     </tr>
                                     {clients}

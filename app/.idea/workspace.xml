@@ -4,9 +4,10 @@
     <bookmark url="file://C:/Learning/clientObjectData.js" description="export {&quot;_id&quot;:&quot;5c2e3454d27ace097420b414&quot;,&quot;FullName..." line="2" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ec8ccf39-8487-4892-a38d-de9c288878a3" name="Default" comment="Modal css styling, (Height) completed.">
+    <list default="true" id="ec8ccf39-8487-4892-a38d-de9c288878a3" name="Default" comment="1 or more exercises do not have enough data heading added to Graph component, indicating more is needed to show data.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/dashboard/progression/Graph.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/dashboard/progression/Graph.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/App.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/dashboard/clients/ClientList.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/dashboard/clients/ClientList.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -46,32 +47,32 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="css" value="7762" />
+          <entry key="css" value="7780" />
           <entry key="editorConfig" value="285" />
           <entry key="html" value="1072" />
-          <entry key="js" value="157119" />
+          <entry key="js" value="157152" />
           <entry key="json" value="26" />
           <entry key="md" value="150" />
-          <entry key="txt" value="3758" />
+          <entry key="txt" value="3900" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="CSS" value="7762" />
+          <entry key="CSS" value="7780" />
           <entry key="HTML" value="1079" />
           <entry key="JSON" value="26" />
-          <entry key="JavaScript" value="157112" />
-          <entry key="PLAIN_TEXT" value="4193" />
+          <entry key="JavaScript" value="157145" />
+          <entry key="PLAIN_TEXT" value="4335" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="css" value="57" />
+          <entry key="css" value="58" />
           <entry key="editorConfig" value="2" />
           <entry key="eslintignore" value="2" />
           <entry key="gitignore" value="2" />
           <entry key="html" value="17" />
-          <entry key="js" value="1025" />
+          <entry key="js" value="1026" />
           <entry key="json" value="11" />
           <entry key="map" value="1" />
           <entry key="md" value="4" />
@@ -82,10 +83,10 @@
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="CSS" value="57" />
+          <entry key="CSS" value="58" />
           <entry key="HTML" value="17" />
           <entry key="JSON" value="11" />
-          <entry key="JavaScript" value="1025" />
+          <entry key="JavaScript" value="1026" />
           <entry key="PLAIN_TEXT" value="12" />
           <entry key="SVG" value="1" />
           <entry key="Scratch" value="1" />
@@ -110,25 +111,22 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/progression/NewClientProgressForm.js">
+        <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/clients/ClientList.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="234">
-              <caret line="215" column="111" lean-forward="true" selection-start-line="215" selection-start-column="111" selection-end-line="215" selection-end-column="111" />
+            <state relative-caret-position="268">
+              <caret line="152" column="33" lean-forward="true" selection-start-line="152" selection-start-column="33" selection-end-line="152" selection-end-column="33" />
               <folding>
-                <element signature="e#109#153#0" expanded="true" />
+                <element signature="e#0#36#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/clients/ClientProfile.js">
+        <entry file="file://$PROJECT_DIR$/client/src/App.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="313">
-              <caret line="97" column="97" lean-forward="true" selection-start-line="97" selection-start-column="20" selection-end-line="97" selection-end-column="97" />
-              <folding>
-                <element signature="e#277#321#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="224">
+              <caret line="228" column="1" lean-forward="true" selection-start-line="228" selection-start-column="1" selection-end-line="228" selection-end-column="1" />
             </state>
           </provider>
         </entry>
@@ -145,7 +143,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>getClientD</find>
       <find>msg</find>
       <find>validatePro</find>
       <find>validateNew</find>
@@ -175,6 +172,7 @@
       <find>openM</find>
       <find>delete-c</find>
       <find>deleteC</find>
+      <find>client-table</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -254,13 +252,13 @@
         <option value="$PROJECT_DIR$/client/src/components/dashboard/progression/CreateGraph.js" />
         <option value="$PROJECT_DIR$/client/src/components/dashboard/progression/DeleteProgressConfirm.js" />
         <option value="$PROJECT_DIR$/client/src/components/dashboard/DeleteConfirm.js" />
-        <option value="$PROJECT_DIR$/client/src/components/dashboard/clients/ClientList.js" />
         <option value="$PROJECT_DIR$/client/src/actions/authenticationActions.js" />
-        <option value="$PROJECT_DIR$/client/src/App.css" />
         <option value="$PROJECT_DIR$/client/src/components/dashboard/clients/DeleteConfirm.js" />
         <option value="$PROJECT_DIR$/client/src/components/dashboard/clients/ClientProfile.js" />
         <option value="$PROJECT_DIR$/client/src/components/dashboard/progression/Graph.js" />
         <option value="$PROJECT_DIR$/client/src/components/dashboard/progression/NewClientProgressForm.js" />
+        <option value="$PROJECT_DIR$/client/src/App.css" />
+        <option value="$PROJECT_DIR$/client/src/components/dashboard/clients/ClientList.js" />
       </list>
     </option>
   </component>
@@ -479,7 +477,7 @@
       <workItem from="1554297617343" duration="32175000" />
       <workItem from="1558698681483" duration="9461000" />
       <workItem from="1560344433218" duration="22325000" />
-      <workItem from="1560617150917" duration="15554000" />
+      <workItem from="1560617150917" duration="16942000" />
     </task>
     <task id="LOCAL-00001" summary="min height changed for developed pages">
       <created>1534874964132</created>
@@ -775,11 +773,18 @@
       <option name="project" value="LOCAL" />
       <updated>1560786878639</updated>
     </task>
-    <option name="localTasksCounter" value="43" />
+    <task id="LOCAL-00043" summary="1 or more exercises do not have enough data heading added to Graph component, indicating more is needed to show data.">
+      <created>1560789046442</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1560789046442</updated>
+    </task>
+    <option name="localTasksCounter" value="44" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1358150000" />
+    <option name="totallyTimeSpent" value="1359538000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -879,7 +884,6 @@
   <component name="VcsManagerConfiguration">
     <option name="SHOW_DIRTY_RECURSIVELY" value="true" />
     <option name="LIMIT_HISTORY" value="false" />
-    <MESSAGE value="Wasn't admin priv, the folder was read-only. I changed that and restarted webstorm and now it works.&#10;&#10;modified route files in routes folder." />
     <MESSAGE value="GET client_progression success did not return data, must have forgot to add it whislt refactoring. Added status of 200 and the result data." />
     <MESSAGE value="Loops in edit_personal-trainer and edit_client has been modified for performance. Converted object into array for loop using Object.entries." />
     <MESSAGE value="Modified format for success and error message sent from auth..Actions, as well as how they are received by DisplayMessage" />
@@ -904,7 +908,8 @@
     <MESSAGE value="Removed scrollTo for AddDataProgressForm and DeleteProgressConfirm" />
     <MESSAGE value="DeleteConfirm Modal functionality complete, just need to sort out Modal css styling" />
     <MESSAGE value="Modal css styling, (Height) completed." />
-    <option name="LAST_COMMIT_MESSAGE" value="Modal css styling, (Height) completed." />
+    <MESSAGE value="1 or more exercises do not have enough data heading added to Graph component, indicating more is needed to show data." />
+    <option name="LAST_COMMIT_MESSAGE" value="1 or more exercises do not have enough data heading added to Graph component, indicating more is needed to show data." />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/client/src/actions/types.js">
@@ -1189,29 +1194,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/App.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1976">
-          <caret line="522" column="17" selection-start-line="522" selection-start-column="17" selection-end-line="522" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/clients/DeleteConfirm.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="306">
           <caret line="39" column="32" selection-start-line="39" selection-start-column="32" selection-end-line="39" selection-end-column="32" />
           <folding>
             <element signature="e#109#153#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/clients/ClientList.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="646">
-          <caret line="104" column="9" lean-forward="true" selection-start-line="104" selection-start-column="9" selection-end-line="104" selection-end-column="9" />
-          <folding>
-            <element signature="e#0#36#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1236,6 +1224,16 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/progression/NewClientProgressForm.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="234">
+          <caret line="215" column="111" lean-forward="true" selection-start-line="215" selection-start-column="111" selection-end-line="215" selection-end-column="111" />
+          <folding>
+            <element signature="e#109#153#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/progression/Graph.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="370">
@@ -1243,12 +1241,19 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/progression/NewClientProgressForm.js">
+    <entry file="file://$PROJECT_DIR$/client/src/App.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="234">
-          <caret line="215" column="111" lean-forward="true" selection-start-line="215" selection-start-column="111" selection-end-line="215" selection-end-column="111" />
+        <state relative-caret-position="224">
+          <caret line="228" column="1" lean-forward="true" selection-start-line="228" selection-start-column="1" selection-end-line="228" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/clients/ClientList.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="268">
+          <caret line="152" column="33" lean-forward="true" selection-start-line="152" selection-start-column="33" selection-end-line="152" selection-end-column="33" />
           <folding>
-            <element signature="e#109#153#0" expanded="true" />
+            <element signature="e#0#36#0" expanded="true" />
           </folding>
         </state>
       </provider>
