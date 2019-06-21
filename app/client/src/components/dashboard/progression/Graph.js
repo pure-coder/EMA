@@ -74,19 +74,31 @@ class Graph extends Component {
                     )
                 }
                 else {
-                    // If progression data entry is 1 or less then indicate that data exists but not enough to plot on a graph.
-                    return (
-                        <div className="graphs" key={graph._id}>
-                            <h2 className="text-center text-info mt-5">Data exists for 1 or more exercises but not enough to plot a graph...</h2>
-                        </div>
-                    )
+                    return null;
                 }
             });
-            return (
-                <div id="Progression" className="Progression">
-                    {graphs}
-                </div>
-            );
+            // Check if any exercises are greater than 1 (not null) if so only show that exercise, else tell user no exercises to show
+            let data = false;
+            graphs.forEach((value)=>{
+                if(value !== null){
+                    data = true;
+                }
+            });
+            if(data){
+                return (
+                    <div id="Progression" className="Progression">
+                        {graphs}
+                    </div>
+                );
+            }
+            else{
+                // If progression data entry is 1 or less then indicate that data exists but not enough to plot on a graph.
+                return (
+                    <div id="Progression" className="Progression">
+                        <h2 className="text-center text-info mt-5">Data exists for 1 or more exercises but not enough to plot a graph...</h2>
+                    </div>
+                )
+            }
         }
     }
 }
