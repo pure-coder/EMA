@@ -21,12 +21,14 @@ class EditClient extends Component {
             FullName: '',
             Email: '',
             ContactNumber: '',
+            Sex: '',
             Password: '',
             Password2: '',
             errors: {},
             location: this.props.location,
             success: {},
             loaded: false,
+            updated: false,
             message: {
                 type: null
             } // Set to null so null is returned from DisplayMessage by default
@@ -68,24 +70,37 @@ class EditClient extends Component {
         document.body.scrollTo(0,0);
     }
 
+    componentDidUpdate(){
+        if(this.props.authenticatedUser.client_data !== undefined && !this.state.updated){
+            this.setState({
+                FullName : this.props.authenticatedUser.client_data.FullName,
+                Email : this.props.authenticatedUser.client_data.Email,
+                ContactNumber : this.props.authenticatedUser.client_data.ContactNumber,
+                Sex : this.props.authenticatedUser.client_data.Sex,
+                updated : true
+            })
+        }
+    }
+
     componentWillUnmount(){
         this.props.clearErrors();
         this.props.clearSuccess();
     }
 
-    componentDidUpdate(){
-    }
-
     // This captures what the user types and sets the specific input to the respective state variable
     onChange(event) {
-        this.setState({[event.target.name]: event.target.value});
+        let eventName = event.target.name;
+        let eventValue = event.target.value;
+        // Initialise previous data to this data
+        //this.setState({[eventName]: this.state.client_data[eventName]})
+        //console.log(this.state.client_data[eventName]);
+        this.setState({[eventName]: eventValue});
 
         this.props.clearErrors();
         this.setState({message: {type: null}}); // reset to null
         if(!isEmpty(this.props.success)){
             this.props.clearSuccess();
         }
-
     }
 
     onSubmit(event) {
@@ -112,19 +127,19 @@ class EditClient extends Component {
             Password2: this.state.Password2
         };
 
+        console.table(editData)
+
         // Use client data supplied to form for managing form field data after data has been submitted (keeps view the same whilst resetting
         // state.FullName etc.
         let client_data = this.state.client_data;
 
         // Check if any of the fields have been modified, break as soon asap if one has, no need to continue loop.
         for(let element in editData) {
-            if(!isEmpty(editData[element])){
-                dataChanged = true;
-                if(client_data.hasOwnProperty(element)){
+                if(!isEmpty(editData[element]) && client_data.hasOwnProperty(element) && client_data[element] !== editData[element]){
+                    console.log(client_data[element], editData[element])
                     client_data[element] = editData[element];
+                    dataChanged = true;
                 }
-                //break;
-            }
         }
 
         let message;
@@ -149,9 +164,10 @@ class EditClient extends Component {
             // Clear password match errors
             this.props.clearErrors();
             this.setState({
-                FullName: '',
-                Email: '',
-                ContactNumber: '',
+                FullName : this.state.FullName,
+                Email : this.state.Email,
+                ContactNumber : this.state.ContactNumber,
+                Sex: this.state.Sex,
                 Password: '',
                 Password2: '',
                 client_data: client_data
@@ -182,7 +198,7 @@ class EditClient extends Component {
                                     <FormInputGroup
                                         name="FullName"
                                         placeholder={this.state.client_data.FullName}
-                                        value={this.state.FullName === '' ? this.state.client_data.FullName : this.state.FullName}
+                                        value={this.state.FullName}
                                         type="text"
                                         onChange={this.onChange}
                                         error={errors.FullName}
@@ -190,7 +206,7 @@ class EditClient extends Component {
                                     <FormInputGroup
                                         name="Email"
                                         placeholder="Email"
-                                        value={this.state.Email === '' ? this.state.client_data.Email : this.state.Email}
+                                        value={this.state.Email}
                                         type="Email"
                                         onChange={this.onChange}
                                         error={errors.Email}
@@ -198,7 +214,7 @@ class EditClient extends Component {
                                     <FormInputGroup
                                         name="ContactNumber"
                                         placeholder="ContactNumber"
-                                        value={this.state.ContactNumber === '' ? this.state.client_data.ContactNumber : this.state.ContactNumber}
+                                        value={this.state.ContactNumber}
                                         type="text"
                                         onChange={this.onChange}
                                         error={errors.ContactNumber}

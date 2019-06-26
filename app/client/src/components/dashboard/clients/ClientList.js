@@ -80,7 +80,8 @@ class ClientList extends Component {
         // Save clientId to redux
         this.props.saveClientId(id, this.props.history);
         // Direct user with history push to edit profile of user id
-        this.props.history.push(`/users/${id}/edit_client`);
+        this.props.history.push({pathname: `/users/${id}/edit_client`, state :  {something: this.props.clients} });
+        // this.props.history.push(`/users/${id}/edit_client`);
     };
 
     sortedMap = (clients) => {
