@@ -27,6 +27,7 @@ class EditPersonalTrainer extends Component {
             success: {},
             location: this.props.location,
             loaded: false,
+            updated: false,
             message: {
                 type: null
             } // Set to null so null is returned from DisplayMessage by default
@@ -68,6 +69,17 @@ class EditPersonalTrainer extends Component {
         document.body.scrollTo(0,0);
     }
 
+    componentDidUpdate(){
+        if(this.props.authenticatedUser.pt_data !== undefined && !this.state.updated){
+            this.setState({
+                FullName : this.props.authenticatedUser.pt_data.FullName,
+                Email : this.props.authenticatedUser.pt_data.Email,
+                Sex : this.props.authenticatedUser.pt_data.Sex,
+                updated : true
+            })
+        }
+    }
+
     componentWillUnmount(){
         this.props.clearErrors();
         this.props.clearSuccess();
@@ -106,12 +118,9 @@ class EditPersonalTrainer extends Component {
 
         // Check if any of the fields have been modified, break asap if one has, no need to continue loop.
         for(let element in editData) {
-            if(!isEmpty(editData[element])){
+            if(!isEmpty(editData[element]) && pt_data.hasOwnProperty(element) && pt_data[element] !== editData[element]){
+                pt_data[element] = editData[element];
                 dataChanged = true;
-                if(pt_data.hasOwnProperty(element)){
-                    pt_data[element] = editData[element];
-                }
-                //break;
             }
         }
 
@@ -136,10 +145,9 @@ class EditPersonalTrainer extends Component {
         else {
             // Reset state field to empty for error messages
             this.setState({
-                FullName: '',
-                Email: '',
-                DateOfBirth: '',
-                Sex: '',
+                FullName : this.state.FullName,
+                Email : this.state.Email,
+                Sex: this.state.Sex,
                 Password: '',
                 Password2: '',
                 pt_data: pt_data
@@ -173,7 +181,7 @@ class EditPersonalTrainer extends Component {
                                     <FormInputGroup
                                         name="FullName"
                                         placeholder={this.state.pt_data.FullName}
-                                        value={this.state.FullName === '' ? this.state.pt_data.FullName : this.state.FullName}
+                                        value={this.state.FullName}
                                         type="text"
                                         onChange={this.onChange}
                                         error={errors.FullName}
@@ -181,7 +189,7 @@ class EditPersonalTrainer extends Component {
                                     <FormInputGroup
                                         name="Email"
                                         placeholder={this.state.pt_data.Email}
-                                        value={this.state.Email === '' ? this.state.pt_data.Email : this.state.Email}
+                                        value={this.state.Email}
                                         type="Email"
                                         onChange={this.onChange}
                                         error={errors.Email}

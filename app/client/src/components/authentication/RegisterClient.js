@@ -31,7 +31,6 @@ class RegisterClient extends Component {
     // Populate state data with data from the database for the pt
     static getDerivedStateFromProps(props, state) {
         if (props !== state) {
-            console.log(state.success)
             return {
                 errors: props.errors,
                 success: props.success,

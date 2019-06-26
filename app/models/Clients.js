@@ -12,7 +12,7 @@ const ClientSchema = new Schema({
         type: String, index: {unique: true}, lowercase: true, trim: true,
     },
     DateOfBirth: {
-        type: Date, trim: true,
+        type: Date, default: Date.now
     },
     Password: {
         // default password is a hash of "password" - will need to be changed by user on initial login

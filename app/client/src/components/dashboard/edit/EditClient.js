@@ -22,6 +22,7 @@ class EditClient extends Component {
             Email: '',
             ContactNumber: '',
             Sex: '',
+            DateOfBirth: '',
             Password: '',
             Password2: '',
             errors: {},
@@ -77,6 +78,7 @@ class EditClient extends Component {
                 Email : this.props.authenticatedUser.client_data.Email,
                 ContactNumber : this.props.authenticatedUser.client_data.ContactNumber,
                 Sex : this.props.authenticatedUser.client_data.Sex,
+                DateOfBirth: this.props.authenticatedUser.DateOfBirth,
                 updated : true
             })
         }
@@ -127,19 +129,19 @@ class EditClient extends Component {
             Password2: this.state.Password2
         };
 
-        console.table(editData)
-
         // Use client data supplied to form for managing form field data after data has been submitted (keeps view the same whilst resetting
         // state.FullName etc.
         let client_data = this.state.client_data;
 
+        console.table(client_data)
+
         // Check if any of the fields have been modified, break as soon asap if one has, no need to continue loop.
         for(let element in editData) {
-                if(!isEmpty(editData[element]) && client_data.hasOwnProperty(element) && client_data[element] !== editData[element]){
-                    console.log(client_data[element], editData[element])
-                    client_data[element] = editData[element];
-                    dataChanged = true;
-                }
+            // Check for required data (FullName, Email, ContactNumber)
+            if(!isEmpty(editData[element]) && client_data.hasOwnProperty(element) && client_data[element] !== editData[element]){
+                client_data[element] = editData[element];
+                dataChanged = true;
+            }
         }
 
         let message;
@@ -168,6 +170,7 @@ class EditClient extends Component {
                 Email : this.state.Email,
                 ContactNumber : this.state.ContactNumber,
                 Sex: this.state.Sex,
+                DateOfBirth: this.props.authenticatedUser.DateOfBirth,
                 Password: '',
                 Password2: '',
                 client_data: client_data
