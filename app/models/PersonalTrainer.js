@@ -49,7 +49,7 @@ const PersonalTrainerSchema = new Schema({
         type: String, index: true, lowercase: true, trim: true,
     },
     DateOfBirth: {
-        type: Date, trim: true,
+        type: Date, default : Date.now
     },
     Password: {
         type: String, trim: true,

@@ -133,13 +133,14 @@ class EditClient extends Component {
         // state.FullName etc.
         let client_data = this.state.client_data;
 
-        console.table(client_data)
-
-        // Check if any of the fields have been modified, break as soon asap if one has, no need to continue loop.
+        // Check if any of the fields have been modified.
         for(let element in editData) {
-            // Check for required data (FullName, Email, ContactNumber)
-            if(!isEmpty(editData[element]) && client_data.hasOwnProperty(element) && client_data[element] !== editData[element]){
-                client_data[element] = editData[element];
+            // Check if data has changed
+            if(!isEmpty(editData[element]) && client_data[element] !== editData[element]){
+                // Update client_data with new data.
+                if (client_data.hasOwnProperty(element)){
+                    client_data[element] = editData[element];
+                }
                 dataChanged = true;
             }
         }

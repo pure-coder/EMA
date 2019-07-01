@@ -116,6 +116,8 @@ class EditPersonalTrainer extends Component {
 
         let pt_data = this.state.pt_data;
 
+        console.table(pt_data)
+
         // Check if any of the fields have been modified, break asap if one has, no need to continue loop.
         for(let element in editData) {
             if(!isEmpty(editData[element]) && pt_data.hasOwnProperty(element) && pt_data[element] !== editData[element]){
