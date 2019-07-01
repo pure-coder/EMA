@@ -120,9 +120,12 @@ class EditPersonalTrainer extends Component {
 
         // Check if any of the fields have been modified, break asap if one has, no need to continue loop.
         for(let element in editData) {
-            if(!isEmpty(editData[element]) && pt_data.hasOwnProperty(element) && pt_data[element] !== editData[element]){
-                pt_data[element] = editData[element];
+            if(!isEmpty(editData[element]) && pt_data[element] !== editData[element]){
+
                 dataChanged = true;
+            }
+            if (pt_data.hasOwnProperty(element)){
+                pt_data[element] = editData[element];
             }
         }
 
