@@ -34,9 +34,6 @@ class DeleteConfirm extends Component {
         return formHeight;
     }
 
-    componentDidMount(){
-    }
-
     componentDidUpdate(prevProps){
         // Get's height of Modal after the page has updated (changed) and compares it to previous state, if state
         // is not equal then update size of Modal

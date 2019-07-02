@@ -1,7 +1,7 @@
 import React, {Component} from 'react';  // Used to create this component
 import PropTypes from 'prop-types'; // Used to document prop types sent to components
 import { connect } from 'react-redux' // Needed when using redux inside a component (connects redux to this component)
-import { registerClient} from "../../actions/authenticationActions"; // Used to import create action for registering user
+import { registerClient, clearSuccess, clearErrors} from "../../actions/authenticationActions"; // Used to import create action for registering user
 import { withRouter } from 'react-router-dom';
 import FormInputGroup from "../common/FormInputGroup";
 import Loading from "../../elements/Loading";
@@ -37,17 +37,20 @@ class RegisterClient extends Component {
                 loaded: true
             }
         }
-        if (props.errors !== state.errors) {
-            return {errors: props.errors}
-        }
         return null
     }
 
     componentDidMount() {
+        this.props.clearErrors();
+        this.props.clearSuccess();
         document.body.scrollTo(0,0);
     }
 
     componentDidUpdate(){
+    }
+
+    componentWillUnmount(){
+
     }
 
     // This captures what the user types and sets the specific input to the respective state variable
@@ -70,6 +73,7 @@ class RegisterClient extends Component {
     }
 
     render() {
+        console.log(this.state.errors, this.state.success)
         // if loaded is false then return loading screen
         if (!this.state.loaded) {
             return <Loading/>;
@@ -130,6 +134,8 @@ class RegisterClient extends Component {
 // Documents what props are needed for this component and will log a warning in the console in dev mode if not complied to
 RegisterClient.propTypes = {
     registerClient: PropTypes.func.isRequired,
+    clearErrors: PropTypes.func.isRequired,
+    clearSuccess: PropTypes.func.isRequired,
     authenticatedUser: PropTypes.object.isRequired,
     errors: PropTypes.object.isRequired
 };
@@ -144,4 +150,4 @@ const stateToProps = (state) => ({
 // connect must be exported with a passed parameter (not direct parameter) of Register this is wrapped with withRouter
 // allowing the functions of the package to be used with the component eg, proper routing, and direct parameters of
 // stateToProps for the 1st parameter and the action which is registerClient as the 2nd parameter
-export default connect(stateToProps, { registerClient })(withRouter(RegisterClient));
+export default connect(stateToProps, { registerClient, clearErrors, clearSuccess})(withRouter(RegisterClient));
