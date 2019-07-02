@@ -8,19 +8,20 @@ import { withRouter } from 'react-router-dom';
 import {getPtData, getClientData} from "../../actions/authenticationActions";
 
 import defaultUserImage from '../../img/user-regular.svg';
+import isEmpty from "../../validation/is_empty";
 
 class Navigation extends Component {
     constructor(props){
         super(props);
         this.state = {
-            userData: {}
+            userData: props.authenticatedUser.pt_data
         }
     }
 
     static getDerivedStateFromProps(props, state){
         if(props.authenticatedUser.isAuthenticated){
             if(props.authenticatedUser.user.pt){
-                if(props.authenticatedUser.pt_data !== state.userData){
+                if(props.authenticatedUser.pt_data !== state.userData || !isEmpty(state.userData)){
                     return {
                         userData: props.authenticatedUser.pt_data
                     }
@@ -46,6 +47,16 @@ class Navigation extends Component {
         return null;
     }
 
+    // Had to add this to solve registerClient nav issue with loading name of user
+    componentDidUpdate(prevProps, state){
+        // Check if user is authenticated and that the user is a pt before trying to access auth data as it will otherwise crash.
+        if(prevProps.authenticatedUser.isAuthenticated && prevProps.authenticatedUser.user.pt){
+            if (prevProps.authenticatedUser.pt_data !== state.userData){
+                this.setState({userData: prevProps})
+            }
+        }
+    }
+
     // Create log out link functionality
     onLogOutClick(event) {
         event.preventDefault();
@@ -56,7 +67,6 @@ class Navigation extends Component {
     render() {
         const isAuthenticated = this.props.authenticatedUser.isAuthenticated;
         let user = this.state.userData;
-        //console.table(user)
 
         // Define navbar for dynamic navbar
         const authorisedLinks = (

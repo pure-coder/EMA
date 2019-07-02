@@ -73,7 +73,6 @@ class RegisterClient extends Component {
     }
 
     render() {
-        console.log(this.state.errors, this.state.success)
         // if loaded is false then return loading screen
         if (!this.state.loaded) {
             return <Loading/>;
