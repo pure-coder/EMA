@@ -4,10 +4,9 @@
     <bookmark url="file://C:/Learning/clientObjectData.js" description="export {&quot;_id&quot;:&quot;5c2e3454d27ace097420b414&quot;,&quot;FullName..." line="2" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ec8ccf39-8487-4892-a38d-de9c288878a3" name="Default" comment="Success and Errors on RegisterClient sorted, those were persistent from other components so clear them on mount of this component.">
+    <list default="true" id="ec8ccf39-8487-4892-a38d-de9c288878a3" name="Default" comment="Navigator issue with RegisterClient solved, had to check if user data was empty for pt, if so then load data and&#10;store in local state.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/authentication/RegisterClient.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/authentication/RegisterClient.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/layout/Navigator.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/layout/Navigator.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/validation/newClient.js" beforeDir="false" afterPath="$PROJECT_DIR$/validation/newClient.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -50,10 +49,10 @@
           <entry key="css" value="7780" />
           <entry key="editorConfig" value="285" />
           <entry key="html" value="1072" />
-          <entry key="js" value="160323" />
+          <entry key="js" value="160443" />
           <entry key="json" value="26" />
           <entry key="md" value="150" />
-          <entry key="txt" value="4544" />
+          <entry key="txt" value="4681" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
@@ -61,8 +60,8 @@
           <entry key="CSS" value="7780" />
           <entry key="HTML" value="1079" />
           <entry key="JSON" value="26" />
-          <entry key="JavaScript" value="160316" />
-          <entry key="PLAIN_TEXT" value="4979" />
+          <entry key="JavaScript" value="160436" />
+          <entry key="PLAIN_TEXT" value="5116" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -72,7 +71,7 @@
           <entry key="eslintignore" value="2" />
           <entry key="gitignore" value="2" />
           <entry key="html" value="17" />
-          <entry key="js" value="1051" />
+          <entry key="js" value="1052" />
           <entry key="json" value="11" />
           <entry key="map" value="1" />
           <entry key="md" value="4" />
@@ -86,7 +85,7 @@
           <entry key="CSS" value="58" />
           <entry key="HTML" value="17" />
           <entry key="JSON" value="11" />
-          <entry key="JavaScript" value="1051" />
+          <entry key="JavaScript" value="1052" />
           <entry key="PLAIN_TEXT" value="12" />
           <entry key="SVG" value="1" />
           <entry key="Scratch" value="1" />
@@ -101,14 +100,23 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/client/src/components/layout/Navigator.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="370">
-              <caret line="51" column="129" selection-start-line="51" selection-start-column="129" selection-end-line="51" selection-end-column="129" />
+            <state relative-caret-position="336">
+              <caret line="49" column="58" selection-start-line="49" selection-start-column="58" selection-end-line="49" selection-end-column="58" />
               <folding>
                 <element signature="e#254#289#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/validation/newClient.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="187">
+              <caret line="39" column="80" selection-start-line="39" selection-start-column="80" selection-end-line="39" selection-end-column="80" />
             </state>
           </provider>
         </entry>
@@ -191,7 +199,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/client/src/components/dashboard/Graph2.js" />
         <option value="$PROJECT_DIR$/client/src/utilities/drawProgressGraph.js" />
         <option value="$PROJECT_DIR$/client/src/components/dashboard/DeleteProgressConfirm.js" />
         <option value="$PROJECT_DIR$/client/src/components/dashboard/NewClientProgressForm.js" />
@@ -242,6 +249,7 @@
         <option value="$PROJECT_DIR$/client/src/components/dashboard/clients/ClientList.js" />
         <option value="$PROJECT_DIR$/client/src/components/authentication/RegisterClient.js" />
         <option value="$PROJECT_DIR$/client/src/components/layout/Navigator.js" />
+        <option value="$PROJECT_DIR$/validation/newClient.js" />
       </list>
     </option>
   </component>
@@ -296,66 +304,7 @@
             <path>
               <item name="app" type="b2602c69:ProjectViewProjectNode" />
               <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="client" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="app" type="b2602c69:ProjectViewProjectNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="client" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="app" type="b2602c69:ProjectViewProjectNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="client" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="actions" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="app" type="b2602c69:ProjectViewProjectNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="client" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="app" type="b2602c69:ProjectViewProjectNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="client" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
-              <item name="dashboard" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="app" type="b2602c69:ProjectViewProjectNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="client" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
-              <item name="dashboard" type="462c0819:PsiDirectoryNode" />
-              <item name="clients" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="app" type="b2602c69:ProjectViewProjectNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="client" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
-              <item name="dashboard" type="462c0819:PsiDirectoryNode" />
-              <item name="edit" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="app" type="b2602c69:ProjectViewProjectNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="client" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
-              <item name="layout" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="app" type="b2602c69:ProjectViewProjectNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="routes" type="462c0819:PsiDirectoryNode" />
+              <item name="validation" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -475,14 +424,7 @@
       <workItem from="1560344433218" duration="22325000" />
       <workItem from="1560617150917" duration="17313000" />
       <workItem from="1561133259946" duration="18573000" />
-      <workItem from="1561559852945" duration="17935000" />
-    </task>
-    <task id="LOCAL-00002" summary="min height changed for developed pages">
-      <created>1546526445970</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1546526445970</updated>
+      <workItem from="1561559852945" duration="20014000" />
     </task>
     <task id="LOCAL-00003" summary="min height changed for developed pages">
       <created>1546526512777</created>
@@ -820,11 +762,18 @@
       <option name="project" value="LOCAL" />
       <updated>1562058074398</updated>
     </task>
-    <option name="localTasksCounter" value="51" />
+    <task id="LOCAL-00051" summary="Navigator issue with RegisterClient solved, had to check if user data was empty for pt, if so then load data and&#10;store in local state.">
+      <created>1562063941098</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1562063941098</updated>
+    </task>
+    <option name="localTasksCounter" value="52" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1396417000" />
+    <option name="totallyTimeSpent" value="1398496000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -839,7 +788,7 @@
     <frame x="-8" y="-8" width="1382" height="784" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" weight="0.31175596" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.31175596" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.24943988" />
       <window_info id="Favorites" order="2" side_tool="true" weight="0.32935026" />
       <window_info anchor="bottom" id="Messages" order="0" sideWeight="0.49813294" weight="0.3276923" />
@@ -851,7 +800,7 @@
       <window_info anchor="bottom" id="Inspection" order="6" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="7" weight="0.3276923" />
       <window_info anchor="bottom" id="Docker" order="8" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Terminal" order="9" sideWeight="0.49865952" weight="0.22075056" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="9" sideWeight="0.49865952" visible="true" weight="0.22" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.5013405" side_tool="true" weight="0.2218543" />
       <window_info anchor="bottom" id="Version Control" order="11" sideWeight="0.6152815" weight="0.15783665" />
       <window_info anchor="bottom" id="Inspection Results" order="12" weight="0.3276923" />
@@ -924,7 +873,6 @@
   <component name="VcsManagerConfiguration">
     <option name="SHOW_DIRTY_RECURSIVELY" value="true" />
     <option name="LIMIT_HISTORY" value="false" />
-    <MESSAGE value="Progress form modal height dynamically changed to suit form. Progress form submit button set to display inline-block. Error font-size for DisplayMessage set to 80%." />
     <MESSAGE value="Need to figure out grandchildren lifting state up" />
     <MESSAGE value="Modal size for delete progress fixed, I was updating the wrong modal, found better way to get size of div along with padding and margin.&#10;&#10;Changed DisplayMessage default return from null to an empty div, so that it is always presented, this increases UX as the submit button does not hop up and down." />
     <MESSAGE value="EditClient form fields represent changes after submit button pressed." />
@@ -949,16 +897,10 @@
     <MESSAGE value="EditClient form now submitted properly, password modified check working correctly." />
     <MESSAGE value="Change made to EditPersonalTrainer for password modification check" />
     <MESSAGE value="Success and Errors on RegisterClient sorted, those were persistent from other components so clear them on mount of this component." />
-    <option name="LAST_COMMIT_MESSAGE" value="Success and Errors on RegisterClient sorted, those were persistent from other components so clear them on mount of this component." />
+    <MESSAGE value="Navigator issue with RegisterClient solved, had to check if user data was empty for pt, if so then load data and&#10;store in local state." />
+    <option name="LAST_COMMIT_MESSAGE" value="Navigator issue with RegisterClient solved, had to check if user data was empty for pt, if so then load data and&#10;store in local state." />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/client/src/actions/types.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="11" column="33" selection-start-line="11" selection-start-column="33" selection-end-line="11" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/client/src/reducers/successReducer.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="204">
@@ -1293,11 +1235,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/client/src/components/layout/Navigator.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="370">
-          <caret line="51" column="129" selection-start-line="51" selection-start-column="129" selection-end-line="51" selection-end-column="129" />
+        <state relative-caret-position="336">
+          <caret line="49" column="58" selection-start-line="49" selection-start-column="58" selection-end-line="49" selection-end-column="58" />
           <folding>
             <element signature="e#254#289#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/validation/newClient.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="39" column="80" selection-start-line="39" selection-start-column="80" selection-end-line="39" selection-end-column="80" />
         </state>
       </provider>
     </entry>

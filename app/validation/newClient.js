@@ -37,6 +37,10 @@ module.exports = function validateRegistrationInput(data) {
     if (Validator.isEmpty(data.ContactNumber)) {
         errors.ContactNumber = 'Contact number is required';
     }
+    // Checks to see if ContactNumber field is using a valid phone number syntax
+    else if (!Validator.isMobilePhone(data.ContactNumber, 'any')) {
+        errors.ContactNumber = 'Contact number must be a telephone number!';
+    }
 
     return {
         errors,
