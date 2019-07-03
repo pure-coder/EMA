@@ -617,3 +617,9 @@ input[type=submit] {
     height: 20px;
 }
 
+/* Register-client */
+
+.register-client, .edit-client, .edit-pt {
+    height: 62px;
+}
+

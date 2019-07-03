@@ -49,10 +49,6 @@ class RegisterClient extends Component {
     componentDidUpdate(){
     }
 
-    componentWillUnmount(){
-
-    }
-
     // This captures what the user types and sets the specific input to the respective state variable
     onChange(event) {
         // event.target.name is used instead of a specific named state (ie "event.target.FullName") as there is more then
@@ -62,6 +58,12 @@ class RegisterClient extends Component {
 
     onSubmit(event) {
         event.preventDefault();
+        // Clear previous success messages
+        this.props.clearSuccess();
+
+        // Clear errors messages
+        this.props.clearErrors();
+        this.setState({errors: {}});
 
         const newUser = {
             FullName: this.state.FullName,
@@ -92,6 +94,7 @@ class RegisterClient extends Component {
                                 <p className="description text-center">Enter Client details below</p>
                                 <form onSubmit={this.onSubmit}> {/* onSubmit used instead of normal action*/}
                                     <FormInputGroup
+                                        myClassName="register-client"
                                         name="FullName"
                                         placeholder="Full Name"
                                         value={this.state.FullName}
@@ -100,6 +103,7 @@ class RegisterClient extends Component {
                                         error={errors.FullName}
                                     />
                                     <FormInputGroup
+                                        myClassName="register-client"
                                         name="Email"
                                         placeholder="Email Address"
                                         value={this.state.Email}
@@ -108,6 +112,7 @@ class RegisterClient extends Component {
                                         error={errors.Email}
                                     />
                                     <FormInputGroup
+                                        myClassName="register-client"
                                         name="ContactNumber"
                                         placeholder="Enter Contact Number"
                                         value={this.state.ContactNumber}

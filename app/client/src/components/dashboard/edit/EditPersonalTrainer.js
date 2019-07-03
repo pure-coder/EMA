@@ -116,8 +116,6 @@ class EditPersonalTrainer extends Component {
 
         let pt_data = this.state.pt_data;
 
-        console.table(pt_data)
-
         // Check if any of the fields have been modified, break asap if one has, no need to continue loop.
         for(let element in editData) {
             if(!isEmpty(editData[element]) && pt_data[element] !== editData[element]){
@@ -184,6 +182,7 @@ class EditPersonalTrainer extends Component {
                                     {/*// Deals with Chromes password auto complete*/}
                                     <input type="password" style={{height: 0, width: 0, opacity: 0, padding: 0, border: "none"}}></input>
                                     <FormInputGroup
+                                        myClassName="edit-pt"
                                         name="FullName"
                                         placeholder={this.state.pt_data.FullName}
                                         value={this.state.FullName}
@@ -192,6 +191,7 @@ class EditPersonalTrainer extends Component {
                                         error={errors.FullName}
                                     />
                                     <FormInputGroup
+                                        myClassName="edit-pt"
                                         name="Email"
                                         placeholder={this.state.pt_data.Email}
                                         value={this.state.Email}
@@ -221,6 +221,7 @@ class EditPersonalTrainer extends Component {
                                         </div>
                                     </div>
                                     <FormInputGroup
+                                        myClassName="edit-pt"
                                         name="Password"
                                         placeholder="Enter Password"
                                         value={this.state.Password}
@@ -229,6 +230,7 @@ class EditPersonalTrainer extends Component {
                                         error={errors.Password}
                                     />
                                     <FormInputGroup
+                                        myClassName="edit-pt"
                                         name="Password2"
                                         placeholder="Confirm Password"
                                         value={this.state.Password2}
@@ -237,7 +239,7 @@ class EditPersonalTrainer extends Component {
                                         error={errors.Password2}
                                     />
                                     <DisplayMessage message={message}/>
-                                    <input type="submit" value="Update" className="btn btn-info btn-block mt-4"/>
+                                    <input type="submit" value="Update" className="btn btn-info btn-block mt-1"/>
                                     <button type="button" className="btn btn-danger btn-block mt-3 mb-3" onClick={this.props.history.goBack}>Back</button>
                                 </form>
                             </div>

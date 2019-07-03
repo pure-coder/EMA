@@ -200,6 +200,7 @@ class EditClient extends Component {
                                     {/*// Deals with Chromes password auto complete*/}
                                     <input type="password" style={{height: 0, width: 0, opacity: 0, padding: 0, border: "none"}}></input>
                                     <FormInputGroup
+                                        myClassName="edit-client"
                                         name="FullName"
                                         placeholder={this.state.client_data.FullName}
                                         value={this.state.FullName}
@@ -208,6 +209,7 @@ class EditClient extends Component {
                                         error={errors.FullName}
                                     />
                                     <FormInputGroup
+                                        myClassName="edit-client"
                                         name="Email"
                                         placeholder="Email"
                                         value={this.state.Email}
@@ -216,6 +218,7 @@ class EditClient extends Component {
                                         error={errors.Email}
                                     />
                                     <FormInputGroup
+                                        myClassName="edit-client"
                                         name="ContactNumber"
                                         placeholder="ContactNumber"
                                         value={this.state.ContactNumber}
@@ -245,6 +248,7 @@ class EditClient extends Component {
                                         </div>
                                     </div>
                                     <FormInputGroup
+                                        myClassName="edit-client"
                                         name="Password"
                                         placeholder="Enter Password"
                                         value={this.state.Password}
@@ -253,6 +257,7 @@ class EditClient extends Component {
                                         error={errors.Password}
                                     />
                                     <FormInputGroup
+                                        myClassName="edit-client"
                                         name="Password2"
                                         placeholder="Confirm Password"
                                         value={this.state.Password2}
@@ -261,7 +266,7 @@ class EditClient extends Component {
                                         error={errors.Password2}
                                     />
                                     <DisplayMessage message={message}/>
-                                    <input type="submit" value="Update" className="btn btn-info btn-block mt-3"/>
+                                    <input type="submit" value="Update" className="btn btn-info btn-block mt-1"/>
                                     <button type="button" className="btn btn-danger btn-block mt-3 mb-3" onClick={this.props.history.goBack}>Back</button>
                                 </form>
                             </div>
