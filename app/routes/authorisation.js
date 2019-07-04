@@ -205,16 +205,19 @@ router.post('/register', (req, res) => {
                                 newPT.Password = hash;
                                 // Save new Personal Trainer to the database
                                 newPT.save()
-                                    .then(() => res.status(200).json())
+                                    .then(() => {
+                                        res.status(200).json();
+                                    })
                                     .catch(err => {
-                                        console.log(err);
-                                        res.status(400).json("User could not be registered.")
+                                        //console.log(err);
+                                        errors.msg = "User could not be registered.";
+                                        res.status(400).json(errors);
                                     });
                             })
                         })
                     }
-                }).catch(() => res.status(400).json());
-        }).catch(() => res.status(400).json());
+                }).catch(() => {res.status(400).json()})
+        }).catch(() => {res.status(400).json()})
 });
 
 // @route  POST api/new_client
@@ -282,27 +285,27 @@ router.post('/new_client', passport.authenticate('pt_rule', {session: false}), (
                                                 res.status(200).json();
                                             }
                                             else{
-                                                console.log(2, result)
+                                                //console.log(2, result)
                                             }
                                         })
                                         .catch(err => {
-                                            console.log(3, err)
+                                            //console.log(3, err)
                                         })
                                 }
                             )
                             .catch(err => {
-                                    console.log(4, err)
+                                    //console.log(4, err)
                                 }
                             ); // catch client save
                     } // else
 
                 }).catch(err => {
-                    console.log(5, err)
+                    //console.log(5, err)
                 }
             ); // catch pt find
 
         }).catch(err => {
-            console.log(6, err)
+            //console.log(6, err)
         }
     ); // catch client find
 });

@@ -4,13 +4,10 @@
     <bookmark url="file://C:/Learning/clientObjectData.js" description="export {&quot;_id&quot;:&quot;5c2e3454d27ace097420b414&quot;,&quot;FullName..." line="2" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ec8ccf39-8487-4892-a38d-de9c288878a3" name="Default" comment="newClient validation changed to only except valid telephone number syntax.">
+    <list default="true" id="ec8ccf39-8487-4892-a38d-de9c288878a3" name="Default" comment="RegisterClient success and error messages cleared depending on error or success on every submit.&#10;Margin sorted on DisplayMessage, EditClient and EditPersonalTrainer so that no movement of divs made when&#10;displaying success or error messages.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/App.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/authentication/RegisterClient.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/authentication/RegisterClient.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/common/DisplayMessage.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/common/DisplayMessage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/dashboard/edit/EditClient.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/dashboard/edit/EditClient.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/dashboard/edit/EditPersonalTrainer.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/dashboard/edit/EditPersonalTrainer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/authentication/Register.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/authentication/Register.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/authorisation.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/authorisation.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -53,10 +50,10 @@
           <entry key="css" value="7864" />
           <entry key="editorConfig" value="285" />
           <entry key="html" value="1072" />
-          <entry key="js" value="160733" />
+          <entry key="js" value="160984" />
           <entry key="json" value="26" />
           <entry key="md" value="150" />
-          <entry key="txt" value="4762" />
+          <entry key="txt" value="5053" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
@@ -64,8 +61,8 @@
           <entry key="CSS" value="7864" />
           <entry key="HTML" value="1079" />
           <entry key="JSON" value="26" />
-          <entry key="JavaScript" value="160726" />
-          <entry key="PLAIN_TEXT" value="5197" />
+          <entry key="JavaScript" value="160977" />
+          <entry key="PLAIN_TEXT" value="5488" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -75,7 +72,7 @@
           <entry key="eslintignore" value="2" />
           <entry key="gitignore" value="2" />
           <entry key="html" value="17" />
-          <entry key="js" value="1057" />
+          <entry key="js" value="1064" />
           <entry key="json" value="11" />
           <entry key="map" value="1" />
           <entry key="md" value="4" />
@@ -89,7 +86,7 @@
           <entry key="CSS" value="59" />
           <entry key="HTML" value="17" />
           <entry key="JSON" value="11" />
-          <entry key="JavaScript" value="1057" />
+          <entry key="JavaScript" value="1064" />
           <entry key="PLAIN_TEXT" value="12" />
           <entry key="SVG" value="1" />
           <entry key="Scratch" value="1" />
@@ -104,20 +101,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/edit/EditClient.js">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/client/src/components/authentication/Register.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="259" column="41" selection-start-line="259" selection-start-column="40" selection-end-line="259" selection-end-column="65" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/src/components/common/DisplayMessage.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="10" column="49" selection-start-line="10" selection-start-column="49" selection-end-line="10" selection-end-column="49" />
+            <state relative-caret-position="147">
+              <caret line="131" column="25" lean-forward="true" selection-start-line="131" selection-start-column="25" selection-end-line="131" selection-end-column="25" />
             </state>
           </provider>
         </entry>
@@ -125,35 +113,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/client/src/components/authentication/RegisterClient.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="114" column="40" lean-forward="true" selection-start-line="114" selection-start-column="40" selection-end-line="114" selection-end-column="69" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/src/App.css">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="391">
-              <caret line="621" column="33" selection-start-line="621" selection-start-column="33" selection-end-line="621" selection-end-column="33" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/edit/EditPersonalTrainer.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="241" column="110" selection-start-line="241" selection-start-column="110" selection-end-line="241" selection-end-column="110" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/src/components/common/FormInputGroup.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="221">
-              <caret line="18" column="40" selection-start-line="18" selection-start-column="40" selection-end-line="18" selection-end-column="40" />
+            <state relative-caret-position="289">
+              <caret line="150" column="6" lean-forward="true" selection-start-line="150" selection-start-column="4" selection-end-line="150" selection-end-column="26" />
             </state>
           </provider>
         </entry>
@@ -171,7 +132,6 @@
   <component name="FindInProjectRecents">
     <findStrings>
       <find>progress-bu</find>
-      <find>setS</find>
       <find>error</find>
       <find>setSu</find>
       <find>setError</find>
@@ -200,6 +160,7 @@
       <find>client_data</find>
       <find>pt_cl</find>
       <find>console.log</find>
+      <find>setS</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -253,7 +214,6 @@
         <option value="$PROJECT_DIR$/routes/personalTrainer.js" />
         <option value="$PROJECT_DIR$/routes/calendar.js" />
         <option value="$PROJECT_DIR$/services/capitalise.js" />
-        <option value="$PROJECT_DIR$/client/src/components/authentication/Register.js" />
         <option value="$PROJECT_DIR$/config/passport.js" />
         <option value="$PROJECT_DIR$/client/src/components/dashboard/ClientList.js" />
         <option value="$PROJECT_DIR$/client/src/components/dashboard/Dashboard.js" />
@@ -263,7 +223,6 @@
         <option value="$PROJECT_DIR$/restful_api_server.js" />
         <option value="$PROJECT_DIR$/routes/scheduler.js" />
         <option value="$PROJECT_DIR$/client/src/components/common/FormInputGroup.js" />
-        <option value="$PROJECT_DIR$/routes/authorisation.js" />
         <option value="$PROJECT_DIR$/client/src/components/scheduler/Scheduler.js" />
         <option value="$PROJECT_DIR$/client/src/reducers/authenticationReducer.js" />
         <option value="$PROJECT_DIR$/client/src/App.js" />
@@ -277,7 +236,6 @@
         <option value="$PROJECT_DIR$/routes/users.js" />
         <option value="$PROJECT_DIR$/models/Clients.js" />
         <option value="$PROJECT_DIR$/models/PersonalTrainer.js" />
-        <option value="$PROJECT_DIR$/client/src/actions/authenticationActions.js" />
         <option value="$PROJECT_DIR$/client/src/components/dashboard/clients/DeleteConfirm.js" />
         <option value="$PROJECT_DIR$/client/src/components/dashboard/clients/ClientList.js" />
         <option value="$PROJECT_DIR$/client/src/components/layout/Navigator.js" />
@@ -287,6 +245,9 @@
         <option value="$PROJECT_DIR$/client/src/components/common/DisplayMessage.js" />
         <option value="$PROJECT_DIR$/client/src/App.css" />
         <option value="$PROJECT_DIR$/client/src/components/dashboard/edit/EditPersonalTrainer.js" />
+        <option value="$PROJECT_DIR$/routes/authorisation.js" />
+        <option value="$PROJECT_DIR$/client/src/actions/authenticationActions.js" />
+        <option value="$PROJECT_DIR$/client/src/components/authentication/Register.js" />
       </list>
     </option>
   </component>
@@ -316,10 +277,10 @@
     </packageJsonPaths>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="247" />
-    <option name="y" value="-8" />
+    <option name="x" value="340" />
+    <option name="y" value="-12" />
     <option name="width" value="437" />
-    <option name="height" value="784" />
+    <option name="height" value="588" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <OptionsSetting value="false" id="Update" />
@@ -354,6 +315,13 @@
               <item name="app" type="462c0819:PsiDirectoryNode" />
               <item name="client" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="actions" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="app" type="b2602c69:ProjectViewProjectNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="client" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="components" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -363,28 +331,6 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="components" type="462c0819:PsiDirectoryNode" />
               <item name="authentication" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="app" type="b2602c69:ProjectViewProjectNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="client" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
-              <item name="dashboard" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="app" type="b2602c69:ProjectViewProjectNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="client" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
-              <item name="dashboard" type="462c0819:PsiDirectoryNode" />
-              <item name="edit" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="app" type="b2602c69:ProjectViewProjectNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="validation" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -504,14 +450,7 @@
       <workItem from="1560344433218" duration="22325000" />
       <workItem from="1560617150917" duration="17313000" />
       <workItem from="1561133259946" duration="18573000" />
-      <workItem from="1561559852945" duration="23745000" />
-    </task>
-    <task id="LOCAL-00004" summary="delete client from pt array">
-      <created>1546527766296</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1546527766296</updated>
+      <workItem from="1561559852945" duration="28120000" />
     </task>
     <task id="LOCAL-00005" summary="delete client from pt array - using pull">
       <created>1546531020660</created>
@@ -849,11 +788,18 @@
       <option name="project" value="LOCAL" />
       <updated>1562080480896</updated>
     </task>
-    <option name="localTasksCounter" value="53" />
+    <task id="LOCAL-00053" summary="RegisterClient success and error messages cleared depending on error or success on every submit.&#10;Margin sorted on DisplayMessage, EditClient and EditPersonalTrainer so that no movement of divs made when&#10;displaying success or error messages.">
+      <created>1562149897031</created>
+      <option name="number" value="00053" />
+      <option name="presentableId" value="LOCAL-00053" />
+      <option name="project" value="LOCAL" />
+      <updated>1562149897031</updated>
+    </task>
+    <option name="localTasksCounter" value="54" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1402227000" />
+    <option name="totallyTimeSpent" value="1406602000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -868,7 +814,7 @@
     <frame x="-8" y="-8" width="1382" height="784" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.31175596" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.17633928" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.24943988" />
       <window_info id="Favorites" order="2" side_tool="true" weight="0.32935026" />
       <window_info anchor="bottom" id="Messages" order="0" sideWeight="0.49813294" weight="0.3276923" />
@@ -880,9 +826,9 @@
       <window_info anchor="bottom" id="Inspection" order="6" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="7" weight="0.3276923" />
       <window_info anchor="bottom" id="Docker" order="8" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Terminal" order="9" sideWeight="0.49865952" visible="true" weight="0.22" />
+      <window_info anchor="bottom" id="Terminal" order="9" sideWeight="0.49865952" visible="true" weight="0.43846154" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.5013405" side_tool="true" weight="0.2218543" />
-      <window_info anchor="bottom" id="Version Control" order="11" sideWeight="0.6152815" weight="0.15783665" />
+      <window_info anchor="bottom" id="Version Control" order="11" sideWeight="0.6152815" weight="0.36" />
       <window_info anchor="bottom" id="Inspection Results" order="12" weight="0.3276923" />
       <window_info anchor="bottom" id="File Transfer" order="13" weight="0.32671082" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -953,7 +899,6 @@
   <component name="VcsManagerConfiguration">
     <option name="SHOW_DIRTY_RECURSIVELY" value="true" />
     <option name="LIMIT_HISTORY" value="false" />
-    <MESSAGE value="Modal size for delete progress fixed, I was updating the wrong modal, found better way to get size of div along with padding and margin.&#10;&#10;Changed DisplayMessage default return from null to an empty div, so that it is always presented, this increases UX as the submit button does not hop up and down." />
     <MESSAGE value="EditClient form fields represent changes after submit button pressed." />
     <MESSAGE value="Removed catch blocks from bcrypt as it was throwing errors." />
     <MESSAGE value="Modified EditPersonalTrainer like EditClient (persistent form field after submit)." />
@@ -978,7 +923,8 @@
     <MESSAGE value="Success and Errors on RegisterClient sorted, those were persistent from other components so clear them on mount of this component." />
     <MESSAGE value="Navigator issue with RegisterClient solved, had to check if user data was empty for pt, if so then load data and&#10;store in local state." />
     <MESSAGE value="newClient validation changed to only except valid telephone number syntax." />
-    <option name="LAST_COMMIT_MESSAGE" value="newClient validation changed to only except valid telephone number syntax." />
+    <MESSAGE value="RegisterClient success and error messages cleared depending on error or success on every submit.&#10;Margin sorted on DisplayMessage, EditClient and EditPersonalTrainer so that no movement of divs made when&#10;displaying success or error messages." />
+    <option name="LAST_COMMIT_MESSAGE" value="RegisterClient success and error messages cleared depending on error or success on every submit.&#10;Margin sorted on DisplayMessage, EditClient and EditPersonalTrainer so that no movement of divs made when&#10;displaying success or error messages." />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/client/src/reducers/successReducer.js">
@@ -1070,13 +1016,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/components/authentication/Register.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="111">
-          <caret line="110" column="4" selection-start-line="110" selection-start-column="4" selection-end-line="110" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/config/passport.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="85">
@@ -1105,13 +1044,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
           <caret line="4" column="18" selection-start-line="4" selection-start-column="18" selection-end-line="4" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/routes/authorisation.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="118">
-          <caret line="118" column="68" lean-forward="true" selection-start-line="118" selection-start-column="68" selection-end-line="118" selection-end-column="68" />
         </state>
       </provider>
     </entry>
@@ -1210,16 +1142,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/actions/authenticationActions.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="714">
-          <caret line="49" column="10" selection-start-line="49" selection-start-column="10" selection-end-line="49" selection-end-column="10" />
-          <folding>
-            <element signature="e#292#363#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/clients/ClientProfile.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="636">
@@ -1295,27 +1217,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/components/authentication/RegisterClient.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="114" column="40" lean-forward="true" selection-start-line="114" selection-start-column="40" selection-end-line="114" selection-end-column="69" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/components/common/DisplayMessage.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="10" column="49" selection-start-line="10" selection-start-column="49" selection-end-line="10" selection-end-column="49" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/edit/EditClient.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="259" column="41" selection-start-line="259" selection-start-column="40" selection-end-line="259" selection-end-column="65" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/client/src/App.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="391">
@@ -1327,6 +1228,51 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="204">
           <caret line="241" column="110" selection-start-line="241" selection-start-column="110" selection-end-line="241" selection-end-column="110" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/edit/EditClient.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="266" column="18" selection-start-line="266" selection-start-column="18" selection-end-line="266" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/components/common/DisplayMessage.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" column="49" selection-start-line="10" selection-start-column="49" selection-end-line="10" selection-end-column="49" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/authorisation.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="371">
+          <caret line="219" column="24" selection-start-line="219" selection-start-column="24" selection-end-line="219" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/actions/authenticationActions.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="5406">
+          <caret line="331" column="52" selection-start-line="331" selection-start-column="52" selection-end-line="331" selection-end-column="52" />
+          <folding>
+            <element signature="e#292#363#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/components/authentication/RegisterClient.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="150" column="6" lean-forward="true" selection-start-line="150" selection-start-column="4" selection-end-line="150" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/components/authentication/Register.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="147">
+          <caret line="131" column="25" lean-forward="true" selection-start-line="131" selection-start-column="25" selection-end-line="131" selection-end-column="25" />
         </state>
       </provider>
     </entry>

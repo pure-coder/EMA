@@ -1,7 +1,7 @@
 import React, { Component } from 'react';  // Used to create this component
 import PropTypes from 'prop-types'; // Used to document prop types sent to components
 import { connect } from 'react-redux' // Needed when using redux inside a component (connects redux to this component)
-import { registerUser } from "../../actions/authenticationActions"; // Used to import create action for registering user
+import {clearErrors, clearSuccess, registerUser} from "../../actions/authenticationActions"; // Used to import create action for registering user
 import { withRouter} from 'react-router-dom';
 import FormInputGroup from "../common/FormInputGroup"; // Allows proper routing and linking using browsers match, location, and history properties
 
@@ -14,6 +14,7 @@ class Register extends Component {
             Email: '',
             Password: '',
             Password2: '',
+            success: undefined,
             errors: {}
         };
 
@@ -24,12 +25,14 @@ class Register extends Component {
         this.onSubmit = this.onSubmit.bind(this);
     }
 
-    static getDerivedStateFromProps(props, state){
-        if(props.errors !== state.props){
+    static getDerivedStateFromProps(props, state) {
+        if (props !== state) {
             return {
-                errors: props.errors
+                errors: props.errors,
+                success: props.success,
             }
         }
+        return null
     }
 
     // This captures what the user types and sets the specific input to the respective state variable
@@ -41,6 +44,12 @@ class Register extends Component {
 
     onSubmit(event) {
         event.preventDefault();
+        // Clear previous success messages
+        this.props.clearSuccess();
+
+        // Clear errors messages
+        this.props.clearErrors();
+        this.setState({errors: {}});
 
         const newUser = {
             FullName: this.state.FullName,
@@ -55,6 +64,7 @@ class Register extends Component {
 
     render() {
         const {errors} = this.state; // This allows errors to be pulled out of this.state with pulling them out directly
+        console.log(this.state.success)
 
         return (
             <div className="register">
@@ -96,6 +106,7 @@ class Register extends Component {
                                     onChange={this.onChange}
                                     error={errors.Password2}
                                 />
+                                <div className="text-success">{this.state.success !== undefined ? this.state.success.msg: null}</div>
                                 <input type="submit" className="btn btn-info btn-block mt-5 mb-5"/>
                             </form>
                         </div>
@@ -109,6 +120,8 @@ class Register extends Component {
 // Documents what props are needed for this component and will log a warning in the console in dev mode if not complied to
 Register.propTypes = {
     registerUser: PropTypes.func.isRequired,
+    clearSuccess: PropTypes.func.isRequired,
+    clearErrors: PropTypes.func.isRequired,
     authenticatedUser: PropTypes.object.isRequired,
     errors: PropTypes.object.isRequired
 };
@@ -116,7 +129,8 @@ Register.propTypes = {
 // Used to pull auth state and errors into this component.... DEFINED IN reducers/index.js {combineReducers}
 const stateToProps = (state) => ({
     authenticatedUser: state.authenticatedUser,
-    errors: state.errors
+    errors: state.errors,
+    success: state.success
     });
 
 
@@ -125,4 +139,4 @@ const stateToProps = (state) => ({
 
  Connect must be exported with a passed parameter (not direct parameter) of Register this is wrapped with withRouter function that is part of the react-router-dom package. This allows
  the functions of the package to be used with the component (in this case Register) eg, proper routing, and direct parameters */
-export default connect(stateToProps, { registerUser })(withRouter(Register));
+export default connect(stateToProps, { registerUser, clearErrors, clearSuccess })(withRouter(Register));
