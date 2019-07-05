@@ -112,7 +112,6 @@ class RegisterClient extends Component {
                                         error={errors.Email}
                                     />
                                     <FormInputGroup
-                                        myClassName="register-client"
                                         name="ContactNumber"
                                         placeholder="Enter Contact Number"
                                         value={this.state.ContactNumber}

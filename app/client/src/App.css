@@ -619,7 +619,11 @@ input[type=submit] {
 
 /* Register-client */
 
-.register-client, .edit-client, .edit-pt {
+.register-client, .register-pt, .edit-client, .edit-pt {
     height: 62px;
+}
+
+.text-success {
+    height: 25px;
 }
 

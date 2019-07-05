@@ -35,6 +35,12 @@ class Register extends Component {
         return null
     }
 
+    componentDidMount() {
+        this.props.clearErrors();
+        this.props.clearSuccess();
+        document.body.scrollTo(0,0);
+    }
+
     // This captures what the user types and sets the specific input to the respective state variable
     onChange(event) {
         // event.target.name is used instead of a specific named state (ie "event.target.FullName") as there is more then
@@ -64,7 +70,6 @@ class Register extends Component {
 
     render() {
         const {errors} = this.state; // This allows errors to be pulled out of this.state with pulling them out directly
-        console.log(this.state.success)
 
         return (
             <div className="register">
@@ -75,6 +80,7 @@ class Register extends Component {
                             <p className="description text-center">Create your Personal Trainer account</p>
                             <form onSubmit={this.onSubmit}> {/* onSubmit used instead of normal action*/}
                                 <FormInputGroup
+                                    myClassName="register-pt"
                                     name="FullName"
                                     placeholder="Full Name"
                                     value={this.state.FullName}
@@ -83,6 +89,7 @@ class Register extends Component {
                                     error={errors.FullName}
                                 />
                                 <FormInputGroup
+                                    myClassName="register-pt"
                                     name="Email"
                                     placeholder="Email Address"
                                     value={this.state.Email}
@@ -91,6 +98,7 @@ class Register extends Component {
                                     error={errors.Email}
                                 />
                                 <FormInputGroup
+                                    myClassName="register-pt"
                                     name="Password"
                                     placeholder="Enter Password"
                                     value={this.state.password}
@@ -107,7 +115,7 @@ class Register extends Component {
                                     error={errors.Password2}
                                 />
                                 <div className="text-success">{this.state.success !== undefined ? this.state.success.msg: null}</div>
-                                <input type="submit" className="btn btn-info btn-block mt-5 mb-5"/>
+                                <input type="submit" className="btn btn-info btn-block mt-4 mb-5"/>
                             </form>
                         </div>
                     </div>

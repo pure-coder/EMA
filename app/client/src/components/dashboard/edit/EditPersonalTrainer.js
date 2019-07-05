@@ -66,6 +66,8 @@ class EditPersonalTrainer extends Component {
     }
 
     componentDidMount() {
+        this.props.clearErrors();
+        this.props.clearSuccess();
         document.body.scrollTo(0,0);
     }
 
@@ -230,7 +232,6 @@ class EditPersonalTrainer extends Component {
                                         error={errors.Password}
                                     />
                                     <FormInputGroup
-                                        myClassName="edit-pt"
                                         name="Password2"
                                         placeholder="Confirm Password"
                                         value={this.state.Password2}
