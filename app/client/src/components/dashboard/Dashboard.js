@@ -2,7 +2,7 @@ import React, {Component} from 'react';  // Used to create this component
 import PropTypes from 'prop-types'; // Used to document prop types sent to components
 import {connect} from 'react-redux' // Needed when using redux inside a component (connects redux to this component)
 import {withRouter} from 'react-router-dom';
-import {getClients} from "../../actions/authenticationActions";
+import {getClients, clearErrors, clearSuccess} from "../../actions/authenticationActions";
 import ClientList from './clients/ClientList'
 import Loading from "../../elements/Loading";
 import ClientData from "./clients/ClientData";
@@ -41,6 +41,8 @@ class Dashboard extends Component {
     // Life cycle method for react which will run when this component receives new properties
     componentDidMount() {
         document.body.scrollTo(0,0);
+        this.props.clearErrors();
+        this.props.clearSuccess();
         // pt get client data
         if(this.props.authenticatedUser.user.pt){
             this.props.getClients(this.state.id, this.props.history);
@@ -101,6 +103,8 @@ class Dashboard extends Component {
 
 // Documents what props are needed for this component and will log a warning in the console in dev mode if not complied to
 Dashboard.propTypes = {
+    clearErrors: PropTypes.func.isRequired,
+    clearSuccess: PropTypes.func.isRequired,
     authenticatedUser: PropTypes.object.isRequired,
     errors: PropTypes.object.isRequired
 };
@@ -112,4 +116,4 @@ const stateToProps = (state) => ({
     location: state.location
 });
 
-export default connect(stateToProps, {getClients})(withRouter(Dashboard));
+export default connect(stateToProps, {getClients, clearSuccess, clearErrors})(withRouter(Dashboard));

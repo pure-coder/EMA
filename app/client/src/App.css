@@ -466,6 +466,17 @@ svg {
     margin-bottom: 22px;
 }
 
+.editClientProgress {
+    width: 450px;
+    height: 800px;
+    margin: auto;
+}
+
+.editClientProgress .form-group {
+    height: 45px;
+    margin-bottom: 22px;
+}
+
 .closeButton {
     background-color: white;
     border: none;

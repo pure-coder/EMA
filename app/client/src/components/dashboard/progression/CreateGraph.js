@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 import connect from "react-redux/es/connect/connect";
 import {withRouter} from "react-router-dom";
 import Modal from "react-awesome-modal";
-import Loading from "../../../elements/Loading";
+import EditDataProgressForm from './EditDataProgressForm';
 import DeleteProgressConfirm from "./DeleteProgressConfirm";
 import AddDataProgressForm from "./AddDataProgressForm";
 import isEmpty from "../../../utilities/is_empty";
@@ -20,7 +20,7 @@ class CreateGraph extends Component {
             visible: false,
             modalHeight: "400",
             modalWidth: "500",
-            form: ''
+            form: undefined
         };
 
         this.openModal = this.openModal.bind(this);
@@ -35,6 +35,9 @@ class CreateGraph extends Component {
         if(e.target.value === "Add Data"){
             this.setState({form: "Add"});
         }
+        if(e.target.value === "Edit Data"){
+            this.setState({form: "Edit"});
+        }
         this.setState({
             visible : true
         });
@@ -42,7 +45,8 @@ class CreateGraph extends Component {
 
     onClickAway() {
         this.setState({
-            visible: false
+            visible: false,
+            form: undefined
         });
         this.getClientProgression();
     }
@@ -94,7 +98,7 @@ class CreateGraph extends Component {
                     (
                         <div>
                             <input id="edit-progress-button" type="button" className="btn btn-info btn-block mb-4"
-                           value="Edit Exercise" name={this.props.graphData.exerciseName} onClick={this.openModal} />
+                           value="Edit Data" name={this.props.graphData.exerciseName} onClick={this.openModal} />
                             <input id="add-progress-button" type="button" className="btn btn-success btn-block mb-4"
                                    value="Add Data" name={this.props.graphData.exerciseName} onClick={this.openModal} />
                             <input id="delete-progress-button" type="button" className="btn btn-danger btn-block mb-4"
@@ -123,11 +127,13 @@ class CreateGraph extends Component {
         }
         if(this.state.form === 'Edit') {
             displayForm = (
-                <div>
-                    <Loading/>
-                </div>
+                <EditDataProgressForm exerciseName={this.props.graphData.exerciseName} onClickAway={this.onClickAway}
+                                     visible={this.state.visible}
+                                     modalSize={this.modalSize}
+                                     progressFormHeight={this.state.modalHeight}/>
             )
         }
+        console.log(this.state.form)
 
         return (
             <div>
