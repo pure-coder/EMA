@@ -638,3 +638,11 @@ input[type=submit] {
     height: 25px;
 }
 
+/* Edit progression table */
+
+.edit-progression-table {
+    height: 300px;
+    overflow-y: scroll;
+    display: block
+}
+

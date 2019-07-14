@@ -414,7 +414,7 @@ router.post('/:id/client_progression/:cid', passport.authenticate('pt_rule', {se
                             }
                         })
                         .catch(err => {
-                            console.log(err)
+                            // console.log(err)
                             return res.status(400).json(err)
                         });
 
@@ -457,7 +457,8 @@ router.get('/:id/client_progression/:cid', passport.authenticate('both_rule', {s
 
                     // '-_id exerciseName metrics.maxWeight metrics.Date' part allows only exerciseName and metrics to be returned,
                     // as _id is returned by default use the minus sign with it to explicitly ignore it ie '-_id' (deleted -_id as needed for refactoring -- creating component for each graph)
-                    ClientProgression.find({clientId: clientId}, 'exerciseName metrics.maxWeight metrics.Date')
+                    // CHANGE - _id needed for mapping in progression editing functionality
+                    ClientProgression.find({clientId: clientId}, 'exerciseName metrics._id metrics.maxWeight metrics.Date')
                         .then(result => {
                             if (result) {
                                 return res.status(200).json(result);

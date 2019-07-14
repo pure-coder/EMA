@@ -17,6 +17,7 @@ class EditDataProgressForm extends Component {
             maxWeight: '',
             Date: '',
             visible: false,
+            metrics: props.metrics,
             errors: {},
             success: {},
             message: {
@@ -166,6 +167,18 @@ class EditDataProgressForm extends Component {
 
     render() {
         let {errors, message} = this.state;
+
+        const metrics = this.state.metrics.map(metric => {
+            let metricDate = new Date(metric.Date).toISOString().substring(0, 10);
+            return ( <tr key={metric._id}>
+                <td><input type="date" name="Date" value={metricDate}/></td>
+                <td align="center"><b>{metric.maxWeight}</b></td>
+                <td align="center"><b>Checkbox</b></td>
+            </tr> )
+        });
+
+        console.table(metrics)
+        
         return (
             <div className="editClientProgress">
                 <div>
@@ -180,33 +193,48 @@ class EditDataProgressForm extends Component {
                             // TODO - Display list of data for this exercise so can be selected for change or deletion.
                         }
                         <label className="control-label form-control-lg new-progression">
-                            One Rep Max Weight (Kg):
+                            Data to be modified or deleted:
                         </label>
-                        <FormInputGroup
-                            name="maxWeight"
-                            PlaceHolder="Max Weight"
-                            value={this.state.maxWeight}
-                            type="text"
-                            onChange={this.onChange}
-                            onClick={this.onClick}
-                            error={errors.maxWeight}
-                        />
-                        <label className="control-label form-control-lg new-progression">
-                            Date:
-                        </label>
-                        <FormInputGroup
-                            myClassName="progress-date"
-                            name="Date"
-                            PlaceHolder="Date"
-                            value={this.state.Date}
-                            type="Date"
-                            onChange={this.onChange}
-                            onClick={this.onClick}
-                            error={errors.Date}
-                        />
+                        <table className="table client-table edit-progression-table">
+                            <thead>
+                            <tr>
+                                <th id="client-table-name">Date</th>
+                                <th align="center">Max Weight</th>
+                                <th align="center">Delete</th>
+                            </tr>
+                            {metrics}
+                            </thead>
+                        </table>
+
+                            {/*<label className="control-label form-control-lg new-progression">*/}
+                                {/*One Rep Max Weight (Kg):*/}
+                            {/*</label>*/}
+                            {/*< FormInputGroup*/}
+                            {/*name="maxWeight"*/}
+                            {/*PlaceHolder="Max Weight"*/}
+                            {/*value={this.state.maxWeight}*/}
+                            {/*type="text"*/}
+                            {/*onChange={this.onChange}*/}
+                            {/*onClick={this.onClick}*/}
+                            {/*error={errors.maxWeight}*/}
+                            {/*/>*/}
+                            {/*<label className="control-label form-control-lg new-progression">*/}
+                            {/*Date:*/}
+                            {/*</label>*/}
+                            {/*<FormInputGroup*/}
+                            {/*myClassName="progress-date"*/}
+                            {/*name="Date"*/}
+                            {/*PlaceHolder="Date"*/}
+                            {/*value={this.state.Date}*/}
+                            {/*type="Date"*/}
+                            {/*onChange={this.onChange}*/}
+                            {/*onClick={this.onClick}*/}
+                            {/*error={errors.Date}*/}
+                            {/*/>*/}
+
                         <DisplayMessage message={message}/>
                         {/*<div className="valid-feedback">{this.state.success.msg}</div>*/}
-                        <input type="submit" className="btn btn-info btn-block mt-4 mb-5"/>
+                        {/*<input type="submit" className="btn btn-info btn-block mt-4 mb-5"/>*/}
                     </form>
                 </div>
             </div>
