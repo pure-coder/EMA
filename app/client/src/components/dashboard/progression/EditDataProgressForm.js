@@ -14,8 +14,6 @@ class EditDataProgressForm extends Component {
         this.state = {
             userId: props.authenticatedUser.user.id,
             clientId: props.match.params.cid,
-            maxWeight: '',
-            Date: '',
             visible: false,
             metrics: props.metrics,
             errors: {},
@@ -88,18 +86,23 @@ class EditDataProgressForm extends Component {
         }
     }
 
-    onFocus(){
-        document.getElementsByName('maxWeight')[0].focus();
-    }
-
     onChange(e) {
-        this.setState({[e.target.name]: e.target.value});
+        const {metrics} = this.state;
+        let id = e.target.id;
+        let name = e.target.name;
+        let value = e.target.value;
 
-        this.props.clearErrors();
-        this.setState({message: {type: null}}); // reset to null
-        if(!isEmpty(this.props.success)){
-            this.props.clearSuccess();
-        }
+        // console.log(metrics[id][name])
+        metrics[id][name] = value;
+        this.setState({metrics});
+
+        // this.setState({[metrics[id]]: {name: value} })
+
+        // this.props.clearErrors();
+        // this.setState({message: {type: null}}); // reset to null
+        // if(!isEmpty(this.props.success)){
+        //     this.props.clearSuccess();
+        // }
     }
 
     onClose(){
@@ -167,17 +170,6 @@ class EditDataProgressForm extends Component {
 
     render() {
         let {errors, message} = this.state;
-
-        const metrics = this.state.metrics.map(metric => {
-            let metricDate = new Date(metric.Date).toISOString().substring(0, 10);
-            return ( <tr key={metric._id}>
-                <td><input type="date" name="Date" value={metricDate}/></td>
-                <td align="center"><b>{metric.maxWeight}</b></td>
-                <td align="center"><b>Checkbox</b></td>
-            </tr> )
-        });
-
-        console.table(metrics)
         
         return (
             <div className="editClientProgress">
@@ -202,7 +194,46 @@ class EditDataProgressForm extends Component {
                                 <th align="center">Max Weight</th>
                                 <th align="center">Delete</th>
                             </tr>
-                            {metrics}
+                            {
+                                this.state.metrics.map((metric, index) => {
+                                    let metricDate = new Date(metric.Date).toISOString().substring(0, 10);
+                                    return ( <tr key={metric._id}>
+                                        <td>
+                                            {/*<input type="date" name="Date" value={metricDate}/>*/}
+                                            < FormInputGroup
+                                                name="Date"
+                                                id={index}
+                                                value={metricDate}
+                                                type="date"
+                                                onChange={this.onChange}
+                                                error={errors.Date}
+                                            />
+                                        </td>
+                                        <td>
+                                            {/*<input type="text" name="maxWeight" value={metric.maxWeight}/>*/}
+                                            < FormInputGroup
+                                                name="maxWeight"
+                                                id={index}
+                                                value={metric.maxWeight}
+                                                type="text"
+                                                onChange={this.onChange}
+                                                error={errors.maxWeight}
+                                            />
+                                        </td>
+                                        <td>
+                                            {/*<input type="checkbox" name="delete"/>*/}
+                                            < FormInputGroup
+                                                name="delete"
+                                                id={index}
+                                                type="checkbox"
+                                                value={metric._id}
+                                                onChange={this.onChange}
+                                                error={errors.deleted}
+                                            />
+                                        </td>
+                                    </tr> )
+                                })
+                            }
                             </thead>
                         </table>
 
