@@ -643,6 +643,7 @@ input[type=submit] {
 .edit-progression-table {
     height: 300px;
     overflow-y: scroll;
-    display: block
+    display: block;
+    border: solid 1px cornflowerblue;
 }
 

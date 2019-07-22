@@ -2,7 +2,7 @@ import React, {Component} from 'react' // React is need for rendering JSX HTML e
 import {withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
-import {newClientProgress, setErrors, clearErrors, clearSuccess, getClientProgression} from "../../../actions/authenticationActions";
+import {setErrors, clearErrors, clearSuccess, deleteExercise} from "../../../actions/authenticationActions";
 import FormInputGroup from "../../common/FormInputGroup";
 import DisplayMessage from "../../common/DisplayMessage";
 import isEmpty from "../../../validation/is_empty";
@@ -16,8 +16,9 @@ class EditDataProgressForm extends Component {
             clientId: props.match.params.cid,
             visible: false,
             metrics: props.metrics,
+            toDelete: [],
+            edited: false,
             errors: {},
-            success: {},
             message: {
                 type: null
             },
@@ -27,7 +28,6 @@ class EditDataProgressForm extends Component {
         this.onChange = this.onChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
         this.onClose= this.onClose.bind(this);
-        this.onClick = this.onClick.bind(this);
     } // constructor
 
     static getDerivedStateFromProps(props, state) {
@@ -65,10 +65,6 @@ class EditDataProgressForm extends Component {
     // setting state) so that fields and errors can be cleared when exiting modal (using onClickAway instead of close button).
     componentDidUpdate(prevProps){
         if(prevProps.visible !== this.state.visible){
-            this.setState({
-                maxWeight: '',
-                Date: ''
-            });
             this.props.clearErrors();
             this.props.clearSuccess();
         }
@@ -79,30 +75,46 @@ class EditDataProgressForm extends Component {
         }
     }
 
-    onClick(){
-        // Set success message to empty if re-entering data after a successful previous submission.
-        if(!isEmpty(this.state.success)) {
-            this.props.clearSuccess();
-        }
-    }
-
     onChange(e) {
-        const {metrics} = this.state;
+        const metrics = this.state.metrics;
+        const toDelete = this.state.toDelete;
         let id = e.target.id;
         let name = e.target.name;
         let value = e.target.value;
 
-        // console.log(metrics[id][name])
-        metrics[id][name] = value;
-        this.setState({metrics});
+        // For maxWeight Check to see if value entered is a number, if not then don't update state and exit function.
+        if(name === 'maxWeight' && isNaN(value)){
+            return null;
+        }
 
-        // this.setState({[metrics[id]]: {name: value} })
+        // For delete checkbox, check to see if data key exists in delete if un/checked.
+        if(name === 'Delete'){
+            // toDelete doesn't include data key then push key into array
+            if(!toDelete.includes(value)){
+                toDelete.push(value)
+            }
+            // otherwise remove value
+            else{
+                toDelete.splice(toDelete.indexOf(value), 1);
+            }
+        }
 
-        // this.props.clearErrors();
-        // this.setState({message: {type: null}}); // reset to null
-        // if(!isEmpty(this.props.success)){
-        //     this.props.clearSuccess();
-        // }
+        // Only add data to metrics if name is date or maxWeight (keep delete data separate)
+        if (name === 'Date' || name === 'maxWeight'){
+            metrics[id][name] = value;
+        }
+
+        this.setState({
+            metrics,
+            toDelete,
+            edited : true
+        });
+
+        this.props.clearErrors();
+        this.setState({message: {type: null}}); // reset to null
+        if(!isEmpty(this.props.success)){
+            this.props.clearSuccess();
+        }
     }
 
     onClose(){
@@ -111,17 +123,6 @@ class EditDataProgressForm extends Component {
         // Clear errors once the modal has been exited
         this.props.clearErrors();
         this.setState({message: {type: null}});
-        // Reset/ Clear input fields once modal has been exited
-        this.clearFields();
-    }
-
-    getClientProgression(){
-        this.props.getClientProgression(this.state.userId, this.state.clientId, this.props.history);
-    }
-
-    clearFields(){
-        this.setState({maxWeight: ''});
-        this.setState({Date: ''});
     }
 
     onSubmit(e) {
@@ -132,39 +133,50 @@ class EditDataProgressForm extends Component {
         this.props.clearSuccess();
 
         // Check if any data has been changed, don't want to waste server load and bandwidth on empty requests
-        let dataChanged = false;
+        let dataChanged = this.state.edited;
         let message;
-
-        const clientProgressData = {
-            exerciseName: this.props.exerciseName,
-            metrics: {
-                maxWeight: this.state.maxWeight,
-                Date: new Date(this.state.Date)
-            }
-        };
-
-        // Check to see if data has been entered or modified
-        if(!isEmpty(clientProgressData.metrics.maxWeight) || !isEmpty(clientProgressData.metrics.Date)){
-            dataChanged = true;
-        }
 
         if(!dataChanged){
             message = {
                 type: "ERROR",
-                msg: "No data has been entered or modified!"
+                msg: "No data has been modified or deleted!"
             };
             this.setState({message});
             return null;
         }
         else{
-            this.props.clearErrors();
-            this.props.newClientProgress(this.state.userId, this.state.clientId, clientProgressData, this.props.history);
-            // Clear data from fields
-            this.clearFields();
-            // Show data added to database and updated on page in real time
-            this.getClientProgression();
-            // Once data is submitted focus on adding new data (via focusing on 1st input element, in this case max weight!)
-            this.onFocus();
+            // this.props.clearErrors();
+            // this.props.newClientProgress(this.state.userId, this.state.clientId, clientProgressData, this.props.history);
+            let deleteMetrics = this.state.toDelete;
+            let originalMetrics = this.state.metrics;
+
+            // Check if all items have been selected for deletion, if so make new empty array and send that to edit function
+            if(originalMetrics.length === deleteMetrics.length){
+                originalMetrics = [];
+            }
+            else{
+                // for(let len = originalMetrics.length-1 ; len >= 0;  len--){
+                //     // deleteMetrics.forEach(toDelete => {
+                //     //         if(originalMetrics[len]._id === toDelete){
+                //     //             // originalMetrics.splice(len , 1)
+                //     //         }
+                //     // })
+                // }
+                console.log("delete other")
+            }
+
+            console.table(this.state.metrics)
+            console.table(originalMetrics)
+
+            // Delete whole exercise from client progression
+            if(isEmpty(originalMetrics)){
+                this.props.deleteExercise(this.state.userId, this.state.clientId, this.props.exerciseName, this.props.history);
+                this.onClose();
+            }
+            else{
+                // Todo: send new array to overwrite current data for exercise in db for client
+            }
+
         }
     } // onSubmit
 
@@ -181,9 +193,6 @@ class EditDataProgressForm extends Component {
                         <label className="control-label form-control-lg new-progression">
                             Exercise: {this.props.exerciseName}
                         </label>
-                        {
-                            // TODO - Display list of data for this exercise so can be selected for change or deletion.
-                        }
                         <label className="control-label form-control-lg new-progression">
                             Data to be modified or deleted:
                         </label>
@@ -214,7 +223,7 @@ class EditDataProgressForm extends Component {
                                             < FormInputGroup
                                                 name="maxWeight"
                                                 id={index}
-                                                value={metric.maxWeight}
+                                                value={metric.maxWeight.toString()}
                                                 type="text"
                                                 onChange={this.onChange}
                                                 error={errors.maxWeight}
@@ -223,7 +232,7 @@ class EditDataProgressForm extends Component {
                                         <td>
                                             {/*<input type="checkbox" name="delete"/>*/}
                                             < FormInputGroup
-                                                name="delete"
+                                                name="Delete"
                                                 id={index}
                                                 type="checkbox"
                                                 value={metric._id}
@@ -236,36 +245,8 @@ class EditDataProgressForm extends Component {
                             }
                             </thead>
                         </table>
-
-                            {/*<label className="control-label form-control-lg new-progression">*/}
-                                {/*One Rep Max Weight (Kg):*/}
-                            {/*</label>*/}
-                            {/*< FormInputGroup*/}
-                            {/*name="maxWeight"*/}
-                            {/*PlaceHolder="Max Weight"*/}
-                            {/*value={this.state.maxWeight}*/}
-                            {/*type="text"*/}
-                            {/*onChange={this.onChange}*/}
-                            {/*onClick={this.onClick}*/}
-                            {/*error={errors.maxWeight}*/}
-                            {/*/>*/}
-                            {/*<label className="control-label form-control-lg new-progression">*/}
-                            {/*Date:*/}
-                            {/*</label>*/}
-                            {/*<FormInputGroup*/}
-                            {/*myClassName="progress-date"*/}
-                            {/*name="Date"*/}
-                            {/*PlaceHolder="Date"*/}
-                            {/*value={this.state.Date}*/}
-                            {/*type="Date"*/}
-                            {/*onChange={this.onChange}*/}
-                            {/*onClick={this.onClick}*/}
-                            {/*error={errors.Date}*/}
-                            {/*/>*/}
-
                         <DisplayMessage message={message}/>
-                        {/*<div className="valid-feedback">{this.state.success.msg}</div>*/}
-                        {/*<input type="submit" className="btn btn-info btn-block mt-4 mb-5"/>*/}
+                        <input type="submit" className="btn btn-info btn-block mt-4 mb-5"/>
                     </form>
                 </div>
             </div>
@@ -277,11 +258,10 @@ class EditDataProgressForm extends Component {
 EditDataProgressForm.propTypes = {
     modalSize: PropTypes.func.isRequired,
     progressFormHeight: PropTypes.string.isRequired,
-    newClientProgress: PropTypes.func.isRequired,
     setErrors: PropTypes.func.isRequired,
     clearSuccess: PropTypes.func.isRequired,
     clearErrors: PropTypes.func.isRequired,
-    getClientProgression: PropTypes.func.isRequired,
+    deleteExercise: PropTypes.func.isRequired,
     authenticatedUser: PropTypes.object.isRequired,
     errors: PropTypes.object.isRequired,
     success: PropTypes.object.isRequired
@@ -294,4 +274,4 @@ const stateToProps = (state) => ({
 });
 
 
-export default connect(stateToProps, {newClientProgress, setErrors, clearErrors, clearSuccess, getClientProgression})(withRouter(EditDataProgressForm));
+export default connect(stateToProps, {setErrors, clearErrors, clearSuccess, deleteExercise})(withRouter(EditDataProgressForm));

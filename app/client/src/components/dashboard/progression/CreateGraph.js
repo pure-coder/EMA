@@ -17,6 +17,7 @@ class CreateGraph extends Component {
         this.state = {
             userId : props.match.params.uid || props.authenticatedUser.user.id,
             clientId: props.authenticatedUser.clientId || props.match.params.cid,
+            metrics : this.props.graphData.metrics,
             visible: false,
             modalHeight: "400",
             modalWidth: "500",
@@ -128,7 +129,7 @@ class CreateGraph extends Component {
         if(this.state.form === 'Edit') {
             displayForm = (
                 <EditDataProgressForm exerciseName={this.props.graphData.exerciseName}
-                                      metrics={this.props.graphData.metrics}
+                                      metrics={this.state.metrics}
                                       onClickAway={this.onClickAway}
                                       visible={this.state.visible}
                                       modalSize={this.modalSize}
