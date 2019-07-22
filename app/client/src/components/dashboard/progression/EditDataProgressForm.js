@@ -157,37 +157,32 @@ class EditDataProgressForm extends Component {
             return null;
         }
         else{
-            // this.props.clearErrors();
-            // this.props.newClientProgress(this.state.userId, this.state.clientId, clientProgressData, this.props.history);
+            this.props.clearErrors();
             let deleteMetrics = this.state.toDelete;
             let originalMetrics = this.state.metrics;
+            let newMetrics = [];
 
             // Check if all items have been selected for deletion, if so make new empty array and send that to edit function
             if(originalMetrics.length === deleteMetrics.length){
                 originalMetrics = [];
             }
             else{
-                for(let len = originalMetrics.length-1 ; len >= 0;  len--){
-                    deleteMetrics.forEach(toDelete => {
-                        //console.log(originalMetrics[len])
-                            if(originalMetrics[len]._id === toDelete){
-                                //originalMetrics.splice(len , 1)
-                                console.log(originalMetrics[len], len)
-                            }
-                    })
+                for(let i = 0, len = originalMetrics.length; i < len; i++){
+                    if(!deleteMetrics.includes(originalMetrics[i]._id)){
+                        newMetrics.push(originalMetrics[i]);
+                    }
                 }
             }
-
-            // console.table(this.state.metrics)
-            // console.table(originalMetrics)
 
             // Delete whole exercise from client progression
             if(isEmpty(originalMetrics)){
                 //this.props.deleteExercise(this.state.userId, this.state.clientId, this.props.exerciseName, this.props.history);
                 this.onClose();
             }
+            // Send new array to overwrite current data for exercise in db for client
             else{
-                // Todo: send new array to overwrite current data for exercise in db for client
+                // this.props.editClientExercise(this.state.userId, this.state.clientId, clientProgressData, this.props.history);
+                this.onClose();
             }
 
         }
