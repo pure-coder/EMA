@@ -543,5 +543,59 @@ router.delete('/:id/client_progression/:cid', passport.authenticate('pt_rule', {
 
 }); // router delete /:id/client_progression/:cid
 
+// @route  PUT api/:id/client_progression/:cid
+// @desc   update client progression exercise from db
+// @access Private for PT's - clients can't update progression data for exercises in db collection
+router.put('/:id/client_progression/:cid', passport.authenticate('pt_rule', {session: false}, null), (req, res) =>{
+
+    let userId = req.params.id;
+    let clientId = req.params.cid;
+    let data = req.body.data.newMetrics;
+    let exerciseId = req.body.data.exerciseId;
+
+    // Check to see if client exists
+    Client.findOne({_id: clientId})
+        .then(result => {
+            if(result) {
+
+                // As pt's are the only ones that can access this route, check to see if uid given matches the ptId for this client
+                if(result.ptId === userId){
+
+                    // res.status(200).json({userId, clientId, data, result});
+
+                    // update exercise for client
+                    ClientProgression.findOneAndUpdate(
+                        {_id: exerciseId},
+                        {$set:
+                            {
+                            metrics : data
+                            }
+                        },
+                    )
+                        .then(() => {
+                            res.status(200).json({msg: "Edit successful."})
+                            }
+                        )
+                        .catch(() => {
+                            res.status(400).json({msg: "Could not update this exercise."})
+                        })
+
+                }
+                else{
+                    // Respond with a forbidden status code as the uid given is not allowed to access this data
+                    res.status(403).json({msg : "User not allowed to access data."})
+                }
+            }
+        })
+        .catch(() => {
+            res.status(400).json({msg: "Client not found!"});
+        })
+    // end of Client.findOne
+
+    // Send something back to browser if commented out Client.findOne
+    // res.send(null)
+
+}); // router put /:id/client_progression/:cid
+
 //Export router so it can work with the main restful api server
     module.exports = router;

@@ -129,6 +129,7 @@ class CreateGraph extends Component {
         if(this.state.form === 'Edit') {
             displayForm = (
                 <EditDataProgressForm exerciseName={this.props.graphData.exerciseName}
+                                      exerciseId={this.props.graphData._id}
                                       metrics={this.state.metrics}
                                       onClickAway={this.onClickAway}
                                       visible={this.state.visible}

@@ -306,6 +306,19 @@ export const deleteExercise =(uid, cid, data, history) => dispatch => {
         });
 };
 
+export const editClientExercise =(uid, cid, exerciseId, data, history) => dispatch => {
+    axios.put(`/api/${uid}/client_progression/${cid}`, {data :
+            {exerciseId: exerciseId,
+            newMetrics: data}
+            })
+        .then(() => {
+            dispatch(getClientProgression(uid, cid, history));
+        })
+        .catch(err => {
+            manageErrors(err, dispatch, history);
+        });
+};
+
 export const setErrors = (error) => dispatch => {
     if(typeof error === "string"){
         dispatch({
