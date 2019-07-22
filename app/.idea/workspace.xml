@@ -4,10 +4,8 @@
     <bookmark url="file://C:/Learning/clientObjectData.js" description="export {&quot;_id&quot;:&quot;5c2e3454d27ace097420b414&quot;,&quot;FullName..." line="2" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ec8ccf39-8487-4892-a38d-de9c288878a3" name="Default" comment="Got edit working with map in EditDataProgressForm">
+    <list default="true" id="ec8ccf39-8487-4892-a38d-de9c288878a3" name="Default" comment="Delete whole exercise if all checkboxes are selected.&#10;Still need to do functionality for overwriting existing exercise data&#10;in database for updated data.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/App.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/dashboard/progression/CreateGraph.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/dashboard/progression/CreateGraph.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/dashboard/progression/EditDataProgressForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/dashboard/progression/EditDataProgressForm.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -51,10 +49,10 @@
           <entry key="css" value="8011" />
           <entry key="editorConfig" value="285" />
           <entry key="html" value="1072" />
-          <entry key="js" value="167672" />
+          <entry key="js" value="167939" />
           <entry key="json" value="26" />
           <entry key="md" value="150" />
-          <entry key="txt" value="6031" />
+          <entry key="txt" value="6227" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
@@ -62,8 +60,8 @@
           <entry key="CSS" value="8011" />
           <entry key="HTML" value="1079" />
           <entry key="JSON" value="26" />
-          <entry key="JavaScript" value="167665" />
-          <entry key="PLAIN_TEXT" value="6466" />
+          <entry key="JavaScript" value="167932" />
+          <entry key="PLAIN_TEXT" value="6662" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -105,20 +103,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/progression/EditDataProgressForm.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="191">
-              <caret line="173" column="31" selection-start-line="173" selection-start-column="31" selection-end-line="173" selection-end-column="31" />
-              <folding>
-                <element signature="e#109#153#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/progression/DeleteProgressConfirm.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="109">
-              <caret line="49" column="11" selection-start-line="49" selection-start-column="8" selection-end-line="49" selection-end-column="109" />
+            <state relative-caret-position="89">
+              <caret line="89" column="65" selection-start-line="89" selection-start-column="65" selection-end-line="89" selection-end-column="65" />
               <folding>
                 <element signature="e#109#153#0" expanded="true" />
               </folding>
@@ -475,14 +461,7 @@
       <workItem from="1560617150917" duration="17313000" />
       <workItem from="1561133259946" duration="18573000" />
       <workItem from="1561559852945" duration="45900000" />
-      <workItem from="1562927864711" duration="42709000" />
-    </task>
-    <task id="LOCAL-00010" summary="30/03/19">
-      <created>1553946152558</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1553946152558</updated>
+      <workItem from="1562927864711" duration="45702000" />
     </task>
     <task id="LOCAL-00011" summary="30/03/19">
       <created>1553946804423</created>
@@ -820,11 +799,18 @@
       <option name="project" value="LOCAL" />
       <updated>1563198028416</updated>
     </task>
-    <option name="localTasksCounter" value="59" />
+    <task id="LOCAL-00059" summary="Delete whole exercise if all checkboxes are selected.&#10;Still need to do functionality for overwriting existing exercise data&#10;in database for updated data.">
+      <created>1563795312643</created>
+      <option name="number" value="00059" />
+      <option name="presentableId" value="LOCAL-00059" />
+      <option name="project" value="LOCAL" />
+      <updated>1563795312643</updated>
+    </task>
+    <option name="localTasksCounter" value="60" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1467091000" />
+    <option name="totallyTimeSpent" value="1470084000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -924,7 +910,6 @@
   <component name="VcsManagerConfiguration">
     <option name="SHOW_DIRTY_RECURSIVELY" value="true" />
     <option name="LIMIT_HISTORY" value="false" />
-    <MESSAGE value="Get user data for navigation if refreshed/copy &amp; pasted, so that it is up to date if edited. (Added call to get data for user in getDerivedStateFromProps depending on user status (pt/client) if data is not already in state)." />
     <MESSAGE value="Added add data button to CreateGraph so that data can be added to exercise without using add progress button at top of page, functionality has not yet been added to Modal yet." />
     <MESSAGE value="Styling css changes made to progressions page (ClientProfile)" />
     <MESSAGE value="AddDataProgressForm Modal created for adding data to existing exercise for client, functionality working except for the instant change to graph in ClientProfile." />
@@ -949,7 +934,8 @@
     <MESSAGE value="EditDataProgressForm created and added to CreateGraph.&#10;Need to add functionality so that data for exercise can be selected from a list for editing or deletion." />
     <MESSAGE value="Have Date format showing correctly on EditDataProgressForm, need to add check box, then refactor into&#10;a component with relevant onChange etc functionality." />
     <MESSAGE value="Got edit working with map in EditDataProgressForm" />
-    <option name="LAST_COMMIT_MESSAGE" value="Got edit working with map in EditDataProgressForm" />
+    <MESSAGE value="Delete whole exercise if all checkboxes are selected.&#10;Still need to do functionality for overwriting existing exercise data&#10;in database for updated data." />
+    <option name="LAST_COMMIT_MESSAGE" value="Delete whole exercise if all checkboxes are selected.&#10;Still need to do functionality for overwriting existing exercise data&#10;in database for updated data." />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/client/src/utilities/autoComplete.js">
@@ -1298,8 +1284,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/progression/EditDataProgressForm.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="191">
-          <caret line="173" column="31" selection-start-line="173" selection-start-column="31" selection-end-line="173" selection-end-column="31" />
+        <state relative-caret-position="89">
+          <caret line="89" column="65" selection-start-line="89" selection-start-column="65" selection-end-line="89" selection-end-column="65" />
           <folding>
             <element signature="e#109#153#0" expanded="true" />
           </folding>

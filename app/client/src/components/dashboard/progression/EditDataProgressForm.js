@@ -87,6 +87,19 @@ class EditDataProgressForm extends Component {
             return null;
         }
 
+        // Make sure maxWeight value does not exceed 3 characters
+        if(name === 'maxWeight' && (value.length > 3)){
+            let message = {
+                type: "ERROR",
+                msg: "Max Weight value must be between 0-999!"
+            };
+            this.setState({message});
+            return null;
+        }
+        else{
+            this.setState({message: {type: null}}); // reset to null
+        }
+
         // For delete checkbox, check to see if data key exists in delete if un/checked.
         if(name === 'Delete'){
             // toDelete doesn't include data key then push key into array
@@ -111,7 +124,6 @@ class EditDataProgressForm extends Component {
         });
 
         this.props.clearErrors();
-        this.setState({message: {type: null}}); // reset to null
         if(!isEmpty(this.props.success)){
             this.props.clearSuccess();
         }
@@ -155,22 +167,23 @@ class EditDataProgressForm extends Component {
                 originalMetrics = [];
             }
             else{
-                // for(let len = originalMetrics.length-1 ; len >= 0;  len--){
-                //     // deleteMetrics.forEach(toDelete => {
-                //     //         if(originalMetrics[len]._id === toDelete){
-                //     //             // originalMetrics.splice(len , 1)
-                //     //         }
-                //     // })
-                // }
-                console.log("delete other")
+                for(let len = originalMetrics.length-1 ; len >= 0;  len--){
+                    deleteMetrics.forEach(toDelete => {
+                        //console.log(originalMetrics[len])
+                            if(originalMetrics[len]._id === toDelete){
+                                //originalMetrics.splice(len , 1)
+                                console.log(originalMetrics[len], len)
+                            }
+                    })
+                }
             }
 
-            console.table(this.state.metrics)
-            console.table(originalMetrics)
+            // console.table(this.state.metrics)
+            // console.table(originalMetrics)
 
             // Delete whole exercise from client progression
             if(isEmpty(originalMetrics)){
-                this.props.deleteExercise(this.state.userId, this.state.clientId, this.props.exerciseName, this.props.history);
+                //this.props.deleteExercise(this.state.userId, this.state.clientId, this.props.exerciseName, this.props.history);
                 this.onClose();
             }
             else{
