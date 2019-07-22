@@ -4,12 +4,10 @@
     <bookmark url="file://C:/Learning/clientObjectData.js" description="export {&quot;_id&quot;:&quot;5c2e3454d27ace097420b414&quot;,&quot;FullName..." line="2" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ec8ccf39-8487-4892-a38d-de9c288878a3" name="Default" comment="&#10;Functionality for overwriting added to create new array in EditDataProgressForm,&#10;need to create API on server and actions to deal with this functionality">
+    <list default="true" id="ec8ccf39-8487-4892-a38d-de9c288878a3" name="Default" comment="Functionality added for EditDataProgressForm for editing exercises.&#10;API updated with edit functionality.&#10;(Need to fix bug where page is not updated automatically after&#10;successful edit/submit).">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/actions/authenticationActions.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/actions/authenticationActions.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/dashboard/progression/CreateGraph.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/dashboard/progression/CreateGraph.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/dashboard/progression/EditDataProgressForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/dashboard/progression/EditDataProgressForm.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/users.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/users.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -52,10 +50,10 @@
           <entry key="css" value="8011" />
           <entry key="editorConfig" value="285" />
           <entry key="html" value="1072" />
-          <entry key="js" value="169504" />
+          <entry key="js" value="169676" />
           <entry key="json" value="26" />
           <entry key="md" value="150" />
-          <entry key="txt" value="6494" />
+          <entry key="txt" value="6702" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
@@ -63,8 +61,8 @@
           <entry key="CSS" value="8011" />
           <entry key="HTML" value="1079" />
           <entry key="JSON" value="26" />
-          <entry key="JavaScript" value="169497" />
-          <entry key="PLAIN_TEXT" value="6929" />
+          <entry key="JavaScript" value="169669" />
+          <entry key="PLAIN_TEXT" value="7137" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -106,8 +104,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/progression/EditDataProgressForm.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="183" column="16" selection-start-line="183" selection-start-column="16" selection-end-line="183" selection-end-column="16" />
+            <state relative-caret-position="327">
+              <caret line="75" column="5" selection-start-line="75" selection-start-column="5" selection-end-line="75" selection-end-column="5" />
               <folding>
                 <element signature="e#109#153#0" expanded="true" />
               </folding>
@@ -115,35 +113,14 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/progression/CreateGraph.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="221">
-              <caret line="130" column="86" lean-forward="true" selection-start-line="130" selection-start-column="86" selection-end-line="130" selection-end-column="86" />
+            <state relative-caret-position="340">
+              <caret line="83" column="71" selection-start-line="83" selection-start-column="71" selection-end-line="83" selection-end-column="71" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/src/actions/authenticationActions.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="493">
-              <caret line="327" column="26" selection-start-line="327" selection-start-column="26" selection-end-line="327" selection-end-column="26" />
-              <folding>
-                <element signature="e#292#363#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/routes/users.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="106">
-              <caret line="575" column="75" selection-start-line="575" selection-start-column="75" selection-end-line="575" selection-end-column="75" />
             </state>
           </provider>
         </entry>
@@ -276,10 +253,10 @@
         <option value="$PROJECT_DIR$/client/src/components/dashboard/Dashboard.js" />
         <option value="$PROJECT_DIR$/client/src/components/dashboard/clients/ClientList.js" />
         <option value="$PROJECT_DIR$/client/src/App.css" />
-        <option value="$PROJECT_DIR$/client/src/components/dashboard/progression/CreateGraph.js" />
+        <option value="$PROJECT_DIR$/routes/users.js" />
         <option value="$PROJECT_DIR$/client/src/actions/authenticationActions.js" />
         <option value="$PROJECT_DIR$/client/src/components/dashboard/progression/EditDataProgressForm.js" />
-        <option value="$PROJECT_DIR$/routes/users.js" />
+        <option value="$PROJECT_DIR$/client/src/components/dashboard/progression/CreateGraph.js" />
       </list>
     </option>
   </component>
@@ -497,14 +474,7 @@
       <workItem from="1560617150917" duration="17313000" />
       <workItem from="1561133259946" duration="18573000" />
       <workItem from="1561559852945" duration="45900000" />
-      <workItem from="1562927864711" duration="59250000" />
-    </task>
-    <task id="LOCAL-00013" summary="30/03/19">
-      <created>1553947482662</created>
-      <option name="number" value="00013" />
-      <option name="presentableId" value="LOCAL-00013" />
-      <option name="project" value="LOCAL" />
-      <updated>1553947482662</updated>
+      <workItem from="1562927864711" duration="60424000" />
     </task>
     <task id="LOCAL-00014" summary="30/03/19">
       <created>1553947534685</created>
@@ -842,11 +812,18 @@
       <option name="project" value="LOCAL" />
       <updated>1563812598040</updated>
     </task>
-    <option name="localTasksCounter" value="62" />
+    <task id="LOCAL-00062" summary="Functionality added for EditDataProgressForm for editing exercises.&#10;API updated with edit functionality.&#10;(Need to fix bug where page is not updated automatically after&#10;successful edit/submit).">
+      <created>1563828694433</created>
+      <option name="number" value="00062" />
+      <option name="presentableId" value="LOCAL-00062" />
+      <option name="project" value="LOCAL" />
+      <updated>1563828694433</updated>
+    </task>
+    <option name="localTasksCounter" value="63" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1483632000" />
+    <option name="totallyTimeSpent" value="1484806000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -946,7 +923,6 @@
   <component name="VcsManagerConfiguration">
     <option name="SHOW_DIRTY_RECURSIVELY" value="true" />
     <option name="LIMIT_HISTORY" value="false" />
-    <MESSAGE value="AddDataProgressForm Modal created for adding data to existing exercise for client, functionality working except for the instant change to graph in ClientProfile." />
     <MESSAGE value="getClientDataProgression add to both AddDataProgressionForm and ClientGraph for submitting new data and closing Modal respectively. Gives a more dynamic effect, showing that data is added in real time." />
     <MESSAGE value="onFocus added to AddDataProgessForm so that when new data is submitted the 1st input field is focused." />
     <MESSAGE value="Removed scrollTo for AddDataProgressForm and DeleteProgressConfirm" />
@@ -971,7 +947,8 @@
     <MESSAGE value="Delete whole exercise if all checkboxes are selected.&#10;Still need to do functionality for overwriting existing exercise data&#10;in database for updated data." />
     <MESSAGE value="Max Weight value length check added.&#10;Still need to do functionality for overwriting existing exercise data&#10;in database for updated data." />
     <MESSAGE value="&#10;Functionality for overwriting added to create new array in EditDataProgressForm,&#10;need to create API on server and actions to deal with this functionality" />
-    <option name="LAST_COMMIT_MESSAGE" value="&#10;Functionality for overwriting added to create new array in EditDataProgressForm,&#10;need to create API on server and actions to deal with this functionality" />
+    <MESSAGE value="Functionality added for EditDataProgressForm for editing exercises.&#10;API updated with edit functionality.&#10;(Need to fix bug where page is not updated automatically after&#10;successful edit/submit)." />
+    <option name="LAST_COMMIT_MESSAGE" value="Functionality added for EditDataProgressForm for editing exercises.&#10;API updated with edit functionality.&#10;(Need to fix bug where page is not updated automatically after&#10;successful edit/submit)." />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/client/src/utilities/autoComplete.js">
@@ -1291,10 +1268,27 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/routes/users.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="106">
+          <caret line="575" column="75" selection-start-line="575" selection-start-column="75" selection-end-line="575" selection-end-column="75" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/actions/authenticationActions.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="315" column="8" selection-start-line="315" selection-start-column="8" selection-end-line="315" selection-end-column="8" />
+          <folding>
+            <element signature="e#292#363#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/progression/EditDataProgressForm.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="183" column="16" selection-start-line="183" selection-start-column="16" selection-end-line="183" selection-end-column="16" />
+        <state relative-caret-position="327">
+          <caret line="75" column="5" selection-start-line="75" selection-start-column="5" selection-end-line="75" selection-end-column="5" />
           <folding>
             <element signature="e#109#153#0" expanded="true" />
           </folding>
@@ -1303,28 +1297,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/progression/CreateGraph.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="130" column="86" lean-forward="true" selection-start-line="130" selection-start-column="86" selection-end-line="130" selection-end-column="86" />
+        <state relative-caret-position="340">
+          <caret line="83" column="71" selection-start-line="83" selection-start-column="71" selection-end-line="83" selection-end-column="71" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/actions/authenticationActions.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="493">
-          <caret line="327" column="26" selection-start-line="327" selection-start-column="26" selection-end-line="327" selection-end-column="26" />
-          <folding>
-            <element signature="e#292#363#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/routes/users.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="106">
-          <caret line="575" column="75" selection-start-line="575" selection-start-column="75" selection-end-line="575" selection-end-column="75" />
         </state>
       </provider>
     </entry>

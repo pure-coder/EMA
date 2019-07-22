@@ -81,7 +81,7 @@ class CreateGraph extends Component {
 
     componentDidUpdate(prevProps){
         // Only update the exercise that has added or deleted metric data
-        if(prevProps.graphData.metrics.length !== this.props.graphData.metrics.length) {
+        if(prevProps.graphData.metrics !== this.props.graphData.metrics) {
             this.drawGraph(true)
         }
     }
