@@ -218,6 +218,7 @@ class EditDataProgressForm extends Component {
                                         <td>
                                             {/*<input type="date" name="Date" value={metricDate}/>*/}
                                             < FormInputGroup
+                                                myClassName="edit-exercise"
                                                 name="Date"
                                                 id={index}
                                                 value={metricDate}
@@ -229,6 +230,7 @@ class EditDataProgressForm extends Component {
                                         <td>
                                             {/*<input type="text" name="maxWeight" value={metric.maxWeight}/>*/}
                                             < FormInputGroup
+                                                myClassName="edit-exercise"
                                                 name="maxWeight"
                                                 id={index}
                                                 value={metric.maxWeight.toString()}
@@ -240,6 +242,7 @@ class EditDataProgressForm extends Component {
                                         <td>
                                             {/*<input type="checkbox" name="delete"/>*/}
                                             < FormInputGroup
+                                                myClassName="edit-exercise"
                                                 name="Delete"
                                                 id={index}
                                                 type="checkbox"
