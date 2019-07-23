@@ -49,6 +49,11 @@ class CreateGraph extends Component {
             visible: false,
             form: undefined
         });
+
+        // Reset modal size
+        this.modalSize("400");
+
+        // Get new data
         this.getClientProgression();
     }
 
