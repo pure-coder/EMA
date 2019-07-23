@@ -59,6 +59,12 @@ class EditDataProgressForm extends Component {
         formHeight += parseInt(window.getComputedStyle(el).getPropertyValue('margin-top'), 10);
         formHeight += parseInt(window.getComputedStyle(el).getPropertyValue('margin-bottom'), 10);
         this.setState({progressFormHeight: formHeight});
+
+        // Change format of Date in metrics so that it can be presented correctly in HTML 5 date format.
+        // Was previously getting errors when converting in map below as onChange would not except a single zero, etc
+        this.state.metrics.forEach(metrics => {
+            metrics.Date = new Date(metrics.Date).toISOString().substring(0, 10);
+        })
     }
 
     // Checking if previous props modal visibility and this states visibility is not equal (stops reacts maximum loop message when
@@ -213,7 +219,6 @@ class EditDataProgressForm extends Component {
                             </tr>
                             {
                                 this.state.metrics.map((metric, index) => {
-                                    let metricDate = new Date(metric.Date).toISOString().substring(0, 10);
                                     return ( <tr key={metric._id}>
                                         <td>
                                             {/*<input type="date" name="Date" value={metricDate}/>*/}
@@ -221,7 +226,7 @@ class EditDataProgressForm extends Component {
                                                 myClassName="edit-exercise"
                                                 name="Date"
                                                 id={index}
-                                                value={metricDate}
+                                                value={metric.Date.toString()}
                                                 type="date"
                                                 onChange={this.onChange}
                                                 error={errors.Date}
