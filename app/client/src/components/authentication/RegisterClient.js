@@ -111,6 +111,41 @@ class RegisterClient extends Component {
                                         onChange={this.onChange}
                                         error={errors.Email}
                                     />
+                                    <div className="form-group edit-profile-date-div">
+                                        <div className="edit-date-div">
+                                            <label className="control-label form-control-lg edit-profile-label">Date of
+                                                Birth:
+                                            </label>
+                                            < FormInputGroup
+                                                myClassName="edit-exercise"
+                                                name="DateOfBirth"
+                                                value={this.state.DateOfBirth}
+                                                type="date"
+                                                onChange={this.onChange}
+                                                error={errors.DateOfBirth}
+                                            />
+                                        </div>
+                                        <div className="edit-gender-div">
+                                            <label
+                                                className="control-label form-control-lg edit-profile-label gender">
+                                                Gender:
+                                            </label>
+                                            {errors.Sex ? (<select name="Sex" onChange={this.onChange} id="Sex" className='form-control
+                                            form-control-lg invalid-feedback-other'>
+                                                    <option value="">Please select</option>
+                                                    <option value="Male">Male</option>
+                                                    <option value="Female">Female</option>
+                                                </select>) :
+                                                (<select name="Sex" onChange={this.onChange} id="Sex" className='form-control
+                                            form-control-lg'>
+                                                    <option value="">Please select</option>
+                                                    <option value="Male">Male</option>
+                                                    <option value="Female">Female</option>
+                                                </select>)
+                                            }
+                                        </div>
+                                        {errors.Sex ? (<div className="invalid-feedback">{errors.Sex}</div>) : null}
+                                    </div>
                                     <FormInputGroup
                                         name="ContactNumber"
                                         placeholder="Enter Contact Number"

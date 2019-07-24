@@ -151,7 +151,6 @@ router.post('/login', (req, res) => {
 // @access Public
 router.post('/register', (req, res) => {
 
-    console.log(req.body)
     // Set up validation checking for every field that has been posted
     const {errors, isValid} = validateRegistrationInput(req.body);
 
@@ -161,65 +160,65 @@ router.post('/register', (req, res) => {
     }
 
     // Check if email already existing in database
-    // PersonalTrainer.findOne({Email: req.body.Email})
-    //     .then(PT => {
-    //         // Check if PT email exists and return 400 error if it does
-    //         if (PT) {
-    //             // Using validation to log error (this for email exists error)
-    //             errors.Email = 'Email already exists';
-    //             // Then pass errors object into returned json
-    //             return res.status(400).json(errors);
-    //         }
-    //         // Create new user if email doesn't exist
-    //
-    //         // Check if email doesn't exist in client database
-    //         Client.findOne({Email: req.body.Email})
-    //             .then(client => {
-    //
-    //                 if (client) {
-    //                     // Using validation to log error (this for email exists error)
-    //                     errors.Email = 'Email already exists';
-    //                     // Then pass errors object into returned json
-    //                     return res.status(400).json(errors);
-    //                 }
-    //
-    //                 else {
-    //                     let now = new Date();
-    //                     now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
-    //
-    //                     const newPT = new PersonalTrainer({
-    //                         FullName: req.body.FullName,
-    //                         Email: req.body.Email,
-    //                         DateOfBirth: req.body.DateOfBirth,
-    //                         Password: req.body.Password,
-    //                         ContactNumber: req.body.ContactNumber,
-    //                         Sex: req.body.Sex,
-    //                         ProfilePicUrl: req.body.ProfilePicUrl,
-    //                         Date: now,
-    //                         ClientIDs: req.body.ClientIDs
-    //                     });
-    //
-    //                     // Encrypt Password
-    //                     bcrypt.genSalt(12, (err, salt) => {
-    //                         bcrypt.hash(newPT.Password, salt, (err, hash) => {
-    //                             if (err) throw err;
-    //                             // Set plain Password to the hash that was created for the Password
-    //                             newPT.Password = hash;
-    //                             // Save new Personal Trainer to the database
-    //                             newPT.save()
-    //                                 .then(() => {
-    //                                     res.status(200).json();
-    //                                 })
-    //                                 .catch(err => {
-    //                                     //console.log(err);
-    //                                     errors.msg = "User could not be registered.";
-    //                                     res.status(400).json(errors);
-    //                                 });
-    //                         })
-    //                     })
-    //                 }
-    //             }).catch(() => {res.status(400).json()})
-    //     }).catch(() => {res.status(400).json()})
+    PersonalTrainer.findOne({Email: req.body.Email})
+        .then(PT => {
+            // Check if PT email exists and return 400 error if it does
+            if (PT) {
+                // Using validation to log error (this for email exists error)
+                errors.Email = 'Email already exists';
+                // Then pass errors object into returned json
+                return res.status(400).json(errors);
+            }
+            // Create new user if email doesn't exist
+
+            // Check if email doesn't exist in client database
+            Client.findOne({Email: req.body.Email})
+                .then(client => {
+
+                    if (client) {
+                        // Using validation to log error (this for email exists error)
+                        errors.Email = 'Email already exists';
+                        // Then pass errors object into returned json
+                        return res.status(400).json(errors);
+                    }
+
+                    else {
+                        let now = new Date();
+                        now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+
+                        const newPT = new PersonalTrainer({
+                            FullName: req.body.FullName,
+                            Email: req.body.Email,
+                            DateOfBirth: req.body.DateOfBirth,
+                            Password: req.body.Password,
+                            ContactNumber: req.body.ContactNumber,
+                            Sex: req.body.Sex,
+                            ProfilePicUrl: req.body.ProfilePicUrl,
+                            Date: now,
+                            ClientIDs: req.body.ClientIDs
+                        });
+
+                        // Encrypt Password
+                        bcrypt.genSalt(12, (err, salt) => {
+                            bcrypt.hash(newPT.Password, salt, (err, hash) => {
+                                if (err) throw err;
+                                // Set plain Password to the hash that was created for the Password
+                                newPT.Password = hash;
+                                // Save new Personal Trainer to the database
+                                newPT.save()
+                                    .then(() => {
+                                        res.status(200).json();
+                                    })
+                                    .catch(err => {
+                                        //console.log(err);
+                                        errors.msg = "User could not be registered.";
+                                        res.status(400).json(errors);
+                                    });
+                            })
+                        })
+                    }
+                }).catch(() => {res.status(400).json()})
+        }).catch(() => {res.status(400).json()})
 
 });
 
