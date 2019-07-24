@@ -9,6 +9,7 @@ import isEmpty from "../../../utilities/is_empty";
 import ErrorComponent from "../../error/ErrorComponent"; // Allows proper routing and linking using browsers match, location, and history properties
 
 import DisplayMessage from '../../common/DisplayMessage';
+import FormSelectComp from "../../common/FormSelectComp";
 
 class EditPersonalTrainer extends Component {
     // This allows the component states to be updated and re-rendered
@@ -22,6 +23,10 @@ class EditPersonalTrainer extends Component {
             Sex: '',
             Password: '',
             Password2: '',
+            values : [
+                "Male",
+                "Female"
+            ],
             ptId: props.authenticatedUser.user.id,
             errors: {},
             success: {},
@@ -77,7 +82,7 @@ class EditPersonalTrainer extends Component {
                 FullName : this.props.authenticatedUser.pt_data.FullName,
                 Email : this.props.authenticatedUser.pt_data.Email,
                 Sex : this.props.authenticatedUser.pt_data.Sex,
-                DateOfBirth: this.props.authenticatedUser.pt_data.DateOfBirth.DateOfBirth.substring(0, 10),
+                DateOfBirth: this.props.authenticatedUser.pt_data.DateOfBirth.substring(0, 10),
                 updated : true
             })
         }
@@ -223,12 +228,13 @@ class EditPersonalTrainer extends Component {
                                                 className="control-label form-control-lg edit-profile-label gender">
                                                 Gender:
                                             </label>
-                                            <select name="Sex" onChange={this.onChange} id="Sex" className='form-control
-                                            form-control-lg'>
-                                                <option value="">Please select</option>
-                                                <option value="Male">Male</option>
-                                                <option value="Female">Female</option>
-                                            </select>
+                                            <FormSelectComp
+                                                name="Sex"
+                                                id="Sex"
+                                                values={this.state.values}
+                                                onChange={this.onChange}
+                                                error={errors.Sex}
+                                            />
                                         </div>
                                     </div>
                                     <FormInputGroup

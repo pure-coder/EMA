@@ -9,6 +9,7 @@ import isEmpty from "../../../utilities/is_empty";
 import ErrorComponent from "../../error/ErrorComponent"; // Allows proper routing and linking using browsers match, location, and history properties
 
 import DisplayMessage from '../../common/DisplayMessage';
+import FormSelectComp from "../../common/FormSelectComp";
 
 class EditClient extends Component {
     // This allows the component states to be updated and re-rendered
@@ -25,6 +26,10 @@ class EditClient extends Component {
             DateOfBirth: '',
             Password: '',
             Password2: '',
+            values : [
+                "Male",
+                "Female"
+            ],
             errors: {},
             location: this.props.location,
             success: {},
@@ -247,12 +252,13 @@ class EditClient extends Component {
                                                 className="control-label form-control-lg edit-profile-label gender">
                                                 Gender:
                                             </label>
-                                            <select name="Sex" onChange={this.onChange} id="Sex" className='form-control
-                                            form-control-lg'>
-                                                <option value="">Please select</option>
-                                                <option value="Male">Male</option>
-                                                <option value="Female">Female</option>
-                                            </select>
+                                            <FormSelectComp
+                                                name="Sex"
+                                                id="Sex"
+                                                values={this.state.values}
+                                                onChange={this.onChange}
+                                                error={errors.Sex}
+                                            />
                                         </div>
                                     </div>
                                     <FormInputGroup

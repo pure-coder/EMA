@@ -3,7 +3,8 @@ import PropTypes from 'prop-types'; // Used to document prop types sent to compo
 import { connect } from 'react-redux' // Needed when using redux inside a component (connects redux to this component)
 import {clearErrors, clearSuccess, registerUser} from "../../actions/authenticationActions"; // Used to import create action for registering user
 import {withRouter} from 'react-router-dom';
-import FormInputGroup from "../common/FormInputGroup"; // Allows proper routing and linking using browsers match, location, and history properties
+import FormInputGroup from "../common/FormInputGroup";
+import FormSelectComp from "../common/FormSelectComp"; // Allows proper routing and linking using browsers match, location, and history properties
 
 
 class Register extends Component {
@@ -17,6 +18,10 @@ class Register extends Component {
             Sex: '',
             Password: '',
             Password2: '',
+            values : [
+                "Male",
+                "Female"
+            ],
             success: undefined,
             errors: {}
         };
@@ -121,21 +126,14 @@ class Register extends Component {
                                             className="control-label form-control-lg edit-profile-label gender">
                                             Gender:
                                         </label>
-                                        {errors.Sex ? (<select name="Sex" onChange={this.onChange} id="Sex" className='form-control
-                                            form-control-lg invalid-feedback-other'>
-                                            <option value="">Please select</option>
-                                            <option value="Male">Male</option>
-                                            <option value="Female">Female</option>
-                                        </select>) :
-                                            (<select name="Sex" onChange={this.onChange} id="Sex" className='form-control
-                                            form-control-lg'>
-                                                <option value="">Please select</option>
-                                                <option value="Male">Male</option>
-                                                <option value="Female">Female</option>
-                                            </select>)
-                                        }
+                                        <FormSelectComp
+                                            name="Sex"
+                                            id="Sex"
+                                            values={this.state.values}
+                                            onChange={this.onChange}
+                                            error={errors.Sex}
+                                        />
                                     </div>
-                                    {errors.Sex ? (<div className="invalid-feedback">{errors.Sex}</div>) : null}
                                 </div>
                                 <FormInputGroup
                                     myClassName="register-pt"
