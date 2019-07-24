@@ -196,6 +196,7 @@ class EditDataProgressForm extends Component {
 
     render() {
         let {errors, message} = this.state;
+        let metrics = this.state.metrics;
         
         return (
             <div className="editClientProgress">
@@ -218,10 +219,9 @@ class EditDataProgressForm extends Component {
                                 <th align="center">Delete</th>
                             </tr>
                             {
-                                this.state.metrics.map((metric, index) => {
+                                metrics.map((metric, index) => {
                                     return ( <tr key={metric._id}>
                                         <td>
-                                            {/*<input type="date" name="Date" value={metricDate}/>*/}
                                             < FormInputGroup
                                                 myClassName="edit-exercise"
                                                 name="Date"
@@ -233,7 +233,6 @@ class EditDataProgressForm extends Component {
                                             />
                                         </td>
                                         <td>
-                                            {/*<input type="text" name="maxWeight" value={metric.maxWeight}/>*/}
                                             < FormInputGroup
                                                 myClassName="edit-exercise"
                                                 name="maxWeight"
@@ -245,7 +244,6 @@ class EditDataProgressForm extends Component {
                                             />
                                         </td>
                                         <td>
-                                            {/*<input type="checkbox" name="delete"/>*/}
                                             < FormInputGroup
                                                 myClassName="edit-exercise"
                                                 name="Delete"

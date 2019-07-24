@@ -288,6 +288,14 @@ svg {
     min-width: 450px;
 }
 
+.edit-profile-date-div .invalid-feedback {
+    display: block;
+}
+
+.invalid-feedback-other, .invalid-feedback-other:hover {
+    border-color: #dc3545;
+}
+
 .edit-gender-div {
     width: 450px;
     height: 50px;

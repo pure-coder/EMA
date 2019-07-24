@@ -2,8 +2,9 @@ import React, { Component } from 'react';  // Used to create this component
 import PropTypes from 'prop-types'; // Used to document prop types sent to components
 import { connect } from 'react-redux' // Needed when using redux inside a component (connects redux to this component)
 import {clearErrors, clearSuccess, registerUser} from "../../actions/authenticationActions"; // Used to import create action for registering user
-import { withRouter} from 'react-router-dom';
+import {withRouter} from 'react-router-dom';
 import FormInputGroup from "../common/FormInputGroup"; // Allows proper routing and linking using browsers match, location, and history properties
+
 
 class Register extends Component {
     // This allows the component states to be updated and re-rendered
@@ -12,6 +13,8 @@ class Register extends Component {
         this.state = {
             FullName: '',
             Email: '',
+            DateOfBirth: '',
+            Sex: '',
             Password: '',
             Password2: '',
             success: undefined,
@@ -60,6 +63,8 @@ class Register extends Component {
         const newUser = {
             FullName: this.state.FullName,
             Email: this.state.Email,
+            DateOfBirth: this.state.DateOfBirth,
+            Sex: this.state.Sex,
             Password: this.state.Password,
             Password2: this.state.Password2
         };
@@ -97,6 +102,40 @@ class Register extends Component {
                                     onChange={this.onChange}
                                     error={errors.Email}
                                 />
+                                <div className="form-group edit-profile-date-div">
+                                    <div className="edit-date-div">
+                                        <label className="control-label form-control-lg edit-profile-label">Date of
+                                            Birth:
+                                        </label>
+                                        {errors.DateOfBirth ?
+                                            (<input className='form-control form-control-lg date-input invalid-feedback-other' name="DateOfBirth"
+                                                    onChange={this.onChange} type="Date"/>) :
+                                            (<input className='form-control form-control-lg date-input' name="DateOfBirth"
+                                                    onChange={this.onChange} type="Date"/>)}
+
+                                    </div>
+                                    {errors.DateOfBirth ? (<div className="invalid-feedback">{errors.DateOfBirth}</div>) : null}
+                                    <div className="edit-gender-div">
+                                        <label
+                                            className="control-label form-control-lg edit-profile-label gender">
+                                            Gender:
+                                        </label>
+                                        {errors.Sex ? (<select name="Sex" onChange={this.onChange} id="Sex" className='form-control
+                                            form-control-lg invalid-feedback-other'>
+                                            <option value="">Please select</option>
+                                            <option value="Male">Male</option>
+                                            <option value="Female">Female</option>
+                                        </select>) :
+                                            (<select name="Sex" onChange={this.onChange} id="Sex" className='form-control
+                                            form-control-lg'>
+                                                <option value="">Please select</option>
+                                                <option value="Male">Male</option>
+                                                <option value="Female">Female</option>
+                                            </select>)
+                                        }
+                                    </div>
+                                    {errors.Sex ? (<div className="invalid-feedback">{errors.Sex}</div>) : null}
+                                </div>
                                 <FormInputGroup
                                     myClassName="register-pt"
                                     name="Password"
