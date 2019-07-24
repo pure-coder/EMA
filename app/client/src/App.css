@@ -286,20 +286,21 @@ svg {
 .edit-date-div {
     display: inline-block;
     min-width: 450px;
+    height: 80px;
 }
 
-.edit-profile-date-div .invalid-feedback {
-    display: block;
-}
-
-.invalid-feedback-other, .invalid-feedback-other:hover {
-    border-color: #dc3545;
-}
+/*.edit-profile-date-div .invalid-feedback {*/
+    /*display: block;*/
+/*}*/
 
 .edit-gender-div {
     width: 450px;
-    height: 50px;
+    height: 75px;
     margin: 0 10px 10px 0;
+}
+
+.edit-contact-div {
+    height: 75px;
 }
 
 .date-input{
@@ -313,7 +314,7 @@ svg {
 
 #Sex {
     width: 235px;
-    float: left;
+    /*float: left;*/
 }
 
 /* Loading */
@@ -549,13 +550,15 @@ svg {
 
 /* success - valid feedback */
 
-.valid-feedback {
+.feedback, .valid-feedback {
     display: block;
     height: 20px;
     margin-bottom: 12px;
     text-align: center;
     font-weight: bold;
 }
+
+
 
 /* input auto complete */
 

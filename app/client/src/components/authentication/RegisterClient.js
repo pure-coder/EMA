@@ -6,7 +6,8 @@ import { withRouter } from 'react-router-dom';
 import FormInputGroup from "../common/FormInputGroup";
 import Loading from "../../elements/Loading";
 import isEmpty from "../../utilities/is_empty";
-import ErrorComponent from "../error/ErrorComponent"; // Allows proper routing and linking using browsers match, location, and history properties
+import ErrorComponent from "../error/ErrorComponent";
+import FormSelectComp from "../common/FormSelectComp"; // Allows proper routing and linking using browsers match, location, and history properties
 
 class RegisterClient extends Component {
     // This allows the component states to be updated and re-rendered
@@ -19,6 +20,10 @@ class RegisterClient extends Component {
             Sex: '',
             ContactNumber: '',
             errors: {},
+            values : [
+                "Male",
+                "Female"
+            ],
             success: undefined,
             loaded: false
         };
@@ -134,23 +139,17 @@ class RegisterClient extends Component {
                                                 className="control-label form-control-lg edit-profile-label gender">
                                                 Gender:
                                             </label>
-                                            {errors.Sex ? (<select name="Sex" onChange={this.onChange} id="Sex" className='form-control
-                                            form-control-lg invalid-feedback-other'>
-                                                    <option value="">Please select</option>
-                                                    <option value="Male">Male</option>
-                                                    <option value="Female">Female</option>
-                                                </select>) :
-                                                (<select name="Sex" onChange={this.onChange} id="Sex" className='form-control
-                                            form-control-lg'>
-                                                    <option value="">Please select</option>
-                                                    <option value="Male">Male</option>
-                                                    <option value="Female">Female</option>
-                                                </select>)
-                                            }
+                                            <FormSelectComp
+                                                name="Sex"
+                                                id="Sex"
+                                                values={this.state.values}
+                                                onChange={this.onChange}
+                                                error={errors.Sex}
+                                            />
                                         </div>
-                                        {errors.Sex ? (<div className="invalid-feedback">{errors.Sex}</div>) : null}
                                     </div>
                                     <FormInputGroup
+                                        myClassName="edit-contact-div"
                                         name="ContactNumber"
                                         placeholder="Enter Contact Number"
                                         value={this.state.ContactNumber}
@@ -159,7 +158,7 @@ class RegisterClient extends Component {
                                         error={errors.ContactNumber}
                                     />
                                     <div className="text-success">{this.state.success !== undefined ? this.state.success.msg: null}</div>
-                                    <input type="submit" className="btn btn-info btn-block mt-4"/>
+                                    <input type="submit" className="btn btn-info btn-block mt-1"/>
                                     <button type="button" className="btn btn-danger btn-block mt-3 mb-3"
                                             onClick={this.props.history.goBack}>Back
                                     </button>
