@@ -8,7 +8,8 @@ module.exports = function validateRegistrationInput(data) {
     // the field is turned into an empty string for the validation check below
     data.FullName = !isEmpty(data.FullName) ? data.FullName : '';
     data.Email = !isEmpty(data.Email) ? data.Email : '';
-    // data.DateOfBirth = !isEmpty(data.DateOfBirth) ? data.DateOfBirth : '';
+    data.DateOfBirth = !isEmpty(data.DateOfBirth) ? data.DateOfBirth : '';
+    data.Sex = !isEmpty(data.Sex) ? data.Sex : '';
     // data.Password = !isEmpty(data.Password) ? data.Password : '';
     // data.Password2 = !isEmpty(data.Password2) ? data.Password2 : '';
     data.ContactNumber = !isEmpty(data.ContactNumber) ? data.ContactNumber : '';
@@ -31,6 +32,16 @@ module.exports = function validateRegistrationInput(data) {
     // Checks to see if Email field is empty using validator module
     if (Validator.isEmpty(data.Email)) {
         errors.Email = 'Email is required';
+    }
+
+    // Checks to see if DateOfBirth field is empty using validator module
+    if(Validator.isEmpty(data.DateOfBirth)){
+        errors.DateOfBirth = 'Date of Birth is required';
+    }
+
+    // Checks to see if DateOfBirth field is empty using validator module
+    if(Validator.isEmpty(data.Sex)){
+        errors.Sex = 'Gender is required';
     }
 
     // Checks to see if ContactNumber field is empty using validator module

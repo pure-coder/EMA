@@ -209,7 +209,7 @@ router.post('/register', (req, res) => {
                                     .then(() => {
                                         res.status(200).json();
                                     })
-                                    .catch(err => {
+                                    .catch(() => {
                                         //console.log(err);
                                         errors.msg = "User could not be registered.";
                                         res.status(400).json(errors);
@@ -226,6 +226,7 @@ router.post('/register', (req, res) => {
 // @desc   Register Personal Trainer
 // @access Private route - only Personal Trainers can add new clients
 router.post('/new_client', passport.authenticate('pt_rule', {session: false}), (req, res) => {
+
     // Set up validation checking for every field that has been posted
     const {errors, isValid} = validateClientInput(req.body);
 
@@ -265,6 +266,8 @@ router.post('/new_client', passport.authenticate('pt_rule', {session: false}), (
 
                         const newClient = new Client({
                             FullName: req.body.FullName = capitaliseFirstLetter(req.body.FullName),
+                            DateOfBirth: req.body.DateOfBirth,
+                            Sex: req.body.Sex,
                             Email: req.body.Email,
                             ContactNumber: req.body.ContactNumber,
                             Date: now,

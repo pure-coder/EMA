@@ -15,6 +15,8 @@ class RegisterClient extends Component {
         this.state = {
             FullName: '',
             Email: '',
+            DateOfBirth: '',
+            Sex: '',
             ContactNumber: '',
             errors: {},
             success: undefined,
@@ -68,6 +70,8 @@ class RegisterClient extends Component {
         const newUser = {
             FullName: this.state.FullName,
             Email: this.state.Email,
+            DateOfBirth: this.state.DateOfBirth,
+            Sex: this.state.Sex,
             ContactNumber: this.state.ContactNumber
         };
 
