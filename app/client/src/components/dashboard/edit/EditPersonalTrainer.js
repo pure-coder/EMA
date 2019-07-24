@@ -77,6 +77,7 @@ class EditPersonalTrainer extends Component {
                 FullName : this.props.authenticatedUser.pt_data.FullName,
                 Email : this.props.authenticatedUser.pt_data.Email,
                 Sex : this.props.authenticatedUser.pt_data.Sex,
+                DateOfBirth: this.props.authenticatedUser.pt_data.DateOfBirth.DateOfBirth.substring(0, 10),
                 updated : true
             })
         }
@@ -111,6 +112,7 @@ class EditPersonalTrainer extends Component {
             FullName: this.state.FullName,
             Email: this.state.Email,
             //ProfilePicUrl: this.state.ProfilePicUrl,
+            DateOfBirth: this.state.DateOfBirth,
             Sex: this.state.Sex,
             Password: this.state.Password,
             Password2: this.state.Password2
@@ -152,6 +154,7 @@ class EditPersonalTrainer extends Component {
             this.setState({
                 FullName : this.state.FullName,
                 Email : this.state.Email,
+                DateOfBirth: this.state.DateOfBirth,
                 Sex: this.state.Sex,
                 Password: '',
                 Password2: '',
@@ -206,8 +209,14 @@ class EditPersonalTrainer extends Component {
                                             <label className="control-label form-control-lg edit-profile-label">Date of
                                                 Birth:
                                             </label>
-                                            <input className='form-control form-control-lg date-input' name="DateOfBirth"
-                                                   onChange={this.onChange} type="Date"/>
+                                            < FormInputGroup
+                                                myClassName="edit-exercise"
+                                                name="DateOfBirth"
+                                                value={this.state.DateOfBirth.toString()}
+                                                type="date"
+                                                onChange={this.onChange}
+                                                error={errors.DateOfBirth}
+                                            />
                                         </div>
                                         <div className="edit-gender-div">
                                             <label

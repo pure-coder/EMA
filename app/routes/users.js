@@ -224,6 +224,7 @@ router.get('/personal_trainer/:id', passport.authenticate('pt_rule', {session: f
                     let data = {};
                     data.FullName = pt.FullName;
                     data.Email = pt.Email;
+                    data.DateOfBirth = pt.DateOfBirth;
                     data.Sex = pt.Sex;
                     data.ProfilePicUrl = pt.ProfilePicUrl;
                     return res.json(data)

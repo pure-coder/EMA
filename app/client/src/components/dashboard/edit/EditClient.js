@@ -80,7 +80,7 @@ class EditClient extends Component {
                 Email : this.props.authenticatedUser.client_data.Email,
                 ContactNumber : this.props.authenticatedUser.client_data.ContactNumber,
                 Sex : this.props.authenticatedUser.client_data.Sex,
-                DateOfBirth: this.props.authenticatedUser.DateOfBirth,
+                DateOfBirth: this.props.authenticatedUser.client_data.DateOfBirth.substring(0, 10),
                 updated : true
             })
         }
@@ -173,7 +173,7 @@ class EditClient extends Component {
                 Email : this.state.Email,
                 ContactNumber : this.state.ContactNumber,
                 Sex: this.state.Sex,
-                DateOfBirth: this.props.authenticatedUser.DateOfBirth,
+                DateOfBirth: this.state.DateOfBirth,
                 Password: '',
                 Password2: '',
                 client_data: client_data
@@ -233,8 +233,14 @@ class EditClient extends Component {
                                             <label className="control-label form-control-lg edit-profile-label">Date of
                                                 Birth:
                                             </label>
-                                            <input className='form-control form-control-lg date-input' name="DateOfBirth"
-                                                   onChange={this.onChange} type="Date"/>
+                                            < FormInputGroup
+                                                myClassName="edit-exercise"
+                                                name="DateOfBirth"
+                                                value={this.state.DateOfBirth.toString()}
+                                                type="date"
+                                                onChange={this.onChange}
+                                                error={errors.DateOfBirth}
+                                            />
                                         </div>
                                         <div className="edit-gender-div">
                                             <label

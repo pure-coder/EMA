@@ -150,6 +150,8 @@ router.post('/login', (req, res) => {
 // @desc   Register Personal Trainer
 // @access Public
 router.post('/register', (req, res) => {
+
+    console.log(req.body)
     // Set up validation checking for every field that has been posted
     const {errors, isValid} = validateRegistrationInput(req.body);
 

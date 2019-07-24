@@ -107,14 +107,15 @@ class Register extends Component {
                                         <label className="control-label form-control-lg edit-profile-label">Date of
                                             Birth:
                                         </label>
-                                        {errors.DateOfBirth ?
-                                            (<input className='form-control form-control-lg date-input invalid-feedback-other' name="DateOfBirth"
-                                                    onChange={this.onChange} type="Date"/>) :
-                                            (<input className='form-control form-control-lg date-input' name="DateOfBirth"
-                                                    onChange={this.onChange} type="Date"/>)}
-
+                                        < FormInputGroup
+                                            myClassName="edit-exercise"
+                                            name="DateOfBirth"
+                                            value={this.state.DateOfBirth}
+                                            type="date"
+                                            onChange={this.onChange}
+                                            error={errors.DateOfBirth}
+                                        />
                                     </div>
-                                    {errors.DateOfBirth ? (<div className="invalid-feedback">{errors.DateOfBirth}</div>) : null}
                                     <div className="edit-gender-div">
                                         <label
                                             className="control-label form-control-lg edit-profile-label gender">
