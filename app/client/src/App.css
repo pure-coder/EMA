@@ -15,6 +15,10 @@ img {
     padding-right: 10px;
 }
 
+.container {
+    min-height: 485px;
+}
+
 #root, .App {
     position: relative;
     min-height: 100%;
@@ -33,9 +37,15 @@ img {
 }
 
 .navbar-container {
+    width: 100%;
     max-width: 100%;
     padding: 0;
-    /*height: 100%;*/
+    margin-left: auto;
+    margin-right: auto;
+    flex-wrap: nowrap;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .navbar-custom, .footer-custom {

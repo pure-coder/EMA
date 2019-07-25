@@ -78,7 +78,7 @@ class Dashboard extends Component {
 
     render() {
         if (!this.state.loaded) {
-            return <Loading/>
+            return <Loading myClassName={"container"}/>
         }
         if(isEmpty(this.props.authenticatedUser.user)){
             return <ErrorComponent/>
@@ -95,7 +95,7 @@ class Dashboard extends Component {
                 // Define content to display.. in this case the list of clients
                 displayContent = (
                     // send clients data to client component, and render client component
-                    <div className="container  dashboard-custom">
+                    <div className="dashboard-custom">
                         <ClientList clients={this.state.clients}/>
                     </div>
                 )
@@ -106,7 +106,7 @@ class Dashboard extends Component {
                 // Define content to display..
                 displayContent = (
                     // send clients data to client component, and render client component
-                    <div className="container  dashboard-custom client">
+                    <div className="dashboard-custom client">
                         <ClientData/>
                     </div>
                 )

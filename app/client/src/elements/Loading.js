@@ -1,13 +1,14 @@
 import React from "react";
 
-const Loading = () =>{
+const Loading = ({
+    myClassName
+}) =>{
 
     return (
-        <div className="container">
-            <div className="Loading fa-3x">
-                <i className="fas fa-spinner fa-pulse"></i>
-                <h1>Loading</h1>
-            </div>
+
+        <div className={"Loading fa-3x " + myClassName}>
+            <i className="fas fa-spinner fa-pulse"></i>
+            <h1>Loading</h1>
         </div>
     )
 };
