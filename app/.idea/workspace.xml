@@ -4,9 +4,8 @@
     <bookmark url="file://C:/Learning/clientObjectData.js" description="export {&quot;_id&quot;:&quot;5c2e3454d27ace097420b414&quot;,&quot;FullName..." line="2" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ec8ccf39-8487-4892-a38d-de9c288878a3" name="Default" comment="Had to update UserInfo as navigating after log in would not load the&#10;data. Moved loaded state return to statement which checks if data&#10;is defined.">
+    <list default="true" id="ec8ccf39-8487-4892-a38d-de9c288878a3" name="Default" comment="Regards to loading UserInfo with state loaded, refactored into 1 statement&#10;using OR for condition check. Which works better.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/App.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/dashboard/UserInfo.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/dashboard/UserInfo.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -50,10 +49,10 @@
           <entry key="css" value="8554" />
           <entry key="editorConfig" value="285" />
           <entry key="html" value="1072" />
-          <entry key="js" value="174369" />
+          <entry key="js" value="174410" />
           <entry key="json" value="26" />
           <entry key="md" value="150" />
-          <entry key="txt" value="8411" />
+          <entry key="txt" value="8595" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
@@ -61,8 +60,8 @@
           <entry key="CSS" value="8554" />
           <entry key="HTML" value="1079" />
           <entry key="JSON" value="26" />
-          <entry key="JavaScript" value="174362" />
-          <entry key="PLAIN_TEXT" value="8846" />
+          <entry key="JavaScript" value="174403" />
+          <entry key="PLAIN_TEXT" value="9030" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -101,23 +100,14 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/UserInfo.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="72" column="30" selection-start-line="72" selection-start-column="30" selection-end-line="72" selection-end-column="30" />
+            <state relative-caret-position="112">
+              <caret line="24" column="80" selection-start-line="24" selection-start-column="80" selection-end-line="24" selection-end-column="80" />
               <folding>
                 <element signature="e#277#321#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/client/src/App.css">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="370">
-              <caret line="677" column="17" lean-forward="true" selection-start-line="677" selection-start-column="17" selection-end-line="677" selection-end-column="17" />
             </state>
           </provider>
         </entry>
@@ -256,8 +246,8 @@
         <option value="$PROJECT_DIR$/client/src/components/dashboard/clients/ClientProfile.js" />
         <option value="$PROJECT_DIR$/client/src/components/dashboard/edit/EditClient.js" />
         <option value="$PROJECT_DIR$/client/src/components/dashboard/edit/EditPersonalTrainer.js" />
-        <option value="$PROJECT_DIR$/client/src/components/dashboard/UserInfo.js" />
         <option value="$PROJECT_DIR$/client/src/App.css" />
+        <option value="$PROJECT_DIR$/client/src/components/dashboard/UserInfo.js" />
       </list>
     </option>
   </component>
@@ -492,14 +482,7 @@
       <workItem from="1560617150917" duration="17313000" />
       <workItem from="1561133259946" duration="18573000" />
       <workItem from="1561559852945" duration="45900000" />
-      <workItem from="1562927864711" duration="110673000" />
-    </task>
-    <task id="LOCAL-00028" summary="Modal size for delete progress fixed, I was updating the wrong modal, found better way to get size of div along with padding and margin.&#10;&#10;Changed DisplayMessage default return from null to an empty div, so that it is always presented, this increases UX as the submit button does not hop up and down.">
-      <created>1554301947176</created>
-      <option name="number" value="00028" />
-      <option name="presentableId" value="LOCAL-00028" />
-      <option name="project" value="LOCAL" />
-      <updated>1554301947176</updated>
+      <workItem from="1562927864711" duration="111195000" />
     </task>
     <task id="LOCAL-00029" summary="EditClient form fields represent changes after submit button pressed.">
       <created>1554309254259</created>
@@ -837,11 +820,18 @@
       <option name="project" value="LOCAL" />
       <updated>1564091642869</updated>
     </task>
-    <option name="localTasksCounter" value="77" />
+    <task id="LOCAL-00077" summary="Age functionality added to UserInfo">
+      <created>1564092260688</created>
+      <option name="number" value="00077" />
+      <option name="presentableId" value="LOCAL-00077" />
+      <option name="project" value="LOCAL" />
+      <updated>1564092260688</updated>
+    </task>
+    <option name="localTasksCounter" value="78" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1535055000" />
+    <option name="totallyTimeSpent" value="1535577000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -856,10 +846,10 @@
     <frame x="-8" y="-8" width="1382" height="784" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.17633928" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.17633928" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.24943988" />
       <window_info id="Favorites" order="2" side_tool="true" weight="0.32935026" />
-      <window_info anchor="bottom" id="Messages" order="0" sideWeight="0.49813294" weight="0.3276923" />
+      <window_info active="true" anchor="bottom" id="Messages" order="0" sideWeight="0.49813294" visible="true" weight="0.3276923" />
       <window_info anchor="bottom" id="Message" order="1" />
       <window_info anchor="bottom" id="Find" order="2" weight="0.32615384" />
       <window_info anchor="bottom" id="Run" order="3" />
@@ -941,8 +931,6 @@
   <component name="VcsManagerConfiguration">
     <option name="SHOW_DIRTY_RECURSIVELY" value="true" />
     <option name="LIMIT_HISTORY" value="false" />
-    <MESSAGE value="newClient validation changed to only except valid telephone number syntax." />
-    <MESSAGE value="RegisterClient success and error messages cleared depending on error or success on every submit.&#10;Margin sorted on DisplayMessage, EditClient and EditPersonalTrainer so that no movement of divs made when&#10;displaying success or error messages." />
     <MESSAGE value="Success message now displayed on successful registration (NOTE: on api server - authorisation route, .json() needed to be added to res.status(200) statement so result could be returned to client server).&#10;Success and errors cleared on submit in Register.&#10;&#10;CSS needs to be changed in Register for UX for new message." />
     <MESSAGE value="CSS added for ux regarding the filling out of forms which include Register, RegisterClient, EditClient, and EditPersonalTrainer. (For success display message - no longer shifts fields)." />
     <MESSAGE value="EditDataProgressForm created and added to CreateGraph.&#10;Need to add functionality so that data for exercise can be selected from a list for editing or deletion." />
@@ -966,7 +954,9 @@
     <MESSAGE value="Loading container (footer UX) solution found" />
     <MESSAGE value="Added container className to edit pages" />
     <MESSAGE value="Had to update UserInfo as navigating after log in would not load the&#10;data. Moved loaded state return to statement which checks if data&#10;is defined." />
-    <option name="LAST_COMMIT_MESSAGE" value="Had to update UserInfo as navigating after log in would not load the&#10;data. Moved loaded state return to statement which checks if data&#10;is defined." />
+    <MESSAGE value="Age functionality added to UserInfo" />
+    <MESSAGE value="Regards to loading UserInfo with state loaded, refactored into 1 statement&#10;using OR for condition check. Which works better." />
+    <option name="LAST_COMMIT_MESSAGE" value="Regards to loading UserInfo with state loaded, refactored into 1 statement&#10;using OR for condition check. Which works better." />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/client/src/components/layout/Landing_page.js">
@@ -1317,20 +1307,20 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/UserInfo.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="72" column="30" selection-start-line="72" selection-start-column="30" selection-end-line="72" selection-end-column="30" />
-          <folding>
-            <element signature="e#277#321#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/client/src/App.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="370">
           <caret line="677" column="17" lean-forward="true" selection-start-line="677" selection-start-column="17" selection-end-line="677" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/UserInfo.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="112">
+          <caret line="24" column="80" selection-start-line="24" selection-start-column="80" selection-end-line="24" selection-end-column="80" />
+          <folding>
+            <element signature="e#277#321#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

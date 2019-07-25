@@ -22,14 +22,10 @@ class UserInfo extends Component {
 
     // Set clients in state to those retrieved from database (from props), as on refresh state clients will always be undefined
     static getDerivedStateFromProps(props, state) {
-        if (props.userData !== state.userData) {
+        if (props.userData !== state.userData || state.userData !== undefined) {
             return {
                 userData: props.userData,
                 errors: props.errors,
-            }
-        }
-        if(state.userData !== undefined){
-            return {
                 loaded: true
             }
         }
