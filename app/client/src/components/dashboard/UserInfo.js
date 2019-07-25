@@ -35,7 +35,7 @@ class UserInfo extends Component {
     componentDidMount(){
     }
 
-    getAge(dateOfBirth){
+    static getAge(dateOfBirth){
         let DOB = new Date(dateOfBirth).getTime();
         DOB = Date.now() - DOB;
         let age = new Date(DOB);
@@ -66,7 +66,7 @@ class UserInfo extends Component {
                     {(<p>Name: {this.state.userData.FullName}</p>)}
                     {(<p>Email: {this.state.userData.Email}</p>)}
                     {(<p>Gender: {this.state.userData.Sex}</p>)}
-                    {(<p>Age: {this.getAge(this.state.userData.DateOfBirth)}</p>)}
+                    {(<p>Age: {UserInfo.getAge(this.state.userData.DateOfBirth)}</p>)}
                 </div>
             );
 
