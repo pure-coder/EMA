@@ -69,33 +69,28 @@ class ClientData extends Component {
             return (
                 <div className="row">
                     <div className="m-auto col-md-10">
-                        <h1 className=" text-center display-5">Dashboard</h1>
-                        <div>
-                            <div>
-                                <h3 className="mt-5 mb-4">{this.state.authenticatedUser.user.name}</h3>
-                                <table className="table client-table">
-                                    <thead>
-                                    <tr>
-                                        <th align="center">Profile</th>
-                                        <th align="center">workout Schedule</th>
-                                        <th align="center">Edit details</th>
-                                    </tr>
-                                    <tr>
-                                        <td align="center"><a onClick={this.onProfileClick.bind(this, this.state.id)}>
-                                            <i className="fas fa-columns fa-2x"></i></a>
-                                        </td>
-                                        <td align="center"><a
-                                            onClick={this.onScheduleClick.bind(this, this.state.id)}><i
-                                            className="far fa-calendar-alt fa-2x"></i></a>
-                                        </td>
-                                        <td align="center"><a onClick={this.onEditProfile.bind(this, this.state.id)}><i
-                                            className="fas fa-edit fa-2x"></i></a>
-                                        </td>
-                                    </tr>
-                                    </thead>
-                                </table>
-                            </div>
-                        </div>
+                        <h3 className="mt-5 mb-4">{this.state.authenticatedUser.user.name}</h3>
+                        <table className="table client-table">
+                            <thead>
+                            <tr>
+                                <th align="center">Profile</th>
+                                <th align="center">workout Schedule</th>
+                                <th align="center">Edit details</th>
+                            </tr>
+                            <tr>
+                                <td align="center"><a onClick={this.onProfileClick.bind(this, this.state.id)}>
+                                    <i className="fas fa-columns fa-2x"></i></a>
+                                </td>
+                                <td align="center"><a
+                                    onClick={this.onScheduleClick.bind(this, this.state.id)}><i
+                                    className="far fa-calendar-alt fa-2x"></i></a>
+                                </td>
+                                <td align="center"><a onClick={this.onEditProfile.bind(this, this.state.id)}><i
+                                    className="fas fa-edit fa-2x"></i></a>
+                                </td>
+                            </tr>
+                            </thead>
+                        </table>
                     </div>
                 </div>
             );

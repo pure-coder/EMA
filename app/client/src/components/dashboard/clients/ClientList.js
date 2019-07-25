@@ -135,7 +135,6 @@ class ClientList extends Component {
             return (
                 <div className="row">
                     <div className="m-auto col-md-10">
-                        <h1 className=" text-center display-5">Dashboard</h1>
                         <div className="pt-buttons mt-5">
                             <Link to={'/users/' + this.props.authenticatedUser.user.id + '/register_client'}>
                                 <button

@@ -320,11 +320,10 @@ svg {
 /* Loading */
 
 .Loading {
-    position: absolute;
-    height: 50px;
+    height: 150px;
     min-width: 100%;
-    top: 50%;
-    left: -15px;
+    top: 200px;
+    margin-top: 50px;
     text-align: center;
 }
 

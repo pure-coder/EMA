@@ -2,12 +2,13 @@ import React, {Component} from 'react';  // Used to create this component
 import PropTypes from 'prop-types'; // Used to document prop types sent to components
 import {connect} from 'react-redux' // Needed when using redux inside a component (connects redux to this component)
 import {withRouter} from 'react-router-dom';
-import {getClients, clearErrors, clearSuccess} from "../../actions/authenticationActions";
+import {getClients, getPtData, getClientData, clearErrors, clearSuccess} from "../../actions/authenticationActions";
 import ClientList from './clients/ClientList'
 import Loading from "../../elements/Loading";
 import ClientData from "./clients/ClientData";
 import isEmpty from "../../utilities/is_empty";
 import ErrorComponent from "../error/ErrorComponent";
+import UserInfo from "./UserInfo";
 
 
 //import * as d3 from 'd3';
@@ -20,10 +21,19 @@ class Dashboard extends Component {
         this.state = {
             id: this.props.authenticatedUser.user.id,
             clients: props.authenticatedUser.clients,
+            userData: undefined,
             errors: {},
             location: this.props.location.pathname,
             loaded: false
+        };
+
+        if(props.authenticatedUser.user.pt){
+            props.getPtData(props.authenticatedUser.user.id, props.history)
         }
+        else{
+            props.getClientData(props.authenticatedUser.user.id, props.history)
+        }
+
     }
 
     // Set clients in state to those retrieved from database (from props), as on refresh state clients will always be undefined
@@ -33,6 +43,16 @@ class Dashboard extends Component {
                 clients: props.authenticatedUser.clients,
                 errors: props.errors,
                 loaded: true
+            }
+        }
+        if(props.authenticatedUser.pt_data){
+            return{
+                userData: props.authenticatedUser.pt_data
+            }
+        }
+        if(props.authenticatedUser.client_data){
+            return{
+                userData: props.authenticatedUser.client_data
             }
         }
         return null
@@ -53,7 +73,7 @@ class Dashboard extends Component {
         }
     } // ComponentDidMount
 
-    componentDidUpdate(){
+    componentDidUpdate(props, state){
     }
 
     render() {
@@ -94,6 +114,8 @@ class Dashboard extends Component {
 
             return (
                 <div className="dashboard-container">
+                    <h1 className=" text-center display-5">Dashboard</h1>
+                    <UserInfo userData={this.state.userData}/>
                     {displayContent}
                 </div>
             );
@@ -103,6 +125,8 @@ class Dashboard extends Component {
 
 // Documents what props are needed for this component and will log a warning in the console in dev mode if not complied to
 Dashboard.propTypes = {
+    getPtData: PropTypes.func.isRequired,
+    getClientData: PropTypes.func.isRequired,
     clearErrors: PropTypes.func.isRequired,
     clearSuccess: PropTypes.func.isRequired,
     authenticatedUser: PropTypes.object.isRequired,
@@ -116,4 +140,4 @@ const stateToProps = (state) => ({
     location: state.location
 });
 
-export default connect(stateToProps, {getClients, clearSuccess, clearErrors})(withRouter(Dashboard));
+export default connect(stateToProps, {getClients,  getPtData, getClientData, clearSuccess, clearErrors})(withRouter(Dashboard));
