@@ -4,9 +4,11 @@
     <bookmark url="file://C:/Learning/clientObjectData.js" description="export {&quot;_id&quot;:&quot;5c2e3454d27ace097420b414&quot;,&quot;FullName..." line="2" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ec8ccf39-8487-4892-a38d-de9c288878a3" name="Default" comment="Regards to loading UserInfo with state loaded, refactored into 1 statement&#10;using OR for condition check. Which works better.">
+    <list default="true" id="ec8ccf39-8487-4892-a38d-de9c288878a3" name="Default" comment="ProfilePic added to edit pages">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/dashboard/UserInfo.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/dashboard/UserInfo.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/App.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/dashboard/edit/EditClient.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/dashboard/edit/EditClient.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/dashboard/edit/EditPersonalTrainer.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/dashboard/edit/EditPersonalTrainer.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -46,32 +48,32 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="css" value="8554" />
+          <entry key="css" value="8687" />
           <entry key="editorConfig" value="285" />
           <entry key="html" value="1072" />
-          <entry key="js" value="174410" />
+          <entry key="js" value="174446" />
           <entry key="json" value="26" />
           <entry key="md" value="150" />
-          <entry key="txt" value="8595" />
+          <entry key="txt" value="8682" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="CSS" value="8554" />
+          <entry key="CSS" value="8687" />
           <entry key="HTML" value="1079" />
           <entry key="JSON" value="26" />
-          <entry key="JavaScript" value="174403" />
-          <entry key="PLAIN_TEXT" value="9030" />
+          <entry key="JavaScript" value="174439" />
+          <entry key="PLAIN_TEXT" value="9117" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="css" value="70" />
+          <entry key="css" value="71" />
           <entry key="editorConfig" value="2" />
           <entry key="eslintignore" value="2" />
           <entry key="gitignore" value="2" />
           <entry key="html" value="17" />
-          <entry key="js" value="1149" />
+          <entry key="js" value="1152" />
           <entry key="json" value="11" />
           <entry key="map" value="1" />
           <entry key="md" value="4" />
@@ -82,10 +84,10 @@
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="CSS" value="70" />
+          <entry key="CSS" value="71" />
           <entry key="HTML" value="17" />
           <entry key="JSON" value="11" />
-          <entry key="JavaScript" value="1149" />
+          <entry key="JavaScript" value="1152" />
           <entry key="PLAIN_TEXT" value="12" />
           <entry key="SVG" value="1" />
           <entry key="Scratch" value="1" />
@@ -100,14 +102,44 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/edit/EditClient.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="442">
+              <caret line="212" column="38" lean-forward="true" selection-start-line="206" selection-start-column="32" selection-end-line="212" selection-end-column="38" />
+              <folding>
+                <element signature="e#867#924#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/edit/EditPersonalTrainer.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="334">
+              <caret line="192" column="42" lean-forward="true" selection-start-line="192" selection-start-column="42" selection-end-line="192" selection-end-column="42" />
+              <folding>
+                <element signature="e#852#909#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/client/src/App.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="205">
+              <caret line="697" column="20" selection-start-line="697" selection-start-column="20" selection-end-line="697" selection-end-column="20" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/UserInfo.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="112">
-              <caret line="24" column="80" selection-start-line="24" selection-start-column="80" selection-end-line="24" selection-end-column="80" />
-              <folding>
-                <element signature="e#277#321#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="119">
+              <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" selection-end-column="58" />
             </state>
           </provider>
         </entry>
@@ -132,7 +164,6 @@
       <find>AddDataProgressForm</find>
       <find>client</find>
       <find>progression</find>
-      <find>edit</find>
       <find>Date</find>
       <find>newClientProgress</find>
       <find>original</find>
@@ -154,6 +185,7 @@
       <find>getC</find>
       <find>Loading</find>
       <find>container</find>
+      <find>edit</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -244,10 +276,10 @@
         <option value="$PROJECT_DIR$/client/src/elements/Loading.js" />
         <option value="$PROJECT_DIR$/client/src/components/dashboard/Dashboard.js" />
         <option value="$PROJECT_DIR$/client/src/components/dashboard/clients/ClientProfile.js" />
+        <option value="$PROJECT_DIR$/client/src/components/dashboard/UserInfo.js" />
         <option value="$PROJECT_DIR$/client/src/components/dashboard/edit/EditClient.js" />
         <option value="$PROJECT_DIR$/client/src/components/dashboard/edit/EditPersonalTrainer.js" />
         <option value="$PROJECT_DIR$/client/src/App.css" />
-        <option value="$PROJECT_DIR$/client/src/components/dashboard/UserInfo.js" />
       </list>
     </option>
   </component>
@@ -348,14 +380,6 @@
               <item name="components" type="462c0819:PsiDirectoryNode" />
               <item name="dashboard" type="462c0819:PsiDirectoryNode" />
               <item name="edit" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="app" type="b2602c69:ProjectViewProjectNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="client" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
-              <item name="layout" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="app" type="b2602c69:ProjectViewProjectNode" />
@@ -482,21 +506,7 @@
       <workItem from="1560617150917" duration="17313000" />
       <workItem from="1561133259946" duration="18573000" />
       <workItem from="1561559852945" duration="45900000" />
-      <workItem from="1562927864711" duration="111195000" />
-    </task>
-    <task id="LOCAL-00029" summary="EditClient form fields represent changes after submit button pressed.">
-      <created>1554309254259</created>
-      <option name="number" value="00029" />
-      <option name="presentableId" value="LOCAL-00029" />
-      <option name="project" value="LOCAL" />
-      <updated>1554309254259</updated>
-    </task>
-    <task id="LOCAL-00030" summary="Removed catch blocks from bcrypt as it was throwing errors.">
-      <created>1554309866231</created>
-      <option name="number" value="00030" />
-      <option name="presentableId" value="LOCAL-00030" />
-      <option name="project" value="LOCAL" />
-      <updated>1554309866231</updated>
+      <workItem from="1562927864711" duration="112964000" />
     </task>
     <task id="LOCAL-00031" summary="Modified EditPersonalTrainer like EditClient (persistent form field after submit).">
       <created>1554310190939</created>
@@ -827,11 +837,25 @@
       <option name="project" value="LOCAL" />
       <updated>1564092260688</updated>
     </task>
-    <option name="localTasksCounter" value="78" />
+    <task id="LOCAL-00078" summary="Regards to loading UserInfo with state loaded, refactored into 1 statement&#10;using OR for condition check. Which works better.">
+      <created>1564092718329</created>
+      <option name="number" value="00078" />
+      <option name="presentableId" value="LOCAL-00078" />
+      <option name="project" value="LOCAL" />
+      <updated>1564092718329</updated>
+    </task>
+    <task id="LOCAL-00079" summary="Small tweak: made getAge method static in UserInfo">
+      <created>1564093166788</created>
+      <option name="number" value="00079" />
+      <option name="presentableId" value="LOCAL-00079" />
+      <option name="project" value="LOCAL" />
+      <updated>1564093166788</updated>
+    </task>
+    <option name="localTasksCounter" value="80" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1535577000" />
+    <option name="totallyTimeSpent" value="1537346000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -931,8 +955,6 @@
   <component name="VcsManagerConfiguration">
     <option name="SHOW_DIRTY_RECURSIVELY" value="true" />
     <option name="LIMIT_HISTORY" value="false" />
-    <MESSAGE value="Success message now displayed on successful registration (NOTE: on api server - authorisation route, .json() needed to be added to res.status(200) statement so result could be returned to client server).&#10;Success and errors cleared on submit in Register.&#10;&#10;CSS needs to be changed in Register for UX for new message." />
-    <MESSAGE value="CSS added for ux regarding the filling out of forms which include Register, RegisterClient, EditClient, and EditPersonalTrainer. (For success display message - no longer shifts fields)." />
     <MESSAGE value="EditDataProgressForm created and added to CreateGraph.&#10;Need to add functionality so that data for exercise can be selected from a list for editing or deletion." />
     <MESSAGE value="Have Date format showing correctly on EditDataProgressForm, need to add check box, then refactor into&#10;a component with relevant onChange etc functionality." />
     <MESSAGE value="Got edit working with map in EditDataProgressForm" />
@@ -956,7 +978,9 @@
     <MESSAGE value="Had to update UserInfo as navigating after log in would not load the&#10;data. Moved loaded state return to statement which checks if data&#10;is defined." />
     <MESSAGE value="Age functionality added to UserInfo" />
     <MESSAGE value="Regards to loading UserInfo with state loaded, refactored into 1 statement&#10;using OR for condition check. Which works better." />
-    <option name="LAST_COMMIT_MESSAGE" value="Regards to loading UserInfo with state loaded, refactored into 1 statement&#10;using OR for condition check. Which works better." />
+    <MESSAGE value="Small tweak: made getAge method static in UserInfo" />
+    <MESSAGE value="ProfilePic added to edit pages" />
+    <option name="LAST_COMMIT_MESSAGE" value="ProfilePic added to edit pages" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/client/src/components/layout/Landing_page.js">
@@ -1277,26 +1301,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/edit/EditPersonalTrainer.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="62">
-          <caret line="175" column="33" lean-forward="true" selection-start-line="175" selection-start-column="33" selection-end-line="175" selection-end-column="33" />
-          <folding>
-            <element signature="e#852#909#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/edit/EditClient.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="189" column="56" selection-start-line="189" selection-start-column="56" selection-end-line="189" selection-end-column="56" />
-          <folding>
-            <element signature="e#867#924#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/clients/ClientProfile.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="387">
@@ -1307,20 +1311,37 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/App.css">
+    <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/UserInfo.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="370">
-          <caret line="677" column="17" lean-forward="true" selection-start-line="677" selection-start-column="17" selection-end-line="677" selection-end-column="17" />
+        <state relative-caret-position="119">
+          <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" selection-end-column="58" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/UserInfo.js">
+    <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/edit/EditClient.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="112">
-          <caret line="24" column="80" selection-start-line="24" selection-start-column="80" selection-end-line="24" selection-end-column="80" />
+        <state relative-caret-position="442">
+          <caret line="212" column="38" lean-forward="true" selection-start-line="206" selection-start-column="32" selection-end-line="212" selection-end-column="38" />
           <folding>
-            <element signature="e#277#321#0" expanded="true" />
+            <element signature="e#867#924#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/edit/EditPersonalTrainer.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="334">
+          <caret line="192" column="42" lean-forward="true" selection-start-line="192" selection-start-column="42" selection-end-line="192" selection-end-column="42" />
+          <folding>
+            <element signature="e#852#909#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/App.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="205">
+          <caret line="697" column="20" selection-start-line="697" selection-start-column="20" selection-end-line="697" selection-end-column="20" />
         </state>
       </provider>
     </entry>

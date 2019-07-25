@@ -10,6 +10,7 @@ import ErrorComponent from "../../error/ErrorComponent"; // Allows proper routin
 
 import DisplayMessage from '../../common/DisplayMessage';
 import FormSelectComp from "../../common/FormSelectComp";
+import defaultUserImage from "../../../img/user-regular.svg";
 
 class EditClient extends Component {
     // This allows the component states to be updated and re-rendered
@@ -203,6 +204,13 @@ class EditClient extends Component {
                         <div className="row">
                             <div className="m-auto col-md-8">
                                 <h1 className=" text-center display-5">Edit Client Profile</h1>
+                                <div className="edit_image">
+                                    {(<img
+                                        className = "rounded-circle"
+                                        alt={this.state.client_data.ProfilePicUrl === "NA" ? "Default user image." : "User profile picture."}
+                                        src = {this.state.client_data.ProfilePicUrl === "NA" ? defaultUserImage : defaultUserImage}
+                                    />)}
+                                </div>
                                 <form autoComplete="off" onSubmit={this.onSubmit}>
                                     {/*// Deals with Chromes password auto complete*/}
                                     <input type="password" style={{height: 0, width: 0, opacity: 0, padding: 0, border: "none"}}></input>

@@ -299,6 +299,19 @@ svg {
     height: 80px;
 }
 
+.edit_image {
+    margin: auto;
+    width: 150px;
+}
+
+.edit_client .edit_image img {
+    background-color: white;
+    width: 150px;
+    height: 140px;
+    border: solid 1px black;
+    padding-right: 0;
+}
+
 /*.edit-profile-date-div .invalid-feedback {*/
     /*display: block;*/
 /*}*/
@@ -671,6 +684,8 @@ input[type=submit] {
     width: 210px;
 }
 
+/* UserInfo */
+
 .user_image {
     width: 102px;
 }
@@ -680,6 +695,6 @@ input[type=submit] {
     width: 100px;
     height: 90px;
     border: solid 1px black;
-    padding-right: 0px;
+    padding-right: 0;
 }
 
