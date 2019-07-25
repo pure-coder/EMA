@@ -26,6 +26,10 @@ class UserInfo extends Component {
             return {
                 userData: props.userData,
                 errors: props.errors,
+            }
+        }
+        if(state.userData !== undefined){
+            return {
                 loaded: true
             }
         }
