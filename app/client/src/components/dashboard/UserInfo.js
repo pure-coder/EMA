@@ -5,6 +5,7 @@ import {withRouter} from 'react-router-dom';
 import isEmpty from '../../utilities/is_empty';
 import Loading from "../../elements/Loading";
 import ErrorComponent from "../error/ErrorComponent";
+import defaultUserImage from '../../img/user-regular.svg';
 
 class UserInfo extends Component {
     // This allows the component states to be up{dated and re-rendered)
@@ -31,6 +32,17 @@ class UserInfo extends Component {
         return null
     }
 
+    componentDidMount(){
+    }
+
+    getAge(dateOfBirth){
+        let DOB = new Date(dateOfBirth)
+        DOB = new Date(DOB)
+        //let age = Date.now() - DOB.getTime();;
+        console.log(DOB);
+        // this.setState({Age : age});
+    }
+
     render() {
         if (!this.state.loaded) {
             return <Loading/>
@@ -45,8 +57,17 @@ class UserInfo extends Component {
             displayContent = (
                 // send clients data to client component, and render client component
                 <div className="userInfo-custom">
-                    {/*<h1>User info here</h1>*/}
-                    {(<p>{this.props.userData.FullName}</p>)}
+                    <div className="user_image">
+                        {(<img
+                            className = "rounded-circle"
+                            alt={this.state.userData.ProfilePicUrl === "NA" ? "Default user image." : "User profile picture."}
+                            src = {this.state.userData.ProfilePicUrl === "NA" ? defaultUserImage : defaultUserImage}
+                        />)}
+                    </div>
+                    {(<p>Name: {this.state.userData.FullName}</p>)}
+                    {(<p>Email: {this.state.userData.Email}</p>)}
+                    {(<p>Gender: {this.state.userData.Sex}</p>)}
+                    {(<p>{this.getAge(this.state.userData.DateOfBirth)}</p>)}
                 </div>
             );
 

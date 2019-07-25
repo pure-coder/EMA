@@ -83,7 +83,7 @@ class ClientProfile extends Component {
 
     render() {
         if(!this.state.loaded){
-            return <Loading/>
+            return <Loading myClassName="container"/>
         }
         if(isEmpty(this.props.authenticatedUser.user)){
             return <ErrorComponent/>

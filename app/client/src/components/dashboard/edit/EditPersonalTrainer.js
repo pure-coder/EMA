@@ -174,7 +174,7 @@ class EditPersonalTrainer extends Component {
     render() {
         // if loaded is false then return loading screen
         if (!this.state.loaded) {
-            return <Loading/>;
+            return <Loading myClassName="container"/>
         }
         if(isEmpty(this.props.authenticatedUser.user)){
             return <ErrorComponent/>

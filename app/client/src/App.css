@@ -671,3 +671,16 @@ input[type=submit] {
     width: 210px;
 }
 
+.user_image {
+    background-color: black;
+    width: 102px;
+}
+
+.user_image img {
+    background-color: white;
+    width: 100px;
+    height: 90px;
+    border: solid 1px black;
+    padding-right: 0px;
+}
+
