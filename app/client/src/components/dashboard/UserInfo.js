@@ -40,11 +40,10 @@ class UserInfo extends Component {
     }
 
     getAge(dateOfBirth){
-        let DOB = new Date(dateOfBirth)
-        DOB = new Date(DOB)
-        //let age = Date.now() - DOB.getTime();;
-        console.log(DOB);
-        // this.setState({Age : age});
+        let DOB = new Date(dateOfBirth).getTime();
+        DOB = Date.now() - DOB;
+        let age = new Date(DOB);
+        return Math.abs(age.getFullYear() - 1970);
     }
 
     render() {
@@ -71,7 +70,7 @@ class UserInfo extends Component {
                     {(<p>Name: {this.state.userData.FullName}</p>)}
                     {(<p>Email: {this.state.userData.Email}</p>)}
                     {(<p>Gender: {this.state.userData.Sex}</p>)}
-                    {(<p>{this.getAge(this.state.userData.DateOfBirth)}</p>)}
+                    {(<p>Age: {this.getAge(this.state.userData.DateOfBirth)}</p>)}
                 </div>
             );
 
