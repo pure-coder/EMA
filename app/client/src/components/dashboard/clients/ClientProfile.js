@@ -22,6 +22,7 @@ class ClientProfile extends Component {
             userId: props.authenticatedUser.user.id,
             // If user is pt then get clientId from otherwise user is client, so use user.id
             clientId: props.authenticatedUser.clientId !== undefined ? props.authenticatedUser.clientId : props.match.params.cid,
+            clientData: props.location.state.clientData, // Get client data from history push declared in ClientList... onProfileClick
             loaded: false,
             modalWidth: "500",
             modalHeight: "500",
@@ -49,7 +50,6 @@ class ClientProfile extends Component {
         return null;
     }
 
-    // Life cycle method for react which will run when this component receives new properties
     componentDidMount() {
 
     } // did mount
@@ -109,7 +109,7 @@ class ClientProfile extends Component {
                 <div className="container client-profile">
                     <div className="row">
                         <div className="m-auto col-md">
-                            <UserInfo userData={this.state.userData}/>
+                            <UserInfo userData={this.state.clientData}/> {/* Use data from props.location.state*/}
                             <div className="m-auto col graphs" id="graphs">
                                 <div className="Progression Progression_head">
                                     <h2 className=" text-center display-5 mt-3 mb-4">Client progression data</h2>

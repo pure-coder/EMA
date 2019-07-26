@@ -63,9 +63,9 @@ class ClientList extends Component {
         document.body.scrollTo(0,0);
     }
 
-    onProfileClick(ptId, id){
+    onProfileClick(ptId, id, clientData){
         this.props.saveClientId(id, this.props.history);
-        this.props.history.push(`/users/${ptId}/client_profile/${id}`);
+        this.props.history.push({pathname: `/users/${ptId}/client_profile/${id}`, state :  {clientData: clientData} });
     }
 
     // Tried to use Link component but it didn't call the url directly like window.location.href so the scheduler data
@@ -80,7 +80,7 @@ class ClientList extends Component {
         // Save clientId to redux
         this.props.saveClientId(id, this.props.history);
         // Direct user with history push to edit profile of user id
-        this.props.history.push({pathname: `/users/${id}/edit_client`, state :  {something: this.props.clients} });
+        this.props.history.push(`/users/${id}/edit_client`);
         // this.props.history.push(`/users/${id}/edit_client`);
     };
 
@@ -109,10 +109,10 @@ class ClientList extends Component {
             // console.log(this.props.clients)
 
             // Use sortedMap function to sort the client names and then send to view
-            const clients = this.sortedMap(this.props.clients).map(client => (
+            const clients = this.sortedMap(this.props.clients).map((client, index) => (
                 <tr key={client._id}>
                     <td><b>{client.FullName}</b></td>
-                    <td align="center"><a onClick={this.onProfileClick.bind(this, client.ptId, client._id)}>
+                    <td align="center"><a onClick={this.onProfileClick.bind(this, client.ptId, client._id, this.props.clients[index])}>
                         <i className="fas fa-columns fa-2x"></i></a>
                     </td>
                     <td align="center">

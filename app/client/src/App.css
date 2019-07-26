@@ -680,9 +680,13 @@ input[type=submit] {
     margin-left: 15px;
 }
 
-.user_data p {
+.user_data text {
     font-family: sans-serif;
     margin-bottom: .25rem;
     font-weight: bolder;
+}
+
+.user_data text.data {
+    font-weight: bold;
 }
 
