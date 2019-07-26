@@ -678,15 +678,16 @@ input[type=submit] {
 .user_data {
     display: inline-block;
     margin-left: 15px;
+    line-height: .7;
 }
 
-.user_data text {
+.user_data p {
     font-family: sans-serif;
     margin-bottom: .25rem;
     font-weight: bolder;
 }
 
-.user_data text.data {
+.user_data span.data {
     font-weight: bold;
 }
 

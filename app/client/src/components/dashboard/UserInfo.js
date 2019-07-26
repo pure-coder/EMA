@@ -64,10 +64,10 @@ class UserInfo extends Component {
                         />)}
                     </div>
                     <div className="user_data">
-                        <text>Name: <text className="data text-primary">{this.state.userData.FullName}</text></text><br/>
-                        <text>Email: <text className="data text-primary">{this.state.userData.Email}</text></text><br/>
-                        <text>Gender: <text className="data text-primary">{this.state.userData.Sex}</text></text><br/>
-                        <text>Age: <text className="data text-primary">{UserInfo.getAge(this.state.userData.DateOfBirth)}</text></text>
+                        <p>Name: <span className="data text-primary">{this.state.userData.FullName}</span></p><br/>
+                        <p>Email: <span className="data text-primary">{this.state.userData.Email}</span></p><br/>
+                        <p>Gender: <span className="data text-primary">{this.state.userData.Sex}</span></p><br/>
+                        <p>Age: <span className="data text-primary">{UserInfo.getAge(this.state.userData.DateOfBirth)}</span></p>
                     </div>
                 </div>
             );

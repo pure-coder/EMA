@@ -108,9 +108,9 @@ class ClientProfile extends Component {
             return (
                 <div className="container client-profile">
                     <div className="row">
-                        <div className="m-auto col-md">
+                        <div className="m-auto col-md-10">
                             <UserInfo userData={this.state.clientData}/> {/* Use data from props.location.state*/}
-                            <div className="m-auto col graphs" id="graphs">
+                            <div className="m-auto col-10 graphs" id="graphs">
                                 <div className="Progression Progression_head">
                                     <h2 className=" text-center display-5 mt-3 mb-4">Client progression data</h2>
                                     <h5 className=" text-center display-5 mt-3 mb-4">(Data only shown with 2+ entries)</h5>
