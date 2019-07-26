@@ -4,11 +4,8 @@
     <bookmark url="file://C:/Learning/clientObjectData.js" description="export {&quot;_id&quot;:&quot;5c2e3454d27ace097420b414&quot;,&quot;FullName..." line="2" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ec8ccf39-8487-4892-a38d-de9c288878a3" name="Default" comment="Sorted out css for buttons in progression">
+    <list default="true" id="ec8ccf39-8487-4892-a38d-de9c288878a3" name="Default" comment="UserInfo data CSS change, text to span, also line-height modified.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/App.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/dashboard/UserInfo.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/dashboard/UserInfo.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/dashboard/clients/ClientList.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/dashboard/clients/ClientList.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/dashboard/clients/ClientProfile.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/dashboard/clients/ClientProfile.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -49,32 +46,32 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="css" value="8853" />
+          <entry key="css" value="8873" />
           <entry key="editorConfig" value="285" />
           <entry key="html" value="1072" />
-          <entry key="js" value="175237" />
+          <entry key="js" value="175300" />
           <entry key="json" value="26" />
           <entry key="md" value="150" />
-          <entry key="txt" value="8803" />
+          <entry key="txt" value="8943" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="CSS" value="8853" />
+          <entry key="CSS" value="8873" />
           <entry key="HTML" value="1079" />
           <entry key="JSON" value="26" />
-          <entry key="JavaScript" value="175230" />
-          <entry key="PLAIN_TEXT" value="9238" />
+          <entry key="JavaScript" value="175293" />
+          <entry key="PLAIN_TEXT" value="9378" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="css" value="74" />
+          <entry key="css" value="75" />
           <entry key="editorConfig" value="2" />
           <entry key="eslintignore" value="2" />
           <entry key="gitignore" value="2" />
           <entry key="html" value="17" />
-          <entry key="js" value="1168" />
+          <entry key="js" value="1170" />
           <entry key="json" value="11" />
           <entry key="map" value="1" />
           <entry key="md" value="4" />
@@ -85,10 +82,10 @@
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="CSS" value="74" />
+          <entry key="CSS" value="75" />
           <entry key="HTML" value="17" />
           <entry key="JSON" value="11" />
-          <entry key="JavaScript" value="1168" />
+          <entry key="JavaScript" value="1170" />
           <entry key="PLAIN_TEXT" value="12" />
           <entry key="SVG" value="1" />
           <entry key="Scratch" value="1" />
@@ -103,11 +100,23 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/UserInfo.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="459">
-              <caret line="69" column="69" selection-start-line="69" selection-start-column="69" selection-end-line="69" selection-end-column="69" />
+              <caret line="69" column="66" selection-start-line="69" selection-start-column="66" selection-end-line="69" selection-end-column="66" />
+              <folding>
+                <element signature="e#277#321#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/clients/ClientProfile.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="166">
+              <caret line="108" column="32" selection-start-line="108" selection-start-column="32" selection-end-line="108" selection-end-column="32" />
               <folding>
                 <element signature="e#277#321#0" expanded="true" />
               </folding>
@@ -116,31 +125,10 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/src/App.css">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="479">
-              <caret line="688" column="22" selection-start-line="688" selection-start-column="22" selection-end-line="688" selection-end-column="22" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/edit/EditClient.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="391">
-              <caret line="245" column="44" selection-start-line="245" selection-start-column="44" selection-end-line="247" selection-end-column="52" />
-              <folding>
-                <element signature="e#867#924#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/Dashboard.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="408">
-              <caret line="117" column="62" lean-forward="true" selection-start-line="117" selection-start-column="62" selection-end-line="117" selection-end-column="62" />
+            <state relative-caret-position="391">
+              <caret line="116" column="20" selection-start-line="116" selection-start-column="20" selection-end-line="116" selection-end-column="73" />
               <folding>
                 <element signature="e#277#321#0" expanded="true" />
               </folding>
@@ -160,7 +148,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>client_pr</find>
       <find>deleteE</find>
       <find>form-control</find>
       <find>Confirm</find>
@@ -190,6 +177,7 @@
       <find>&lt;p</find>
       <find>p&gt;</find>
       <find>U</find>
+      <find>Text</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -216,6 +204,7 @@
       <replace>UserInfo</replace>
       <replace>userInfo</replace>
       <replace>&lt;text</replace>
+      <replace>p</replace>
     </replaceStrings>
     <dirStrings>
       <dir>C:\TM470\app\client\src\components</dir>
@@ -282,9 +271,9 @@
         <option value="$PROJECT_DIR$/client/src/components/dashboard/progression/CreateGraph.js" />
         <option value="$PROJECT_DIR$/client/src/components/dashboard/progression/Graph.js" />
         <option value="$PROJECT_DIR$/client/src/components/dashboard/clients/ClientList.js" />
-        <option value="$PROJECT_DIR$/client/src/components/dashboard/clients/ClientProfile.js" />
-        <option value="$PROJECT_DIR$/client/src/App.css" />
         <option value="$PROJECT_DIR$/client/src/components/dashboard/UserInfo.js" />
+        <option value="$PROJECT_DIR$/client/src/App.css" />
+        <option value="$PROJECT_DIR$/client/src/components/dashboard/clients/ClientProfile.js" />
       </list>
     </option>
   </component>
@@ -527,21 +516,7 @@
       <workItem from="1560617150917" duration="17313000" />
       <workItem from="1561133259946" duration="18573000" />
       <workItem from="1561559852945" duration="45900000" />
-      <workItem from="1562927864711" duration="126225000" />
-    </task>
-    <task id="LOCAL-00034" summary="Get user data for navigation if refreshed/copy &amp; pasted, so that it is up to date if edited. (Added call to get data for user in getDerivedStateFromProps depending on user status (pt/client) if data is not already in state).">
-      <created>1558712627676</created>
-      <option name="number" value="00034" />
-      <option name="presentableId" value="LOCAL-00034" />
-      <option name="project" value="LOCAL" />
-      <updated>1558712627679</updated>
-    </task>
-    <task id="LOCAL-00035" summary="Added add data button to CreateGraph so that data can be added to exercise without using add progress button at top of page, functionality has not yet been added to Modal yet.">
-      <created>1560352477066</created>
-      <option name="number" value="00035" />
-      <option name="presentableId" value="LOCAL-00035" />
-      <option name="project" value="LOCAL" />
-      <updated>1560352477066</updated>
+      <workItem from="1562927864711" duration="128131000" />
     </task>
     <task id="LOCAL-00036" summary="Styling css changes made to progressions page (ClientProfile)">
       <created>1560525823620</created>
@@ -872,11 +847,25 @@
       <option name="project" value="LOCAL" />
       <updated>1564147180243</updated>
     </task>
-    <option name="localTasksCounter" value="83" />
+    <task id="LOCAL-00083" summary="UserInfo added to ClientProfile page.&#10;UserInfo client data CSS change.">
+      <created>1564177228276</created>
+      <option name="number" value="00083" />
+      <option name="presentableId" value="LOCAL-00083" />
+      <option name="project" value="LOCAL" />
+      <updated>1564177228276</updated>
+    </task>
+    <task id="LOCAL-00084" summary="UserInfo data CSS change, text to span, also line-height modified.">
+      <created>1564178290341</created>
+      <option name="number" value="00084" />
+      <option name="presentableId" value="LOCAL-00084" />
+      <option name="project" value="LOCAL" />
+      <updated>1564178290341</updated>
+    </task>
+    <option name="localTasksCounter" value="85" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1550607000" />
+    <option name="totallyTimeSpent" value="1552513000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -976,8 +965,6 @@
   <component name="VcsManagerConfiguration">
     <option name="SHOW_DIRTY_RECURSIVELY" value="true" />
     <option name="LIMIT_HISTORY" value="false" />
-    <MESSAGE value="Got edit working with map in EditDataProgressForm" />
-    <MESSAGE value="Delete whole exercise if all checkboxes are selected.&#10;Still need to do functionality for overwriting existing exercise data&#10;in database for updated data." />
     <MESSAGE value="Max Weight value length check added.&#10;Still need to do functionality for overwriting existing exercise data&#10;in database for updated data." />
     <MESSAGE value="&#10;Functionality for overwriting added to create new array in EditDataProgressForm,&#10;need to create API on server and actions to deal with this functionality" />
     <MESSAGE value="Functionality added for EditDataProgressForm for editing exercises.&#10;API updated with edit functionality.&#10;(Need to fix bug where page is not updated automatically after&#10;successful edit/submit)." />
@@ -1001,7 +988,9 @@
     <MESSAGE value="ProfilePic added to edit pages" />
     <MESSAGE value="Css added for UserInfo.&#10;Css modified for Loading component." />
     <MESSAGE value="Sorted out css for buttons in progression" />
-    <option name="LAST_COMMIT_MESSAGE" value="Sorted out css for buttons in progression" />
+    <MESSAGE value="UserInfo added to ClientProfile page.&#10;UserInfo client data CSS change." />
+    <MESSAGE value="UserInfo data CSS change, text to span, also line-height modified." />
+    <option name="LAST_COMMIT_MESSAGE" value="UserInfo data CSS change, text to span, also line-height modified." />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/client/src/components/layout/Landing_page.js">
@@ -1312,32 +1301,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/Dashboard.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="117" column="62" lean-forward="true" selection-start-line="117" selection-start-column="62" selection-end-line="117" selection-end-column="62" />
-          <folding>
-            <element signature="e#277#321#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/clients/ClientList.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
           <caret line="67" column="114" selection-start-line="67" selection-start-column="114" selection-end-line="67" selection-end-column="114" />
           <folding>
             <element signature="e#0#36#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/clients/ClientProfile.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="421">
-          <caret line="111" column="113" selection-start-line="111" selection-start-column="113" selection-end-line="111" selection-end-column="113" />
-          <folding>
-            <element signature="e#277#321#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1354,15 +1323,35 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/client/src/App.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="479">
-          <caret line="688" column="22" selection-start-line="688" selection-start-column="22" selection-end-line="688" selection-end-column="22" />
+        <state relative-caret-position="513">
+          <caret line="690" column="21" lean-forward="true" selection-start-line="690" selection-start-column="21" selection-end-line="690" selection-end-column="21" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/UserInfo.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="459">
-          <caret line="69" column="69" selection-start-line="69" selection-start-column="69" selection-end-line="69" selection-end-column="69" />
+          <caret line="69" column="66" selection-start-line="69" selection-start-column="66" selection-end-line="69" selection-end-column="66" />
+          <folding>
+            <element signature="e#277#321#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/Dashboard.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="391">
+          <caret line="116" column="20" selection-start-line="116" selection-start-column="20" selection-end-line="116" selection-end-column="73" />
+          <folding>
+            <element signature="e#277#321#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/clients/ClientProfile.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="166">
+          <caret line="108" column="32" selection-start-line="108" selection-start-column="32" selection-end-line="108" selection-end-column="32" />
           <folding>
             <element signature="e#277#321#0" expanded="true" />
           </folding>

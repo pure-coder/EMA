@@ -106,10 +106,11 @@ class ClientProfile extends Component {
             }
 
             return (
-                <div className="container client-profile">
-                    <div className="row">
+                <div className="client-profile">
+                    <h1 className=" text-center display-5">Client Profile</h1>
+
+                        <UserInfo userData={this.state.clientData}/> {/* Use data from props.location.state*/}
                         <div className="m-auto col-md-10">
-                            <UserInfo userData={this.state.clientData}/> {/* Use data from props.location.state*/}
                             <div className="m-auto col-10 graphs" id="graphs">
                                 <div className="Progression Progression_head">
                                     <h2 className=" text-center display-5 mt-3 mb-4">Client progression data</h2>
@@ -125,7 +126,7 @@ class ClientProfile extends Component {
                                 </div>
                             </div>
                         </div>
-                    </div>
+
 
 
                     <Modal visible={this.state.visible} width={this.state.modalWidth} height={this.state.modalHeight} effect="fadeInUp"
