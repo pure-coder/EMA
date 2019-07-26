@@ -16,6 +16,10 @@ img {
 }
 
 .container {
+    min-height: 380px;
+}
+
+.loading_container {
     min-height: 485px;
 }
 
@@ -218,7 +222,7 @@ img {
 /* dashboard */
 
 .dashboard-container {
-    min-height: 550px;
+    min-height: 500px;
 }
 
 .dashboard-custom {
@@ -267,7 +271,7 @@ svg {
 
 
 .client {
-    min-height: 485px
+    min-height: 300px
 }
 
 /* EditClient */
@@ -688,6 +692,7 @@ input[type=submit] {
 
 .user_image {
     width: 102px;
+    float: left;
 }
 
 .user_image img {
@@ -696,5 +701,16 @@ input[type=submit] {
     height: 90px;
     border: solid 1px black;
     padding-right: 0;
+}
+
+.user_data {
+    display: inline-block;
+    margin-left: 15px;
+}
+
+.user_data p {
+    font-family: sans-serif;
+    margin-bottom: .25rem;
+    font-weight: bolder;
 }
 

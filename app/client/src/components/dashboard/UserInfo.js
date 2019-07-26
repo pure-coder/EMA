@@ -55,7 +55,7 @@ class UserInfo extends Component {
             // Define content to display.. in this case the list of clients
             displayContent = (
                 // send clients data to client component, and render client component
-                <div className="userInfo-custom">
+                <div className="m-auto col-md-10 userInfo-custom">
                     <div className="user_image">
                         {(<img
                             className = "rounded-circle"
@@ -63,10 +63,12 @@ class UserInfo extends Component {
                             src = {this.state.userData.ProfilePicUrl === "NA" ? defaultUserImage : defaultUserImage}
                         />)}
                     </div>
-                    {(<p>Name: {this.state.userData.FullName}</p>)}
-                    {(<p>Email: {this.state.userData.Email}</p>)}
-                    {(<p>Gender: {this.state.userData.Sex}</p>)}
-                    {(<p>Age: {UserInfo.getAge(this.state.userData.DateOfBirth)}</p>)}
+                    <div className="user_data">
+                        {(<p>Name: {this.state.userData.FullName}</p>)}
+                        {(<p>Email: {this.state.userData.Email}</p>)}
+                        {(<p>Gender: {this.state.userData.Sex}</p>)}
+                        {(<p>Age: {UserInfo.getAge(this.state.userData.DateOfBirth)}</p>)}
+                    </div>
                 </div>
             );
 
