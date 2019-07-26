@@ -8,6 +8,7 @@ import 'dhtmlx-scheduler';
 import Loading from "../../elements/Loading";
 import isEmpty from "../../utilities/is_empty";
 import ErrorComponent from "../error/ErrorComponent";
+import UserInfo from "../dashboard/UserInfo";
 
 // Todo :: change save button so clients cant save or edit workout!
 
@@ -23,8 +24,6 @@ class Scheduler extends Component {
 
         const scheduler = window.dhtmlXScheduler;
         const dataProcessor = window.dataProcessor;
-
-        console.log(this.state.userId, this.state.clientId);
 
         // If client - userId will only be used, will show their events, if pt userId is pt, clientId is client events that
         // pt wishes to view (clientId added when pt clicks client on their dashboard)
@@ -101,14 +100,7 @@ class Scheduler extends Component {
     }
 
     componentDidUpdate(){
-        // this.authCheck();
     }
-
-    // authCheck(){
-    //     if (!isEmpty(this.state.errors) && this.state.errors.error_code === 401) {
-    //         this.props.history.push('/re-login');
-    //     }
-    // }
 
     render() {
         if(!this.state.loaded){
@@ -122,11 +114,9 @@ class Scheduler extends Component {
 
             return (
                 <div id="scheduler-container">
-                    <div className="top-display">
-                        <div className="display-elements"><button type="button" className="scheduler-btn btn btn-danger btn-block mb-3"onClick={this.props.history.goBack}>Back</button></div>
-                        <div className="display-elements"><h3>{client_data !== undefined ? client_data.FullName : "" }</h3></div>
-                    </div>
-                    <div id="scheduler" className="dhx_cal_container scheduler">
+                    <h1 className=" text-center display-5 mb-3">Workout Scheduler</h1>
+                    <UserInfo userData={client_data}/>
+                    <div id="scheduler" className="dhx_cal_container scheduler mt-5">
                         <div className="dhx_cal_navline">
                             <div className="dhx_cal_prev_button">&nbsp;</div>
                             <div className="dhx_cal_next_button">&nbsp;</div>

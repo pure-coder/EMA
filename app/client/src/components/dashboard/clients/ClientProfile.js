@@ -107,8 +107,7 @@ class ClientProfile extends Component {
 
             return (
                 <div className="client-profile">
-                    <h1 className=" text-center display-5">Client Profile</h1>
-
+                    <h1 className=" text-center display-5 mb-3">Client Profile</h1>
                         <UserInfo userData={this.state.clientData}/> {/* Use data from props.location.state*/}
                         <div className="m-auto col-md-10">
                             <div className="m-auto col-10 graphs" id="graphs">

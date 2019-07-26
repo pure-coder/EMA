@@ -114,7 +114,7 @@ class Dashboard extends Component {
 
             return (
                 <div className="dashboard-container">
-                    <h1 className=" text-center display-5">Dashboard</h1>
+                    <h1 className=" text-center display-5 mb-3">Dashboard</h1>
                     <UserInfo userData={this.state.userData}/>
                     {displayContent}
                 </div>

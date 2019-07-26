@@ -147,8 +147,7 @@ img {
 /* scheduler */
 
 #scheduler-container {
-    position: relative;
-    top: -30px;
+    min-height: 500px;
 }
 
 .scheduler {
@@ -661,6 +660,10 @@ input[type=submit] {
 }
 
 /* UserInfo */
+
+.userInfo-custom {
+    padding: 0;
+}
 
 .user_image {
     width: 102px;
