@@ -9,6 +9,7 @@ import Modal from 'react-awesome-modal';
 import isEmpty from '../../../utilities/is_empty';
 import ErrorComponent from "../../error/ErrorComponent";
 import Loading from "../../../elements/Loading";
+import UserInfo from "../UserInfo";
 
 // import FormInputGroup from "../common/FormInputGroup"; // Allows proper routing and linking using browsers match, location, and history properties
 
@@ -107,18 +108,22 @@ class ClientProfile extends Component {
             return (
                 <div className="container client-profile">
                     <div className="row">
-                        <div className="m-auto col-1 graphs" id="graphs">
-                            <h2 className=" text-center display-5 mt-3 mb-4">Client progression data</h2>
-                            <h5 className=" text-center display-5 mt-3 mb-4">(Data only shown with 2+ entries)</h5>
-                            {/*Only display Add progress if user is a pt*/}
-                            {this.props.authenticatedUser.user.pt === true ?
-                                <div>
-                                    <input id="progress-button" type="button" className="btn btn-success btn-block mt-4 mb-4" value="Add Progress"
-                                           onClick={this.openModal} />
-                                </div> : null
-                            }
-                            {/*Display the clients progression data*/}
-                            {displayContent}
+                        <div className="m-auto col-md">
+                            <UserInfo userData={this.state.userData}/>
+                            <div className="m-auto col graphs" id="graphs">
+                                <div className="Progression Progression_head">
+                                    <h2 className=" text-center display-5 mt-3 mb-4">Client progression data</h2>
+                                    <h5 className=" text-center display-5 mt-3 mb-4">(Data only shown with 2+ entries)</h5>
+                                    {/*Only display Add progress if user is a pt*/}
+                                    {this.props.authenticatedUser.user.pt === true ?
+                                            <input id="progress-button" type="button" className="btn btn-success btn-block mt-4 mb-5" value="Add Progress"
+                                                   onClick={this.openModal} />
+                                         : null
+                                    }
+                                    {/*Display the clients progression data*/}
+                                    {displayContent}
+                                </div>
+                            </div>
                         </div>
                     </div>
 

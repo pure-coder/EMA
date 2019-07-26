@@ -68,7 +68,7 @@ class Graph extends Component {
                 if(graph.metrics.length > 1){
                     return (
                         // Changed key from CreateGraph to div as div was first child, otherwise error was given.
-                        <div className="graphs" key={graph._id}>
+                        <div className="graphs mb-5" key={graph._id}>
                             <CreateGraph graphData={graph}/>
                         </div>
                     )

@@ -99,19 +99,25 @@ class CreateGraph extends Component {
 
         let display;
         display = (
-            <div className="progress-buttons">
-                {this.props.authenticatedUser.user.pt === true && this.props.graphData.metrics.length >= 2 ?
+                (this.props.authenticatedUser.user.pt === true && this.props.graphData.metrics.length >= 2 ?
                     (
-                        <div>
-                            <input id="edit-progress-button" type="button" className="btn btn-info btn-block mb-4"
+                        <div className="btn-toolbar">
+                            <div className="col-4">
+                            <input type="button" className="btn btn-info progress-buttons"
                            value="Edit Data" name={this.props.graphData.exerciseName} onClick={this.openModal} />
-                            <input id="add-progress-button" type="button" className="btn btn-success btn-block mb-4"
+                            </div>
+                            <div className="col-4">
+                            <input type="button" className="btn btn-success progress-buttons"
                                    value="Add Data" name={this.props.graphData.exerciseName} onClick={this.openModal} />
-                            <input id="delete-progress-button" type="button" className="btn btn-danger btn-block mb-4"
+                            </div>
+                            <div className="col-4">
+                            <input type="button" className="btn btn-danger progress-buttons"
                            value="Delete Exercise" name={this.props.graphData.exerciseName} onClick={this.openModal} />
-                         </div>
-                    ) : null}
-            </div>
+                            </div>
+                        </div>
+                    ) : null)
+
+
         );
 
         // Provide component depending on what button was pressed
@@ -152,7 +158,6 @@ class CreateGraph extends Component {
                        onClickAway={this.onClickAway}>
                     {displayForm}
                 </Modal>
-
             </div>
         )
     }

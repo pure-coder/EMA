@@ -250,7 +250,7 @@ svg {
     display: block;
     height: 310px;
     width: 400px;
-    margin: 5px 10px 10px 10px;
+    margin: auto;
 }
 
 .line {
@@ -398,17 +398,10 @@ svg {
 
 
 /* progression Data (graph) */
-.graphs {
-    display: inline-block;
-    margin: inherit;
-    padding: inherit;
-    min-width: 450px;
-    min-height: 250px;
-}
 
 .Progression {
     min-width: inherit;
-    width: 450px;
+    width: 550px;
     margin: inherit;
     padding: inherit;
 }
@@ -464,30 +457,9 @@ svg {
 }
 
 .progress-buttons {
-    position: relative;
-    height: 50px;
-    margin: auto;
-}
-
-#edit-progress-button {
     width: 135px;
-    float: left;
-    margin-right: 23px;
-}
 
-#add-progress-button {
-    width: 135px;
-    float: left;
-    margin: auto;
 }
-
-#delete-progress-button {
-    width: 135px;
-    float: right;
-    margin-top: 0;
-    margin-left: 22px;
-}
-
 /* Enter progress Modal */
 
 .newClientProgress {
