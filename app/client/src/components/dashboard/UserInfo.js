@@ -66,8 +66,10 @@ class UserInfo extends Component {
                     <div className="user_data">
                         <p>Name: <span className="data text-primary">{this.state.userData.FullName}</span></p><br/>
                         <p>Email: <span className="data text-primary">{this.state.userData.Email}</span></p><br/>
+                        {this.state.userData.ContactNumber ? <p>Contact: <span className="data text-primary">{this.state.userData.ContactNumber}</span></p> : null}
+                        {this.state.userData.ContactNumber ? <br/> : null} {/* had to add conditional statement for break as won't let me use in statement above with other tags */}
                         <p>Gender: <span className="data text-primary">{this.state.userData.Sex}</span></p><br/>
-                        <p>Age: <span className="data text-primary">{UserInfo.getAge(this.state.userData.DateOfBirth)}</span></p>
+                        <p>Age: <span className="data text-primary">{UserInfo.getAge(this.state.userData.DateOfBirth)}</span></p><br/>
                     </div>
                 </div>
             );

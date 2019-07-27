@@ -46,7 +46,7 @@ class ClientData extends Component {
 
     onProfileClick(id){
         this.props.saveClientId(id, this.props.history);
-        this.props.history.push(`/users/${id}/client_profile/${id}`);
+        this.props.history.push({pathname: `/users/${id}/client_profile/${id}`, state :  {clientData: this.props.authenticatedUser.client_data} });
     }
 
     onScheduleClick(id) {
@@ -69,7 +69,7 @@ class ClientData extends Component {
             return (
                 <div className="row">
                     <div className="m-auto col-md-10">
-                        <h3 className="mt-5 mb-4">{this.state.authenticatedUser.user.name}</h3>
+                        <h3 className="mt-5 mb-3">Client Links</h3>
                         <table className="table client-table">
                             <thead>
                             <tr>

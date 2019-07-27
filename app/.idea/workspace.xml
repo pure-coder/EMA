@@ -4,9 +4,10 @@
     <bookmark url="file://C:/Learning/clientObjectData.js" description="export {&quot;_id&quot;:&quot;5c2e3454d27ace097420b414&quot;,&quot;FullName..." line="2" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ec8ccf39-8487-4892-a38d-de9c288878a3" name="Default" comment="UserInfo data CSS change, text to span, also line-height modified.">
+    <list default="true" id="ec8ccf39-8487-4892-a38d-de9c288878a3" name="Default" comment="UserInfo component added to Scheduler.&#10;Padding removed from UserInfo to better match Dashboard layout.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/dashboard/clients/ClientProfile.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/dashboard/clients/ClientProfile.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/dashboard/UserInfo.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/dashboard/UserInfo.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/dashboard/clients/ClientData.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/dashboard/clients/ClientData.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -21,9 +22,9 @@
     <session id="-2010866637">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="22" />
+          <entry key="project.closed" value="23" />
           <entry key="project.open.time.0" value="1" />
-          <entry key="project.open.time.10" value="4" />
+          <entry key="project.open.time.10" value="5" />
           <entry key="project.open.time.11" value="4" />
           <entry key="project.open.time.12" value="2" />
           <entry key="project.open.time.13" value="3" />
@@ -41,37 +42,37 @@
           <entry key="project.open.time.7" value="2" />
           <entry key="project.open.time.8" value="4" />
           <entry key="project.open.time.9" value="6" />
-          <entry key="project.opened" value="43" />
+          <entry key="project.opened" value="44" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="css" value="8873" />
+          <entry key="css" value="8919" />
           <entry key="editorConfig" value="285" />
           <entry key="html" value="1072" />
-          <entry key="js" value="175300" />
+          <entry key="js" value="175756" />
           <entry key="json" value="26" />
           <entry key="md" value="150" />
-          <entry key="txt" value="8943" />
+          <entry key="txt" value="9139" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="CSS" value="8873" />
+          <entry key="CSS" value="8919" />
           <entry key="HTML" value="1079" />
           <entry key="JSON" value="26" />
-          <entry key="JavaScript" value="175293" />
-          <entry key="PLAIN_TEXT" value="9378" />
+          <entry key="JavaScript" value="175749" />
+          <entry key="PLAIN_TEXT" value="9574" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="css" value="75" />
+          <entry key="css" value="76" />
           <entry key="editorConfig" value="2" />
           <entry key="eslintignore" value="2" />
           <entry key="gitignore" value="2" />
           <entry key="html" value="17" />
-          <entry key="js" value="1170" />
+          <entry key="js" value="1175" />
           <entry key="json" value="11" />
           <entry key="map" value="1" />
           <entry key="md" value="4" />
@@ -82,10 +83,10 @@
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="CSS" value="75" />
+          <entry key="CSS" value="76" />
           <entry key="HTML" value="17" />
           <entry key="JSON" value="11" />
-          <entry key="JavaScript" value="1170" />
+          <entry key="JavaScript" value="1175" />
           <entry key="PLAIN_TEXT" value="12" />
           <entry key="SVG" value="1" />
           <entry key="Scratch" value="1" />
@@ -100,23 +101,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/UserInfo.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="459">
-              <caret line="69" column="66" selection-start-line="69" selection-start-column="66" selection-end-line="69" selection-end-column="66" />
-              <folding>
-                <element signature="e#277#321#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/clients/ClientProfile.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="166">
-              <caret line="108" column="32" selection-start-line="108" selection-start-column="32" selection-end-line="108" selection-end-column="32" />
+            <state relative-caret-position="248">
+              <caret line="69" column="176" selection-start-line="69" selection-start-column="176" selection-end-line="69" selection-end-column="176" />
               <folding>
                 <element signature="e#277#321#0" expanded="true" />
               </folding>
@@ -125,12 +114,30 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/Dashboard.js">
+        <entry file="file://$PROJECT_DIR$/client/src/components/common/FormInputGroup.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="391">
-              <caret line="116" column="20" selection-start-line="116" selection-start-column="20" selection-end-line="116" selection-end-column="73" />
+            <state relative-caret-position="222">
+              <caret line="26" column="30" lean-forward="true" selection-start-line="26" selection-start-column="30" selection-end-line="26" selection-end-column="30" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/clients/ClientData.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state>
+              <caret line="71" column="57" selection-start-line="71" selection-start-column="57" selection-end-line="71" selection-end-column="57" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/clients/ClientList.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="2448">
+              <caret line="153" column="32" selection-start-line="153" selection-start-column="32" selection-end-line="153" selection-end-column="70" />
               <folding>
-                <element signature="e#277#321#0" expanded="true" />
+                <element signature="e#0#36#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -148,8 +155,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>deleteE</find>
-      <find>form-control</find>
       <find>Confirm</find>
       <find>sex</find>
       <find>Gender</find>
@@ -178,6 +183,8 @@
       <find>p&gt;</find>
       <find>U</find>
       <find>Text</find>
+      <find>sche</find>
+      <find>User</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -242,7 +249,6 @@
         <option value="$PROJECT_DIR$/restful_api_server.js" />
         <option value="$PROJECT_DIR$/routes/scheduler.js" />
         <option value="$PROJECT_DIR$/client/src/components/common/FormInputGroup.js" />
-        <option value="$PROJECT_DIR$/client/src/components/scheduler/Scheduler.js" />
         <option value="$PROJECT_DIR$/client/src/reducers/authenticationReducer.js" />
         <option value="$PROJECT_DIR$/client/src/App.js" />
         <option value="$PROJECT_DIR$/client/src/components/dashboard/progression/AddDataProgressForm.js" />
@@ -262,18 +268,19 @@
         <option value="$PROJECT_DIR$/client/src/components/authentication/RegisterClient.js" />
         <option value="$PROJECT_DIR$/client/src/components/authentication/Register.js" />
         <option value="$PROJECT_DIR$/client/src/actions/authenticationActions.js" />
-        <option value="$PROJECT_DIR$/client/src/components/dashboard/clients/ClientData.js" />
         <option value="$PROJECT_DIR$/client/src/components/layout/Navigator.js" />
         <option value="$PROJECT_DIR$/client/src/elements/Loading.js" />
-        <option value="$PROJECT_DIR$/client/src/components/dashboard/Dashboard.js" />
         <option value="$PROJECT_DIR$/client/src/components/dashboard/edit/EditClient.js" />
         <option value="$PROJECT_DIR$/client/src/components/dashboard/edit/EditPersonalTrainer.js" />
         <option value="$PROJECT_DIR$/client/src/components/dashboard/progression/CreateGraph.js" />
         <option value="$PROJECT_DIR$/client/src/components/dashboard/progression/Graph.js" />
         <option value="$PROJECT_DIR$/client/src/components/dashboard/clients/ClientList.js" />
-        <option value="$PROJECT_DIR$/client/src/components/dashboard/UserInfo.js" />
-        <option value="$PROJECT_DIR$/client/src/App.css" />
         <option value="$PROJECT_DIR$/client/src/components/dashboard/clients/ClientProfile.js" />
+        <option value="$PROJECT_DIR$/client/src/components/dashboard/Dashboard.js" />
+        <option value="$PROJECT_DIR$/client/src/App.css" />
+        <option value="$PROJECT_DIR$/client/src/components/scheduler/Scheduler.js" />
+        <option value="$PROJECT_DIR$/client/src/components/dashboard/clients/ClientData.js" />
+        <option value="$PROJECT_DIR$/client/src/components/dashboard/UserInfo.js" />
       </list>
     </option>
   </component>
@@ -355,6 +362,14 @@
               <item name="client" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="components" type="462c0819:PsiDirectoryNode" />
+              <item name="common" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="app" type="b2602c69:ProjectViewProjectNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="client" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="components" type="462c0819:PsiDirectoryNode" />
               <item name="dashboard" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -372,17 +387,7 @@
               <item name="client" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="components" type="462c0819:PsiDirectoryNode" />
-              <item name="dashboard" type="462c0819:PsiDirectoryNode" />
-              <item name="edit" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="app" type="b2602c69:ProjectViewProjectNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="client" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
-              <item name="dashboard" type="462c0819:PsiDirectoryNode" />
-              <item name="progression" type="462c0819:PsiDirectoryNode" />
+              <item name="scheduler" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="app" type="b2602c69:ProjectViewProjectNode" />
@@ -516,21 +521,8 @@
       <workItem from="1560617150917" duration="17313000" />
       <workItem from="1561133259946" duration="18573000" />
       <workItem from="1561559852945" duration="45900000" />
-      <workItem from="1562927864711" duration="128131000" />
-    </task>
-    <task id="LOCAL-00036" summary="Styling css changes made to progressions page (ClientProfile)">
-      <created>1560525823620</created>
-      <option name="number" value="00036" />
-      <option name="presentableId" value="LOCAL-00036" />
-      <option name="project" value="LOCAL" />
-      <updated>1560525823620</updated>
-    </task>
-    <task id="LOCAL-00037" summary="AddDataProgressForm Modal created for adding data to existing exercise for client, functionality working except for the instant change to graph in ClientProfile.">
-      <created>1560597846370</created>
-      <option name="number" value="00037" />
-      <option name="presentableId" value="LOCAL-00037" />
-      <option name="project" value="LOCAL" />
-      <updated>1560597846370</updated>
+      <workItem from="1562927864711" duration="131724000" />
+      <workItem from="1564246061042" duration="2473000" />
     </task>
     <task id="LOCAL-00038" summary="getClientDataProgression add to both AddDataProgressionForm and ClientGraph for submitting new data and closing Modal respectively. Gives a more dynamic effect, showing that data is added in real time.">
       <created>1560608176269</created>
@@ -861,11 +853,25 @@
       <option name="project" value="LOCAL" />
       <updated>1564178290341</updated>
     </task>
-    <option name="localTasksCounter" value="85" />
+    <task id="LOCAL-00085" summary="ClientProfile HTML structure changed to mimic UX of Dashboard (persistent&#10;layout)">
+      <created>1564179132779</created>
+      <option name="number" value="00085" />
+      <option name="presentableId" value="LOCAL-00085" />
+      <option name="project" value="LOCAL" />
+      <updated>1564179132779</updated>
+    </task>
+    <task id="LOCAL-00086" summary="UserInfo component added to Scheduler.&#10;Padding removed from UserInfo to better match Dashboard layout.">
+      <created>1564181251840</created>
+      <option name="number" value="00086" />
+      <option name="presentableId" value="LOCAL-00086" />
+      <option name="project" value="LOCAL" />
+      <updated>1564181251840</updated>
+    </task>
+    <option name="localTasksCounter" value="87" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1552513000" />
+    <option name="totallyTimeSpent" value="1558579000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -892,7 +898,7 @@
       <window_info anchor="bottom" id="Inspection" order="6" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="7" weight="0.3276923" />
       <window_info anchor="bottom" id="Docker" order="8" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Terminal" order="9" sideWeight="0.49776787" weight="0.1923077" />
+      <window_info anchor="bottom" id="Terminal" order="9" sideWeight="0.49776787" visible="true" weight="0.1923077" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.50223213" side_tool="true" weight="0.1923077" />
       <window_info anchor="bottom" id="Version Control" order="11" sideWeight="0.6152815" weight="0.36" />
       <window_info anchor="bottom" id="Inspection Results" order="12" weight="0.3276923" />
@@ -965,8 +971,6 @@
   <component name="VcsManagerConfiguration">
     <option name="SHOW_DIRTY_RECURSIVELY" value="true" />
     <option name="LIMIT_HISTORY" value="false" />
-    <MESSAGE value="Max Weight value length check added.&#10;Still need to do functionality for overwriting existing exercise data&#10;in database for updated data." />
-    <MESSAGE value="&#10;Functionality for overwriting added to create new array in EditDataProgressForm,&#10;need to create API on server and actions to deal with this functionality" />
     <MESSAGE value="Functionality added for EditDataProgressForm for editing exercises.&#10;API updated with edit functionality.&#10;(Need to fix bug where page is not updated automatically after&#10;successful edit/submit)." />
     <MESSAGE value="Bug fixed in CreateGraph in componentDidUpdate where it checked if only&#10;the length of metrics changed, changed this to compare the whole metrics." />
     <MESSAGE value="Bug fix: modal size was not resetting so added reset to onClickAway,&#10;(input has to be a string which indicates new size ie &quot;400&quot; not 400)" />
@@ -990,7 +994,9 @@
     <MESSAGE value="Sorted out css for buttons in progression" />
     <MESSAGE value="UserInfo added to ClientProfile page.&#10;UserInfo client data CSS change." />
     <MESSAGE value="UserInfo data CSS change, text to span, also line-height modified." />
-    <option name="LAST_COMMIT_MESSAGE" value="UserInfo data CSS change, text to span, also line-height modified." />
+    <MESSAGE value="ClientProfile HTML structure changed to mimic UX of Dashboard (persistent&#10;layout)" />
+    <MESSAGE value="UserInfo component added to Scheduler.&#10;Padding removed from UserInfo to better match Dashboard layout." />
+    <option name="LAST_COMMIT_MESSAGE" value="UserInfo component added to Scheduler.&#10;Padding removed from UserInfo to better match Dashboard layout." />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/client/src/components/layout/Landing_page.js">
@@ -1063,13 +1069,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/components/scheduler/Scheduler.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="473">
-          <caret line="120" column="72" selection-start-line="120" selection-start-column="61" selection-end-line="120" selection-end-column="72" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/package.json">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -1080,9 +1079,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="234">
           <caret line="215" column="111" lean-forward="true" selection-start-line="215" selection-start-column="111" selection-end-line="215" selection-end-column="111" />
-          <folding>
-            <element signature="e#109#153#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1090,9 +1086,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1479">
           <caret line="83" column="51" selection-start-line="83" selection-start-column="51" selection-end-line="83" selection-end-column="51" />
-          <folding>
-            <element signature="e#109#153#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1100,10 +1093,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="119">
           <caret line="71" column="24" lean-forward="true" selection-start-line="71" selection-start-column="24" selection-end-line="71" selection-end-column="24" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-            <element signature="e#1546#1581#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1118,9 +1107,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="112">
           <caret line="89" column="14" lean-forward="true" selection-end-line="235" />
-          <folding>
-            <element signature="e#109#153#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1132,21 +1118,12 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/client/src/store.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <folding>
-            <element signature="e#0#60#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/progression/DeleteProgressConfirm.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-323">
           <caret line="17" column="20" lean-forward="true" selection-start-line="17" selection-start-column="20" selection-end-line="17" selection-end-column="20" />
-          <folding>
-            <element signature="e#109#153#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1182,9 +1159,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="340">
           <caret line="65" column="81" lean-forward="true" selection-start-line="65" selection-start-column="27" selection-end-line="65" selection-end-column="81" />
-          <folding>
-            <element signature="e#109#153#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1237,16 +1211,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="289">
           <caret line="94" column="16" selection-start-line="94" selection-start-column="16" selection-end-line="94" selection-end-column="16" />
-          <folding>
-            <element signature="e#292#363#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/components/common/FormInputGroup.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="375">
-          <caret line="26" column="30" lean-forward="true" selection-start-line="26" selection-start-column="30" selection-end-line="26" selection-end-column="30" />
         </state>
       </provider>
     </entry>
@@ -1254,9 +1218,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
           <caret line="82" column="26" lean-forward="true" selection-start-line="82" selection-start-column="26" selection-end-line="82" selection-end-column="26" />
-          <folding>
-            <element signature="e#254#289#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1264,9 +1225,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="334">
           <caret line="192" column="42" lean-forward="true" selection-start-line="192" selection-start-column="42" selection-end-line="192" selection-end-column="42" />
-          <folding>
-            <element signature="e#852#909#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1281,9 +1239,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="245">
           <caret line="138" column="9" lean-forward="true" selection-start-line="138" selection-start-column="9" selection-end-line="138" selection-end-column="9" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1294,64 +1249,69 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/clients/ClientData.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="544">
-          <caret line="92" column="32" lean-forward="true" selection-start-line="92" selection-start-column="32" selection-end-line="92" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/clients/ClientList.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="67" column="114" selection-start-line="67" selection-start-column="114" selection-end-line="67" selection-end-column="114" />
-          <folding>
-            <element signature="e#0#36#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/edit/EditClient.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="391">
           <caret line="245" column="44" selection-start-line="245" selection-start-column="44" selection-end-line="247" selection-end-column="52" />
-          <folding>
-            <element signature="e#867#924#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/App.css">
+    <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/clients/ClientProfile.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="513">
-          <caret line="690" column="21" lean-forward="true" selection-start-line="690" selection-start-column="21" selection-end-line="690" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/UserInfo.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="459">
-          <caret line="69" column="66" selection-start-line="69" selection-start-column="66" selection-end-line="69" selection-end-column="66" />
-          <folding>
-            <element signature="e#277#321#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="183">
+          <caret line="109" column="58" selection-start-line="109" selection-start-column="58" selection-end-line="109" selection-end-column="58" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/Dashboard.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="391">
-          <caret line="116" column="20" selection-start-line="116" selection-start-column="20" selection-end-line="116" selection-end-column="73" />
+          <caret line="116" column="62" selection-start-line="116" selection-start-column="62" selection-end-line="116" selection-end-column="62" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/App.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="224">
+          <caret line="663" column="1" selection-start-line="663" selection-start-column="1" selection-end-line="663" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/components/scheduler/Scheduler.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="197">
+          <caret line="117" column="51" selection-start-line="117" selection-start-column="51" selection-end-line="117" selection-end-column="51" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/clients/ClientList.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2448">
+          <caret line="153" column="32" selection-start-line="153" selection-start-column="32" selection-end-line="153" selection-end-column="70" />
           <folding>
-            <element signature="e#277#321#0" expanded="true" />
+            <element signature="e#0#36#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/clients/ClientProfile.js">
+    <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/clients/ClientData.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="166">
-          <caret line="108" column="32" selection-start-line="108" selection-start-column="32" selection-end-line="108" selection-end-column="32" />
+        <state>
+          <caret line="71" column="57" selection-start-line="71" selection-start-column="57" selection-end-line="71" selection-end-column="57" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/components/common/FormInputGroup.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="222">
+          <caret line="26" column="30" lean-forward="true" selection-start-line="26" selection-start-column="30" selection-end-line="26" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/UserInfo.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="248">
+          <caret line="69" column="176" selection-start-line="69" selection-start-column="176" selection-end-line="69" selection-end-column="176" />
           <folding>
             <element signature="e#277#321#0" expanded="true" />
           </folding>
