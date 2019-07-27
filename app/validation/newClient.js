@@ -52,6 +52,10 @@ module.exports = function validateRegistrationInput(data) {
     else if (!Validator.isMobilePhone(data.ContactNumber, 'any')) {
         errors.ContactNumber = 'Contact number must be a telephone number!';
     }
+    else if (!Validator.isLength(data.ContactNumber, {min: 11, max: 11})) {
+        errors.ContactNumber = 'ContactNumber must be 11 characters';
+    }
+
 
     return {
         errors,

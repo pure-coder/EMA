@@ -21,9 +21,12 @@ module.exports = function validateRegistrationInput(data) {
     }
 
     if (data.ContactNumber !== undefined){
-        // Password must have length with min 8 and max 20
+        // ContactNumber must be number
         if (!Validator.isMobilePhone(data.ContactNumber, 'any' )) {
             errors.ContactNumber = 'Must be a valid Phone Number';
+        }
+        if (!Validator.isLength(data.ContactNumber, {min: 11, max: 11})) {
+            errors.ContactNumber = 'ContactNumber must be 11 characters';
         }
     }
 
