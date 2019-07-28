@@ -6,7 +6,6 @@ import {
     GET_CLIENT_DATA,
     GET_PT_DATA,
     SAVE_CLIENT_ID,
-    LOGGED_OUT,
     PASSWORD_ERROR,
     CLIENT_PROGRESSION,
     CLEAR_PROGRESSION,
@@ -123,9 +122,6 @@ export const logOutUser = () => dispatch => {
     // Set signed in user to an empty object and isAuthenticated to false by passing in {} (empty object)
     dispatch(setSignedInUser({}));
     // Remove data based on user (either pt or client)
-    dispatch({
-        type: LOGGED_OUT
-    })
 };
 
 // Register client

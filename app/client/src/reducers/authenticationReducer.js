@@ -6,13 +6,14 @@ import {
     GET_CLIENT_DATA,
     GET_PT_DATA,
     SAVE_CLIENT_ID,
-    LOGGED_OUT,
     CLIENT_PROGRESSION,
     CLEAR_PROGRESSION,
 } from "../actions/types";
 import isEmpty from '../validation/is_empty';
 
 const initialisedState = {
+    isAuthenticated: false,
+    user: {}
 };
 
 export default function (state = initialisedState, action) {
@@ -29,10 +30,6 @@ export default function (state = initialisedState, action) {
                 // this can be called again for logout but pass in an empty user so the user will not be authenticated,
                 // and it will be an empty object
                 user: action.payload
-            };
-        case LOGGED_OUT:
-            return {
-                isAuthenticated: false
             };
         case PT_CLIENTS:
             // Add pt clients to state
