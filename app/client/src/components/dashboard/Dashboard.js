@@ -14,10 +14,11 @@ class Dashboard extends Component {
     // Life cycle method for react which will run when this component receives new properties
     componentDidMount() {
         if(this.props.authenticatedUser.user.pt){
-            this.props.profile.getPtData();
+            this.props.getPtData(this.props.authenticatedUser.user.id, this.props.history);
+            this.props.getClients(this.props.authenticatedUser.user.id, this.props.history);
         }
         else {
-            this.props.profile.getClientData();
+            this.props.getClientData();
         }
 
 
@@ -36,7 +37,7 @@ class Dashboard extends Component {
 
 
     render() {
-        if (this.profile.loading) {
+        if (this.props.profile.loading) {
             return <Loading myClassName="loading_container"/>
         }
         if(isEmpty(this.props.authenticatedUser.user)){
@@ -46,16 +47,16 @@ class Dashboard extends Component {
             let displayContent;
 
             // If user is a PT then display pt dashboard of clients
-            if (this.props.authenticatedUser.user.pt && this.state.clients !== undefined) {
+            if (this.props.authenticatedUser.user.pt) {
 
-                if (this.state.clients === undefined) {
+                if (this.props.profile.clients === undefined) {
                     return <Loading/>
                 }
                 // Define content to display.. in this case the list of clients
                 displayContent = (
                     // send clients data to client component, and render client component
                     <div className="dashboard-custom">
-                        <ClientList clients={this.state.clients}/>
+                        <ClientList clients={this.props.profile.clients}/>
                     </div>
                 )
             } // If PT
@@ -74,7 +75,7 @@ class Dashboard extends Component {
             return (
                 <div className="dashboard-container">
                     <h1 className=" text-center display-5 mb-3">Dashboard</h1>
-                    <UserInfo userData={this.state.userData}/>
+                    <UserInfo userData={this.props.profile.user_data}/>
                     {displayContent}
                 </div>
             );
@@ -84,8 +85,9 @@ class Dashboard extends Component {
 
 // Documents what props are needed for this component and will log a warning in the console in dev mode if not complied to
 Dashboard.propTypes = {
-    // getPtData: PropTypes.func.isRequired,
-    // getClientData: PropTypes.func.isRequired,
+    getPtData: PropTypes.func.isRequired,
+    getClientData: PropTypes.func.isRequired,
+    getClients: PropTypes.func.isRequired,
     // clearErrors: PropTypes.func.isRequired,
     // clearSuccess: PropTypes.func.isRequired,
     authenticatedUser: PropTypes.object.isRequired,
