@@ -1,8 +1,11 @@
 import {
     GET_PROFILE,
-    GET_CLIENT_DATA,
+    GET_PT_CLIENTS_DATA,
     PROFILE_LOADING,
     CLEAR_CURRENT_PROFILE,
+    //SAVE_CLIENT_ID,
+    CLIENT_PROGRESSION,
+    CLEAR_PROGRESSION,
 } from '../actions/types';
 
 const initialState = {
@@ -24,7 +27,7 @@ export default function(state = initialState, action) {
                 user_data: action.payload,
                 loading: false
             };
-        case GET_CLIENT_DATA:
+        case GET_PT_CLIENTS_DATA:
             return {
                 ...state,
                 clients: action.payload,
@@ -35,7 +38,29 @@ export default function(state = initialState, action) {
                 ...state,
                 profile: null
             };
+        case CLIENT_PROGRESSION:
+            return {
+                ...state,
+                client_Progression: action.payload
+            };
+        case CLEAR_PROGRESSION:
+            return {
+                ...state,
+                client_Progression: null
+            };
         default:
             return state;
     }
 }
+
+// export default function (state = initialisedState, action) {
+//     switch (action.type) {
+//         case SAVE_CLIENT_ID:
+//             return {
+//                 ...state,
+//                 clientId: action.payload
+//             };
+//         default:
+//             return state;
+//     }
+// }

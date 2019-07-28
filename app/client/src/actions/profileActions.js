@@ -1,14 +1,13 @@
 import axios from 'axios';
 import {
     GET_ERRS,
-    PT_CLIENTS,
-    GET_CLIENT_DATA,
-    GET_PT_DATA,
+    GET_PT_CLIENTS_DATA,
     SAVE_CLIENT_ID,
     PASSWORD_ERROR,
     CLIENT_PROGRESSION,
     CLEAR_PROGRESSION,
-    SUCCESS
+    SUCCESS,
+    GET_PROFILE
 } from "./types"; // import custom defined types
 import {logOutUser} from "./authenticationActions";
 
@@ -73,7 +72,7 @@ export const getClients = (ptId, history) => dispatch => {
 export const setPtClients = (data) => {
     // console.log("set pt clients", data)
     return{
-        type: PT_CLIENTS,
+        type: GET_PT_CLIENTS_DATA,
         payload: data
     }
 };
@@ -99,7 +98,7 @@ export const getClientData = (id, history) => dispatch => {
         .get(`/api/client/${id}`)
         .then(result => {
             dispatch({
-                type: GET_CLIENT_DATA,
+                type: GET_PROFILE,
                 payload: result.data
             })
         })
@@ -130,7 +129,7 @@ export const getPtData = (id, history) => dispatch => {
                     history.replace('/error_page');
                 }
                 dispatch({
-                    type: GET_PT_DATA,
+                    type: GET_PROFILE,
                     payload: result.data
                 })
             }
