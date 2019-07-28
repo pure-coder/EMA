@@ -10,74 +10,33 @@ import isEmpty from "../../utilities/is_empty";
 import ErrorComponent from "../error/ErrorComponent";
 import UserInfo from "./UserInfo";
 
-
-//import * as d3 from 'd3';
-
 class Dashboard extends Component {
-    // This allows the component states to be up{dated and re-rendered)
-    constructor(props) {
-        // initiate props this clients
-        super(props);
-        this.state = {
-            id: this.props.authenticatedUser.user.id,
-            clients: props.authenticatedUser.clients,
-            userData: undefined,
-            errors: {},
-            location: this.props.location.pathname,
-            loaded: false
-        };
-
-        if(props.authenticatedUser.user.pt){
-            props.getPtData(props.authenticatedUser.user.id, props.history)
-        }
-        else{
-            props.getClientData(props.authenticatedUser.user.id, props.history)
-        }
-
-    }
-
-    // Set clients in state to those retrieved from database (from props), as on refresh state clients will always be undefined
-    static getDerivedStateFromProps(props, state) {
-        if (props.authenticatedUser.clients !== state.clients) {
-            return {
-                clients: props.authenticatedUser.clients,
-                errors: props.errors,
-                loaded: true
-            }
-        }
-        if(props.authenticatedUser.pt_data){
-            return{
-                userData: props.authenticatedUser.pt_data
-            }
-        }
-        if(props.authenticatedUser.client_data){
-            return{
-                userData: props.authenticatedUser.client_data
-            }
-        }
-        return null
-    }
-
     // Life cycle method for react which will run when this component receives new properties
     componentDidMount() {
+        if(this.props.authenticatedUser.user.pt){
+            this.props.profile.getPtData();
+        }
+        else {
+            this.props.profile.getClientData();
+        }
+
+
         document.body.scrollTo(0,0);
         this.props.clearErrors();
         this.props.clearSuccess();
-        // pt get client data
-        if(this.props.authenticatedUser.user.pt){
-            this.props.getClients(this.state.id, this.props.history);
-        }
-        // else is client so set loaded to true, which calls clientData in render
-        else{
-            this.setState({loaded: true});
-        }
+        // // pt get client data
+        // if(this.props.authenticatedUser.user.pt){
+        //     this.props.getClients(this.state.id, this.props.history);
+        // }
+        // // else is client so set loaded to true, which calls clientData in render
+        // else{
+        //     this.setState({loaded: true});
+        // }
     } // ComponentDidMount
 
-    componentDidUpdate(props, state){
-    }
 
     render() {
-        if (!this.state.loaded) {
+        if (this.profile.loading) {
             return <Loading myClassName="loading_container"/>
         }
         if(isEmpty(this.props.authenticatedUser.user)){
@@ -125,17 +84,19 @@ class Dashboard extends Component {
 
 // Documents what props are needed for this component and will log a warning in the console in dev mode if not complied to
 Dashboard.propTypes = {
-    getPtData: PropTypes.func.isRequired,
-    getClientData: PropTypes.func.isRequired,
-    clearErrors: PropTypes.func.isRequired,
-    clearSuccess: PropTypes.func.isRequired,
+    // getPtData: PropTypes.func.isRequired,
+    // getClientData: PropTypes.func.isRequired,
+    // clearErrors: PropTypes.func.isRequired,
+    // clearSuccess: PropTypes.func.isRequired,
     authenticatedUser: PropTypes.object.isRequired,
+    profile: PropTypes.object.isRequired,
     errors: PropTypes.object.isRequired
 };
 
 // Used to pull auth state and errors into this component.... DEFINED IN reducers/index.js {combineReducers} !!!! USED FOR THE REDUX STORE
 const stateToProps = (state) => ({
     authenticatedUser: state.authenticatedUser, // authenticatedUser is set in index.js file in the reducers folder
+    profile: state.profile,
     errors: state.errors, // errors is set in index.js file in the reducers folder
     location: state.location
 });

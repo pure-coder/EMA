@@ -7,7 +7,7 @@ import {
     CLIENT_PROGRESSION,
     CLEAR_PROGRESSION,
     SUCCESS,
-    GET_PROFILE
+    GET_PROFILE, PROFILE_LOADING
 } from "./types"; // import custom defined types
 import {logOutUser} from "./authenticationActions";
 
@@ -94,6 +94,7 @@ export const deleteClient = (id, ptId, history) => dispatch => {
 };
 
 export const getClientData = (id, history) => dispatch => {
+    dispatch(setProfileLoading());
     axios
         .get(`/api/client/${id}`)
         .then(result => {
@@ -121,6 +122,7 @@ export const editClientData = (cid, data, history) => dispatch => {
 };
 
 export const getPtData = (id, history) => dispatch => {
+    dispatch(setProfileLoading());
     axios
         .get(`/api/personal_trainer/${id}`)
         .then(result => {
@@ -151,6 +153,12 @@ export const editPtData = (id, Data, history) => dispatch => {
         .catch(err => {
             manageErrors(err, dispatch, history);
         })
+};
+
+export const setProfileLoading = () => {
+    return {
+        type: PROFILE_LOADING
+    }
 };
 
 export const saveClientId = (id) => dispatch => {

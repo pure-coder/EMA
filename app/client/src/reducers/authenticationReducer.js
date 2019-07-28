@@ -1,7 +1,7 @@
 // THIS MUST BE IMPORTED INTO INDEX.JS IN REDUCERS FOLDER
 
 import {
-    SET_SIGNED_IN_USER,
+    SET_SIGNED_IN_USER
 } from "../actions/types";
 import isEmpty from '../validation/is_empty';
 
@@ -13,8 +13,6 @@ const initialisedState = {
 export default function (state = initialisedState, action) {
     switch (action.type) {
         case SET_SIGNED_IN_USER:
-            // return the current state and authenticated
-            // console.log("Signing in")
             return {
                 ...state, // Using the spread operator allows the state to stay immutable, with only the following
                 // code being changed in the state.
@@ -25,4 +23,6 @@ export default function (state = initialisedState, action) {
                 // and it will be an empty object
                 user: action.payload
             };
+        default:
+            return state;
 }};
