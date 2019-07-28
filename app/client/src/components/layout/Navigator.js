@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { logOutUser } from "../../actions/authenticationActions";
 import { withRouter } from 'react-router-dom';
-import {getPtData, getClientData} from "../../actions/authenticationActions";
+import {getPtData, getClientData} from "../../actions/profileActions";
 
 import defaultUserImage from '../../img/user-regular.svg';
 import isEmpty from "../../validation/is_empty";

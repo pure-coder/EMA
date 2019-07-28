@@ -2,7 +2,7 @@ import React, {Component} from 'react' // React is need for rendering JSX HTML e
 import {withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
-import {deleteClient} from "../../../actions/authenticationActions";
+import {deleteClient} from "../../../actions/profileActions";
 
 
 class DeleteConfirm extends Component {
@@ -25,7 +25,7 @@ class DeleteConfirm extends Component {
     }
 
     // Get height of Modal
-    getModalHeight(){
+    static getModalHeight(){
         let formHeight;
         let el = document.querySelector(".delete-confirm");
         formHeight = el.offsetHeight;
@@ -37,7 +37,7 @@ class DeleteConfirm extends Component {
     componentDidUpdate(prevProps){
         // Get's height of Modal after the page has updated (changed) and compares it to previous state, if state
         // is not equal then update size of Modal
-        let formHeight = this.getModalHeight();
+        let formHeight = DeleteConfirm.getModalHeight();
         if(formHeight !== prevProps.progressFormHeight ){
             this.props.modalSize(formHeight.toString())
         }

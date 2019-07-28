@@ -1,7 +1,7 @@
 import {connect} from 'react-redux';
 import React, {Component} from 'react';
 import {withRouter} from 'react-router-dom';
-import {saveClientId} from "../../../actions/authenticationActions";
+import {saveClientId} from "../../../actions/profileActions";
 import isEmpty from "../../../utilities/is_empty";
 import ErrorComponent from "../../error/ErrorComponent";
 import Loading from "../../../elements/Loading";
@@ -49,7 +49,7 @@ class ClientData extends Component {
         this.props.history.push({pathname: `/users/${id}/client_profile/${id}`, state :  {clientData: this.props.authenticatedUser.client_data} });
     }
 
-    onScheduleClick(id) {
+    static onScheduleClick(id) {
         window.location.href = `/users/${id}/scheduler/${id}`;
     };
 
@@ -82,7 +82,7 @@ class ClientData extends Component {
                                     <i className="fas fa-columns fa-2x"></i></a>
                                 </td>
                                 <td align="center"><a
-                                    onClick={this.onScheduleClick.bind(this, this.state.id)}><i
+                                    onClick={ClientData.onScheduleClick.bind(this, this.state.id)}><i
                                     className="far fa-calendar-alt fa-2x"></i></a>
                                 </td>
                                 <td align="center"><a onClick={this.onEditProfile.bind(this, this.state.id)}><i

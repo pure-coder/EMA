@@ -2,7 +2,7 @@ import React, {Component} from 'react' // React is need for rendering JSX HTML e
 import {withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
-import {setErrors, clearErrors, clearSuccess, deleteExercise, editClientExercise} from "../../../actions/authenticationActions";
+import {setErrors, clearErrors, clearSuccess, deleteExercise, editClientExercise} from "../../../actions/profileActions";
 import FormInputGroup from "../../common/FormInputGroup";
 import DisplayMessage from "../../common/DisplayMessage";
 import isEmpty from "../../../validation/is_empty";

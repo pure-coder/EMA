@@ -1,7 +1,7 @@
 import {connect} from 'react-redux';
 import React, {Component} from 'react';
 import {Link, withRouter} from 'react-router-dom';
-import {deleteClient, saveClientId, getClientData, getClientProgression} from "../../../actions/authenticationActions";
+import {deleteClient, saveClientId, getClientData, getClientProgression} from "../../../actions/profileActions";
 import PropTypes from "prop-types";
 import Modal from "react-awesome-modal";
 import DeleteConfirm from './DeleteConfirm'
@@ -70,7 +70,7 @@ class ClientList extends Component {
 
     // Tried to use Link component but it didn't call the url directly like window.location.href so the scheduler data
     // for clients was not loaded or saved correctly
-    onScheduleClick(ptId, id) {
+    static onScheduleClick(ptId, id) {
         window.location.href = `/users/${ptId}/scheduler/${id}`;
     };
 
@@ -116,7 +116,7 @@ class ClientList extends Component {
                         <i className="fas fa-columns fa-2x"></i></a>
                     </td>
                     <td align="center">
-                        <a onClick={this.onScheduleClick.bind(this, client.ptId, client._id)}><i
+                        <a onClick={ClientList.onScheduleClick.bind(this, client.ptId, client._id)}><i
                             className="far fa-calendar-alt fa-2x"></i></a>
                     </td>
                     <td align="center">

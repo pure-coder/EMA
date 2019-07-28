@@ -2,7 +2,7 @@ import React, {Component} from 'react' // React is need for rendering JSX HTML e
 import {withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
-import {newClientProgress, setErrors, clearErrors, clearSuccess, getClientProgression} from "../../../actions/authenticationActions";
+import {newClientProgress, setErrors, clearErrors, clearSuccess, getClientProgression} from "../../../actions/profileActions";
 import FormInputGroup from "../../common/FormInputGroup";
 import DisplayMessage from "../../common/DisplayMessage";
 import isEmpty from "../../../validation/is_empty";
@@ -87,7 +87,7 @@ class AddDataProgressForm extends Component {
         }
     }
 
-    onFocus(){
+    static onFocus(){
         document.getElementsByName('maxWeight')[0].focus();
     }
 
@@ -160,7 +160,7 @@ class AddDataProgressForm extends Component {
             // Show data added to database and updated on page in real time
             this.getClientProgression();
             // Once data is submitted focus on adding new data (via focusing on 1st input element, in this case max weight!)
-            this.onFocus();
+            AddDataProgressForm.onFocus();
         }
     } // onSubmit
 

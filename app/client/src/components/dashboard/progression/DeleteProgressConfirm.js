@@ -2,7 +2,7 @@ import React, {Component} from 'react' // React is need for rendering JSX HTML e
 import {withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
-import {deleteExercise} from "../../../actions/authenticationActions";
+import {deleteExercise} from "../../../actions/profileActions";
 
 
 class DeleteProgressConfirm extends Component {
@@ -28,7 +28,7 @@ class DeleteProgressConfirm extends Component {
 
     componentDidMount(){
         let formHeight;
-        let el = document.querySelector(".delete-progress")
+        let el = document.querySelector(".delete-progress");
         formHeight = el.offsetHeight;
         formHeight += parseInt(window.getComputedStyle(el).getPropertyValue('margin-top'), 10);
         formHeight += parseInt(window.getComputedStyle(el).getPropertyValue('margin-bottom'), 10);

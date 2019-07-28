@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import connect from "react-redux/es/connect/connect";
 import {withRouter} from "react-router-dom";
 import axios from 'axios';
-import {getClientData} from "../../actions/authenticationActions";
+import {getClientData} from "../../actions/profileActions";
 import 'dhtmlx-scheduler';
 import Loading from "../../elements/Loading";
 import isEmpty from "../../utilities/is_empty";

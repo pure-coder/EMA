@@ -1,7 +1,8 @@
 import React, { Component } from 'react';  // Used to create this component
 import PropTypes from 'prop-types'; // Used to document prop types sent to components
 import { connect } from 'react-redux' // Needed when using redux inside a component (connects redux to this component)
-import {clearErrors, clearSuccess, registerUser} from "../../actions/authenticationActions"; // Used to import create action for registering user
+import {registerUser} from "../../actions/authenticationActions"; // Used to import create action for registering user
+import {clearErrors, clearSuccess} from "../../actions/profileActions";
 import {withRouter} from 'react-router-dom';
 import FormInputGroup from "../common/FormInputGroup";
 import FormSelectComp from "../common/FormSelectComp"; // Allows proper routing and linking using browsers match, location, and history properties

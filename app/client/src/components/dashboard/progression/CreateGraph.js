@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {addGraph} from "../../../utilities/drawProgressGraph";
-import {deleteExercise, getClientProgression} from "../../../actions/authenticationActions";
+import {deleteExercise, getClientProgression} from "../../../actions/profileActions";
 import PropTypes from "prop-types";
 import connect from "react-redux/es/connect/connect";
 import {withRouter} from "react-router-dom";
