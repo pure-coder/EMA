@@ -17,7 +17,7 @@ class EditPersonalTrainer extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            pt_data: props.profile.user_data,
+            pt_data: undefined,
             FullName: '',
             Email: '',
             DateOfBirth: '',
@@ -56,7 +56,6 @@ class EditPersonalTrainer extends Component {
     componentDidUpdate(){
         if(this.props.profile.user_data !== null && !this.state.updated){
             this.setState({
-                pt_data: this.props.profile.user_data,
                 FullName : this.props.profile.user_data.FullName,
                 Email : this.props.profile.user_data.Email,
                 Sex : this.props.profile.user_data.Sex,
@@ -64,17 +63,29 @@ class EditPersonalTrainer extends Component {
                 updated : true
             })
         }
-        // if(this.props.errors !== this.state.errors || this.props.success !== this.state.success){
-        //     this.setState({
-        //             errors: this.props.errors,
-        //             success: this.props.success,
-        //         })
-        // }
-        if(this.props.success !== this.state.success){
-            this.setState({
-                success: this.props.success,
-            })
+    }
+
+    // Replacement for componentWillReceiveProps (as was depreciated)
+    static getDerivedStateFromProps(props, state) {
+        if (props.profile.user_data !== state.pt_data) {
+            return {
+                pt_data: props.profile.user_data,
+                errors: props.errors,
+                loaded: true
+            }
         }
+        if(isEmpty(props.success) !== isEmpty(state.success)){
+            return {
+                message: props.success
+            }
+        }
+        if(isEmpty(props.errors) !== isEmpty(state.errors)){
+            return {
+                errors: props.errors
+            }
+        }
+
+        return null
     }
 
     componentWillUnmount(){
@@ -116,8 +127,11 @@ class EditPersonalTrainer extends Component {
 
         // Check if any of the fields have been modified, break asap if one has, no need to continue loop.
         for(let element in editData) {
+            // format DateOfBirth in pt_data for check
+            if(element === "DateOfBirth"){
+                pt_data[element] = pt_data[element].substring(0,10);
+            }
             if(!isEmpty(editData[element]) && pt_data[element] !== editData[element]){
-
                 dataChanged = true;
             }
             if (pt_data.hasOwnProperty(element)){
