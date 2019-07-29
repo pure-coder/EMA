@@ -8,29 +8,6 @@ import ErrorComponent from "../error/ErrorComponent";
 import defaultUserImage from '../../img/user-regular.svg';
 
 class UserInfo extends Component {
-    // This allows the component states to be up{dated and re-rendered)
-    // constructor(props) {
-    //     // initiate props this clients
-    //     super(props);
-    //     this.state = {
-    //         userData : props.userData,
-    //         errors: {},
-    //         location: this.props.location.pathname,
-    //         loaded: false
-    //     }
-    // }
-    //
-    // // Set clients in state to those retrieved from database (from props), as on refresh state clients will always be undefined
-    // static getDerivedStateFromProps(props, state) {
-    //     if (props.userData !== state.userData || state.userData !== undefined) {
-    //         return {
-    //             userData: props.userData,
-    //             errors: props.errors,
-    //             loaded: true
-    //         }
-    //     }
-    //     return null
-    // }
 
     static getAge(dateOfBirth){
         let DOB = new Date(dateOfBirth).getTime();
@@ -40,7 +17,7 @@ class UserInfo extends Component {
     }
 
     render() {
-        if (this.props.profile.loading) {
+        if (this.props.userData === null) {
             return <Loading myClassName="loading_container"/>
         }
         if (isEmpty(this.props.authenticatedUser.user)) {

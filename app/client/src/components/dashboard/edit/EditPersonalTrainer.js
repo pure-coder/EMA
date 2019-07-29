@@ -17,7 +17,7 @@ class EditPersonalTrainer extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            pt_data: undefined,
+            pt_data: props.profile.user_data,
             FullName: '',
             Email: '',
             DateOfBirth: '',
@@ -32,14 +32,12 @@ class EditPersonalTrainer extends Component {
             errors: {},
             success: {},
             location: this.props.location,
-            loaded: false,
+            loaded: true,
             updated: false,
             message: {
                 type: null
             } // Set to null so null is returned from DisplayMessage by default
         };
-
-        this.props.getPtData(this.state.ptId, this.props.history);
 
         // This sets the state value to it's respective state (via binding)
         this.onChange = this.onChange.bind(this);
@@ -48,43 +46,33 @@ class EditPersonalTrainer extends Component {
         this.onSubmit = this.onSubmit.bind(this);
     }
 
-    // Populate state data with data from the database for the pt
-    static getDerivedStateFromProps(props, state) {
-        if (props.authenticatedUser.pt_data !== state.pt_data) {
-            return {
-                pt_data: props.authenticatedUser.pt_data,
-                errors: props.errors,
-                loaded: true
-            }
-        }
-        if(isEmpty(props.success) !== isEmpty(state.success)){
-            return {
-                message: props.success
-            }
-        }
-        if(isEmpty(props.errors) !== isEmpty(state.errors)){
-            return {
-                errors: props.errors
-            }
-        }
-
-        return null
-    }
-
     componentDidMount() {
+        this.props.getPtData(this.props.authenticatedUser.user.id);
         this.props.clearErrors();
         this.props.clearSuccess();
         document.body.scrollTo(0,0);
     }
 
     componentDidUpdate(){
-        if(this.props.authenticatedUser.pt_data !== undefined && !this.state.updated){
+        if(this.props.profile.user_data !== null && !this.state.updated){
             this.setState({
-                FullName : this.props.authenticatedUser.pt_data.FullName,
-                Email : this.props.authenticatedUser.pt_data.Email,
-                Sex : this.props.authenticatedUser.pt_data.Sex,
-                DateOfBirth: this.props.authenticatedUser.pt_data.DateOfBirth.substring(0, 10),
+                pt_data: this.props.profile.user_data,
+                FullName : this.props.profile.user_data.FullName,
+                Email : this.props.profile.user_data.Email,
+                Sex : this.props.profile.user_data.Sex,
+                DateOfBirth: this.props.profile.user_data.DateOfBirth.substring(0, 10),
                 updated : true
+            })
+        }
+        // if(this.props.errors !== this.state.errors || this.props.success !== this.state.success){
+        //     this.setState({
+        //             errors: this.props.errors,
+        //             success: this.props.success,
+        //         })
+        // }
+        if(this.props.success !== this.state.success){
+            this.setState({
+                success: this.props.success,
             })
         }
     }
@@ -174,7 +162,7 @@ class EditPersonalTrainer extends Component {
 
     render() {
         // if loaded is false then return loading screen
-        if (!this.state.loaded) {
+        if (this.props.profile.user_data === null) {
             return <Loading myClassName="loading_container"/>
         }
         if(isEmpty(this.props.authenticatedUser.user)){
@@ -192,8 +180,8 @@ class EditPersonalTrainer extends Component {
                                 <div className="edit_image">
                                     {(<img
                                         className = "rounded-circle"
-                                        alt={this.state.pt_data.ProfilePicUrl === "NA" ? "Default user image." : "User profile picture."}
-                                        src = {this.state.pt_data.ProfilePicUrl === "NA" ? defaultUserImage : defaultUserImage}
+                                        alt={this.props.profile.user_data.ProfilePicUrl === "NA" ? "Default user image." : "User profile picture."}
+                                        src = {this.props.profile.user_data.ProfilePicUrl === "NA" ? defaultUserImage : defaultUserImage}
                                     />)}
                                 </div>
                                 <form autoComplete="off" onSubmit={this.onSubmit}>
@@ -202,7 +190,7 @@ class EditPersonalTrainer extends Component {
                                     <FormInputGroup
                                         myClassName="edit-pt"
                                         name="FullName"
-                                        placeholder={this.state.pt_data.FullName}
+                                        placeholder={this.props.profile.user_data.FullName}
                                         value={this.state.FullName}
                                         type="text"
                                         onChange={this.onChange}
@@ -211,7 +199,7 @@ class EditPersonalTrainer extends Component {
                                     <FormInputGroup
                                         myClassName="edit-pt"
                                         name="Email"
-                                        placeholder={this.state.pt_data.Email}
+                                        placeholder={this.props.profile.user_data.Email}
                                         value={this.state.Email}
                                         type="Email"
                                         onChange={this.onChange}
@@ -284,12 +272,15 @@ EditPersonalTrainer.propTypes = {
     clearSuccess: PropTypes.func.isRequired,
     passwordsMatchError: PropTypes.func.isRequired,
     authenticatedUser: PropTypes.object.isRequired,
-    errors: PropTypes.object.isRequired
+    profile: PropTypes.object.isRequired,
+    errors: PropTypes.object.isRequired,
+    success: PropTypes.object.isRequired,
 };
 
 // Used to pull auth state and errors into this component.... DEFINED IN reducers/index.js {combineReducers}
 const stateToProps = (state) => ({
     authenticatedUser: state.authenticatedUser,
+    profile: state.profile,
     errors: state.errors,
     success: state.success
 });

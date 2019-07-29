@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { logOutUser } from "../../actions/authenticationActions";
 import { withRouter } from 'react-router-dom';
-import {getPtData, getClientData} from "../../actions/profileActions";
+import {getPtData, getClientData, getClients} from "../../actions/profileActions";
 
 import defaultUserImage from '../../img/user-regular.svg';
 
@@ -13,6 +13,7 @@ class Navigation extends Component {
     componentDidMount() {
         if(this.props.authenticatedUser.user.pt){
             this.props.getPtData(this.props.authenticatedUser.user.id, this.props.history);
+            this.props.getClients(this.props.authenticatedUser.user.id, this.props.history);
         }
         else {
             this.props.getClientData(this.props.authenticatedUser.user.id, this.props.history);
@@ -29,6 +30,7 @@ class Navigation extends Component {
     render() {
 
         const {isAuthenticated} = this.props.authenticatedUser;
+        const {user_data} = this.props.profile;
 
         // Define navbar for dynamic navbar
         const authorisedLinks = (
@@ -38,15 +40,15 @@ class Navigation extends Component {
                         <img
                             className="rounded-circle"
                             // If user has profile pic display it otherwise display default user image
-                            src={this.props.profile.user_data !== null && this.props.profile.user_data.ProfilePicUrl !== "NA" ?
-                             this.props.profile.user_data.ProfilePicUrl : defaultUserImage}
+                            src={user_data !== null && user_data.ProfilePicUrl !== "NA" ?
+                             user_data.ProfilePicUrl : defaultUserImage}
                             // src={isAuthenticated ? defaultUserImage : defaultUserImage}
-                            alt={this.props.profile.user_data !== null && this.props.profile.user_data.ProfilePicUrl !== "NA" ? "User profile picture." : "Default user image."}
+                            alt={user_data !== null && user_data.ProfilePicUrl !== "NA" ? "User profile picture." : "Default user image."}
                             style={{backgroundColor: 'white', width: 30, height: 27, paddingRight: 0}}
                         />
                         {/*{' '} is used to provide space */}
                         {' '}
-                        {this.props.profile.user_data !== null ? this.props.profile.user_data.FullName : null}
+                        {user_data !== null ? user_data.FullName : null}
                         {' '}
                         - Log Out</a>
                 </ul>
@@ -74,7 +76,7 @@ class Navigation extends Component {
         return (
             <nav className="navbar navbar-expand-sm navbar-dark navbar-custom mb-5">
                 <div className="navbar-container">
-                    <Link className="navbar-brand" to={this.props.authenticatedUser.isAuthenticated ? '/users/' +
+                    <Link className="navbar-brand" to={isAuthenticated ? '/users/' +
                         this.props.authenticatedUser.user.id + '/dashboard' : "/"}>
                         <img src={require('../../img/logo.jpg')} alt={"Fitness app logo"}></img>
                         Fitness App
@@ -93,9 +95,12 @@ class Navigation extends Component {
 
 // Documents what props are needed for this component and will log a warning in the console in dev mode if not complied to
 Navigation.propTypes = {
-    logOutUser: PropTypes.func.isRequired,
     authenticatedUser: PropTypes.object.isRequired,
-    profile: PropTypes.object.isRequired
+    profile: PropTypes.object.isRequired,
+    logOutUser: PropTypes.func.isRequired,
+    getPtData: PropTypes.func.isRequired,
+    getClients: PropTypes.func.isRequired,
+    getClientData: PropTypes.func.isRequired,
 };
 
 // Used to pull auth state into this component
@@ -108,4 +113,4 @@ const stateToProps = (state) => ({
 // connect must be exported with a passed parameter (not direct parameter) of Register this is wrapped with withRouter
 // allowing the functions of the package to be used with the component eg, proper routing, and direct parameters of
 // stateToProps for the 1st parameter and the action which is registerUser as the 2nd parameter
-export default connect(stateToProps, { logOutUser, getClientData, getPtData })(withRouter(Navigation));
+export default connect(stateToProps, { logOutUser, getClientData, getPtData, getClients })(withRouter(Navigation));

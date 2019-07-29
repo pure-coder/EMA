@@ -98,15 +98,14 @@ class ClientList extends Component {
 
 
     render() {
-        if(!this.state.loaded){
-            return <Loading/>;
+        if (this.props.profile.user_data === null) {
+            return <Loading myClassName="loading_container"/>
         }
         if(isEmpty(this.props.authenticatedUser.user)){
             return <ErrorComponent/>
         }
         else{
             // check clients are set properly
-            // console.log(this.props.clients)
 
             // Use sortedMap function to sort the client names and then send to view
             const clients = this.sortedMap(this.props.clients).map((client, index) => (
@@ -193,10 +192,12 @@ ClientList.propTypes = {
     deleteClient: PropTypes.func.isRequired,
     getClientData: PropTypes.func.isRequired,
     getClientProgression: PropTypes.func.isRequired,
+    profile: PropTypes.object.isRequired
 };
 
 const stateToProps = (state) => ({
     authenticatedUser: state.authenticatedUser,
+    profile: state.profile,
     errors: state.errors
 });
 
