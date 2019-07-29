@@ -10,6 +10,26 @@ import {getPtData, getClientData, getClients, clearCurrentProfile} from "../../a
 import defaultUserImage from '../../img/user-regular.svg';
 
 class Navigation extends Component {
+    constructor(props){
+        super(props);
+        this.state = {
+            userData: props.profile.user_data
+        };
+    }
+
+    onClick(){
+        this.forceUpdate();
+    }
+
+    static getDerivedStateFromProps(props, state){
+        if(props.profile.user_data !== state.userData){
+            return {
+                userData: props.profile.user_data
+            }
+        }
+        return null;
+    }
+
     componentDidMount() {
         if(this.props.authenticatedUser.user.pt){
             this.props.getPtData(this.props.authenticatedUser.user.id, this.props.history);
@@ -31,7 +51,7 @@ class Navigation extends Component {
     render() {
 
         const {isAuthenticated} = this.props.authenticatedUser;
-        const {user_data} = this.props.profile;
+        const {userData} = this.state;
 
         // Define navbar for dynamic navbar
         const authorisedLinks = (
@@ -41,15 +61,15 @@ class Navigation extends Component {
                         <img
                             className="rounded-circle"
                             // If user has profile pic display it otherwise display default user image
-                            src={user_data !== null && user_data.ProfilePicUrl !== "NA" ?
-                             user_data.ProfilePicUrl : defaultUserImage}
+                            src={userData !== null && userData.ProfilePicUrl !== "NA" ?
+                             userData.ProfilePicUrl : defaultUserImage}
                             // src={isAuthenticated ? defaultUserImage : defaultUserImage}
-                            alt={user_data !== null && user_data.ProfilePicUrl !== "NA" ? "User profile picture." : "Default user image."}
+                            alt={userData !== null && userData.ProfilePicUrl !== "NA" ? "User profile picture." : "Default user image."}
                             style={{backgroundColor: 'white', width: 30, height: 27, paddingRight: 0}}
                         />
                         {/*{' '} is used to provide space */}
                         {' '}
-                        {user_data !== null ? user_data.FullName : null}
+                        {userData !== null ? userData.FullName : null}
                         {' '}
                         - Log Out</a>
                 </ul>
@@ -78,7 +98,7 @@ class Navigation extends Component {
             <nav className="navbar navbar-expand-sm navbar-dark navbar-custom mb-5">
                 <div className="navbar-container">
                     <Link className="navbar-brand" to={isAuthenticated ? '/users/' +
-                        this.props.authenticatedUser.user.id + '/dashboard' : "/"}>
+                        this.props.authenticatedUser.user.id + '/dashboard' : "/"} onClick={this.onClick.bind(this)}>
                         <img src={require('../../img/logo.jpg')} alt={"Fitness app logo"}></img>
                         Fitness App
                     </Link> {/*Using Link instead of anchor tag*/}
