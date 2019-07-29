@@ -14,11 +14,7 @@ class Dashboard extends Component {
     // Life cycle method for react which will run when this component receives new properties
     componentDidMount() {
         if(this.props.authenticatedUser.user.pt){
-            this.props.getPtData(this.props.authenticatedUser.user.id, this.props.history);
             this.props.getClients(this.props.authenticatedUser.user.id, this.props.history);
-        }
-        else {
-            this.props.getClientData();
         }
 
         document.body.scrollTo(0,0);
@@ -46,6 +42,7 @@ class Dashboard extends Component {
                 displayContent = (
                     // send clients data to client component, and render client component
                     <div className="dashboard-custom">
+                        <UserInfo userData={this.props.profile.user_data}/>
                         <ClientList clients={this.props.profile.clients}/>
                     </div>
                 )
@@ -57,6 +54,7 @@ class Dashboard extends Component {
                 displayContent = (
                     // send clients data to client component, and render client component
                     <div className="dashboard-custom client">
+                        <UserInfo userData={this.props.profile.user_data}/>
                         <ClientData/>
                     </div>
                 )
@@ -65,7 +63,6 @@ class Dashboard extends Component {
             return (
                 <div className="dashboard-container">
                     <h1 className=" text-center display-5 mb-3">Dashboard</h1>
-                    <UserInfo userData={this.props.profile.user_data}/>
                     {displayContent}
                 </div>
             );

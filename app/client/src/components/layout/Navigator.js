@@ -15,7 +15,7 @@ class Navigation extends Component {
             this.props.getPtData(this.props.authenticatedUser.user.id, this.props.history);
         }
         else {
-            this.props.getClientData();
+            this.props.getClientData(this.props.authenticatedUser.user.id, this.props.history);
         }
     } // ComponentDidMount
 
@@ -41,7 +41,7 @@ class Navigation extends Component {
                             src={this.props.profile.user_data !== null && this.props.profile.user_data.ProfilePicUrl !== "NA" ?
                              this.props.profile.user_data.ProfilePicUrl : defaultUserImage}
                             // src={isAuthenticated ? defaultUserImage : defaultUserImage}
-                            alt={isAuthenticated ? "User profile picture." : "Default user image."}
+                            alt={this.props.profile.user_data !== null && this.props.profile.user_data.ProfilePicUrl !== "NA" ? "User profile picture." : "Default user image."}
                             style={{backgroundColor: 'white', width: 30, height: 27, paddingRight: 0}}
                         />
                         {/*{' '} is used to provide space */}
