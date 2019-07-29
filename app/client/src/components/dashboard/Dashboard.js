@@ -2,7 +2,7 @@ import React, {Component} from 'react';  // Used to create this component
 import PropTypes from 'prop-types'; // Used to document prop types sent to components
 import {connect} from 'react-redux' // Needed when using redux inside a component (connects redux to this component)
 import {withRouter} from 'react-router-dom';
-import {getClients, getPtData, getClientData, clearErrors, clearSuccess} from "../../actions/profileActions";
+import {getClients, clearErrors, clearSuccess} from "../../actions/profileActions";
 import ClientList from './clients/ClientList'
 import Loading from "../../elements/Loading";
 import ClientData from "./clients/ClientData";
@@ -50,6 +50,9 @@ class Dashboard extends Component {
 
             // If user is not a PT then display dashboard of client data
             else {
+                if (this.props.profile.user_data === null) {
+                    return <Loading myClassName="loading_container"/>
+                }
                 // Define content to display..
                 displayContent = (
                     // send clients data to client component, and render client component
@@ -72,11 +75,9 @@ class Dashboard extends Component {
 
 // Documents what props are needed for this component and will log a warning in the console in dev mode if not complied to
 Dashboard.propTypes = {
-    getPtData: PropTypes.func.isRequired,
-    getClientData: PropTypes.func.isRequired,
     getClients: PropTypes.func.isRequired,
-    // clearErrors: PropTypes.func.isRequired,
-    // clearSuccess: PropTypes.func.isRequired,
+    clearErrors: PropTypes.func.isRequired,
+    clearSuccess: PropTypes.func.isRequired,
     authenticatedUser: PropTypes.object.isRequired,
     profile: PropTypes.object.isRequired,
     errors: PropTypes.object.isRequired
@@ -90,4 +91,4 @@ const stateToProps = (state) => ({
     location: state.location
 });
 
-export default connect(stateToProps, {getClients,  getPtData, getClientData, clearSuccess, clearErrors})(withRouter(Dashboard));
+export default connect(stateToProps, {getClients, clearSuccess, clearErrors})(withRouter(Dashboard));
