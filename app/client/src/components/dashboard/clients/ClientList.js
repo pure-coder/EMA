@@ -98,20 +98,23 @@ class ClientList extends Component {
 
 
     render() {
-        if (this.props.profile.user_data === null) {
+        const {user} = this.props.authenticatedUser;
+        const {user_data, clients} = this.props.profile;
+
+        if (user_data === null) {
             return <Loading myClassName="loading_container"/>
         }
-        if(isEmpty(this.props.authenticatedUser.user)){
+        if(isEmpty(user)){
             return <ErrorComponent/>
         }
         else{
             // check clients are set properly
 
             // Use sortedMap function to sort the client names and then send to view
-            const clients = this.sortedMap(this.props.clients).map((client, index) => (
+            const ptClients = this.sortedMap(clients).map((client, index) => (
                 <tr key={client._id}>
                     <td><b>{client.FullName}</b></td>
-                    <td align="center"><a onClick={this.onProfileClick.bind(this, client.ptId, client._id, this.props.clients[index])}>
+                    <td align="center"><a onClick={this.onProfileClick.bind(this, client.ptId, client._id, clients[index])}>
                         <i className="fas fa-columns fa-2x"></i></a>
                     </td>
                     <td align="center">
@@ -160,7 +163,7 @@ class ClientList extends Component {
                                         <th align="center">Edit Details</th>
                                         <th align="center">Delete User</th>
                                     </tr>
-                                    {clients}
+                                    {ptClients}
                                     </thead>
                                 </table>
                             </div>

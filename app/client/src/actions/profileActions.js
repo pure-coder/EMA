@@ -7,7 +7,8 @@ import {
     CLIENT_PROGRESSION,
     CLEAR_PROGRESSION,
     SUCCESS,
-    GET_PROFILE, PROFILE_LOADING
+    GET_PROFILE, PROFILE_LOADING,
+    CLEAR_CURRENT_PROFILE
 } from "./types"; // import custom defined types
 import {logOutUser} from "./authenticationActions";
 
@@ -158,6 +159,12 @@ export const editPtData = (id, Data, history) => dispatch => {
 export const setProfileLoading = () => {
     return {
         type: PROFILE_LOADING
+    }
+};
+
+export const clearCurrentProfile = () => {
+    return {
+        type: CLEAR_CURRENT_PROFILE
     }
 };
 

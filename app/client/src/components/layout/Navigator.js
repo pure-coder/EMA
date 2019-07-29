@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { logOutUser } from "../../actions/authenticationActions";
 import { withRouter } from 'react-router-dom';
-import {getPtData, getClientData, getClients} from "../../actions/profileActions";
+import {getPtData, getClientData, getClients, clearCurrentProfile} from "../../actions/profileActions";
 
 import defaultUserImage from '../../img/user-regular.svg';
 
@@ -23,6 +23,7 @@ class Navigation extends Component {
     // Create log out link functionality
     onLogOutClick(event) {
         event.preventDefault();
+        this.props.clearCurrentProfile();
         this.props.logOutUser();
         this.props.history.push('/');
     }
@@ -97,6 +98,7 @@ class Navigation extends Component {
 Navigation.propTypes = {
     authenticatedUser: PropTypes.object.isRequired,
     profile: PropTypes.object.isRequired,
+    clearCurrentProfile: PropTypes.func.isRequired,
     logOutUser: PropTypes.func.isRequired,
     getPtData: PropTypes.func.isRequired,
     getClients: PropTypes.func.isRequired,
@@ -113,4 +115,4 @@ const stateToProps = (state) => ({
 // connect must be exported with a passed parameter (not direct parameter) of Register this is wrapped with withRouter
 // allowing the functions of the package to be used with the component eg, proper routing, and direct parameters of
 // stateToProps for the 1st parameter and the action which is registerUser as the 2nd parameter
-export default connect(stateToProps, { logOutUser, getClientData, getPtData, getClients })(withRouter(Navigation));
+export default connect(stateToProps, { logOutUser, getClientData, getPtData, getClients, clearCurrentProfile })(withRouter(Navigation));

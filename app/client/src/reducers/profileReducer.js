@@ -36,7 +36,9 @@ export default function(state = initialState, action) {
         case CLEAR_CURRENT_PROFILE:
             return {
                 ...state,
-                profile: null
+                user_data: null,
+                clients: null,
+                client_progression: null,
             };
         case CLIENT_PROGRESSION:
             return {

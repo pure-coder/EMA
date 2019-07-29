@@ -13,6 +13,15 @@ import UserInfo from "./UserInfo";
 class Dashboard extends Component {
     // Life cycle method for react which will run when this component receives new properties
     componentDidMount() {
+        if(this.props.profile.user_data === null){
+            if(this.props.authenticatedUser.user.pt){
+                this.props.getPtData(this.props.authenticatedUser.user.id, this.props.history);
+                this.props.getClients(this.props.authenticatedUser.user.id, this.props.history);
+            }
+            else {
+                this.props.getClientData(this.props.authenticatedUser.user.id, this.props.history);
+            }
+        }
         document.body.scrollTo(0,0);
         this.props.clearErrors();
         this.props.clearSuccess();
@@ -21,7 +30,7 @@ class Dashboard extends Component {
 
     render() {
 
-        const {isAuthenticated, user} = this.props.authenticatedUser;
+        const {user} = this.props.authenticatedUser;
         const {user_data, loading, clients} = this.props.profile;
 
         if (user_data === null || loading) {
@@ -34,7 +43,7 @@ class Dashboard extends Component {
             let displayContent;
 
             // If user is a PT then display pt dashboard of clients
-            if (isAuthenticated) {
+            if (user.pt) {
                 if (user_data === null || clients === undefined) {
                     return <Loading myClassName="loading_container"/>
                 }
