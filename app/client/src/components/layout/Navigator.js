@@ -13,12 +13,8 @@ class Navigation extends Component {
     constructor(props){
         super(props);
         this.state = {
-            userData: props.profile.user_data
+            userData: props.profile.user_data,
         };
-    }
-
-    onClick(){
-        this.forceUpdate();
     }
 
     static getDerivedStateFromProps(props, state){
@@ -98,7 +94,7 @@ class Navigation extends Component {
             <nav className="navbar navbar-expand-sm navbar-dark navbar-custom mb-5">
                 <div className="navbar-container">
                     <Link className="navbar-brand" to={isAuthenticated ? '/users/' +
-                        this.props.authenticatedUser.user.id + '/dashboard' : "/"} onClick={this.onClick.bind(this)}>
+                        this.props.authenticatedUser.user.id + '/dashboard' : "/"}>
                         <img src={require('../../img/logo.jpg')} alt={"Fitness app logo"}></img>
                         Fitness App
                     </Link> {/*Using Link instead of anchor tag*/}
