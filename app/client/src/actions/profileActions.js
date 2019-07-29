@@ -7,7 +7,8 @@ import {
     CLIENT_PROGRESSION,
     CLEAR_PROGRESSION,
     SUCCESS,
-    GET_PROFILE, PROFILE_LOADING,
+    GET_PROFILE,
+    PROFILE_LOADING,
     CLEAR_CURRENT_PROFILE
 } from "./types"; // import custom defined types
 import {logOutUser} from "./authenticationActions";

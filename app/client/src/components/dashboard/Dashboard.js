@@ -44,7 +44,7 @@ class Dashboard extends Component {
 
             // If user is a PT then display pt dashboard of clients
             if (user.pt) {
-                if (user_data === null || clients === undefined) {
+                if (user_data === null || (clients === undefined || clients === null)) {
                     return <Loading myClassName="loading_container"/>
                 }
                 // Define content to display.. in this case the list of clients
