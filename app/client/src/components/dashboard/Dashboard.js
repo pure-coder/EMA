@@ -21,18 +21,9 @@ class Dashboard extends Component {
             this.props.getClientData();
         }
 
-
         document.body.scrollTo(0,0);
         this.props.clearErrors();
         this.props.clearSuccess();
-        // // pt get client data
-        // if(this.props.authenticatedUser.user.pt){
-        //     this.props.getClients(this.state.id, this.props.history);
-        // }
-        // // else is client so set loaded to true, which calls clientData in render
-        // else{
-        //     this.setState({loaded: true});
-        // }
     } // ComponentDidMount
 
 
@@ -48,9 +39,8 @@ class Dashboard extends Component {
 
             // If user is a PT then display pt dashboard of clients
             if (this.props.authenticatedUser.user.pt) {
-
                 if (this.props.profile.clients === undefined) {
-                    return <Loading/>
+                    return <Loading myClassName="loading_container"/>
                 }
                 // Define content to display.. in this case the list of clients
                 displayContent = (
@@ -62,7 +52,7 @@ class Dashboard extends Component {
             } // If PT
 
             // If user is not a PT then display dashboard of client data
-            if (!this.props.authenticatedUser.user.pt) {
+            else {
                 // Define content to display..
                 displayContent = (
                     // send clients data to client component, and render client component

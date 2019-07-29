@@ -9,7 +9,7 @@ import {
 } from '../actions/types';
 
 const initialState = {
-    profile: null,
+    user_data: null,
     loading: false
 };
 

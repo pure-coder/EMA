@@ -8,54 +8,16 @@ import { withRouter } from 'react-router-dom';
 import {getPtData, getClientData} from "../../actions/profileActions";
 
 import defaultUserImage from '../../img/user-regular.svg';
-import isEmpty from "../../validation/is_empty";
 
 class Navigation extends Component {
-    constructor(props){
-        super(props);
-        this.state = {
-            userData: props.authenticatedUser.pt_data
+    componentDidMount() {
+        if(this.props.authenticatedUser.user.pt){
+            this.props.getPtData(this.props.authenticatedUser.user.id, this.props.history);
         }
-    }
-
-    static getDerivedStateFromProps(props, state){
-        if(props.authenticatedUser.isAuthenticated){
-            if(props.authenticatedUser.user.pt){
-                if(props.authenticatedUser.pt_data !== state.userData || !isEmpty(state.userData)){
-                    return {
-                        userData: props.authenticatedUser.pt_data
-                    }
-                }
-                // If props.authenticatedUser.pt_data does not exist then get data
-                else{
-                    props.getPtData(props.authenticatedUser.user.id, props.history)
-                }
-            }
-            else {
-                if(props.authenticatedUser.client_data !== state.userData){
-                    return {
-                        userData: props.authenticatedUser.client_data
-                    }
-                }
-                // If props.authenticatedUser.client_data does not exist then get data
-                else{
-                    props.getClientData(props.authenticatedUser.user.id, props.history)
-                }
-            }
+        else {
+            this.props.getClientData();
         }
-        
-        return null;
-    }
-
-    // Had to add this to solve registerClient nav issue with loading name of user
-    componentDidUpdate(prevProps, state){
-        // Check if user is authenticated and that the user is a pt before trying to access auth data as it will otherwise crash.
-        if(prevProps.authenticatedUser.isAuthenticated && prevProps.authenticatedUser.user.pt){
-            if (prevProps.authenticatedUser.pt_data !== state.userData){
-                this.setState({userData: prevProps})
-            }
-        }
-    }
+    } // ComponentDidMount
 
     // Create log out link functionality
     onLogOutClick(event) {
@@ -65,8 +27,8 @@ class Navigation extends Component {
     }
 
     render() {
-        const isAuthenticated = this.props.authenticatedUser.isAuthenticated;
-        let user = this.state.userData;
+
+        const {isAuthenticated} = this.props.authenticatedUser;
 
         // Define navbar for dynamic navbar
         const authorisedLinks = (
@@ -76,14 +38,15 @@ class Navigation extends Component {
                         <img
                             className="rounded-circle"
                             // If user has profile pic display it otherwise display default user image
-                            // Todo - src={isLoggedIn ? user.profilePic : defaultUserImage} --- and add profilePic to user
-                            src={isAuthenticated ? defaultUserImage : defaultUserImage}
+                            src={this.props.profile.user_data !== null && this.props.profile.user_data.ProfilePicUrl !== "NA" ?
+                             this.props.profile.user_data.ProfilePicUrl : defaultUserImage}
+                            // src={isAuthenticated ? defaultUserImage : defaultUserImage}
                             alt={isAuthenticated ? "User profile picture." : "Default user image."}
                             style={{backgroundColor: 'white', width: 30, height: 27, paddingRight: 0}}
                         />
                         {/*{' '} is used to provide space */}
                         {' '}
-                        {user !== undefined ? user.FullName : null}
+                        {this.props.profile.user_data !== null ? this.props.profile.user_data.FullName : null}
                         {' '}
                         - Log Out</a>
                 </ul>
@@ -132,13 +95,13 @@ class Navigation extends Component {
 Navigation.propTypes = {
     logOutUser: PropTypes.func.isRequired,
     authenticatedUser: PropTypes.object.isRequired,
-    getClientData: PropTypes.func.isRequired,
-    getPtData: PropTypes.func.isRequired
+    profile: PropTypes.object.isRequired
 };
 
 // Used to pull auth state into this component
 const stateToProps = (state) => ({
     authenticatedUser: state.authenticatedUser,
+    profile: state.profile
 });
 
 
