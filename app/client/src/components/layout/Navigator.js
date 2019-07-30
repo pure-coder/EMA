@@ -5,7 +5,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { logOutUser } from "../../actions/authenticationActions";
 import { withRouter } from 'react-router-dom';
-import {getPtData, getClientData, getClients, clearCurrentProfile} from "../../actions/ptProfileActions";
+import {getPtData, getClients, clearCurrentProfile} from "../../actions/ptProfileActions";
+import {getClientData} from "../../actions/clientProfileActions";
 
 import defaultUserImage from '../../img/user-regular.svg';
 
@@ -13,7 +14,7 @@ class Navigation extends Component {
     constructor(props){
         super(props);
         this.state = {
-            userData: props.profile.user_data,
+            ptData: props.ptProfile.pt_data,
         };
     }
 
@@ -114,7 +115,7 @@ class Navigation extends Component {
 // Documents what props are needed for this component and will log a warning in the console in dev mode if not complied to
 Navigation.propTypes = {
     authenticatedUser: PropTypes.object.isRequired,
-    profile: PropTypes.object.isRequired,
+    ptProfile: PropTypes.object.isRequired,
     clearCurrentProfile: PropTypes.func.isRequired,
     logOutUser: PropTypes.func.isRequired,
     getPtData: PropTypes.func.isRequired,
@@ -125,7 +126,7 @@ Navigation.propTypes = {
 // Used to pull auth state into this component
 const stateToProps = (state) => ({
     authenticatedUser: state.authenticatedUser,
-    profile: state.profile
+    ptProfile: state.ptProfile
 });
 
 

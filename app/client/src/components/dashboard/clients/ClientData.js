@@ -1,7 +1,6 @@
 import {connect} from 'react-redux';
 import React, {Component} from 'react';
 import {withRouter} from 'react-router-dom';
-import {saveClientId} from "../../../actions/ptProfileActions";
 import isEmpty from "../../../utilities/is_empty";
 import ErrorComponent from "../../error/ErrorComponent";
 import Loading from "../../../elements/Loading";
@@ -107,4 +106,4 @@ const stateToProps = (state) => ({
     errors: state.errors
 });
 
-export default connect(stateToProps, {saveClientId})(withRouter(ClientData));
+export default connect(stateToProps, {})(withRouter(ClientData));

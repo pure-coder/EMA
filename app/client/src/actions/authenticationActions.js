@@ -5,7 +5,8 @@ import {
 } from "./types"; // import custom defined types
 import setAuthorisationToken from '../utilities/setAuthorisationToken';
 import jwtDecode from 'jwt-decode';
-import {clearErrors, setSuccess, getPtData, getClientData} from "./ptProfileActions";
+import {clearErrors, setSuccess, getPtData} from "./ptProfileActions";
+import {getClientData} from "./clientProfileActions";
 
 const manageErrors = (err, dispatch, history) => {
     // 401 Unauthorised

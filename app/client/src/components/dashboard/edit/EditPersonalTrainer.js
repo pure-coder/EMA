@@ -286,7 +286,7 @@ EditPersonalTrainer.propTypes = {
     clearSuccess: PropTypes.func.isRequired,
     passwordsMatchError: PropTypes.func.isRequired,
     authenticatedUser: PropTypes.object.isRequired,
-    profile: PropTypes.object.isRequired,
+    ptProfile: PropTypes.object.isRequired,
     errors: PropTypes.object.isRequired,
     success: PropTypes.object.isRequired,
 };
@@ -294,7 +294,7 @@ EditPersonalTrainer.propTypes = {
 // Used to pull auth state and errors into this component.... DEFINED IN reducers/index.js {combineReducers}
 const stateToProps = (state) => ({
     authenticatedUser: state.authenticatedUser,
-    profile: state.profile,
+    ptProfile: state.ptProfile,
     errors: state.errors,
     success: state.success
 });

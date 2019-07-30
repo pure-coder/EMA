@@ -60,14 +60,14 @@ class UserInfo extends Component {
 // Documents what props are needed for this component and will log a warning in the console in dev mode if not complied to
 UserInfo.propTypes = {
     authenticatedUser: PropTypes.object.isRequired,
-    profile: PropTypes.object.isRequired,
+    ptProfile: PropTypes.object.isRequired,
     errors: PropTypes.object.isRequired
 };
 
 // Used to pull auth state and errors into this component.... DEFINED IN reducers/index.js {combineReducers} !!!! USED FOR THE REDUX STORE
 const stateToProps = (state) => ({
     authenticatedUser: state.authenticatedUser, // authenticatedUser is set in index.js file in the reducers folder
-    profile: state.profile,
+    ptProfile: state.ptProfile,
     errors: state.errors, // errors is set in index.js file in the reducers folder
     location: state.location
 });

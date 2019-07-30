@@ -2,7 +2,8 @@ import React, {Component} from 'react';  // Used to create this component
 import PropTypes from 'prop-types'; // Used to document prop types sent to components
 import {connect} from 'react-redux' // Needed when using redux inside a component (connects redux to this component)
 import {withRouter} from 'react-router-dom';
-import {getClients, getPtData, getClientData, clearErrors, clearSuccess} from "../../actions/ptProfileActions";
+import {getClients, getPtData, clearErrors, clearSuccess} from "../../actions/ptProfileActions";
+import {getClientData} from "../../actions/clientProfileActions";
 import ClientList from './clients/ClientList'
 import Loading from "../../elements/Loading";
 import ClientData from "./clients/ClientData";
@@ -85,7 +86,7 @@ class Dashboard extends Component {
 // Documents what props are needed for this component and will log a warning in the console in dev mode if not complied to
 Dashboard.propTypes = {
     authenticatedUser: PropTypes.object.isRequired,
-    profile: PropTypes.object.isRequired,
+    ptProfile: PropTypes.object.isRequired,
     getClients: PropTypes.func.isRequired,
     getClientData: PropTypes.func.isRequired,
     getPtData: PropTypes.func.isRequired,
@@ -97,7 +98,7 @@ Dashboard.propTypes = {
 // Used to pull auth state and errors into this component.... DEFINED IN reducers/index.js {combineReducers} !!!! USED FOR THE REDUX STORE
 const stateToProps = (state) => ({
     authenticatedUser: state.authenticatedUser, // authenticatedUser is set in index.js file in the reducers folder
-    profile: state.profile,
+    ptProfile: state.ptProfile,
     errors: state.errors, // errors is set in index.js file in the reducers folder
     location: state.location
 });
