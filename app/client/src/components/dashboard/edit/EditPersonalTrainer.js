@@ -7,7 +7,6 @@ import FormInputGroup from "../../common/FormInputGroup";
 import Loading from "../../../elements/Loading";
 import isEmpty from "../../../utilities/is_empty";
 import ErrorComponent from "../../error/ErrorComponent"; // Allows proper routing and linking using browsers match, location, and history properties
-
 import DisplayMessage from '../../common/DisplayMessage';
 import FormSelectComp from "../../common/FormSelectComp";
 import defaultUserImage from "../../../img/user-regular.svg";
@@ -54,12 +53,12 @@ class EditPersonalTrainer extends Component {
     }
 
     componentDidUpdate(){
-        if(this.props.profile.user_data !== null && !this.state.updated){
+        if(this.props.ptProfile.pt_data !== null && !this.state.updated){
             this.setState({
-                FullName : this.props.profile.user_data.FullName,
-                Email : this.props.profile.user_data.Email,
-                Sex : this.props.profile.user_data.Sex,
-                DateOfBirth: this.props.profile.user_data.DateOfBirth.substring(0, 10),
+                FullName : this.props.ptProfile.pt_data.FullName,
+                Email : this.props.ptProfile.pt_data.Email,
+                Sex : this.props.ptProfile.pt_data.Sex,
+                DateOfBirth: this.props.ptProfile.pt_data.DateOfBirth.substring(0, 10),
                 updated : true
             })
         }
@@ -67,9 +66,9 @@ class EditPersonalTrainer extends Component {
 
     // Replacement for componentWillReceiveProps (as was depreciated)
     static getDerivedStateFromProps(props, state) {
-        if (props.profile.user_data !== state.pt_data) {
+        if (props.ptProfile.pt_data !== state.pt_data) {
             return {
-                pt_data: props.profile.user_data,
+                pt_data: props.ptProfile.pt_data,
                 errors: props.errors,
                 loaded: true
             }
@@ -176,7 +175,7 @@ class EditPersonalTrainer extends Component {
 
     render() {
         // if loaded is false then return loading screen
-        if (this.props.profile.user_data === null) {
+        if (this.props.ptProfile.pt_data === null) {
             return <Loading myClassName="loading_container"/>
         }
         if(isEmpty(this.props.authenticatedUser.user)){
@@ -194,8 +193,8 @@ class EditPersonalTrainer extends Component {
                                 <div className="edit_image">
                                     {(<img
                                         className = "rounded-circle"
-                                        alt={this.props.profile.user_data.ProfilePicUrl === "NA" ? "Default user image." : "User profile picture."}
-                                        src = {this.props.profile.user_data.ProfilePicUrl === "NA" ? defaultUserImage : defaultUserImage}
+                                        alt={this.props.ptProfile.pt_data.ProfilePicUrl === "NA" ? "Default user image." : "User profile picture."}
+                                        src = {this.props.ptProfile.pt_data.ProfilePicUrl === "NA" ? defaultUserImage : defaultUserImage}
                                     />)}
                                 </div>
                                 <form autoComplete="off" onSubmit={this.onSubmit}>
@@ -204,7 +203,7 @@ class EditPersonalTrainer extends Component {
                                     <FormInputGroup
                                         myClassName="edit-pt"
                                         name="FullName"
-                                        placeholder={this.props.profile.user_data.FullName}
+                                        placeholder={this.props.ptProfile.pt_data.FullName}
                                         value={this.state.FullName}
                                         type="text"
                                         onChange={this.onChange}
@@ -213,7 +212,7 @@ class EditPersonalTrainer extends Component {
                                     <FormInputGroup
                                         myClassName="edit-pt"
                                         name="Email"
-                                        placeholder={this.props.profile.user_data.Email}
+                                        placeholder={this.props.ptProfile.pt_data.Email}
                                         value={this.state.Email}
                                         type="Email"
                                         onChange={this.onChange}
