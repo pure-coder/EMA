@@ -8,7 +8,8 @@ import {
 } from '../actions/types';
 
 const initialState = {
-    user_data: null,
+    pt_data: null,
+    clients: null,
     loading: false
 };
 

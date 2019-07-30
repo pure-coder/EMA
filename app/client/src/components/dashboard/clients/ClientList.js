@@ -64,7 +64,6 @@ class ClientList extends Component {
     }
 
     onProfileClick(ptId, id, clientData){
-        this.props.saveClientId(id, this.props.history);
         this.props.history.push({pathname: `/users/${ptId}/client_profile/${id}`, state :  {clientData: clientData} });
     }
 
@@ -77,8 +76,6 @@ class ClientList extends Component {
     onEditProfile(id) {
         // Get client data for link clicked and save it to redux store
         //this.props.getClientData(id, this.props.history);
-        // Save clientId to redux
-        this.props.saveClientId(id, this.props.history);
         // Direct user with history push to edit profile of user id
         this.props.history.push(`/users/${id}/edit_client`);
         // this.props.history.push(`/users/${id}/edit_client`);
@@ -99,9 +96,10 @@ class ClientList extends Component {
 
     render() {
         const {user} = this.props.authenticatedUser;
-        const {user_data, clients} = this.props.profile;
+        const pt_data = this.props.userData;
+        const clients = this.props.clients;
 
-        if (user_data === null) {
+        if (pt_data === null) {
             return <Loading myClassName="loading_container"/>
         }
         if(isEmpty(user)){
@@ -193,7 +191,6 @@ class ClientList extends Component {
 
 ClientList.propTypes = {
     deleteClient: PropTypes.func.isRequired,
-    getClientData: PropTypes.func.isRequired,
     getClientProgression: PropTypes.func.isRequired,
     ptProfile: PropTypes.object.isRequired
 };

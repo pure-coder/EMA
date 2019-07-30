@@ -14,7 +14,9 @@ import UserInfo from "./UserInfo";
 class Dashboard extends Component {
     // Life cycle method for react which will run when this component receives new properties
     componentDidMount() {
-        if(this.props.profile.user_data === null){
+        // console.log(this.props.ptProfile.pt_data === null)
+        // console.log(this.props)
+        if(this.props.ptProfile.pt_data === null || this.props.clientProfile.client_data === null){
             if(this.props.authenticatedUser.user.pt){
                 this.props.getPtData(this.props.authenticatedUser.user.id, this.props.history);
                 this.props.getClients(this.props.authenticatedUser.user.id, this.props.history);
@@ -31,55 +33,65 @@ class Dashboard extends Component {
 
     render() {
 
+
+        let displayContent;
         const {user} = this.props.authenticatedUser;
-        const {user_data, loading, clients} = this.props.profile;
+        if(user.pt){
+            let {pt_data, loading, clients} = this.props.ptProfile;
 
-        if (user_data === null || loading) {
-            return <Loading myClassName="loading_container"/>
-        }
-        if(isEmpty(user)){
-            return <ErrorComponent/>
-        }
-        else {
-            let displayContent;
+            if (pt_data === null || loading) {
+                return <Loading myClassName="loading_container"/>
+            }
 
-            // If user is a PT then display pt dashboard of clients
-            if (user.pt) {
-                if (user_data === null || (clients === undefined || clients === null)) {
+            if(isEmpty(user)){
+                return <ErrorComponent/>
+            }
+            else {
+                // If user is a PT then display pt dashboard of clients
+                if (pt_data === null || (clients === null)) {
                     return <Loading myClassName="loading_container"/>
                 }
                 // Define content to display.. in this case the list of clients
                 displayContent = (
                     // send clients data to client component, and render client component
                     <div className="dashboard-custom">
-                        <UserInfo userData={user_data}/>
-                        <ClientList clients={clients}/>
+                        <UserInfo userData={pt_data}/>
+                        <ClientList clients={clients} userData={pt_data}/>
                     </div>
                 )
-            } // If PT
+            }
+        } //if user is pt
+        else{
+            const {client_data, loading} = this.props.clientProfile;
 
-            // If user is not a PT then display dashboard of client data
+            if (client_data === null || loading) {
+                return <Loading myClassName="loading_container"/>
+            }
+
+            if(isEmpty(user)){
+                return <ErrorComponent/>
+            }
             else {
-                if (user_data === null) {
+                if (client_data === null) {
                     return <Loading myClassName="loading_container"/>
                 }
                 // Define content to display..
                 displayContent = (
                     // send clients data to client component, and render client component
                     <div className="dashboard-custom client">
-                        <UserInfo userData={user_data}/>
+                        <UserInfo userData={client_data}/>
                         <ClientData/>
                     </div>
                 )
-            } // If PT
-
-            return (
-                <div className="dashboard-container">
-                    <h1 className=" text-center display-5 mb-3">Dashboard</h1>
-                    {displayContent}
-                </div>
-            );
+            }
         }
+
+        return (
+            <div className="dashboard-container">
+                <h1 className=" text-center display-5 mb-3">Dashboard</h1>
+                {displayContent}
+            </div>
+        );
     }
 }
 
@@ -87,6 +99,7 @@ class Dashboard extends Component {
 Dashboard.propTypes = {
     authenticatedUser: PropTypes.object.isRequired,
     ptProfile: PropTypes.object.isRequired,
+    clientProfile: PropTypes.object.isRequired,
     getClients: PropTypes.func.isRequired,
     getClientData: PropTypes.func.isRequired,
     getPtData: PropTypes.func.isRequired,
@@ -99,6 +112,7 @@ Dashboard.propTypes = {
 const stateToProps = (state) => ({
     authenticatedUser: state.authenticatedUser, // authenticatedUser is set in index.js file in the reducers folder
     ptProfile: state.ptProfile,
+    clientProfile: state.clientProfile,
     errors: state.errors, // errors is set in index.js file in the reducers folder
     location: state.location
 });

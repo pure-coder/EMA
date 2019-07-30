@@ -14,18 +14,27 @@ class Navigation extends Component {
     constructor(props){
         super(props);
         this.state = {
-            ptData: props.ptProfile.pt_data,
+            userData: null,
         };
     }
 
     static getDerivedStateFromProps(props, state){
-        console.log(props.profile.user_data, state.userData)
-        if(props.profile.user_data !== state.userData){
-            return {
-                userData: props.profile.user_data
+        if(props.authenticatedUser.user.pt) {
+            if (props.ptProfile.pt_data !== state.userData) {
+                return {
+                    userData: props.ptProfile.pt_data
+                }
             }
+            return null;
         }
-        return null;
+        else{
+            if (props.clientProfile.client_data !== state.userData) {
+                return {
+                    userData: props.clientProfile.client_data
+                }
+            }
+            return null;
+        }
     }
 
     componentDidMount() {
@@ -116,6 +125,7 @@ class Navigation extends Component {
 Navigation.propTypes = {
     authenticatedUser: PropTypes.object.isRequired,
     ptProfile: PropTypes.object.isRequired,
+    clientProfile: PropTypes.object.isRequired,
     clearCurrentProfile: PropTypes.func.isRequired,
     logOutUser: PropTypes.func.isRequired,
     getPtData: PropTypes.func.isRequired,
@@ -126,7 +136,8 @@ Navigation.propTypes = {
 // Used to pull auth state into this component
 const stateToProps = (state) => ({
     authenticatedUser: state.authenticatedUser,
-    ptProfile: state.ptProfile
+    ptProfile: state.ptProfile,
+    clientProfile: state.clientProfile,
 });
 
 
