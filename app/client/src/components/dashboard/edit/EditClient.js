@@ -1,7 +1,7 @@
 import React, {Component} from 'react';  // Used to create this component
 import PropTypes from 'prop-types'; // Used to document prop types sent to components
 import {connect} from 'react-redux' // Needed when using redux inside a component (connects redux to this component)
-import {getClientData, editClientData, passwordsMatchError, setErrors, clearErrors, setSuccess, clearSuccess} from "../../../actions/profileActions"; // Used to import create action for getting client data and editing client data
+import {getClientData, editClientData, passwordsMatchError, setErrors, clearErrors, setSuccess, clearSuccess} from "../../../actions/ptProfileActions"; // Used to import create action for getting client data and editing client data
 import {withRouter} from 'react-router-dom';
 import FormInputGroup from "../../common/FormInputGroup";
 import Loading from "../../../elements/Loading";
@@ -41,7 +41,7 @@ class EditClient extends Component {
             } // Set to null so null is returned from DisplayMessage by default
         };
 
-        this.props.getClientData(this.state.clientId, this.props.history);
+        //this.props.getClientData(this.state.clientId, this.props.history);
 
         // This sets the state value to it's respective state (via binding)
         this.onChange = this.onChange.bind(this);

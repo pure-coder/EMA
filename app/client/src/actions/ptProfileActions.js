@@ -1,15 +1,14 @@
 import axios from 'axios';
 import {
-    GET_ERRS,
+    GET_PT_PROFILE,
+    PROFILE_LOADING,
+    CLEAR_CURRENT_PROFILE,
     GET_PT_CLIENTS_DATA,
-    SAVE_CLIENT_ID,
-    PASSWORD_ERROR,
     CLIENT_PROGRESSION,
     CLEAR_PROGRESSION,
+    PASSWORD_ERROR,
+    GET_ERRS,
     SUCCESS,
-    GET_PROFILE,
-    PROFILE_LOADING,
-    CLEAR_CURRENT_PROFILE
 } from "./types"; // import custom defined types
 import {logOutUser} from "./authenticationActions";
 
@@ -79,50 +78,6 @@ export const setPtClients = (data) => {
     }
 };
 
-// Delete Client
-export const deleteClient = (id, ptId, history) => dispatch => {
-    axios
-        .delete(`/api/delete_client/${id}`)
-        .then(result => {
-            // causes refresh of dashboard with updated client list
-            if(result.status === 200) {
-                dispatch(getClients(ptId, history));
-                dispatch(setSuccess("Client deleted successfully."));
-            }
-        })
-        .catch(err => {
-            manageErrors(err, dispatch, history);
-        })
-};
-
-export const getClientData = (id, history) => dispatch => {
-    dispatch(setProfileLoading());
-    axios
-        .get(`/api/client/${id}`)
-        .then(result => {
-            dispatch({
-                type: GET_PROFILE,
-                payload: result.data
-            })
-        })
-        .catch(err => {
-            manageErrors(err, dispatch, history);
-        });
-};
-
-export const editClientData = (cid, data, history) => dispatch => {
-    axios
-        .put(`/api/edit_client/${cid}`, data)
-        .then(result => {
-            if(result.status === 200){
-                dispatch(setSuccess("Client data successfully updated."))
-            }
-        })
-        .catch(err => {
-            manageErrors(err, dispatch, history);
-        })
-};
-
 export const getPtData = (id, history) => dispatch => {
     dispatch(setProfileLoading());
     axios
@@ -133,7 +88,7 @@ export const getPtData = (id, history) => dispatch => {
                     history.replace('/error_page');
                 }
                 dispatch({
-                    type: GET_PROFILE,
+                    type: GET_PT_PROFILE,
                     payload: result.data
                 })
             }
@@ -157,6 +112,35 @@ export const editPtData = (id, Data, history) => dispatch => {
         })
 };
 
+export const editClientData = (cid, data, history) => dispatch => {
+    axios
+        .put(`/api/edit_client/${cid}`, data)
+        .then(result => {
+            if(result.status === 200){
+                dispatch(setSuccess("Client data successfully updated."))
+            }
+        })
+        .catch(err => {
+            manageErrors(err, dispatch, history);
+        })
+};
+
+// Delete Client
+export const deleteClient = (id, ptId, history) => dispatch => {
+    axios
+        .delete(`/api/delete_client/${id}`)
+        .then(result => {
+            // causes refresh of dashboard with updated client list
+            if(result.status === 200) {
+                dispatch(getClients(ptId, history));
+                dispatch(setSuccess("Client deleted successfully."));
+            }
+        })
+        .catch(err => {
+            manageErrors(err, dispatch, history);
+        })
+};
+
 export const setProfileLoading = () => {
     return {
         type: PROFILE_LOADING
@@ -167,13 +151,6 @@ export const clearCurrentProfile = () => {
     return {
         type: CLEAR_CURRENT_PROFILE
     }
-};
-
-export const saveClientId = (id) => dispatch => {
-    dispatch({
-        type: SAVE_CLIENT_ID,
-        payload: id
-    });
 };
 
 export const passwordsMatchError = (error) => dispatch => {

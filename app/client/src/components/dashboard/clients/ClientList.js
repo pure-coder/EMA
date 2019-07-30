@@ -1,7 +1,7 @@
 import {connect} from 'react-redux';
 import React, {Component} from 'react';
 import {Link, withRouter} from 'react-router-dom';
-import {deleteClient, saveClientId, getClientData, getClientProgression} from "../../../actions/profileActions";
+import {deleteClient, saveClientId, getClientData, getClientProgression} from "../../../actions/ptProfileActions";
 import PropTypes from "prop-types";
 import Modal from "react-awesome-modal";
 import DeleteConfirm from './DeleteConfirm'
@@ -76,7 +76,7 @@ class ClientList extends Component {
 
     onEditProfile(id) {
         // Get client data for link clicked and save it to redux store
-        this.props.getClientData(id, this.props.history);
+        //this.props.getClientData(id, this.props.history);
         // Save clientId to redux
         this.props.saveClientId(id, this.props.history);
         // Direct user with history push to edit profile of user id

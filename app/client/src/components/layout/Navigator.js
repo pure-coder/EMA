@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { logOutUser } from "../../actions/authenticationActions";
 import { withRouter } from 'react-router-dom';
-import {getPtData, getClientData, getClients, clearCurrentProfile} from "../../actions/profileActions";
+import {getPtData, getClientData, getClients, clearCurrentProfile} from "../../actions/ptProfileActions";
 
 import defaultUserImage from '../../img/user-regular.svg';
 
@@ -18,6 +18,7 @@ class Navigation extends Component {
     }
 
     static getDerivedStateFromProps(props, state){
+        console.log(props.profile.user_data, state.userData)
         if(props.profile.user_data !== state.userData){
             return {
                 userData: props.profile.user_data

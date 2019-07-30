@@ -2,7 +2,7 @@ import React, {Component} from 'react' // React is need for rendering JSX HTML e
 import {withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
-import {deleteClient} from "../../../actions/profileActions";
+import {deleteClient} from "../../../actions/ptProfileActions";
 
 
 class DeleteConfirm extends Component {

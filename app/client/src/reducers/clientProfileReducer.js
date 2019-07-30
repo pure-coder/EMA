@@ -1,15 +1,13 @@
 import {
-    GET_PROFILE,
-    GET_PT_CLIENTS_DATA,
+    GET_CLIENT_PROFILE,
     PROFILE_LOADING,
     CLEAR_CURRENT_PROFILE,
-    //SAVE_CLIENT_ID,
     CLIENT_PROGRESSION,
     CLEAR_PROGRESSION,
 } from '../actions/types';
 
 const initialState = {
-    user_data: null,
+    client_data: null,
     loading: false
 };
 
@@ -21,23 +19,16 @@ export default function(state = initialState, action) {
                 ...state,
                 loading: true
             };
-        case GET_PROFILE:
+        case GET_CLIENT_PROFILE:
             return {
                 ...state,
-                user_data: action.payload,
-                loading: false
-            };
-        case GET_PT_CLIENTS_DATA:
-            return {
-                ...state,
-                clients: action.payload,
+                client_data: action.payload,
                 loading: false
             };
         case CLEAR_CURRENT_PROFILE:
             return {
                 ...state,
-                user_data: null,
-                clients: null,
+                client_data: null,
                 client_progression: null,
             };
         case CLIENT_PROGRESSION:
@@ -54,15 +45,3 @@ export default function(state = initialState, action) {
             return state;
     }
 }
-
-// export default function (state = initialisedState, action) {
-//     switch (action.type) {
-//         case SAVE_CLIENT_ID:
-//             return {
-//                 ...state,
-//                 clientId: action.payload
-//             };
-//         default:
-//             return state;
-//     }
-// }

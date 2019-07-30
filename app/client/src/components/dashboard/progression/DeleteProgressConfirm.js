@@ -2,7 +2,7 @@ import React, {Component} from 'react' // React is need for rendering JSX HTML e
 import {withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
-import {deleteExercise} from "../../../actions/profileActions";
+import {deleteExercise} from "../../../actions/ptProfileActions";
 
 
 class DeleteProgressConfirm extends Component {
