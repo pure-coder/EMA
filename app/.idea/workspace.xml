@@ -4,9 +4,8 @@
     <bookmark url="file://C:/Learning/clientObjectData.js" description="export {&quot;_id&quot;:&quot;5c2e3454d27ace097420b414&quot;,&quot;FullName..." line="2" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ec8ccf39-8487-4892-a38d-de9c288878a3" name="Default" comment="password added to mongodb atlas">
-      <change afterPath="$PROJECT_DIR$/config/db.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="ec8ccf39-8487-4892-a38d-de9c288878a3" name="Default" comment="password added to mongodb atlas.">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -48,12 +47,12 @@
         <counts>
           <entry key="css" value="8919" />
           <entry key="editorConfig" value="285" />
-          <entry key="gitignore" value="15" />
+          <entry key="gitignore" value="22" />
           <entry key="html" value="1072" />
           <entry key="js" value="181472" />
           <entry key="json" value="26" />
           <entry key="md" value="150" />
-          <entry key="txt" value="11445" />
+          <entry key="txt" value="11446" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
@@ -62,7 +61,7 @@
           <entry key="HTML" value="1079" />
           <entry key="JSON" value="26" />
           <entry key="JavaScript" value="181465" />
-          <entry key="PLAIN_TEXT" value="11895" />
+          <entry key="PLAIN_TEXT" value="11903" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -70,7 +69,7 @@
           <entry key="css" value="76" />
           <entry key="editorConfig" value="2" />
           <entry key="eslintignore" value="2" />
-          <entry key="gitignore" value="6" />
+          <entry key="gitignore" value="7" />
           <entry key="html" value="17" />
           <entry key="js" value="1303" />
           <entry key="json" value="11" />
@@ -87,7 +86,7 @@
           <entry key="HTML" value="17" />
           <entry key="JSON" value="11" />
           <entry key="JavaScript" value="1303" />
-          <entry key="PLAIN_TEXT" value="16" />
+          <entry key="PLAIN_TEXT" value="17" />
           <entry key="SVG" value="1" />
           <entry key="Scratch" value="1" />
           <entry key="SourceMap" value="1" />
@@ -113,11 +112,20 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/config/db.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="136">
               <caret line="8" column="37" selection-start-line="8" selection-start-column="37" selection-end-line="8" selection-end-column="37" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/.gitignore">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="51">
+              <caret line="3" column="14" selection-start-line="3" selection-start-column="14" selection-end-line="3" selection-end-column="14" />
             </state>
           </provider>
         </entry>
@@ -272,8 +280,8 @@
         <option value="$PROJECT_DIR$/client/src/components/layout/Navigator.js" />
         <option value="$PROJECT_DIR$/client/src/components/dashboard/Dashboard.js" />
         <option value="$PROJECT_DIR$/client/src/components/dashboard/clients/ClientList.js" />
-        <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/config/db.js" />
+        <option value="$PROJECT_DIR$/.gitignore" />
       </list>
     </option>
   </component>
@@ -560,14 +568,7 @@
       <workItem from="1561133259946" duration="18573000" />
       <workItem from="1561559852945" duration="45900000" />
       <workItem from="1562927864711" duration="131724000" />
-      <workItem from="1564246061042" duration="54136000" />
-    </task>
-    <task id="LOCAL-00062" summary="Functionality added for EditDataProgressForm for editing exercises.&#10;API updated with edit functionality.&#10;(Need to fix bug where page is not updated automatically after&#10;successful edit/submit).">
-      <created>1563828694433</created>
-      <option name="number" value="00062" />
-      <option name="presentableId" value="LOCAL-00062" />
-      <option name="project" value="LOCAL" />
-      <updated>1563828694433</updated>
+      <workItem from="1564246061042" duration="54360000" />
     </task>
     <task id="LOCAL-00063" summary="Bug fixed in CreateGraph in componentDidUpdate where it checked if only&#10;the length of metrics changed, changed this to compare the whole metrics.">
       <created>1563829765257</created>
@@ -905,11 +906,18 @@
       <option name="project" value="LOCAL" />
       <updated>1564501536377</updated>
     </task>
-    <option name="localTasksCounter" value="111" />
+    <task id="LOCAL-00111" summary="password added to mongodb atlas.">
+      <created>1564501814051</created>
+      <option name="number" value="00111" />
+      <option name="presentableId" value="LOCAL-00111" />
+      <option name="project" value="LOCAL" />
+      <updated>1564501814051</updated>
+    </task>
+    <option name="localTasksCounter" value="112" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1610242000" />
+    <option name="totallyTimeSpent" value="1610466000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1010,7 +1018,6 @@
   <component name="VcsManagerConfiguration">
     <option name="SHOW_DIRTY_RECURSIVELY" value="true" />
     <option name="LIMIT_HISTORY" value="false" />
-    <MESSAGE value="UserInfo component added to Scheduler.&#10;Padding removed from UserInfo to better match Dashboard layout." />
     <MESSAGE value="Contact No added to UserInfo" />
     <MESSAGE value="Validation modified for registering/editing client, making sure the contact&#10;No. given is 11 characters." />
     <MESSAGE value="Initial add for refactoring" />
@@ -1035,7 +1042,8 @@
     <MESSAGE value="Adding mongodb atlas." />
     <MESSAGE value="Changed git hub ignore file" />
     <MESSAGE value="password added to mongodb atlas" />
-    <option name="LAST_COMMIT_MESSAGE" value="password added to mongodb atlas" />
+    <MESSAGE value="password added to mongodb atlas." />
+    <option name="LAST_COMMIT_MESSAGE" value="password added to mongodb atlas." />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/client/src/elements/Loading.js">
@@ -1429,13 +1437,6 @@
     <entry file="file://$PROJECT_DIR$/config/logger.js">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="3" column="8" lean-forward="true" selection-start-line="3" selection-start-column="8" selection-end-line="3" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/clients/ClientList.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-82">
@@ -1450,6 +1451,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="136">
           <caret line="8" column="37" selection-start-line="8" selection-start-column="37" selection-end-line="8" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="3" column="14" selection-start-line="3" selection-start-column="14" selection-end-line="3" selection-end-column="14" />
         </state>
       </provider>
     </entry>
