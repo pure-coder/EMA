@@ -46,7 +46,9 @@ class EditPersonalTrainer extends Component {
     }
 
     componentDidMount() {
-        this.props.getPtData(this.props.authenticatedUser.user.id);
+        if(this.props.ptProfile.pt_data === null){
+            this.props.getPtData(this.props.authenticatedUser.user.id);
+        }
         this.props.clearErrors();
         this.props.clearSuccess();
         document.body.scrollTo(0,0);

@@ -53,9 +53,9 @@ class EditClient extends Component {
 
     // Populate state data with data from the database for the client
     static getDerivedStateFromProps(props, state) {
-        if (props.authenticatedUser.client_data !== state.client_data) {
+        if (props.clientProfile.client_data !== state.client_data) {
             return {
-                client_data: props.authenticatedUser.client_data,
+                client_data: props.clientProfile.client_data,
                 success: props.success,
                 errors: props.errors,
                 loaded: true
@@ -75,22 +75,25 @@ class EditClient extends Component {
     }
 
     componentDidMount() {
+        // if(this.props.clientProfile.client_data === null){
+        //     this.props.getClientData(this.props.authenticatedUser.user.id);
+        // }
         this.props.clearErrors();
         this.props.clearSuccess();
         document.body.scrollTo(0,0);
     }
 
     componentDidUpdate(){
-        if(this.props.authenticatedUser.client_data !== undefined && !this.state.updated){
-            this.setState({
-                FullName : this.props.authenticatedUser.client_data.FullName,
-                Email : this.props.authenticatedUser.client_data.Email,
-                ContactNumber : this.props.authenticatedUser.client_data.ContactNumber,
-                Sex : this.props.authenticatedUser.client_data.Sex,
-                DateOfBirth: this.props.authenticatedUser.client_data.DateOfBirth.substring(0, 10),
-                updated : true
-            })
-        }
+        // if(this.props.clientProfile.client_data !== undefined && !this.state.updated){
+        //     this.setState({
+        //         FullName : this.props.clientProfile.client_data.FullName,
+        //         Email : this.props.clientProfile.client_data.Email,
+        //         ContactNumber : this.props.clientProfile.client_data.ContactNumber,
+        //         Sex : this.props.clientProfile.client_data.Sex,
+        //         DateOfBirth: this.props.clientProfile.client_data.DateOfBirth.substring(0, 10),
+        //         updated : true
+        //     })
+        // }
     }
 
     componentWillUnmount(){
@@ -190,113 +193,247 @@ class EditClient extends Component {
 
     render() {
         // if loaded is false then return loading screen
-        if (!this.state.loaded) {
-            return <Loading myClassName="loading_container"/>
-        }
-        if(isEmpty(this.props.authenticatedUser.user)){
-            return <ErrorComponent/>
-        }
-        else {
-            let {errors, message} = this.state;
+        const {user} = this.props.authenticatedUser;
 
-            return (
-                <div className="edit_client">
-                    <div className="container  edit_client-custom">
-                        <div className="row">
-                            <div className="m-auto col-md-8">
-                                <h1 className=" text-center display-5">Edit Client Profile</h1>
-                                <div className="edit_image">
-                                    {(<img
-                                        className = "rounded-circle"
-                                        alt={this.state.client_data.ProfilePicUrl === "NA" ? "Default user image." : "User profile picture."}
-                                        src = {this.state.client_data.ProfilePicUrl === "NA" ? defaultUserImage : defaultUserImage}
-                                    />)}
-                                </div>
-                                <form autoComplete="off" onSubmit={this.onSubmit}>
-                                    {/*// Deals with Chromes password auto complete*/}
-                                    <input type="password" style={{height: 0, width: 0, opacity: 0, padding: 0, border: "none"}}></input>
-                                    <FormInputGroup
-                                        myClassName="edit-client"
-                                        name="FullName"
-                                        placeholder={this.state.client_data.FullName}
-                                        value={this.state.FullName}
-                                        type="text"
-                                        onChange={this.onChange}
-                                        error={errors.FullName}
-                                    />
-                                    <FormInputGroup
-                                        myClassName="edit-client"
-                                        name="Email"
-                                        placeholder="Email"
-                                        value={this.state.Email}
-                                        type="Email"
-                                        onChange={this.onChange}
-                                        error={errors.Email}
-                                    />
-                                    <FormInputGroup
-                                        myClassName="edit-client"
-                                        name="ContactNumber"
-                                        placeholder="ContactNumber"
-                                        value={this.state.ContactNumber}
-                                        type="text"
-                                        onChange={this.onChange}
-                                        error={errors.ContactNumber}
-                                    />
-                                    <div className="form-group edit-profile-date-div">
-                                        <div className="edit-date-div">
-                                            <label className="control-label form-control-lg edit-profile-label">Date of
-                                                Birth:
-                                            </label>
-                                            < FormInputGroup
-                                                myClassName="edit-exercise"
-                                                name="DateOfBirth"
-                                                value={this.state.DateOfBirth.toString()}
-                                                type="date"
-                                                onChange={this.onChange}
-                                                error={errors.DateOfBirth}
-                                            />
+        if(user.pt){
+            const {clients, loading} = this.props.ptProfile;
+
+            if (clients === null || loading) {
+                return <Loading myClassName="loading_container"/>
+            }
+            if(isEmpty(this.props.authenticatedUser.user)){
+                return <ErrorComponent/>
+            }
+
+            let Client = null;
+
+            clients.forEach(client =>{
+                if(client._id === this.props.match.params.cid){
+                    Client = client;
+                }
+            });
+
+            console.log(Client);
+
+            if(Client !== null){
+                let {errors, message} = this.state;
+                    return (
+                        <div className="edit_client">
+                            <div className="container  edit_client-custom">
+                                <div className="row">
+                                    <div className="m-auto col-md-8">
+                                        <h1 className=" text-center display-5">Edit Client Profile</h1>
+                                        <div className="edit_image">
+                                            {(<img
+                                                className = "rounded-circle"
+                                                alt={Client.ProfilePicUrl === "NA" ? "Default user image." : "User profile picture."}
+                                                src = {Client.ProfilePicUrl === "NA" ? defaultUserImage : defaultUserImage}
+                                            />)}
                                         </div>
-                                        <div className="edit-gender-div">
-                                            <label
-                                                className="control-label form-control-lg edit-profile-label gender">
-                                                Gender:
-                                            </label>
-                                            <FormSelectComp
-                                                name="Sex"
-                                                id="Sex"
-                                                values={this.state.values}
+                                        <form autoComplete="off" onSubmit={this.onSubmit}>
+                                            {/*// Deals with Chromes password auto complete*/}
+                                            <input type="password" style={{height: 0, width: 0, opacity: 0, padding: 0, border: "none"}}></input>
+                                            <FormInputGroup
+                                                myClassName="edit-client"
+                                                name="FullName"
+                                                placeholder={this.state.client_data.FullName}
+                                                value={this.state.FullName}
+                                                type="text"
                                                 onChange={this.onChange}
-                                                error={errors.Sex}
+                                                error={errors.FullName}
                                             />
-                                        </div>
+                                            <FormInputGroup
+                                                myClassName="edit-client"
+                                                name="Email"
+                                                placeholder="Email"
+                                                value={this.state.Email}
+                                                type="Email"
+                                                onChange={this.onChange}
+                                                error={errors.Email}
+                                            />
+                                            <FormInputGroup
+                                                myClassName="edit-client"
+                                                name="ContactNumber"
+                                                placeholder="ContactNumber"
+                                                value={this.state.ContactNumber}
+                                                type="text"
+                                                onChange={this.onChange}
+                                                error={errors.ContactNumber}
+                                            />
+                                            <div className="form-group edit-profile-date-div">
+                                                <div className="edit-date-div">
+                                                    <label className="control-label form-control-lg edit-profile-label">Date of
+                                                        Birth:
+                                                    </label>
+                                                    < FormInputGroup
+                                                        myClassName="edit-exercise"
+                                                        name="DateOfBirth"
+                                                        value={this.state.DateOfBirth.toString()}
+                                                        type="date"
+                                                        onChange={this.onChange}
+                                                        error={errors.DateOfBirth}
+                                                    />
+                                                </div>
+                                                <div className="edit-gender-div">
+                                                    <label
+                                                        className="control-label form-control-lg edit-profile-label gender">
+                                                        Gender:
+                                                    </label>
+                                                    <FormSelectComp
+                                                        name="Sex"
+                                                        id="Sex"
+                                                        values={this.state.values}
+                                                        onChange={this.onChange}
+                                                        error={errors.Sex}
+                                                    />
+                                                </div>
+                                            </div>
+                                            <FormInputGroup
+                                                myClassName="edit-client"
+                                                name="Password"
+                                                placeholder="Enter Password"
+                                                value={this.state.Password}
+                                                type="password"
+                                                onChange={this.onChange}
+                                                error={errors.Password}
+                                            />
+                                            <FormInputGroup
+                                                name="Password2"
+                                                placeholder="Confirm Password"
+                                                value={this.state.Password2}
+                                                type="password"
+                                                onChange={this.onChange}
+                                                error={errors.Password2}
+                                            />
+                                            <DisplayMessage message={message}/>
+                                            <input type="submit" value="Update" className="btn btn-info btn-block mt-1"/>
+                                            <button type="button" className="btn btn-danger btn-block mt-3 mb-3" onClick={this.props.history.goBack}>Back</button>
+                                        </form>
                                     </div>
-                                    <FormInputGroup
-                                        myClassName="edit-client"
-                                        name="Password"
-                                        placeholder="Enter Password"
-                                        value={this.state.Password}
-                                        type="password"
-                                        onChange={this.onChange}
-                                        error={errors.Password}
-                                    />
-                                    <FormInputGroup
-                                        name="Password2"
-                                        placeholder="Confirm Password"
-                                        value={this.state.Password2}
-                                        type="password"
-                                        onChange={this.onChange}
-                                        error={errors.Password2}
-                                    />
-                                    <DisplayMessage message={message}/>
-                                    <input type="submit" value="Update" className="btn btn-info btn-block mt-1"/>
-                                    <button type="button" className="btn btn-danger btn-block mt-3 mb-3" onClick={this.props.history.goBack}>Back</button>
-                                </form>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-            );
+                    );
+            }
+            else{
+                return <ErrorComponent/>
+            }
+
         }
+        else{
+            const {loading} = this.props.clientProfile;
+
+            if (loading) {
+                return <Loading myClassName="loading_container"/>
+            }
+            if(isEmpty(this.props.authenticatedUser.user)){
+                return <ErrorComponent/>
+            }
+
+            return null
+        }
+
+        // else {
+        //     let {errors, message} = this.state;
+        //
+        //     return (
+        //         <div className="edit_client">
+        //             <div className="container  edit_client-custom">
+        //                 <div className="row">
+        //                     <div className="m-auto col-md-8">
+        //                         <h1 className=" text-center display-5">Edit Client Profile</h1>
+        //                         <div className="edit_image">
+        //                             {(<img
+        //                                 className = "rounded-circle"
+        //                                 alt={this.state.client_data.ProfilePicUrl === "NA" ? "Default user image." : "User profile picture."}
+        //                                 src = {this.state.client_data.ProfilePicUrl === "NA" ? defaultUserImage : defaultUserImage}
+        //                             />)}
+        //                         </div>
+        //                         <form autoComplete="off" onSubmit={this.onSubmit}>
+        //                             {/*// Deals with Chromes password auto complete*/}
+        //                             <input type="password" style={{height: 0, width: 0, opacity: 0, padding: 0, border: "none"}}></input>
+        //                             <FormInputGroup
+        //                                 myClassName="edit-client"
+        //                                 name="FullName"
+        //                                 placeholder={this.state.client_data.FullName}
+        //                                 value={this.state.FullName}
+        //                                 type="text"
+        //                                 onChange={this.onChange}
+        //                                 error={errors.FullName}
+        //                             />
+        //                             <FormInputGroup
+        //                                 myClassName="edit-client"
+        //                                 name="Email"
+        //                                 placeholder="Email"
+        //                                 value={this.state.Email}
+        //                                 type="Email"
+        //                                 onChange={this.onChange}
+        //                                 error={errors.Email}
+        //                             />
+        //                             <FormInputGroup
+        //                                 myClassName="edit-client"
+        //                                 name="ContactNumber"
+        //                                 placeholder="ContactNumber"
+        //                                 value={this.state.ContactNumber}
+        //                                 type="text"
+        //                                 onChange={this.onChange}
+        //                                 error={errors.ContactNumber}
+        //                             />
+        //                             <div className="form-group edit-profile-date-div">
+        //                                 <div className="edit-date-div">
+        //                                     <label className="control-label form-control-lg edit-profile-label">Date of
+        //                                         Birth:
+        //                                     </label>
+        //                                     < FormInputGroup
+        //                                         myClassName="edit-exercise"
+        //                                         name="DateOfBirth"
+        //                                         value={this.state.DateOfBirth.toString()}
+        //                                         type="date"
+        //                                         onChange={this.onChange}
+        //                                         error={errors.DateOfBirth}
+        //                                     />
+        //                                 </div>
+        //                                 <div className="edit-gender-div">
+        //                                     <label
+        //                                         className="control-label form-control-lg edit-profile-label gender">
+        //                                         Gender:
+        //                                     </label>
+        //                                     <FormSelectComp
+        //                                         name="Sex"
+        //                                         id="Sex"
+        //                                         values={this.state.values}
+        //                                         onChange={this.onChange}
+        //                                         error={errors.Sex}
+        //                                     />
+        //                                 </div>
+        //                             </div>
+        //                             <FormInputGroup
+        //                                 myClassName="edit-client"
+        //                                 name="Password"
+        //                                 placeholder="Enter Password"
+        //                                 value={this.state.Password}
+        //                                 type="password"
+        //                                 onChange={this.onChange}
+        //                                 error={errors.Password}
+        //                             />
+        //                             <FormInputGroup
+        //                                 name="Password2"
+        //                                 placeholder="Confirm Password"
+        //                                 value={this.state.Password2}
+        //                                 type="password"
+        //                                 onChange={this.onChange}
+        //                                 error={errors.Password2}
+        //                             />
+        //                             <DisplayMessage message={message}/>
+        //                             <input type="submit" value="Update" className="btn btn-info btn-block mt-1"/>
+        //                             <button type="button" className="btn btn-danger btn-block mt-3 mb-3" onClick={this.props.history.goBack}>Back</button>
+        //                         </form>
+        //                     </div>
+        //                 </div>
+        //             </div>
+        //         </div>
+        //     );
+        // }
     }
 }
 

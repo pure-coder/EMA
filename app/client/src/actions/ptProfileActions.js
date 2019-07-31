@@ -9,6 +9,7 @@ import {
     PASSWORD_ERROR,
     GET_ERRS,
     SUCCESS,
+    GET_CURRENT_CLIENT,
 } from "./types"; // import custom defined types
 import {logOutUser} from "./authenticationActions";
 
@@ -96,6 +97,21 @@ export const getPtData = (id, history) => dispatch => {
         .catch(err => {
             manageErrors(err, dispatch, history);
         })
+};
+
+export const getCurrentClient = (id, history) => dispatch => {
+    dispatch(setProfileLoading());
+    axios
+        .get(`/api/client/${id}`)
+        .then(result => {
+            dispatch({
+                type: GET_CURRENT_CLIENT,
+                payload: result.data
+            })
+        })
+        .catch(err => {
+            manageErrors(err, dispatch, history);
+        });
 };
 
 export const editPtData = (id, Data, history) => dispatch => {
