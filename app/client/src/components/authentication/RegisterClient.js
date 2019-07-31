@@ -90,7 +90,7 @@ class RegisterClient extends Component {
     render() {
         // if loaded is false then return loading screen
         if (!this.state.loaded) {
-            return <Loading/>;
+            return <Loading myClassName="loading_container"/>
         }
         if(isEmpty(this.props.authenticatedUser.user)){
             return <ErrorComponent/>
