@@ -144,80 +144,6 @@ img {
     height: 484px;
 }
 
-/* scheduler */
-
-#scheduler-container {
-    min-height: 500px;
-}
-
-.scheduler {
-    position: relative;
-    min-width: 720px;
-    max-width: 900px;
-    width: 100%;
-    height: 600px;
-    margin: auto;
-}
-
-.top-display {
-    display: block;
-    position: relative;
-    height: 50px;
-    min-width: 700px;
-    width: 100%;
-    margin: auto;
-}
-
-.display-elements {
-    float: left;
-    margin: 0 16px;
-}
-
-.scheduler-btn {
-    width: 100px;
-}
-
-.dhx_cal_container {
-    position: relative;
-    overflow: visible;
-}
-
-.dhx_cal_ltext text {
-    background-color: #fff;
-    overflow: auto;
-    color: rgba(0, 0, 0, .8);
-   /*height: 100%;*/
-    width: 100%;
-    outline: 0 !important;
-    resize: none;
-    border: 1px solid rgba(0, 0, 0, .08);
-    line-height: 20px;
-    font-family: inherit;
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
-    padding: 4px 0 0 8px;
-}
-
-.dhx_cal_data {
-    height: 500px !important;
-}
-
-.dhx_cal_light {
-    width: 580px !important;
-}
-
-.dhx_cal_data {
-    border-left: 1px solid #e0e0e0;
-}
-
-.dhx_cal_ltext {
-    height: 150px !important;
-}
-
-.dhx_scheduler_week {
-    min-width: 820px;
-}
-
 /* dashboard */
 
 .dashboard-container {
@@ -692,5 +618,56 @@ input[type=submit] {
 
 .user_data span.data {
     font-weight: bold;
+}
+
+/* New Scheduler CSS */
+
+.widget-box{
+    width: 100%;
+    height: 100%;
+}
+
+.app-screen{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.app-header{
+    width: 100%;
+    box-shadow: 0 2px 4px silver;
+}
+.app-header h1 {
+    padding: 10px; margin: 0;
+    font-weight: normal;
+}
+.app-sidebar{
+    flex-basis: 200px;
+    border-right: 1px solid silver;
+}
+.app-sidebar h3 {
+    text-align: center;
+    font-weight: normal;
+    margin:4px 0 0 0; padding: 10px;
+    background: #efefef;
+}
+.app-page{
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+}
+.app-content{
+    margin-top: 4px;
+    width: 100%;
+    height: 600px;
+}
+
+nav a {
+    display: block;
+    padding: 7px 10px;
+    color: #4444ff;
+}
+nav a.active {
+    background: #666;
+    color:white;
 }
 
