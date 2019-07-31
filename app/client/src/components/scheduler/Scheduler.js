@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import connect from "react-redux/es/connect/connect";
 import {withRouter} from "react-router-dom";
 import axios from 'axios';
+import {getCurrentClient} from "../../actions/ptProfileActions";
 import {getClientData} from "../../actions/clientProfileActions";
 import 'dhtmlx-scheduler';
 import Loading from "../../elements/Loading";
@@ -16,14 +17,16 @@ class Scheduler extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            clientId: props.authenticatedUser.clientId !== undefined ? props.authenticatedUser.clientId : props.match.params.cid,
-            userId: props.authenticatedUser.user.id !== undefined ? props.authenticatedUser.user.id : props.match.params.uid,
+            clientId: props.authenticatedUser.user.pt ? props.match.params.cid : props.authenticatedUser.user.id,
+            userId: props.authenticatedUser.user.id,
             errors: {},
             loaded: false
         };
 
         const scheduler = window.dhtmlXScheduler;
         const dataProcessor = window.dataProcessor;
+
+        console.log(this.state.userId, this.state.clientId)
 
         // If client - userId will only be used, will show their events, if pt userId is pt, clientId is client events that
         // pt wishes to view (clientId added when pt clicks client on their dashboard)
@@ -96,22 +99,38 @@ class Scheduler extends Component {
     componentDidMount() {
         // Check if isAuthenticated is false then redirect to the dashboard
         // this.authCheck();
-        this.props.getClientData(this.state.clientId, this.props.history)
+        if(this.props.authenticatedUser.user.pt){
+            this.props.getCurrentClient(this.state.clientId, this.props.history);
+        }
+        else {
+            this.props.getClientData(this.state.clientId, this.props.history);
+        }
+
     }
 
     componentDidUpdate(){
     }
 
     render() {
-        if(!this.state.loaded){
+         const {user} = this.props.authenticatedUser;
+
+         let client_data = null;
+
+         if(user.pt){
+             client_data = this.props.ptProfile.current_client;
+         }
+         else {
+             client_data = this.props.clientProfile.client_data;
+         }
+
+        console.log(client_data)
+        if(client_data === null){
             return <Loading/>
         }
-        if(isEmpty(this.props.authenticatedUser.user)){
+        if(isEmpty(user)){
             return <ErrorComponent/>
         }
         else{
-            const client_data = this.props.authenticatedUser.client_data;
-
             return (
                 <div id="scheduler-container">
                     <h1 className=" text-center display-5 mb-3">Workout Scheduler</h1>
@@ -138,15 +157,20 @@ class Scheduler extends Component {
 // Documents what props are needed for this component and will log a warning in the console in dev mode if not complied to
 Scheduler.propTypes = {
     authenticatedUser: PropTypes.object.isRequired,
+    ptProfile: PropTypes.object.isRequired,
+    clientProfile: PropTypes.object.isRequired,
+    getCurrentClient: PropTypes.func.isRequired,
     getClientData: PropTypes.func.isRequired
 };
 
 // Used to pull auth state and errors into this component
 const stateToProps = (state) => ({
     authenticatedUser: state.authenticatedUser,
+    ptProfile: state.ptProfile,
+    clientProfile: state.clientProfile
 });
 
 // connect must be exported with a passed parameter (not direct parameter) of scheduler this is wrapped with withRouter
 // allowing the functions of the package to be used with the component eg, proper routing, and direct parameters of
 // stateToProps for the 1st parameter and the action which is registerUser as the 2nd parameter
-export default connect(stateToProps, {getClientData})(withRouter(Scheduler));
+export default connect(stateToProps, {getClientData, getCurrentClient})(withRouter(Scheduler));
