@@ -37,6 +37,10 @@ class RegisterClient extends Component {
 
     // Populate state data with data from the database for the pt
     static getDerivedStateFromProps(props, state) {
+        if (!props.authenticatedUser.user.pt) {
+            props.history.push('/users/' + props.authenticatedUser.user.id + '/dashboard');
+            return null
+        }
         if (props !== state) {
             return {
                 errors: props.errors,
