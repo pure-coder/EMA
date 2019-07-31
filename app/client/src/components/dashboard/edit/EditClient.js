@@ -100,8 +100,8 @@ class EditClient extends Component {
             }
         }
         else{
-            if (this.props.clientProfile.current_client !== null) {
-                data = this.props.ptProfile.client_data;
+            if (this.props.clientProfile.client_data !== null) {
+                data = this.props.clientProfile.client_data;
             }
         }
         if(data !== null && !this.state.updated){

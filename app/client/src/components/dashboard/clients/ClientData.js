@@ -39,13 +39,8 @@ class ClientData extends Component {
         document.body.scrollTo(0,0);
     }
 
-    componentDidUpdate(){
-    }
-
-
     onProfileClick(id){
-        this.props.saveClientId(id, this.props.history);
-        this.props.history.push({pathname: `/users/${id}/client_profile/${id}`, state :  {clientData: this.props.authenticatedUser.client_data} });
+        this.props.history.push(`/users/${id}/client_profile/${id}`);
     }
 
     static onScheduleClick(id) {
@@ -53,15 +48,18 @@ class ClientData extends Component {
     };
 
     onEditProfile(id) {
-        this.props.saveClientId(id, this.props.history);
         this.props.history.push(`/users/${id}/edit_client`);
     };
 
     render() {
-        if(!this.state.loaded){
+
+        const {user} = this.props.authenticatedUser;
+        const {loading} = this.props.clientProfile;
+
+        if(loading){
             return <Loading/>;
         }
-        if(isEmpty(this.state.authenticatedUser.user)){
+        if(isEmpty(user)){
             return <ErrorComponent/>
         }
         else {
@@ -77,14 +75,14 @@ class ClientData extends Component {
                                 <th align="center">Edit details</th>
                             </tr>
                             <tr>
-                                <td align="center"><a onClick={this.onProfileClick.bind(this, this.state.id)}>
+                                <td align="center"><a onClick={this.onProfileClick.bind(this, user.id)}>
                                     <i className="fas fa-columns fa-2x"></i></a>
                                 </td>
                                 <td align="center"><a
-                                    onClick={ClientData.onScheduleClick.bind(this, this.state.id)}><i
+                                    onClick={ClientData.onScheduleClick.bind(this, user.id)}><i
                                     className="far fa-calendar-alt fa-2x"></i></a>
                                 </td>
-                                <td align="center"><a onClick={this.onEditProfile.bind(this, this.state.id)}><i
+                                <td align="center"><a onClick={this.onEditProfile.bind(this, user.id)}><i
                                     className="fas fa-edit fa-2x"></i></a>
                                 </td>
                             </tr>
@@ -98,11 +96,11 @@ class ClientData extends Component {
 }
 
 ClientData.propTypes = {
-    // deleteClient: PropTypes.func.isRequired
 };
 
 const stateToProps = (state) => ({
     authenticatedUser: state.authenticatedUser,
+    clientProfile: state.clientProfile,
     errors: state.errors
 });
 
