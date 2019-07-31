@@ -4,12 +4,13 @@ import {
     PROFILE_LOADING,
     CLEAR_CURRENT_PROFILE,
     GET_PT_CLIENTS_DATA,
-    CLIENT_PROGRESSION,
+    PT_CLIENT_PROGRESSION,
     CLEAR_PROGRESSION,
     PASSWORD_ERROR,
     GET_ERRS,
     SUCCESS,
     GET_CURRENT_CLIENT,
+    CLEAR_CURRENT_CLIENT
 } from "./types"; // import custom defined types
 import {logOutUser} from "./authenticationActions";
 
@@ -177,18 +178,24 @@ export const passwordsMatchError = (error) => dispatch => {
     )
 };
 
-export const getClientProgression = (userId, clientId, history) => dispatch => {
+export const ptGetClientProgression = (userId, clientId, history) => dispatch => {
     // userId can either be same as clientId or the id of the personal trainer
     axios.get(`/api/${userId}/client_progression/${clientId}` ) // using grave accent instead of single quote
         .then(result => {
             dispatch({
-                type: CLIENT_PROGRESSION,
+                type: PT_CLIENT_PROGRESSION,
                 payload: result.data
             });
         })
         .catch(err => {
             manageErrors(err, dispatch, history);
         });
+};
+
+export const clearCurrentClient = () => dispatch => {
+    dispatch({
+        type: CLEAR_CURRENT_CLIENT
+    });
 };
 
 export const clearProgression = () => dispatch => {
@@ -218,7 +225,7 @@ export const newClientProgress = (id, cid ,data, history) => dispatch => {
 export const deleteExercise =(uid, cid, data, history) => dispatch => {
     axios.delete(`/api/${uid}/client_progression/${cid}`, {data : {exerciseName : data}})
         .then(() => {
-            dispatch(getClientProgression(uid, cid, history));
+            dispatch(ptGetClientProgression(uid, cid, history));
         })
         .catch(err => {
             manageErrors(err, dispatch, history);
@@ -234,7 +241,7 @@ export const editClientExercise =(uid, cid, exerciseId, data, history) => dispat
                 }
         })
         .then(() => {
-            dispatch(getClientProgression(uid, cid, history));
+            dispatch(ptGetClientProgression(uid, cid, history));
         })
         .catch(err => {
             manageErrors(err, dispatch, history);

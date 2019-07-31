@@ -34,12 +34,12 @@ export default function(state = initialState, action) {
         case CLIENT_PROGRESSION:
             return {
                 ...state,
-                client_Progression: action.payload
+                client_progression: action.payload
             };
         case CLEAR_PROGRESSION:
             return {
                 ...state,
-                client_Progression: null
+                client_progression: null
             };
         default:
             return state;

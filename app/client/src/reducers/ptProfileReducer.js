@@ -4,8 +4,9 @@ import {
     GET_CURRENT_CLIENT,
     PROFILE_LOADING,
     CLEAR_CURRENT_PROFILE,
-    CLIENT_PROGRESSION,
+    PT_CLIENT_PROGRESSION,
     CLEAR_PROGRESSION,
+    CLEAR_CURRENT_CLIENT
 } from '../actions/types';
 
 const initialState = {
@@ -49,15 +50,20 @@ export default function(state = initialState, action) {
                 clients: null,
                 client_progression: null,
             };
-        case CLIENT_PROGRESSION:
+        case CLEAR_CURRENT_CLIENT:
             return {
                 ...state,
-                client_Progression: action.payload
+                current_client: null
+            };
+        case PT_CLIENT_PROGRESSION:
+            return {
+                ...state,
+                client_progression: action.payload
             };
         case CLEAR_PROGRESSION:
             return {
                 ...state,
-                client_Progression: null
+                client_progression: null
             };
         default:
             return state;

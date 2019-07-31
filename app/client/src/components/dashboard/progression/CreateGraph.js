@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {addGraph} from "../../../utilities/drawProgressGraph";
-import {deleteExercise, getClientProgression} from "../../../actions/ptProfileActions";
+import {deleteExercise, ptGetClientProgression} from "../../../actions/ptProfileActions";
 import PropTypes from "prop-types";
 import connect from "react-redux/es/connect/connect";
 import {withRouter} from "react-router-dom";
@@ -58,7 +58,7 @@ class CreateGraph extends Component {
     }
 
     getClientProgression(){
-        this.props.getClientProgression(this.state.userId, this.state.clientId, this.props.history);
+        this.props.ptGetClientProgression(this.state.userId, this.state.clientId, this.props.history);
     }
 
     modalSize(height){
@@ -166,7 +166,7 @@ class CreateGraph extends Component {
 CreateGraph.propTypes = {
     graphData: PropTypes.object.isRequired,
     deleteExercise: PropTypes.func.isRequired,
-    getClientProgression: PropTypes.func.isRequired
+    ptGetClientProgression: PropTypes.func.isRequired
 };
 
 const stateToProps = (state) => ({
@@ -174,4 +174,4 @@ const stateToProps = (state) => ({
     errors: state.errors
 });
 
-export default connect(stateToProps, {deleteExercise, getClientProgression})(withRouter(CreateGraph));
+export default connect(stateToProps, {deleteExercise, ptGetClientProgression})(withRouter(CreateGraph));

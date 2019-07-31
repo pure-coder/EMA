@@ -1,7 +1,7 @@
 import {connect} from 'react-redux';
 import React, {Component} from 'react';
 import {Link, withRouter} from 'react-router-dom';
-import {deleteClient, getClientProgression} from "../../../actions/ptProfileActions";
+import {deleteClient, ptGetClientProgression} from "../../../actions/ptProfileActions";
 import PropTypes from "prop-types";
 import Modal from "react-awesome-modal";
 import DeleteConfirm from './DeleteConfirm'
@@ -191,7 +191,7 @@ class ClientList extends Component {
 
 ClientList.propTypes = {
     deleteClient: PropTypes.func.isRequired,
-    getClientProgression: PropTypes.func.isRequired,
+    ptGetClientProgression: PropTypes.func.isRequired,
     ptProfile: PropTypes.object.isRequired
 };
 
@@ -201,4 +201,4 @@ const stateToProps = (state) => ({
     errors: state.errors
 });
 
-export default connect(stateToProps, {deleteClient, getClientProgression})(withRouter(ClientList));
+export default connect(stateToProps, {deleteClient, ptGetClientProgression})(withRouter(ClientList));
