@@ -1,7 +1,7 @@
 import React, {Component} from 'react';  // Used to create this component
 import PropTypes from 'prop-types'; // Used to document prop types sent to components
 import {connect} from 'react-redux' // Needed when using redux inside a component (connects redux to this component)
-import {editClientData, passwordsMatchError, setErrors, clearErrors, setSuccess, clearSuccess, getCurrentClient} from "../../../actions/ptProfileActions"; // Used to import create action for getting client data and editing client data
+import {editClientData, passwordsMatchError, setErrors, clearErrors, setSuccess, clearSuccess, getCurrentClient, clearCurrentClient} from "../../../actions/ptProfileActions"; // Used to import create action for getting client data and editing client data
 import {getClientData} from "../../../actions/clientProfileActions";
 import {withRouter} from 'react-router-dom';
 import FormInputGroup from "../../common/FormInputGroup";
@@ -117,6 +117,9 @@ class EditClient extends Component {
     }
 
     componentWillUnmount(){
+        if(this.props.authenticatedUser.user.pt){
+            this.props.clearCurrentClient();
+        }
         this.props.clearErrors();
         this.props.clearSuccess();
     }
@@ -335,6 +338,7 @@ EditClient.propTypes = {
     setErrors: PropTypes.func.isRequired,
     setSuccess: PropTypes.func.isRequired,
     clearSuccess: PropTypes.func.isRequired,
+    clearCurrentClient: PropTypes.func.isRequired,
     passwordsMatchError: PropTypes.func.isRequired,
     authenticatedUser: PropTypes.object.isRequired,
     ptProfile: PropTypes.object.isRequired,
@@ -351,4 +355,4 @@ const stateToProps = (state) => ({
     success: state.success
 });
 
-export default connect(stateToProps, {getClientData, getCurrentClient ,editClientData, passwordsMatchError, setErrors, setSuccess, clearErrors, clearSuccess})(withRouter(EditClient));
+export default connect(stateToProps, {getClientData, getCurrentClient ,editClientData, passwordsMatchError, setErrors, setSuccess, clearErrors, clearSuccess, clearCurrentClient})(withRouter(EditClient));
