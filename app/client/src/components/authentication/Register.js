@@ -34,14 +34,24 @@ class Register extends Component {
         this.onSubmit = this.onSubmit.bind(this);
     }
 
-    static getDerivedStateFromProps(props, state) {
-        if (props !== state) {
+    static getDerivedStateFromProps(nextProps) {
+        // Check if isAuthenticated is true then redirect to the dashboard
+        if (nextProps.authenticatedUser.isAuthenticated) {
+            nextProps.history.push('/users/' + nextProps.authenticatedUser.user.id + '/dashboard');
+            return null
+        }
+
+        // If property (nextProps) contains errors (contains the "errors" prop) then set the component state of errors
+        // defined in the constructor above to the errors that was sent to it via the dispatch call from
+        // authenicationActions.js
+        if (nextProps.errors) {
             return {
-                errors: props.errors,
-                success: props.success,
+                errors: nextProps.errors,
+                success: nextProps.success,
             }
         }
-        return null
+
+        return null;
     }
 
     componentDidMount() {

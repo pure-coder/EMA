@@ -23,19 +23,23 @@ class Login extends Component {
     }
 
     // Life cycle method for react which will run when this component receives new properties
-    componentWillReceiveProps(nextProps) {
-
+    static getDerivedStateFromProps(nextProps) {
         // Check if isAuthenticated is true then redirect to the dashboard
         if (nextProps.authenticatedUser.isAuthenticated) {
-            this.props.history.push('/users/' + nextProps.authenticatedUser.user.id + '/dashboard');
+            nextProps.history.push('/users/' + nextProps.authenticatedUser.user.id + '/dashboard');
+            return null
         }
 
         // If property (nextProps) contains errors (contains the "errors" prop) then set the component state of errors
         // defined in the constructor above to the errors that was sent to it via the dispatch call from
         // authenicationActions.js
         if (nextProps.errors) {
-            this.setState({errors: nextProps.errors})
+            return {
+                errors: nextProps.errors
+            }
         }
+
+        return null;
     }
 
     // This captures what the user types and sets the specific input to the respective state variable

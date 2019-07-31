@@ -1,9 +1,9 @@
 import {
     GET_CLIENT_PROFILE,
     PROFILE_LOADING,
-    CLEAR_CURRENT_PROFILE,
     CLIENT_PROGRESSION,
     CLEAR_PROGRESSION,
+    CLEAR_CLIENT_PROFILE
 } from '../actions/types';
 
 const initialState = {
@@ -25,7 +25,7 @@ export default function(state = initialState, action) {
                 client_data: action.payload,
                 loading: false
             };
-        case CLEAR_CURRENT_PROFILE:
+        case CLEAR_CLIENT_PROFILE:
             return {
                 ...state,
                 client_data: null,

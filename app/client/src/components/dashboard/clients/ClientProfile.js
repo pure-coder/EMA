@@ -49,6 +49,7 @@ class ClientProfile extends Component {
                     loaded: true,
                 }
             }
+            return null;
         }
         else {
             if(props.clientProfile.client_data !== state.clientData) {
@@ -62,7 +63,6 @@ class ClientProfile extends Component {
                     loaded: true,
                 }
             }
-
             return null;
         }
     }

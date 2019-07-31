@@ -2,7 +2,7 @@ import axios from 'axios';
 import {
     GET_CLIENT_PROFILE,
     PROFILE_LOADING,
-    CLEAR_CURRENT_PROFILE,
+    CLEAR_CLIENT_PROFILE,
     CLIENT_PROGRESSION,
     CLEAR_PROGRESSION,
     SUCCESS,
@@ -72,9 +72,9 @@ export const setProfileLoading = () => {
     }
 };
 
-export const clearCurrentProfile = () => {
+export const clearClientProfile = () => {
     return {
-        type: CLEAR_CURRENT_PROFILE
+        type: CLEAR_CLIENT_PROFILE
     }
 };
 
