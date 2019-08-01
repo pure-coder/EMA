@@ -40,7 +40,11 @@ class Scheduler extends Component {
     render() {
 
         const {user} = this.props.authenticatedUser;
-        const {scheduler} = this.props.ptProfile;
+        const Data = {
+            data: this.props.ptProfile.scheduler,
+            uid: this.state.userId,
+            cid: this.state.clientId
+        };
 
         let client_data = null;
 
@@ -51,19 +55,18 @@ class Scheduler extends Component {
             client_data = this.props.clientProfile.client_data;
         }
 
-        if(scheduler === undefined){
+        if(Data.data === undefined){
             return <Loading myClassName="loading_container"/>
         }
         if(isEmpty(user)){
             return <ErrorComponent/>
         }
         else {
-            console.log(scheduler)
             return (
                 <div id="scheduler-container">
                     <h1 className=" text-center display-5 mb-3">Workout Scheduler</h1>
                     <UserInfo userData={client_data}/>
-                    <SchedulerHTML Data={scheduler}/>
+                    <SchedulerHTML Data={Data}/>
                 </div>
             );
         }
