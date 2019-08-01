@@ -23,11 +23,12 @@ class Scheduler extends Component {
             loading: true,
         };
 
-        this.container = React.createRef();
         this.ready = fromCDN([
             "//cdn.dhtmlx.com/scheduler/5.0/dhtmlxscheduler.js",
             "//cdn.dhtmlx.com/scheduler/5.0/dhtmlxscheduler.css"
         ]);
+
+
     }
     componentDidMount() {
         // Check if isAuthenticated is false then redirect to the dashboard
@@ -59,7 +60,7 @@ class Scheduler extends Component {
                         /* globals scheduler */
                         scheduler.config.show_loading = false;
                         scheduler.config.xml_date = "%Y-%m-%d %H:%i";
-                        scheduler.init(this.container.current, thisDate, "month");
+                        scheduler.init('workoutScheduler', thisDate, "month");
                         // Load the date from the database
                         scheduler.templates.xml_date = function (value) {
                             return new Date(value);
@@ -82,12 +83,15 @@ class Scheduler extends Component {
                         dataProc.setTransactionMode({mode: "POST", headers:{ "Content-Type": "application/x-www-form-urlencoded",
                                 Authorization: token}});
 
+                        console.log(window)
+
                     }})
                 .catch(err => {
                     console.log(err)
                 });
             }
-    )}
+        )
+    }
 
 
     render() {
@@ -118,7 +122,7 @@ class Scheduler extends Component {
                     <div className="app-screen mb-5">
                         <div className="app-header">
                             <div className="app-content">
-                                <div ref={this.container} className="widget-box dhx_cal_container">
+                                <div id="workoutScheduler" className="widget-box dhx_cal_container">
                                     <div className="dhx_cal_navline">
                                         <div className="dhx_cal_prev_button">&nbsp;</div>
                                         <div className="dhx_cal_next_button">&nbsp;</div>
