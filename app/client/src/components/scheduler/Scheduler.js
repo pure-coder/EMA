@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
-import fromCDN from "from-cdn";
 import PropTypes from "prop-types";
 import connect from "react-redux/es/connect/connect";
 import {withRouter} from "react-router-dom";
-import axios from 'axios';
-import {getCurrentClient} from "../../actions/ptProfileActions";
+import {getCurrentClient, workoutScheduler} from "../../actions/ptProfileActions";
 import {getClientData} from "../../actions/clientProfileActions";
 import 'dhtmlx-scheduler';
 import Loading from "../../elements/Loading";
@@ -24,59 +22,7 @@ class Scheduler extends Component {
             loading: true,
         };
 
-        this.ready = fromCDN([
-            "//cdn.dhtmlx.com/scheduler/5.0/dhtmlxscheduler.js",
-            "//cdn.dhtmlx.com/scheduler/5.0/dhtmlxscheduler.css"
-        ]);
-
-        this.ready.then(() => {
-                axios.get(`/api/${this.state.userId}/scheduler/${this.state.clientId}`)
-                    .then(result => {
-                        if (result) {
-
-                            // const scheduler = window.dhtmlXScheduler;
-                            const dataProcessor = window.dataProcessor;
-
-                            // Initialise scheduler to current date (month)
-                            let now = new Date();
-                            let date = now.getDate();
-                            let month = now.getMonth();
-                            let year = now.getFullYear();
-                            // Initialising workout scheduler to current date and display the month view
-                            let thisDate = new Date(year, month, date);
-
-                            /* globals scheduler */
-                            scheduler.config.show_loading = false;
-                            scheduler.config.xml_date = "%Y-%m-%d %H:%i";
-                            scheduler.init('workoutScheduler', thisDate, "month");
-                            // Load the date from the database
-                            scheduler.templates.xml_date = function (value) {
-                                return new Date(value);
-                            };
-                            scheduler.parse(result.data, "json");
-
-                            // Add, edit, and delete data in the database
-                            scheduler.config.xml_date = "%Y-%m-%d %H:%i";
-                            //Get token for adding/editing/deleting events
-                            let token = localStorage.getItem('jwtToken');
-
-
-                            // Use dataProcessor of dhtmlx scheduler to insert/update/delete data for scheduler
-                            // for the current client (the id of the client is sent to the api so that the event can be
-                            // associated with them, allowing client events to be filtered so only their events are retrieved
-                            // and shown with GET method
-                            let dataProc = new dataProcessor(`/api/${this.state.userId}/scheduler/${this.state.clientId}` );
-                            dataProc.init(scheduler);
-                            // Add token to header to allow access to the POST function on API
-                            dataProc.setTransactionMode({mode: "POST", headers:{ "Content-Type": "application/x-www-form-urlencoded",
-                                    Authorization: token}});
-
-                        }})
-                    .catch(err => {
-                        console.log(err)
-                    });
-            }
-        )
+        this.props.workoutScheduler(this.state.userId, this.state.clientId);
 
     }// constructor
 
@@ -89,7 +35,7 @@ class Scheduler extends Component {
         else {
             this.props.getClientData(this.state.clientId, this.props.history);
         }
-    }
+    };
 
 
     render() {
@@ -113,11 +59,10 @@ class Scheduler extends Component {
         }
         else {
             return (
-
                 <div id="scheduler-container">
                     <h1 className=" text-center display-5 mb-3">Workout Scheduler</h1>
                     <UserInfo userData={client_data}/>
-                    <SchedulerHTML/>
+                    <SchedulerHTML Data={this.props.ptProfile.scheduler}/>
                 </div>
             );
         }
@@ -129,7 +74,8 @@ Scheduler.propTypes = {
     ptProfile: PropTypes.object.isRequired,
     clientProfile: PropTypes.object.isRequired,
     getCurrentClient: PropTypes.func.isRequired,
-    getClientData: PropTypes.func.isRequired
+    getClientData: PropTypes.func.isRequired,
+    workoutScheduler: PropTypes.func.isRequired
 };
 
 // Used to pull auth state and errors into this component
@@ -139,4 +85,4 @@ const stateToProps = (state) => ({
     clientProfile: state.clientProfile
 });
 
-export default connect(stateToProps, {getClientData, getCurrentClient})(withRouter(Scheduler));
+export default connect(stateToProps, {getClientData, getCurrentClient, workoutScheduler})(withRouter(Scheduler));

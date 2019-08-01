@@ -6,7 +6,8 @@ import {
     CLEAR_CURRENT_PROFILE,
     PT_CLIENT_PROGRESSION,
     CLEAR_PROGRESSION,
-    CLEAR_CURRENT_CLIENT
+    CLEAR_CURRENT_CLIENT,
+    SCHEDULER
 } from '../actions/types';
 
 const initialState = {
@@ -65,6 +66,11 @@ export default function(state = initialState, action) {
                 ...state,
                 client_progression: null
             };
+        case SCHEDULER:
+            return {
+                ...state,
+                scheduler: action.payload
+            }
         default:
             return state;
     }

@@ -1,4 +1,5 @@
 import axios from 'axios';
+import 'dhtmlx-scheduler';
 import {
     GET_PT_PROFILE,
     PROFILE_LOADING,
@@ -10,7 +11,8 @@ import {
     GET_ERRS,
     SUCCESS,
     GET_CURRENT_CLIENT,
-    CLEAR_CURRENT_CLIENT
+    CLEAR_CURRENT_CLIENT,
+    SCHEDULER
 } from "./types"; // import custom defined types
 import {logOutUser} from "./authenticationActions";
 
@@ -294,4 +296,19 @@ export const clearSuccess = () => dispatch => {
         type: SUCCESS,
         payload: {}
     })
+};
+
+export const workoutScheduler = (uid, cid) => dispatch => {
+    axios.get(`/api/${uid}/scheduler/${cid}`)
+        .then(result => {
+            if (result) {
+                dispatch({
+                    type: SCHEDULER,
+                    payload: result.data
+                })
+            }
+        })
+        .catch(err => {
+            console.log(err)
+        });
 };
