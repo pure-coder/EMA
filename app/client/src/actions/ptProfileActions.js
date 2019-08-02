@@ -28,6 +28,7 @@ const manageErrors = (err, dispatch, history) => {
             }
         });
         dispatch(logOutUser());
+        dispatch(clearCurrentProfile());
         dispatch(clearErrors());
         history.push('/re-login');
     }

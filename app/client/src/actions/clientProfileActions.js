@@ -23,6 +23,7 @@ const manageErrors = (err, dispatch, history) => {
             }
         });
         dispatch(logOutUser());
+        dispatch(clearClientProfile());
         dispatch(clearErrors());
         history.push('/re-login');
     }

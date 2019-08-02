@@ -64,7 +64,7 @@ class Scheduler extends Component {
         else {
             return (
                 <div id="scheduler-container">
-                    <h1 className=" text-center display-5 mb-3">Workout Scheduler</h1>
+                    <h1 className=" text-center display-5 mb-3">Workout Schedule</h1>
                     <UserInfo userData={client_data}/>
                     <SchedulerHTML Data={Data}/>
                 </div>

@@ -23,14 +23,17 @@ class ExpiredLogin extends Component {
     }
 
     // Life cycle method for react which will run when this component receives new properties
-    componentWillReceiveProps(nextProps) {
+    static getDerivedStateFromProps(props, state) {
         // Check if isAuthenticated is true then redirect to the dashboard
-        if (nextProps.authenticatedUser.isAuthenticated) {
-            this.props.history.push('/users/' + nextProps.authenticatedUser.user.id + '/dashboard');
+        if (props.authenticatedUser.isAuthenticated) {
+            props.history.push('/users/' + props.authenticatedUser.user.id + '/dashboard');
         }
-        if (nextProps.errors) {
-            this.setState({errors: nextProps.errors})
+        if (props.errors != state.errors) {
+            return {
+                errors: props.errors
+            }
         }
+        return null;
     }
 
     // This captures what the user types and sets the specific input to the respective state variable
@@ -56,13 +59,6 @@ class ExpiredLogin extends Component {
     render() {
 
         const {errors} = this.state; // This allows errors to be pulled out of this.state with pulling them out directly
-
-        // if (this.props.authenticatedUser.isAuthenticated === true) {
-        //     return <Redirect to={{
-        //         pathname: '/users/' + this.props.authenticatedUser.user.id + '/dashboard',
-        //         state: {from: this.props.location}
-        //     }}/>
-        // }
 
         return (
             <div className="container  login-custom">
