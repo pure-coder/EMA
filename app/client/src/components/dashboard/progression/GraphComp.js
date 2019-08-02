@@ -11,7 +11,7 @@ import AddDataProgressForm from "./AddDataProgressForm";
 import isEmpty from "../../../utilities/is_empty";
 import ErrorComponent from "../../error/ErrorComponent";
 
-class CreateGraph extends Component {
+class GraphComp extends Component {
     constructor(props){
         super(props);
         this.state = {
@@ -167,7 +167,7 @@ class CreateGraph extends Component {
     }
 }
 
-CreateGraph.propTypes = {
+GraphComp.propTypes = {
     authenticatedUser: PropTypes.object.isRequired,
     graphData: PropTypes.object.isRequired,
     ptProfile: PropTypes.object.isRequired,
@@ -183,4 +183,4 @@ const stateToProps = (state) => ({
     errors: state.errors
 });
 
-export default connect(stateToProps, {deleteExercise, ptGetClientProgression})(withRouter(CreateGraph));
+export default connect(stateToProps, {deleteExercise, ptGetClientProgression})(withRouter(GraphComp));

@@ -4,7 +4,7 @@ import {connect} from 'react-redux' // Needed when using redux inside a componen
 import {withRouter} from 'react-router-dom';
 import {ptGetClientProgression, clearProgression, getCurrentClient, clearCurrentClient} from "../../../actions/ptProfileActions";
 import {getClientData, getClientProgression} from "../../../actions/clientProfileActions";
-import Graph from "../progression/Graph";
+import Graphs from "../progression/Graphs";
 import NewClientProgressForm from "../progression/NewClientProgressForm";
 import Modal from 'react-awesome-modal';
 import isEmpty from '../../../utilities/is_empty';
@@ -132,7 +132,7 @@ class ClientProfile extends Component {
             }
             else{
                 displayContent = (
-                    <Graph graphData={clientProgressData}/>
+                    <Graphs graphData={clientProgressData}/>
                 )
             }
 

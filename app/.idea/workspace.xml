@@ -4,12 +4,12 @@
     <bookmark url="file://C:/Learning/clientObjectData.js" description="export {&quot;_id&quot;:&quot;5c2e3454d27ace097420b414&quot;,&quot;FullName..." line="2" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ec8ccf39-8487-4892-a38d-de9c288878a3" name="Default" comment="Changed init state of scheduler to week.&#10;Changed min-width of widget-box class, as week view date was overlapping buttons either side.">
+    <list default="true" id="ec8ccf39-8487-4892-a38d-de9c288878a3" name="Default" comment="CreateGraph component refactored in progression folder.&#10;ExpiredLogin bug fixed, changed != to !==.&#10;SchedulerHTML removed const scheduler = window.dhtmlXScheduler statement as it was not being used.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/authentication/ExpiredLogin.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/authentication/ExpiredLogin.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/dashboard/progression/CreateGraph.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/dashboard/progression/CreateGraph.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/scheduler/SchedulerHTML.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/scheduler/SchedulerHTML.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/users.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/users.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/dashboard/clients/ClientProfile.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/dashboard/clients/ClientProfile.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/dashboard/progression/CreateGraph.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/dashboard/progression/CreateGraph.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/dashboard/progression/GraphComp.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/dashboard/progression/Graph.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/dashboard/progression/Graphs.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -54,15 +54,16 @@
           <entry key="eslintignore" value="18" />
           <entry key="gitignore" value="22" />
           <entry key="html" value="1117" />
-          <entry key="js" value="188560" />
+          <entry key="js" value="188562" />
           <entry key="json" value="29" />
           <entry key="md" value="150" />
-          <entry key="txt" value="13017" />
+          <entry key="txt" value="13196" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JavaScript" value="320" />
+          <entry key="JavaScript" value="322" />
+          <entry key="PLAIN_TEXT" value="179" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -73,7 +74,7 @@
           <entry key="gitignore" value="9" />
           <entry key="html" value="19" />
           <entry key="ico" value="1" />
-          <entry key="js" value="1402" />
+          <entry key="js" value="1404" />
           <entry key="json" value="13" />
           <entry key="map" value="1" />
           <entry key="md" value="4" />
@@ -88,7 +89,7 @@
           <entry key="HTML" value="19" />
           <entry key="Image" value="1" />
           <entry key="JSON" value="13" />
-          <entry key="JavaScript" value="1402" />
+          <entry key="JavaScript" value="1404" />
           <entry key="PLAIN_TEXT" value="20" />
           <entry key="SVG" value="1" />
           <entry key="Scratch" value="1" />
@@ -108,13 +109,25 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/progression/CreateGraph.js">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/progression/GraphComp.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="119">
-              <caret line="85" lean-forward="true" selection-start-line="85" selection-end-line="85" />
+            <state relative-caret-position="-748">
+              <caret line="85" selection-start-line="85" selection-end-line="85" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/progression/Graphs.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="187">
+              <caret line="11" column="24" lean-forward="true" selection-start-line="11" selection-start-column="24" selection-end-line="11" selection-end-column="24" />
+              <folding>
+                <element signature="e#0#36#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -141,9 +154,9 @@
       <find>re-login</find>
       <find>Expired</find>
       <find>this.props.graphData</find>
+      <find>CreateGraph</find>
     </findStrings>
     <replaceStrings>
-      <replace>{date</replace>
       <replace>onClickedClient</replace>
       <replace>client</replace>
       <replace>&gt;</replace>
@@ -173,6 +186,7 @@
       <replace>className</replace>
       <replace>schedulerHTML</replace>
       <replace>graphData</replace>
+      <replace>GraphComp</replace>
     </replaceStrings>
     <dirStrings>
       <dir>C:\TM470\app\client\src\components</dir>
@@ -208,7 +222,6 @@
         <option value="$PROJECT_DIR$/client/src/components/dashboard/edit/EditPersonalTrainer.js" />
         <option value="$PROJECT_DIR$/client/src/components/dashboard/progression/Graph.js" />
         <option value="$PROJECT_DIR$/client/src/components/dashboard/clients/ClientList.js" />
-        <option value="$PROJECT_DIR$/client/src/components/dashboard/clients/ClientProfile.js" />
         <option value="$PROJECT_DIR$/client/src/reducers/clientProfileReducer.js" />
         <option value="$PROJECT_DIR$/client/src/components/layout/Navigator.js" />
         <option value="$PROJECT_DIR$/client/src/components/authentication/Login.js" />
@@ -230,6 +243,8 @@
         <option value="$PROJECT_DIR$/client/src/components/authentication/ExpiredLogin.js" />
         <option value="$PROJECT_DIR$/client/src/components/scheduler/SchedulerHTML.js" />
         <option value="$PROJECT_DIR$/client/src/components/dashboard/progression/CreateGraph.js" />
+        <option value="$PROJECT_DIR$/client/src/components/dashboard/clients/ClientProfile.js" />
+        <option value="$PROJECT_DIR$/client/src/components/dashboard/progression/Graphs.js" />
       </list>
     </option>
   </component>
@@ -312,14 +327,6 @@
               <item name="client" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="components" type="462c0819:PsiDirectoryNode" />
-              <item name="authentication" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="app" type="b2602c69:ProjectViewProjectNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="client" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
               <item name="dashboard" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -328,7 +335,8 @@
               <item name="client" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="components" type="462c0819:PsiDirectoryNode" />
-              <item name="scheduler" type="462c0819:PsiDirectoryNode" />
+              <item name="dashboard" type="462c0819:PsiDirectoryNode" />
+              <item name="progression" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="app" type="b2602c69:ProjectViewProjectNode" />
@@ -1836,11 +1844,18 @@
       <option name="project" value="LOCAL" />
       <updated>1564705225263</updated>
     </task>
-    <option name="localTasksCounter" value="133" />
+    <task id="LOCAL-00133" summary="CreateGraph component refactored in progression folder.&#10;ExpiredLogin bug fixed, changed != to !==.&#10;SchedulerHTML removed const scheduler = window.dhtmlXScheduler statement as it was not being used.">
+      <created>1564709193696</created>
+      <option name="number" value="00133" />
+      <option name="presentableId" value="LOCAL-00133" />
+      <option name="project" value="LOCAL" />
+      <updated>1564709193696</updated>
+    </task>
+    <option name="localTasksCounter" value="134" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1674399000" />
+    <option name="totallyTimeSpent" value="1675374000" />
   </component>
   <component name="TodoView" selected-index="4">
     <todo-panel id="selected-file">
@@ -1941,7 +1956,6 @@
   <component name="VcsManagerConfiguration">
     <option name="SHOW_DIRTY_RECURSIVELY" value="true" />
     <option name="LIMIT_HISTORY" value="false" />
-    <MESSAGE value="Adding mongodb atlas." />
     <MESSAGE value="Changed git hub ignore file" />
     <MESSAGE value="password added to mongodb atlas" />
     <MESSAGE value="password added to mongodb atlas." />
@@ -1966,7 +1980,8 @@
     <MESSAGE value="Scheduler now working with client data from db, save and edit functionality now working." />
     <MESSAGE value="Noticed bug with re-login paged ExpiredLogin, fixed depreciated method." />
     <MESSAGE value="Changed init state of scheduler to week.&#10;Changed min-width of widget-box class, as week view date was overlapping buttons either side." />
-    <option name="LAST_COMMIT_MESSAGE" value="Changed init state of scheduler to week.&#10;Changed min-width of widget-box class, as week view date was overlapping buttons either side." />
+    <MESSAGE value="CreateGraph component refactored in progression folder.&#10;ExpiredLogin bug fixed, changed != to !==.&#10;SchedulerHTML removed const scheduler = window.dhtmlXScheduler statement as it was not being used." />
+    <option name="LAST_COMMIT_MESSAGE" value="CreateGraph component refactored in progression folder.&#10;ExpiredLogin bug fixed, changed != to !==.&#10;SchedulerHTML removed const scheduler = window.dhtmlXScheduler statement as it was not being used." />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/routes/chat.js">
@@ -2130,13 +2145,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/progression/Graph.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="245">
-          <caret line="70" column="46" lean-forward="true" selection-start-line="70" selection-start-column="46" selection-end-line="70" selection-end-column="46" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/edit/EditClient.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="391">
@@ -2263,12 +2271,32 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/progression/CreateGraph.js">
+    <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/progression/GraphComp.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="85" lean-forward="true" selection-start-line="85" selection-end-line="85" />
+        <state relative-caret-position="-748">
+          <caret line="85" selection-start-line="85" selection-end-line="85" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/clients/ClientProfile.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="138" column="20" lean-forward="true" selection-start-line="138" selection-start-column="20" selection-end-line="138" selection-end-column="20" />
+          <folding>
+            <element signature="e#277#321#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/progression/Graphs.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="11" column="24" lean-forward="true" selection-start-line="11" selection-start-column="24" selection-end-line="11" selection-end-column="24" />
+          <folding>
+            <element signature="e#0#36#0" expanded="true" />
           </folding>
         </state>
       </provider>
