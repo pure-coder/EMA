@@ -22,7 +22,7 @@ class SchedulerHTML extends Component {
         const {data, uid, cid} = this.props.Data;
 
         this.ready.then(() => {
-            const scheduler = window.dhtmlXScheduler;
+            // const scheduler = window.dhtmlXScheduler;
             const dataProcessor = window.dataProcessor;
 
             // Initialise scheduler to current date (month)

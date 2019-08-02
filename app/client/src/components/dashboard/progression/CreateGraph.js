@@ -15,9 +15,9 @@ class CreateGraph extends Component {
     constructor(props){
         super(props);
         this.state = {
-            userId : props.match.params.uid || props.authenticatedUser.user.id,
-            clientId: props.authenticatedUser.clientId || props.match.params.cid,
-            metrics : this.props.graphData.metrics,
+            userId : props.authenticatedUser.user.id,
+            clientId: props.authenticatedUser.user.pt ? props.ptProfile.current_client._id : props.clientProfile.client_data._id,
+            metrics : props.graphData.metrics,
             visible: false,
             modalHeight: "400",
             modalWidth: "500",
@@ -92,27 +92,31 @@ class CreateGraph extends Component {
     }
 
     render(){
-        if(isEmpty(this.props.authenticatedUser.user)){
+        const {user} = this.props.authenticatedUser;
+        const {graphData} = this.props;
+        
+
+        if(isEmpty(user)){
             return <ErrorComponent/>
         }
         let displayForm;
 
         let display;
         display = (
-                (this.props.authenticatedUser.user.pt === true && this.props.graphData.metrics.length >= 2 ?
+                (user.pt === true && graphData.metrics.length >= 2 ?
                     (
                         <div className="btn-toolbar">
                             <div className="col-4">
                             <input type="button" className="btn btn-info progress-buttons"
-                           value="Edit Data" name={this.props.graphData.exerciseName} onClick={this.openModal} />
+                           value="Edit Data" name={graphData.exerciseName} onClick={this.openModal} />
                             </div>
                             <div className="col-4">
                             <input type="button" className="btn btn-success progress-buttons"
-                                   value="Add Data" name={this.props.graphData.exerciseName} onClick={this.openModal} />
+                                   value="Add Data" name={graphData.exerciseName} onClick={this.openModal} />
                             </div>
                             <div className="col-4">
                             <input type="button" className="btn btn-danger progress-buttons"
-                           value="Delete Exercise" name={this.props.graphData.exerciseName} onClick={this.openModal} />
+                           value="Delete Exercise" name={graphData.exerciseName} onClick={this.openModal} />
                             </div>
                         </div>
                     ) : null)
@@ -123,7 +127,7 @@ class CreateGraph extends Component {
         // Provide component depending on what button was pressed
         if(this.state.form === 'Delete') {
             displayForm = (
-                <DeleteProgressConfirm exerciseName={this.props.graphData.exerciseName} onClickAway={this.onClickAway}
+                <DeleteProgressConfirm exerciseName={graphData.exerciseName} onClickAway={this.onClickAway}
                                        visible={this.state.visible}
                                         modalSize={this.modalSize}
                                         progressFormHeight={this.state.modalHeight}/>
@@ -131,7 +135,7 @@ class CreateGraph extends Component {
         }
         if(this.state.form === 'Add') {
             displayForm = (
-                <AddDataProgressForm exerciseName={this.props.graphData.exerciseName} onClickAway={this.onClickAway}
+                <AddDataProgressForm exerciseName={graphData.exerciseName} onClickAway={this.onClickAway}
                                        visible={this.state.visible}
                                        modalSize={this.modalSize}
                                        progressFormHeight={this.state.modalHeight}/>
@@ -139,8 +143,8 @@ class CreateGraph extends Component {
         }
         if(this.state.form === 'Edit') {
             displayForm = (
-                <EditDataProgressForm exerciseName={this.props.graphData.exerciseName}
-                                      exerciseId={this.props.graphData._id}
+                <EditDataProgressForm exerciseName={graphData.exerciseName}
+                                      exerciseId={graphData._id}
                                       metrics={this.state.metrics}
                                       onClickAway={this.onClickAway}
                                       visible={this.state.visible}
@@ -151,7 +155,7 @@ class CreateGraph extends Component {
 
         return (
             <div>
-                <div className={this.props.graphData.exerciseName.replace(/\s+/g, '-') + " graph"}></div>
+                <div className={graphData.exerciseName.replace(/\s+/g, '-') + " graph"}></div>
                 {display}
 
                 <Modal visible={this.state.visible} width={this.state.modalWidth} height={this.state.modalHeight} effect="fadeInUp"
@@ -164,13 +168,18 @@ class CreateGraph extends Component {
 }
 
 CreateGraph.propTypes = {
+    authenticatedUser: PropTypes.object.isRequired,
     graphData: PropTypes.object.isRequired,
+    ptProfile: PropTypes.object.isRequired,
+    clientProfile: PropTypes.object.isRequired,
     deleteExercise: PropTypes.func.isRequired,
     ptGetClientProgression: PropTypes.func.isRequired
 };
 
 const stateToProps = (state) => ({
     authenticatedUser: state.authenticatedUser,
+    ptProfile: state.ptProfile,
+    clientProfile: state.clientProfile,
     errors: state.errors
 });
 

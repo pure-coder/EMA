@@ -28,7 +28,7 @@ class ExpiredLogin extends Component {
         if (props.authenticatedUser.isAuthenticated) {
             props.history.push('/users/' + props.authenticatedUser.user.id + '/dashboard');
         }
-        if (props.errors != state.errors) {
+        if (props.errors !== state.errors) {
             return {
                 errors: props.errors
             }

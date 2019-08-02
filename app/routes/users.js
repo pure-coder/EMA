@@ -114,6 +114,7 @@ router.get('/client/:cid', passport.authenticate('both_rule', {session: false}, 
         .then(client => {
                 if (client) {
                     let data = {};
+                    data._id = client._id;
                     data.FullName = client.FullName;
                     data.DateOfBirth = client.DateOfBirth;
                     data.Email = client.Email;
