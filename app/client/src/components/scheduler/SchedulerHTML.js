@@ -19,12 +19,11 @@ class SchedulerHTML extends Component {
 
     componentDidMount() {
 
-        const data = this.props.Data;
-        console.log(this.props);
+        const {data, uid, cid} = this.props.Data;
 
         this.ready.then(() => {
             const scheduler = window.dhtmlXScheduler;
-            //const dataProcessor = window.dataProcessor;
+            const dataProcessor = window.dataProcessor;
 
             // Initialise scheduler to current date (month)
             let now = new Date();
@@ -40,24 +39,24 @@ class SchedulerHTML extends Component {
             scheduler.config.xml_date = "%Y-%m-%d %H:%i";scheduler.templates.xml_date = function (value) {
                 return new Date(value);
             };
-            scheduler.init('workoutScheduler', thisDate, "month");
+            scheduler.init('workoutScheduler', thisDate, "week");
             //scheduler.parse(this.props.ptProfile.scheduler, "json");
             scheduler.parse(data, "json");
             // Add, edit, and delete data in the database
             scheduler.config.xml_date = "%Y-%m-%d %H:%i";
 
 
-            // //Get token for adding/editing/deleting events
-            // let token = localStorage.getItem('jwtToken');
-            // // Use dataProcessor of dhtmlx scheduler to insert/update/delete data for scheduler
-            // // for the current client (the id of the client is sent to the api so that the event can be
-            // // associated with them, allowing client events to be filtered so only their events are retrieved
-            // // and shown with GET method
-            // let dataProc = new dataProcessor(`/api/${this.state.userId}/scheduler/${this.state.clientId}` );
-            // dataProc.init(scheduler);
-            // // Add token to header to allow access to the POST function on API
-            // dataProc.setTransactionMode({mode: "POST", headers:{ "Content-Type": "application/x-www-form-urlencoded",
-            //         Authorization: token}});
+            //Get token for adding/editing/deleting events
+            let token = localStorage.getItem('jwtToken');
+            // Use dataProcessor of dhtmlx scheduler to insert/update/delete data for scheduler
+            // for the current client (the id of the client is sent to the api so that the event can be
+            // associated with them, allowing client events to be filtered so only their events are retrieved
+            // and shown with GET method
+            let dataProc = new dataProcessor(`/api/${uid}/scheduler/${cid}` );
+            dataProc.init(scheduler);
+            // Add token to header to allow access to the POST function on API
+            dataProc.setTransactionMode({mode: "POST", headers:{ "Content-Type": "application/x-www-form-urlencoded",
+                    Authorization: token}});
 
         });
     };
