@@ -39,7 +39,7 @@ class SchedulerHTML extends Component {
             scheduler.config.xml_date = "%Y-%m-%d %H:%i";scheduler.templates.xml_date = function (value) {
                 return new Date(value);
             };
-            scheduler.init('workoutScheduler', thisDate, "month");
+            scheduler.init('workoutScheduler', thisDate, "week");
             //scheduler.parse(this.props.ptProfile.scheduler, "json");
             scheduler.parse(data, "json");
             // Add, edit, and delete data in the database
