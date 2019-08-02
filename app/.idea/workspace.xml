@@ -4,11 +4,7 @@
     <bookmark url="file://C:/Learning/clientObjectData.js" description="export {&quot;_id&quot;:&quot;5c2e3454d27ace097420b414&quot;,&quot;FullName..." line="2" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ec8ccf39-8487-4892-a38d-de9c288878a3" name="Default" comment="Noticed bug with re-login paged ExpiredLogin, fixed depreciated method.">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/App.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/scheduler/SchedulerHTML.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/scheduler/SchedulerHTML.js" afterDir="false" />
-    </list>
+    <list default="true" id="ec8ccf39-8487-4892-a38d-de9c288878a3" name="Default" comment="Changed init state of scheduler to week.&#10;Changed min-width of widget-box class, as week view date was overlapping buttons either side." />
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
     <ignored path="$PROJECT_DIR$/tmp/" />
@@ -55,7 +51,7 @@
           <entry key="js" value="188240" />
           <entry key="json" value="29" />
           <entry key="md" value="150" />
-          <entry key="txt" value="12872" />
+          <entry key="txt" value="13017" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
@@ -64,7 +60,7 @@
           <entry key="HTML" value="1124" />
           <entry key="JSON" value="29" />
           <entry key="JavaScript" value="188233" />
-          <entry key="PLAIN_TEXT" value="13347" />
+          <entry key="PLAIN_TEXT" value="13492" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -480,13 +476,6 @@
       <workItem from="1564525298735" duration="599000" />
       <workItem from="1564527818818" duration="38296000" />
     </task>
-    <task id="LOCAL-00083" summary="UserInfo added to ClientProfile page.&#10;UserInfo client data CSS change.">
-      <created>1564177228276</created>
-      <option name="number" value="00083" />
-      <option name="presentableId" value="LOCAL-00083" />
-      <option name="project" value="LOCAL" />
-      <updated>1564177228276</updated>
-    </task>
     <task id="LOCAL-00084" summary="UserInfo data CSS change, text to span, also line-height modified.">
       <created>1564178290341</created>
       <option name="number" value="00084" />
@@ -823,11 +812,18 @@
       <option name="project" value="LOCAL" />
       <updated>1564704950177</updated>
     </task>
-    <option name="localTasksCounter" value="132" />
+    <task id="LOCAL-00132" summary="Changed init state of scheduler to week.&#10;Changed min-width of widget-box class, as week view date was overlapping buttons either side.">
+      <created>1564705225263</created>
+      <option name="number" value="00132" />
+      <option name="presentableId" value="LOCAL-00132" />
+      <option name="project" value="LOCAL" />
+      <updated>1564705225263</updated>
+    </task>
+    <option name="localTasksCounter" value="133" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1672345000" />
+    <option name="totallyTimeSpent" value="1673016000" />
   </component>
   <component name="TodoView" selected-index="4">
     <todo-panel id="selected-file">
@@ -842,11 +838,11 @@
     <frame x="-8" y="-8" width="1382" height="784" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.17633928" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.17633928" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.24943988" />
       <window_info id="Favorites" order="2" side_tool="true" weight="0.32935026" />
       <window_info anchor="bottom" id="TypeScript" />
-      <window_info anchor="bottom" id="Messages" order="0" sideWeight="0.49813294" visible="true" weight="0.3276923" />
+      <window_info anchor="bottom" id="Messages" order="0" sideWeight="0.49813294" weight="0.3276923" />
       <window_info anchor="bottom" id="Message" order="1" />
       <window_info anchor="bottom" id="Find" order="2" weight="0.32615384" />
       <window_info anchor="bottom" id="Run" order="3" />
@@ -929,7 +925,6 @@
   <component name="VcsManagerConfiguration">
     <option name="SHOW_DIRTY_RECURSIVELY" value="true" />
     <option name="LIMIT_HISTORY" value="false" />
-    <MESSAGE value="Navigator, Dashboard, UserInfo, ClientList updated to new redux states.&#10;Need to be fully tested." />
     <MESSAGE value="Adding mongodb atlas." />
     <MESSAGE value="Changed git hub ignore file" />
     <MESSAGE value="password added to mongodb atlas" />
@@ -954,7 +949,8 @@
     <MESSAGE value="Scheduler now working with data from clients, now add func for saving, loading, etc." />
     <MESSAGE value="Scheduler now working with client data from db, save and edit functionality now working." />
     <MESSAGE value="Noticed bug with re-login paged ExpiredLogin, fixed depreciated method." />
-    <option name="LAST_COMMIT_MESSAGE" value="Noticed bug with re-login paged ExpiredLogin, fixed depreciated method." />
+    <MESSAGE value="Changed init state of scheduler to week.&#10;Changed min-width of widget-box class, as week view date was overlapping buttons either side." />
+    <option name="LAST_COMMIT_MESSAGE" value="Changed init state of scheduler to week.&#10;Changed min-width of widget-box class, as week view date was overlapping buttons either side." />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/clients/DeleteConfirm.js">
