@@ -227,6 +227,7 @@ AddDataProgressForm.propTypes = {
 
 const stateToProps = (state) => ({
     authenticatedUser: state.authenticatedUser,
+
     errors: state.errors,
     success: state.success
 });

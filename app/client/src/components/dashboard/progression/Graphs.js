@@ -33,9 +33,6 @@ class Graphs extends Component {
         return null;
     }
 
-    componentDidMount(){
-    }
-
     componentDidUpdate(prevProps){
         if (prevProps.graphData !== this.props.graphData){
             this.setState({graphData: this.props.graphData});

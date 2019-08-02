@@ -223,6 +223,7 @@ router.get('/personal_trainer/:id', passport.authenticate('pt_rule', {session: f
         .then(pt => {
                 if (pt) {
                     let data = {};
+                    data._id = pt._id;
                     data.FullName = pt.FullName;
                     data.Email = pt.Email;
                     data.DateOfBirth = pt.DateOfBirth;
