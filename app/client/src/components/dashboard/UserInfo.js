@@ -8,32 +8,6 @@ import ErrorComponent from "../error/ErrorComponent";
 import defaultUserImage from '../../img/user-regular.svg';
 
 class UserInfo extends Component {
-    // This allows the component states to be up{dated and re-rendered)
-    constructor(props) {
-        // initiate props this clients
-        super(props);
-        this.state = {
-            userData : props.userData,
-            errors: {},
-            location: this.props.location.pathname,
-            loaded: false
-        }
-    }
-
-    // Set clients in state to those retrieved from database (from props), as on refresh state clients will always be undefined
-    static getDerivedStateFromProps(props, state) {
-        if (props.userData !== state.userData || state.userData !== undefined) {
-            return {
-                userData: props.userData,
-                errors: props.errors,
-                loaded: true
-            }
-        }
-        return null
-    }
-
-    componentDidMount(){
-    }
 
     static getAge(dateOfBirth){
         let DOB = new Date(dateOfBirth).getTime();
@@ -43,8 +17,8 @@ class UserInfo extends Component {
     }
 
     render() {
-        if (!this.state.loaded) {
-            return <Loading/>
+        if (this.props.userData === null) {
+            return <Loading myClassName="loading_container"/>
         }
         if (isEmpty(this.props.authenticatedUser.user)) {
             return <ErrorComponent/>
@@ -59,17 +33,17 @@ class UserInfo extends Component {
                     <div className="user_image">
                         {(<img
                             className = "rounded-circle"
-                            alt={this.state.userData.ProfilePicUrl === "NA" ? "Default user image." : "User profile picture."}
-                            src = {this.state.userData.ProfilePicUrl === "NA" ? defaultUserImage : defaultUserImage}
+                            alt={this.props.userData.ProfilePicUrl === "NA" ? "Default user image." : "User profile picture."}
+                            src = {this.props.userData.ProfilePicUrl === "NA" ? defaultUserImage : defaultUserImage}
                         />)}
                     </div>
                     <div className="user_data">
-                        <p>Name: <span className="data text-primary">{this.state.userData.FullName}</span></p><br/>
-                        <p>Email: <span className="data text-primary">{this.state.userData.Email}</span></p><br/>
-                        {this.state.userData.ContactNumber ? <p>Contact: <span className="data text-primary">{this.state.userData.ContactNumber}</span></p> : null}
-                        {this.state.userData.ContactNumber ? <br/> : null} {/* had to add conditional statement for break as won't let me use in statement above with other tags */}
-                        <p>Gender: <span className="data text-primary">{this.state.userData.Sex}</span></p><br/>
-                        <p>Age: <span className="data text-primary">{UserInfo.getAge(this.state.userData.DateOfBirth)}</span></p><br/>
+                        <p>Name: <span className="data text-primary">{this.props.userData.FullName}</span></p><br/>
+                        <p>Email: <span className="data text-primary">{this.props.userData.Email}</span></p><br/>
+                        {this.props.userData.ContactNumber ? <p>Contact: <span className="data text-primary">{this.props.userData.ContactNumber}</span></p> : null}
+                        {this.props.userData.ContactNumber ? <br/> : null} {/* had to add conditional statement for break as won't let me use in statement above with other tags */}
+                        <p>Gender: <span className="data text-primary">{this.props.userData.Sex}</span></p><br/>
+                        <p>Age: <span className="data text-primary">{UserInfo.getAge(this.props.userData.DateOfBirth)}</span></p><br/>
                     </div>
                 </div>
             );
@@ -86,12 +60,14 @@ class UserInfo extends Component {
 // Documents what props are needed for this component and will log a warning in the console in dev mode if not complied to
 UserInfo.propTypes = {
     authenticatedUser: PropTypes.object.isRequired,
+    ptProfile: PropTypes.object.isRequired,
     errors: PropTypes.object.isRequired
 };
 
 // Used to pull auth state and errors into this component.... DEFINED IN reducers/index.js {combineReducers} !!!! USED FOR THE REDUX STORE
 const stateToProps = (state) => ({
     authenticatedUser: state.authenticatedUser, // authenticatedUser is set in index.js file in the reducers folder
+    ptProfile: state.ptProfile,
     errors: state.errors, // errors is set in index.js file in the reducers folder
     location: state.location
 });

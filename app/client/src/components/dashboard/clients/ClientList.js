@@ -1,7 +1,7 @@
 import {connect} from 'react-redux';
 import React, {Component} from 'react';
 import {Link, withRouter} from 'react-router-dom';
-import {deleteClient, saveClientId, getClientData, getClientProgression} from "../../../actions/authenticationActions";
+import {deleteClient, ptGetClientProgression} from "../../../actions/ptProfileActions";
 import PropTypes from "prop-types";
 import Modal from "react-awesome-modal";
 import DeleteConfirm from './DeleteConfirm'
@@ -64,21 +64,18 @@ class ClientList extends Component {
     }
 
     onProfileClick(ptId, id, clientData){
-        this.props.saveClientId(id, this.props.history);
         this.props.history.push({pathname: `/users/${ptId}/client_profile/${id}`, state :  {clientData: clientData} });
     }
 
     // Tried to use Link component but it didn't call the url directly like window.location.href so the scheduler data
     // for clients was not loaded or saved correctly
-    onScheduleClick(ptId, id) {
+    static onScheduleClick(ptId, id) {
         window.location.href = `/users/${ptId}/scheduler/${id}`;
     };
 
     onEditProfile(id) {
         // Get client data for link clicked and save it to redux store
-        this.props.getClientData(id, this.props.history);
-        // Save clientId to redux
-        this.props.saveClientId(id, this.props.history);
+        //this.props.getClientData(id, this.props.history);
         // Direct user with history push to edit profile of user id
         this.props.history.push(`/users/${id}/edit_client`);
         // this.props.history.push(`/users/${id}/edit_client`);
@@ -98,25 +95,28 @@ class ClientList extends Component {
 
 
     render() {
-        if(!this.state.loaded){
-            return <Loading/>;
+        const {user} = this.props.authenticatedUser;
+        const pt_data = this.props.userData;
+        const clients = this.props.clients;
+
+        if (pt_data === null) {
+            return <Loading myClassName="loading_container"/>
         }
-        if(isEmpty(this.props.authenticatedUser.user)){
+        if(isEmpty(user)){
             return <ErrorComponent/>
         }
         else{
             // check clients are set properly
-            // console.log(this.props.clients)
 
             // Use sortedMap function to sort the client names and then send to view
-            const clients = this.sortedMap(this.props.clients).map((client, index) => (
+            const ptClients = this.sortedMap(clients).map((client, index) => (
                 <tr key={client._id}>
                     <td><b>{client.FullName}</b></td>
-                    <td align="center"><a onClick={this.onProfileClick.bind(this, client.ptId, client._id, this.props.clients[index])}>
+                    <td align="center"><a onClick={this.onProfileClick.bind(this, client.ptId, client._id, clients[index])}>
                         <i className="fas fa-columns fa-2x"></i></a>
                     </td>
                     <td align="center">
-                        <a onClick={this.onScheduleClick.bind(this, client.ptId, client._id)}><i
+                        <a onClick={ClientList.onScheduleClick.bind(this, client.ptId, client._id)}><i
                             className="far fa-calendar-alt fa-2x"></i></a>
                     </td>
                     <td align="center">
@@ -161,7 +161,7 @@ class ClientList extends Component {
                                         <th align="center">Edit Details</th>
                                         <th align="center">Delete User</th>
                                     </tr>
-                                    {clients}
+                                    {ptClients}
                                     </thead>
                                 </table>
                             </div>
@@ -191,13 +191,14 @@ class ClientList extends Component {
 
 ClientList.propTypes = {
     deleteClient: PropTypes.func.isRequired,
-    getClientData: PropTypes.func.isRequired,
-    getClientProgression: PropTypes.func.isRequired,
+    ptGetClientProgression: PropTypes.func.isRequired,
+    ptProfile: PropTypes.object.isRequired
 };
 
 const stateToProps = (state) => ({
     authenticatedUser: state.authenticatedUser,
+    ptProfile: state.ptProfile,
     errors: state.errors
 });
 
-export default connect(stateToProps, {deleteClient, saveClientId, getClientData, getClientProgression})(withRouter(ClientList));
+export default connect(stateToProps, {deleteClient, ptGetClientProgression})(withRouter(ClientList));

@@ -42,7 +42,7 @@ class Graph extends Component {
         }
     }
 
-    sortedProgressionExerciseNames(graphData){
+    static sortedProgressionExerciseNames(graphData){
         return graphData.sort((obj1, obj2) => {
             if (obj1.exerciseName > obj2.exerciseName) {
                 return 1;
@@ -63,7 +63,7 @@ class Graph extends Component {
         }
         else{
 
-            let graphData = this.sortedProgressionExerciseNames(this.state.graphData);
+            let graphData = Graph.sortedProgressionExerciseNames(this.state.graphData);
             const graphs = graphData.map(graph => {
                 if(graph.metrics.length > 1){
                     return (

@@ -1,13 +1,12 @@
 import React, {Component} from 'react';  // Used to create this component
 import PropTypes from 'prop-types'; // Used to document prop types sent to components
 import {connect} from 'react-redux' // Needed when using redux inside a component (connects redux to this component)
-import {getPtData,  editPtData, passwordsMatchError, setErrors, clearErrors, setSuccess, clearSuccess} from "../../../actions/authenticationActions"; // Used to import create action for getting pt data and editing pt data
+import {getPtData,  editPtData, passwordsMatchError, setErrors, clearErrors, setSuccess, clearSuccess} from "../../../actions/ptProfileActions"; // Used to import create action for getting pt data and editing pt data
 import {withRouter} from 'react-router-dom';
 import FormInputGroup from "../../common/FormInputGroup";
 import Loading from "../../../elements/Loading";
 import isEmpty from "../../../utilities/is_empty";
 import ErrorComponent from "../../error/ErrorComponent"; // Allows proper routing and linking using browsers match, location, and history properties
-
 import DisplayMessage from '../../common/DisplayMessage';
 import FormSelectComp from "../../common/FormSelectComp";
 import defaultUserImage from "../../../img/user-regular.svg";
@@ -32,14 +31,12 @@ class EditPersonalTrainer extends Component {
             errors: {},
             success: {},
             location: this.props.location,
-            loaded: false,
+            loaded: true,
             updated: false,
             message: {
                 type: null
             } // Set to null so null is returned from DisplayMessage by default
         };
-
-        this.props.getPtData(this.state.ptId, this.props.history);
 
         // This sets the state value to it's respective state (via binding)
         this.onChange = this.onChange.bind(this);
@@ -48,11 +45,32 @@ class EditPersonalTrainer extends Component {
         this.onSubmit = this.onSubmit.bind(this);
     }
 
-    // Populate state data with data from the database for the pt
+    componentDidMount() {
+        if(this.props.ptProfile.pt_data === null){
+            this.props.getPtData(this.props.authenticatedUser.user.id);
+        }
+        this.props.clearErrors();
+        this.props.clearSuccess();
+        document.body.scrollTo(0,0);
+    }
+
+    componentDidUpdate(){
+        if(this.props.ptProfile.pt_data !== null && !this.state.updated){
+            this.setState({
+                FullName : this.props.ptProfile.pt_data.FullName,
+                Email : this.props.ptProfile.pt_data.Email,
+                Sex : this.props.ptProfile.pt_data.Sex,
+                DateOfBirth: this.props.ptProfile.pt_data.DateOfBirth.substring(0, 10),
+                updated : true
+            })
+        }
+    }
+
+    // Replacement for componentWillReceiveProps (as was depreciated)
     static getDerivedStateFromProps(props, state) {
-        if (props.authenticatedUser.pt_data !== state.pt_data) {
+        if (props.ptProfile.pt_data !== state.pt_data) {
             return {
-                pt_data: props.authenticatedUser.pt_data,
+                pt_data: props.ptProfile.pt_data,
                 errors: props.errors,
                 loaded: true
             }
@@ -69,24 +87,6 @@ class EditPersonalTrainer extends Component {
         }
 
         return null
-    }
-
-    componentDidMount() {
-        this.props.clearErrors();
-        this.props.clearSuccess();
-        document.body.scrollTo(0,0);
-    }
-
-    componentDidUpdate(){
-        if(this.props.authenticatedUser.pt_data !== undefined && !this.state.updated){
-            this.setState({
-                FullName : this.props.authenticatedUser.pt_data.FullName,
-                Email : this.props.authenticatedUser.pt_data.Email,
-                Sex : this.props.authenticatedUser.pt_data.Sex,
-                DateOfBirth: this.props.authenticatedUser.pt_data.DateOfBirth.substring(0, 10),
-                updated : true
-            })
-        }
     }
 
     componentWillUnmount(){
@@ -128,8 +128,11 @@ class EditPersonalTrainer extends Component {
 
         // Check if any of the fields have been modified, break asap if one has, no need to continue loop.
         for(let element in editData) {
+            // format DateOfBirth in pt_data for check
+            if(element === "DateOfBirth"){
+                pt_data[element] = pt_data[element].substring(0,10);
+            }
             if(!isEmpty(editData[element]) && pt_data[element] !== editData[element]){
-
                 dataChanged = true;
             }
             if (pt_data.hasOwnProperty(element)){
@@ -174,7 +177,7 @@ class EditPersonalTrainer extends Component {
 
     render() {
         // if loaded is false then return loading screen
-        if (!this.state.loaded) {
+        if (this.props.ptProfile.pt_data === null) {
             return <Loading myClassName="loading_container"/>
         }
         if(isEmpty(this.props.authenticatedUser.user)){
@@ -192,8 +195,8 @@ class EditPersonalTrainer extends Component {
                                 <div className="edit_image">
                                     {(<img
                                         className = "rounded-circle"
-                                        alt={this.state.pt_data.ProfilePicUrl === "NA" ? "Default user image." : "User profile picture."}
-                                        src = {this.state.pt_data.ProfilePicUrl === "NA" ? defaultUserImage : defaultUserImage}
+                                        alt={this.props.ptProfile.pt_data.ProfilePicUrl === "NA" ? "Default user image." : "User profile picture."}
+                                        src = {this.props.ptProfile.pt_data.ProfilePicUrl === "NA" ? defaultUserImage : defaultUserImage}
                                     />)}
                                 </div>
                                 <form autoComplete="off" onSubmit={this.onSubmit}>
@@ -202,7 +205,7 @@ class EditPersonalTrainer extends Component {
                                     <FormInputGroup
                                         myClassName="edit-pt"
                                         name="FullName"
-                                        placeholder={this.state.pt_data.FullName}
+                                        placeholder={this.props.ptProfile.pt_data.FullName}
                                         value={this.state.FullName}
                                         type="text"
                                         onChange={this.onChange}
@@ -211,7 +214,7 @@ class EditPersonalTrainer extends Component {
                                     <FormInputGroup
                                         myClassName="edit-pt"
                                         name="Email"
-                                        placeholder={this.state.pt_data.Email}
+                                        placeholder={this.props.ptProfile.pt_data.Email}
                                         value={this.state.Email}
                                         type="Email"
                                         onChange={this.onChange}
@@ -284,12 +287,15 @@ EditPersonalTrainer.propTypes = {
     clearSuccess: PropTypes.func.isRequired,
     passwordsMatchError: PropTypes.func.isRequired,
     authenticatedUser: PropTypes.object.isRequired,
-    errors: PropTypes.object.isRequired
+    ptProfile: PropTypes.object.isRequired,
+    errors: PropTypes.object.isRequired,
+    success: PropTypes.object.isRequired,
 };
 
 // Used to pull auth state and errors into this component.... DEFINED IN reducers/index.js {combineReducers}
 const stateToProps = (state) => ({
     authenticatedUser: state.authenticatedUser,
+    ptProfile: state.ptProfile,
     errors: state.errors,
     success: state.success
 });

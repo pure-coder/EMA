@@ -1,7 +1,7 @@
 import React, {Component} from 'react';  // Used to create this component
 import PropTypes from 'prop-types'; // Used to document prop types sent to components
 import { connect } from 'react-redux' // Needed when using redux inside a component (connects redux to this component)
-import { registerClient, clearSuccess, clearErrors} from "../../actions/authenticationActions"; // Used to import create action for registering user
+import { registerClient, clearSuccess, clearErrors} from "../../actions/ptProfileActions"; // Used to import create action for registering user
 import { withRouter } from 'react-router-dom';
 import FormInputGroup from "../common/FormInputGroup";
 import Loading from "../../elements/Loading";
@@ -37,6 +37,10 @@ class RegisterClient extends Component {
 
     // Populate state data with data from the database for the pt
     static getDerivedStateFromProps(props, state) {
+        if (!props.authenticatedUser.user.pt) {
+            props.history.push('/users/' + props.authenticatedUser.user.id + '/dashboard');
+            return null
+        }
         if (props !== state) {
             return {
                 errors: props.errors,
@@ -86,7 +90,7 @@ class RegisterClient extends Component {
     render() {
         // if loaded is false then return loading screen
         if (!this.state.loaded) {
-            return <Loading/>;
+            return <Loading myClassName="loading_container"/>
         }
         if(isEmpty(this.props.authenticatedUser.user)){
             return <ErrorComponent/>

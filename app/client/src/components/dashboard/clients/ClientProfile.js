@@ -2,7 +2,8 @@ import React, {Component} from 'react';  // Used to create this component
 import PropTypes from 'prop-types'; // Used to document prop types sent to components
 import {connect} from 'react-redux' // Needed when using redux inside a component (connects redux to this component)
 import {withRouter} from 'react-router-dom';
-import {getClientProgression, clearProgression} from "../../../actions/authenticationActions";
+import {ptGetClientProgression, clearProgression, getCurrentClient, clearCurrentClient} from "../../../actions/ptProfileActions";
+import {getClientData, getClientProgression} from "../../../actions/clientProfileActions";
 import Graph from "../progression/Graph";
 import NewClientProgressForm from "../progression/NewClientProgressForm";
 import Modal from 'react-awesome-modal';
@@ -18,11 +19,10 @@ class ClientProfile extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            client_Progression: props.authenticatedUser.client_Progression,
+            client_progression: props.authenticatedUser.user.pt ? props.ptProfile.client_progression : props.clientProfile.client_progression,
             userId: props.authenticatedUser.user.id,
-            // If user is pt then get clientId from otherwise user is client, so use user.id
-            clientId: props.authenticatedUser.clientId !== undefined ? props.authenticatedUser.clientId : props.match.params.cid,
-            clientData: props.location.state.clientData, // Get client data from history push declared in ClientList... onProfileClick
+            clientId: props.authenticatedUser.user.pt ? props.match.params.cid : props.authenticatedUser.user.id,
+            clientData: undefined,
             loaded: false,
             modalWidth: "500",
             modalHeight: "500",
@@ -31,33 +31,55 @@ class ClientProfile extends Component {
         };
 
         this.modalSize = this.modalSize.bind(this);
-
-        this.getClientProgression();
-
         this.openModal = this.openModal.bind(this);
         this.getClientProgression = this.getClientProgression.bind(this);
         this.onClickAway = this.onClickAway.bind(this)
     }
 
     static getDerivedStateFromProps(props, state){
-        if(props.authenticatedUser.client_Progression !== state.client_Progression){
-            return {
-                client_Progression: props.authenticatedUser.client_Progression,
-                loaded: true,
+        if(props.authenticatedUser.user.pt){
+            if(props.ptProfile.current_client !== state.clientData){
+                return {
+                    clientData: props.ptProfile.current_client
+                }
             }
+            if(props.ptProfile.client_progression !== state.client_progression){
+                return {
+                    client_progression: props.ptProfile.client_progression,
+                    loaded: true,
+                }
+            }
+            return null;
         }
-
-        return null;
+        else {
+            if(props.clientProfile.client_data !== state.clientData) {
+                return {
+                    clientData: props.clientProfile.client_data
+                }
+            }
+            if(props.clientProfile.client_progression !== state.client_progression){
+                return {
+                    client_progression: props.clientProfile.client_progression,
+                    loaded: true,
+                }
+            }
+            return null;
+        }
     }
 
     componentDidMount() {
-
+        if(this.props.authenticatedUser.user.pt){
+            this.props.getCurrentClient(this.state.clientId, this.props.history)
+        }
+        this.getClientProgression();
     } // did mount
 
     componentWillUnmount(){
         // This got rid of the Date: null bug for now, need to find route cause!!!
+        if(this.props.authenticatedUser.user.pt){
+            this.props.clearCurrentClient();
+        }
         this.props.clearProgression();
-
         this.setState({loaded: false})
     }
 
@@ -79,19 +101,28 @@ class ClientProfile extends Component {
     }
 
     getClientProgression(){
-        this.props.getClientProgression(this.state.userId, this.state.clientId, this.props.history);
+        if(this.props.authenticatedUser.user.pt){
+            this.props.ptGetClientProgression(this.state.userId, this.state.clientId, this.props.history);
+        }
+        else{
+            this.props.getClientProgression(this.state.userId, this.state.clientId, this.props.history);
+        }
+
     }
 
     render() {
-        if(!this.state.loaded){
+        const {user} = this.props.authenticatedUser;
+        const client_data = this.state.clientData;
+
+        if(client_data === null || client_data === undefined){
             return <Loading myClassName="loading_container"/>
         }
-        if(isEmpty(this.props.authenticatedUser.user)){
+        if(isEmpty(user)){
             return <ErrorComponent/>
         }
         else{
             let displayContent;
-            let clientProgressData = this.state.client_Progression;
+            let clientProgressData = this.state.client_progression;
 
             // If client has no data then display appropriate message, otherwise
             if (isEmpty(clientProgressData)) {
@@ -151,16 +182,24 @@ class ClientProfile extends Component {
 // Documents what props are needed for this component and will log a warning in the console in dev mode if not complied to
 ClientProfile.propTypes = {
     authenticatedUser: PropTypes.object.isRequired,
+    clientProfile: PropTypes.object.isRequired,
+    getClientData: PropTypes.func.isRequired,
+    ptProfile: PropTypes.object.isRequired,
+    getCurrentClient: PropTypes.func.isRequired,
     getClientProgression: PropTypes.func.isRequired,
+    ptGetClientProgression: PropTypes.func.isRequired,
     clearProgression: PropTypes.func.isRequired,
+    clearCurrentClient: PropTypes.func.isRequired,
     errors: PropTypes.object.isRequired
 };
 
 // Used to pull auth state and errors into this component
 const stateToProps = (state) => {
     return {
-    authenticatedUser: state.authenticatedUser,
-    errors: state.errors
+        authenticatedUser: state.authenticatedUser,
+        clientProfile: state.clientProfile,
+        ptProfile: state.ptProfile,
+        errors: state.errors
 }};
 
-export default connect(stateToProps, {getClientProgression, clearProgression})(withRouter(ClientProfile));
+export default connect(stateToProps, {getClientProgression, ptGetClientProgression, clearProgression, getCurrentClient, getClientData, clearCurrentClient})(withRouter(ClientProfile));

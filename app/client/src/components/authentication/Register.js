@@ -1,7 +1,8 @@
 import React, { Component } from 'react';  // Used to create this component
 import PropTypes from 'prop-types'; // Used to document prop types sent to components
 import { connect } from 'react-redux' // Needed when using redux inside a component (connects redux to this component)
-import {clearErrors, clearSuccess, registerUser} from "../../actions/authenticationActions"; // Used to import create action for registering user
+import {registerUser} from "../../actions/authenticationActions"; // Used to import create action for registering user
+import {clearErrors, clearSuccess} from "../../actions/ptProfileActions";
 import {withRouter} from 'react-router-dom';
 import FormInputGroup from "../common/FormInputGroup";
 import FormSelectComp from "../common/FormSelectComp"; // Allows proper routing and linking using browsers match, location, and history properties
@@ -33,14 +34,24 @@ class Register extends Component {
         this.onSubmit = this.onSubmit.bind(this);
     }
 
-    static getDerivedStateFromProps(props, state) {
-        if (props !== state) {
+    static getDerivedStateFromProps(nextProps) {
+        // Check if isAuthenticated is true then redirect to the dashboard
+        if (nextProps.authenticatedUser.isAuthenticated) {
+            nextProps.history.push('/users/' + nextProps.authenticatedUser.user.id + '/dashboard');
+            return null
+        }
+
+        // If property (nextProps) contains errors (contains the "errors" prop) then set the component state of errors
+        // defined in the constructor above to the errors that was sent to it via the dispatch call from
+        // authenicationActions.js
+        if (nextProps.errors) {
             return {
-                errors: props.errors,
-                success: props.success,
+                errors: nextProps.errors,
+                success: nextProps.success,
             }
         }
-        return null
+
+        return null;
     }
 
     componentDidMount() {
