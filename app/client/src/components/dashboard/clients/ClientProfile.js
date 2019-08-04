@@ -143,14 +143,17 @@ class ClientProfile extends Component {
                         <div className="m-auto col-md-10">
                             <div className="m-auto col-10 graphs" id="graphs">
                                 <div className="Progression Progression_head">
-                                    <h2 className=" text-center display-5 mt-3 mb-4">Client progression data</h2>
-                                    <h5 className=" text-center display-5 mt-3 mb-4">(Data only shown with 2+ entries)</h5>
-                                    {/*Only display Add progress if user is a pt*/}
-                                    {this.props.authenticatedUser.user.pt === true ?
-                                            <input id="progress-button" type="button" className="btn btn-success btn-block mt-4 mb-5" value="Add Progress"
-                                                   onClick={this.openModal} />
-                                         : null
-                                    }
+                                    <div className="Progression">
+                                        <h2 className=" text-center display-5 mt-3 mb-4">Client progression data</h2>
+                                        <h6 className=" text-center display-5 mt-3 mb-4">(Showing exercise data for exercises that have 2+ data entries)</h6>
+                                        {/*Only display Add progress if user is a pt*/}
+                                        {this.props.authenticatedUser.user.pt === true ?
+                                                <input id="progress-button" type="button" className="btn btn-success btn-block mt-4 mb-5" value="Add Exercise Progression Data"
+                                                       onClick={this.openModal} />
+                                             : null
+                                        }
+
+                                    </div>
                                     {/*Display the clients progression data*/}
                                     {displayContent}
                                 </div>

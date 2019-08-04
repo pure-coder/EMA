@@ -125,12 +125,12 @@ router.get('/client/:cid', passport.authenticate('both_rule', {session: false}, 
                 }
                 // if client is null
                 else {
-                    return res.status(400).json({error: `Client with id: ${cid} does not exist.`})
+                    return res.status(404).json({error: `Client with id: ${cid} does not exist.`})
                 }
             }
         ) // then Client.findOne
         .catch(() => {
-            return res.status(400).json({error: `Client with id: ${cid} does not exist.`})
+            return res.status(404).json({error: `Client with id: ${cid} does not exist.`})
         })
 
 });
