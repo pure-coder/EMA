@@ -82,6 +82,15 @@ class EditDataProgressForm extends Component {
             let newHeight = this.state.progressFormHeight;
             this.props.modalSize(newHeight.toString())
         }
+
+        if(prevProps.metrics !== this.props.metrics){
+            // Change format of Date in metrics so that it can be presented correctly in HTML 5 date format.
+            // Was previously getting errors when converting in map below as onChange would not except a single zero, etc
+            this.props.metrics.forEach(metrics => {
+                metrics.Date = new Date(metrics.Date).toISOString().substring(0, 10);
+            });
+            this.setState({metrics: this.props.metrics});
+        }
     }
 
     onChange(e) {
