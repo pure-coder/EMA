@@ -6,12 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="ec8ccf39-8487-4892-a38d-de9c288878a3" name="Default" comment="Sorted out Scheduler problem where it retained other clients data when there workout was visited previously, the window needed to be refreshed, to get rid of that data.&#10;That is why window.location.href had to be used previously instead of history.push in ClientList/ClientData.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/actions/ptProfileActions.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/actions/ptProfileActions.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/actions/types.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/actions/types.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/dashboard/clients/ClientData.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/dashboard/clients/ClientData.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/dashboard/clients/ClientList.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/dashboard/clients/ClientList.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/scheduler/Scheduler.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/scheduler/Scheduler.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/scheduler/SchedulerHTML.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/scheduler/SchedulerHTML.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/reducers/ptProfileReducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/reducers/ptProfileReducer.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -56,7 +53,7 @@
           <entry key="eslintignore" value="18" />
           <entry key="gitignore" value="22" />
           <entry key="html" value="1117" />
-          <entry key="js" value="191198" />
+          <entry key="js" value="191200" />
           <entry key="json" value="29" />
           <entry key="md" value="150" />
           <entry key="txt" value="14650" />
@@ -65,7 +62,7 @@
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="CSS" value="3" />
-          <entry key="JavaScript" value="2958" />
+          <entry key="JavaScript" value="2960" />
           <entry key="PLAIN_TEXT" value="1633" />
         </counts>
       </usages-collector>
@@ -79,7 +76,7 @@
           <entry key="gitignore" value="9" />
           <entry key="html" value="19" />
           <entry key="ico" value="1" />
-          <entry key="js" value="1443" />
+          <entry key="js" value="1445" />
           <entry key="json" value="13" />
           <entry key="map" value="1" />
           <entry key="md" value="4" />
@@ -94,7 +91,7 @@
           <entry key="HTML" value="19" />
           <entry key="Image" value="1" />
           <entry key="JSON" value="14" />
-          <entry key="JavaScript" value="1443" />
+          <entry key="JavaScript" value="1445" />
           <entry key="PLAIN_TEXT" value="20" />
           <entry key="SVG" value="1" />
           <entry key="Scratch" value="1" />
@@ -116,10 +113,22 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/clients/ClientList.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="262">
+              <caret line="72" column="66" selection-start-line="72" selection-start-column="66" selection-end-line="72" selection-end-column="66" />
+              <folding>
+                <element signature="e#0#36#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/client/src/components/scheduler/SchedulerHTML.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="34">
-              <caret line="20" column="49" selection-start-line="20" selection-start-column="49" selection-end-line="20" selection-end-column="49" />
+            <state relative-caret-position="187">
+              <caret line="20" column="36" selection-start-line="20" selection-start-column="36" selection-end-line="20" selection-end-column="36" />
               <folding>
                 <element signature="e#0#41#0" expanded="true" />
               </folding>
@@ -136,13 +145,25 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/client/src/actions/ptProfileActions.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="293">
               <caret line="322" column="2" selection-start-line="322" selection-start-column="2" selection-end-line="322" selection-end-column="2" />
               <folding>
                 <element signature="e#0#26#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/clients/ClientData.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="187">
+              <caret line="38" column="8" lean-forward="true" selection-start-line="38" selection-start-column="8" selection-end-line="38" selection-end-column="36" />
+              <folding>
+                <element signature="e#0#36#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -262,12 +283,13 @@
         <option value="$PROJECT_DIR$/client/src/App.css" />
         <option value="$PROJECT_DIR$/client/src/components/dashboard/clients/DeleteConfirm.js" />
         <option value="$PROJECT_DIR$/client/src/components/dashboard/progression/EditDataProgressForm.js" />
-        <option value="$PROJECT_DIR$/client/src/components/dashboard/clients/ClientList.js" />
         <option value="$PROJECT_DIR$/client/src/actions/types.js" />
         <option value="$PROJECT_DIR$/client/src/components/scheduler/Scheduler.js" />
-        <option value="$PROJECT_DIR$/client/src/components/scheduler/SchedulerHTML.js" />
         <option value="$PROJECT_DIR$/client/src/reducers/ptProfileReducer.js" />
         <option value="$PROJECT_DIR$/client/src/actions/ptProfileActions.js" />
+        <option value="$PROJECT_DIR$/client/src/components/dashboard/clients/ClientList.js" />
+        <option value="$PROJECT_DIR$/client/src/components/dashboard/clients/ClientData.js" />
+        <option value="$PROJECT_DIR$/client/src/components/scheduler/SchedulerHTML.js" />
       </list>
     </option>
   </component>
@@ -1548,13 +1570,6 @@
       <option name="project" value="LOCAL" />
       <updated>1564178290341</updated>
     </task>
-    <task id="LOCAL-00050" summary="Success and Errors on RegisterClient sorted, those were persistent from other components so clear them on mount of this component.">
-      <created>1562058074397</created>
-      <option name="number" value="00050" />
-      <option name="presentableId" value="LOCAL-00050" />
-      <option name="project" value="LOCAL" />
-      <updated>1562058074398</updated>
-    </task>
     <task id="LOCAL-00051" summary="Navigator issue with RegisterClient solved, had to check if user data was empty for pt, if so then load data and&#10;store in local state.">
       <created>1562063941098</created>
       <option name="number" value="00051" />
@@ -1884,11 +1899,18 @@
       <option name="project" value="LOCAL" />
       <updated>1564946063273</updated>
     </task>
-    <option name="localTasksCounter" value="139" />
+    <task id="LOCAL-00139" summary="Sorted out Scheduler problem where it retained other clients data when there workout was visited previously, the window needed to be refreshed, to get rid of that data.&#10;That is why window.location.href had to be used previously instead of history.push in ClientList/ClientData.">
+      <created>1564952882884</created>
+      <option name="number" value="00139" />
+      <option name="presentableId" value="LOCAL-00139" />
+      <option name="project" value="LOCAL" />
+      <updated>1564952882884</updated>
+    </task>
+    <option name="localTasksCounter" value="140" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1696956000" />
+    <option name="totallyTimeSpent" value="1697073000" />
   </component>
   <component name="TodoView" selected-index="4">
     <todo-panel id="selected-file">
@@ -1903,10 +1925,10 @@
     <frame x="-8" y="-8" width="1382" height="784" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2470238" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2470238" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.24943988" />
       <window_info id="Favorites" order="2" side_tool="true" weight="0.32935026" />
-      <window_info active="true" anchor="bottom" id="Messages" order="0" sideWeight="0.49813294" visible="true" weight="0.3276923" />
+      <window_info anchor="bottom" id="Messages" order="0" sideWeight="0.49813294" visible="true" weight="0.3276923" />
       <window_info anchor="bottom" id="Message" order="1" />
       <window_info anchor="bottom" id="Find" order="2" weight="0.32615384" />
       <window_info anchor="bottom" id="Run" order="3" />
@@ -2306,16 +2328,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/clients/ClientList.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="262">
-          <caret line="72" column="8" selection-start-line="72" selection-start-column="11" selection-end-line="72" selection-end-column="67" />
-          <folding>
-            <element signature="e#0#36#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/client/src/actions/types.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="289">
@@ -2327,16 +2339,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="258">
           <caret line="59" selection-start-line="59" selection-end-line="59" />
-          <folding>
-            <element signature="e#0#41#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/components/scheduler/SchedulerHTML.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="20" column="49" selection-start-line="20" selection-start-column="49" selection-end-line="20" selection-end-column="49" />
           <folding>
             <element signature="e#0#41#0" expanded="true" />
           </folding>
@@ -2356,6 +2358,36 @@
           <caret line="322" column="2" selection-start-line="322" selection-start-column="2" selection-end-line="322" selection-end-column="2" />
           <folding>
             <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/clients/ClientList.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="262">
+          <caret line="72" column="66" selection-start-line="72" selection-start-column="66" selection-end-line="72" selection-end-column="66" />
+          <folding>
+            <element signature="e#0#36#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/clients/ClientData.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="38" column="8" lean-forward="true" selection-start-line="38" selection-start-column="8" selection-end-line="38" selection-end-column="36" />
+          <folding>
+            <element signature="e#0#36#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/components/scheduler/SchedulerHTML.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="20" column="36" selection-start-line="20" selection-start-column="36" selection-end-line="20" selection-end-column="36" />
+          <folding>
+            <element signature="e#0#41#0" expanded="true" />
           </folding>
         </state>
       </provider>

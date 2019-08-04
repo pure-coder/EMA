@@ -44,7 +44,7 @@ class ClientData extends Component {
     }
 
     static onScheduleClick(id) {
-        window.location.href = `/users/${id}/scheduler/${id}`;
+        this.props.history.push(`/users/${id}/scheduler/${id}`);
     };
 
     onEditProfile(id) {

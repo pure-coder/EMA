@@ -18,6 +18,7 @@ class SchedulerHTML extends Component {
 
 
     componentDidMount() {
+        document.body.scrollTo(0,0);
         const {data, uid, cid} = this.props.Data;
 
         this.ready.then(() => {
