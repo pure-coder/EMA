@@ -18,7 +18,6 @@ class SchedulerHTML extends Component {
 
 
     componentDidMount() {
-
         const {data, uid, cid} = this.props.Data;
 
         this.ready.then(() => {
@@ -34,6 +33,8 @@ class SchedulerHTML extends Component {
             let thisDate = new Date(year, month, date);
 
             /* globals scheduler */
+            // Needs clearAll as it was retaining previous clients data
+            scheduler.clearAll();
             scheduler.config.show_loading = false;
             // Load the date from the database
             scheduler.config.xml_date = "%Y-%m-%d %H:%i";scheduler.templates.xml_date = function (value) {
@@ -44,6 +45,7 @@ class SchedulerHTML extends Component {
             scheduler.parse(data, "json");
             // Add, edit, and delete data in the database
             scheduler.config.xml_date = "%Y-%m-%d %H:%i";
+
 
 
             //Get token for adding/editing/deleting events
@@ -60,6 +62,10 @@ class SchedulerHTML extends Component {
 
         });
     };
+
+    // componentWillUnmount(){
+    //
+    // }
 
     render() {
         return (

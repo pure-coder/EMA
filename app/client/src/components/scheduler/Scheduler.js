@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from "prop-types";
 import connect from "react-redux/es/connect/connect";
 import {withRouter} from "react-router-dom";
-import {getCurrentClient, workoutScheduler} from "../../actions/ptProfileActions";
+import {getCurrentClient, workoutScheduler, clearWorkoutData} from "../../actions/ptProfileActions";
 import {getClientData} from "../../actions/clientProfileActions";
 import 'dhtmlx-scheduler';
 import Loading from "../../elements/Loading";
@@ -36,6 +36,9 @@ class Scheduler extends Component {
         }
     };
 
+    componentWillUnmount(){
+        this.props.clearWorkoutData();
+    }
 
     render() {
 
@@ -55,7 +58,7 @@ class Scheduler extends Component {
             client_data = this.props.clientProfile.client_data;
         }
 
-        if(Data.data === undefined){
+        if(Data.data === null  || client_data === null){
             return <Loading myClassName="loading_container"/>
         }
         if(isEmpty(user)){
@@ -79,7 +82,8 @@ Scheduler.propTypes = {
     clientProfile: PropTypes.object.isRequired,
     getCurrentClient: PropTypes.func.isRequired,
     getClientData: PropTypes.func.isRequired,
-    workoutScheduler: PropTypes.func.isRequired
+    workoutScheduler: PropTypes.func.isRequired,
+    clearWorkoutData: PropTypes.func.isRequired
 };
 
 // Used to pull auth state and errors into this component
@@ -89,4 +93,4 @@ const stateToProps = (state) => ({
     clientProfile: state.clientProfile
 });
 
-export default connect(stateToProps, {getClientData, getCurrentClient, workoutScheduler})(withRouter(Scheduler));
+export default connect(stateToProps, {getClientData, getCurrentClient, workoutScheduler, clearWorkoutData})(withRouter(Scheduler));

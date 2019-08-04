@@ -7,13 +7,15 @@ import {
     PT_CLIENT_PROGRESSION,
     CLEAR_PROGRESSION,
     CLEAR_CURRENT_CLIENT,
-    SCHEDULER
+    SCHEDULER,
+    CLEAR_WORKOUT_DATA
 } from '../actions/types';
 
 const initialState = {
     pt_data: null,
     current_client: null,
     clients: null,
+    scheduler: null,
     loading: false
 };
 
@@ -69,8 +71,13 @@ export default function(state = initialState, action) {
         case SCHEDULER:
             return {
                 ...state,
-                scheduler: action.payload
-            }
+                scheduler: action.payload,
+            };
+        case CLEAR_WORKOUT_DATA:
+            return {
+                ...state,
+                scheduler: null
+            };
         default:
             return state;
     }

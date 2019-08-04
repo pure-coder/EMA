@@ -12,7 +12,8 @@ import {
     SUCCESS,
     GET_CURRENT_CLIENT,
     CLEAR_CURRENT_CLIENT,
-    SCHEDULER
+    SCHEDULER,
+    CLEAR_WORKOUT_DATA
 } from "./types"; // import custom defined types
 import {logOutUser} from "./authenticationActions";
 
@@ -313,4 +314,10 @@ export const workoutScheduler = (uid, cid) => dispatch => {
         .catch(err => {
             console.log(err)
         });
+};
+
+export const clearWorkoutData = () => dispatch => {
+    dispatch({
+            type: CLEAR_WORKOUT_DATA
+    })
 };
