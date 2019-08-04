@@ -576,7 +576,7 @@ router.put('/:id/client_progression/:cid', passport.authenticate('pt_rule', {ses
                         },
                     )
                         .then(() => {
-                            res.status(200).json({msg: "Edit successful."})
+                            res.status(200).json({msg: "Client Data successfully modified."})
                             }
                         )
                         .catch(() => {

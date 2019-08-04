@@ -243,7 +243,8 @@ export const editClientExercise =(uid, cid, exerciseId, data, history) => dispat
                     newMetrics: data
                 }
         })
-        .then(() => {
+        .then( result => {
+            dispatch(setSuccess(result.data.msg));
             dispatch(ptGetClientProgression(uid, cid, history));
         })
         .catch(err => {

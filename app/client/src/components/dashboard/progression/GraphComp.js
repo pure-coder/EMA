@@ -15,7 +15,7 @@ class GraphComp extends Component {
     constructor(props){
         super(props);
         this.state = {
-            userId : props.authenticatedUser.user.id,
+            userId: props.authenticatedUser.user.id,
             clientId: props.authenticatedUser.user.pt ? props.ptProfile.current_client._id : props.clientProfile.client_data._id,
             metrics : props.graphData.metrics,
             visible: false,
@@ -87,6 +87,7 @@ class GraphComp extends Component {
     componentDidUpdate(prevProps){
         // Only update the exercise that has added or deleted metric data
         if(prevProps.graphData.metrics !== this.props.graphData.metrics) {
+            this.setState({metrics : this.props.graphData.metrics});
             this.drawGraph(true)
         }
     }
@@ -94,7 +95,10 @@ class GraphComp extends Component {
     render(){
         const {user} = this.props.authenticatedUser;
         const {graphData} = this.props;
-        
+        const ids = {
+            userId: this.state.userId,
+            clientId: this.state.clientId
+        };
 
         if(isEmpty(user)){
             return <ErrorComponent/>
@@ -103,7 +107,7 @@ class GraphComp extends Component {
 
         let display;
         display = (
-                (user.pt === true && graphData.metrics.length >= 2 ?
+                (user.pt && graphData.metrics.length >= 2 ?
                     (
                         <div className="btn-toolbar">
                             <div className="col-4">
@@ -129,16 +133,20 @@ class GraphComp extends Component {
             displayForm = (
                 <DeleteProgressConfirm exerciseName={graphData.exerciseName} onClickAway={this.onClickAway}
                                        visible={this.state.visible}
-                                        modalSize={this.modalSize}
-                                        progressFormHeight={this.state.modalHeight}/>
+                                       ids={ids}
+                                       modalSize={this.modalSize}
+                                       progressFormHeight={this.state.modalHeight}
+                />
             )
         }
         if(this.state.form === 'Add') {
             displayForm = (
                 <AddDataProgressForm exerciseName={graphData.exerciseName} onClickAway={this.onClickAway}
-                                       visible={this.state.visible}
-                                       modalSize={this.modalSize}
-                                       progressFormHeight={this.state.modalHeight}/>
+                                     visible={this.state.visible}
+                                     ids={ids}
+                                     modalSize={this.modalSize}
+                                     progressFormHeight={this.state.modalHeight}
+                />
             )
         }
         if(this.state.form === 'Edit') {
@@ -146,10 +154,12 @@ class GraphComp extends Component {
                 <EditDataProgressForm exerciseName={graphData.exerciseName}
                                       exerciseId={graphData._id}
                                       metrics={this.state.metrics}
+                                      ids={ids}
                                       onClickAway={this.onClickAway}
                                       visible={this.state.visible}
                                       modalSize={this.modalSize}
-                                      progressFormHeight={this.state.modalHeight}/>
+                                      progressFormHeight={this.state.modalHeight}
+                />
             )
         }
 
