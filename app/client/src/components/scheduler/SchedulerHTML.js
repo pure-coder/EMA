@@ -64,9 +64,10 @@ class SchedulerHTML extends Component {
         });
     };
 
-    // componentWillUnmount(){
-    //
-    // }
+    componentWillUnmount(){
+        // Needs clearAll as it was retaining previous clients data
+        scheduler.clearAll();
+    }
 
     render() {
         return (
