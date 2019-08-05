@@ -4,11 +4,9 @@
     <bookmark url="file://C:/Learning/clientObjectData.js" description="export {&quot;_id&quot;:&quot;5c2e3454d27ace097420b414&quot;,&quot;FullName..." line="2" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ec8ccf39-8487-4892-a38d-de9c288878a3" name="Default" comment="Sorted out Scheduler problem where it retained other clients data when there workout was visited previously, the window needed to be refreshed, to get rid of that data.&#10;That is why window.location.href had to be used previously instead of history.push in ClientList/ClientData.">
+    <list default="true" id="ec8ccf39-8487-4892-a38d-de9c288878a3" name="Default" comment="scheduler.clearAll() added to clear all data associated with scheduler. This removes previous data from accessing other clients schedules (added statement onMount and onUnmount for safe measure).">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/dashboard/clients/ClientData.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/dashboard/clients/ClientData.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/dashboard/clients/ClientList.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/dashboard/clients/ClientList.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/scheduler/SchedulerHTML.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/scheduler/SchedulerHTML.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/App.css" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -48,29 +46,29 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="css" value="9108" />
+          <entry key="css" value="9110" />
           <entry key="editorConfig" value="285" />
           <entry key="eslintignore" value="18" />
           <entry key="gitignore" value="22" />
           <entry key="html" value="1117" />
-          <entry key="js" value="191200" />
+          <entry key="js" value="191201" />
           <entry key="json" value="29" />
           <entry key="md" value="150" />
-          <entry key="txt" value="14650" />
+          <entry key="txt" value="14912" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="CSS" value="3" />
-          <entry key="JavaScript" value="2960" />
-          <entry key="PLAIN_TEXT" value="1633" />
+          <entry key="CSS" value="5" />
+          <entry key="JavaScript" value="2961" />
+          <entry key="PLAIN_TEXT" value="1895" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="Local" value="1" />
           <entry key="bson" value="1" />
-          <entry key="css" value="82" />
+          <entry key="css" value="83" />
           <entry key="editorConfig" value="2" />
           <entry key="eslintignore" value="3" />
           <entry key="gitignore" value="9" />
@@ -87,7 +85,7 @@
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="CSS" value="82" />
+          <entry key="CSS" value="83" />
           <entry key="HTML" value="19" />
           <entry key="Image" value="1" />
           <entry key="JSON" value="14" />
@@ -124,14 +122,23 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/client/src/components/scheduler/SchedulerHTML.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
-              <caret line="20" column="36" selection-start-line="20" selection-start-column="36" selection-end-line="20" selection-end-column="36" />
+            <state relative-caret-position="221">
+              <caret line="37" column="33" lean-forward="true" selection-start-line="37" selection-start-column="33" selection-end-line="37" selection-end-column="33" />
               <folding>
                 <element signature="e#0#41#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/client/src/App.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="307">
+              <caret line="672" column="6" selection-start-line="672" selection-start-column="6" selection-end-line="672" selection-end-column="6" />
             </state>
           </provider>
         </entry>
@@ -280,7 +287,6 @@
         <option value="$PROJECT_DIR$/client/src/actions/clientProfileActions.js" />
         <option value="$PROJECT_DIR$/client/src/components/dashboard/clients/ClientProfile.js" />
         <option value="$PROJECT_DIR$/routes/users.js" />
-        <option value="$PROJECT_DIR$/client/src/App.css" />
         <option value="$PROJECT_DIR$/client/src/components/dashboard/clients/DeleteConfirm.js" />
         <option value="$PROJECT_DIR$/client/src/components/dashboard/progression/EditDataProgressForm.js" />
         <option value="$PROJECT_DIR$/client/src/actions/types.js" />
@@ -290,6 +296,7 @@
         <option value="$PROJECT_DIR$/client/src/components/dashboard/clients/ClientList.js" />
         <option value="$PROJECT_DIR$/client/src/components/dashboard/clients/ClientData.js" />
         <option value="$PROJECT_DIR$/client/src/components/scheduler/SchedulerHTML.js" />
+        <option value="$PROJECT_DIR$/client/src/App.css" />
       </list>
     </option>
   </component>
@@ -1570,20 +1577,6 @@
       <option name="project" value="LOCAL" />
       <updated>1564178290341</updated>
     </task>
-    <task id="LOCAL-00051" summary="Navigator issue with RegisterClient solved, had to check if user data was empty for pt, if so then load data and&#10;store in local state.">
-      <created>1562063941098</created>
-      <option name="number" value="00051" />
-      <option name="presentableId" value="LOCAL-00051" />
-      <option name="project" value="LOCAL" />
-      <updated>1562063941098</updated>
-    </task>
-    <task id="LOCAL-00052" summary="newClient validation changed to only except valid telephone number syntax.">
-      <created>1562080480896</created>
-      <option name="number" value="00052" />
-      <option name="presentableId" value="LOCAL-00052" />
-      <option name="project" value="LOCAL" />
-      <updated>1562080480896</updated>
-    </task>
     <task id="LOCAL-00053" summary="RegisterClient success and error messages cleared depending on error or success on every submit.&#10;Margin sorted on DisplayMessage, EditClient and EditPersonalTrainer so that no movement of divs made when&#10;displaying success or error messages.">
       <created>1562149897031</created>
       <option name="number" value="00053" />
@@ -1906,11 +1899,25 @@
       <option name="project" value="LOCAL" />
       <updated>1564952882884</updated>
     </task>
-    <option name="localTasksCounter" value="140" />
+    <task id="LOCAL-00140" summary="Link change in ClientData.&#10;Scroll to top added.">
+      <created>1564953091659</created>
+      <option name="number" value="00140" />
+      <option name="presentableId" value="LOCAL-00140" />
+      <option name="project" value="LOCAL" />
+      <updated>1564953091659</updated>
+    </task>
+    <task id="LOCAL-00141" summary="scheduler.clearAll() added to clear all data associated with scheduler. This removes previous data from accessing other clients schedules (added statement onMount and onUnmount for safe measure).">
+      <created>1565004740261</created>
+      <option name="number" value="00141" />
+      <option name="presentableId" value="LOCAL-00141" />
+      <option name="project" value="LOCAL" />
+      <updated>1565004740261</updated>
+    </task>
+    <option name="localTasksCounter" value="142" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1697073000" />
+    <option name="totallyTimeSpent" value="1697952000" />
   </component>
   <component name="TodoView" selected-index="4">
     <todo-panel id="selected-file">
@@ -1928,7 +1935,7 @@
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2470238" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.24943988" />
       <window_info id="Favorites" order="2" side_tool="true" weight="0.32935026" />
-      <window_info anchor="bottom" id="Messages" order="0" sideWeight="0.49813294" visible="true" weight="0.3276923" />
+      <window_info anchor="bottom" id="Messages" order="0" sideWeight="0.49813294" weight="0.3276923" />
       <window_info anchor="bottom" id="Message" order="1" />
       <window_info anchor="bottom" id="Find" order="2" weight="0.32615384" />
       <window_info anchor="bottom" id="Run" order="3" />
@@ -1937,7 +1944,7 @@
       <window_info anchor="bottom" id="Inspection" order="6" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="7" weight="0.3276923" />
       <window_info anchor="bottom" id="Docker" order="8" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Terminal" order="9" sideWeight="0.49776787" weight="0.34923077" />
+      <window_info anchor="bottom" id="Terminal" order="9" sideWeight="0.49776787" visible="true" weight="0.34923077" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.50223213" side_tool="true" weight="0.1923077" />
       <window_info anchor="bottom" id="Version Control" order="11" sideWeight="0.6152815" weight="0.36" />
       <window_info anchor="bottom" id="Inspection Results" order="12" weight="0.3276923" />
@@ -2011,8 +2018,6 @@
   <component name="VcsManagerConfiguration">
     <option name="SHOW_DIRTY_RECURSIVELY" value="true" />
     <option name="LIMIT_HISTORY" value="false" />
-    <MESSAGE value="Added GET_CURRENT_CLIENT to ptProfile action/reducer." />
-    <MESSAGE value="EditClient refactored and working" />
     <MESSAGE value="ClientData refactored and working" />
     <MESSAGE value="ClientProfile refactored and working.&#10;client_progression refactored and working (modified pt version for action/reducer as pt and client were sharing one)." />
     <MESSAGE value="Starting refactor of Scheduler" />
@@ -2036,7 +2041,9 @@
     <MESSAGE value="Main change:&#10;In users on api, for getting user profile that doesn't exist status code was changed from 400 to 404, this results in a not found error page being displayed.&#10;&#10;Small change:&#10;ClientProfile graph shown explanation changed, as well as a div tag added which makes the headings center correctly as it was off a little with the rest of the page." />
     <MESSAGE value="Edited EditDataProgressForm so that deletion is shown on modal in real-time when submit is pressed." />
     <MESSAGE value="Sorted out Scheduler problem where it retained other clients data when there workout was visited previously, the window needed to be refreshed, to get rid of that data.&#10;That is why window.location.href had to be used previously instead of history.push in ClientList/ClientData." />
-    <option name="LAST_COMMIT_MESSAGE" value="Sorted out Scheduler problem where it retained other clients data when there workout was visited previously, the window needed to be refreshed, to get rid of that data.&#10;That is why window.location.href had to be used previously instead of history.push in ClientList/ClientData." />
+    <MESSAGE value="Link change in ClientData.&#10;Scroll to top added." />
+    <MESSAGE value="scheduler.clearAll() added to clear all data associated with scheduler. This removes previous data from accessing other clients schedules (added statement onMount and onUnmount for safe measure)." />
+    <option name="LAST_COMMIT_MESSAGE" value="scheduler.clearAll() added to clear all data associated with scheduler. This removes previous data from accessing other clients schedules (added statement onMount and onUnmount for safe measure)." />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/routes/chat.js">
@@ -2294,13 +2301,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/App.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="9" column="23" lean-forward="true" selection-start-line="9" selection-start-column="23" selection-end-line="9" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/client/src/App.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-544">
@@ -2384,11 +2384,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/client/src/components/scheduler/SchedulerHTML.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="20" column="36" selection-start-line="20" selection-start-column="36" selection-end-line="20" selection-end-column="36" />
+        <state relative-caret-position="221">
+          <caret line="37" column="33" lean-forward="true" selection-start-line="37" selection-start-column="33" selection-end-line="37" selection-end-column="33" />
           <folding>
             <element signature="e#0#41#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/App.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="307">
+          <caret line="672" column="6" selection-start-line="672" selection-start-column="6" selection-end-line="672" selection-end-column="6" />
         </state>
       </provider>
     </entry>
