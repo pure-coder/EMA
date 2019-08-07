@@ -2,12 +2,12 @@ import {connect} from 'react-redux';
 import React, {Component} from 'react';
 import {withRouter} from 'react-router-dom';
 import PropTypes from 'prop-types';
-import CreateGraph from './CreateGraph';
+import GraphComp from './GraphComp';
 import isEmpty from "../../../utilities/is_empty";
 import ErrorComponent from "../../error/ErrorComponent";
 import Loading from "../../../elements/Loading";
 
-class Graph extends Component {
+class Graphs extends Component {
     // This allows the component states to be up{dated and re-rendered)
     constructor(props) {
         super(props);
@@ -31,9 +31,6 @@ class Graph extends Component {
             }
         }
         return null;
-    }
-
-    componentDidMount(){
     }
 
     componentDidUpdate(prevProps){
@@ -63,13 +60,13 @@ class Graph extends Component {
         }
         else{
 
-            let graphData = Graph.sortedProgressionExerciseNames(this.state.graphData);
+            let graphData = Graphs.sortedProgressionExerciseNames(this.state.graphData);
             const graphs = graphData.map(graph => {
                 if(graph.metrics.length > 1){
                     return (
-                        // Changed key from CreateGraph to div as div was first child, otherwise error was given.
+                        // Changed key from GraphComp to div as div was first child, otherwise error was given.
                         <div className="graphs mb-5" key={graph._id}>
-                            <CreateGraph graphData={graph}/>
+                            <GraphComp graphData={graph}/>
                         </div>
                     )
                 }
@@ -103,7 +100,7 @@ class Graph extends Component {
     }
 }
 
-Graph.propTypes = {
+Graphs.propTypes = {
     graphData: PropTypes.array.isRequired
 };
 
@@ -112,4 +109,4 @@ const stateToProps = (state) => ({
     errors: state.errors
 });
 
-export default connect(stateToProps, null)(withRouter(Graph));
+export default connect(stateToProps, null)(withRouter(Graphs));

@@ -74,11 +74,5 @@ DeleteConfirm.proptypes = {
     progressFormHeight: PropTypes.string.isRequired,
 };
 
-const stateToProps = (state) => ({
-    authenticatedUser: state.authenticatedUser,
-    errors: state.errors,
-    success: state.success
-});
 
-
-export default connect(stateToProps, {deleteClient})(withRouter(DeleteConfirm));
+export default connect(null, {deleteClient})(withRouter(DeleteConfirm));

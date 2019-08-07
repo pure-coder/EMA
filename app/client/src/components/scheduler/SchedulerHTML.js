@@ -18,11 +18,11 @@ class SchedulerHTML extends Component {
 
 
     componentDidMount() {
-
+        document.body.scrollTo(0,0);
         const {data, uid, cid} = this.props.Data;
 
         this.ready.then(() => {
-            const scheduler = window.dhtmlXScheduler;
+            // const scheduler = window.dhtmlXScheduler;
             const dataProcessor = window.dataProcessor;
 
             // Initialise scheduler to current date (month)
@@ -34,6 +34,8 @@ class SchedulerHTML extends Component {
             let thisDate = new Date(year, month, date);
 
             /* globals scheduler */
+            // Needs clearAll as it was retaining previous clients data
+            scheduler.clearAll();
             scheduler.config.show_loading = false;
             // Load the date from the database
             scheduler.config.xml_date = "%Y-%m-%d %H:%i";scheduler.templates.xml_date = function (value) {
@@ -44,6 +46,7 @@ class SchedulerHTML extends Component {
             scheduler.parse(data, "json");
             // Add, edit, and delete data in the database
             scheduler.config.xml_date = "%Y-%m-%d %H:%i";
+
 
 
             //Get token for adding/editing/deleting events
@@ -60,6 +63,10 @@ class SchedulerHTML extends Component {
 
         });
     };
+
+    // componentWillUnmount(){
+    //
+    // }
 
     render() {
         return (

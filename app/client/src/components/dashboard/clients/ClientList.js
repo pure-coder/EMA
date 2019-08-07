@@ -70,7 +70,7 @@ class ClientList extends Component {
     // Tried to use Link component but it didn't call the url directly like window.location.href so the scheduler data
     // for clients was not loaded or saved correctly
     static onScheduleClick(ptId, id) {
-        window.location.href = `/users/${ptId}/scheduler/${id}`;
+        this.props.history.push(`/users/${ptId}/scheduler/${id}`);
     };
 
     onEditProfile(id) {

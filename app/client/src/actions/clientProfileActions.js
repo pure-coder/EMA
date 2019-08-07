@@ -4,10 +4,7 @@ import {
     PROFILE_LOADING,
     CLEAR_CLIENT_PROFILE,
     CLIENT_PROGRESSION,
-    CLEAR_PROGRESSION,
-    SUCCESS,
     GET_ERRS,
-    PASSWORD_ERROR,
 } from "./types"; // import custom defined types
 import {logOutUser} from "./authenticationActions";
 
@@ -54,18 +51,7 @@ export const getClientData = (id, history) => dispatch => {
         });
 };
 
-export const editClientData = (cid, data, history) => dispatch => {
-    axios
-        .put(`/api/edit_client/${cid}`, data)
-        .then(result => {
-            if(result.status === 200){
-                dispatch(setSuccess("Client data successfully updated."))
-            }
-        })
-        .catch(err => {
-            manageErrors(err, dispatch, history);
-        })
-};
+
 
 export const setProfileLoading = () => {
     return {
@@ -77,14 +63,6 @@ export const clearClientProfile = () => {
     return {
         type: CLEAR_CLIENT_PROFILE
     }
-};
-
-export const passwordsMatchError = (error) => dispatch => {
-    dispatch ({
-            type: PASSWORD_ERROR,
-            payload: error
-        }
-    )
 };
 
 export const getClientProgression = (userId, clientId, history) => dispatch => {
@@ -101,56 +79,9 @@ export const getClientProgression = (userId, clientId, history) => dispatch => {
         });
 };
 
-export const clearProgression = () => dispatch => {
-    dispatch({
-        type: CLEAR_PROGRESSION
-    });
-};
-
-export const setErrors = (error) => dispatch => {
-    if(typeof error === "string"){
-        dispatch({
-            type: GET_ERRS,
-            payload: {
-                type: "ERROR",
-                msg: error
-            }
-        })
-    } // typeof string
-    if(typeof error === "object"){
-        // Object error message should only have one value so extract the message error to string
-        let message = Object.values(error).toString();
-        dispatch({
-            type: GET_ERRS,
-            payload: {
-                type: "ERROR",
-                msg: message
-            }
-        })
-    } // typeof string
-};
-
-export const setSuccess = (message) => dispatch => {
-    dispatch({
-        type: SUCCESS,
-        payload: {
-            type: "SUCCESS",
-            msg: message
-        }
-    });
-};
-
-
 export const clearErrors = () => dispatch => {
     dispatch({
         type: GET_ERRS,
-        payload: {}
-    })
-};
-
-export const clearSuccess = () => dispatch => {
-    dispatch({
-        type: SUCCESS,
         payload: {}
     })
 };

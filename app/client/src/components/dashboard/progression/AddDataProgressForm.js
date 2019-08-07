@@ -12,8 +12,8 @@ class AddDataProgressForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            userId: props.authenticatedUser.user.id,
-            clientId: props.match.params.cid,
+            userId: props.ids.userId,
+            clientId: props.ids.clientId,
             maxWeight: '',
             Date: '',
             visible: false,
@@ -60,6 +60,10 @@ class AddDataProgressForm extends Component {
         formHeight += parseInt(window.getComputedStyle(el).getPropertyValue('margin-top'), 10);
         formHeight += parseInt(window.getComputedStyle(el).getPropertyValue('margin-bottom'), 10);
         this.setState({progressFormHeight: formHeight});
+
+        this.props.clearErrors();
+        this.props.clearSuccess();
+
     }
 
     // Checking if previous props modal visibility and this states visibility is not equal (stops reacts maximum loop message when
@@ -220,13 +224,11 @@ AddDataProgressForm.propTypes = {
     clearSuccess: PropTypes.func.isRequired,
     clearErrors: PropTypes.func.isRequired,
     ptGetClientProgression: PropTypes.func.isRequired,
-    authenticatedUser: PropTypes.object.isRequired,
     errors: PropTypes.object.isRequired,
     success: PropTypes.object.isRequired
 };
 
 const stateToProps = (state) => ({
-    authenticatedUser: state.authenticatedUser,
     errors: state.errors,
     success: state.success
 });

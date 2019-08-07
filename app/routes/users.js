@@ -114,6 +114,7 @@ router.get('/client/:cid', passport.authenticate('both_rule', {session: false}, 
         .then(client => {
                 if (client) {
                     let data = {};
+                    data._id = client._id;
                     data.FullName = client.FullName;
                     data.DateOfBirth = client.DateOfBirth;
                     data.Email = client.Email;
@@ -124,12 +125,12 @@ router.get('/client/:cid', passport.authenticate('both_rule', {session: false}, 
                 }
                 // if client is null
                 else {
-                    return res.status(400).json({error: `Client with id: ${cid} does not exist.`})
+                    return res.status(404).json({error: `Client with id: ${cid} does not exist.`})
                 }
             }
         ) // then Client.findOne
         .catch(() => {
-            return res.status(400).json({error: `Client with id: ${cid} does not exist.`})
+            return res.status(404).json({error: `Client with id: ${cid} does not exist.`})
         })
 
 });
@@ -222,6 +223,7 @@ router.get('/personal_trainer/:id', passport.authenticate('pt_rule', {session: f
         .then(pt => {
                 if (pt) {
                     let data = {};
+                    data._id = pt._id;
                     data.FullName = pt.FullName;
                     data.Email = pt.Email;
                     data.DateOfBirth = pt.DateOfBirth;
@@ -574,7 +576,7 @@ router.put('/:id/client_progression/:cid', passport.authenticate('pt_rule', {ses
                         },
                     )
                         .then(() => {
-                            res.status(200).json({msg: "Edit successful."})
+                            res.status(200).json({msg: "Client Data successfully modified."})
                             }
                         )
                         .catch(() => {

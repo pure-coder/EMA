@@ -12,8 +12,8 @@ class EditDataProgressForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            userId: props.authenticatedUser.user.id,
-            clientId: props.match.params.cid,
+            userId: props.ids.userId,
+            clientId: props.ids.clientId,
             visible: false,
             metrics: props.metrics,
             toDelete: [],
@@ -64,7 +64,10 @@ class EditDataProgressForm extends Component {
         // Was previously getting errors when converting in map below as onChange would not except a single zero, etc
         this.state.metrics.forEach(metrics => {
             metrics.Date = new Date(metrics.Date).toISOString().substring(0, 10);
-        })
+        });
+
+        this.props.clearErrors();
+        this.props.clearSuccess();
     }
 
     // Checking if previous props modal visibility and this states visibility is not equal (stops reacts maximum loop message when
@@ -78,6 +81,15 @@ class EditDataProgressForm extends Component {
         if(this.state.progressFormHeight > prevProps.progressFormHeight ){
             let newHeight = this.state.progressFormHeight;
             this.props.modalSize(newHeight.toString())
+        }
+
+        if(prevProps.metrics !== this.props.metrics){
+            // Change format of Date in metrics so that it can be presented correctly in HTML 5 date format.
+            // Was previously getting errors when converting in map below as onChange would not except a single zero, etc
+            this.props.metrics.forEach(metrics => {
+                metrics.Date = new Date(metrics.Date).toISOString().substring(0, 10);
+            });
+            this.setState({metrics: this.props.metrics});
         }
     }
 
@@ -180,15 +192,16 @@ class EditDataProgressForm extends Component {
                 }
             }
 
-            // Delete whole exercise from client progression
+            // Delete whole exercise from client progression (if all checkboxes are ticked, so nothing has been modified)
             if(isEmpty(originalMetrics)){
                 this.props.deleteExercise(this.state.userId, this.state.clientId, this.props.exerciseName, this.props.history);
+                // Close edit modal there is no data to display.
                 this.onClose();
             }
             // Send new array to overwrite current data for exercise in db for client
             else{
                 this.props.editClientExercise(this.state.userId, this.state.clientId, this.props.exerciseId, newMetrics, this.props.history);
-                this.onClose();
+
             }
 
         }
@@ -277,13 +290,11 @@ EditDataProgressForm.propTypes = {
     clearErrors: PropTypes.func.isRequired,
     deleteExercise: PropTypes.func.isRequired,
     editClientExercise: PropTypes.func.isRequired,
-    authenticatedUser: PropTypes.object.isRequired,
     errors: PropTypes.object.isRequired,
     success: PropTypes.object.isRequired
 };
 
 const stateToProps = (state) => ({
-    authenticatedUser: state.authenticatedUser,
     errors: state.errors,
     success: state.success
 });
