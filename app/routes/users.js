@@ -21,6 +21,8 @@ const Client = require('../models/Clients');
 
 // Require ClientProgression model
 const ClientProgression = require('../models/ClientProgression');
+// Require ClientProgression model
+const BodyBio = require('../models/BodyBio');
 
 // Require events
 const Events = require('../models/Events');
@@ -599,6 +601,64 @@ router.put('/:id/client_progression/:cid', passport.authenticate('pt_rule', {ses
     // res.send(null)
 
 }); // router put /:id/client_progression/:cid
+
+// @route  GET api/:id/body_bio/:cid
+// @desc   Retrieve client body bio data from db
+// @access Private for PT's - clients can't get to the body bio db collection
+router.get('/:id/body_bio/:cid', passport.authenticate('both_rule', {session: false}), (req, res) => {
+    // Get clientId from url
+    let clientId = req.params.cid;
+    // Get usertId from url which is used to make sure that they are allowed to access data
+    let userId = req.params.id;
+    // Initialise to true, if userId is same as clientId set to false (for check if user (pt) is allowed to access data
+    let isPt = true;
+
+    // Check to see if user is pt, if not set isPt to false
+    if (userId === clientId){
+        isPt = false;
+    }
+
+    // Verify that client exists and that personal trainer id is linked to client
+    Client.findOne({_id: clientId})
+        .then(result => {
+            // If client is found
+            if (result) {
+
+                // Check to see if ptId is allowed, (if isPt is false - is client then allow access)
+                if (result.ptId === userId || !isPt) {
+
+                    BodyBio.find({clientId: clientId})
+                        .then(result => {
+                            if (result) {
+                                return res.status(200).json(result);
+                            }
+                            else{
+                                return res.status(400).json();
+                            }
+                        })
+                        .catch(err => {
+                                return res.status(400).json(err);
+                            }
+                        ); // router get body bio
+
+                }
+                else {
+                    // 401 Unauthorised
+                    return res.status(401).json({err: "User not authorised to access body bio"});
+                }
+            }
+            else{
+                // 404 Not found
+                return res.status(404).json();
+            }
+        })
+        .catch(() => {
+            // Return an empty object
+            return res.json({});
+        }); // Client.findOne()
+
+}); // router get /:id/body_bio/:cid
+
 
 //Export router so it can work with the main restful api server
     module.exports = router;
