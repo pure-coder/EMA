@@ -5,6 +5,7 @@ html, body {
     max-height: 100vh;
     min-height: 100vh;
     max-width: 2560px;
+    min-width: 320px;
     /*height: 100%;*/
     overflow: visible;
     overflow-x: hidden;
@@ -326,7 +327,7 @@ svg {
 
 .Progression {
     min-width: inherit;
-    width: 550px;
+    max-width: 500px;
     margin: inherit;
     padding: inherit;
 }
