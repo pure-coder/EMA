@@ -303,7 +303,7 @@ router.post('/new_client', passport.authenticate('pt_rule', {session: false}), (
                                     clientId: client._id,
                                     ptId: PersonalTrainerId,
                                     goals: "No goals have been set for this client yet.",
-                                    injures: "No injuries or limitations have been set for this client yet.",
+                                    injuries: "No injuries or limitations have been set for this client yet.",
                                     notes: "No notes have been set for this client yet.",
                                     bodyMetrics: []
                                 });

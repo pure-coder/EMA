@@ -27,6 +27,30 @@ const BodyBio = require('../models/BodyBio');
 // Require events
 const Events = require('../models/Events');
 
+// For creating Body bio for clients that didn't get initialised with one.
+function createBio(pId, cId, res){
+
+    // Add default body bio for client
+    const newBio = new BodyBio({
+        clientId: cId,
+        ptId: pId,
+        goals: "No goals have been set for this client yet.",
+        injuries: "No injuries or limitations have been set for this client yet.",
+        notes: "No notes have been set for this client yet.",
+        bodyMetrics: []
+    });
+
+    newBio.save()
+        .then(() =>{
+            // console.log(bioResult)
+            res.status(200).json();
+        })
+        .catch(() => {
+            // console.log(err)
+            res.status(400).json();
+        });
+}
+
 // @route  GET api/pt_clients/:ptid
 // @desc   Get up to date clients of personal trainer
 // @access Private for PT's
@@ -677,10 +701,54 @@ router.get('/:id/body_bio/:cid', passport.authenticate('both_rule', {session: fa
 
 }); // router get /:id/body_bio/:cid
 
+// @route  PUT api/:id/client_progression/:cid
+// @desc   update body bio data in db
+// @access Private for PT's - clients can't update body bio data in db collection
+router.put('/:id/body_bio/:cid', passport.authenticate('pt_rule', {session: false}, null), (req, res) =>{
 
+    let userId = req.params.id;
+    let clientId = req.params.cid;
+    let data = req.body.data;
 
+    // Check to see if client exists
+    Client.findOne({_id: clientId})
+        .then(result => {
+            if(result) {
 
+                // As pt's are the only ones that can access this route, check to see if uid given matches the ptId for this client
+                if(result.ptId === userId){
 
+                    // // update exercise for client
+                    BodyBio.find(
+                        {clientId},
+                        // {$set:
+                        //         {
+                        //             metrics : data
+                        //         }
+                        // },
+                    )
+                        .then(result => {
+                            if (result) {
+                                res.status(200).json({msg: "Data successfully modified."})
+                            }
+                        })
+                        .catch(() => {
+                            res.status(400).json({msg: "Could not update data."})
+                        })
+
+                }
+                else{
+                    // Respond with a forbidden status code as the uid given is not allowed to access this data
+                    res.status(403).json({msg : "User not allowed to access data."})
+                }
+            }
+        })
+        .catch(() => {
+            res.status(400).json({msg: "Client not found!"});
+        })
+    // end of Client.findOne
+
+}); // router put /:id/body_bio/:cid
 
 // @route  DELETE api/:id/body_bio/:cid
 // @desc   Delete body bio from db
