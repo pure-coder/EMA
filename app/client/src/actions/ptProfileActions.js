@@ -13,7 +13,8 @@ import {
     GET_CURRENT_CLIENT,
     CLEAR_CURRENT_CLIENT,
     SCHEDULER,
-    CLEAR_WORKOUT_DATA
+    CLEAR_WORKOUT_DATA,
+    GET_CLIENT_PROFILE_NOTES
 } from "./types"; // import custom defined types
 import {logOutUser} from "./authenticationActions";
 
@@ -145,6 +146,28 @@ export const editClientData = (cid, data, history) => dispatch => {
             manageErrors(err, dispatch, history);
         })
 };
+
+// Get pt Clients profile notes
+export const getClientProfileNotes = (ptId, cId, history) => dispatch => {
+    axios
+        .get(`/api/${ptId}/profile_notes/${cId}`)
+        .then(result => {
+                // return {clients : result.data}
+                // dispatch this action to the action below so the data can be sent to the respective reducer
+                dispatch(
+                    {
+                        type: GET_CLIENT_PROFILE_NOTES,
+                        payload: result.data
+                    }
+                )
+            }
+        )
+        .catch(err => {
+            manageErrors(err, dispatch, history);
+        })
+};
+
+
 
 // Delete Client
 export const deleteClient = (id, ptId, history) => dispatch => {

@@ -8,7 +8,8 @@ import {
     CLEAR_PROGRESSION,
     CLEAR_CURRENT_CLIENT,
     SCHEDULER,
-    CLEAR_WORKOUT_DATA
+    CLEAR_WORKOUT_DATA,
+    GET_CLIENT_PROFILE_NOTES
 } from '../actions/types';
 
 const initialState = {
@@ -44,6 +45,11 @@ export default function(state = initialState, action) {
                 ...state,
                 current_client: action.payload,
                 loading: false
+            };
+        case GET_CLIENT_PROFILE_NOTES:
+            return {
+                ...state,
+                profile_notes: action.payload
             };
         case CLEAR_CURRENT_PROFILE:
             return {
