@@ -288,21 +288,20 @@ router.post('/new_client', passport.authenticate('pt_rule', {session: false}), (
                                     .then(result => {
                                         if (result){
                                             // No need to send data back just send success status code
-                                            res.status(200).json();
+                                            // res.status(200).json();
                                         }
                                         else{
-                                            //console.log(2, result)
+                                            //console.log(result)
                                         }
                                     })
                                     .catch(err => {
-                                        //console.log(3, err)
+                                        //console.log(err)
                                     });
-
 
                                 // Add default body bio for client
                                 const newBio = new BodyBio({
-                                    clientId: client.clientId,
-                                    ptId: PT._id,
+                                    clientId: client._id,
+                                    ptId: PersonalTrainerId,
                                     goals: "No goals have been set for this client yet.",
                                     injures: "No injuries or limitations have been set for this client yet.",
                                     notes: "No notes have been set for this client yet.",
@@ -310,13 +309,14 @@ router.post('/new_client', passport.authenticate('pt_rule', {session: false}), (
                                 });
 
                                 newBio.save()
-                                    .then(() =>{
-                                        res.status(200).json({msg: "body bio created."})
+                                    .then(bioResult =>{
+                                        console.log(bioResult);
+                                        res.status(200).json();
                                     })
-                                    .catch(() => {
-                                        res.status(400).json({msg: "Could not create body bio."});
+                                    .catch(err => {
+                                        console.log(err);
+                                        res.status(400).json();
                                     });
-
 
                             })
                             .catch(err => {
