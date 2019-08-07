@@ -67,6 +67,15 @@ router.delete('/delete_client/:cid', passport.authenticate('pt_rule', {session: 
                                     if (result) {
                                         Events.remove({clientId: clientId})
                                             .then(() => {
+                                                    // res.status(200).json("Client deleted successfully")
+                                                    // console.log( "Events deleted for user: " + client.FullName + " ", events)
+                                                }
+                                            )
+                                            // Events.remove
+                                            .catch(() => {
+                                            })
+                                        BodyBio.remove({clientId: clientId})
+                                            .then(() => {
                                                     return res.status(200).json("Client deleted successfully")
                                                     // console.log( "Events deleted for user: " + client.FullName + " ", events)
                                                 }
