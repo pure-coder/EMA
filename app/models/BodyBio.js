@@ -9,15 +9,6 @@ const BodyBioSchema = new Schema({
     ptId: {
         type: String, require: true,
     },
-    goals : {
-        type: String
-    },
-    injuries : {
-        type: String
-    },
-    notes : {
-        type: String
-    },
     bodyMetrics: [
         {
             bodyPart: {type: String, require: true},

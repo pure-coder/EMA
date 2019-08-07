@@ -21,8 +21,10 @@ const Client = require('../models/Clients');
 
 // Require ClientProgression model
 const ClientProgression = require('../models/ClientProgression');
-// Require ClientProgression model
+// Require BodyBio model
 const BodyBio = require('../models/BodyBio');
+// Require ProfileNotes model
+const ProfileNotes = require('../models/ProfileNotes');
 
 // Require events
 const Events = require('../models/Events');
@@ -34,9 +36,6 @@ function createBio(pId, cId, res){
     const newBio = new BodyBio({
         clientId: cId,
         ptId: pId,
-        goals: "No goals have been set for this client yet.",
-        injuries: "No injuries or limitations have been set for this client yet.",
-        notes: "No notes have been set for this client yet.",
         bodyMetrics: []
     });
 
@@ -708,7 +707,9 @@ router.put('/:id/body_bio/:cid', passport.authenticate('pt_rule', {session: fals
 
     let userId = req.params.id;
     let clientId = req.params.cid;
-    let data = req.body.data;
+    //let data = req.body.data;
+    //Testing from postman
+    let data = req.query
 
     // Check to see if client exists
     Client.findOne({_id: clientId})
@@ -718,23 +719,16 @@ router.put('/:id/body_bio/:cid', passport.authenticate('pt_rule', {session: fals
                 // As pt's are the only ones that can access this route, check to see if uid given matches the ptId for this client
                 if(result.ptId === userId){
 
-                    // // update exercise for client
-                    BodyBio.find(
-                        {clientId},
-                        // {$set:
-                        //         {
-                        //             metrics : data
-                        //         }
-                        // },
-                    )
-                        .then(result => {
-                            if (result) {
-                                res.status(200).json({msg: "Data successfully modified."})
-                            }
+                    BodyBio.update({clientId}, {$push: {bodyMetrics: data.bodyMetrics}}, {safe: true})
+                        .then(() => {
+                            res.status(200).json({msg: "Data successfully modified."});
                         })
-                        .catch(() => {
+                        .catch(err => {
+                            console.log(err)
                             res.status(400).json({msg: "Could not update data."})
-                        })
+                        });
+
+                    //res.status(200).json()
 
                 }
                 else{
@@ -799,6 +793,171 @@ router.delete('/:id/body_bio/:cid', passport.authenticate('pt_rule', {session: f
         })
 
 }); // router delete /:id/body_bio/:cid
+
+// @route  GET api/:id/profile_notes/:cid
+// @desc   Retrieve client profile notes data from db
+// @access Available for both authorised Pt's and clients
+router.get('/:id/profile_notes/:cid', passport.authenticate('both_rule', {session: false}), (req, res) => {
+    // Get clientId from url
+    let clientId = req.params.cid;
+    // Get usertId from url which is used to make sure that they are allowed to access data
+    let userId = req.params.id;
+    // Initialise to true, if userId is same as clientId set to false (for check if user (pt) is allowed to access data
+    let isPt = true;
+
+    // Check to see if user is pt, if not set isPt to false
+    if (userId === clientId){
+        isPt = false;
+    }
+
+    // Verify that client exists and that personal trainer id is linked to client
+    Client.findOne({_id: clientId})
+        .then(result => {
+            // If client is found
+            if (result) {
+
+                // Check to see if ptId is allowed, (if isPt is false - is client then allow access)
+                if (result.ptId === userId || !isPt) {
+
+                    ProfileNotes.find({clientId: clientId})
+                        .then(result => {
+                            if (result) {
+                                return res.status(200).json(result);
+                            }
+                            else{
+                                return res.status(400).json();
+                            }
+                        })
+                        .catch(err => {
+                                return res.status(400).json(err);
+                            }
+                        ); // router get profile notes
+
+                }
+                else {
+                    // 401 Unauthorised
+                    return res.status(401).json({err: "User not authorised to access profile notes"});
+                }
+            }
+            else{
+                // 404 Not found
+                return res.status(404).json();
+            }
+        })
+        .catch(() => {
+            // Return an empty object
+            return res.json({});
+        }); // Client.findOne()
+
+}); // router get /:id/profile_notes/:cid
+
+// @route  PUT api/:id/client_progression/:cid
+// @desc   update profile notes data in db
+// @access Private for PT's - clients can't update profile notes data in db collection
+router.put('/:id/profile_notes/:cid', passport.authenticate('pt_rule', {session: false}, null), (req, res) =>{
+
+    let userId = req.params.id;
+    let clientId = req.params.cid;
+    //let data = req.body.data;
+    //Testing from postman
+    let data = req.query
+
+    // Check to see if client exists
+    Client.findOne({_id: clientId})
+        .then(result => {
+            if(result) {
+
+                // As pt's are the only ones that can access this route, check to see if uid given matches the ptId for this client
+                if(result.ptId === userId){
+
+                    // testing from postman using Params
+                    const key = Object.keys(data)[0];
+                    const value = Object.values(data)[0];
+                    console.log(key, value)
+
+                    // update exercise for client
+                    ProfileNotes.findOneAndUpdate(
+                        {clientId},
+                        {$set:
+                                {
+                                    [key]: value
+                                }
+                        },
+                    )
+                        .then(result => {
+                            if (result) {
+                                res.status(200).json({msg: "Data successfully modified."})
+                            }
+                        })
+                        .catch(() => {
+                            res.status(400).json({msg: "Could not update data."})
+                        })
+
+                    //res.status(200).json()
+
+                }
+                else{
+                    // Respond with a forbidden status code as the uid given is not allowed to access this data
+                    res.status(403).json({msg : "User not allowed to access data."})
+                }
+            }
+        })
+        .catch(() => {
+            res.status(400).json({msg: "Client not found!"});
+        })
+    // end of Client.findOne
+
+}); // router put /:id/profile_notes/:cid
+
+// @route  DELETE api/:id/profile_notes/:cid
+// @desc   Delete profile notes from db
+// @access Private for PT's - clients can't delete profile_notes data from db collection
+router.delete('/:id/profile_notes/:cid', passport.authenticate('pt_rule', {session: false}, null), (req, res) =>{
+
+    let userId = req.params.id;
+    let clientId = req.params.cid;
+
+    // Check to see if client exists
+    Client.findOne({_id: clientId})
+        .then(result => {
+            if(result) {
+
+                // As pt's are the only ones that can access this route, check to see if uid given matches the ptId for this client
+                if(result.ptId === userId){
+
+                    // res.status(200).json({userId, clientId, data, result});
+
+                    // Remove exercise for client
+                    ProfileNotes.remove({clientId: clientId})
+                        .then(result => {
+
+                                // Successful removal returns n:1, unsuccessful returns n:0
+                                if(result.n === 1){
+                                    // This returns n:1, ok:1 which will be used on client to show appropriate message
+                                    res.status(200).json(result);
+                                }
+                                else{
+                                    res.status(400).json({msg: "Could not find and profile notes data."});
+                                }
+
+                            }
+                        )
+                        .catch(() => {
+                            res.status(400).json({msg: "Could not delete profile notes data."})
+                        })
+
+                }
+                else{
+                    // Respond with a forbidden status code as the uid given is not allowed to access this data
+                    res.status(403).json({msg : "User not allowed to access data."})
+                }
+            }
+        })
+        .catch(() => {
+            res.status(400).json({msg: "Client not found!"});
+        })
+
+}); // router delete /:id/profile_notes/:cid
 
 
 //Export router so it can work with the main restful api server

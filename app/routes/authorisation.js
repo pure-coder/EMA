@@ -17,6 +17,8 @@ const PersonalTrainer = require('../models/PersonalTrainer');
 const Client = require('../models/Clients');
 const ActivationTokens = require('../models/AcitvationTokens');
 const BodyBio = require('../models/BodyBio');
+const ProfileNotes = require('../models/ProfileNotes');
+
 
 // Require verification functionality
 const verification = require('../validation/verification');
@@ -302,15 +304,31 @@ router.post('/new_client', passport.authenticate('pt_rule', {session: false}), (
                                 const newBio = new BodyBio({
                                     clientId: client._id,
                                     ptId: PersonalTrainerId,
-                                    goals: "No goals have been set for this client yet.",
-                                    injuries: "No injuries or limitations have been set for this client yet.",
-                                    notes: "No notes have been set for this client yet.",
                                     bodyMetrics: []
                                 });
 
                                 newBio.save()
                                     .then(() =>{
                                         // console.log(bioResult)
+                                        res.status(200).json();
+                                    })
+                                    .catch(() => {
+                                        // console.log(err)
+                                        res.status(400).json();
+                                    });
+
+                                // Add default body bio for client
+                                const newProfileNotes = new ProfileNotes({
+                                    clientId: client._id,
+                                    ptId: PersonalTrainerId,
+                                    goals: "No goals have been set for this client yet.",
+                                    injuries: "No injuries or limitations have been set for this client yet.",
+                                    notes: "No notes have been set for this client yet.",
+                                });
+
+                                newProfileNotes.save()
+                                    .then(() =>{
+                                        // console.log(result)
                                         res.status(200).json();
                                     })
                                     .catch(() => {
