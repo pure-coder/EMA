@@ -309,12 +309,12 @@ router.post('/new_client', passport.authenticate('pt_rule', {session: false}), (
                                 });
 
                                 newBio.save()
-                                    .then(bioResult =>{
-                                        console.log(bioResult);
+                                    .then(() =>{
+                                        // console.log(bioResult)
                                         res.status(200).json();
                                     })
-                                    .catch(err => {
-                                        console.log(err);
+                                    .catch(() => {
+                                        // console.log(err)
                                         res.status(400).json();
                                     });
 

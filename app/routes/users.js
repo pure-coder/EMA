@@ -59,12 +59,20 @@ router.delete('/delete_client/:cid', passport.authenticate('pt_rule', {session: 
         .then(client => {
             if (client) {
                 // Had to change $unset to $pull
-                PersonalTrainer.update({_id: client.ptId}, {$pull: {ClientIDs: {id: client.id}}})
+                PersonalTrainer.update({_id: client.ptId}, {$pull: {ClientIDs: client.id}})
                     .then(pt => {
                         if (pt) {
                             Client.remove({_id: clientId}).remove()
                                 .then(result => {
                                     if (result) {
+                                        ClientProgression.remove({clientId: clientId})
+                                            .then(() => {
+                                                    // res.status(200).json("Client deleted successfully")
+                                                }
+                                            )
+                                            .catch(() => {
+                                                // console.log("error deleting client progress")
+                                            });
                                         Events.remove({clientId: clientId})
                                             .then(() => {
                                                     // res.status(200).json("Client deleted successfully")
@@ -73,7 +81,8 @@ router.delete('/delete_client/:cid', passport.authenticate('pt_rule', {session: 
                                             )
                                             // Events.remove
                                             .catch(() => {
-                                            })
+                                                // console.log("error deleting client progress")
+                                            });
                                         BodyBio.remove({clientId: clientId})
                                             .then(() => {
                                                     return res.status(200).json("Client deleted successfully")
