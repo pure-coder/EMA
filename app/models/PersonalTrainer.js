@@ -34,7 +34,7 @@ const PersonalTrainerSchema = new Schema({
         { type: Schema.Types.ObjectId, ref: 'Clients'}
     ]
     // collection value is the name of the collection that is stored in the database
-});
+}, {collection: "PersonalTrainers"}, {timestamps: true});
 
 const PersonalTrainer = mongoose.model('PersonalTrainers', PersonalTrainerSchema);
 
