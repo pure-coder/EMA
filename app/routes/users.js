@@ -30,25 +30,25 @@ const ProfileNotes = require('../models/ProfileNotes');
 const Events = require('../models/Events');
 
 // For creating Body bio for clients that didn't get initialised with one.
-function createBio(pId, cId, res){
-
-    // Add default body bio for client
-    const newBio = new BodyBio({
-        clientId: cId,
-        ptId: pId,
-        bodyMetrics: []
-    });
-
-    newBio.save()
-        .then(() =>{
-            // console.log(bioResult)
-            res.status(200).json();
-        })
-        .catch(() => {
-            // console.log(err)
-            res.status(400).json();
-        });
-}
+// function createBio(pId, cId, res){
+//
+//     // Add default body bio for client
+//     const newBio = new BodyBio({
+//         clientId: cId,
+//         ptId: pId,
+//         bodyMetrics: []
+//     });
+//
+//     newBio.save()
+//         .then(() =>{
+//             // console.log(bioResult)
+//             res.status(200).json();
+//         })
+//         .catch(() => {
+//             // console.log(err)
+//             res.status(400).json();
+//         });
+// }
 
 // @route  GET api/pt_clients/:ptid
 // @desc   Get up to date clients of personal trainer
@@ -107,6 +107,16 @@ router.delete('/delete_client/:cid', passport.authenticate('pt_rule', {session: 
                                                 // console.log("error deleting client progress")
                                             });
                                         BodyBio.remove({clientId: clientId})
+                                            .then(() => {
+                                                    return res.status(200).json("Client deleted successfully")
+                                                    // console.log( "Events deleted for user: " + client.FullName + " ", events)
+                                                }
+                                            )
+                                            // Events.remove
+                                            .catch(err => {
+                                                return res.status(400).json(err)
+                                            });
+                                        ProfileNotes.remove({clientId: clientId})
                                             .then(() => {
                                                     return res.status(200).json("Client deleted successfully")
                                                     // console.log( "Events deleted for user: " + client.FullName + " ", events)
@@ -700,7 +710,7 @@ router.get('/:id/body_bio/:cid', passport.authenticate('both_rule', {session: fa
 
 }); // router get /:id/body_bio/:cid
 
-// @route  PUT api/:id/client_progression/:cid
+// @route  PUT api/:id/body_bio/:cid
 // @desc   update body bio data in db
 // @access Private for PT's - clients can't update body bio data in db collection
 router.put('/:id/body_bio/:cid', passport.authenticate('pt_rule', {session: false}, null), (req, res) =>{
@@ -725,7 +735,7 @@ router.put('/:id/body_bio/:cid', passport.authenticate('pt_rule', {session: fals
                         })
                         .catch(err => {
                             console.log(err)
-                            res.status(400).json({msg: "Could not update data."})
+                            res.status(400).json({msg: "Could not update data."});
                         });
 
                     //res.status(200).json()
@@ -860,7 +870,13 @@ router.put('/:id/profile_notes/:cid', passport.authenticate('pt_rule', {session:
     let clientId = req.params.cid;
     //let data = req.body.data;
     //Testing from postman
-    let data = req.query
+    let data = req.query;
+
+    if(isEmpty(data)){
+        return res.status(400).json({msg: "No data supplied for update"});
+    }
+
+    console.log(data)
 
     // Check to see if client exists
     Client.findOne({_id: clientId})
@@ -873,7 +889,6 @@ router.put('/:id/profile_notes/:cid', passport.authenticate('pt_rule', {session:
                     // testing from postman using Params
                     const key = Object.keys(data)[0];
                     const value = Object.values(data)[0];
-                    console.log(key, value)
 
                     // update exercise for client
                     ProfileNotes.findOneAndUpdate(
@@ -908,56 +923,6 @@ router.put('/:id/profile_notes/:cid', passport.authenticate('pt_rule', {session:
     // end of Client.findOne
 
 }); // router put /:id/profile_notes/:cid
-
-// @route  DELETE api/:id/profile_notes/:cid
-// @desc   Delete profile notes from db
-// @access Private for PT's - clients can't delete profile_notes data from db collection
-router.delete('/:id/profile_notes/:cid', passport.authenticate('pt_rule', {session: false}, null), (req, res) =>{
-
-    let userId = req.params.id;
-    let clientId = req.params.cid;
-
-    // Check to see if client exists
-    Client.findOne({_id: clientId})
-        .then(result => {
-            if(result) {
-
-                // As pt's are the only ones that can access this route, check to see if uid given matches the ptId for this client
-                if(result.ptId === userId){
-
-                    // res.status(200).json({userId, clientId, data, result});
-
-                    // Remove exercise for client
-                    ProfileNotes.remove({clientId: clientId})
-                        .then(result => {
-
-                                // Successful removal returns n:1, unsuccessful returns n:0
-                                if(result.n === 1){
-                                    // This returns n:1, ok:1 which will be used on client to show appropriate message
-                                    res.status(200).json(result);
-                                }
-                                else{
-                                    res.status(400).json({msg: "Could not find and profile notes data."});
-                                }
-
-                            }
-                        )
-                        .catch(() => {
-                            res.status(400).json({msg: "Could not delete profile notes data."})
-                        })
-
-                }
-                else{
-                    // Respond with a forbidden status code as the uid given is not allowed to access this data
-                    res.status(403).json({msg : "User not allowed to access data."})
-                }
-            }
-        })
-        .catch(() => {
-            res.status(400).json({msg: "Client not found!"});
-        })
-
-}); // router delete /:id/profile_notes/:cid
 
 
 //Export router so it can work with the main restful api server

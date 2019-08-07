@@ -13,7 +13,6 @@ class UserInfo extends Component {
         let DOB = new Date(dateOfBirth).getTime();
         DOB = Date.now() - DOB;
         let age = new Date(DOB);
-        console.log(age.getFullYear() ,age.getFullYear() - 1970)
         return Math.abs(age.getFullYear() - 1970);
     }
 
