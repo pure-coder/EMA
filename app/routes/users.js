@@ -437,7 +437,7 @@ router.post('/:id/client_progression/:cid', passport.authenticate('pt_rule', {se
 
 // @route  GET api/:id/client_progression/:cid
 // @desc   Retrieve client progression data from db
-// @access Private for PT's - clients can't get to the progression db collection
+// @access Available for both authorised Pt's and clients
 router.get('/:id/client_progression/:cid', passport.authenticate('both_rule', {session: false}), (req, res) => {
     // Get clientId from url
     let clientId = req.params.cid;
@@ -604,7 +604,7 @@ router.put('/:id/client_progression/:cid', passport.authenticate('pt_rule', {ses
 
 // @route  GET api/:id/body_bio/:cid
 // @desc   Retrieve client body bio data from db
-// @access Private for PT's - clients can't get to the body bio db collection
+// @access Available for both authorised Pt's and clients
 router.get('/:id/body_bio/:cid', passport.authenticate('both_rule', {session: false}), (req, res) => {
     // Get clientId from url
     let clientId = req.params.cid;
@@ -658,6 +658,61 @@ router.get('/:id/body_bio/:cid', passport.authenticate('both_rule', {session: fa
         }); // Client.findOne()
 
 }); // router get /:id/body_bio/:cid
+
+
+
+
+
+
+// @route  DELETE api/:id/body_bio/:cid
+// @desc   Delete body bio from db
+// @access Private for PT's - clients can't delete body_bio data from db collection
+router.delete('/:id/body_bio/:cid', passport.authenticate('pt_rule', {session: false}, null), (req, res) =>{
+
+    let userId = req.params.id;
+    let clientId = req.params.cid;
+
+    // Check to see if client exists
+    Client.findOne({_id: clientId})
+        .then(result => {
+            if(result) {
+
+                // As pt's are the only ones that can access this route, check to see if uid given matches the ptId for this client
+                if(result.ptId === userId){
+
+                    // res.status(200).json({userId, clientId, data, result});
+
+                    // Remove exercise for client
+                    BodyBio.remove({clientId: clientId})
+                        .then(result => {
+
+                                // Successful removal returns n:1, unsuccessful returns n:0
+                                if(result.n === 1){
+                                    // This returns n:1, ok:1 which will be used on client to show appropriate message
+                                    res.status(200).json(result);
+                                }
+                                else{
+                                    res.status(400).json({msg: "Could not find and body bio data."});
+                                }
+
+                            }
+                        )
+                        .catch(() => {
+                            res.status(400).json({msg: "Could not delete body bio data."})
+                        })
+
+                }
+                else{
+                    // Respond with a forbidden status code as the uid given is not allowed to access this data
+                    res.status(403).json({msg : "User not allowed to access data."})
+                }
+            }
+        })
+        .catch(() => {
+            res.status(400).json({msg: "Client not found!"});
+        })
+
+}); // router delete /:id/body_bio/:cid
 
 
 //Export router so it can work with the main restful api server
