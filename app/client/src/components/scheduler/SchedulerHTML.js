@@ -38,7 +38,8 @@ class SchedulerHTML extends Component {
             scheduler.clearAll();
             scheduler.config.show_loading = false;
             // Load the date from the database
-            scheduler.config.xml_date = "%Y-%m-%d %H:%i";scheduler.templates.xml_date = function (value) {
+            scheduler.config.xml_date = "%Y-%m-%d %H:%i";
+            scheduler.templates.xml_date = function (value) {
                 return new Date(value);
             };
             scheduler.init('workoutScheduler', thisDate, "week");
@@ -64,9 +65,10 @@ class SchedulerHTML extends Component {
         });
     };
 
-    // componentWillUnmount(){
-    //
-    // }
+    componentWillUnmount(){
+        // Needs clearAll as it was retaining previous clients data
+        scheduler.clearAll();
+    }
 
     render() {
         return (
