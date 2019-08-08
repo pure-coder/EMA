@@ -98,7 +98,9 @@ class AddDataProgressForm extends Component {
     onChange(e) {
         this.setState({[e.target.name]: e.target.value});
 
-        this.props.clearErrors();
+        if(!isEmpty(this.props.errors)){
+            this.props.clearErrors();
+        }
         this.setState({message: {type: null}}); // reset to null
         if(!isEmpty(this.props.success)){
             this.props.clearSuccess();

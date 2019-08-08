@@ -141,7 +141,9 @@ class EditDataProgressForm extends Component {
             edited : true
         });
 
-        this.props.clearErrors();
+        if(!isEmpty(this.props.errors)){
+            this.props.clearErrors();
+        }
         if(!isEmpty(this.props.success)){
             this.props.clearSuccess();
         }
