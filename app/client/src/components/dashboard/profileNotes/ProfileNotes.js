@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import PropTypes from "prop-types";
+import {clearClientProfileNotes} from "../../../actions/ptProfileActions";
+import {clearProfileNotes} from "../../../actions/clientProfileActions";
 
 class ProfileNotes extends Component {
     constructor(props){
@@ -30,6 +32,15 @@ class ProfileNotes extends Component {
             }
         }
         return null
+    }
+
+    componentWillUnmount(){
+        if(this.props.authenticatedUser.user.pt){
+            this.props.clearClientProfileNotes();
+        }
+        else{
+            this.props.clearProfileNotes();
+        }
     }
 
     onChange(e){
@@ -91,11 +102,17 @@ class ProfileNotes extends Component {
 }
 
 ProfileNotes.propTypes = {
-    authenticatedUser: PropTypes.object.isRequired
+    authenticatedUser: PropTypes.object.isRequired,
+    ptProfile: PropTypes.object.isRequired,
+    clientProfile: PropTypes.object.isRequired,
+    clearProfileNotes: PropTypes.func.isRequired,
+    clearClientProfileNotes: PropTypes.func.isRequired
 };
 
 const stateToProps = (state) => ({
-    authenticatedUser: state.authenticatedUser
+    authenticatedUser: state.authenticatedUser,
+    ptProfile: state.ptProfile,
+    clientProfile: state.clientProfile
 });
 
-export default connect(stateToProps, {})(ProfileNotes);
+export default connect(stateToProps, {clearClientProfileNotes, clearProfileNotes})(ProfileNotes);
