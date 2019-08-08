@@ -98,7 +98,9 @@ class EditPersonalTrainer extends Component {
     onChange(event) {
         this.setState({[event.target.name]: event.target.value});
 
-        this.props.clearErrors();
+        if(!isEmpty(this.props.errors)){
+            this.props.clearErrors();
+        }
         this.setState({message: {type: null}}); // reset to null
         if(!isEmpty(this.props.success)){
             this.props.clearSuccess();
