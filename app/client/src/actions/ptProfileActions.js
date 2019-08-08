@@ -149,9 +149,9 @@ export const editClientData = (cid, data, history) => dispatch => {
 };
 
 // Get pt Clients profile notes
-export const getClientProfileNotes = (ptId, cId, history) => dispatch => {
+export const getClientProfileNotes = (cId, history) => dispatch => {
     axios
-        .get(`/api/${ptId}/profile_notes/${cId}`)
+        .get(`/api/profile_notes/${cId}`)
         .then(result => {
                 // dispatch this action to the action below so the data can be sent to the respective reducer
                 dispatch(

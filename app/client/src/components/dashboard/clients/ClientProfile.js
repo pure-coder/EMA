@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'; // Used to document prop types sent to compo
 import {connect} from 'react-redux' // Needed when using redux inside a component (connects redux to this component)
 import {withRouter} from 'react-router-dom';
 import {ptGetClientProgression, clearProgression, getCurrentClient, clearCurrentClient, getClientProfileNotes, clearClientProfileNotes} from "../../../actions/ptProfileActions";
-import {getClientData, getClientProgression} from "../../../actions/clientProfileActions";
+import {getClientData, getClientProgression, getProfileNotes, clearProfileNotes} from "../../../actions/clientProfileActions";
 import Graphs from "../progression/Graphs";
 import NewClientProgressForm from "../progression/NewClientProgressForm";
 import Modal from 'react-awesome-modal';
@@ -72,7 +72,10 @@ class ClientProfile extends Component {
     componentDidMount() {
         if(this.props.authenticatedUser.user.pt){
             this.props.getCurrentClient(this.state.clientId, this.props.history);
-            this.props.getClientProfileNotes(this.state.userId, this.state.clientId, this.props.history)
+            this.props.getClientProfileNotes(this.state.clientId, this.props.history)
+        }
+        else{
+            this.props.getProfileNotes(this.state.clientId, this.state.history)
         }
         this.getClientProgression();
     } // did mount
@@ -117,7 +120,16 @@ class ClientProfile extends Component {
     render() {
         const {user} = this.props.authenticatedUser;
         const client_data = this.state.clientData;
-        const profile_notes = this.props.ptProfile.profile_notes;
+
+        let profile_notes;
+
+        if(user.pt){
+            profile_notes = this.props.ptProfile.profile_notes;
+        }
+        else{
+            profile_notes = this.props.clientProfile.profile_notes;
+        }
+
 
         if(client_data === null || client_data === undefined || profile_notes === null){
             return <Loading myClassName="loading_container"/>
@@ -194,6 +206,7 @@ ClientProfile.propTypes = {
     clientProfile: PropTypes.object.isRequired,
     getClientData: PropTypes.func.isRequired,
     getClientProfileNotes: PropTypes.func.isRequired,
+    getProfileNotes: PropTypes.func.isRequired,
     ptProfile: PropTypes.object.isRequired,
     getCurrentClient: PropTypes.func.isRequired,
     getClientProgression: PropTypes.func.isRequired,
@@ -201,6 +214,7 @@ ClientProfile.propTypes = {
     clearProgression: PropTypes.func.isRequired,
     clearCurrentClient: PropTypes.func.isRequired,
     clearClientProfileNotes: PropTypes.func.isRequired,
+    clearProfileNotes: PropTypes.func.isRequired,
     errors: PropTypes.object.isRequired
 };
 
@@ -213,5 +227,4 @@ const stateToProps = (state) => {
         errors: state.errors
 }};
 
-export default connect(stateToProps, {getClientProgression, ptGetClientProgression, clearProgression, getCurrentClient, getClientData, clearCurrentClient, getClientProfileNotes
-,clearClientProfileNotes})(withRouter(ClientProfile));
+export default connect(stateToProps, {getClientProgression, ptGetClientProgression, clearProgression, getCurrentClient, getClientData, clearCurrentClient, getClientProfileNotes,clearClientProfileNotes, getProfileNotes, clearProfileNotes})(withRouter(ClientProfile));

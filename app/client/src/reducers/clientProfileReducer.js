@@ -3,11 +3,15 @@ import {
     PROFILE_LOADING,
     CLIENT_PROGRESSION,
     CLEAR_PROGRESSION,
-    CLEAR_CLIENT_PROFILE
+    CLEAR_CLIENT_PROFILE,
+    GET_PROFILE_NOTES,
+    CLEAR_PROFILE_NOTES
 } from '../actions/types';
 
 const initialState = {
     client_data: null,
+    profile_notes: null,
+    client_progression: null,
     loading: false
 };
 
@@ -30,6 +34,16 @@ export default function(state = initialState, action) {
                 ...state,
                 client_data: null,
                 client_progression: null,
+            };
+        case GET_PROFILE_NOTES:
+            return {
+                ...state,
+                profile_notes: action.payload
+            };
+        case CLEAR_PROFILE_NOTES:
+            return {
+                ...state,
+                profile_notes: null
             };
         case CLIENT_PROGRESSION:
             return {

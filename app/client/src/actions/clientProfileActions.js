@@ -5,6 +5,8 @@ import {
     CLEAR_CLIENT_PROFILE,
     CLIENT_PROGRESSION,
     GET_ERRS,
+    GET_PROFILE_NOTES,
+    CLEAR_PROFILE_NOTES
 } from "./types"; // import custom defined types
 import {logOutUser} from "./authenticationActions";
 
@@ -63,6 +65,31 @@ export const clearClientProfile = () => {
     return {
         type: CLEAR_CLIENT_PROFILE
     }
+};
+
+// Get pt Clients profile notes
+export const getProfileNotes = (cId, history) => dispatch => {
+    axios
+        .get(`/api/profile_notes/${cId}`)
+        .then(result => {
+                // dispatch this action to the action below so the data can be sent to the respective reducer
+                dispatch(
+                    {
+                        type: GET_PROFILE_NOTES,
+                        payload: result.data
+                    }
+                )
+            }
+        )
+        .catch(err => {
+            manageErrors(err, dispatch, history);
+        })
+};
+
+export const clearProfileNotes = () => dispatch => {
+    dispatch({
+        type: CLEAR_PROFILE_NOTES
+    })
 };
 
 export const getClientProgression = (userId, clientId, history) => dispatch => {

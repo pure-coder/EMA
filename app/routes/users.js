@@ -6,6 +6,10 @@ const bcrypt = require('bcryptjs');
 /* require passport*/
 const passport = require('passport');
 const {capitaliseFirstLetter} = require('../services/capitalise');
+// require jason web tokens
+const jwt = require('jsonwebtoken');
+// jwt keys
+const keys = require('../config/db');
 
 
 // Require Input validation for editing client profile
@@ -807,18 +811,14 @@ router.delete('/:id/body_bio/:cid', passport.authenticate('pt_rule', {session: f
 // @route  GET api/:id/profile_notes/:cid
 // @desc   Retrieve client profile notes data from db
 // @access Available for both authorised Pt's and clients
-router.get('/:id/profile_notes/:cid', passport.authenticate('both_rule', {session: false}), (req, res) => {
+router.get('/profile_notes/:cid', passport.authenticate('both_rule', {session: false}), (req, res) => {
     // Get clientId from url
     let clientId = req.params.cid;
     // Get usertId from url which is used to make sure that they are allowed to access data
-    let userId = req.params.id;
-    // Initialise to true, if userId is same as clientId set to false (for check if user (pt) is allowed to access data
-    let isPt = true;
 
-    // Check to see if user is pt, if not set isPt to false
-    if (userId === clientId){
-        isPt = false;
-    }
+    let token = req.headers.authorization.split(' ')[1];
+    let payload = jwt.decode(token, keys.secretOrKey);
+    let signedInId = payload.id;
 
     // Verify that client exists and that personal trainer id is linked to client
     Client.findOne({_id: clientId})
@@ -826,8 +826,8 @@ router.get('/:id/profile_notes/:cid', passport.authenticate('both_rule', {sessio
             // If client is found
             if (result) {
 
-                // Check to see if ptId is allowed, (if isPt is false - is client then allow access)
-                if (result.ptId === userId || !isPt) {
+                // Check to see if signed in user is same as clientId or ptId is allowed access
+                if (clientId === signedInId || result.ptId === signedInId) {
 
                     // Only return notes, goals, and injuries (have to use -_id to stop returning of id as it is returned by default)
                     ProfileNotes.findOne({clientId: clientId}, '-_id notes goals injuries')

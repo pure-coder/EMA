@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 
 class ProfileNotes extends Component {
     constructor(props){
-        super(props)
+        super(props);
         this.state = {
             profileData: this.props.data,
             goals: '',
@@ -13,7 +13,7 @@ class ProfileNotes extends Component {
             readonly: this.props.authenticatedUser.user.pt,
             errors: {},
             updated: false
-        }
+        };
 
         this.onChange = this.onChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
@@ -53,11 +53,10 @@ class ProfileNotes extends Component {
                     <textarea
                         readOnly={!this.props.authenticatedUser.user.pt}
                         name="goals"
-                        placeholder={this.state.profileData.goals}
                         value={this.state.goals}
                         onChange={this.onChange}
                         className="form-control form-control-lg"
-                        rows="6" cols="30">
+                        rows="4" cols="30">
                     </textarea>
                 </div>
                 <div className="mt-2 mb-5">
@@ -70,7 +69,7 @@ class ProfileNotes extends Component {
                         value={this.state.injuries}
                         onChange={this.onChange}
                         className="form-control form-control-lg"
-                        rows="6" cols="30">
+                        rows="4" cols="30">
                     </textarea>
                 </div>
                 <div className="mt-2 mb-5">
@@ -83,13 +82,13 @@ class ProfileNotes extends Component {
                         value={this.state.notes}
                         onChange={this.onChange}
                         className="form-control form-control-lg"
-                        rows="6" cols="30">
+                        rows="4" cols="30">
                     </textarea>
                 </div>
             </div>
         )
     }
-};
+}
 
 ProfileNotes.propTypes = {
     authenticatedUser: PropTypes.object.isRequired
