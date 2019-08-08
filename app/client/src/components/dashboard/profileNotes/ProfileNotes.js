@@ -81,7 +81,10 @@ class ProfileNotes extends Component {
                             className="form-control form-control-lg"
                             rows="4" cols="30">
                         </textarea>
-                        <input type="submit" value="Update" className="btn btn-info btn-block mt-1"/>
+                        {this.props.authenticatedUser.user.pt ?
+                            <input type="submit" value="Update" className="btn btn-info btn-block mt-1"/> :
+                            null
+                        }
                     </form>
                 </div>
                 <div className="mt-2 mb-5">
@@ -97,7 +100,10 @@ class ProfileNotes extends Component {
                             className="form-control form-control-lg"
                             rows="4" cols="30">
                         </textarea>
-                        <input type="submit" value="Update" className="btn btn-info btn-block mt-1"/>
+                        {this.props.authenticatedUser.user.pt ?
+                            <input type="submit" value="Update" className="btn btn-info btn-block mt-1"/> :
+                            null
+                        }
                     </form>
                 </div>
                 <div className="mt-2 mb-5">
@@ -113,7 +119,10 @@ class ProfileNotes extends Component {
                             className="form-control form-control-lg"
                             rows="4" cols="30">
                         </textarea>
-                        <input type="submit" value="Update" className="btn btn-info btn-block mt-1"/>
+                        {this.props.authenticatedUser.user.pt ?
+                            <input type="submit" value="Update" className="btn btn-info btn-block mt-1"/> :
+                            null
+                        }
                     </form>
                 </div>
             </div>
