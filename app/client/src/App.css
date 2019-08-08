@@ -16,6 +16,10 @@ img {
     padding-right: 10px;
 }
 
+textarea {
+    resize: none;
+}
+
 .container {
     min-height: 380px;
 }
@@ -71,6 +75,7 @@ img {
 
 .footer-custom {
     position: relative;
+    display: inline-block;
     float: bottom;
     bottom: 0;
     height: 60px;
@@ -330,6 +335,8 @@ svg {
     max-width: 500px;
     margin: inherit;
     padding: inherit;
+    display: inline-block;
+    float: left;
 }
 
 .Progression .area {
@@ -448,6 +455,21 @@ svg {
 
 .delete-progress #confirm, .delete-progress #cancel {
     margin: auto;
+}
+
+/* Profile notes */
+
+.Profile_notes {
+    position: relative;
+    max-width: 400px;
+    min-width: 300px;
+    display: inline-block;
+    float: left;
+}
+
+.goals {
+    max-height: 400px;
+    min-height: 300px;
 }
 
 /* Delete confirm */
@@ -669,7 +691,7 @@ input[type=submit] {
     width: 1349px;
     height: 100%;
     min-height: 600px;
-    left: 0px;
+    left: 0;
     top: 81px;
     /*overflow-y: hidden !important;*/
 }

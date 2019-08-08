@@ -18,6 +18,7 @@ const initialState = {
     current_client: null,
     clients: null,
     scheduler: null,
+    profile_notes: null,
     loading: false
 };
 

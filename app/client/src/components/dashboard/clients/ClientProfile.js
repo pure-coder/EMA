@@ -11,6 +11,7 @@ import isEmpty from '../../../utilities/is_empty';
 import ErrorComponent from "../../error/ErrorComponent";
 import Loading from "../../../elements/Loading";
 import UserInfo from "../UserInfo";
+import FormInputGroup from "../../common/FormInputGroup";
 
 // import FormInputGroup from "../common/FormInputGroup"; // Allows proper routing and linking using browsers match, location, and history properties
 
@@ -27,7 +28,8 @@ class ClientProfile extends Component {
             modalWidth: "500",
             modalHeight: "500",
             visible: false, // For modal
-            errors: {}
+            errors: {},
+            something: null
         };
 
         this.modalSize = this.modalSize.bind(this);
@@ -115,8 +117,9 @@ class ClientProfile extends Component {
     render() {
         const {user} = this.props.authenticatedUser;
         const client_data = this.state.clientData;
+        const profile_notes = this.props.ptProfile.profile_notes;
 
-        if(client_data === null || client_data === undefined){
+        if(client_data === null || client_data === undefined || profile_notes === null){
             return <Loading myClassName="loading_container"/>
         }
         if(isEmpty(user)){
@@ -158,6 +161,34 @@ class ClientProfile extends Component {
                                     </div>
                                     {/*Display the clients progression data*/}
                                     {displayContent}
+                                </div>
+                            </div>
+                            <div className="m-auto col-10">
+                                <div className="Profile_notes">
+                                    <div className="mt-2 mb-5">
+                                        <textarea value={this.props.ptProfile.profile_notes.goals}
+                                                             onChange={this.state.something}
+                                                             className="form-control form-control-lg"
+                                                             rows="6" cols="30">
+
+                                        </textarea>
+                                    </div>
+                                    <div className="mt-2 mb-5">
+                                        <textarea value={this.props.ptProfile.profile_notes.injuries}
+                                                  onChange={this.state.something}
+                                                  className="form-control form-control-lg"
+                                                  rows="6" cols="30">
+
+                                        </textarea>
+                                    </div>
+                                    <div className="mt-2 mb-5">
+                                        <textarea value={this.props.ptProfile.profile_notes.notes}
+                                                  onChange={this.state.something}
+                                                  className="form-control form-control-lg"
+                                                  rows="6" cols="30">
+
+                                        </textarea>
+                                    </div>
                                 </div>
                             </div>
                         </div>
