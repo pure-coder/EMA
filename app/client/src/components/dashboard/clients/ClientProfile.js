@@ -11,7 +11,7 @@ import isEmpty from '../../../utilities/is_empty';
 import ErrorComponent from "../../error/ErrorComponent";
 import Loading from "../../../elements/Loading";
 import UserInfo from "../UserInfo";
-import FormInputGroup from "../../common/FormInputGroup";
+import ProfileNotes from "../profileNotes/ProfileNotes";
 
 // import FormInputGroup from "../common/FormInputGroup"; // Allows proper routing and linking using browsers match, location, and history properties
 
@@ -163,34 +163,7 @@ class ClientProfile extends Component {
                                     {displayContent}
                                 </div>
                             </div>
-                            <div className="m-auto col-10">
-                                <div className="Profile_notes">
-                                    <div className="mt-2 mb-5">
-                                        <textarea value={this.props.ptProfile.profile_notes.goals}
-                                                             onChange={this.state.something}
-                                                             className="form-control form-control-lg"
-                                                             rows="6" cols="30">
-
-                                        </textarea>
-                                    </div>
-                                    <div className="mt-2 mb-5">
-                                        <textarea value={this.props.ptProfile.profile_notes.injuries}
-                                                  onChange={this.state.something}
-                                                  className="form-control form-control-lg"
-                                                  rows="6" cols="30">
-
-                                        </textarea>
-                                    </div>
-                                    <div className="mt-2 mb-5">
-                                        <textarea value={this.props.ptProfile.profile_notes.notes}
-                                                  onChange={this.state.something}
-                                                  className="form-control form-control-lg"
-                                                  rows="6" cols="30">
-
-                                        </textarea>
-                                    </div>
-                                </div>
-                            </div>
+                            <ProfileNotes data={profile_notes}/>
                         </div>
 
 
