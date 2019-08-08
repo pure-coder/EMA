@@ -96,7 +96,28 @@ class AddDataProgressForm extends Component {
     }
 
     onChange(e) {
-        this.setState({[e.target.name]: e.target.value});
+        let name = e.target.name;
+        let value = e.target.value;
+
+        // For maxWeight Check to see if value entered is a number, if not then don't update state and exit function.
+        if(name === 'maxWeight' && isNaN(value)){
+            return null;
+        }
+
+        // Make sure maxWeight value does not exceed 3 characters
+        if(name === 'maxWeight' && (value.length > 3)){
+            let message = {
+                type: "ERROR",
+                msg: "Max Weight value must be between 0-999!"
+            };
+            this.setState({message});
+            return null;
+        }
+        else{
+            this.setState({message: {type: null}}); // reset to null
+        }
+
+        this.setState({[name]: value});
 
         if(!isEmpty(this.props.errors)){
             this.props.clearErrors();
