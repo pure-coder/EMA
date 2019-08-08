@@ -209,9 +209,9 @@ export const passwordsMatchError = (error) => dispatch => {
     )
 };
 
-export const ptGetClientProgression = (userId, clientId, history) => dispatch => {
+export const ptGetClientProgression = (clientId, history) => dispatch => {
     // userId can either be same as clientId or the id of the personal trainer
-    axios.get(`/api/${userId}/client_progression/${clientId}` ) // using grave accent instead of single quote
+    axios.get(`/api/client_progression/${clientId}` ) // using grave accent instead of single quote
         .then(result => {
             dispatch({
                 type: PT_CLIENT_PROGRESSION,
@@ -256,7 +256,7 @@ export const newClientProgress = (id, cid ,data, history) => dispatch => {
 export const deleteExercise =(uid, cid, data, history) => dispatch => {
     axios.delete(`/api/${uid}/client_progression/${cid}`, {data : {exerciseName : data}})
         .then(() => {
-            dispatch(ptGetClientProgression(uid, cid, history));
+            dispatch(ptGetClientProgression(cid, history));
         })
         .catch(err => {
             manageErrors(err, dispatch, history);
@@ -273,7 +273,7 @@ export const editClientExercise =(uid, cid, exerciseId, data, history) => dispat
         })
         .then( result => {
             dispatch(setSuccess(result.data.msg));
-            dispatch(ptGetClientProgression(uid, cid, history));
+            dispatch(ptGetClientProgression(cid, history));
         })
         .catch(err => {
             manageErrors(err, dispatch, history);

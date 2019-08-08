@@ -92,9 +92,9 @@ export const clearProfileNotes = () => dispatch => {
     })
 };
 
-export const getClientProgression = (userId, clientId, history) => dispatch => {
+export const getClientProgression = (clientId, history) => dispatch => {
     // userId can either be same as clientId or the id of the personal trainer
-    axios.get(`/api/${userId}/client_progression/${clientId}` ) // using grave accent instead of single quote
+    axios.get(`/api/client_progression/${clientId}` ) // using grave accent instead of single quote
         .then(result => {
             dispatch({
                 type: CLIENT_PROGRESSION,

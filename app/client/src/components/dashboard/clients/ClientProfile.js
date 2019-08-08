@@ -109,10 +109,10 @@ class ClientProfile extends Component {
 
     getClientProgression(){
         if(this.props.authenticatedUser.user.pt){
-            this.props.ptGetClientProgression(this.state.userId, this.state.clientId, this.props.history);
+            this.props.ptGetClientProgression(this.state.clientId, this.props.history);
         }
         else{
-            this.props.getClientProgression(this.state.userId, this.state.clientId, this.props.history);
+            this.props.getClientProgression(this.state.clientId, this.props.history);
         }
 
     }
@@ -129,7 +129,6 @@ class ClientProfile extends Component {
         else{
             profile_notes = this.props.clientProfile.profile_notes;
         }
-
 
         if(client_data === null || client_data === undefined || profile_notes === null){
             return <Loading myClassName="loading_container"/>

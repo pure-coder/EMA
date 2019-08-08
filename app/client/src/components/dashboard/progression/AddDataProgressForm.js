@@ -118,7 +118,7 @@ class AddDataProgressForm extends Component {
     }
 
     ptGetClientProgression(){
-        this.props.ptGetClientProgression(this.state.userId, this.state.clientId, this.props.history);
+        this.props.ptGetClientProgression(this.state.clientId, this.props.history);
     }
 
     clearFields(){

@@ -493,18 +493,13 @@ router.post('/:id/client_progression/:cid', passport.authenticate('pt_rule', {se
 // @route  GET api/:id/client_progression/:cid
 // @desc   Retrieve client progression data from db
 // @access Available for both authorised Pt's and clients
-router.get('/:id/client_progression/:cid', passport.authenticate('both_rule', {session: false}), (req, res) => {
+router.get('/client_progression/:cid', passport.authenticate('both_rule', {session: false}), (req, res) => {
     // Get clientId from url
     let clientId = req.params.cid;
     // Get usertId from url which is used to make sure that they are allowed to access data
-    let userId = req.params.id;
-    // Initialise to true, if userId is same as clientId set to false (for check if user (pt) is allowed to access data
-    let isPt = true;
-
-    // Check to see if user is pt, if not set isPt to false
-    if (userId === clientId){
-        isPt = false;
-    }
+    let token = req.headers.authorization.split(' ')[1];
+    let payload = jwt.decode(token, keys.secretOrKey);
+    let signedInId = payload.id;
 
     // Verify that client exists and that personal trainer id is linked to client
     Client.findOne({_id: clientId})
@@ -512,8 +507,8 @@ router.get('/:id/client_progression/:cid', passport.authenticate('both_rule', {s
             // If client is found
             if (result) {
 
-                // Check to see if ptId is allowed, (if isPt is false - is client then allow access)
-                if (result.ptId === userId || !isPt) {
+                // Check to see if signed in user is same as clientId or ptId is allowed access
+                if (clientId === signedInId || result.ptId === signedInId) {
 
                     // '-_id exerciseName metrics.maxWeight metrics.Date' part allows only exerciseName and metrics to be returned,
                     // as _id is returned by default use the minus sign with it to explicitly ignore it ie '-_id' (deleted -_id as needed for refactoring -- creating component for each graph)
@@ -814,7 +809,6 @@ router.delete('/:id/body_bio/:cid', passport.authenticate('pt_rule', {session: f
 router.get('/profile_notes/:cid', passport.authenticate('both_rule', {session: false}), (req, res) => {
     // Get clientId from url
     let clientId = req.params.cid;
-    // Get usertId from url which is used to make sure that they are allowed to access data
 
     let token = req.headers.authorization.split(' ')[1];
     let payload = jwt.decode(token, keys.secretOrKey);
