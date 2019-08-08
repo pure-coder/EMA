@@ -106,10 +106,10 @@ export const getPtData = (id, history) => dispatch => {
         })
 };
 
-export const getCurrentClient = (id, history) => dispatch => {
+export const getCurrentClient = (clientId, history) => dispatch => {
     dispatch(setProfileLoading());
     axios
-        .get(`/api/client/${id}`)
+        .get(`/api/client/${clientId}`)
         .then(result => {
             dispatch({
                 type: GET_CURRENT_CLIENT,
@@ -135,9 +135,9 @@ export const editPtData = (id, Data, history) => dispatch => {
         })
 };
 
-export const editClientData = (cid, data, history) => dispatch => {
+export const editClientData = (clientId, data, history) => dispatch => {
     axios
-        .put(`/api/edit_client/${cid}`, data)
+        .put(`/api/edit_client/${clientId}`, data)
         .then(result => {
             if(result.status === 200){
                 dispatch(setSuccess("Client data successfully updated."))
@@ -149,9 +149,9 @@ export const editClientData = (cid, data, history) => dispatch => {
 };
 
 // Get pt Clients profile notes
-export const getClientProfileNotes = (cId, history) => dispatch => {
+export const getClientProfileNotes = (clientId, history) => dispatch => {
     axios
-        .get(`/api/profile_notes/${cId}`)
+        .get(`/api/profile_notes/${clientId}`)
         .then(result => {
                 // dispatch this action to the action below so the data can be sent to the respective reducer
                 dispatch(
@@ -174,9 +174,9 @@ export const clearClientProfileNotes = () => dispatch => {
 };
 
 // Delete Client
-export const deleteClient = (id, ptId, history) => dispatch => {
+export const deleteClient = (clientId, ptId, history) => dispatch => {
     axios
-        .delete(`/api/delete_client/${id}`)
+        .delete(`/api/delete_client/${clientId}`)
         .then(result => {
             // causes refresh of dashboard with updated client list
             if(result.status === 200) {
@@ -235,8 +235,8 @@ export const clearProgression = () => dispatch => {
     });
 };
 
-export const newClientProgress = (id, cid ,data, history) => dispatch => {
-    axios.post(`/api/${id}/client_progression/${cid}`, data)
+export const newClientProgress = (id, clientId,data, history) => dispatch => {
+    axios.post(`/api/${id}/client_progression/${clientId}`, data)
         .then(result => {
             // If successful then clear error messages and send success message
             if(result.data.n === 1 && result.data.nModified === 1){
@@ -253,18 +253,18 @@ export const newClientProgress = (id, cid ,data, history) => dispatch => {
         });
 };
 
-export const deleteExercise =(uid, cid, data, history) => dispatch => {
-    axios.delete(`/api/${uid}/client_progression/${cid}`, {data : {exerciseName : data}})
+export const deleteExercise =(uid, clientId, data, history) => dispatch => {
+    axios.delete(`/api/${uid}/client_progression/${clientId}`, {data : {exerciseName : data}})
         .then(() => {
-            dispatch(ptGetClientProgression(cid, history));
+            dispatch(ptGetClientProgression(clientId, history));
         })
         .catch(err => {
             manageErrors(err, dispatch, history);
         });
 };
 
-export const editClientExercise =(uid, cid, exerciseId, data, history) => dispatch => {
-    axios.put(`/api/${uid}/client_progression/${cid}`,
+export const editClientExercise =(uid, clientId, exerciseId, data, history) => dispatch => {
+    axios.put(`/api/${uid}/client_progression/${clientId}`,
         {data :
                 {
                     exerciseId: exerciseId,
@@ -273,7 +273,7 @@ export const editClientExercise =(uid, cid, exerciseId, data, history) => dispat
         })
         .then( result => {
             dispatch(setSuccess(result.data.msg));
-            dispatch(ptGetClientProgression(cid, history));
+            dispatch(ptGetClientProgression(clientId, history));
         })
         .catch(err => {
             manageErrors(err, dispatch, history);
@@ -328,8 +328,8 @@ export const clearSuccess = () => dispatch => {
     })
 };
 
-export const workoutScheduler = (uid, cid) => dispatch => {
-    axios.get(`/api/${uid}/scheduler/${cid}`)
+export const workoutScheduler = (uid, clientId) => dispatch => {
+    axios.get(`/api/${uid}/scheduler/${clientId}`)
         .then(result => {
             if (result) {
                 dispatch({

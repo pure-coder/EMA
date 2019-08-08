@@ -38,10 +38,10 @@ const manageErrors = (err, dispatch, history) => {
     }
 };
 
-export const getClientData = (id, history) => dispatch => {
+export const getClientData = (clientId, history) => dispatch => {
     dispatch(setProfileLoading());
     axios
-        .get(`/api/client/${id}`)
+        .get(`/api/client/${clientId}`)
         .then(result => {
             dispatch({
                 type: GET_CLIENT_PROFILE,
@@ -68,9 +68,9 @@ export const clearClientProfile = () => {
 };
 
 // Get pt Clients profile notes
-export const getProfileNotes = (cId, history) => dispatch => {
+export const getProfileNotes = (clientId, history) => dispatch => {
     axios
-        .get(`/api/profile_notes/${cId}`)
+        .get(`/api/profile_notes/${clientId}`)
         .then(result => {
                 // dispatch this action to the action below so the data can be sent to the respective reducer
                 dispatch(
