@@ -86,10 +86,10 @@ export const setPtClients = (data) => {
     }
 };
 
-export const getPtData = (id, history) => dispatch => {
+export const getPtData = (ptId, history) => dispatch => {
     dispatch(setProfileLoading());
     axios
-        .get(`/api/personal_trainer/${id}`)
+        .get(`/api/personal_trainer/${ptId}`)
         .then(result => {
                 // If no data is returned (no data === string) then direct user to error page
                 if (typeof result.data === "string"){
@@ -121,9 +121,9 @@ export const getCurrentClient = (clientId, history) => dispatch => {
         });
 };
 
-export const editPtData = (id, Data, history) => dispatch => {
+export const editPtData = (ptId, Data, history) => dispatch => {
     axios
-        .put(`/api/edit_personal_trainer/${id}`, Data)
+        .put(`/api/edit_personal_trainer/${ptId}`, Data)
         .then(result => {
                 if(result.status === 200){
                     dispatch(setSuccess("Personal Trainer profile has been updated successfully"));
@@ -235,8 +235,8 @@ export const clearProgression = () => dispatch => {
     });
 };
 
-export const newClientProgress = (id, clientId,data, history) => dispatch => {
-    axios.post(`/api/${id}/client_progression/${clientId}`, data)
+export const newClientProgress = (ptId, clientId, data, history) => dispatch => {
+    axios.post(`/api/${ptId}/client_progression/${clientId}`, data)
         .then(result => {
             // If successful then clear error messages and send success message
             if(result.data.n === 1 && result.data.nModified === 1){
@@ -253,8 +253,8 @@ export const newClientProgress = (id, clientId,data, history) => dispatch => {
         });
 };
 
-export const deleteExercise =(uid, clientId, data, history) => dispatch => {
-    axios.delete(`/api/${uid}/client_progression/${clientId}`, {data : {exerciseName : data}})
+export const deleteExercise =(ptId, clientId, data, history) => dispatch => {
+    axios.delete(`/api/${ptId}/client_progression/${clientId}`, {data : {exerciseName : data}})
         .then(() => {
             dispatch(ptGetClientProgression(clientId, history));
         })
@@ -263,8 +263,8 @@ export const deleteExercise =(uid, clientId, data, history) => dispatch => {
         });
 };
 
-export const editClientExercise =(uid, clientId, exerciseId, data, history) => dispatch => {
-    axios.put(`/api/${uid}/client_progression/${clientId}`,
+export const editClientExercise =(ptId, clientId, exerciseId, data, history) => dispatch => {
+    axios.put(`/api/${ptId}/client_progression/${clientId}`,
         {data :
                 {
                     exerciseId: exerciseId,
@@ -328,8 +328,8 @@ export const clearSuccess = () => dispatch => {
     })
 };
 
-export const workoutScheduler = (uid, clientId) => dispatch => {
-    axios.get(`/api/${uid}/scheduler/${clientId}`)
+export const workoutScheduler = (userId, clientId) => dispatch => {
+    axios.get(`/api/${userId}/scheduler/${clientId}`)
         .then(result => {
             if (result) {
                 dispatch({
