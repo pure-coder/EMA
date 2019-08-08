@@ -829,7 +829,8 @@ router.get('/:id/profile_notes/:cid', passport.authenticate('both_rule', {sessio
                 // Check to see if ptId is allowed, (if isPt is false - is client then allow access)
                 if (result.ptId === userId || !isPt) {
 
-                    ProfileNotes.find({clientId: clientId})
+                    // Only return notes, goals, and injuries (have to use -_id to stop returning of id as it is returned by default)
+                    ProfileNotes.findOne({clientId: clientId}, '-_id notes goals injuries')
                         .then(result => {
                             if (result) {
                                 return res.status(200).json(result);

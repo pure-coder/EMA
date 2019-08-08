@@ -2,7 +2,7 @@ import React, {Component} from 'react';  // Used to create this component
 import PropTypes from 'prop-types'; // Used to document prop types sent to components
 import {connect} from 'react-redux' // Needed when using redux inside a component (connects redux to this component)
 import {withRouter} from 'react-router-dom';
-import {ptGetClientProgression, clearProgression, getCurrentClient, clearCurrentClient} from "../../../actions/ptProfileActions";
+import {ptGetClientProgression, clearProgression, getCurrentClient, clearCurrentClient, getClientProfileNotes, clearClientProfileNotes} from "../../../actions/ptProfileActions";
 import {getClientData, getClientProgression} from "../../../actions/clientProfileActions";
 import Graphs from "../progression/Graphs";
 import NewClientProgressForm from "../progression/NewClientProgressForm";
@@ -69,7 +69,8 @@ class ClientProfile extends Component {
 
     componentDidMount() {
         if(this.props.authenticatedUser.user.pt){
-            this.props.getCurrentClient(this.state.clientId, this.props.history)
+            this.props.getCurrentClient(this.state.clientId, this.props.history);
+            this.props.getClientProfileNotes(this.state.userId, this.state.clientId, this.props.history)
         }
         this.getClientProgression();
     } // did mount
@@ -78,6 +79,7 @@ class ClientProfile extends Component {
         // This got rid of the Date: null bug for now, need to find route cause!!!
         if(this.props.authenticatedUser.user.pt){
             this.props.clearCurrentClient();
+            this.props.clearClientProfileNotes();
         }
         this.props.clearProgression();
         this.setState({loaded: false})
@@ -187,12 +189,14 @@ ClientProfile.propTypes = {
     authenticatedUser: PropTypes.object.isRequired,
     clientProfile: PropTypes.object.isRequired,
     getClientData: PropTypes.func.isRequired,
+    getClientProfileNotes: PropTypes.func.isRequired,
     ptProfile: PropTypes.object.isRequired,
     getCurrentClient: PropTypes.func.isRequired,
     getClientProgression: PropTypes.func.isRequired,
     ptGetClientProgression: PropTypes.func.isRequired,
     clearProgression: PropTypes.func.isRequired,
     clearCurrentClient: PropTypes.func.isRequired,
+    clearClientProfileNotes: PropTypes.func.isRequired,
     errors: PropTypes.object.isRequired
 };
 
@@ -205,4 +209,5 @@ const stateToProps = (state) => {
         errors: state.errors
 }};
 
-export default connect(stateToProps, {getClientProgression, ptGetClientProgression, clearProgression, getCurrentClient, getClientData, clearCurrentClient})(withRouter(ClientProfile));
+export default connect(stateToProps, {getClientProgression, ptGetClientProgression, clearProgression, getCurrentClient, getClientData, clearCurrentClient, getClientProfileNotes
+,clearClientProfileNotes})(withRouter(ClientProfile));

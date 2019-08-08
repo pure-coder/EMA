@@ -9,7 +9,8 @@ import {
     CLEAR_CURRENT_CLIENT,
     SCHEDULER,
     CLEAR_WORKOUT_DATA,
-    GET_CLIENT_PROFILE_NOTES
+    GET_CLIENT_PROFILE_NOTES,
+    CLEAR_CLIENT_PROFILE_NOTES
 } from '../actions/types';
 
 const initialState = {
@@ -50,6 +51,11 @@ export default function(state = initialState, action) {
             return {
                 ...state,
                 profile_notes: action.payload
+            };
+        case CLEAR_CLIENT_PROFILE_NOTES:
+            return {
+                ...state,
+                profile_notes: null
             };
         case CLEAR_CURRENT_PROFILE:
             return {
