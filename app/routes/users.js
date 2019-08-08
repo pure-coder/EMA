@@ -854,27 +854,32 @@ router.get('/profile_notes/:cid', passport.authenticate('both_rule', {session: f
 // @route  PUT api/:id/client_progression/:cid
 // @desc   update profile notes data in db
 // @access Private for PT's - clients can't update profile notes data in db collection
-router.put('/:id/profile_notes/:cid', passport.authenticate('pt_rule', {session: false}, null), (req, res) =>{
+router.put('/profile_notes/:cid', passport.authenticate('pt_rule', {session: false}, null), (req, res) =>{
 
-    let userId = req.params.id;
+    let token = req.headers.authorization.split(' ')[1];
+    let payload = jwt.decode(token, keys.secretOrKey);
+    let signedInId = payload.id;
+    let ptStatus = payload.pt;
+
     let clientId = req.params.cid;
-    //let data = req.body.data;
+    let data = req.body.data;
     //Testing from postman
-    let data = req.query;
+    // let data = req.query;
 
     if(isEmpty(data)){
-        return res.status(400).json({msg: "No data supplied for update"});
+        res.status(400).json({msg: "No data supplied for update"});
     }
-
-    console.log(data)
+    if(!ptStatus){
+        res.status(400).json({msg: "You do not have the authorisation to update this data!"})
+    }
 
     // Check to see if client exists
     Client.findOne({_id: clientId})
         .then(result => {
             if(result) {
 
-                // As pt's are the only ones that can access this route, check to see if uid given matches the ptId for this client
-                if(result.ptId === userId){
+                // As pt's are the only ones that can access this route, check to see if signed in pt is pt who has access to client data.
+                if(result.ptId === signedInId){
 
                     // testing from postman using Params
                     const key = Object.keys(data)[0];
@@ -911,6 +916,7 @@ router.put('/:id/profile_notes/:cid', passport.authenticate('pt_rule', {session:
             res.status(400).json({msg: "Client not found!"});
         })
     // end of Client.findOne
+    // res.status(200).json("check");
 
 }); // router put /:id/profile_notes/:cid
 

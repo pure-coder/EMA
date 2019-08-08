@@ -167,6 +167,22 @@ export const getClientProfileNotes = (clientId, history) => dispatch => {
         })
 };
 
+// Get pt Clients profile notes
+export const updateClientProfileNotes = (clientId, data, history) => dispatch => {
+    axios
+        .put(`/api/profile_notes/${clientId}`, {data})
+        .then(result => {
+            // causes refresh of dashboard with updated client list
+            if(result.status === 200) {
+                dispatch(setSuccess("Data updated successfully."));
+            }
+            }
+        )
+        .catch(err => {
+            manageErrors(err, dispatch, history);
+        })
+};
+
 export const clearClientProfileNotes = () => dispatch => {
     dispatch({
         type: CLEAR_CLIENT_PROFILE_NOTES

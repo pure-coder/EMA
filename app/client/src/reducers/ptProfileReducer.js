@@ -10,7 +10,7 @@ import {
     SCHEDULER,
     CLEAR_WORKOUT_DATA,
     GET_CLIENT_PROFILE_NOTES,
-    CLEAR_CLIENT_PROFILE_NOTES
+    CLEAR_CLIENT_PROFILE_NOTES,
 } from '../actions/types';
 
 const initialState = {
