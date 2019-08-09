@@ -896,11 +896,11 @@ router.put('/profile_notes/:cid', passport.authenticate('pt_rule', {session: fal
                     )
                         .then(result => {
                             if (result) {
-                                res.status(200).json({msg: "Data successfully modified."})
+                                res.status(200).json({msg: "Data successfully updated"})
                             }
                         })
                         .catch(() => {
-                            res.status(400).json({msg: "Could not update data."})
+                            res.status(400).json({msg: "Could not update data"})
                         })
 
                     //res.status(200).json()

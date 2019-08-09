@@ -712,6 +712,11 @@ nav a.active {
     min-height: 300px;
 }
 
+.profile-success, .profile-error {
+    display: inline-block;
+    margin: 0;
+}
+
 .label-profile {
     height: 35px;
     padding-left: 0;

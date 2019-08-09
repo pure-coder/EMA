@@ -174,10 +174,12 @@ export const updateClientProfileNotes = (clientId, data, history) => dispatch =>
         .then(result => {
             // causes refresh of dashboard with updated client list
             if(result.status === 200) {
-                dispatch(setSuccess("Data updated successfully."));
+                dispatch(setSuccess("Data updated"));
             }
+            if(result.status === 400){
+                dispatch(setErrors("Could not update data"))
             }
-        )
+        })
         .catch(err => {
             manageErrors(err, dispatch, history);
         })
