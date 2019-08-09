@@ -19,6 +19,7 @@ img {
 
 textarea {
     resize: none;
+    width: auto !important;
 }
 
 .container {
@@ -388,9 +389,16 @@ svg {
     margin: 0 auto;
 }
 
+.progress-toolbar {
+    margin-top: 10px;
+}
+
+.progress-toolbar-space {
+    padding-left: 0;
+}
+
 .progress-buttons {
     width: 130px;
-
 }
 /* Enter progress Modal */
 

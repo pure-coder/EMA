@@ -109,16 +109,16 @@ class GraphComp extends Component {
         display = (
                 (user.pt && graphData.metrics.length >= 2 ?
                     (
-                        <div className="btn-toolbar">
-                            <div className="col-4">
+                        <div className="btn-toolbar progress-toolbar">
+                            <div className="col-4 progress-toolbar-space">
                             <input type="button" className="btn btn-info progress-buttons"
                            value="Edit Data" name={graphData.exerciseName} onClick={this.openModal} />
                             </div>
-                            <div className="col-4">
+                            <div className="col-4 progress-toolbar-space">
                             <input type="button" className="btn btn-success progress-buttons"
                                    value="Add Data" name={graphData.exerciseName} onClick={this.openModal} />
                             </div>
-                            <div className="col-4">
+                            <div className="col-4 progress-toolbar-space">
                             <input type="button" className="btn btn-danger progress-buttons"
                            value="Delete" name={graphData.exerciseName} onClick={this.openModal} />
                             </div>

@@ -13,6 +13,8 @@ class ProfileNotes extends Component {
             goals: '',
             injuries: '',
             notes: '',
+            rows: '6',
+            cols: '36',
             readonly: this.props.authenticatedUser.user.pt,
             errors: {},
             updated: false
@@ -79,7 +81,7 @@ class ProfileNotes extends Component {
                             value={this.state.goals}
                             onChange={this.onChange}
                             className="form-control form-control-lg"
-                            rows="4" cols="30">
+                            rows={this.state.rows} cols={this.state.cols}>
                         </textarea>
                         {this.props.authenticatedUser.user.pt ?
                             <input type="submit" value="Update" className="btn btn-info btn-block mt-1 profile_notes"/> :
@@ -98,7 +100,7 @@ class ProfileNotes extends Component {
                             value={this.state.injuries}
                             onChange={this.onChange}
                             className="form-control form-control-lg"
-                            rows="4" cols="30">
+                            rows={this.state.rows} cols={this.state.cols}>
                         </textarea>
                         {this.props.authenticatedUser.user.pt ?
                             <input type="submit" value="Update" className="btn btn-info btn-block mt-1 profile_notes"/> :
@@ -117,7 +119,7 @@ class ProfileNotes extends Component {
                             value={this.state.notes}
                             onChange={this.onChange}
                             className="form-control form-control-lg"
-                            rows="4" cols="30">
+                            rows={this.state.rows} cols={this.state.cols}>
                         </textarea>
                         {this.props.authenticatedUser.user.pt ?
                             <input type="submit" value="Update" className="btn btn-info btn-block mt-1 profile_notes"/> :
