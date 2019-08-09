@@ -604,6 +604,7 @@ input[type=submit] {
 
 .userInfo-custom {
     padding: 0;
+    margin-bottom: 20px !important;
 }
 
 .user_image {
