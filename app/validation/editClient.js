@@ -20,6 +20,12 @@ module.exports = function validateRegistrationInput(data) {
         }
     }
 
+    // Check that D.O.B is in past
+    let now = new Date();
+    if(new Date(data.DateOfBirth) > now){
+        errors.DateOfBirth = 'Date of Birth must be in the past!';
+    }
+
     if (data.ContactNumber !== undefined){
         // ContactNumber must be number
         if (!Validator.isMobilePhone(data.ContactNumber, 'any' )) {
