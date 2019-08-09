@@ -9,9 +9,11 @@ const BodyBioSchema = new Schema({
     ptId: {
         type: String, require: true,
     },
+    bodyPart: {
+        type: String, require: true
+    },
     bodyMetrics: [
         {
-            bodyPart: {type: String, require: true},
             measurement: {type: Number, require: true},
             Date : {type: Date, require: true}
         }
