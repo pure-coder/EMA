@@ -67,7 +67,7 @@ class ProfileNotes extends Component {
 
     render() {
         return (
-            <div className="Profile_notes Progression">
+            <div className="Profile_notes">
                 <div className="mt-2 mb-5">
                     <form className="form-group" name="goals" onSubmit={this.onSubmit}>
                         <label className="control-label form-control-lg label-profile">
@@ -82,7 +82,7 @@ class ProfileNotes extends Component {
                             rows="4" cols="30">
                         </textarea>
                         {this.props.authenticatedUser.user.pt ?
-                            <input type="submit" value="Update" className="btn btn-info btn-block mt-1"/> :
+                            <input type="submit" value="Update" className="btn btn-info btn-block mt-1 profile_notes"/> :
                             null
                         }
                     </form>
@@ -101,7 +101,7 @@ class ProfileNotes extends Component {
                             rows="4" cols="30">
                         </textarea>
                         {this.props.authenticatedUser.user.pt ?
-                            <input type="submit" value="Update" className="btn btn-info btn-block mt-1"/> :
+                            <input type="submit" value="Update" className="btn btn-info btn-block mt-1 profile_notes"/> :
                             null
                         }
                     </form>
@@ -120,7 +120,7 @@ class ProfileNotes extends Component {
                             rows="4" cols="30">
                         </textarea>
                         {this.props.authenticatedUser.user.pt ?
-                            <input type="submit" value="Update" className="btn btn-info btn-block mt-1"/> :
+                            <input type="submit" value="Update" className="btn btn-info btn-block mt-1 profile_notes"/> :
                             null
                         }
                     </form>

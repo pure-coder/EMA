@@ -715,3 +715,7 @@ nav a.active {
     padding-bottom: 0;
 }
 
+input[type=submit].profile_notes {
+    width: 100px;
+}
+

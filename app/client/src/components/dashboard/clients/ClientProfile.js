@@ -5,8 +5,8 @@ import {withRouter} from 'react-router-dom';
 import {ptGetClientProgression, clearProgression, getCurrentClient, clearCurrentClient, getClientProfileNotes, clearClientProfileNotes} from "../../../actions/ptProfileActions";
 import {getClientData, getClientProgression, getProfileNotes, clearProfileNotes} from "../../../actions/clientProfileActions";
 import Graphs from "../progression/Graphs";
-import NewClientProgressForm from "../progression/NewClientProgressForm";
-import Modal from 'react-awesome-modal';
+// import NewClientProgressForm from "../progression/NewClientProgressForm";
+// import Modal from 'react-awesome-modal';
 import isEmpty from '../../../utilities/is_empty';
 import ErrorComponent from "../../error/ErrorComponent";
 import Loading from "../../../elements/Loading";
@@ -20,22 +20,16 @@ class ClientProfile extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            client_progression: props.authenticatedUser.user.pt ? props.ptProfile.client_progression : props.clientProfile.client_progression,
+            client_progression: props.authenticatedUser.user.pt ? props.ptProfile.client_progression :
+                props.clientProfile.client_progression,
             userId: props.authenticatedUser.user.id,
             clientId: props.authenticatedUser.user.pt ? props.match.params.cid : props.authenticatedUser.user.id,
             clientData: undefined,
             loaded: false,
-            modalWidth: "500",
-            modalHeight: "500",
-            visible: false, // For modal
             errors: {},
-            something: null
         };
 
-        this.modalSize = this.modalSize.bind(this);
-        this.openModal = this.openModal.bind(this);
         this.getClientProgression = this.getClientProgression.bind(this);
-        this.onClickAway = this.onClickAway.bind(this)
     }
 
     static getDerivedStateFromProps(props, state){
@@ -90,23 +84,6 @@ class ClientProfile extends Component {
         this.setState({loaded: false})
     }
 
-    modalSize(height){
-        this.setState({modalHeight: height});
-    }
-
-    openModal() {
-        this.setState({
-            visible : true
-        });
-    }
-
-    onClickAway() {
-        this.setState({
-            visible: false
-        });
-        this.getClientProgression();
-    }
-
     getClientProgression(){
         if(this.props.authenticatedUser.user.pt){
             this.props.ptGetClientProgression(this.state.clientId, this.props.history);
@@ -114,12 +91,12 @@ class ClientProfile extends Component {
         else{
             this.props.getClientProgression(this.state.clientId, this.props.history);
         }
-
     }
 
     render() {
         const {user} = this.props.authenticatedUser;
         const client_data = this.state.clientData;
+        const clientProgressData = this.state.client_progression;
 
         let profile_notes;
 
@@ -137,62 +114,18 @@ class ClientProfile extends Component {
             return <ErrorComponent/>
         }
         else{
-            let displayContent;
-            let clientProgressData = this.state.client_progression;
-
-            // If client has no data then display appropriate message, otherwise
-            if (isEmpty(clientProgressData)) {
-                displayContent = (
-                    <h2 className="text-center text-info mt-5">No client progression data...</h2>
-                )
-            }
-            else{
-                displayContent = (
-                    <Graphs graphData={clientProgressData}/>
-                )
-            }
-
             return (
                 <div className="client-profile">
                     <h1 className=" text-center display-5 mb-3">Client Profile</h1>
-                        <UserInfo userData={this.state.clientData}/> {/* Use data from props.location.state*/}
-                        <div className="m-auto col-md-10">
-                            <div className="m-auto col-10 graphs" id="graphs">
-                                <div className="Progression Progression_head">
-                                    <div className="Progression">
-                                        <h2 className=" text-center display-5 mt-3 mb-4">Client progression data</h2>
-                                        <h6 className=" text-center display-5 mt-3 mb-4">(Showing exercise data that have 2+ data entries)</h6>
-                                        {/*Only display Add progress if user is a pt*/}
-                                        {this.props.authenticatedUser.user.pt === true ?
-                                                <input id="progress-button" type="button" className="btn btn-success btn-block mt-4 mb-5" value="Add Exercise Progression Data"
-                                                       onClick={this.openModal} />
-                                             : null
-                                        }
-
-                                    </div>
-                                    {/*Display the clients progression data*/}
-                                    {displayContent}
-                                </div>
-                            </div>
+                    <UserInfo userData={this.state.clientData}/> {/* Use data from props.location.state*/}
+                    <div className="row">
+                        <div className="col">
+                            <Graphs graphData={clientProgressData}/>
+                        </div>
+                        <div className="col">
                             <ProfileNotes data={profile_notes}/>
                         </div>
-
-
-
-                    <Modal visible={this.state.visible} width={this.state.modalWidth} height={this.state.modalHeight} effect="fadeInUp"
-                           onClickAway={this.onClickAway}>
-                        <div>
-                            {/*Sending onClickAway into child component NewClientProgress allows the child to affect this parents state!!!
-                         Also sending modal visibility so fields and errors can be cleared when visibility is false.
-                         Also sending getClientProgression so that the page can be updated once a new progress submission
-                           has been successful.*/}
-                            <NewClientProgressForm onClickAway={this.onClickAway}
-                                                   visible={this.state.visible}
-                                                    modalSize={this.modalSize}
-                                                   progressFormHeight={this.state.modalHeight}
-                            />
-                        </div>
-                    </Modal>
+                    </div>
                 </div>
             );
         }
