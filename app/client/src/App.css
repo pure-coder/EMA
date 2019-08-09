@@ -333,11 +333,9 @@ svg {
 
 .Progression {
     min-width: inherit;
-    max-width: 500px;
     margin: inherit;
     padding: inherit;
     display: inline-block;
-    float: left;
 }
 
 .Progression .area {
@@ -365,7 +363,7 @@ svg {
     margin: 20px 15px 0 15px;
 }
 
-.Progression .graph {
+.Progression {
     clear: both;
 }
 
@@ -379,7 +377,7 @@ svg {
 }
 
 /*Removes border around whole graph*/
-.Progression .grid path {
+.Progression path {
     stroke-width: 0;
 }
 
@@ -391,7 +389,7 @@ svg {
 }
 
 .progress-buttons {
-    width: 135px;
+    width: 130px;
 
 }
 /* Enter progress Modal */
@@ -456,21 +454,6 @@ svg {
 
 .delete-progress #confirm, .delete-progress #cancel {
     margin: auto;
-}
-
-/* Profile notes */
-
-.Profile_notes {
-    position: relative;
-    max-width: 400px;
-    min-width: 300px;
-    display: inline-block;
-    float: left;
-}
-
-.goals {
-    max-height: 400px;
-    min-height: 300px;
 }
 
 /* Delete confirm */
@@ -707,7 +690,18 @@ nav a.active {
     color:white;
 }
 
-/* Profile_notes */
+/* Profile notes */
+
+.Profile_notes {
+    min-width: inherit;
+    margin: inherit;
+    padding: inherit;
+}
+
+.goals {
+    max-height: 400px;
+    min-height: 300px;
+}
 
 .label-profile {
     height: 35px;

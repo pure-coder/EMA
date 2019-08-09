@@ -116,28 +116,24 @@ class Graphs extends Component {
                 }
             });
             return (
-                <div id="Progression" className="Progression">
-                    <div className="graphs" id="graphs">
-                        <div className="Progression Progression_head">
-                            <h2 className=" text-center display-5 mt-3 mb-4">Client progression data</h2>
-                            <h6 className=" text-center display-5 mt-3 mb-4">
-                                (Showing exercise data that have 2+ data entries)
-                            </h6>
-                            {/*Show add progress button only if pt*/}
-                            {this.props.authenticatedUser.user.pt === true ?
-                                <input id="progress-button" type="button"
-                                       className="btn btn-success btn-block mt-4 mb-5" value="Add Exercise Progression Data"
-                                       onClick={this.openModal} />
-                                : null
-                            }
-                            {/*If enough data show graph/s otherwise show message stating no data to show*/}
-                            {
-                                !isEmpty(Data) ? graphs
-                                :
-                                <h2 className="text-center text-info mt-5">Not enough data entered to show progression</h2>
-                            }
-                        </div>
-                    </div>
+                <div id="Progression" className="Progression Progression_head">
+                    <h2 className=" text-center display-5 mt-3 mb-4">Client progression data</h2>
+                    <h6 className=" text-center display-5 mt-3 mb-4">
+                        (Showing exercise data that have 2+ data entries)
+                    </h6>
+                    {/*Show add progress button only if pt*/}
+                    {this.props.authenticatedUser.user.pt === true ?
+                        <input id="progress-button" type="button"
+                               className="btn btn-success btn-block mt-4 mb-5" value="Add Exercise Progression Data"
+                               onClick={this.openModal} />
+                        : null
+                    }
+                    {/*If enough data show graph/s otherwise show message stating no data to show*/}
+                    {
+                        !isEmpty(Data) ? graphs
+                        :
+                        <h2 className="text-center text-info mt-5">Not enough data entered to show progression</h2>
+                    }
                     <Modal visible={this.state.visible} width={this.state.modalWidth} height={this.state.modalHeight} effect="fadeInUp"
                            onClickAway={this.onClickAway}>
                         <div>

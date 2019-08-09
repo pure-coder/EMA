@@ -120,10 +120,14 @@ class ClientProfile extends Component {
                     <UserInfo userData={this.state.clientData}/> {/* Use data from props.location.state*/}
                     <div className="row">
                         <div className="col">
-                            <Graphs graphData={clientProgressData}/>
+                            <div className="m-auto col-md-3">
+                                <Graphs graphData={clientProgressData}/>
+                            </div>
                         </div>
                         <div className="col">
-                            <ProfileNotes data={profile_notes}/>
+                            <div className="m-auto col-md-3">
+                                <ProfileNotes data={profile_notes}/>
+                            </div>
                         </div>
                     </div>
                 </div>

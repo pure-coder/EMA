@@ -120,7 +120,7 @@ class GraphComp extends Component {
                             </div>
                             <div className="col-4">
                             <input type="button" className="btn btn-danger progress-buttons"
-                           value="Delete Exercise" name={graphData.exerciseName} onClick={this.openModal} />
+                           value="Delete" name={graphData.exerciseName} onClick={this.openModal} />
                             </div>
                         </div>
                     ) : null)
