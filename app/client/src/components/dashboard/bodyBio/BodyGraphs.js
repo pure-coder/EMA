@@ -2,7 +2,7 @@ import {connect} from 'react-redux';
 import React, {Component} from 'react';
 import {withRouter} from 'react-router-dom';
 import PropTypes from 'prop-types';
-import GraphComp from './BodyGraphComp';
+import BodyGraphComp from './BodyGraphComp';
 import isEmpty from "../../../utilities/is_empty";
 import ErrorComponent from "../../error/ErrorComponent";
 import Loading from "../../../elements/Loading";
@@ -107,7 +107,7 @@ class BodyGraphs extends Component {
                     return (
                         // Changed key from GraphComp to div as div was first child, otherwise error was given.
                         <div className="graphs mb-5" key={graph._id}>
-                            <GraphComp bodyGraphData={graph}/>
+                            <BodyGraphComp bodyGraphData={graph}/>
                         </div>
                     )
                 }

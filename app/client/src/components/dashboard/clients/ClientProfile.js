@@ -113,9 +113,10 @@ class ClientProfile extends Component {
         if(this.props.authenticatedUser.user.pt){
             this.props.clearCurrentClient();
             this.props.clearClientProfileNotes();
-            this.props.clear
+            this.props.clearBodyBio();
         }
         this.props.clearProgression();
+        this.props.clearBodyBioClient();
         this.setState({loaded: false})
     }
 
@@ -203,8 +204,8 @@ ClientProfile.propTypes = {
     clearCurrentClient: PropTypes.func.isRequired,
     clearClientProfileNotes: PropTypes.func.isRequired,
     clearProfileNotes: PropTypes.func.isRequired,
-    clearBodyBio: PropTypes.object.isRequired,
-    clearBodyBioClient: PropTypes.object.isRequired,
+    clearBodyBio: PropTypes.func.isRequired,
+    clearBodyBioClient: PropTypes.func.isRequired,
     errors: PropTypes.object.isRequired
 };
 

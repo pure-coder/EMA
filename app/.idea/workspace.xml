@@ -4,10 +4,12 @@
     <bookmark url="file://C:/Learning/clientObjectData.js" description="export {&quot;_id&quot;:&quot;5c2e3454d27ace097420b414&quot;,&quot;FullName..." line="2" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ec8ccf39-8487-4892-a38d-de9c288878a3" name="Default" comment="ClientProfile displaying initial BodyGraphs component correctly.">
+    <list default="true" id="ec8ccf39-8487-4892-a38d-de9c288878a3" name="Default" comment="NewBodyProgressForm refactored and working correctly.">
+      <change afterPath="$PROJECT_DIR$/client/src/utilities/drawBodyProgressGraph.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/dashboard/bodyBio/BodyGraphComp.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/dashboard/bodyBio/BodyGraphComp.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/dashboard/bodyBio/BodyGraphs.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/dashboard/bodyBio/BodyGraphs.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/dashboard/bodyBio/NewBodyProgressForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/dashboard/bodyBio/NewBodyProgressForm.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/dashboard/clients/ClientProfile.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/dashboard/clients/ClientProfile.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -52,17 +54,17 @@
           <entry key="eslintignore" value="18" />
           <entry key="gitignore" value="22" />
           <entry key="html" value="1117" />
-          <entry key="js" value="205166" />
+          <entry key="js" value="205299" />
           <entry key="json" value="29" />
           <entry key="md" value="150" />
-          <entry key="txt" value="18729" />
+          <entry key="txt" value="18783" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="CSS" value="561" />
-          <entry key="JavaScript" value="16926" />
-          <entry key="PLAIN_TEXT" value="5712" />
+          <entry key="JavaScript" value="17059" />
+          <entry key="PLAIN_TEXT" value="5766" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -75,7 +77,7 @@
           <entry key="gitignore" value="9" />
           <entry key="html" value="19" />
           <entry key="ico" value="1" />
-          <entry key="js" value="1620" />
+          <entry key="js" value="1623" />
           <entry key="json" value="13" />
           <entry key="map" value="1" />
           <entry key="md" value="4" />
@@ -90,7 +92,7 @@
           <entry key="HTML" value="19" />
           <entry key="Image" value="1" />
           <entry key="JSON" value="14" />
-          <entry key="JavaScript" value="1620" />
+          <entry key="JavaScript" value="1623" />
           <entry key="PLAIN_TEXT" value="20" />
           <entry key="SVG" value="1" />
           <entry key="Scratch" value="1" />
@@ -111,20 +113,32 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/routes/users.js">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/bodyBio/BodyGraphComp.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="5221">
-              <caret line="671" column="4" lean-forward="true" selection-start-line="671" selection-start-column="4" selection-end-line="671" selection-end-column="57" />
+            <state relative-caret-position="1343">
+              <caret line="79" column="16" selection-start-line="79" selection-start-column="16" selection-end-line="79" selection-end-column="16" />
+              <folding>
+                <element signature="e#0#39#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/bodyBio/NewBodyProgressForm.js">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/client/src/utilities/drawProgressGraph.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="68">
-              <caret line="4" column="24" selection-start-line="4" selection-start-column="24" selection-end-line="4" selection-end-column="24" />
+            <state>
+              <caret selection-end-line="201" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/client/src/utilities/drawBodyProgressGraph.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="159">
+              <caret line="49" column="20" selection-start-line="49" selection-start-column="20" selection-end-line="49" selection-end-column="20" />
             </state>
           </provider>
         </entry>
@@ -132,21 +146,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/bodyBio/BodyGraphs.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="8" column="56" lean-forward="true" selection-start-line="8" selection-start-column="56" selection-end-line="8" selection-end-column="56" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/clients/ClientProfile.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret line="32" column="131" selection-start-line="32" selection-end-line="32" selection-end-column="131" />
-              <folding>
-                <element signature="e#277#321#0" expanded="true" />
-                <element signature="e#792#842#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="-1167">
+              <caret line="4" column="44" lean-forward="true" selection-start-line="4" selection-start-column="44" selection-end-line="4" selection-end-column="44" />
             </state>
           </provider>
         </entry>
@@ -166,7 +167,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/client/src/actions/ptProfileActions.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-177">
+            <state relative-caret-position="129">
               <caret line="302" column="13" lean-forward="true" selection-start-line="302" selection-start-column="13" selection-end-line="302" selection-end-column="31" />
               <folding>
                 <element signature="e#0#26#0" expanded="true" />
@@ -196,12 +197,10 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>profile</find>
       <find>payload</find>
       <find>ptGet</find>
       <find>client_p</find>
       <find>isPt</find>
-      <find>graph</find>
       <find>.Prog</find>
       <find>.progress-</find>
       <find>user</find>
@@ -217,19 +216,19 @@
       <find>exerciseName</find>
       <find>ptGetClientBodyBio</find>
       <find>ptGetClientBodyProgression</find>
-      <find>ptGetClientProgression</find>
       <find>BodyBio</find>
       <find>progress-button</find>
       <find>exercises</find>
-      <find>maxWeight</find>
       <find>exer</find>
       <find>exerciseList</find>
       <find>selectedExercise</find>
       <find>metrics</find>
+      <find>ptGetClientProgression</find>
+      <find>graph</find>
+      <find>maxWeight</find>
+      <find>addGraph</find>
     </findStrings>
     <replaceStrings>
-      <replace>Sex</replace>
-      <replace>FormSelectComp</replace>
       <replace>UserInfo</replace>
       <replace>userInfo</replace>
       <replace>&lt;text</replace>
@@ -250,14 +249,16 @@
       <replace>bodyGraphData</replace>
       <replace>getClientBodyProgression</replace>
       <replace>bodyPart</replace>
-      <replace>getBodyBioClient</replace>
       <replace>ptGetBodyBioClient</replace>
-      <replace>ptGetClientBodyBio</replace>
       <replace>bodyParts</replace>
-      <replace>measurement</replace>
       <replace>bodyPartList</replace>
       <replace>selectedBodyPart</replace>
       <replace>bodyMetrics</replace>
+      <replace>getBodyBioClient</replace>
+      <replace>editClientBodyBio</replace>
+      <replace>ptGetClientBodyBio</replace>
+      <replace>measurement</replace>
+      <replace>addBodyGraph</replace>
     </replaceStrings>
     <dirStrings>
       <dir>C:\TM470\app\client\src\components</dir>
@@ -280,8 +281,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/client/src/components/authentication/Login.js" />
-        <option value="$PROJECT_DIR$/client/src/components/authentication/Register.js" />
         <option value="$PROJECT_DIR$/client/src/components/authentication/RegisterClient.js" />
         <option value="$PROJECT_DIR$/package.json" />
         <option value="$PROJECT_DIR$/client/src/index.js" />
@@ -327,10 +326,12 @@
         <option value="$PROJECT_DIR$/client/src/reducers/clientProfileReducer.js" />
         <option value="$PROJECT_DIR$/client/src/components/dashboard/bodyBio/Graphs.js" />
         <option value="$PROJECT_DIR$/client/src/actions/clientProfileActions.js" />
-        <option value="$PROJECT_DIR$/client/src/components/dashboard/clients/ClientProfile.js" />
         <option value="$PROJECT_DIR$/client/src/App.css" />
-        <option value="$PROJECT_DIR$/client/src/components/dashboard/bodyBio/BodyGraphs.js" />
         <option value="$PROJECT_DIR$/client/src/components/dashboard/bodyBio/NewBodyProgressForm.js" />
+        <option value="$PROJECT_DIR$/client/src/components/dashboard/clients/ClientProfile.js" />
+        <option value="$PROJECT_DIR$/client/src/components/dashboard/bodyBio/BodyGraphs.js" />
+        <option value="$PROJECT_DIR$/client/src/utilities/drawBodyProgressGraph.js" />
+        <option value="$PROJECT_DIR$/client/src/components/dashboard/bodyBio/BodyGraphComp.js" />
       </list>
     </option>
   </component>
@@ -422,16 +423,6 @@
               <item name="client" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="utilities" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="app" type="b2602c69:ProjectViewProjectNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="routes" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="app" type="b2602c69:ProjectViewProjectNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="validation" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -697,13 +688,6 @@
       <workItem from="1562927864711" duration="131724000" />
       <workItem from="1564246061042" duration="2948000" />
       <workItem from="1565171718827" duration="88626000" />
-    </task>
-    <task id="LOCAL-00142" summary="scheduler.clearAll() added to clear all data associated with scheduler. This removes previous data from accessing other clients schedules (added statement onMount and onUnmount for safe measure).&#10;&#10;Added overflow to week and day view of scheduler.">
-      <created>1565004950538</created>
-      <option name="number" value="00142" />
-      <option name="presentableId" value="LOCAL-00142" />
-      <option name="project" value="LOCAL" />
-      <updated>1565004950538</updated>
     </task>
     <task id="LOCAL-00143" summary="small code clean up, and back up.">
       <created>1565103045774</created>
@@ -1041,11 +1025,18 @@
       <option name="project" value="LOCAL" />
       <updated>1565457018553</updated>
     </task>
-    <option name="localTasksCounter" value="191" />
+    <task id="LOCAL-00191" summary="NewBodyProgressForm refactored and working correctly.">
+      <created>1565458270608</created>
+      <option name="number" value="00191" />
+      <option name="presentableId" value="LOCAL-00191" />
+      <option name="project" value="LOCAL" />
+      <updated>1565458270608</updated>
+    </task>
+    <option name="localTasksCounter" value="192" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1810935000" />
+    <option name="totallyTimeSpent" value="1812198000" />
   </component>
   <component name="TodoView" selected-index="4">
     <todo-panel id="selected-file">
@@ -1060,7 +1051,7 @@
     <frame x="-8" y="-8" width="1382" height="784" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.20758928" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.20758928" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.24943988" />
       <window_info id="Favorites" order="2" side_tool="true" weight="0.32935026" />
       <window_info anchor="bottom" id="Messages" order="0" sideWeight="0.49813294" weight="0.3276923" />
@@ -1072,7 +1063,7 @@
       <window_info anchor="bottom" id="Inspection" order="6" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="7" weight="0.3276923" />
       <window_info anchor="bottom" id="Docker" order="8" show_stripe_button="false" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="9" sideWeight="0.49776787" visible="true" weight="0.1923077" />
+      <window_info anchor="bottom" id="Terminal" order="9" sideWeight="0.49776787" visible="true" weight="0.1923077" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.50223213" side_tool="true" weight="0.1923077" />
       <window_info anchor="bottom" id="Version Control" order="11" sideWeight="0.6152815" weight="0.36" />
       <window_info anchor="bottom" id="Inspection Results" order="12" weight="0.3276923" />
@@ -1148,7 +1139,6 @@
   <component name="VcsManagerConfiguration">
     <option name="SHOW_DIRTY_RECURSIVELY" value="true" />
     <option name="LIMIT_HISTORY" value="false" />
-    <MESSAGE value="Refactored variable clientIds." />
     <MESSAGE value="Modified edit profile components for error clearing." />
     <MESSAGE value="Modified data entry for maxWeight making sure data is a number and valid between 0-999" />
     <MESSAGE value="ptId refactored." />
@@ -1173,26 +1163,10 @@
     <MESSAGE value="A/R added for client regarding body bio" />
     <MESSAGE value="bodyBio folder added, refactored names for body bio from client progression as very similar.&#10;Refactored BodyGraphs component, need to make sure functionality works" />
     <MESSAGE value="ClientProfile displaying initial BodyGraphs component correctly." />
-    <option name="LAST_COMMIT_MESSAGE" value="ClientProfile displaying initial BodyGraphs component correctly." />
+    <MESSAGE value="NewBodyProgressForm refactored and working correctly." />
+    <option name="LAST_COMMIT_MESSAGE" value="NewBodyProgressForm refactored and working correctly." />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/clients/DeleteConfirm.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="205">
-          <caret line="74" column="2" lean-forward="true" selection-start-line="74" selection-start-column="2" selection-end-line="74" selection-end-column="2" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/clients/ClientData.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="38" column="8" lean-forward="true" selection-start-line="38" selection-start-column="8" selection-end-line="38" selection-end-column="36" />
-          <folding>
-            <element signature="e#0#36#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/clients/ClientList.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="313">
@@ -1509,37 +1483,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/clients/ClientProfile.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret line="32" column="131" selection-start-line="32" selection-end-line="32" selection-end-column="131" />
-          <folding>
-            <element signature="e#277#321#0" expanded="true" />
-            <element signature="e#792#842#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/bodyBio/BodyGraphComp.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-102">
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/client/src/utilities/autoComplete.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
           <caret line="4" column="30" selection-start-line="4" selection-start-column="26" selection-end-line="4" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/routes/users.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5221">
-          <caret line="671" column="4" lean-forward="true" selection-start-line="671" selection-start-column="4" selection-end-line="671" selection-end-column="57" />
         </state>
       </provider>
     </entry>
@@ -1553,9 +1500,26 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/bodyBio/NewBodyProgressForm.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="11" column="45" lean-forward="true" selection-start-line="11" selection-start-column="45" selection-end-line="11" selection-end-column="45" />
+          <folding>
+            <element signature="e#109#153#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/users.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="5221">
+          <caret line="671" column="4" lean-forward="true" selection-start-line="671" selection-start-column="4" selection-end-line="671" selection-end-column="57" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/client/src/actions/ptProfileActions.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-177">
+        <state relative-caret-position="129">
           <caret line="302" column="13" lean-forward="true" selection-start-line="302" selection-start-column="13" selection-end-line="302" selection-end-column="31" />
           <folding>
             <element signature="e#0#26#0" expanded="true" />
@@ -1563,17 +1527,45 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/bodyBio/BodyGraphs.js">
+    <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/clients/ClientProfile.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" column="56" lean-forward="true" selection-start-line="8" selection-start-column="56" selection-end-line="8" selection-end-column="56" />
+        <state relative-caret-position="239">
+          <caret line="215" column="43" lean-forward="true" selection-start-line="215" selection-start-column="43" selection-end-line="215" selection-end-column="43" />
+          <folding>
+            <element signature="e#277#321#0" expanded="true" />
+            <element signature="e#792#842#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/bodyBio/NewBodyProgressForm.js">
+    <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/bodyBio/BodyGraphs.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" column="24" selection-start-line="4" selection-start-column="24" selection-end-line="4" selection-end-column="24" />
+        <state relative-caret-position="-1167">
+          <caret line="4" column="44" lean-forward="true" selection-start-line="4" selection-start-column="44" selection-end-line="4" selection-end-column="44" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/utilities/drawProgressGraph.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret selection-end-line="201" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/utilities/drawBodyProgressGraph.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="159">
+          <caret line="49" column="20" selection-start-line="49" selection-start-column="20" selection-end-line="49" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/bodyBio/BodyGraphComp.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1343">
+          <caret line="79" column="16" selection-start-line="79" selection-start-column="16" selection-end-line="79" selection-end-column="16" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

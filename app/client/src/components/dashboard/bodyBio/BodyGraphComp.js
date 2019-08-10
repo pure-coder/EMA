@@ -1,13 +1,13 @@
 import React, {Component} from 'react';
-import {addGraph} from "../../../utilities/drawProgressGraph";
-import {deleteExercise, ptGetClientProgression} from "../../../actions/ptProfileActions";
+import {addBodyGraph} from "../../../utilities/drawBodyProgressGraph";
+import {deleteExercise, ptGetClientBodyBio} from "../../../actions/ptProfileActions";
 import PropTypes from "prop-types";
 import connect from "react-redux/es/connect/connect";
 import {withRouter} from "react-router-dom";
 import Modal from "react-awesome-modal";
-import EditDataProgressForm from './EditBodyDataProgressForm';
-import DeleteProgressConfirm from "./DeleteBodyProgressConfirm";
-import AddDataProgressForm from "./AddBodyDataProgressForm";
+import EditBodyDataProgressForm from './EditBodyDataProgressForm';
+import DeleteBodyProgressConfirm from "./DeleteBodyProgressConfirm";
+import AddBodyDataProgressForm from "./AddBodyDataProgressForm";
 import isEmpty from "../../../utilities/is_empty";
 import ErrorComponent from "../../error/ErrorComponent";
 
@@ -17,7 +17,7 @@ class BodyGraphComp extends Component {
         this.state = {
             userId: props.authenticatedUser.user.id,
             clientId: props.authenticatedUser.user.pt ? props.ptProfile.current_client._id : props.clientProfile.client_data._id,
-            metrics : props.graphData.metrics,
+            bodyMetrics : props.bodyGraphData.bodyMetrics,
             visible: false,
             modalHeight: "400",
             modalWidth: "500",
@@ -54,30 +54,30 @@ class BodyGraphComp extends Component {
         this.modalSize("400");
 
         // Get new data
-        this.getClientProgression();
+        this.getBodyBioClient();
     }
 
-    getClientProgression(){
-        this.props.ptGetClientProgression(this.state.clientId, this.props.history);
+    getBodyBioClient(){
+        this.props.ptGetClientBodyBio(this.state.clientId, this.props.history);
     }
 
     modalSize(height){
         this.setState({modalHeight: height});
     }
 
-    sortedProgressionMap(graphData){
-        return graphData.sort((obj1, obj2) => {
+    sortedProgressionMap(bodyGraphData){
+        return bodyGraphData.sort((obj1, obj2) => {
             return new Date(obj1.Date) - new Date(obj2.Date);
         });
     }; // sortedMap
 
     drawGraph(isUpdate){
-        let exerciseToId = this.props.graphData.exerciseName.replace(/\s+/g, '-');
-        const metrics = this.sortedProgressionMap(this.props.graphData.metrics);
+        let bodyPartToId = this.props.bodyGraphData.bodyPart.replace(/\s+/g, '-');
+        const bodyMetrics = this.sortedProgressionMap(this.props.bodyGraphData.bodyMetrics);
         // Graph is drawn here. Had to make sure className in return was rendered 1st before calling this function
         // as it needs it to append on too.
 
-        addGraph(metrics, '.' + exerciseToId, this.props.graphData.exerciseName, isUpdate);
+        addBodyGraph(bodyMetrics, '.' + bodyPartToId, this.props.bodyGraphData.bodyPart, isUpdate);
     }
 
     componentDidMount(){
@@ -85,16 +85,16 @@ class BodyGraphComp extends Component {
     }
 
     componentDidUpdate(prevProps){
-        // Only update the exercise that has added or deleted metric data
-        if(prevProps.graphData.metrics !== this.props.graphData.metrics) {
-            this.setState({metrics : this.props.graphData.metrics});
+        // Only update the bodyPart that has added or deleted metric data
+        if(prevProps.bodyGraphData.bodyMetrics !== this.props.bodyGraphData.bodyMetrics) {
+            this.setState({bodyMetrics : this.props.bodyGraphData.bodyMetrics});
             this.drawGraph(true)
         }
     }
 
     render(){
         const {user} = this.props.authenticatedUser;
-        const {graphData} = this.props;
+        const {bodyGraphData} = this.props;
         const ids = {
             userId: this.state.userId,
             clientId: this.state.clientId
@@ -107,20 +107,20 @@ class BodyGraphComp extends Component {
 
         let display;
         display = (
-                (user.pt && graphData.metrics.length >= 2 ?
+                (user.pt && bodyGraphData.bodyMetrics.length >= 2 ?
                     (
                         <div className="btn-toolbar progress-toolbar">
                             <div className="col-4 progress-toolbar-space">
                             <input type="button" className="btn btn-info progress-buttons"
-                           value="Edit Data" name={graphData.exerciseName} onClick={this.openModal} />
+                           value="Edit Data" name={bodyGraphData.bodyPart} onClick={this.openModal} />
                             </div>
                             <div className="col-4 progress-toolbar-space">
                             <input type="button" className="btn btn-success progress-buttons"
-                                   value="Add Data" name={graphData.exerciseName} onClick={this.openModal} />
+                                   value="Add Data" name={bodyGraphData.bodyPart} onClick={this.openModal} />
                             </div>
                             <div className="col-4 progress-toolbar-space">
                             <input type="button" className="btn btn-danger progress-buttons"
-                           value="Delete" name={graphData.exerciseName} onClick={this.openModal} />
+                           value="Delete" name={bodyGraphData.bodyPart} onClick={this.openModal} />
                             </div>
                         </div>
                     ) : null)
@@ -131,7 +131,7 @@ class BodyGraphComp extends Component {
         // Provide component depending on what button was pressed
         if(this.state.form === 'Delete') {
             displayForm = (
-                <DeleteProgressConfirm exerciseName={graphData.exerciseName} onClickAway={this.onClickAway}
+                <DeleteBodyProgressConfirm bodyPart={bodyGraphData.bodyPart} onClickAway={this.onClickAway}
                                        visible={this.state.visible}
                                        ids={ids}
                                        modalSize={this.modalSize}
@@ -141,7 +141,7 @@ class BodyGraphComp extends Component {
         }
         if(this.state.form === 'Add') {
             displayForm = (
-                <AddDataProgressForm exerciseName={graphData.exerciseName} onClickAway={this.onClickAway}
+                <AddBodyDataProgressForm bodyPart={bodyGraphData.bodyPart} onClickAway={this.onClickAway}
                                      visible={this.state.visible}
                                      ids={ids}
                                      modalSize={this.modalSize}
@@ -151,9 +151,9 @@ class BodyGraphComp extends Component {
         }
         if(this.state.form === 'Edit') {
             displayForm = (
-                <EditDataProgressForm exerciseName={graphData.exerciseName}
-                                      exerciseId={graphData._id}
-                                      metrics={this.state.metrics}
+                <EditBodyDataProgressForm bodyPart={bodyGraphData.bodyPart}
+                                      bodyPartId={bodyGraphData._id}
+                                      bodyMetrics={this.state.bodyMetrics}
                                       ids={ids}
                                       onClickAway={this.onClickAway}
                                       visible={this.state.visible}
@@ -165,7 +165,7 @@ class BodyGraphComp extends Component {
 
         return (
             <div>
-                <div className={graphData.exerciseName.replace(/\s+/g, '-') + " graph"}></div>
+                <div className={bodyGraphData.bodyPart.replace(/\s+/g, '-') + " body-graph"}></div>
                 {display}
 
                 <Modal visible={this.state.visible} width={this.state.modalWidth} height={this.state.modalHeight} effect="fadeInUp"
@@ -179,11 +179,11 @@ class BodyGraphComp extends Component {
 
 BodyGraphComp.propTypes = {
     authenticatedUser: PropTypes.object.isRequired,
-    graphData: PropTypes.object.isRequired,
+    bodyGraphData: PropTypes.object.isRequired,
     ptProfile: PropTypes.object.isRequired,
     clientProfile: PropTypes.object.isRequired,
     deleteExercise: PropTypes.func.isRequired,
-    ptGetClientProgression: PropTypes.func.isRequired
+    ptGetClientBodyBio: PropTypes.func.isRequired
 };
 
 const stateToProps = (state) => ({
@@ -193,4 +193,4 @@ const stateToProps = (state) => ({
     errors: state.errors
 });
 
-export default connect(stateToProps, {deleteExercise, ptGetClientProgression})(withRouter(BodyGraphComp));
+export default connect(stateToProps, {deleteExercise, ptGetClientBodyBio})(withRouter(BodyGraphComp));
