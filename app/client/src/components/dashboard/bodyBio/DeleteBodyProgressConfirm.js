@@ -2,7 +2,7 @@ import React, {Component} from 'react' // React is need for rendering JSX HTML e
 import {withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
-import {deleteExercise} from "../../../actions/ptProfileActions";
+import {deleteBodyPart} from "../../../actions/ptProfileActions";
 
 
 class DeleteBodyProgressConfirm extends Component {
@@ -47,16 +47,16 @@ class DeleteBodyProgressConfirm extends Component {
     }
 
     onConfirm(e){
-        this.props.deleteExercise(this.state.clientId, e.target.name, this.props.history);
+        this.props.deleteBodyPart(this.state.clientId, e.target.name, this.props.history);
         this.props.onClickAway();
     }
 
     render() {
         return (
             <div className="delete-progress">
-                <h2 className="mt-3 mb-3"> Are you sure you want to delete the progress data for {this.props.exerciseName}! </h2>
+                <h2 className="mt-3 mb-3"> Are you sure you want to delete the progress data for {this.props.bodyPart}! </h2>
                 <input id="confirm" type="button" className="btn btn-success btn-block mb-4"
-                       value="Confirm" name={this.props.exerciseName} onClick={this.onConfirm} />
+                       value="Confirm" name={this.props.bodyPart} onClick={this.onConfirm} />
                 <input id="cancel" type="button" className="btn btn-danger btn-block mb-4"
                        value="Cancel" onClick={this.onCancel} />
             </div>
@@ -66,10 +66,10 @@ class DeleteBodyProgressConfirm extends Component {
 }
 
 DeleteBodyProgressConfirm.proptypes = {
-    deleteExercise: PropTypes.func.isRequired,
+    deleteBodyPart: PropTypes.func.isRequired,
     modalSize: PropTypes.func.isRequired,
     progressFormHeight: PropTypes.string.isRequired,
 };
 
 
-export default connect(null, {deleteExercise})(withRouter(DeleteBodyProgressConfirm));
+export default connect(null, {deleteBodyPart})(withRouter(DeleteBodyProgressConfirm));

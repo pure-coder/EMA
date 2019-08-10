@@ -22,6 +22,12 @@ textarea {
     width: auto !important;
 }
 
+label {
+    display: inline-block;
+    margin-bottom: .5rem;
+    min-width: 300px;
+}
+
 .container {
     min-height: 380px;
 }
