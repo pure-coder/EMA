@@ -14,7 +14,7 @@ const BodyBioSchema = new Schema({
     },
     bodyMetrics: [
         {
-            measurement: {type: Number, require: true},
+            measurement: {type: String, require: true},
             Date : {type: Date, require: true}
         }
     ]

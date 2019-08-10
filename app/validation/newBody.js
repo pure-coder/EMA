@@ -5,6 +5,7 @@ module.exports = function validateRegistrationInput(data) {
     let errors = {};
 
     // Check to see if value is not undefined as Validator functions only works on strings (otherwise throws error)
+    //console.log(data)
 
     if (data.bodyPart !== undefined){
         // FullName is name of field used to collect name of user (not name)
@@ -13,19 +14,23 @@ module.exports = function validateRegistrationInput(data) {
         }
     }
 
-    if (data.bodyMetrics.measurement !== undefined){
+    if(!isEmpty(data) && data.bodyMetrics.measurement !== undefined){
         if (!Validator.isInt(data.bodyMetrics.measurement, {min: 0, max: 999})) {
             errors.measurement = 'measurement should be between 0-999';
         }
     }
-
-    if(data.metrics.Date === null){
-        errors.Date = 'Must be a valid date!';
+    else{
+        errors.measurement = 'Measurement not entered!'
     }
-    if (data.metrics.Date !== undefined && data.metrics.Date !== null){
-        if (!Validator.isISO8601(data.metrics.Date)) {
+
+
+    if(!isEmpty(data) && data.bodyMetrics.Date !== undefined){
+        if (!Validator.isISO8601(data.bodyMetrics.Date)) {
             errors.Date = 'Must be a valid date!';
         }
+    }
+    else{
+        errors.Date = 'Date not entered!';
     }
 
     return {

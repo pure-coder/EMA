@@ -680,13 +680,13 @@ router.post('/body_bio/:cid', passport.authenticate('pt_rule', {session: false},
                 // Check to see if ptId is allowed
                 if (resultClient.ptId === signedInId) {
 
-                    ClientProgression.findOne({$and: [{clientId: clientId}, {bodyPart: data.bodyPart}]})
+                    BodyBio.findOne({$and: [{clientId: clientId}, {bodyPart: data.bodyPart}]})
                         .then(result => {
                             if (result) {
 
                                 let newMetrics = {
                                     measurement: data.bodyMetrics.measurement,
-                                    Date: new Date(data.metrics.Date)
+                                    Date: new Date(data.bodyMetrics.Date)
                                 };
                                 // Array of current metrics in document
                                 let documentMetrics = result.bodyMetrics;
@@ -704,7 +704,7 @@ router.post('/body_bio/:cid', passport.authenticate('pt_rule', {session: false},
                                 // If metricDuplicate is false then insert new metrics else return message stating duplication
                                 if (!metricDuplicate) {
                                     // Update metrics of this document using its unique id (_id), pushing in new metric data with the $push operator.
-                                    ClientProgression.update({_id: result._id}, {$push: {bodyMetrics: newMetrics}}, {safe: true})
+                                    BodyBio.update({_id: result._id}, {$push: {bodyMetrics: newMetrics}}, {safe: true})
                                         .then(update => {
                                             return res.json(update);
                                         })
@@ -721,12 +721,12 @@ router.post('/body_bio/:cid', passport.authenticate('pt_rule', {session: false},
                                 // Client progress doesn't exist for bodyPart so create one
                                 let newMetrics = {
                                     measurement: data.bodyMetrics.measurement,
-                                    Date: new Date(data.metrics.Date)
+                                    Date: new Date(data.bodyMetrics.Date)
                                 };
 
                                 const newBodyBio = new BodyBio({
                                     clientId: clientId,
-                                    ptId: ptId,
+                                    ptId: resultClient.ptId,
                                     bodyPart: data.bodyPart,
                                     bodyMetrics: newMetrics
                                 }); // newBody
