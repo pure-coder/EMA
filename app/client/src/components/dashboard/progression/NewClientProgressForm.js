@@ -19,11 +19,10 @@ class NewClientProgressForm extends Component {
             maxWeight: '',
             Date: '',
             visible: false,
-            errors: {},
-            success: {},
             message: {
                 type: null
             },
+            errors: {},
             progressFormHeight: props.progressFormHeight,
             exercises : [
                 "Squat",
@@ -93,19 +92,23 @@ class NewClientProgressForm extends Component {
         formHeight += parseInt(window.getComputedStyle(el).getPropertyValue('margin-top'), 10);
         formHeight += parseInt(window.getComputedStyle(el).getPropertyValue('margin-bottom'), 10);
         this.setState({progressFormHeight: formHeight});
+
+        this.props.clearErrors();
+        this.props.clearSuccess();
     }
 
     // Checking if previous props modal visibility and this states visibility is not equal (stops reacts maximum loop message when
     // setting state) so that fields and errors can be cleared when exiting modal (using onClickAway instead of close button).
     componentDidUpdate(prevProps){
         if(prevProps.visible !== this.state.visible){
+            this.props.clearErrors();
+            this.props.clearSuccess();
             this.setState({
                 exerciseName: '',
                 maxWeight: '',
-                Date: ''
+                Date: '',
+                message: {type: null}
             });
-            this.props.clearErrors();
-            this.props.clearSuccess();
         }
 
         if(this.state.progressFormHeight < prevProps.progressFormHeight ){

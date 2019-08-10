@@ -6,6 +6,7 @@ const ProfileInputForm = ({
     onSubmit,
     onChange,
     value,
+    label,
     name,
     success,
     fieldUpdated,
@@ -17,22 +18,29 @@ const ProfileInputForm = ({
     return (
         <form className="form-group" name={name} onSubmit={onSubmit}>
             <label className="control-label form-control-lg label-profile">
-                Injuries/Limitations:
+                {label}
             </label>
-            {/*// Indicated successfull update*/}
-            {!isEmpty({success}) && fieldUpdated === name  && <p className="text-success profile-success">{success.msg}</p>}
-            {/*// Indicated unsuccessfull update*/}
-            {!isEmpty({errors}) && fieldUpdated === name  && (<p className="text-danger profile-error">{errors.msg}</p>)}
+            {/*// Indicate successfull update*/}
+            {
+                !isEmpty({success}) && fieldUpdated === name  && success.type === "PROFILE" &&
+                (<p className="text-success profile-success">{success.msg}</p>)
+            }
+            {/*// Indicate unsuccessfull update*/}
+            {
+                !isEmpty({errors}) && fieldUpdated === name  &&
+                (<p className="text-danger profile-error">{errors.msg}</p>)
+            }
             <textarea
                 readOnly={!ptCheck}
-                name="injuries"
+                name={name}
                 value={value}
                 onChange={onChange}
                 className="form-control form-control-lg"
-                rows={rows} cols={cols}>
-                            </textarea>
-            {{ptCheck} ?
-                <input type="submit" value="Update" className="btn btn-info btn-block mt-1 profile_notes"/> :
+                rows={rows}
+                cols={cols}>
+            </textarea>
+            {
+                {ptCheck} ?  <input type="submit" value="Update" className="btn btn-info btn-block mt-1 profile_notes"/> :
                 null
             }
         </form>
@@ -41,6 +49,7 @@ const ProfileInputForm = ({
 
 ProfileInputForm.propTypes = {
     name: PropTypes.string.isRequired,
+    label: PropTypes.string.isRequired,
     value: PropTypes.string.isRequired,
     errors: PropTypes.object,
     success: PropTypes.object,

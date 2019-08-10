@@ -176,7 +176,7 @@ export const updateClientProfileNotes = (clientId, data, history) => dispatch =>
         .then(result => {
             // causes refresh of dashboard with updated client list
             if(result.status === 200) {
-                dispatch(setSuccess("Data updated"));
+                dispatch(setSuccess("Data updated", "PROFILE"));
             }
             if(result.status === 400){
                 dispatch(setErrors("Could not update data"))
@@ -388,14 +388,25 @@ export const setErrors = (error) => dispatch => {
     } // typeof string
 };
 
-export const setSuccess = (message) => dispatch => {
-    dispatch({
-        type: SUCCESS,
-        payload: {
-            type: "SUCCESS",
-            msg: message
-        }
-    });
+export const setSuccess = (message, optional = null) => dispatch => {
+    if(optional === null){
+        dispatch({
+            type: SUCCESS,
+            payload: {
+                type: "SUCCESS",
+                msg: message
+            }
+        })
+    }
+    else{
+        dispatch({
+            type: SUCCESS,
+            payload: {
+                type: optional,
+                msg: message
+            }
+        })
+    }
 };
 
 

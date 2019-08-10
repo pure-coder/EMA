@@ -51,6 +51,12 @@ class ProfileNotes extends Component {
         return null
     }
 
+    componentDidUpdate(props){
+        if(!isEmpty(props.fieldUpdated)){
+            this.setState({fieldUpdated: ''})
+        }
+    }
+
     componentWillUnmount(){
         if(this.props.authenticatedUser.user.pt){
             this.props.clearClientProfileNotes();
@@ -67,6 +73,7 @@ class ProfileNotes extends Component {
         let name = e.target.name;
         let value = e.target.value;
         this.setState({[name]: value});
+
         if(!isEmpty(this.props.errors)){
             this.props.clearErrors();
         }
@@ -97,8 +104,9 @@ class ProfileNotes extends Component {
                     <ProfileInputForm
                         onSubmit={this.onSubmit}
                         ptCheck={this.props.authenticatedUser.user.pt}
+                        label="Goals:"
                         name="goals"
-                        value={this.state.injuries}
+                        value={this.state.goals}
                         onChange={this.onChange}
                         fieldUpdated={this.state.fieldUpdated}
                         cols={this.state.cols}
@@ -111,6 +119,7 @@ class ProfileNotes extends Component {
                     <ProfileInputForm
                         onSubmit={this.onSubmit}
                         ptCheck={this.props.authenticatedUser.user.pt}
+                        label="Injuries/Limitations:"
                         name="injuries"
                         value={this.state.injuries}
                         onChange={this.onChange}
@@ -125,8 +134,9 @@ class ProfileNotes extends Component {
                     <ProfileInputForm
                         onSubmit={this.onSubmit}
                         ptCheck={this.props.authenticatedUser.user.pt}
+                        label="Notes:"
                         name="notes"
-                        value={this.state.injuries}
+                        value={this.state.notes}
                         onChange={this.onChange}
                         fieldUpdated={this.state.fieldUpdated}
                         cols={this.state.cols}

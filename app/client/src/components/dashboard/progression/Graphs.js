@@ -9,7 +9,7 @@ import Loading from "../../../elements/Loading";
 import NewClientProgressForm from "./NewClientProgressForm";
 import Modal from "react-awesome-modal";
 import {getClientProgression} from "../../../actions/clientProfileActions";
-import {ptGetClientProgression} from "../../../actions/ptProfileActions";
+import {ptGetClientProgression, clearErrors, clearSuccess} from "../../../actions/ptProfileActions";
 
 class Graphs extends Component {
     // This allows the component states to be up{dated and re-rendered)
@@ -19,6 +19,7 @@ class Graphs extends Component {
             userId: props.authenticatedUser.user.id,
             clientId: props.authenticatedUser.user.pt ? props.match.params.cid : props.authenticatedUser.user.id,
             graphData: props.graphData,
+            success: {},
             errors: {},
             modalWidth: "500",
             modalHeight: "500",
@@ -29,8 +30,7 @@ class Graphs extends Component {
         this.getClientProgression = this.getClientProgression.bind(this);
         this.modalSize = this.modalSize.bind(this);
         this.openModal = this.openModal.bind(this);
-        this.onClickAway = this.onClickAway.bind(this)
-
+        this.onClickAway = this.onClickAway.bind(this);
     }
 
     static getDerivedStateFromProps(props, state){
@@ -124,8 +124,9 @@ class Graphs extends Component {
                     {/*Show add progress button only if pt*/}
                     {this.props.authenticatedUser.user.pt === true ?
                         <input id="progress-button" type="button"
-                               className="btn btn-success btn-block mt-4 mb-5" value="Add Exercise Progression Data"
-                               onClick={this.openModal} />
+                               className="btn btn-success btn-block mt-4 mb-5"
+                               value="Add Exercise Progression Data"
+                               onClick={this.openModal}/>
                         : null
                     }
                     {/*If enough data show graph/s otherwise show message stating no data to show*/}
@@ -160,11 +161,14 @@ Graphs.propTypes = {
     authenticatedUser: PropTypes.object.isRequired,
     getClientProgression: PropTypes.func.isRequired,
     ptGetClientProgression: PropTypes.func.isRequired,
+    clearErrors: PropTypes.func.isRequired,
+    clearSuccess: PropTypes.func.isRequired
 };
 
 const stateToProps = (state) => ({
     authenticatedUser: state.authenticatedUser,
-    errors: state.errors
+    errors: state.errors,
+    success: state.success
 });
 
-export default connect(stateToProps, {getClientProgression, ptGetClientProgression})(withRouter(Graphs));
+export default connect(stateToProps, {getClientProgression, ptGetClientProgression, clearErrors, clearSuccess})(withRouter(Graphs));
