@@ -762,7 +762,7 @@ router.post('/body_bio/:cid', passport.authenticate('pt_rule', {session: false},
 // @route  GET api/body_bio/:cid
 // @desc   Retrieve body bio data from db
 // @access Available for both authorised Pt's and clients
-router.get('/client_progression/:cid', passport.authenticate('both_rule', {session: false}), (req, res) => {
+router.get('/body_bio/:cid', passport.authenticate('both_rule', {session: false}), (req, res) => {
     // Get clientId from url
     let clientId = req.params.cid;
     // Get usertId from url which is used to make sure that they are allowed to access data
@@ -782,7 +782,7 @@ router.get('/client_progression/:cid', passport.authenticate('both_rule', {sessi
                     // '-_id exerciseName metrics.maxWeight metrics.Date' part allows only exerciseName and metrics to be returned,
                     // as _id is returned by default use the minus sign with it to explicitly ignore it ie '-_id' (deleted -_id as needed for refactoring -- creating component for each graph)
                     // CHANGE - _id needed for mapping in progression editing functionality
-                    ClientProgression.find({clientId: clientId}, 'exerciseName metrics._id metrics.maxWeight metrics.Date')
+                    BodyBio.find({clientId: clientId}, 'bodyPart bodyMetrics._id bodyMetrics.measurement bodyMetrics.Date')
                         .then(result => {
                             if (result) {
                                 return res.status(200).json(result);
@@ -812,7 +812,7 @@ router.get('/client_progression/:cid', passport.authenticate('both_rule', {sessi
             return res.json({});
         }); // Client.findOne()
 
-}); // router get /:id/client_progression/:cid
+}); // router get /body_bio/:cid
 
 
 // @route  DELETE api/:id/client_progression/:cid
