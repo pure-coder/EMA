@@ -2,7 +2,7 @@ import React, {Component} from 'react' // React is need for rendering JSX HTML e
 import {withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
-import {setErrors, clearErrors, clearSuccess, deleteExercise, editClientExercise} from "../../../actions/ptProfileActions";
+import {setErrors, clearErrors, clearSuccess, deleteBodyPart, editClientBodyBio} from "../../../actions/ptProfileActions";
 import FormInputGroup from "../../common/FormInputGroup";
 import DisplayMessage from "../../common/DisplayMessage";
 import isEmpty from "../../../validation/is_empty";
@@ -15,7 +15,7 @@ class EditBodyDataProgressForm extends Component {
             userId: props.ids.userId,
             clientId: props.ids.clientId,
             visible: false,
-            metrics: props.metrics,
+            bodyMetrics: props.bodyMetrics,
             toDelete: [],
             edited: false,
             errors: {},
@@ -60,10 +60,10 @@ class EditBodyDataProgressForm extends Component {
         formHeight += parseInt(window.getComputedStyle(el).getPropertyValue('margin-bottom'), 10);
         this.setState({progressFormHeight: formHeight});
 
-        // Change format of Date in metrics so that it can be presented correctly in HTML 5 date format.
+        // Change format of Date in bodyMetrics so that it can be presented correctly in HTML 5 date format.
         // Was previously getting errors when converting in map below as onChange would not except a single zero, etc
-        this.state.metrics.forEach(metrics => {
-            metrics.Date = new Date(metrics.Date).toISOString().substring(0, 10);
+        this.state.bodyMetrics.forEach(bodyMetrics => {
+            bodyMetrics.Date = new Date(bodyMetrics.Date).toISOString().substring(0, 10);
         });
 
         this.props.clearErrors();
@@ -83,33 +83,33 @@ class EditBodyDataProgressForm extends Component {
             this.props.modalSize(newHeight.toString())
         }
 
-        if(prevProps.metrics !== this.props.metrics){
-            // Change format of Date in metrics so that it can be presented correctly in HTML 5 date format.
+        if(prevProps.bodyMetrics !== this.props.bodyMetrics){
+            // Change format of Date in bodyMetrics so that it can be presented correctly in HTML 5 date format.
             // Was previously getting errors when converting in map below as onChange would not except a single zero, etc
-            this.props.metrics.forEach(metrics => {
-                metrics.Date = new Date(metrics.Date).toISOString().substring(0, 10);
+            this.props.bodyMetrics.forEach(bodyMetrics => {
+                bodyMetrics.Date = new Date(bodyMetrics.Date).toISOString().substring(0, 10);
             });
-            this.setState({metrics: this.props.metrics});
+            this.setState({bodyMetrics: this.props.bodyMetrics});
         }
     }
 
     onChange(e) {
-        const metrics = this.state.metrics;
+        const bodyMetrics = this.state.bodyMetrics;
         const toDelete = this.state.toDelete;
         let id = e.target.id;
         let name = e.target.name;
         let value = e.target.value;
 
-        // For maxWeight Check to see if value entered is a number, if not then don't update state and exit function.
-        if(name === 'maxWeight' && isNaN(value)){
+        // For measurement Check to see if value entered is a number, if not then don't update state and exit function.
+        if(name === 'measurement' && isNaN(value)){
             return null;
         }
 
-        // Make sure maxWeight value does not exceed 3 characters
-        if(name === 'maxWeight' && (value.length > 3)){
+        // Make sure measurement value does not exceed 3 characters
+        if(name === 'measurement' && (value.length > 3)){
             let message = {
                 type: "ERROR",
-                msg: "Max Weight value must be between 0-999!"
+                msg: "Measurement value must be between 0-999!"
             };
             this.setState({message});
             return null;
@@ -130,13 +130,13 @@ class EditBodyDataProgressForm extends Component {
             }
         }
 
-        // Only add data to metrics if name is date or maxWeight (keep delete data separate)
-        if (name === 'Date' || name === 'maxWeight'){
-            metrics[id][name] = value;
+        // Only add data to bodyMetrics if name is date or measurement (keep delete data separate)
+        if (name === 'Date' || name === 'measurement'){
+            bodyMetrics[id][name] = value;
         }
 
         this.setState({
-            metrics,
+            bodyMetrics,
             toDelete,
             edited : true
         });
@@ -179,7 +179,7 @@ class EditBodyDataProgressForm extends Component {
         else{
             this.props.clearErrors();
             let deleteMetrics = this.state.toDelete;
-            let originalMetrics = this.state.metrics;
+            let originalMetrics = this.state.bodyMetrics;
             let newMetrics = [];
 
             // Check if all items have been selected for deletion, if so make new empty array and send that to edit function
@@ -194,15 +194,15 @@ class EditBodyDataProgressForm extends Component {
                 }
             }
 
-            // Delete whole exercise from client progression (if all checkboxes are ticked, so nothing has been modified)
+            // Delete whole body part from body bio progression (if all checkboxes are ticked, so nothing has been modified)
             if(isEmpty(originalMetrics)){
-                this.props.deleteExercise(this.state.clientId, this.props.exerciseName, this.props.history);
+                this.props.deleteBodyPart(this.state.clientId, this.props.bodyPart, this.props.history);
                 // Close edit modal there is no data to display.
                 this.onClose();
             }
-            // Send new array to overwrite current data for exercise in db for client
+            // Send new array to overwrite current data for bodyPart in db for client
             else{
-                this.props.editClientExercise(this.state.clientId, this.props.exerciseId, newMetrics, this.props.history);
+                this.props.editClientBodyBio(this.state.clientId, this.props.bodyPartId, newMetrics, this.props.history);
 
             }
 
@@ -211,7 +211,7 @@ class EditBodyDataProgressForm extends Component {
 
     render() {
         let {errors, message} = this.state;
-        let metrics = this.state.metrics;
+        let bodyMetrics = this.state.bodyMetrics;
         
         return (
             <div className="editClientProgress">
@@ -221,7 +221,7 @@ class EditBodyDataProgressForm extends Component {
                 <div className="progress-form-div">
                     <form autoComplete="off" onSubmit={this.onSubmit}>
                         <label className="control-label form-control-lg new-progression">
-                            Exercise: {this.props.exerciseName}
+                            Exercise: {this.props.bodyPart}
                         </label>
                         <label className="control-label form-control-lg new-progression">
                             Data to be modified or deleted:
@@ -230,15 +230,15 @@ class EditBodyDataProgressForm extends Component {
                             <thead>
                             <tr>
                                 <th id="client-table-name">Date</th>
-                                <th align="center">Max Weight</th>
+                                <th align="center">Measurement</th>
                                 <th align="center">Delete</th>
                             </tr>
                             {
-                                metrics.map((metric, index) => {
+                                bodyMetrics.map((metric, index) => {
                                     return ( <tr key={metric._id}>
                                         <td>
                                             < FormInputGroup
-                                                myClassName="edit-exercise"
+                                                myClassName="edit-bodyPart"
                                                 name="Date"
                                                 id={index}
                                                 value={metric.Date.toString()}
@@ -249,18 +249,18 @@ class EditBodyDataProgressForm extends Component {
                                         </td>
                                         <td>
                                             < FormInputGroup
-                                                myClassName="edit-exercise"
-                                                name="maxWeight"
+                                                myClassName="edit-bodyPart"
+                                                name="measurement"
                                                 id={index}
-                                                value={metric.maxWeight.toString()}
+                                                value={metric.measurement.toString()}
                                                 type="text"
                                                 onChange={this.onChange}
-                                                error={errors.maxWeight}
+                                                error={errors.measurement}
                                             />
                                         </td>
                                         <td>
                                             < FormInputGroup
-                                                myClassName="edit-exercise"
+                                                myClassName="edit-bodyPart"
                                                 name="Delete"
                                                 id={index}
                                                 type="checkbox"
@@ -290,8 +290,8 @@ EditBodyDataProgressForm.propTypes = {
     setErrors: PropTypes.func.isRequired,
     clearSuccess: PropTypes.func.isRequired,
     clearErrors: PropTypes.func.isRequired,
-    deleteExercise: PropTypes.func.isRequired,
-    editClientExercise: PropTypes.func.isRequired,
+    deleteBodyPart: PropTypes.func.isRequired,
+    editClientBodyBio: PropTypes.func.isRequired,
     errors: PropTypes.object.isRequired,
     success: PropTypes.object.isRequired
 };
@@ -302,4 +302,4 @@ const stateToProps = (state) => ({
 });
 
 
-export default connect(stateToProps, {setErrors, clearErrors, clearSuccess, deleteExercise, editClientExercise})(withRouter(EditBodyDataProgressForm));
+export default connect(stateToProps, {setErrors, clearErrors, clearSuccess, deleteBodyPart, editClientBodyBio})(withRouter(EditBodyDataProgressForm));
