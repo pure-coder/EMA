@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import {clearClientProfileNotes, updateClientProfileNotes, clearErrors, clearSuccess} from "../../../actions/ptProfileActions";
 import {clearProfileNotes} from "../../../actions/clientProfileActions";
 import isEmpty from "../../../validation/is_empty";
+import ProfileInputForm from "../../common/ProfileInputForm";
 
 class ProfileNotes extends Component {
     constructor(props){
@@ -93,80 +94,46 @@ class ProfileNotes extends Component {
         return (
             <div className="Profile_notes">
                 <div className="mt-2 mb-5">
-                    <form className="form-group" name="goals" onSubmit={this.onSubmit}>
-                        <label className="control-label form-control-lg label-profile">
-                            Goals:
-                        </label>
-                        {/*// Indicated successfull update*/}
-                        {!isEmpty(this.state.success) && this.state.fieldUpdated === 'goals'
-                        && <p className="text-success profile-success">{this.state.success.msg}</p>}
-                        {/*// Indicated unsuccessfull update*/}
-                        {!isEmpty(this.state.errors) && this.state.fieldUpdated === 'goals'
-                        && <p className="text-danger profile-error">{this.state.errors.msg}</p>}
-                        <textarea
-                            readOnly={!this.props.authenticatedUser.user.pt}
-                            name="goals"
-                            value={this.state.goals}
-                            onChange={this.onChange}
-                            className="form-control form-control-lg"
-                            rows={this.state.rows} cols={this.state.cols}>
-                        </textarea>
-                        {this.props.authenticatedUser.user.pt ?
-                            <input type="submit" value="Update" className="btn btn-info btn-block mt-1 profile_notes"/> :
-                            null
-                        }
-                    </form>
+                    <ProfileInputForm
+                        onSubmit={this.onSubmit}
+                        ptCheck={this.props.authenticatedUser.user.pt}
+                        name="goals"
+                        value={this.state.injuries}
+                        onChange={this.onChange}
+                        fieldUpdated={this.state.fieldUpdated}
+                        cols={this.state.cols}
+                        rows={this.state.rows}
+                        success={this.state.success}
+                        errors={this.state.errors}
+                    />
                 </div>
                 <div className="mt-2 mb-5">
-                    <form className="form-group" name="injuries" onSubmit={this.onSubmit}>
-                        <label className="control-label form-control-lg label-profile">
-                            Injuries/Limitations:
-                        </label>
-                        {/*// Indicated successfull update*/}
-                        {!isEmpty(this.state.success) && this.state.fieldUpdated === 'injuries'
-                        && <p className="text-success profile-success">{this.state.success.msg}</p>}
-                        {/*// Indicated unsuccessfull update*/}
-                        {!isEmpty(this.state.errors) && this.state.fieldUpdated === 'injuries'
-                        && <p className="text-danger profile-error">{this.state.errors.msg}</p>}
-                        <textarea
-                            readOnly={!this.props.authenticatedUser.user.pt}
-                            name="injuries"
-                            value={this.state.injuries}
-                            onChange={this.onChange}
-                            className="form-control form-control-lg"
-                            rows={this.state.rows} cols={this.state.cols}>
-                        </textarea>
-                        {this.props.authenticatedUser.user.pt ?
-                            <input type="submit" value="Update" className="btn btn-info btn-block mt-1 profile_notes"/> :
-                            null
-                        }
-                    </form>
+                    <ProfileInputForm
+                        onSubmit={this.onSubmit}
+                        ptCheck={this.props.authenticatedUser.user.pt}
+                        name="injuries"
+                        value={this.state.injuries}
+                        onChange={this.onChange}
+                        fieldUpdated={this.state.fieldUpdated}
+                        cols={this.state.cols}
+                        rows={this.state.rows}
+                        success={this.state.success}
+                        errors={this.state.errors}
+                    />
                 </div>
                 <div className="mt-2 mb-5">
-                    <form className="form-group" name="notes" onSubmit={this.onSubmit}>
-                        {/*// Indicated successfull update*/}
-                        <label className="control-label form-control-lg label-profile">
-                            Notes:
-                        </label>
-                        {/*// Indicated successfull update*/}
-                        {!isEmpty(this.state.success) && this.state.fieldUpdated === 'notes'
-                        && <p className="text-success profile-success">{this.state.success.msg}</p>}
-                        {/*// Indicated unsuccessfull update*/}
-                        {!isEmpty(this.state.errors) && this.state.fieldUpdated === 'notes'
-                        && <p className="text-danger profile-error">{this.state.errors.msg}</p>}
-                        <textarea
-                            readOnly={!this.props.authenticatedUser.user.pt}
-                            name="notes"
-                            value={this.state.notes}
-                            onChange={this.onChange}
-                            className="form-control form-control-lg"
-                            rows={this.state.rows} cols={this.state.cols}>
-                        </textarea>
-                        {this.props.authenticatedUser.user.pt ?
-                            <input type="submit" value="Update" className="btn btn-info btn-block mt-1 profile_notes"/> :
-                            null
-                        }
-                    </form>
+                    <ProfileInputForm
+                        onSubmit={this.onSubmit}
+                        ptCheck={this.props.authenticatedUser.user.pt}
+                        name="notes"
+                        value={this.state.injuries}
+                        onChange={this.onChange}
+                        fieldUpdated={this.state.fieldUpdated}
+                        cols={this.state.cols}
+                        rows={this.state.rows}
+                        success={this.state.success}
+                        errors={this.state.errors}
+                    />
                 </div>
             </div>
         )
