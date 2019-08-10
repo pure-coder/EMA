@@ -227,7 +227,7 @@ class NewClientProgressForm extends Component {
         }
         else{
             this.props.clearErrors();
-            this.props.newClientProgress(this.state.userId, this.state.clientId, clientProgressData, this.props.history);
+            this.props.newClientProgress(this.state.clientId, clientProgressData, this.props.history);
         }
     } // onSubmit
 

@@ -253,8 +253,8 @@ export const clearProgression = () => dispatch => {
     });
 };
 
-export const newClientProgress = (ptId, clientId, data, history) => dispatch => {
-    axios.post(`/api/${ptId}/client_progression/${clientId}`, data)
+export const newClientProgress = (clientId, data, history) => dispatch => {
+    axios.post(`/api/client_progression/${clientId}`, data)
         .then(result => {
             // If successful then clear error messages and send success message
             if(result.data.n === 1 && result.data.nModified === 1){

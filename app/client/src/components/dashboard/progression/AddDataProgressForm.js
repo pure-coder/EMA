@@ -181,7 +181,7 @@ class AddDataProgressForm extends Component {
         }
         else{
             this.props.clearErrors();
-            this.props.newClientProgress(this.state.userId, this.state.clientId, clientProgressData, this.props.history);
+            this.props.newClientProgress(this.state.clientId, clientProgressData, this.props.history);
             // Clear data from fields
             this.clearFields();
             // Show data added to database and updated on page in real time

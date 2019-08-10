@@ -375,10 +375,10 @@ router.put('/edit_personal_trainer/:id', passport.authenticate('pt_rule', {sessi
     }
 }); // PUT /edit_personal_trainer/:id
 
-// @route  POST api/:id/client_progression/:cid
+// @route  POST api/client_progression/:cid
 // @desc   Add client progression data to db
 // @access Private for PT's - clients can't post to the progression db collection
-router.post('/:id/client_progression/:cid', passport.authenticate('pt_rule', {session: false}, null), (req, res) => {
+router.post('/client_progression/:cid', passport.authenticate('pt_rule', {session: false}, null), (req, res) => {
     let data = req.body;
 
     // Check to make sure exerciseName is string and that maxWeight is number 0-999
@@ -388,8 +388,9 @@ router.post('/:id/client_progression/:cid', passport.authenticate('pt_rule', {se
         return res.status(400).json(errors);
     }
 
-    // Get clientId from frontEnd
-    let ptId = req.params.id;
+    let token = req.headers.authorization.split(' ')[1];
+    let payload = jwt.decode(token, keys.secretOrKey);
+    let signedInId = payload.id;
     let clientId = req.params.cid;
 
     // Verify that client exists and that personal trainer id is linked to client
@@ -399,7 +400,7 @@ router.post('/:id/client_progression/:cid', passport.authenticate('pt_rule', {se
             if (resultClient) {
 
                 // Check to see if ptId is allowed
-                if (resultClient.ptId === ptId) {
+                if (resultClient.ptId === signedInId) {
 
                     // Check to see if a client progression document exists (if (result) means it exists so update, else creates new exercise as it doesn't exist
                     ClientProgression.findOne({$and: [{clientId: clientId}, {exerciseName: data.exerciseName}]})
@@ -457,7 +458,7 @@ router.post('/:id/client_progression/:cid', passport.authenticate('pt_rule', {se
 
                                 const newProgression = new ClientProgression({
                                     clientId: clientId,
-                                    ptId: ptId,
+                                    ptId: resultClient.ptId,
                                     exerciseName: data.exerciseName,
                                     metrics: newMetrics
                                 }); // newProgression
@@ -497,7 +498,6 @@ router.post('/:id/client_progression/:cid', passport.authenticate('pt_rule', {se
 router.get('/client_progression/:cid', passport.authenticate('both_rule', {session: false}), (req, res) => {
     // Get clientId from url
     let clientId = req.params.cid;
-    // Get usertId from url which is used to make sure that they are allowed to access data
     let token = req.headers.authorization.split(' ')[1];
     let payload = jwt.decode(token, keys.secretOrKey);
     let signedInId = payload.id;
@@ -654,12 +654,11 @@ router.put('/:id/client_progression/:cid', passport.authenticate('pt_rule', {ses
 }); // router put /:id/client_progression/:cid
 
 // @route  POST api/body_bio/:cid
-// @desc   Add client progression data to db
+// @desc   Add body bio data to db
 // @access Private for PT's - clients can't post to the progression db collection
 router.post('/body_bio/:cid', passport.authenticate('pt_rule', {session: false}, null), (req, res) => {
     let data = req.body;
 
-    // Check to make sure exerciseName is string and that maxWeight is number 0-999
     const {errors, isValid} = validateNewBodyInput(data);
 
     if (!isValid) {
@@ -760,8 +759,8 @@ router.post('/body_bio/:cid', passport.authenticate('pt_rule', {session: false},
 
 }); // router post /body_bio
 
-// @route  GET api/:id/client_progression/:cid
-// @desc   Retrieve client progression data from db
+// @route  GET api/body_bio/:cid
+// @desc   Retrieve body bio data from db
 // @access Available for both authorised Pt's and clients
 router.get('/client_progression/:cid', passport.authenticate('both_rule', {session: false}), (req, res) => {
     // Get clientId from url
