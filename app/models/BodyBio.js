@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 // Create Schema
 const BodyBioSchema = new Schema({
     clientId: {
-        type: String, index: {unique: true}, require: true
+        type: String, require: true
     },
     ptId: {
         type: String, require: true,
