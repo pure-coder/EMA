@@ -96,9 +96,32 @@ class AddDataProgressForm extends Component {
     }
 
     onChange(e) {
-        this.setState({[e.target.name]: e.target.value});
+        let name = e.target.name;
+        let value = e.target.value;
 
-        this.props.clearErrors();
+        // For maxWeight Check to see if value entered is a number, if not then don't update state and exit function.
+        if(name === 'maxWeight' && isNaN(value)){
+            return null;
+        }
+
+        // Make sure maxWeight value does not exceed 3 characters
+        if(name === 'maxWeight' && (value.length > 3)){
+            let message = {
+                type: "ERROR",
+                msg: "Max Weight value must be between 0-999!"
+            };
+            this.setState({message});
+            return null;
+        }
+        else{
+            this.setState({message: {type: null}}); // reset to null
+        }
+
+        this.setState({[name]: value});
+
+        if(!isEmpty(this.props.errors)){
+            this.props.clearErrors();
+        }
         this.setState({message: {type: null}}); // reset to null
         if(!isEmpty(this.props.success)){
             this.props.clearSuccess();
@@ -116,7 +139,7 @@ class AddDataProgressForm extends Component {
     }
 
     ptGetClientProgression(){
-        this.props.ptGetClientProgression(this.state.userId, this.state.clientId, this.props.history);
+        this.props.ptGetClientProgression(this.state.clientId, this.props.history);
     }
 
     clearFields(){
@@ -158,7 +181,7 @@ class AddDataProgressForm extends Component {
         }
         else{
             this.props.clearErrors();
-            this.props.newClientProgress(this.state.userId, this.state.clientId, clientProgressData, this.props.history);
+            this.props.newClientProgress(this.state.clientId, clientProgressData, this.props.history);
             // Clear data from fields
             this.clearFields();
             // Show data added to database and updated on page in real time

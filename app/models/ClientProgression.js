@@ -18,9 +18,9 @@ const progressionSchema = new Schema({
             Date : {type: Date, require: true}
         }
     ]
-}, {collection: "Client_Progression"}, {timestamps: true});
+}, {collection: "ClientProgression"}, {timestamps: true});
 
 
-const ClientProgression = mongoose.model('Client_Progression', progressionSchema);
+const ClientProgression = mongoose.model('ClientProgression', progressionSchema);
 
 module.exports = ClientProgression;

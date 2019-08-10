@@ -16,6 +16,9 @@ const {capitaliseFirstLetter} = require('../services/capitalise');
 const PersonalTrainer = require('../models/PersonalTrainer');
 const Client = require('../models/Clients');
 const ActivationTokens = require('../models/AcitvationTokens');
+const BodyBio = require('../models/BodyBio');
+const ProfileNotes = require('../models/ProfileNotes');
+
 
 // Require verification functionality
 const verification = require('../validation/verification');
@@ -223,7 +226,7 @@ router.post('/register', (req, res) => {
 });
 
 // @route  POST api/new_client
-// @desc   Register Personal Trainer
+// @desc   Register New Client
 // @access Private route - only Personal Trainers can add new clients
 router.post('/new_client', passport.authenticate('pt_rule', {session: false}), (req, res) => {
 
@@ -277,27 +280,63 @@ router.post('/new_client', passport.authenticate('pt_rule', {session: false}), (
                         // Save new client to database and push basic client details to personal trainers ClientIDs
                         newClient.save()
                             .then(client => {
-                                    // Send verification email to client
-                                    verification(req.body.Email);
+                                // Send verification email to client
+                                verification(req.body.Email);
 
-                                    // Add client id to associated personal trainer ClientIDs
-                                    PersonalTrainer.findByIdAndUpdate(PersonalTrainerId,
-                                        {$push: {ClientIDs: client._id}}, // changed from client_id_object to client._id (for ref)
-                                        {safe: true})
-                                        .then(result => {
-                                            if (result){
-                                                // No need to send data back just send success status code
-                                                res.status(200).json();
-                                            }
-                                            else{
-                                                //console.log(2, result)
-                                            }
-                                        })
-                                        .catch(err => {
-                                            //console.log(3, err)
-                                        })
-                                }
-                            )
+                                // Add client id to associated personal trainer ClientIDs
+                                PersonalTrainer.findByIdAndUpdate(PersonalTrainerId,
+                                    {$push: {ClientIDs: client._id}}, // changed from client_id_object to client._id (for ref)
+                                    {safe: true})
+                                    .then(result => {
+                                        if (result){
+                                            // No need to send data back just send success status code
+                                            // res.status(200).json();
+                                        }
+                                        else{
+                                            //console.log(result)
+                                        }
+                                    })
+                                    .catch(err => {
+                                        //console.log(err)
+                                    });
+
+                                // Add default body bio for client
+                                const newBio = new BodyBio({
+                                    clientId: client._id,
+                                    ptId: PersonalTrainerId,
+                                    bodyMetrics: []
+                                });
+
+                                newBio.save()
+                                    .then(() =>{
+                                        // console.log(bioResult)
+                                        res.status(200).json();
+                                    })
+                                    .catch(() => {
+                                        // console.log(err)
+                                        res.status(400).json();
+                                    });
+
+                                // Add default body bio for client
+                                const newProfileNotes = new ProfileNotes({
+                                    clientId: client._id,
+                                    ptId: PersonalTrainerId,
+                                    goals: "No goals have been set for this client yet.",
+                                    injuries: "No injuries or limitations have been set for this client yet.",
+                                    notes: "No notes have been set for this client yet.",
+                                });
+
+                                newProfileNotes.save()
+                                    .then(() =>{
+                                        // console.log(result)
+                                        res.status(200).json();
+                                    })
+                                    .catch(() => {
+                                        // console.log(err)
+                                        res.status(400).json();
+                                    });
+
+                            })
                             .catch(err => {
                                     //console.log(4, err)
                                 }

@@ -141,7 +141,9 @@ class EditDataProgressForm extends Component {
             edited : true
         });
 
-        this.props.clearErrors();
+        if(!isEmpty(this.props.errors)){
+            this.props.clearErrors();
+        }
         if(!isEmpty(this.props.success)){
             this.props.clearSuccess();
         }
@@ -194,13 +196,13 @@ class EditDataProgressForm extends Component {
 
             // Delete whole exercise from client progression (if all checkboxes are ticked, so nothing has been modified)
             if(isEmpty(originalMetrics)){
-                this.props.deleteExercise(this.state.userId, this.state.clientId, this.props.exerciseName, this.props.history);
+                this.props.deleteExercise(this.state.clientId, this.props.exerciseName, this.props.history);
                 // Close edit modal there is no data to display.
                 this.onClose();
             }
             // Send new array to overwrite current data for exercise in db for client
             else{
-                this.props.editClientExercise(this.state.userId, this.state.clientId, this.props.exerciseId, newMetrics, this.props.history);
+                this.props.editClientExercise(this.state.clientId, this.props.exerciseId, newMetrics, this.props.history);
 
             }
 

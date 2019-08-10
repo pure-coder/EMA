@@ -36,8 +36,9 @@ const ClientSchema = new Schema({
     ptId: {
         type: String
     }
-});
+},
+    {collection: "Clients"}, {timestamps: true});
 
-const Clients = mongoose.model('clients', ClientSchema);
+const Clients = mongoose.model('Clients', ClientSchema);
 
 module.exports = Clients;

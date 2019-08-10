@@ -30,7 +30,7 @@ class GraphComp extends Component {
     }
 
     openModal(e) {
-        if(e.target.value === "Delete Exercise"){
+        if(e.target.value === "Delete"){
             this.setState({form: "Delete"})
         }
         if(e.target.value === "Add Data"){
@@ -58,7 +58,7 @@ class GraphComp extends Component {
     }
 
     getClientProgression(){
-        this.props.ptGetClientProgression(this.state.userId, this.state.clientId, this.props.history);
+        this.props.ptGetClientProgression(this.state.clientId, this.props.history);
     }
 
     modalSize(height){
@@ -109,18 +109,18 @@ class GraphComp extends Component {
         display = (
                 (user.pt && graphData.metrics.length >= 2 ?
                     (
-                        <div className="btn-toolbar">
-                            <div className="col-4">
+                        <div className="btn-toolbar progress-toolbar">
+                            <div className="col-4 progress-toolbar-space">
                             <input type="button" className="btn btn-info progress-buttons"
                            value="Edit Data" name={graphData.exerciseName} onClick={this.openModal} />
                             </div>
-                            <div className="col-4">
+                            <div className="col-4 progress-toolbar-space">
                             <input type="button" className="btn btn-success progress-buttons"
                                    value="Add Data" name={graphData.exerciseName} onClick={this.openModal} />
                             </div>
-                            <div className="col-4">
+                            <div className="col-4 progress-toolbar-space">
                             <input type="button" className="btn btn-danger progress-buttons"
-                           value="Delete Exercise" name={graphData.exerciseName} onClick={this.openModal} />
+                           value="Delete" name={graphData.exerciseName} onClick={this.openModal} />
                             </div>
                         </div>
                     ) : null)

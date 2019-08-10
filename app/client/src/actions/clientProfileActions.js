@@ -5,6 +5,8 @@ import {
     CLEAR_CLIENT_PROFILE,
     CLIENT_PROGRESSION,
     GET_ERRS,
+    GET_PROFILE_NOTES,
+    CLEAR_PROFILE_NOTES
 } from "./types"; // import custom defined types
 import {logOutUser} from "./authenticationActions";
 
@@ -36,10 +38,10 @@ const manageErrors = (err, dispatch, history) => {
     }
 };
 
-export const getClientData = (id, history) => dispatch => {
+export const getClientData = (clientId, history) => dispatch => {
     dispatch(setProfileLoading());
     axios
-        .get(`/api/client/${id}`)
+        .get(`/api/client/${clientId}`)
         .then(result => {
             dispatch({
                 type: GET_CLIENT_PROFILE,
@@ -65,9 +67,34 @@ export const clearClientProfile = () => {
     }
 };
 
-export const getClientProgression = (userId, clientId, history) => dispatch => {
+// Get pt Clients profile notes
+export const getProfileNotes = (clientId, history) => dispatch => {
+    axios
+        .get(`/api/profile_notes/${clientId}`)
+        .then(result => {
+                // dispatch this action to the action below so the data can be sent to the respective reducer
+                dispatch(
+                    {
+                        type: GET_PROFILE_NOTES,
+                        payload: result.data
+                    }
+                )
+            }
+        )
+        .catch(err => {
+            manageErrors(err, dispatch, history);
+        })
+};
+
+export const clearProfileNotes = () => dispatch => {
+    dispatch({
+        type: CLEAR_PROFILE_NOTES
+    })
+};
+
+export const getClientProgression = (clientId, history) => dispatch => {
     // userId can either be same as clientId or the id of the personal trainer
-    axios.get(`/api/${userId}/client_progression/${clientId}` ) // using grave accent instead of single quote
+    axios.get(`/api/client_progression/${clientId}` ) // using grave accent instead of single quote
         .then(result => {
             dispatch({
                 type: CLIENT_PROGRESSION,

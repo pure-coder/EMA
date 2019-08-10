@@ -13,7 +13,11 @@ import {
     GET_CURRENT_CLIENT,
     CLEAR_CURRENT_CLIENT,
     SCHEDULER,
-    CLEAR_WORKOUT_DATA
+    CLEAR_WORKOUT_DATA,
+    GET_CLIENT_PROFILE_NOTES,
+    CLEAR_CLIENT_PROFILE_NOTES,
+    PT_CLIENT_BODY_BIO,
+    CLEAR_BODY_BIO
 } from "./types"; // import custom defined types
 import {logOutUser} from "./authenticationActions";
 
@@ -84,10 +88,10 @@ export const setPtClients = (data) => {
     }
 };
 
-export const getPtData = (id, history) => dispatch => {
+export const getPtData = (ptId, history) => dispatch => {
     dispatch(setProfileLoading());
     axios
-        .get(`/api/personal_trainer/${id}`)
+        .get(`/api/personal_trainer/${ptId}`)
         .then(result => {
                 // If no data is returned (no data === string) then direct user to error page
                 if (typeof result.data === "string"){
@@ -104,10 +108,10 @@ export const getPtData = (id, history) => dispatch => {
         })
 };
 
-export const getCurrentClient = (id, history) => dispatch => {
+export const getCurrentClient = (clientId, history) => dispatch => {
     dispatch(setProfileLoading());
     axios
-        .get(`/api/client/${id}`)
+        .get(`/api/client/${clientId}`)
         .then(result => {
             dispatch({
                 type: GET_CURRENT_CLIENT,
@@ -119,9 +123,9 @@ export const getCurrentClient = (id, history) => dispatch => {
         });
 };
 
-export const editPtData = (id, Data, history) => dispatch => {
+export const editPtData = (ptId, Data, history) => dispatch => {
     axios
-        .put(`/api/edit_personal_trainer/${id}`, Data)
+        .put(`/api/edit_personal_trainer/${ptId}`, Data)
         .then(result => {
                 if(result.status === 200){
                     dispatch(setSuccess("Personal Trainer profile has been updated successfully"));
@@ -133,9 +137,9 @@ export const editPtData = (id, Data, history) => dispatch => {
         })
 };
 
-export const editClientData = (cid, data, history) => dispatch => {
+export const editClientData = (clientId, data, history) => dispatch => {
     axios
-        .put(`/api/edit_client/${cid}`, data)
+        .put(`/api/edit_client/${clientId}`, data)
         .then(result => {
             if(result.status === 200){
                 dispatch(setSuccess("Client data successfully updated."))
@@ -146,10 +150,53 @@ export const editClientData = (cid, data, history) => dispatch => {
         })
 };
 
-// Delete Client
-export const deleteClient = (id, ptId, history) => dispatch => {
+// Get pt Clients profile notes
+export const getClientProfileNotes = (clientId, history) => dispatch => {
     axios
-        .delete(`/api/delete_client/${id}`)
+        .get(`/api/profile_notes/${clientId}`)
+        .then(result => {
+                // dispatch this action to the action below so the data can be sent to the respective reducer
+                dispatch(
+                    {
+                        type: GET_CLIENT_PROFILE_NOTES,
+                        payload: result.data
+                    }
+                )
+            }
+        )
+        .catch(err => {
+            manageErrors(err, dispatch, history);
+        })
+};
+
+// Get pt Clients profile notes
+export const updateClientProfileNotes = (clientId, data, history) => dispatch => {
+    axios
+        .put(`/api/profile_notes/${clientId}`, {data})
+        .then(result => {
+            // causes refresh of dashboard with updated client list
+            if(result.status === 200) {
+                dispatch(setSuccess("Data updated"));
+            }
+            if(result.status === 400){
+                dispatch(setErrors("Could not update data"))
+            }
+        })
+        .catch(err => {
+            manageErrors(err, dispatch, history);
+        })
+};
+
+export const clearClientProfileNotes = () => dispatch => {
+    dispatch({
+        type: CLEAR_CLIENT_PROFILE_NOTES
+    })
+};
+
+// Delete Client
+export const deleteClient = (clientId, ptId, history) => dispatch => {
+    axios
+        .delete(`/api/delete_client/${clientId}`)
         .then(result => {
             // causes refresh of dashboard with updated client list
             if(result.status === 200) {
@@ -182,9 +229,9 @@ export const passwordsMatchError = (error) => dispatch => {
     )
 };
 
-export const ptGetClientProgression = (userId, clientId, history) => dispatch => {
+export const ptGetClientProgression = (clientId, history) => dispatch => {
     // userId can either be same as clientId or the id of the personal trainer
-    axios.get(`/api/${userId}/client_progression/${clientId}` ) // using grave accent instead of single quote
+    axios.get(`/api/client_progression/${clientId}` ) // using grave accent instead of single quote
         .then(result => {
             dispatch({
                 type: PT_CLIENT_PROGRESSION,
@@ -208,8 +255,8 @@ export const clearProgression = () => dispatch => {
     });
 };
 
-export const newClientProgress = (id, cid ,data, history) => dispatch => {
-    axios.post(`/api/${id}/client_progression/${cid}`, data)
+export const newClientProgress = (clientId, data, history) => dispatch => {
+    axios.post(`/api/client_progression/${clientId}`, data)
         .then(result => {
             // If successful then clear error messages and send success message
             if(result.data.n === 1 && result.data.nModified === 1){
@@ -226,18 +273,18 @@ export const newClientProgress = (id, cid ,data, history) => dispatch => {
         });
 };
 
-export const deleteExercise =(uid, cid, data, history) => dispatch => {
-    axios.delete(`/api/${uid}/client_progression/${cid}`, {data : {exerciseName : data}})
+export const deleteExercise =(clientId, data, history) => dispatch => {
+    axios.delete(`/api/client_progression/${clientId}`, {data : {exerciseName : data}})
         .then(() => {
-            dispatch(ptGetClientProgression(uid, cid, history));
+            dispatch(ptGetClientProgression(clientId, history));
         })
         .catch(err => {
             manageErrors(err, dispatch, history);
         });
 };
 
-export const editClientExercise =(uid, cid, exerciseId, data, history) => dispatch => {
-    axios.put(`/api/${uid}/client_progression/${cid}`,
+export const editClientExercise =(clientId, exerciseId, data, history) => dispatch => {
+    axios.put(`/api/client_progression/${clientId}`,
         {data :
                 {
                     exerciseId: exerciseId,
@@ -246,11 +293,76 @@ export const editClientExercise =(uid, cid, exerciseId, data, history) => dispat
         })
         .then( result => {
             dispatch(setSuccess(result.data.msg));
-            dispatch(ptGetClientProgression(uid, cid, history));
+            dispatch(ptGetClientProgression(clientId, history));
         })
         .catch(err => {
             manageErrors(err, dispatch, history);
         });
+};
+
+export const ptGetClientBodyBio = (clientId, history) => dispatch => {
+    // userId can either be same as clientId or the id of the personal trainer
+    axios.get(`/api/body_bio/${clientId}` ) // using grave accent instead of single quote
+        .then(result => {
+            dispatch({
+                type: PT_CLIENT_BODY_BIO,
+                payload: result.data
+            });
+        })
+        .catch(err => {
+            manageErrors(err, dispatch, history);
+        });
+};
+
+export const newClientBodyBio = (clientId, data, history) => dispatch => {
+    axios.post(`/api/body_bio/${clientId}`, data)
+        .then(result => {
+            // If successful then clear error messages and send success message
+            if(result.data.n === 1 && result.data.nModified === 1){
+                dispatch({
+                    type: GET_ERRS,
+                    payload: {}  // Empty object payload clears errors in component
+                });
+                // Have to use dispatch to send action function to another action function in the actions file
+                dispatch(setSuccess("ENTRY SUCCESSFUL"));
+            }
+        })
+        .catch(err => {
+            manageErrors(err, dispatch,history);
+        });
+};
+
+export const deleteBodyPart =(clientId, data, history) => dispatch => {
+    axios.delete(`/api/body_bio/${clientId}`, {data : {bodyPart : data}})
+        .then(() => {
+            dispatch(ptGetClientBodyBio(clientId, history));
+        })
+        .catch(err => {
+            manageErrors(err, dispatch, history);
+        });
+};
+
+export const editClientBodyBio =(clientId, bodyPartId, data, history) => dispatch => {
+    axios.put(`/api/body_bio/${clientId}`,
+        {data :
+                {
+                    bodyPartId: bodyPartId,
+                    bodyMetrics: data
+                }
+        })
+        .then( result => {
+            dispatch(setSuccess(result.data.msg));
+            dispatch(ptGetClientBodyBio(clientId, history));
+        })
+        .catch(err => {
+            manageErrors(err, dispatch, history);
+        });
+};
+
+export const clearBodyBio = () => dispatch => {
+    dispatch({
+        type: CLEAR_BODY_BIO
+    });
 };
 
 export const setErrors = (error) => dispatch => {
@@ -301,8 +413,8 @@ export const clearSuccess = () => dispatch => {
     })
 };
 
-export const workoutScheduler = (uid, cid) => dispatch => {
-    axios.get(`/api/${uid}/scheduler/${cid}`)
+export const workoutScheduler = (userId, clientId) => dispatch => {
+    axios.get(`/api/${userId}/scheduler/${clientId}`)
         .then(result => {
             if (result) {
                 dispatch({

@@ -33,8 +33,6 @@ class DeleteProgressConfirm extends Component {
         formHeight += parseInt(window.getComputedStyle(el).getPropertyValue('margin-top'), 10);
         formHeight += parseInt(window.getComputedStyle(el).getPropertyValue('margin-bottom'), 10);
         this.setState({progressFormHeight: formHeight});
-
-        console.log(this.state.userId, this.state.clientId)
     }
 
     componentDidUpdate(prevProps){
@@ -49,7 +47,7 @@ class DeleteProgressConfirm extends Component {
     }
 
     onConfirm(e){
-        this.props.deleteExercise(this.state.userId, this.state.clientId, e.target.name, this.props.history);
+        this.props.deleteExercise(this.state.clientId, e.target.name, this.props.history);
         this.props.onClickAway();
     }
 

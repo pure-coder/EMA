@@ -9,11 +9,17 @@ html, body {
     /*height: 100%;*/
     overflow: visible;
     overflow-x: hidden;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 img {
     width: 3.5em;
     padding-right: 10px;
+}
+
+textarea {
+    resize: none;
+    width: auto !important;
 }
 
 .container {
@@ -71,6 +77,7 @@ img {
 
 .footer-custom {
     position: relative;
+    display: inline-block;
     float: bottom;
     bottom: 0;
     height: 60px;
@@ -327,9 +334,9 @@ svg {
 
 .Progression {
     min-width: inherit;
-    max-width: 500px;
     margin: inherit;
     padding: inherit;
+    display: inline-block;
 }
 
 .Progression .area {
@@ -357,7 +364,7 @@ svg {
     margin: 20px 15px 0 15px;
 }
 
-.Progression .graph {
+.Progression {
     clear: both;
 }
 
@@ -371,7 +378,7 @@ svg {
 }
 
 /*Removes border around whole graph*/
-.Progression .grid path {
+.Progression path {
     stroke-width: 0;
 }
 
@@ -382,9 +389,16 @@ svg {
     margin: 0 auto;
 }
 
-.progress-buttons {
-    width: 135px;
+.progress-toolbar {
+    margin-top: 10px;
+}
 
+.progress-toolbar-space {
+    padding-left: 0;
+}
+
+.progress-buttons {
+    width: 130px;
 }
 /* Enter progress Modal */
 
@@ -590,6 +604,7 @@ input[type=submit] {
 
 .userInfo-custom {
     padding: 0;
+    margin-bottom: 20px !important;
 }
 
 .user_image {
@@ -669,7 +684,7 @@ input[type=submit] {
     width: 1349px;
     height: 100%;
     min-height: 600px;
-    left: 0px;
+    left: 0;
     top: 81px;
     /*overflow-y: hidden !important;*/
 }
@@ -682,5 +697,33 @@ nav a {
 nav a.active {
     background: #666;
     color:white;
+}
+
+/* Profile notes */
+
+.Profile_notes {
+    min-width: inherit;
+    margin: inherit;
+    padding: inherit;
+}
+
+.goals {
+    max-height: 400px;
+    min-height: 300px;
+}
+
+.profile-success, .profile-error {
+    display: inline-block;
+    margin: 0;
+}
+
+.label-profile {
+    height: 35px;
+    padding-left: 0;
+    padding-bottom: 0;
+}
+
+input[type=submit].profile_notes {
+    width: 100px;
 }
 

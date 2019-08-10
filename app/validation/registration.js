@@ -39,6 +39,12 @@ module.exports = function validateRegistrationInput(data) {
         errors.DateOfBirth = 'Date of Birth is required';
     }
 
+    // Check that D.O.B is in past
+    let now = new Date();
+    if(new Date(data.DateOfBirth) > now){
+        errors.DateOfBirth = 'Date of Birth must be in the past!';
+    }
+
     // Checks to see if DateOfBirth field is empty using validator module
     if(Validator.isEmpty(data.Sex)){
         errors.Sex = 'Gender is required';

@@ -131,7 +131,9 @@ class EditClient extends Component {
         // Initialise previous data to this data
         this.setState({[eventName]: eventValue});
 
-        this.props.clearErrors();
+        if(!isEmpty(this.props.errors)){
+            this.props.clearErrors();
+        }
         this.setState({message: {type: null}}); // reset to null
         if(!isEmpty(this.props.success)){
             this.props.clearSuccess();
