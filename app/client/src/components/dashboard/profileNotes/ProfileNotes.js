@@ -51,12 +51,6 @@ class ProfileNotes extends Component {
         return null
     }
 
-    componentDidUpdate(props){
-        if(!isEmpty(props.fieldUpdated)){
-            this.setState({fieldUpdated: ''})
-        }
-    }
-
     componentWillUnmount(){
         if(this.props.authenticatedUser.user.pt){
             this.props.clearClientProfileNotes();

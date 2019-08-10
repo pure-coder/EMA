@@ -6,7 +6,9 @@ import {
     CLIENT_PROGRESSION,
     GET_ERRS,
     GET_PROFILE_NOTES,
-    CLEAR_PROFILE_NOTES
+    CLEAR_PROFILE_NOTES,
+    BODY_BIO_CLIENT,
+    CLEAR_BODY_BIO_CLIENT
 } from "./types"; // import custom defined types
 import {logOutUser} from "./authenticationActions";
 
@@ -90,6 +92,26 @@ export const clearProfileNotes = () => dispatch => {
     dispatch({
         type: CLEAR_PROFILE_NOTES
     })
+};
+
+export const getBodyBioClient = (clientId, history) => dispatch => {
+    // userId can either be same as clientId or the id of the personal trainer
+    axios.get(`/api/body_bio/${clientId}` ) // using grave accent instead of single quote
+        .then(result => {
+            dispatch({
+                type: BODY_BIO_CLIENT,
+                payload: result.data
+            });
+        })
+        .catch(err => {
+            manageErrors(err, dispatch, history);
+        });
+};
+
+export const clearBodyBio = () => dispatch => {
+    dispatch({
+        type: CLEAR_BODY_BIO_CLIENT
+    });
 };
 
 export const getClientProgression = (clientId, history) => dispatch => {

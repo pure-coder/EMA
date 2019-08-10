@@ -5,12 +5,15 @@ import {
     CLEAR_PROGRESSION,
     CLEAR_CLIENT_PROFILE,
     GET_PROFILE_NOTES,
-    CLEAR_PROFILE_NOTES
+    CLEAR_PROFILE_NOTES,
+    BODY_BIO_CLIENT,
+    CLEAR_BODY_BIO_CLIENT
 } from '../actions/types';
 
 const initialState = {
     client_data: null,
     profile_notes: null,
+    body_bio: null,
     client_progression: null,
     loading: false
 };
@@ -44,6 +47,16 @@ export default function(state = initialState, action) {
             return {
                 ...state,
                 profile_notes: null
+            };
+        case BODY_BIO_CLIENT:
+            return {
+                ...state,
+                body_bio: action.payload
+            };
+        case CLEAR_BODY_BIO_CLIENT:
+            return {
+                ...state,
+                body_bio: null
             };
         case CLIENT_PROGRESSION:
             return {
