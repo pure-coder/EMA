@@ -271,8 +271,8 @@ export const newClientProgress = (clientId, data, history) => dispatch => {
         });
 };
 
-export const deleteExercise =(ptId, clientId, data, history) => dispatch => {
-    axios.delete(`/api/${ptId}/client_progression/${clientId}`, {data : {exerciseName : data}})
+export const deleteExercise =(clientId, data, history) => dispatch => {
+    axios.delete(`/api/client_progression/${clientId}`, {data : {exerciseName : data}})
         .then(() => {
             dispatch(ptGetClientProgression(clientId, history));
         })
@@ -281,8 +281,8 @@ export const deleteExercise =(ptId, clientId, data, history) => dispatch => {
         });
 };
 
-export const editClientExercise =(ptId, clientId, exerciseId, data, history) => dispatch => {
-    axios.put(`/api/${ptId}/client_progression/${clientId}`,
+export const editClientExercise =(clientId, exerciseId, data, history) => dispatch => {
+    axios.put(`/api/client_progression/${clientId}`,
         {data :
                 {
                     exerciseId: exerciseId,

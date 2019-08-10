@@ -547,12 +547,14 @@ router.get('/client_progression/:cid', passport.authenticate('both_rule', {sessi
 }); // router get /:id/client_progression/:cid
 
 
-// @route  DELETE api/:id/client_progression/:cid
+// @route  DELETE api/client_progression/:cid
 // @desc   Delete client progression exercise from db
 // @access Private for PT's - clients can't delete progression data for exercises in db collection
-router.delete('/:id/client_progression/:cid', passport.authenticate('pt_rule', {session: false}, null), (req, res) =>{
+router.delete('/client_progression/:cid', passport.authenticate('pt_rule', {session: false}, null), (req, res) =>{
 
-    let userId = req.params.id;
+    let token = req.headers.authorization.split(' ')[1];
+    let payload = jwt.decode(token, keys.secretOrKey);
+    let signedInId = payload.id;
     let clientId = req.params.cid;
     let data = req.body;
 
@@ -563,7 +565,7 @@ router.delete('/:id/client_progression/:cid', passport.authenticate('pt_rule', {
             if(result) {
 
                 // As pt's are the only ones that can access this route, check to see if uid given matches the ptId for this client
-                if(result.ptId === userId){
+                if(result.ptId === signedInId){
 
                     // res.status(200).json({userId, clientId, data, result});
 
@@ -599,12 +601,14 @@ router.delete('/:id/client_progression/:cid', passport.authenticate('pt_rule', {
 
 }); // router delete /:id/client_progression/:cid
 
-// @route  PUT api/:id/client_progression/:cid
+// @route  PUT api/client_progression/:cid
 // @desc   update client progression exercise from db
 // @access Private for PT's - clients can't update progression data for exercises in db collection
-router.put('/:id/client_progression/:cid', passport.authenticate('pt_rule', {session: false}, null), (req, res) =>{
+router.put('/client_progression/:cid', passport.authenticate('pt_rule', {session: false}, null), (req, res) =>{
 
-    let userId = req.params.id;
+    let token = req.headers.authorization.split(' ')[1];
+    let payload = jwt.decode(token, keys.secretOrKey);
+    let signedInId = payload.id;
     let clientId = req.params.cid;
     let data = req.body.data.newMetrics;
     let exerciseId = req.body.data.exerciseId;
@@ -615,7 +619,7 @@ router.put('/:id/client_progression/:cid', passport.authenticate('pt_rule', {ses
             if(result) {
 
                 // As pt's are the only ones that can access this route, check to see if uid given matches the ptId for this client
-                if(result.ptId === userId){
+                if(result.ptId === signedInId){
 
                     // res.status(200).json({userId, clientId, data, result});
 
@@ -651,7 +655,7 @@ router.put('/:id/client_progression/:cid', passport.authenticate('pt_rule', {ses
     // Send something back to browser if commented out Client.findOne
     // res.send(null)
 
-}); // router put /:id/client_progression/:cid
+}); // router put /client_progression/:cid
 
 // @route  POST api/body_bio/:cid
 // @desc   Add body bio data to db
