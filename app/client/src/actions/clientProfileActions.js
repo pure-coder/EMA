@@ -108,7 +108,7 @@ export const getBodyBioClient = (clientId, history) => dispatch => {
         });
 };
 
-export const clearBodyBio = () => dispatch => {
+export const clearBodyBioClient = () => dispatch => {
     dispatch({
         type: CLEAR_BODY_BIO_CLIENT
     });

@@ -117,13 +117,13 @@ class BodyGraphs extends Component {
             });
             return (
                 <div id="Progression" className="Progression Progression_head">
-                    <h2 className=" text-center display-5 mt-3 mb-4">Client body progression data</h2>
+                    <h2 className=" text-center display-5 mt-3 mb-4">Client body progress data</h2>
                     <h6 className=" text-center display-5 mt-3 mb-4">
                         (Showing body data that have 2+ data entries)
                     </h6>
                     {/*Show add progress button only if pt*/}
                     {this.props.authenticatedUser.user.pt === true ?
-                        <input id="progress-button" type="button"
+                        <input id="body-progress-button" type="button"
                                className="btn btn-success btn-block mt-4 mb-5"
                                value="Add Body Progression Data"
                                onClick={this.openModal}/>

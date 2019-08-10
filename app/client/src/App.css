@@ -383,7 +383,7 @@ svg {
 }
 
 /* id for button */
-#progress-button {
+#progress-button, #body-progress-button {
     width: 250px;
     text-align: center;
     margin: 0 auto;
