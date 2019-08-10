@@ -872,15 +872,17 @@ router.delete('/body_bio/:cid', passport.authenticate('pt_rule', {session: false
 
 }); // router delete /body_bio/:cid
 
-// @route  PUT api/:id/client_progression/:cid
-// @desc   update client progression exercise from db
-// @access Private for PT's - clients can't update progression data for exercises in db collection
-router.put('/:id/client_progression/:cid', passport.authenticate('pt_rule', {session: false}, null), (req, res) =>{
+// @route  PUT api/body_bio/:cid
+// @desc   update client progression for body part from db
+// @access Private for PT's - clients can't update progression data for body parts in db collection
+router.put('/body_bio/:cid', passport.authenticate('pt_rule', {session: false}, null), (req, res) =>{
 
-    let userId = req.params.id;
+    let token = req.headers.authorization.split(' ')[1];
+    let payload = jwt.decode(token, keys.secretOrKey);
+    let signedInId = payload.id;
     let clientId = req.params.cid;
     let data = req.body.data.newMetrics;
-    let exerciseId = req.body.data.exerciseId;
+    let bodyPartId = req.body.data.bodyPartId;
 
     // Check to see if client exists
     Client.findOne({_id: clientId})
@@ -888,16 +890,16 @@ router.put('/:id/client_progression/:cid', passport.authenticate('pt_rule', {ses
             if(result) {
 
                 // As pt's are the only ones that can access this route, check to see if uid given matches the ptId for this client
-                if(result.ptId === userId){
+                if(result.ptId === signedInId){
 
                     // res.status(200).json({userId, clientId, data, result});
 
                     // update exercise for client
-                    ClientProgression.findOneAndUpdate(
-                        {_id: exerciseId},
+                    BodyBio.findOneAndUpdate(
+                        {_id: bodyPartId},
                         {$set:
                                 {
-                                    metrics : data
+                                    bodyMetrics : data
                                 }
                         },
                     )
@@ -924,9 +926,9 @@ router.put('/:id/client_progression/:cid', passport.authenticate('pt_rule', {ses
     // Send something back to browser if commented out Client.findOne
     // res.send(null)
 
-}); // router put /:id/client_progression/:cid
+}); // router put /body_bio/:cid
 
-// @route  GET api/:id/profile_notes/:cid
+// @route  GET api/profile_notes/:cid
 // @desc   Retrieve client profile notes data from db
 // @access Available for both authorised Pt's and clients
 router.get('/profile_notes/:cid', passport.authenticate('both_rule', {session: false}), (req, res) => {
@@ -977,9 +979,9 @@ router.get('/profile_notes/:cid', passport.authenticate('both_rule', {session: f
             return res.json({});
         }); // Client.findOne()
 
-}); // router get /:id/profile_notes/:cid
+}); // router get /profile_notes/:cid
 
-// @route  PUT api/:id/client_progression/:cid
+// @route  PUT api/profile_notes/:cid
 // @desc   update profile notes data in db
 // @access Private for PT's - clients can't update profile notes data in db collection
 router.put('/profile_notes/:cid', passport.authenticate('pt_rule', {session: false}, null), (req, res) =>{
@@ -1046,7 +1048,7 @@ router.put('/profile_notes/:cid', passport.authenticate('pt_rule', {session: fal
     // end of Client.findOne
     // res.status(200).json("check");
 
-}); // router put /:id/profile_notes/:cid
+}); // router put /profile_notes/:cid
 
 
 //Export router so it can work with the main restful api server

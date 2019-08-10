@@ -11,6 +11,8 @@ import {
     CLEAR_WORKOUT_DATA,
     GET_CLIENT_PROFILE_NOTES,
     CLEAR_CLIENT_PROFILE_NOTES,
+    PT_CLIENT_BODY_BIO,
+    CLEAR_BODY_BIO
 } from '../actions/types';
 
 const initialState = {
@@ -19,6 +21,7 @@ const initialState = {
     clients: null,
     scheduler: null,
     profile_notes: null,
+    body_bio: null,
     loading: false
 };
 
@@ -47,6 +50,14 @@ export default function(state = initialState, action) {
                 ...state,
                 current_client: action.payload,
                 loading: false
+            };
+        case PT_CLIENT_BODY_BIO:
+            return {
+                body_bio: action.payload,
+            };
+        case CLEAR_BODY_BIO:
+            return {
+                body_bio: null,
             };
         case GET_CLIENT_PROFILE_NOTES:
             return {

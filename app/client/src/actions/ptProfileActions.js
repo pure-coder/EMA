@@ -15,7 +15,9 @@ import {
     SCHEDULER,
     CLEAR_WORKOUT_DATA,
     GET_CLIENT_PROFILE_NOTES,
-    CLEAR_CLIENT_PROFILE_NOTES
+    CLEAR_CLIENT_PROFILE_NOTES,
+    PT_CLIENT_BODY_BIO,
+    CLEAR_BODY_BIO
 } from "./types"; // import custom defined types
 import {logOutUser} from "./authenticationActions";
 
@@ -296,6 +298,71 @@ export const editClientExercise =(clientId, exerciseId, data, history) => dispat
         .catch(err => {
             manageErrors(err, dispatch, history);
         });
+};
+
+export const ptGetClientBodyBio = (clientId, history) => dispatch => {
+    // userId can either be same as clientId or the id of the personal trainer
+    axios.get(`/api/body_bio/${clientId}` ) // using grave accent instead of single quote
+        .then(result => {
+            dispatch({
+                type: PT_CLIENT_BODY_BIO,
+                payload: result.data
+            });
+        })
+        .catch(err => {
+            manageErrors(err, dispatch, history);
+        });
+};
+
+export const newClientBodyBio = (clientId, data, history) => dispatch => {
+    axios.post(`/api/body_bio/${clientId}`, data)
+        .then(result => {
+            // If successful then clear error messages and send success message
+            if(result.data.n === 1 && result.data.nModified === 1){
+                dispatch({
+                    type: GET_ERRS,
+                    payload: {}  // Empty object payload clears errors in component
+                });
+                // Have to use dispatch to send action function to another action function in the actions file
+                dispatch(setSuccess("ENTRY SUCCESSFUL"));
+            }
+        })
+        .catch(err => {
+            manageErrors(err, dispatch,history);
+        });
+};
+
+export const deleteBodyPart =(clientId, data, history) => dispatch => {
+    axios.delete(`/api/body_bio/${clientId}`, {data : {bodyPart : data}})
+        .then(() => {
+            dispatch(ptGetClientBodyBio(clientId, history));
+        })
+        .catch(err => {
+            manageErrors(err, dispatch, history);
+        });
+};
+
+export const editClientBodyBio =(clientId, bodyPartId, data, history) => dispatch => {
+    axios.put(`/api/body_bio/${clientId}`,
+        {data :
+                {
+                    bodyPartId: bodyPartId,
+                    newMetrics: data
+                }
+        })
+        .then( result => {
+            dispatch(setSuccess(result.data.msg));
+            dispatch(ptGetClientBodyBio(clientId, history));
+        })
+        .catch(err => {
+            manageErrors(err, dispatch, history);
+        });
+};
+
+export const clearBodyBio = () => dispatch => {
+    dispatch({
+        type: CLEAR_BODY_BIO
+    });
 };
 
 export const setErrors = (error) => dispatch => {
