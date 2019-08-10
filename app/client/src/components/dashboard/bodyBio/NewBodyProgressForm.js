@@ -2,7 +2,7 @@ import React, {Component} from 'react' // React is need for rendering JSX HTML e
 import {withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
-import {newClientProgress, setErrors, clearErrors, clearSuccess} from "../../../actions/ptProfileActions";
+import {newClientBodyBio, setErrors, clearErrors, clearSuccess} from "../../../actions/ptProfileActions";
 import autocomplete from '../../../utilities/autoComplete';
 import FormInputGroup from "../../common/FormInputGroup";
 import DisplayMessage from "../../common/DisplayMessage";
@@ -15,8 +15,8 @@ class NewBodyProgressForm extends Component {
         this.state = {
             userId: props.authenticatedUser.user.id,
             clientId: props.match.params.cid,
-            exerciseName: '',
-            maxWeight: '',
+            bodyPart: '',
+            measurement: '',
             Date: '',
             visible: false,
             message: {
@@ -24,34 +24,18 @@ class NewBodyProgressForm extends Component {
             },
             errors: {},
             progressFormHeight: props.progressFormHeight,
-            exercises : [
-                "Squat",
-                "Leg press",
-                "Lunge",
-                "Deadlift",
-                "Leg extension",
-                "Leg curl",
-                "Standing calf raise",
-                "Seated calf raise",
-                "Hip adductor",
-                "Bench Press",
-                "Chest fly",
-                "Push-up",
-                "Pull-down",
-                "Pull-up",
-                "Bent-over row",
-                "Upright row",
-                "Shoulder press",
-                "Shoulder fly",
-                "Lateral raise",
-                "Shoulder shrug",
-                "Pushdown",
-                "Triceps extension",
-                "Biceps curl",
-                "Crunch",
-                "Russian twist",
-                "Leg raise",
-                "Back extension"
+            bodyParts : [
+                "neck",
+                "Chest",
+                "L-Bicep",
+                "R-Bicep",
+                "L-Forearm",
+                "R-Forearm",
+                "waist",
+                "L-Thigh",
+                "R-Thigh",
+                "L-calf",
+                "R-calf"
             ],
         };
 
@@ -104,8 +88,8 @@ class NewBodyProgressForm extends Component {
             this.props.clearErrors();
             this.props.clearSuccess();
             this.setState({
-                exerciseName: '',
-                maxWeight: '',
+                bodyPart: '',
+                measurement: '',
                 Date: '',
                 message: {type: null}
             });
@@ -118,8 +102,8 @@ class NewBodyProgressForm extends Component {
     }
 
     onClick(e){
-        // If input field is for exerciseName, complete the auto list
-        if(e.target.name === 'exerciseName') {
+        // If input field is for bodyPart, complete the auto list
+        if(e.target.name === 'bodyPart') {
             this.onLoadList(e);
             this.setState({message: {type: null}}); // reset to null
         }
@@ -133,13 +117,13 @@ class NewBodyProgressForm extends Component {
         let name = e.target.name;
         let value = e.target.value;
 
-        // For maxWeight Check to see if value entered is a number, if not then don't update state and exit function.
-        if(name === 'maxWeight' && isNaN(value)){
+        // For measurement Check to see if value entered is a number, if not then don't update state and exit function.
+        if(name === 'measurement' && isNaN(value)){
             return null;
         }
 
-        // Make sure maxWeight value does not exceed 3 characters
-        if(name === 'maxWeight' && (value.length > 3)){
+        // Make sure measurement value does not exceed 3 characters
+        if(name === 'measurement' && (value.length > 3)){
             let message = {
                 type: "ERROR",
                 msg: "Max Weight value must be between 0-999!"
@@ -165,9 +149,9 @@ class NewBodyProgressForm extends Component {
     // When input field is click (Really on clicked)
     onLoadList(e){
         // Sort the array, this is then used as argument for autocomplete
-        const exerciseList = this.state.exercises.sort();
+        const bodyPartList = this.state.bodyParts.sort();
         // e.target and document.getElementById(e.target.id) return the same output, so using former.
-        autocomplete(e.target, exerciseList, this.state);
+        autocomplete(e.target, bodyPartList, this.state);
     }
 
     onClose(){
@@ -178,16 +162,16 @@ class NewBodyProgressForm extends Component {
         this.setState({message: {type: null}});
         // Reset/ Clear input fields once modal has been exited
         this.setState({
-            exerciseName: '',
-            maxWeight: '',
+            bodyPart: '',
+            measurement: '',
             Date: ''
         });
     }
 
     // This is needed to set the exercise name to state on blur, as can't set state in the autocomplete external function
     onBlur(){
-        let selectedExercise = document.getElementById("exerciseName").value;
-        this.setState({exerciseName: selectedExercise });
+        let selectedBodyPart = document.getElementById("bodyPart").value;
+        this.setState({bodyPart: selectedBodyPart });
     }
 
     onSubmit(e) {
@@ -197,23 +181,23 @@ class NewBodyProgressForm extends Component {
         });
         this.props.clearSuccess();
 
-        let exerciseName = this.state.exerciseName;
+        let bodyPart = this.state.bodyPart;
 
         // Check if any data has been changed, don't want to waste server load and bandwidth on empty requests
         let dataChanged = false;
         let message;
 
-        const clientProgressData = {
-            exerciseName: this.state.exerciseName,
-            metrics: {
-                maxWeight: this.state.maxWeight,
+        const clientBodyProgressData = {
+            bodyPart: this.state.bodyPart,
+            bodyMetrics: {
+                measurement: this.state.measurement,
                 Date: new Date(this.state.Date)
             }
         };
 
         // Check to see if data has been entered or modified
-        if(!isEmpty(clientProgressData.exerciseName) || !isEmpty(clientProgressData.metrics.maxWeight) ||
-            !isEmpty(clientProgressData.metrics.Date)){
+        if(!isEmpty(clientBodyProgressData.bodyPart) || !isEmpty(clientBodyProgressData.bodyMetrics.measurement) ||
+            !isEmpty(clientBodyProgressData.bodyMetrics.Date)){
                 dataChanged = true;
         }
 
@@ -225,12 +209,12 @@ class NewBodyProgressForm extends Component {
             this.setState({message});
             return null;
         }
-        else if (!this.state.exercises.includes(exerciseName)){
-            this.props.setErrors({exerciseName: "Please select an exercise from those provided!"});
+        else if (!this.state.bodyParts.includes(bodyPart)){
+            this.props.setErrors({bodyPart: "Please select a body part from those provided!"});
         }
         else{
             this.props.clearErrors();
-            this.props.newClientProgress(this.state.clientId, clientProgressData, this.props.history);
+            this.props.newClientBodyBio(this.state.clientId, clientBodyProgressData, this.props.history);
         }
     } // onSubmit
 
@@ -244,14 +228,14 @@ class NewBodyProgressForm extends Component {
                 <div className="progress-form-div">
                     <form autoComplete="off" onSubmit={this.onSubmit}>
                         <label className="control-label form-control-lg new-progression">
-                            Exercise:
+                            Body Part:
                         </label>
                         <div className="autocomplete">
                             <FormInputGroup
-                                name="exerciseName"
-                                PlaceHolder="Exercise Name"
-                                value={this.state.exerciseName}
-                                id="exerciseName"
+                                name="bodyPart"
+                                PlaceHolder="Body Part"
+                                value={this.state.bodyPart}
+                                id="bodyPart"
                                 type="text"
                                 onChange={this.onChange}
                                 error={errors.msg}
@@ -260,16 +244,16 @@ class NewBodyProgressForm extends Component {
                             />
                         </div>
                         <label className="control-label form-control-lg new-progression">
-                            One Rep Max Weight (Kg):
+                            Measurement (In):
                         </label>
                         <FormInputGroup
-                            name="maxWeight"
-                            PlaceHolder="Max Weight"
-                            value={this.state.maxWeight}
+                            name="measurement"
+                            PlaceHolder="Measurement (In)"
+                            value={this.state.measurement}
                             type="text"
                             onChange={this.onChange}
                             onClick={this.onClick}
-                            error={errors.maxWeight}
+                            error={errors.measurement}
                         />
                         <label className="control-label form-control-lg new-progression">
                             Date:
@@ -298,7 +282,7 @@ class NewBodyProgressForm extends Component {
 NewBodyProgressForm.propTypes = {
     modalSize: PropTypes.func.isRequired,
     progressFormHeight: PropTypes.string.isRequired,
-    newClientProgress: PropTypes.func.isRequired,
+    newClientBodyBio: PropTypes.func.isRequired,
     setErrors: PropTypes.func.isRequired,
     clearSuccess: PropTypes.func.isRequired,
     clearErrors: PropTypes.func.isRequired,
@@ -314,4 +298,4 @@ const stateToProps = (state) => ({
 });
 
 
-export default connect(stateToProps, {newClientProgress, setErrors, clearErrors, clearSuccess})(withRouter(NewBodyProgressForm));
+export default connect(stateToProps, {newClientBodyBio, setErrors, clearErrors, clearSuccess})(withRouter(NewBodyProgressForm));

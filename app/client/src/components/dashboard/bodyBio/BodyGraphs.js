@@ -6,7 +6,7 @@ import GraphComp from './BodyGraphComp';
 import isEmpty from "../../../utilities/is_empty";
 import ErrorComponent from "../../error/ErrorComponent";
 import Loading from "../../../elements/Loading";
-import NewClientProgressForm from "./NewBodyProgressForm";
+import NewBodyProgressForm from "./NewBodyProgressForm";
 import Modal from "react-awesome-modal";
 import {getBodyBioClient} from "../../../actions/clientProfileActions";
 import {ptGetClientBodyBio, clearErrors, clearSuccess} from "../../../actions/ptProfileActions";
@@ -142,7 +142,7 @@ class BodyGraphs extends Component {
                              Also sending modal visibility so fields and errors can be cleared when visibility is false.
                              Also sending getBodyBioClient so that the page can be updated once a new progress submission
                                has been successful.*/}
-                            <NewClientProgressForm
+                            <NewBodyProgressForm
                                 onClickAway={this.onClickAway}
                                 visible={this.state.visible}
                                 modalSize={this.modalSize}
