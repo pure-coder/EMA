@@ -599,7 +599,7 @@ router.delete('/client_progression/:cid', passport.authenticate('pt_rule', {sess
             res.status(400).json({msg: "Client not found!"});
         })
 
-}); // router delete /:id/client_progression/:cid
+}); // router delete /client_progression/:cid
 
 // @route  PUT api/client_progression/:cid
 // @desc   update client progression exercise from db

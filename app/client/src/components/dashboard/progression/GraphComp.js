@@ -30,7 +30,7 @@ class GraphComp extends Component {
     }
 
     openModal(e) {
-        if(e.target.value === "Delete Exercise"){
+        if(e.target.value === "Delete"){
             this.setState({form: "Delete"})
         }
         if(e.target.value === "Add Data"){
