@@ -4,10 +4,8 @@
     <bookmark url="file://C:/Learning/clientObjectData.js" description="export {&quot;_id&quot;:&quot;5c2e3454d27ace097420b414&quot;,&quot;FullName..." line="2" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ec8ccf39-8487-4892-a38d-de9c288878a3" name="Default" comment="Delete and edit client progression refactored using JWT, client modified respectively, working.">
+    <list default="true" id="ec8ccf39-8487-4892-a38d-de9c288878a3" name="Default" comment="DeleteProgressConfirm was not showing modal because of button name value change from delete exercise to delete, as the name was used to target the modal, this has been rectified.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/dashboard/progression/DeleteProgressConfirm.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/dashboard/progression/DeleteProgressConfirm.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/dashboard/progression/GraphComp.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/dashboard/progression/GraphComp.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/users.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/users.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -53,17 +51,17 @@
           <entry key="eslintignore" value="18" />
           <entry key="gitignore" value="22" />
           <entry key="html" value="1117" />
-          <entry key="js" value="201347" />
+          <entry key="js" value="201449" />
           <entry key="json" value="29" />
           <entry key="md" value="150" />
-          <entry key="txt" value="17909" />
+          <entry key="txt" value="18107" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="CSS" value="553" />
-          <entry key="JavaScript" value="13107" />
-          <entry key="PLAIN_TEXT" value="4892" />
+          <entry key="JavaScript" value="13209" />
+          <entry key="PLAIN_TEXT" value="5090" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -112,44 +110,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/routes/users.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1000">
-              <caret line="601" column="22" selection-start-line="601" selection-start-column="22" selection-end-line="601" selection-end-column="22" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/src/actions/ptProfileActions.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="476">
-              <caret line="289" column="17" lean-forward="true" selection-start-line="289" selection-start-column="17" selection-end-line="289" selection-end-column="17" />
-              <folding>
-                <element signature="e#0#26#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/progression/GraphComp.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="32" column="37" selection-start-line="32" selection-start-column="37" selection-end-line="32" selection-end-column="37" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/progression/DeleteProgressConfirm.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="289">
-              <caret line="34" column="56" selection-start-line="34" selection-start-column="56" selection-end-line="34" selection-end-column="56" />
-              <folding>
-                <element signature="e#109#153#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="168">
+              <caret line="829" column="24" lean-forward="true" selection-start-line="829" selection-start-column="24" selection-end-line="829" selection-end-column="24" />
             </state>
           </provider>
         </entry>
@@ -299,8 +264,8 @@
         <option value="$PROJECT_DIR$/client/src/components/dashboard/progression/AddDataProgressForm.js" />
         <option value="$PROJECT_DIR$/client/src/actions/ptProfileActions.js" />
         <option value="$PROJECT_DIR$/client/src/components/dashboard/progression/DeleteProgressConfirm.js" />
-        <option value="$PROJECT_DIR$/routes/users.js" />
         <option value="$PROJECT_DIR$/client/src/components/dashboard/progression/GraphComp.js" />
+        <option value="$PROJECT_DIR$/routes/users.js" />
       </list>
     </option>
   </component>
@@ -531,14 +496,7 @@
       <workItem from="1561559852945" duration="45900000" />
       <workItem from="1562927864711" duration="131724000" />
       <workItem from="1564246061042" duration="2948000" />
-      <workItem from="1565171718827" duration="79323000" />
-    </task>
-    <task id="LOCAL-00132" summary="Changed init state of scheduler to week.&#10;Changed min-width of widget-box class, as week view date was overlapping buttons either side.">
-      <created>1564705225263</created>
-      <option name="number" value="00132" />
-      <option name="presentableId" value="LOCAL-00132" />
-      <option name="project" value="LOCAL" />
-      <updated>1564705225263</updated>
+      <workItem from="1565171718827" duration="79891000" />
     </task>
     <task id="LOCAL-00133" summary="CreateGraph component refactored in progression folder.&#10;ExpiredLogin bug fixed, changed != to !==.&#10;SchedulerHTML removed const scheduler = window.dhtmlXScheduler statement as it was not being used.">
       <created>1564709193696</created>
@@ -876,11 +834,18 @@
       <option name="project" value="LOCAL" />
       <updated>1565398296401</updated>
     </task>
-    <option name="localTasksCounter" value="181" />
+    <task id="LOCAL-00181" summary="DeleteProgressConfirm was not showing modal because of button name value change from delete exercise to delete, as the name was used to target the modal, this has been rectified.">
+      <created>1565398819151</created>
+      <option name="number" value="00181" />
+      <option name="presentableId" value="LOCAL-00181" />
+      <option name="project" value="LOCAL" />
+      <updated>1565398819151</updated>
+    </task>
+    <option name="localTasksCounter" value="182" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1783258000" />
+    <option name="totallyTimeSpent" value="1783826000" />
   </component>
   <component name="TodoView" selected-index="4">
     <todo-panel id="selected-file">
@@ -895,7 +860,7 @@
     <frame x="-8" y="-8" width="1382" height="784" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.20758928" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.20758928" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.24943988" />
       <window_info id="Favorites" order="2" side_tool="true" weight="0.32935026" />
       <window_info anchor="bottom" id="Messages" order="0" sideWeight="0.49813294" weight="0.3276923" />
@@ -907,7 +872,7 @@
       <window_info anchor="bottom" id="Inspection" order="6" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="7" weight="0.3276923" />
       <window_info anchor="bottom" id="Docker" order="8" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Terminal" order="9" sideWeight="0.49776787" visible="true" weight="0.24923077" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="9" sideWeight="0.49776787" visible="true" weight="0.24923077" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.50223213" side_tool="true" weight="0.1923077" />
       <window_info anchor="bottom" id="Version Control" order="11" sideWeight="0.6152815" weight="0.36" />
       <window_info anchor="bottom" id="Inspection Results" order="12" weight="0.3276923" />
@@ -983,7 +948,6 @@
   <component name="VcsManagerConfiguration">
     <option name="SHOW_DIRTY_RECURSIVELY" value="true" />
     <option name="LIMIT_HISTORY" value="false" />
-    <MESSAGE value="Delete ProfileNotes as not needed.&#10;Added deletion of ProfileNotes of client when client is deleted." />
     <MESSAGE value="Action and reducer created for getting clients profile notes." />
     <MESSAGE value="Added clearing of profile notes for redux." />
     <MESSAGE value="Modified addition/edition of exercises as clear errors was being called even when empty, created check before clearing errors." />
@@ -1008,7 +972,8 @@
     <MESSAGE value="Post client progression updated (pt check done from jwt).&#10;Modified action to create progression respectively." />
     <MESSAGE value="Get API created for body bio, working correctly!" />
     <MESSAGE value="Delete and edit client progression refactored using JWT, client modified respectively, working." />
-    <option name="LAST_COMMIT_MESSAGE" value="Delete and edit client progression refactored using JWT, client modified respectively, working." />
+    <MESSAGE value="DeleteProgressConfirm was not showing modal because of button name value change from delete exercise to delete, as the name was used to target the modal, this has been rectified." />
+    <option name="LAST_COMMIT_MESSAGE" value="DeleteProgressConfirm was not showing modal because of button name value change from delete exercise to delete, as the name was used to target the modal, this has been rectified." />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/client/public/manifest.json">
@@ -1371,10 +1336,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/routes/users.js">
+    <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/progression/GraphComp.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1000">
-          <caret line="601" column="22" selection-start-line="601" selection-start-column="22" selection-end-line="601" selection-end-column="22" />
+        <state relative-caret-position="136">
+          <caret line="32" column="37" selection-start-line="32" selection-start-column="37" selection-end-line="32" selection-end-column="37" />
         </state>
       </provider>
     </entry>
@@ -1388,10 +1353,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/progression/GraphComp.js">
+    <entry file="file://$PROJECT_DIR$/routes/users.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="32" column="37" selection-start-line="32" selection-start-column="37" selection-end-line="32" selection-end-column="37" />
+        <state relative-caret-position="168">
+          <caret line="829" column="24" lean-forward="true" selection-start-line="829" selection-start-column="24" selection-end-line="829" selection-end-column="24" />
         </state>
       </provider>
     </entry>

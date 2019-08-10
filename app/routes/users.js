@@ -769,7 +769,6 @@ router.post('/body_bio/:cid', passport.authenticate('pt_rule', {session: false},
 router.get('/body_bio/:cid', passport.authenticate('both_rule', {session: false}), (req, res) => {
     // Get clientId from url
     let clientId = req.params.cid;
-    // Get usertId from url which is used to make sure that they are allowed to access data
     let token = req.headers.authorization.split(' ')[1];
     let payload = jwt.decode(token, keys.secretOrKey);
     let signedInId = payload.id;
@@ -819,12 +818,14 @@ router.get('/body_bio/:cid', passport.authenticate('both_rule', {session: false}
 }); // router get /body_bio/:cid
 
 
-// @route  DELETE api/:id/client_progression/:cid
-// @desc   Delete client progression exercise from db
-// @access Private for PT's - clients can't delete progression data for exercises in db collection
-router.delete('/:id/client_progression/:cid', passport.authenticate('pt_rule', {session: false}, null), (req, res) =>{
+// @route  DELETE api/body_bio/:cid
+// @desc   Delete body bio body part data from db
+// @access Private for PT's - clients can't delete progression data for body part in db collection
+router.delete('/body_bio/:cid', passport.authenticate('pt_rule', {session: false}, null), (req, res) =>{
 
-    let userId = req.params.id;
+    let token = req.headers.authorization.split(' ')[1];
+    let payload = jwt.decode(token, keys.secretOrKey);
+    let signedInId = payload.id;
     let clientId = req.params.cid;
     let data = req.body;
 
@@ -835,12 +836,12 @@ router.delete('/:id/client_progression/:cid', passport.authenticate('pt_rule', {
             if(result) {
 
                 // As pt's are the only ones that can access this route, check to see if uid given matches the ptId for this client
-                if(result.ptId === userId){
+                if(result.ptId === signedInId){
 
                     // res.status(200).json({userId, clientId, data, result});
 
                     // Remove exercise for client
-                    ClientProgression.remove({$and: [{clientId: clientId}, {exerciseName: data.exerciseName}]})
+                    BodyBio.remove({$and: [{clientId: clientId}, {bodyPart: data.bodyPart}]})
                         .then(result => {
 
                                 // Successful removal returns n:1, unsuccessful returns n:0
@@ -869,7 +870,7 @@ router.delete('/:id/client_progression/:cid', passport.authenticate('pt_rule', {
             res.status(400).json({msg: "Client not found!"});
         })
 
-}); // router delete /:id/client_progression/:cid
+}); // router delete /body_bio/:cid
 
 // @route  PUT api/:id/client_progression/:cid
 // @desc   update client progression exercise from db
