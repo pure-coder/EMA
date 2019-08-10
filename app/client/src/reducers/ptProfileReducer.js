@@ -53,10 +53,12 @@ export default function(state = initialState, action) {
             };
         case PT_CLIENT_BODY_BIO:
             return {
+                ...state,
                 body_bio: action.payload,
             };
         case CLEAR_BODY_BIO:
             return {
+                ...state,
                 body_bio: null,
             };
         case GET_CLIENT_PROFILE_NOTES:
