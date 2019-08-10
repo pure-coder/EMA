@@ -632,8 +632,14 @@ router.put('/client_progression/:cid', passport.authenticate('pt_rule', {session
                             }
                         },
                     )
-                        .then(() => {
-                            res.status(200).json({msg: "Client Data successfully modified."})
+                        .then(result => {
+                                if(result){
+                                    res.status(200).json({msg: "Client Data successfully modified."})
+                                }
+                                else{
+                                    res.status(400).json({msg: "Could not update exercise."})
+                                }
+
                             }
                         )
                         .catch(() => {
@@ -881,7 +887,7 @@ router.put('/body_bio/:cid', passport.authenticate('pt_rule', {session: false}, 
     let payload = jwt.decode(token, keys.secretOrKey);
     let signedInId = payload.id;
     let clientId = req.params.cid;
-    let data = req.body.data.newMetrics;
+    let data = req.body.data.bodyMetrics;
     let bodyPartId = req.body.data.bodyPartId;
 
     // Check to see if client exists
@@ -903,12 +909,18 @@ router.put('/body_bio/:cid', passport.authenticate('pt_rule', {session: false}, 
                                 }
                         },
                     )
-                        .then(() => {
+                        .then(result => {
+                            if(result){
                                 res.status(200).json({msg: "Client Data successfully modified."})
+                            }
+                            else{
+                                res.status(400).json({msg: "Could not update body part."})
+                            }
+
                             }
                         )
                         .catch(() => {
-                            res.status(400).json({msg: "Could not update this exercise."})
+                            res.status(400).json({msg: "Could not update this body part."})
                         })
 
                 }

@@ -347,7 +347,7 @@ export const editClientBodyBio =(clientId, bodyPartId, data, history) => dispatc
         {data :
                 {
                     bodyPartId: bodyPartId,
-                    newMetrics: data
+                    bodyMetrics: data
                 }
         })
         .then( result => {
