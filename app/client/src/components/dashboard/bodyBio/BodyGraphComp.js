@@ -24,7 +24,7 @@ class BodyGraphComp extends Component {
             form: undefined,
             yMetricName : "measurement",
             xMetricName : "Date",
-            yTitle : "Measurement (in)",
+            yTitle : this.props.bodyGraphData.bodyPart === "Body Weight" ? "Measurement (Kg)" : "Measurement (in)",
             xTitle : "Date",
         };
 

@@ -24,7 +24,9 @@ class NewBodyProgressForm extends Component {
             },
             errors: {},
             progressFormHeight: props.progressFormHeight,
+            measurementMetric : "(In)",
             bodyParts : [
+                "Body Weight",
                 "Neck",
                 "Chest",
                 "L-Bicep",
@@ -244,7 +246,7 @@ class NewBodyProgressForm extends Component {
                             />
                         </div>
                         <label className="control-label form-control-lg new-progression">
-                            Measurement (In):
+                            Measurement {this.state.bodyPart === "Body Weight" ? "(Kg)" : this.state.measurementMetric}:
                         </label>
                         <FormInputGroup
                             name="measurement"
