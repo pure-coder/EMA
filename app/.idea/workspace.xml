@@ -4,16 +4,9 @@
     <bookmark url="file://C:/Learning/clientObjectData.js" description="export {&quot;_id&quot;:&quot;5c2e3454d27ace097420b414&quot;,&quot;FullName..." line="2" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ec8ccf39-8487-4892-a38d-de9c288878a3" name="Default" comment="Modal resize bug sorted">
+    <list default="true" id="ec8ccf39-8487-4892-a38d-de9c288878a3" name="Default" comment="CSS changes to edit client/pt and register forms.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/App.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/common/ProfileInputForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/common/ProfileInputForm.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/dashboard/UserInfo.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/dashboard/UserInfo.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/dashboard/bodyBio/BodyGraphs.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/dashboard/bodyBio/BodyGraphs.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/dashboard/clients/ClientList.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/dashboard/clients/ClientList.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/dashboard/clients/ClientProfile.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/dashboard/clients/ClientProfile.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/dashboard/profileNotes/ProfileNotes.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/dashboard/profileNotes/ProfileNotes.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/dashboard/progression/Graphs.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/dashboard/progression/Graphs.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -53,7 +46,7 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="css" value="10041" />
+          <entry key="css" value="10185" />
           <entry key="editorConfig" value="285" />
           <entry key="eslintignore" value="18" />
           <entry key="gitignore" value="22" />
@@ -61,14 +54,14 @@
           <entry key="js" value="206712" />
           <entry key="json" value="29" />
           <entry key="md" value="150" />
-          <entry key="txt" value="19351" />
+          <entry key="txt" value="19452" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="CSS" value="936" />
+          <entry key="CSS" value="1080" />
           <entry key="JavaScript" value="18472" />
-          <entry key="PLAIN_TEXT" value="6334" />
+          <entry key="PLAIN_TEXT" value="6435" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -156,8 +149,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/client/src/App.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="224">
-              <caret line="351" column="14" selection-start-line="351" selection-start-column="14" selection-end-line="351" selection-end-column="14" />
+            <state relative-caret-position="207">
+              <caret line="651" column="21" selection-start-line="651" selection-start-column="21" selection-end-line="651" selection-end-column="21" />
             </state>
           </provider>
         </entry>
@@ -186,8 +179,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>ptGetClientProgression</find>
-      <find>clientProgressData</find>
       <find>getBodyBioClient</find>
       <find>label</find>
       <find>exerciseName</find>
@@ -216,6 +207,8 @@
       <find>userInfo-con</find>
       <find>client</find>
       <find>.P</find>
+      <find>control-label form-control-lg edit-profile-label gender</find>
+      <find>.register-custom</find>
     </findStrings>
     <replaceStrings>
       <replace>&lt;text</replace>
@@ -671,20 +664,6 @@
       <workItem from="1564246061042" duration="2948000" />
       <workItem from="1565171718827" duration="88626000" />
     </task>
-    <task id="LOCAL-00151" summary="ClientProgression deletion added to when client is deleted.&#10;Noticed objectId in PersonalTrainers ClientIDs array was not being deleted, so modified the $pull command, it is now working as expected.">
-      <created>1565193881476</created>
-      <option name="number" value="00151" />
-      <option name="presentableId" value="LOCAL-00151" />
-      <option name="project" value="LOCAL" />
-      <updated>1565193881476</updated>
-    </task>
-    <task id="LOCAL-00152" summary="Edited NewClientProgressForm as it was clearing errors on every onChange, modified to check for errors before clearing errors.">
-      <created>1565198959655</created>
-      <option name="number" value="00152" />
-      <option name="presentableId" value="LOCAL-00152" />
-      <option name="project" value="LOCAL" />
-      <updated>1565198959655</updated>
-    </task>
     <task id="LOCAL-00153" summary="injuries typo when creating BodyBio addressed.">
       <created>1565200742711</created>
       <option name="number" value="00153" />
@@ -1014,11 +993,25 @@
       <option name="project" value="LOCAL" />
       <updated>1565526317417</updated>
     </task>
-    <option name="localTasksCounter" value="200" />
+    <task id="LOCAL-00200" summary="bootstrap card effect added to ClientProfile.">
+      <created>1565533212344</created>
+      <option name="number" value="00200" />
+      <option name="presentableId" value="LOCAL-00200" />
+      <option name="project" value="LOCAL" />
+      <updated>1565533212345</updated>
+    </task>
+    <task id="LOCAL-00201" summary="CSS changes to edit client/pt and register forms.">
+      <created>1565534032226</created>
+      <option name="number" value="00201" />
+      <option name="presentableId" value="LOCAL-00201" />
+      <option name="project" value="LOCAL" />
+      <updated>1565534032226</updated>
+    </task>
+    <option name="localTasksCounter" value="202" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1832498000" />
+    <option name="totallyTimeSpent" value="1833893000" />
   </component>
   <component name="TodoView" selected-index="4">
     <todo-panel id="selected-file">
@@ -1121,8 +1114,6 @@
   <component name="VcsManagerConfiguration">
     <option name="SHOW_DIRTY_RECURSIVELY" value="true" />
     <option name="LIMIT_HISTORY" value="false" />
-    <MESSAGE value="CSS Client profile textarea perfect." />
-    <MESSAGE value="Success and errors added to ProfileNotes updates" />
     <MESSAGE value="Post for BodyBio created" />
     <MESSAGE value="Post for BodyBio fully working!" />
     <MESSAGE value="Post client progression updated (pt check done from jwt).&#10;Modified action to create progression respectively." />
@@ -1146,7 +1137,9 @@
     <MESSAGE value="refactored drawProgressGraph to take variables for customisation." />
     <MESSAGE value="Modified measurement metric if body part progress is body weight" />
     <MESSAGE value="Modal resize bug sorted" />
-    <option name="LAST_COMMIT_MESSAGE" value="Modal resize bug sorted" />
+    <MESSAGE value="bootstrap card effect added to ClientProfile." />
+    <MESSAGE value="CSS changes to edit client/pt and register forms." />
+    <option name="LAST_COMMIT_MESSAGE" value="CSS changes to edit client/pt and register forms." />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/config/passport.js">
@@ -1555,8 +1548,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/client/src/App.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="224">
-          <caret line="351" column="14" selection-start-line="351" selection-start-column="14" selection-end-line="351" selection-end-column="14" />
+        <state relative-caret-position="207">
+          <caret line="651" column="21" selection-start-line="651" selection-start-column="21" selection-end-line="651" selection-end-column="21" />
         </state>
       </provider>
     </entry>
