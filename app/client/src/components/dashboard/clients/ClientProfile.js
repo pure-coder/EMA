@@ -165,18 +165,12 @@ class ClientProfile extends Component {
                     <h1 className=" text-center display-5 mb-3">Client Profile</h1>
                     <UserInfo userData={this.state.clientData}/> {/* Use data from props.location.state*/}
                     <div className="row">
-                        <div className="col">
-                            <div className="m-auto col-md-3">
-                                <BodyGraphs bodyGraphData={bodyProgressData}/>
-                            </div>
-                            <div className="m-auto col-md-3">
-                                <Graphs graphData={clientProgressData}/>
-                            </div>
+                        <div className="col-sm Profile_margin">
+                            <BodyGraphs bodyGraphData={bodyProgressData}/>
+                            <Graphs graphData={clientProgressData}/>
                         </div>
-                        <div className="col">
-                            <div className="m-auto col-md-3">
-                                <ProfileNotes data={profile_notes}/>
-                            </div>
+                        <div className="col-sm">
+                            <ProfileNotes data={profile_notes}/>
                         </div>
                     </div>
                 </div>

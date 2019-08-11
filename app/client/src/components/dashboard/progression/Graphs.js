@@ -106,7 +106,7 @@ class Graphs extends Component {
                 if(graph.metrics.length > 1){
                     return (
                         // Changed key from GraphComp to div as div was first child, otherwise error was given.
-                        <div className="graphs mb-5" key={graph._id}>
+                        <div className="graphs card mb-5" key={graph._id}>
                             <GraphComp graphData={graph}/>
                         </div>
                     )
@@ -116,7 +116,7 @@ class Graphs extends Component {
                 }
             });
             return (
-                <div id="Progression" className="Progression Progression_head">
+                <div id="Progression" className="Progression card Progression_head mb-5">
                     <h2 className=" text-center display-5 mt-3 mb-4">Client progression data</h2>
                     <h6 className=" text-center display-5 mt-3 mb-4">
                         (Showing exercise data that have 2+ data entries)

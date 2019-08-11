@@ -131,23 +131,22 @@ class ClientList extends Component {
             ));
             return (
                 <div className="row">
-                    <div className="m-auto col-md-10">
-                        <div className="pt-buttons mt-5">
-                            <Link to={'/users/' + this.props.authenticatedUser.user.id + '/register_client'}>
-                                <button
-                                    className="btn btn-primary dashboard-new-client">
-                                    Add new Client
-                                </button>
-                            </Link>
-                            <Link to={'/users/' + this.props.authenticatedUser.user.id + '/edit_personal_trainer'}>
-                                <button
-                                    className="btn btn-success dashboard-edit-own-profile">
-                                    Edit own profile
-                                </button>
-                            </Link>
-                        </div>
-                        <div>
-                            <div>
+                    <div className="ClientList">
+                        <div className="m-auto">
+                            <div className="pt-buttons mt-5">
+                                <Link to={'/users/' + this.props.authenticatedUser.user.id + '/register_client'}>
+                                    <button
+                                        className="btn btn-primary dashboard-new-client">
+                                        Add new Client
+                                    </button>
+                                </Link>
+                                <Link to={'/users/' + this.props.authenticatedUser.user.id + '/edit_personal_trainer'}>
+                                    <button
+                                        className="btn btn-success dashboard-edit-own-profile">
+                                        Edit own profile
+                                    </button>
+                                </Link>
+                            </div>
                                 <h3 className="mt-5 mb-3">Clients</h3>
                                 <table className="table client-table">
                                     <thead>
@@ -161,7 +160,6 @@ class ClientList extends Component {
                                     {ptClients}
                                     </thead>
                                 </table>
-                            </div>
                         </div>
                     </div>
 

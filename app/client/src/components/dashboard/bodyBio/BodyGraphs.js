@@ -106,7 +106,7 @@ class BodyGraphs extends Component {
                 if(graph.bodyMetrics.length > 1){
                     return (
                         // Changed key from GraphComp to div as div was first child, otherwise error was given.
-                        <div className="graphs mb-5" key={graph._id}>
+                        <div className="graphs card mb-5" key={graph._id}>
                             <BodyGraphComp bodyGraphData={graph}/>
                         </div>
                     )
@@ -116,7 +116,7 @@ class BodyGraphs extends Component {
                 }
             });
             return (
-                <div id="Progression" className="Progression Progression_head">
+                <div id="Progression" className="Progression card">
                     <h2 className=" text-center display-5 mt-3 mb-4">Client body progress data</h2>
                     <h6 className=" text-center display-5 mt-3 mb-4">
                         (Showing body data that have 2+ data entries)

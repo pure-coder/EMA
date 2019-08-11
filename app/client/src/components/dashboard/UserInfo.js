@@ -29,7 +29,7 @@ class UserInfo extends Component {
             // Define content to display.. in this case the list of clients
             displayContent = (
                 // send clients data to client component, and render client component
-                <div className="m-auto col-md-10 userInfo-custom">
+                <div className="userInfo-custom">
                     <div className="user_image">
                         {(<img
                             className = "rounded-circle"
@@ -49,8 +49,10 @@ class UserInfo extends Component {
             );
 
             return (
-                <div className="userInfo-container">
-                    {displayContent}
+                <div className="row">
+                    <div className="userInfo-container">
+                        {displayContent}
+                    </div>
                 </div>
             );
         } // else
