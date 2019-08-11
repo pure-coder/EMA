@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {addBodyGraph} from "../../../utilities/drawBodyProgressGraph";
+import {addGraph} from "../../../utilities/drawProgressGraph";
 import {deleteExercise, ptGetClientBodyBio} from "../../../actions/ptProfileActions";
 import PropTypes from "prop-types";
 import connect from "react-redux/es/connect/connect";
@@ -21,7 +21,11 @@ class BodyGraphComp extends Component {
             visible: false,
             modalHeight: "400",
             modalWidth: "500",
-            form: undefined
+            form: undefined,
+            yMetricName : "measurement",
+            xMetricName : "Date",
+            yTitle : "Measurement (in)",
+            xTitle : "Date",
         };
 
         this.openModal = this.openModal.bind(this);
@@ -77,7 +81,7 @@ class BodyGraphComp extends Component {
         // Graph is drawn here. Had to make sure className in return was rendered 1st before calling this function
         // as it needs it to append on too.
 
-        addBodyGraph(bodyMetrics, '.' + bodyPartToId, this.props.bodyGraphData.bodyPart, isUpdate);
+        addGraph(bodyMetrics, '.' + bodyPartToId, this.props.bodyGraphData.bodyPart, isUpdate, this.state.yMetricName, this.state.xMetricName, this.state.yTitle, this.state.xTitle);
     }
 
     componentDidMount(){

@@ -21,7 +21,11 @@ class GraphComp extends Component {
             visible: false,
             modalHeight: "400",
             modalWidth: "500",
-            form: undefined
+            form: undefined,
+            yMetricName : "maxWeight",
+            xMetricName : "Date",
+            yTitle : "Weight (Kg)",
+            xTitle : "Date",
         };
 
         this.openModal = this.openModal.bind(this);
@@ -77,7 +81,7 @@ class GraphComp extends Component {
         // Graph is drawn here. Had to make sure className in return was rendered 1st before calling this function
         // as it needs it to append on too.
 
-        addGraph(metrics, '.' + exerciseToId, this.props.graphData.exerciseName, isUpdate);
+        addGraph(metrics, '.' + exerciseToId, this.props.graphData.exerciseName, isUpdate, this.state.yMetricName, this.state.xMetricName, this.state.yTitle, this.state.xTitle);
     }
 
     componentDidMount(){
