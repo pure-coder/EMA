@@ -32,7 +32,7 @@ class AddBodyDataProgressForm extends Component {
     } // constructor
 
     static getDerivedStateFromProps(props, state) {
-        if(props.progressFormHeight < state.progressFormHeight){
+        if(props.progressFormHeight !== state.progressFormHeight){
             return {
                 progressFormHeight: state.progressFormHeight
             }
@@ -204,7 +204,7 @@ class AddBodyDataProgressForm extends Component {
                             Body Part: {this.props.bodyPart}
                         </label>
                         <label className="control-label form-control-lg new-progression">
-                            Measurement (In):
+                            Measurement: {this.props.bodyPart === "Body Weight" ? "(Kg)" : "(In)" }
                         </label>
                         <FormInputGroup
                             name="measurement"

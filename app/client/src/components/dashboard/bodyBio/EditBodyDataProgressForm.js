@@ -31,7 +31,7 @@ class EditBodyDataProgressForm extends Component {
     } // constructor
 
     static getDerivedStateFromProps(props, state) {
-        if(props.progressFormHeight < state.progressFormHeight){
+        if(props.progressFormHeight !== state.progressFormHeight){
             return {
                 progressFormHeight: state.progressFormHeight
             }
@@ -214,7 +214,7 @@ class EditBodyDataProgressForm extends Component {
         let bodyMetrics = this.state.bodyMetrics;
         
         return (
-            <div className="editClientProgress">
+            <div className="editClientProgressBodyPart">
                 <div>
                     <button className="closeButton"  onClick={this.onClose}><i className="fas fa-window-close 2x"></i></button>
                 </div>
@@ -226,7 +226,7 @@ class EditBodyDataProgressForm extends Component {
                         <label className="control-label form-control-lg new-progression">
                             Data to be modified or deleted:
                         </label>
-                        <table className="table client-table edit-progression-table">
+                        <table className="table client-table edit-bodyPart-progression-table">
                             <thead>
                             <tr>
                                 <th id="client-table-name">Date</th>

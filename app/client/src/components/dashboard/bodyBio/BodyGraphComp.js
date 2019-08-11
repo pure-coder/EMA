@@ -20,7 +20,7 @@ class BodyGraphComp extends Component {
             bodyMetrics : props.bodyGraphData.bodyMetrics,
             visible: false,
             modalHeight: "400",
-            modalWidth: "500",
+            modalWidth: "600",
             form: undefined,
             yMetricName : "measurement",
             xMetricName : "Date",

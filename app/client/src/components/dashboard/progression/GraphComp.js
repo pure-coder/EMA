@@ -135,7 +135,8 @@ class GraphComp extends Component {
         // Provide component depending on what button was pressed
         if(this.state.form === 'Delete') {
             displayForm = (
-                <DeleteProgressConfirm exerciseName={graphData.exerciseName} onClickAway={this.onClickAway}
+                <DeleteProgressConfirm exerciseName={graphData.exerciseName}
+                                       onClickAway={this.onClickAway}
                                        visible={this.state.visible}
                                        ids={ids}
                                        modalSize={this.modalSize}
@@ -145,7 +146,8 @@ class GraphComp extends Component {
         }
         if(this.state.form === 'Add') {
             displayForm = (
-                <AddDataProgressForm exerciseName={graphData.exerciseName} onClickAway={this.onClickAway}
+                <AddDataProgressForm exerciseName={graphData.exerciseName}
+                                     onClickAway={this.onClickAway}
                                      visible={this.state.visible}
                                      ids={ids}
                                      modalSize={this.modalSize}

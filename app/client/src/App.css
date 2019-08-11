@@ -425,6 +425,12 @@ svg {
     margin: auto;
 }
 
+.editClientProgressBodyPart {
+    width: 520px;
+    height: 800px;
+    margin: auto;
+}
+
 .editClientProgress .form-group {
     height: 45px;
     margin-bottom: 22px;
@@ -453,6 +459,13 @@ svg {
 .progress-form-div input[type=submit] {
     display: inline-block;
 }
+
+/* modal */
+
+.modal-margin {
+    margin-top: 20px;
+}
+
 
 /* Delete progress */
 
@@ -597,7 +610,15 @@ input[type=submit] {
 
 .edit-progression-table {
     height: 300px;
-    overflow-y: scroll;
+    overflow-y: auto;
+    display: block;
+    border: solid 1px cornflowerblue;
+}
+
+.edit-bodyPart-progression-table {
+    height: 300px;
+    width: 500px;
+    overflow-y: auto;
     display: block;
     border: solid 1px cornflowerblue;
 }

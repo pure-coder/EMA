@@ -18,9 +18,9 @@ class DeleteProgressConfirm extends Component {
     } // constructor
 
     static getDerivedStateFromProps(props, state) {
-        if (props.progressFormHeight < state.progressFormHeight) {
+        if (props.progressFormHeight !== state.progressFormHeight) {
             return {
-                progressFormHeight: props.progressFormHeight
+                progressFormHeight: state.progressFormHeight
             }
         }
         return null;

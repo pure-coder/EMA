@@ -18,6 +18,7 @@ class EditDataProgressForm extends Component {
             metrics: props.metrics,
             toDelete: [],
             edited: false,
+            formId : "#"+ props.exerciseName.replace(/\s+/g, '-'),
             errors: {},
             message: {
                 type: null
@@ -31,7 +32,7 @@ class EditDataProgressForm extends Component {
     } // constructor
 
     static getDerivedStateFromProps(props, state) {
-        if(props.progressFormHeight < state.progressFormHeight){
+        if(props.progressFormHeight !== state.progressFormHeight){
             return {
                 progressFormHeight: state.progressFormHeight
             }
@@ -54,11 +55,11 @@ class EditDataProgressForm extends Component {
 
     componentDidMount(){
         let formHeight;
-        let el = document.querySelector(".progress-form-div");
+        let el = document.querySelector(this.state.formId  + "-form");
         formHeight = el.offsetHeight;
         formHeight += parseInt(window.getComputedStyle(el).getPropertyValue('margin-top'), 10);
         formHeight += parseInt(window.getComputedStyle(el).getPropertyValue('margin-bottom'), 10);
-        this.setState({progressFormHeight: formHeight});
+        this.setState({progressFormHeight: formHeight + 30});
 
         // Change format of Date in metrics so that it can be presented correctly in HTML 5 date format.
         // Was previously getting errors when converting in map below as onChange would not except a single zero, etc
@@ -218,7 +219,7 @@ class EditDataProgressForm extends Component {
                 <div>
                     <button className="closeButton"  onClick={this.onClose}><i className="fas fa-window-close 2x"></i></button>
                 </div>
-                <div className="progress-form-div">
+                <div id={this.props.exerciseName.replace(/\s+/g, '-') + "-form"} className="modal-margin">
                     <form autoComplete="off" onSubmit={this.onSubmit}>
                         <label className="control-label form-control-lg new-progression">
                             Exercise: {this.props.exerciseName}

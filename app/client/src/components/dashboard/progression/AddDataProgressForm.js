@@ -16,6 +16,7 @@ class AddDataProgressForm extends Component {
             clientId: props.ids.clientId,
             maxWeight: '',
             Date: '',
+            formId : "#"+ props.exerciseName.replace(/\s+/g, '-'),
             visible: false,
             errors: {},
             success: {},
@@ -32,7 +33,7 @@ class AddDataProgressForm extends Component {
     } // constructor
 
     static getDerivedStateFromProps(props, state) {
-        if(props.progressFormHeight < state.progressFormHeight){
+        if(props.progressFormHeight !== state.progressFormHeight){
             return {
                 progressFormHeight: state.progressFormHeight
             }
@@ -55,11 +56,11 @@ class AddDataProgressForm extends Component {
 
     componentDidMount(){
         let formHeight;
-        let el = document.querySelector(".progress-form-div");
+        let el = document.querySelector(this.state.formId + "-form");
         formHeight = el.offsetHeight;
-        formHeight += parseInt(window.getComputedStyle(el).getPropertyValue('margin-top'), 10);
-        formHeight += parseInt(window.getComputedStyle(el).getPropertyValue('margin-bottom'), 10);
-        this.setState({progressFormHeight: formHeight});
+        formHeight += parseInt(window.getComputedStyle(el).getPropertyValue('margin-top'), 20);
+        formHeight += parseInt(window.getComputedStyle(el).getPropertyValue('margin-bottom'), 20);
+        this.setState({progressFormHeight: formHeight + 30});
 
         this.props.clearErrors();
         this.props.clearSuccess();
@@ -89,6 +90,7 @@ class AddDataProgressForm extends Component {
         if(!isEmpty(this.state.success)) {
             this.props.clearSuccess();
         }
+        this.props.modalSize(this.state.progressFormHeight)
     }
 
     static onFocus(){
@@ -198,7 +200,7 @@ class AddDataProgressForm extends Component {
                 <div>
                     <button className="closeButton"  onClick={this.onClose}><i className="fas fa-window-close 2x"></i></button>
                 </div>
-                <div className="progress-form-div">
+                <div id={this.props.exerciseName.replace(/\s+/g, '-') + "-form"} className="modal-margin">
                     <form autoComplete="off" onSubmit={this.onSubmit}>
                         <label className="control-label form-control-lg new-progression">
                             Exercise: {this.props.exerciseName}
