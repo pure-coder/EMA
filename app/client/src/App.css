@@ -123,6 +123,7 @@ label {
     .register-custom {
         min-height: 550px !important;
         height: 100% !important;
+        margin-bottom: 50px;
     }
 }
 
@@ -147,7 +148,7 @@ label {
 
 .register-custom {
     min-height: 500px;
-    /*height: 100%;*/
+    margin-bottom: 50px;
 }
 
 /* login */
@@ -222,13 +223,15 @@ svg {
 
 .edit-profile-date-div{
     width: 400px;
+    height: 225px;
     margin: 0;
 }
 
 .edit_client-custom {
     min-height: 600px;
     min-width: 480px;
-    max-width: 480px
+    max-width: 480px;
+    margin-bottom: 50px;
 }
 
 .edit-profile-label {
@@ -272,6 +275,7 @@ svg {
 
 .edit-contact-div {
     height: 75px;
+    margin-top: 25px;
 }
 
 .date-input{
@@ -281,6 +285,7 @@ svg {
 
 .gender {
     margin-right: 45px;
+    margin-top: 20px;
 }
 
 #Sex {
@@ -613,6 +618,7 @@ input[type=submit] {
 
 .register-client, .register-pt, .edit-client, .edit-pt {
     height: 62px;
+    margin-top: 20px;
 }
 
 .text-success {
