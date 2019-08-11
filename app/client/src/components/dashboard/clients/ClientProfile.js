@@ -169,8 +169,6 @@ class ClientProfile extends Component {
                             <div className="m-auto col-md-3">
                                 <BodyGraphs bodyGraphData={bodyProgressData}/>
                             </div>
-                        </div>
-                        <div className="col">
                             <div className="m-auto col-md-3">
                                 <Graphs graphData={clientProgressData}/>
                             </div>
