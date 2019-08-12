@@ -10,6 +10,8 @@ import NewBodyProgressForm from "./NewBodyProgressForm";
 import Modal from "react-awesome-modal";
 import {getBodyBioClient} from "../../../actions/clientProfileActions";
 import {ptGetClientBodyBio, clearErrors, clearSuccess} from "../../../actions/ptProfileActions";
+import {NoProgressDataComp} from "../../common/NoProgessDataComp";
+import {ProgressTitleComp} from "../../common/ProgressTitleComp";
 
 class BodyGraphs extends Component {
     // This allows the component states to be up{dated and re-rendered)
@@ -117,10 +119,7 @@ class BodyGraphs extends Component {
             });
             return (
                 <div id="Progression" className="Progression card">
-                    <h2 className=" text-center display-5 mt-3 mb-4">Client body progress data</h2>
-                    <h6 className=" text-center display-5 mt-3 mb-4">
-                        (Showing body data that have 2+ data entries)
-                    </h6>
+                    <ProgressTitleComp Title="Client body progress data"/>
                     {/*Show add progress button only if pt*/}
                     {this.props.authenticatedUser.user.pt === true ?
                         <input id="body-progress-button" type="button"
@@ -131,9 +130,7 @@ class BodyGraphs extends Component {
                     }
                     {/*If enough data show graph/s otherwise show message stating no data to show*/}
                     {
-                        !isEmpty(Data) ? graphs
-                        :
-                        <h2 className="text-center text-info mt-5">Not enough data entered to show progression</h2>
+                        !isEmpty(Data) ? graphs : <NoProgressDataComp/>
                     }
                     <Modal visible={this.state.visible} width={this.state.modalWidth} height={this.state.modalHeight} effect="fadeInUp"
                            onClickAway={this.onClickAway}>
