@@ -162,7 +162,7 @@ class RegisterClient extends Component {
                                         error={errors.ContactNumber}
                                     />
                                     <div className="text-success">{this.state.success !== undefined ? this.state.success.msg: null}</div>
-                                    <input type="submit" className="btn btn-info btn-block mt-1"/>
+                                    <input type="submit" value="Register Client" className="btn btn-info btn-block mt-1"/>
                                     <button type="button" className="btn btn-danger btn-block mt-3 mb-3"
                                             onClick={this.props.history.goBack}>Back
                                     </button>

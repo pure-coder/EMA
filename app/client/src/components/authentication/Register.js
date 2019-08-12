@@ -164,7 +164,7 @@ class Register extends Component {
                                     error={errors.Password2}
                                 />
                                 <div className="text-success">{this.state.success !== undefined ? this.state.success.msg: null}</div>
-                                <input type="submit" className="btn btn-info btn-block mt-4 mb-5"/>
+                                <input type="submit" value="Register" className="btn btn-info btn-block mt-4 mb-5"/>
                             </form>
                         </div>
                     </div>

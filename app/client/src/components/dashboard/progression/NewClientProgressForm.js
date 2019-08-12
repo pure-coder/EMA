@@ -286,7 +286,7 @@ class NewClientProgressForm extends Component {
                         />
                         <DisplayMessage message={message}/>
                         {/*<div className="valid-feedback">{this.state.success.msg}</div>*/}
-                        <input type="submit" className="btn btn-info btn-block mt-4 mb-5"/>
+                        <input type="submit" value="Submit" className="btn btn-info btn-block mt-4 mb-5"/>
                     </form>
                 </div>
             </div>

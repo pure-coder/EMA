@@ -276,7 +276,7 @@ class EditDataProgressForm extends Component {
                             </thead>
                         </table>
                         <DisplayMessage message={message}/>
-                        <input type="submit" className="btn btn-info btn-block mt-4 mb-5"/>
+                        <input type="submit" value="Update" className="btn btn-info btn-block mt-4 mb-5"/>
                     </form>
                 </div>
             </div>
