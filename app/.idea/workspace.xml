@@ -4,9 +4,10 @@
     <bookmark url="file://C:/Learning/clientObjectData.js" description="export {&quot;_id&quot;:&quot;5c2e3454d27ace097420b414&quot;,&quot;FullName..." line="2" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ec8ccf39-8487-4892-a38d-de9c288878a3" name="Default" comment="Refactor of Progress titles.">
+    <list default="true" id="ec8ccf39-8487-4892-a38d-de9c288878a3" name="Default" comment="Changed values for submit buttons of forms">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/layout/Navigator.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/layout/Navigator.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/elements/PrivateRoute.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/elements/PrivateRoute.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/utilities/checkExp.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/utilities/checkExp.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -51,17 +52,17 @@
           <entry key="eslintignore" value="18" />
           <entry key="gitignore" value="22" />
           <entry key="html" value="1117" />
-          <entry key="js" value="210215" />
+          <entry key="js" value="210450" />
           <entry key="json" value="29" />
           <entry key="md" value="150" />
-          <entry key="txt" value="19667" />
+          <entry key="txt" value="19837" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="CSS" value="1128" />
-          <entry key="JavaScript" value="21975" />
-          <entry key="PLAIN_TEXT" value="6650" />
+          <entry key="JavaScript" value="22210" />
+          <entry key="PLAIN_TEXT" value="6820" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -74,7 +75,7 @@
           <entry key="gitignore" value="9" />
           <entry key="html" value="19" />
           <entry key="ico" value="1" />
-          <entry key="js" value="1699" />
+          <entry key="js" value="1705" />
           <entry key="json" value="13" />
           <entry key="map" value="1" />
           <entry key="md" value="4" />
@@ -89,7 +90,7 @@
           <entry key="HTML" value="19" />
           <entry key="Image" value="1" />
           <entry key="JSON" value="14" />
-          <entry key="JavaScript" value="1699" />
+          <entry key="JavaScript" value="1705" />
           <entry key="PLAIN_TEXT" value="20" />
           <entry key="SVG" value="1" />
           <entry key="Scratch" value="1" />
@@ -110,11 +111,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/client/src/components/layout/Navigator.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="40" column="34" selection-start-line="40" selection-start-column="34" selection-end-line="40" selection-end-column="34" />
+            <state relative-caret-position="568">
+              <caret line="73" column="51" lean-forward="true" selection-start-line="73" selection-start-column="51" selection-end-line="73" selection-end-column="51" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
@@ -123,12 +124,47 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/src/actions/clientProfileActions.js">
+        <entry file="file://$PROJECT_DIR$/client/src/elements/PrivateRoute.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
-              <caret line="17" column="9" lean-forward="true" selection-start-line="17" selection-start-column="9" selection-end-line="17" selection-end-column="9" />
+            <state relative-caret-position="251">
+              <caret line="16" lean-forward="true" selection-start-line="16" selection-end-line="16" />
+              <folding>
+                <element signature="e#70#99#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/client/src/utilities/checkExp.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="51">
+              <caret line="3" column="34" selection-start-line="3" selection-start-column="34" selection-end-line="3" selection-end-column="34" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/client/src/actions/ptProfileActions.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="343">
+              <caret line="42" column="13" selection-start-line="42" selection-start-column="13" selection-end-line="42" selection-end-column="38" />
               <folding>
                 <element signature="e#0#26#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/client/src/App.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="374">
+              <caret line="66" column="48" selection-start-line="66" selection-start-column="48" selection-end-line="66" selection-end-column="76" />
+              <folding>
+                <element signature="e#0#39#0" expanded="true" />
+                <element signature="e#1059#1115#0" expanded="true" />
+                <element signature="e#1222#1285#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -146,7 +182,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>.Date</find>
       <find>addBodyGraph</find>
       <find>drawBody</find>
       <find>edit-progression-table</find>
@@ -176,6 +211,7 @@
       <find>logOut</find>
       <find>.C</find>
       <find>decoded</find>
+      <find>submit</find>
     </findStrings>
     <replaceStrings>
       <replace>&lt;text</replace>
@@ -274,13 +310,13 @@
         <option value="$PROJECT_DIR$/client/src/App.js" />
         <option value="$PROJECT_DIR$/client/src/actions/authenticationActions.js" />
         <option value="$PROJECT_DIR$/client/src/actions/clientProfileActions.js" />
-        <option value="$PROJECT_DIR$/client/src/elements/PrivateRoute.js" />
-        <option value="$PROJECT_DIR$/client/src/utilities/checkExp.js" />
         <option value="$PROJECT_DIR$/client/src/components/dashboard/progression/Graphs.js" />
         <option value="$PROJECT_DIR$/client/src/components/dashboard/bodyBio/BodyGraphs.js" />
         <option value="$PROJECT_DIR$/client/src/components/common/NoProgessDataComp.js" />
         <option value="$PROJECT_DIR$/client/src/components/common/ProgressTitleComp.js" />
         <option value="$PROJECT_DIR$/client/src/components/layout/Navigator.js" />
+        <option value="$PROJECT_DIR$/client/src/elements/PrivateRoute.js" />
+        <option value="$PROJECT_DIR$/client/src/utilities/checkExp.js" />
       </list>
     </option>
   </component>
@@ -377,11 +413,6 @@
               <item name="client" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="utilities" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="app" type="b2602c69:ProjectViewProjectNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="validation" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -647,20 +678,6 @@
       <workItem from="1562927864711" duration="131724000" />
       <workItem from="1564246061042" duration="2948000" />
       <workItem from="1565171718827" duration="88626000" />
-    </task>
-    <task id="LOCAL-00159" summary="Basic layout of Profile notes done, needs refactoring into component, classnames, buttons etc.">
-      <created>1565225094430</created>
-      <option name="number" value="00159" />
-      <option name="presentableId" value="LOCAL-00159" />
-      <option name="project" value="LOCAL" />
-      <updated>1565225094430</updated>
-    </task>
-    <task id="LOCAL-00160" summary="ProfileNotes component created and added to ClientProfile. (can be loaded by pt but not by client as A/R not set for client).">
-      <created>1565286124718</created>
-      <option name="number" value="00160" />
-      <option name="presentableId" value="LOCAL-00160" />
-      <option name="project" value="LOCAL" />
-      <updated>1565286124718</updated>
     </task>
     <task id="LOCAL-00161" summary="A/R profileNotes added for client.&#10;Security check for access modified, checks signed in token (better security, no need to send pId as well)">
       <created>1565288161411</created>
@@ -991,11 +1008,25 @@
       <option name="project" value="LOCAL" />
       <updated>1565629458963</updated>
     </task>
-    <option name="localTasksCounter" value="208" />
+    <task id="LOCAL-00208" summary="Fixed call for client data in Navigator if not pt (needed to make sure the user was authenticated 1st ie signed in)">
+      <created>1565630028881</created>
+      <option name="number" value="00208" />
+      <option name="presentableId" value="LOCAL-00208" />
+      <option name="project" value="LOCAL" />
+      <updated>1565630028881</updated>
+    </task>
+    <task id="LOCAL-00209" summary="Changed values for submit buttons of forms">
+      <created>1565630396827</created>
+      <option name="number" value="00209" />
+      <option name="presentableId" value="LOCAL-00209" />
+      <option name="project" value="LOCAL" />
+      <updated>1565630396827</updated>
+    </task>
+    <option name="localTasksCounter" value="210" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1858927000" />
+    <option name="totallyTimeSpent" value="1862415000" />
   </component>
   <component name="TodoView" selected-index="4">
     <todo-panel id="selected-file">
@@ -1013,7 +1044,7 @@
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.20758928" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.24943988" />
       <window_info id="Favorites" order="2" side_tool="true" weight="0.32935026" />
-      <window_info anchor="bottom" id="Messages" order="0" sideWeight="0.49813294" visible="true" weight="0.3276923" />
+      <window_info anchor="bottom" id="Messages" order="0" sideWeight="0.49813294" weight="0.3276923" />
       <window_info anchor="bottom" id="Message" order="1" />
       <window_info anchor="bottom" id="Find" order="2" weight="0.32615384" />
       <window_info anchor="bottom" id="Run" order="3" />
@@ -1098,8 +1129,6 @@
   <component name="VcsManagerConfiguration">
     <option name="SHOW_DIRTY_RECURSIVELY" value="true" />
     <option name="LIMIT_HISTORY" value="false" />
-    <MESSAGE value="DeleteProgressConfirm was not showing modal because of button name value change from delete exercise to delete, as the name was used to target the modal, this has been rectified." />
-    <MESSAGE value="Delete body bio API created and working" />
     <MESSAGE value="A/R created for pt for body_bio" />
     <MESSAGE value="put API for body bio created and working correctly." />
     <MESSAGE value="Forgot to add state spread in reducer (...state) for body bio so modified, is now working correctly" />
@@ -1123,7 +1152,9 @@
     <MESSAGE value="Token refreshed everytime user visits dashboard." />
     <MESSAGE value="Token refreshed everytime user visits dashboard, working correctly." />
     <MESSAGE value="Refactor of Progress titles." />
-    <option name="LAST_COMMIT_MESSAGE" value="Refactor of Progress titles." />
+    <MESSAGE value="Fixed call for client data in Navigator if not pt (needed to make sure the user was authenticated 1st ie signed in)" />
+    <MESSAGE value="Changed values for submit buttons of forms" />
+    <option name="LAST_COMMIT_MESSAGE" value="Changed values for submit buttons of forms" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/config/db.js">
@@ -1448,56 +1479,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/utilities/checkExp.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="3" column="46" selection-start-line="3" selection-start-column="46" selection-end-line="3" selection-end-column="46" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/App.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="3" column="93" selection-start-line="3" selection-start-column="93" selection-end-line="3" selection-end-column="93" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-            <element signature="e#1059#1115#0" expanded="true" />
-            <element signature="e#1222#1285#0" expanded="true" />
-            <element signature="e#1464#1515#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/actions/authenticationActions.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="347">
-          <caret line="120" column="55" selection-start-line="120" selection-start-column="55" selection-end-line="120" selection-end-column="55" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/actions/ptProfileActions.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="309">
-          <caret line="40" column="4" lean-forward="true" selection-start-line="40" selection-start-column="4" selection-end-line="40" selection-end-column="26" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/elements/PrivateRoute.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="228">
-          <caret line="16" column="31" lean-forward="true" selection-start-line="16" selection-start-column="31" selection-end-line="16" selection-end-column="31" />
-          <folding>
-            <element signature="e#70#99#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/client/src/components/common/ProgressTitleComp.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
@@ -1549,13 +1530,62 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/App.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="66" column="48" selection-start-line="66" selection-start-column="48" selection-end-line="66" selection-end-column="76" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+            <element signature="e#1059#1115#0" expanded="true" />
+            <element signature="e#1222#1285#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/actions/authenticationActions.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="704">
+          <caret line="120" column="55" selection-start-line="120" selection-start-column="55" selection-end-line="120" selection-end-column="55" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/actions/ptProfileActions.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="343">
+          <caret line="42" column="13" selection-start-line="42" selection-start-column="13" selection-end-line="42" selection-end-column="38" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/client/src/components/layout/Navigator.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="40" column="34" selection-start-line="40" selection-start-column="34" selection-end-line="40" selection-end-column="34" />
+        <state relative-caret-position="568">
+          <caret line="73" column="51" lean-forward="true" selection-start-line="73" selection-start-column="51" selection-end-line="73" selection-end-column="51" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/elements/PrivateRoute.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="251">
+          <caret line="16" lean-forward="true" selection-start-line="16" selection-end-line="16" />
+          <folding>
+            <element signature="e#70#99#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/utilities/checkExp.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="3" column="34" selection-start-line="3" selection-start-column="34" selection-end-line="3" selection-end-column="34" />
         </state>
       </provider>
     </entry>

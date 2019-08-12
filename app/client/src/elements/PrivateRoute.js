@@ -14,7 +14,8 @@ const PrivateRoute = ({component: Component, ...rest}) => {
             {...rest}
             render={(props) =>
             {
-                checkExp(auth);
+
+                checkExp(store);
                 if (!isAuthenticated) {
                     // console.log("auth empty - pr")
                     // If direct url used and auth is empty, this will send user to login screen!
