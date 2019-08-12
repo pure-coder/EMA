@@ -69,7 +69,7 @@ class ClientData extends Component {
                         <h3 className="mt-5 mb-3">Client Links</h3>
                         <table className="table client-table">
                             <thead>
-                            <tr>
+                            <tr className="even-row">
                                 <th align="center">Profile</th>
                                 <th align="center">workout Schedule</th>
                                 <th align="center">Edit details</th>

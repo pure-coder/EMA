@@ -183,6 +183,16 @@ label {
     min-width: 500px;
 }
 
+.client-table td, .client-table th {
+    padding: .75rem;
+    vertical-align: center;
+    border-top: 1px solid #dee2e6;
+}
+
+.even-row {
+    background-color: whitesmoke;
+}
+
 .client-table th {
     text-align: center;
 }
@@ -361,6 +371,7 @@ svg {
     min-width: inherit;
     display: inline-block;
     padding: 0 60px;
+    background-color: whitesmoke;
 }
 
 .Progression_head {
@@ -758,6 +769,7 @@ nav a.active {
     margin-left: 50px;
     margin-bottom: 50px;
     padding: 0 30px;
+    background-color: whitesmoke;
 }
 
 .Profile_notes-forms {
