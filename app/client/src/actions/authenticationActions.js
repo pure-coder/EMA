@@ -6,8 +6,8 @@ import {
 } from "./types"; // import custom defined types
 import setAuthorisationToken from '../utilities/setAuthorisationToken';
 import jwtDecode from 'jwt-decode';
-import {clearErrors, setSuccess, getPtData} from "./ptProfileActions";
-import {getClientData} from "./clientProfileActions";
+import {clearErrors, setSuccess, getPtData, clearCurrentProfile} from "./ptProfileActions";
+import {clearClientProfile, getClientData} from "./clientProfileActions";
 
 export const manageErrors = (err, dispatch, history) => {
     // 401 Unauthorised
@@ -116,6 +116,12 @@ export const logOutUser = () => dispatch => {
     // Set signed in user to an empty object and isAuthenticated to false by passing in {} (empty object)
     dispatch(setSignedInUser({}));
     // Remove data based on user (either pt or client)
+
+    // Clear Profile if pt
+    dispatch(clearCurrentProfile());
+
+    // Clear Profile if client
+    dispatch(clearClientProfile());
 };
 
 // Update expireTime everytime the dashboard is loaded.

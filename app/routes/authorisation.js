@@ -38,7 +38,7 @@ const isEmpty = require('../validation/is_empty');
 router.post('/login', (req, res) => {
     const Email = req.body.Email;
     const Password = req.body.Password;
-    const expirationTime = 3600; // Expiration access token set to 1hr (3600)
+    const expirationTime = 5;//3600; // Expiration access token set to 1hr (3600)
 
     // Set up validation checking for every field that has been posted
     const {errors, isValid} = validateLoginInput(req.body);
