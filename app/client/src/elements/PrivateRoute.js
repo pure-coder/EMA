@@ -14,7 +14,6 @@ const PrivateRoute = ({component: Component, ...rest}) => {
             {...rest}
             render={(props) =>
             {
-
                 checkExp(store);
                 if (!isAuthenticated) {
                     // console.log("auth empty - pr")
