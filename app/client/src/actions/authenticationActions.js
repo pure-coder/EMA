@@ -1,14 +1,15 @@
 import axios from 'axios';
 import {
     GET_ERRS,
-    SET_SIGNED_IN_USER
+    SET_SIGNED_IN_USER,
+    ACTION_MADE
 } from "./types"; // import custom defined types
 import setAuthorisationToken from '../utilities/setAuthorisationToken';
 import jwtDecode from 'jwt-decode';
 import {clearErrors, setSuccess, getPtData} from "./ptProfileActions";
 import {getClientData} from "./clientProfileActions";
 
-const manageErrors = (err, dispatch, history) => {
+export const manageErrors = (err, dispatch, history) => {
     // 401 Unauthorised
     if(err.response.status === 401){
         dispatch({
@@ -20,7 +21,7 @@ const manageErrors = (err, dispatch, history) => {
         });
         dispatch(logOutUser());
         dispatch(clearErrors());
-        history.push('/re-login');
+        //history.push('/re-login');
     }
     // If used direct url, and id doesn't exist send user to error page (404 - Not Found)
     else if (err.response.status === 404){
@@ -115,4 +116,12 @@ export const logOutUser = () => dispatch => {
     // Set signed in user to an empty object and isAuthenticated to false by passing in {} (empty object)
     dispatch(setSignedInUser({}));
     // Remove data based on user (either pt or client)
+};
+
+export const updateExp = () => dispatch => {
+    const currentTime = Date.now()  + (1000 * 3600); // Get current time and add an hour, this will overwrite the exp time
+    dispatch({
+        type: ACTION_MADE,
+        payload: currentTime
+    })
 };
