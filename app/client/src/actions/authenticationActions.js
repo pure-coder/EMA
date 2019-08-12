@@ -118,8 +118,10 @@ export const logOutUser = () => dispatch => {
     // Remove data based on user (either pt or client)
 };
 
+// Update expireTime everytime the dashboard is loaded.
 export const updateExp = () => dispatch => {
-    const currentTime = Date.now()  + (1000 * 3600); // Get current time and add an hour, this will overwrite the exp time
+    const currentTime = (Date.now() / 1000) + 3600; // Get current time (had to divide by 1000 because of JWT's stupid format)
+    // and add an hour, this will overwrite the exp time
     dispatch({
         type: ACTION_MADE,
         payload: currentTime
