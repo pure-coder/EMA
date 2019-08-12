@@ -1,6 +1,7 @@
 import * as d3 from "d3";
 
-function addGraph(data, position, title, isUpdate) {// set the dimensions and margins of the graph
+function addGraph(data, position, title, isUpdate, yMetricName, xMetricName, yTitle, xTitle) {// set the dimensions and margins of the graph
+
     // Takes data given in function
     let dataToDraw = data;
     let exerciseId = position.substring(1, position.length);
@@ -21,17 +22,17 @@ function addGraph(data, position, title, isUpdate) {// set the dimensions and ma
 
     // define the area to shade (fill)
     let area = d3.area()
-        .x(function(d) { return x(d.Date); })
+        .x(function(d) { return x(d[xMetricName]); })
         .y0(height)
-        .y1(function(d) { return y(d.maxWeight); });
+        .y1(function(d) { return y(d[yMetricName]); });
 
     // define the line
     let valueline = d3.line()
         .x(function (d) {
-            return x(d.Date);
+            return x(d[xMetricName]);
         })
         .y(function (d) {
-            return y(d.maxWeight);
+            return y(d[yMetricName]);
         });
 
     let svg;
@@ -47,7 +48,7 @@ function addGraph(data, position, title, isUpdate) {// set the dimensions and ma
 
     d3.select(position)
         .append("h4")
-        .text(title)
+        .text(title);
 
     // append the svg object to the body of the page
     // appends a 'group' element to 'svg'
@@ -79,17 +80,17 @@ function addGraph(data, position, title, isUpdate) {// set the dimensions and ma
 
         // format the data
         data.forEach(function (d) {
-            d.Date = parseTime(d.Date);
-            d.maxWeight = +d.maxWeight;
+            d[xMetricName] = parseTime(d[xMetricName]);
+            d[yMetricName] = +d[yMetricName];
         });
 
         // Scale the range of the data
         x.domain(d3.extent(data, function (d) {
-            return d.Date;
+            return d[xMetricName];
         }));
         // Changed y-axis to use the min to max range of data like what is used in x-axis
         y.domain(d3.extent(data, function (d) {
-            return d.maxWeight;
+            return d[yMetricName];
         }));
 
         // add the area
@@ -135,7 +136,7 @@ function addGraph(data, position, title, isUpdate) {// set the dimensions and ma
             .attr("class", "grid x-axis")
             .attr("transform", "translate(0," + height + ")")
             // tickValues used to display only the dates given in the data
-            .call(d3.axisBottom(x).tickFormat(d3.timeFormat("%d %b %Y")).tickValues(data.map(elements => {return elements.Date})))
+            .call(d3.axisBottom(x).tickFormat(d3.timeFormat("%d %b %Y")).tickValues(data.map(elements => {return elements[xMetricName]})))
             .selectAll("text")
             .style("text-anchor", "end")
             .style("margin", "15px")
@@ -151,7 +152,7 @@ function addGraph(data, position, title, isUpdate) {// set the dimensions and ma
                 (height + marginTop + 62) + ")")
             .style("text-anchor", "middle")
             .style("font-size", "18px")
-            .text("Date");
+            .text(xTitle);
 
         // Add the Y Axis
         svg.append("g")
@@ -167,7 +168,7 @@ function addGraph(data, position, title, isUpdate) {// set the dimensions and ma
             .attr("dy", "1em")
             .style("text-anchor", "middle")
             .style("font-size", "18px")
-            .text("Weight (Kg)"); // y-axis label
+            .text(yTitle); // y-axis label
 
         // Add (lines) strokes to x and y axis, as adding the grid changed it.
         d3.selectAll(".x-axis")

@@ -19,7 +19,12 @@ img {
 
 textarea {
     resize: none;
-    width: auto !important;
+}
+
+label {
+    display: inline-block;
+    margin-bottom: .5rem;
+    min-width: 300px;
 }
 
 .container {
@@ -118,6 +123,7 @@ textarea {
     .register-custom {
         min-height: 550px !important;
         height: 100% !important;
+        margin-bottom: 50px;
     }
 }
 
@@ -142,7 +148,7 @@ textarea {
 
 .register-custom {
     min-height: 500px;
-    /*height: 100%;*/
+    margin-bottom: 50px;
 }
 
 /* login */
@@ -169,6 +175,22 @@ textarea {
     width: 100%;
     height: 500px;
     margin: auto;
+}
+
+.ClientList {
+    margin-left: 50px;
+    width: 90%;
+    min-width: 500px;
+}
+
+.client-table td, .client-table th {
+    padding: .75rem;
+    vertical-align: center;
+    border-top: 1px solid #dee2e6;
+}
+
+.even-row {
+    background-color: whitesmoke;
 }
 
 .client-table th {
@@ -211,13 +233,15 @@ svg {
 
 .edit-profile-date-div{
     width: 400px;
+    height: 225px;
     margin: 0;
 }
 
 .edit_client-custom {
     min-height: 600px;
     min-width: 480px;
-    max-width: 480px
+    max-width: 480px;
+    margin-bottom: 50px;
 }
 
 .edit-profile-label {
@@ -261,6 +285,7 @@ svg {
 
 .edit-contact-div {
     height: 75px;
+    margin-top: 25px;
 }
 
 .date-input{
@@ -270,6 +295,7 @@ svg {
 
 .gender {
     margin-right: 45px;
+    margin-top: 20px;
 }
 
 #Sex {
@@ -332,19 +358,28 @@ svg {
 
 /* progression Data (graph) */
 
+.graphs {
+    padding: 30px;
+}
+
+.Profile_margin {
+    margin-left: 50px;
+    padding: 0
+}
+
 .Progression {
     min-width: inherit;
-    margin: inherit;
-    padding: inherit;
     display: inline-block;
+    padding: 0 60px;
+    background-color: whitesmoke;
+}
+
+.Progression_head {
+    margin-top: 40px !important;
 }
 
 .Progression .area {
     fill: lightsteelblue;
-}
-
-.Progression, .progression-data {
-    margin: auto;
 }
 
 .Progression .line {
@@ -383,7 +418,7 @@ svg {
 }
 
 /* id for button */
-#progress-button {
+#progress-button, #body-progress-button {
     width: 250px;
     text-align: center;
     margin: 0 auto;
@@ -419,6 +454,12 @@ svg {
     margin: auto;
 }
 
+.editClientProgressBodyPart {
+    width: 520px;
+    height: 800px;
+    margin: auto;
+}
+
 .editClientProgress .form-group {
     height: 45px;
     margin-bottom: 22px;
@@ -447,6 +488,13 @@ svg {
 .progress-form-div input[type=submit] {
     display: inline-block;
 }
+
+/* modal */
+
+.modal-margin {
+    margin-top: 20px;
+}
+
 
 /* Delete progress */
 
@@ -581,6 +629,7 @@ input[type=submit] {
 
 .register-client, .register-pt, .edit-client, .edit-pt {
     height: 62px;
+    margin-top: 20px;
 }
 
 .text-success {
@@ -591,7 +640,15 @@ input[type=submit] {
 
 .edit-progression-table {
     height: 300px;
-    overflow-y: scroll;
+    overflow-y: auto;
+    display: block;
+    border: solid 1px cornflowerblue;
+}
+
+.edit-bodyPart-progression-table {
+    height: 300px;
+    width: 500px;
+    overflow-y: auto;
     display: block;
     border: solid 1px cornflowerblue;
 }
@@ -601,6 +658,12 @@ input[type=submit] {
 }
 
 /* UserInfo */
+
+.userInfo-container {
+    min-width: 400px;
+    margin-left: 50px;
+    padding: 10px 0;
+}
 
 .userInfo-custom {
     padding: 0;
@@ -702,9 +765,15 @@ nav a.active {
 /* Profile notes */
 
 .Profile_notes {
-    min-width: inherit;
-    margin: inherit;
-    padding: inherit;
+    width: 480px;
+    margin-left: 50px;
+    margin-bottom: 50px;
+    padding: 0 30px;
+    background-color: whitesmoke;
+}
+
+.Profile_notes-forms {
+    min-width: 400px;
 }
 
 .goals {

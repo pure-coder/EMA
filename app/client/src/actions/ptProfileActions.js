@@ -19,35 +19,7 @@ import {
     PT_CLIENT_BODY_BIO,
     CLEAR_BODY_BIO
 } from "./types"; // import custom defined types
-import {logOutUser} from "./authenticationActions";
-
-const manageErrors = (err, dispatch, history) => {
-    // console.log(err.response);
-    // 401 Unauthorised
-    if(err.response.status === 401){
-        dispatch({
-            type: GET_ERRS,
-            payload: {
-                error_message: err.response.data,
-                error_code: err.response.status
-            }
-        });
-        dispatch(logOutUser());
-        dispatch(clearCurrentProfile());
-        dispatch(clearErrors());
-        history.push('/re-login');
-    }
-    // If used direct url, and id doesn't exist send user to error page (404 - Not Found)
-    else if (err.response.status === 404){
-        history.replace('/error_page');
-    }
-    else {
-        dispatch({
-            type: GET_ERRS,
-            payload: err.response.data
-        })
-    }
-};
+import {manageErrors, updateExp} from "./authenticationActions";
 
 // Register client
 export const registerClient =(Data, props, history) => (dispatch) => {
@@ -66,6 +38,7 @@ export const registerClient =(Data, props, history) => (dispatch) => {
 
 // Get pt Clients
 export const getClients = (ptId, history) => dispatch => {
+    dispatch(updateExp());
     axios
         .get(`/api/pt_clients/${ptId}`)
         .then(result => {

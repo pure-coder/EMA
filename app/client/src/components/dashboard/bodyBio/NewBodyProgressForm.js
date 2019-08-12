@@ -2,34 +2,50 @@ import React, {Component} from 'react' // React is need for rendering JSX HTML e
 import {withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
-import {newClientProgress, setErrors, clearErrors, clearSuccess, ptGetClientProgression} from "../../../actions/ptProfileActions";
+import {newClientBodyBio, setErrors, clearErrors, clearSuccess} from "../../../actions/ptProfileActions";
+import autocomplete from '../../../utilities/autoComplete';
 import FormInputGroup from "../../common/FormInputGroup";
 import DisplayMessage from "../../common/DisplayMessage";
 import isEmpty from "../../../validation/is_empty";
 
 
-class AddDataProgressForm extends Component {
+class NewBodyProgressForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            userId: props.ids.userId,
-            clientId: props.ids.clientId,
-            maxWeight: '',
+            userId: props.authenticatedUser.user.id,
+            clientId: props.match.params.cid,
+            bodyPart: '',
+            measurement: '',
             Date: '',
-            formId : "#"+ props.exerciseName.replace(/\s+/g, '-'),
             visible: false,
-            errors: {},
-            success: {},
             message: {
                 type: null
             },
-            progressFormHeight: props.progressFormHeight
+            errors: {},
+            progressFormHeight: props.progressFormHeight,
+            measurementMetric : "(In)",
+            bodyParts : [
+                "Body Weight",
+                "Neck",
+                "Chest",
+                "L-Bicep",
+                "R-Bicep",
+                "L-Forearm",
+                "R-Forearm",
+                "Waist",
+                "L-Thigh",
+                "R-Thigh",
+                "L-calf",
+                "R-calf"
+            ],
         };
 
         this.onChange = this.onChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
         this.onClose= this.onClose.bind(this);
         this.onClick = this.onClick.bind(this);
+        this.onBlur = this.onBlur.bind(this);
     } // constructor
 
     static getDerivedStateFromProps(props, state) {
@@ -55,59 +71,61 @@ class AddDataProgressForm extends Component {
     }
 
     componentDidMount(){
+        document.body.scrollTo(0,0);
         let formHeight;
-        let el = document.querySelector(this.state.formId + "-form");
+        let el = document.querySelector(".progress-form-div");
         formHeight = el.offsetHeight;
-        formHeight += parseInt(window.getComputedStyle(el).getPropertyValue('margin-top'), 20);
-        formHeight += parseInt(window.getComputedStyle(el).getPropertyValue('margin-bottom'), 20);
-        this.setState({progressFormHeight: formHeight + 30});
+        formHeight += parseInt(window.getComputedStyle(el).getPropertyValue('margin-top'), 10);
+        formHeight += parseInt(window.getComputedStyle(el).getPropertyValue('margin-bottom'), 10);
+        this.setState({progressFormHeight: formHeight});
 
         this.props.clearErrors();
         this.props.clearSuccess();
-
     }
 
     // Checking if previous props modal visibility and this states visibility is not equal (stops reacts maximum loop message when
     // setting state) so that fields and errors can be cleared when exiting modal (using onClickAway instead of close button).
     componentDidUpdate(prevProps){
         if(prevProps.visible !== this.state.visible){
-            this.setState({
-                maxWeight: '',
-                Date: ''
-            });
             this.props.clearErrors();
             this.props.clearSuccess();
+            this.setState({
+                bodyPart: '',
+                measurement: '',
+                Date: '',
+                message: {type: null}
+            });
         }
 
-        if(this.state.progressFormHeight > prevProps.progressFormHeight ){
+        if(this.state.progressFormHeight < prevProps.progressFormHeight ){
             let newHeight = this.state.progressFormHeight;
             this.props.modalSize(newHeight.toString())
         }
     }
 
-    onClick(){
+    onClick(e){
+        // If input field is for bodyPart, complete the auto list
+        if(e.target.name === 'bodyPart') {
+            this.onLoadList(e);
+            this.setState({message: {type: null}}); // reset to null
+        }
         // Set success message to empty if re-entering data after a successful previous submission.
         if(!isEmpty(this.state.success)) {
             this.props.clearSuccess();
         }
-        this.props.modalSize(this.state.progressFormHeight)
-    }
-
-    static onFocus(){
-        document.getElementsByName('maxWeight')[0].focus();
     }
 
     onChange(e) {
         let name = e.target.name;
         let value = e.target.value;
 
-        // For maxWeight Check to see if value entered is a number, if not then don't update state and exit function.
-        if(name === 'maxWeight' && isNaN(value)){
+        // For measurement Check to see if value entered is a number, if not then don't update state and exit function.
+        if(name === 'measurement' && isNaN(value)){
             return null;
         }
 
-        // Make sure maxWeight value does not exceed 3 characters
-        if(name === 'maxWeight' && (value.length > 3)){
+        // Make sure measurement value does not exceed 3 characters
+        if(name === 'measurement' && (value.length > 3)){
             let message = {
                 type: "ERROR",
                 msg: "Max Weight value must be between 0-999!"
@@ -121,13 +139,21 @@ class AddDataProgressForm extends Component {
 
         this.setState({[name]: value});
 
-        if(!isEmpty(this.props.errors)){
+        this.setState({message: {type: null}}); // reset to null
+        if(!isEmpty(this.state.errors)){
             this.props.clearErrors();
         }
-        this.setState({message: {type: null}}); // reset to null
         if(!isEmpty(this.props.success)){
             this.props.clearSuccess();
         }
+    }
+
+    // When input field is click (Really on clicked)
+    onLoadList(e){
+        // Sort the array, this is then used as argument for autocomplete
+        const bodyPartList = this.state.bodyParts.sort();
+        // e.target and document.getElementById(e.target.id) return the same output, so using former.
+        autocomplete(e.target, bodyPartList, this.state);
     }
 
     onClose(){
@@ -137,16 +163,17 @@ class AddDataProgressForm extends Component {
         this.props.clearErrors();
         this.setState({message: {type: null}});
         // Reset/ Clear input fields once modal has been exited
-        this.clearFields();
+        this.setState({
+            bodyPart: '',
+            measurement: '',
+            Date: ''
+        });
     }
 
-    ptGetClientProgression(){
-        this.props.ptGetClientProgression(this.state.clientId, this.props.history);
-    }
-
-    clearFields(){
-        this.setState({maxWeight: ''});
-        this.setState({Date: ''});
+    // This is needed to set the exercise name to state on blur, as can't set state in the autocomplete external function
+    onBlur(){
+        let selectedBodyPart = document.getElementById("bodyPart").value;
+        this.setState({bodyPart: selectedBodyPart });
     }
 
     onSubmit(e) {
@@ -156,20 +183,23 @@ class AddDataProgressForm extends Component {
         });
         this.props.clearSuccess();
 
+        let bodyPart = this.state.bodyPart;
+
         // Check if any data has been changed, don't want to waste server load and bandwidth on empty requests
         let dataChanged = false;
         let message;
 
-        const clientProgressData = {
-            exerciseName: this.props.exerciseName,
-            metrics: {
-                maxWeight: this.state.maxWeight,
+        const clientBodyProgressData = {
+            bodyPart: this.state.bodyPart,
+            bodyMetrics: {
+                measurement: this.state.measurement,
                 Date: new Date(this.state.Date)
             }
         };
 
         // Check to see if data has been entered or modified
-        if(!isEmpty(clientProgressData.metrics.maxWeight) || !isEmpty(clientProgressData.metrics.Date)){
+        if(!isEmpty(clientBodyProgressData.bodyPart) || !isEmpty(clientBodyProgressData.bodyMetrics.measurement) ||
+            !isEmpty(clientBodyProgressData.bodyMetrics.Date)){
                 dataChanged = true;
         }
 
@@ -181,15 +211,12 @@ class AddDataProgressForm extends Component {
             this.setState({message});
             return null;
         }
+        else if (!this.state.bodyParts.includes(bodyPart)){
+            this.props.setErrors({bodyPart: "Please select a body part from those provided!"});
+        }
         else{
             this.props.clearErrors();
-            this.props.newClientProgress(this.state.clientId, clientProgressData, this.props.history);
-            // Clear data from fields
-            this.clearFields();
-            // Show data added to database and updated on page in real time
-            this.ptGetClientProgression();
-            // Once data is submitted focus on adding new data (via focusing on 1st input element, in this case max weight!)
-            AddDataProgressForm.onFocus();
+            this.props.newClientBodyBio(this.state.clientId, clientBodyProgressData, this.props.history);
         }
     } // onSubmit
 
@@ -200,22 +227,35 @@ class AddDataProgressForm extends Component {
                 <div>
                     <button className="closeButton"  onClick={this.onClose}><i className="fas fa-window-close 2x"></i></button>
                 </div>
-                <div id={this.props.exerciseName.replace(/\s+/g, '-') + "-form"} className="modal-margin">
+                <div className="progress-form-div">
                     <form autoComplete="off" onSubmit={this.onSubmit}>
                         <label className="control-label form-control-lg new-progression">
-                            Exercise: {this.props.exerciseName}
+                            Body Part:
                         </label>
+                        <div className="autocomplete">
+                            <FormInputGroup
+                                name="bodyPart"
+                                PlaceHolder="Body Part"
+                                value={this.state.bodyPart}
+                                id="bodyPart"
+                                type="text"
+                                onChange={this.onChange}
+                                error={errors.msg}
+                                onClick={this.onClick}
+                                onBlur={this.onBlur}
+                            />
+                        </div>
                         <label className="control-label form-control-lg new-progression">
-                            One Rep Max Weight (Kg):
+                            Measurement {this.state.bodyPart === "Body Weight" ? "(Kg)" : this.state.measurementMetric}:
                         </label>
                         <FormInputGroup
-                            name="maxWeight"
-                            PlaceHolder="Max Weight"
-                            value={this.state.maxWeight}
+                            name="measurement"
+                            PlaceHolder="Measurement (In)"
+                            value={this.state.measurement}
                             type="text"
                             onChange={this.onChange}
                             onClick={this.onClick}
-                            error={errors.maxWeight}
+                            error={errors.measurement}
                         />
                         <label className="control-label form-control-lg new-progression">
                             Date:
@@ -241,22 +281,23 @@ class AddDataProgressForm extends Component {
     }; // render
 }
 
-AddDataProgressForm.propTypes = {
+NewBodyProgressForm.propTypes = {
     modalSize: PropTypes.func.isRequired,
     progressFormHeight: PropTypes.string.isRequired,
-    newClientProgress: PropTypes.func.isRequired,
+    newClientBodyBio: PropTypes.func.isRequired,
     setErrors: PropTypes.func.isRequired,
     clearSuccess: PropTypes.func.isRequired,
     clearErrors: PropTypes.func.isRequired,
-    ptGetClientProgression: PropTypes.func.isRequired,
+    authenticatedUser: PropTypes.object.isRequired,
     errors: PropTypes.object.isRequired,
     success: PropTypes.object.isRequired
 };
 
 const stateToProps = (state) => ({
+    authenticatedUser: state.authenticatedUser,
     errors: state.errors,
     success: state.success
 });
 
 
-export default connect(stateToProps, {newClientProgress, setErrors, clearErrors, clearSuccess, ptGetClientProgression})(withRouter(AddDataProgressForm));
+export default connect(stateToProps, {newClientBodyBio, setErrors, clearErrors, clearSuccess})(withRouter(NewBodyProgressForm));

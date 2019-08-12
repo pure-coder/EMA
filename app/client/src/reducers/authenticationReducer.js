@@ -1,7 +1,8 @@
 // THIS MUST BE IMPORTED INTO INDEX.JS IN REDUCERS FOLDER
 
 import {
-    SET_SIGNED_IN_USER
+    SET_SIGNED_IN_USER,
+    ACTION_MADE
 } from "../actions/types";
 import isEmpty from '../validation/is_empty';
 
@@ -23,6 +24,17 @@ export default function (state = initialisedState, action) {
                 // and it will be an empty object
                 user: action.payload
             };
+        case ACTION_MADE:
+            const user = {
+                ...state.user
+            };
+            return {
+                ...state,
+                user: {
+                    ...user,
+                    exp: action.payload
+                }
+            }
         default:
             return state;
 }};

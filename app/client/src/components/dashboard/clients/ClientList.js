@@ -107,7 +107,7 @@ class ClientList extends Component {
 
             // Use sortedMap function to sort the client names and then send to view
             const ptClients = this.sortedMap(clients).map((client, index) => (
-                <tr key={client._id}>
+                <tr key={client._id} className={index % 2 === 0 ? "odd-row" : "even-row"}>
                     <td><b>{client.FullName}</b></td>
                     <td align="center"><a onClick={this.onProfileClick.bind(this, client.ptId, client._id, clients[index])}>
                         <i className="fas fa-columns fa-2x"></i></a>
@@ -131,27 +131,26 @@ class ClientList extends Component {
             ));
             return (
                 <div className="row">
-                    <div className="m-auto col-md-10">
-                        <div className="pt-buttons mt-5">
-                            <Link to={'/users/' + this.props.authenticatedUser.user.id + '/register_client'}>
-                                <button
-                                    className="btn btn-primary dashboard-new-client">
-                                    Add new Client
-                                </button>
-                            </Link>
-                            <Link to={'/users/' + this.props.authenticatedUser.user.id + '/edit_personal_trainer'}>
-                                <button
-                                    className="btn btn-success dashboard-edit-own-profile">
-                                    Edit own profile
-                                </button>
-                            </Link>
-                        </div>
-                        <div>
-                            <div>
+                    <div className="ClientList">
+                        <div className="m-auto">
+                            <div className="pt-buttons mt-5">
+                                <Link to={'/users/' + this.props.authenticatedUser.user.id + '/register_client'}>
+                                    <button
+                                        className="btn btn-primary dashboard-new-client">
+                                        Add new Client
+                                    </button>
+                                </Link>
+                                <Link to={'/users/' + this.props.authenticatedUser.user.id + '/edit_personal_trainer'}>
+                                    <button
+                                        className="btn btn-success dashboard-edit-own-profile">
+                                        Edit own profile
+                                    </button>
+                                </Link>
+                            </div>
                                 <h3 className="mt-5 mb-3">Clients</h3>
                                 <table className="table client-table">
                                     <thead>
-                                    <tr>
+                                    <tr className="even-row">
                                         <th id="client-table-name">Name</th>
                                         <th align="center">Profile</th>
                                         <th align="center">Workout Schedule</th>
@@ -161,7 +160,6 @@ class ClientList extends Component {
                                     {ptClients}
                                     </thead>
                                 </table>
-                            </div>
                         </div>
                     </div>
 

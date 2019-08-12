@@ -2,23 +2,23 @@ import {connect} from 'react-redux';
 import React, {Component} from 'react';
 import {withRouter} from 'react-router-dom';
 import PropTypes from 'prop-types';
-import GraphComp from './GraphComp';
+import BodyGraphComp from './BodyGraphComp';
 import isEmpty from "../../../utilities/is_empty";
 import ErrorComponent from "../../error/ErrorComponent";
 import Loading from "../../../elements/Loading";
-import NewClientProgressForm from "./NewClientProgressForm";
+import NewBodyProgressForm from "./NewBodyProgressForm";
 import Modal from "react-awesome-modal";
-import {getClientProgression} from "../../../actions/clientProfileActions";
-import {ptGetClientProgression, clearErrors, clearSuccess} from "../../../actions/ptProfileActions";
+import {getBodyBioClient} from "../../../actions/clientProfileActions";
+import {ptGetClientBodyBio, clearErrors, clearSuccess} from "../../../actions/ptProfileActions";
 
-class Graphs extends Component {
+class BodyGraphs extends Component {
     // This allows the component states to be up{dated and re-rendered)
     constructor(props) {
         super(props);
         this.state = {
             userId: props.authenticatedUser.user.id,
             clientId: props.authenticatedUser.user.pt ? props.match.params.cid : props.authenticatedUser.user.id,
-            graphData: props.graphData,
+            bodyGraphData: props.bodyGraphData,
             success: {},
             errors: {},
             modalWidth: "500",
@@ -27,16 +27,16 @@ class Graphs extends Component {
             loaded: false
         };
 
-        this.getClientProgression = this.getClientProgression.bind(this);
+        this.getBodyBioClient = this.getBodyBioClient.bind(this);
         this.modalSize = this.modalSize.bind(this);
         this.openModal = this.openModal.bind(this);
         this.onClickAway = this.onClickAway.bind(this);
     }
 
     static getDerivedStateFromProps(props, state){
-        if(props.graphData === state.graphData){
+        if(props.bodyGraphData === state.bodyGraphData){
             return {
-                graphData: props.graphData,
+                bodyGraphData: props.bodyGraphData,
                 loaded: true,
             }
         }
@@ -49,17 +49,17 @@ class Graphs extends Component {
     }
 
     componentDidUpdate(prevProps){
-        if (prevProps.graphData !== this.props.graphData){
-            this.setState({graphData: this.props.graphData});
+        if (prevProps.bodyGraphData !== this.props.bodyGraphData){
+            this.setState({bodyGraphData: this.props.bodyGraphData});
         }
     }
 
-    static sortedProgressionExerciseNames(graphData){
-        return graphData.sort((obj1, obj2) => {
-            if (obj1.exerciseName > obj2.exerciseName) {
+    static sortedProgressionBodyPart(bodyGraphData){
+        return bodyGraphData.sort((obj1, obj2) => {
+            if (obj1.bodyPart > obj2.bodyPart) {
                 return 1;
             }
-            if (obj1.exerciseName < obj2.exerciseName){
+            if (obj1.bodyPart < obj2.bodyPart){
                 return -1;
             }
             return 0;
@@ -80,34 +80,34 @@ class Graphs extends Component {
         this.setState({
             visible: false
         });
-        this.getClientProgression();
+        this.getBodyBioClient();
     }
 
-    getClientProgression(){
+    getBodyBioClient(){
         if(this.props.authenticatedUser.user.pt){
-            this.props.ptGetClientProgression(this.state.clientId, this.props.history);
+            this.props.ptGetClientBodyBio(this.state.clientId, this.props.history);
         }
         else{
-            this.props.getClientProgression(this.state.clientId, this.props.history);
+            this.props.getBodyBioClient(this.state.clientId, this.props.history);
         }
     }
 
     render() {
-        const {graphData} = this.state;
-        if(!this.state.loaded || graphData === undefined || graphData === null){
+        const {bodyGraphData} = this.state;
+        if(!this.state.loaded || bodyGraphData === undefined || bodyGraphData === null){
             return <Loading/>
         }
         if(isEmpty(this.props.authenticatedUser.user)){
             return <ErrorComponent/>
         }
         else{
-            let Data = Graphs.sortedProgressionExerciseNames(graphData);
+            let Data = BodyGraphs.sortedProgressionBodyPart(bodyGraphData);
             const graphs = Data.map(graph => {
-                if(graph.metrics.length > 1){
+                if(graph.bodyMetrics.length > 1){
                     return (
                         // Changed key from GraphComp to div as div was first child, otherwise error was given.
                         <div className="graphs card mb-5" key={graph._id}>
-                            <GraphComp graphData={graph}/>
+                            <BodyGraphComp bodyGraphData={graph}/>
                         </div>
                     )
                 }
@@ -116,16 +116,16 @@ class Graphs extends Component {
                 }
             });
             return (
-                <div id="Progression" className="Progression card Progression_head mb-5">
-                    <h2 className=" text-center display-5 mt-3 mb-4">Client progression data</h2>
+                <div id="Progression" className="Progression card">
+                    <h2 className=" text-center display-5 mt-3 mb-4">Client body progress data</h2>
                     <h6 className=" text-center display-5 mt-3 mb-4">
-                        (Showing exercise data that have 2+ data entries)
+                        (Showing body data that have 2+ data entries)
                     </h6>
                     {/*Show add progress button only if pt*/}
                     {this.props.authenticatedUser.user.pt === true ?
-                        <input id="progress-button" type="button"
+                        <input id="body-progress-button" type="button"
                                className="btn btn-success btn-block mt-4 mb-5"
-                               value="Add Exercise Progression Data"
+                               value="Add Body Progression Data"
                                onClick={this.openModal}/>
                         : null
                     }
@@ -140,9 +140,9 @@ class Graphs extends Component {
                         <div>
                             {/*Sending onClickAway into child component NewClientProgress allows the child to affect this parents state!!!
                              Also sending modal visibility so fields and errors can be cleared when visibility is false.
-                             Also sending getClientProgression so that the page can be updated once a new progress submission
+                             Also sending getBodyBioClient so that the page can be updated once a new progress submission
                                has been successful.*/}
-                            <NewClientProgressForm
+                            <NewBodyProgressForm
                                 onClickAway={this.onClickAway}
                                 visible={this.state.visible}
                                 modalSize={this.modalSize}
@@ -157,10 +157,10 @@ class Graphs extends Component {
     }
 }
 
-Graphs.propTypes = {
+BodyGraphs.propTypes = {
     authenticatedUser: PropTypes.object.isRequired,
-    getClientProgression: PropTypes.func.isRequired,
-    ptGetClientProgression: PropTypes.func.isRequired,
+    getBodyBioClient: PropTypes.func.isRequired,
+    ptGetClientBodyBio: PropTypes.func.isRequired,
     clearErrors: PropTypes.func.isRequired,
     clearSuccess: PropTypes.func.isRequired
 };
@@ -171,4 +171,4 @@ const stateToProps = (state) => ({
     success: state.success
 });
 
-export default connect(stateToProps, {getClientProgression, ptGetClientProgression, clearErrors, clearSuccess})(withRouter(Graphs));
+export default connect(stateToProps, {getBodyBioClient, ptGetClientBodyBio, clearErrors, clearSuccess})(withRouter(BodyGraphs));

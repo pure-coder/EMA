@@ -16,7 +16,7 @@ const ProfileInputForm = ({
     cols
     }) =>{
     return (
-        <form className="form-group" name={name} onSubmit={onSubmit}>
+        <form className="form-group Profile_notes-forms" name={name} onSubmit={onSubmit}>
             <label className="control-label form-control-lg label-profile">
                 {label}
             </label>

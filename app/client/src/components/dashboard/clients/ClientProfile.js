@@ -2,8 +2,24 @@ import React, {Component} from 'react';  // Used to create this component
 import PropTypes from 'prop-types'; // Used to document prop types sent to components
 import {connect} from 'react-redux' // Needed when using redux inside a component (connects redux to this component)
 import {withRouter} from 'react-router-dom';
-import {ptGetClientProgression, clearProgression, getCurrentClient, clearCurrentClient, getClientProfileNotes, clearClientProfileNotes} from "../../../actions/ptProfileActions";
-import {getClientData, getClientProgression, getProfileNotes, clearProfileNotes} from "../../../actions/clientProfileActions";
+import {
+    ptGetClientProgression,
+    clearProgression,
+    getCurrentClient,
+    clearCurrentClient,
+    getClientProfileNotes,
+    clearClientProfileNotes,
+    ptGetClientBodyBio,
+    clearBodyBio
+} from "../../../actions/ptProfileActions";
+import {
+    getClientData,
+    getClientProgression,
+    getProfileNotes,
+    clearProfileNotes,
+    getBodyBioClient,
+    clearBodyBioClient
+} from "../../../actions/clientProfileActions";
 import Graphs from "../progression/Graphs";
 // import NewClientProgressForm from "../progression/NewClientProgressForm";
 // import Modal from 'react-awesome-modal';
@@ -12,6 +28,7 @@ import ErrorComponent from "../../error/ErrorComponent";
 import Loading from "../../../elements/Loading";
 import UserInfo from "../UserInfo";
 import ProfileNotes from "../profileNotes/ProfileNotes";
+import BodyGraphs from "../bodyBio/BodyGraphs";
 
 // import FormInputGroup from "../common/FormInputGroup"; // Allows proper routing and linking using browsers match, location, and history properties
 
@@ -22,6 +39,8 @@ class ClientProfile extends Component {
         this.state = {
             client_progression: props.authenticatedUser.user.pt ? props.ptProfile.client_progression :
                 props.clientProfile.client_progression,
+            body_bio: props.authenticatedUser.user.pt ? props.ptProfile.body_bio :
+                props.clientProfile.body_bio,
             userId: props.authenticatedUser.user.id,
             clientId: props.authenticatedUser.user.pt ? props.match.params.cid : props.authenticatedUser.user.id,
             clientData: undefined,
@@ -30,6 +49,7 @@ class ClientProfile extends Component {
         };
 
         this.getClientProgression = this.getClientProgression.bind(this);
+        this.getBodyBioClient = this.getBodyBioClient.bind(this);
     }
 
     static getDerivedStateFromProps(props, state){
@@ -42,6 +62,12 @@ class ClientProfile extends Component {
             if(props.ptProfile.client_progression !== state.client_progression){
                 return {
                     client_progression: props.ptProfile.client_progression,
+                    loaded: true,
+                }
+            }
+            if(props.ptProfile.body_bio !== state.body_bio){
+                return {
+                    body_bio: props.ptProfile.body_bio,
                     loaded: true,
                 }
             }
@@ -59,6 +85,12 @@ class ClientProfile extends Component {
                     loaded: true,
                 }
             }
+            if(props.clientProfile.body_bio !== state.body_bio){
+                return {
+                    body_bio: props.clientProfile.body_bio,
+                    loaded: true,
+                }
+            }
             return null;
         }
     }
@@ -66,10 +98,12 @@ class ClientProfile extends Component {
     componentDidMount() {
         if(this.props.authenticatedUser.user.pt){
             this.props.getCurrentClient(this.state.clientId, this.props.history);
-            this.props.getClientProfileNotes(this.state.clientId, this.props.history)
+            this.props.getClientProfileNotes(this.state.clientId, this.props.history);
+            this.props.ptGetClientBodyBio(this.state.clientId, this.props.history);
         }
         else{
-            this.props.getProfileNotes(this.state.clientId, this.state.history)
+            this.props.getProfileNotes(this.state.clientId, this.state.history);
+            this.props.getBodyBioClient(this.state.clientId, this.props.history);
         }
         this.getClientProgression();
     } // did mount
@@ -79,8 +113,10 @@ class ClientProfile extends Component {
         if(this.props.authenticatedUser.user.pt){
             this.props.clearCurrentClient();
             this.props.clearClientProfileNotes();
+            this.props.clearBodyBio();
         }
         this.props.clearProgression();
+        this.props.clearBodyBioClient();
         this.setState({loaded: false})
     }
 
@@ -93,10 +129,20 @@ class ClientProfile extends Component {
         }
     }
 
+    getBodyBioClient(){
+        if(this.props.authenticatedUser.user.pt){
+            this.props.ptGetClientBodyBio(this.state.clientId, this.props.history);
+        }
+        else{
+            this.props.getBodyBioClient(this.state.clientId, this.props.history);
+        }
+    }
+
     render() {
         const {user} = this.props.authenticatedUser;
         const client_data = this.state.clientData;
         const clientProgressData = this.state.client_progression;
+        const bodyProgressData = this.state.body_bio;
 
         let profile_notes;
 
@@ -119,15 +165,12 @@ class ClientProfile extends Component {
                     <h1 className=" text-center display-5 mb-3">Client Profile</h1>
                     <UserInfo userData={this.state.clientData}/> {/* Use data from props.location.state*/}
                     <div className="row">
-                        <div className="col">
-                            <div className="m-auto col-md-3">
-                                <Graphs graphData={clientProgressData}/>
-                            </div>
+                        <div className="col-sm Profile_margin">
+                            <BodyGraphs bodyGraphData={bodyProgressData}/>
+                            <Graphs graphData={clientProgressData}/>
                         </div>
-                        <div className="col">
-                            <div className="m-auto col-md-3">
-                                <ProfileNotes data={profile_notes}/>
-                            </div>
+                        <div className="col-sm">
+                            <ProfileNotes data={profile_notes}/>
                         </div>
                     </div>
                 </div>
@@ -147,10 +190,14 @@ ClientProfile.propTypes = {
     getCurrentClient: PropTypes.func.isRequired,
     getClientProgression: PropTypes.func.isRequired,
     ptGetClientProgression: PropTypes.func.isRequired,
+    getBodyBioClient: PropTypes.func.isRequired,
+    ptGetClientBodyBio: PropTypes.func.isRequired,
     clearProgression: PropTypes.func.isRequired,
     clearCurrentClient: PropTypes.func.isRequired,
     clearClientProfileNotes: PropTypes.func.isRequired,
     clearProfileNotes: PropTypes.func.isRequired,
+    clearBodyBio: PropTypes.func.isRequired,
+    clearBodyBioClient: PropTypes.func.isRequired,
     errors: PropTypes.object.isRequired
 };
 
@@ -163,4 +210,4 @@ const stateToProps = (state) => {
         errors: state.errors
 }};
 
-export default connect(stateToProps, {getClientProgression, ptGetClientProgression, clearProgression, getCurrentClient, getClientData, clearCurrentClient, getClientProfileNotes,clearClientProfileNotes, getProfileNotes, clearProfileNotes})(withRouter(ClientProfile));
+export default connect(stateToProps, {getClientProgression, ptGetClientProgression, clearProgression, getCurrentClient, getClientData, clearCurrentClient, getClientProfileNotes,clearClientProfileNotes, getProfileNotes, clearProfileNotes, getBodyBioClient, ptGetClientBodyBio, clearBodyBio, clearBodyBioClient})(withRouter(ClientProfile));

@@ -10,35 +10,7 @@ import {
     BODY_BIO_CLIENT,
     CLEAR_BODY_BIO_CLIENT
 } from "./types"; // import custom defined types
-import {logOutUser} from "./authenticationActions";
-
-const manageErrors = (err, dispatch, history) => {
-    // console.log(err.response);
-    // 401 Unauthorised
-    if(err.response.status === 401){
-        dispatch({
-            type: GET_ERRS,
-            payload: {
-                error_message: err.response.data,
-                error_code: err.response.status
-            }
-        });
-        dispatch(logOutUser());
-        dispatch(clearClientProfile());
-        dispatch(clearErrors());
-        history.push('/re-login');
-    }
-    // If used direct url, and id doesn't exist send user to error page (404 - Not Found)
-    else if (err.response.status === 404){
-        history.replace('/error_page');
-    }
-    else {
-        dispatch({
-            type: GET_ERRS,
-            payload: err.response.data
-        })
-    }
-};
+import {manageErrors} from "./authenticationActions";
 
 export const getClientData = (clientId, history) => dispatch => {
     dispatch(setProfileLoading());
@@ -108,7 +80,7 @@ export const getBodyBioClient = (clientId, history) => dispatch => {
         });
 };
 
-export const clearBodyBio = () => dispatch => {
+export const clearBodyBioClient = () => dispatch => {
     dispatch({
         type: CLEAR_BODY_BIO_CLIENT
     });
