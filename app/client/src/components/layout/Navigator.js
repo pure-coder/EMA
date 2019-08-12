@@ -38,12 +38,15 @@ class Navigation extends Component {
     }
 
     componentDidMount() {
-        if(this.props.authenticatedUser.user.pt){
-            this.props.getPtData(this.props.authenticatedUser.user.id, this.props.history);
-            this.props.getClients(this.props.authenticatedUser.user.id, this.props.history);
-        }
-        else {
-            this.props.getClientData(this.props.authenticatedUser.user.id, this.props.history);
+        const {isAuthenticated} = this.props.authenticatedUser;
+        if(isAuthenticated){
+            if(this.props.authenticatedUser.user.pt){
+                this.props.getPtData(this.props.authenticatedUser.user.id, this.props.history);
+                this.props.getClients(this.props.authenticatedUser.user.id, this.props.history);
+            }
+            else {
+                this.props.getClientData(this.props.authenticatedUser.user.id, this.props.history);
+            }
         }
     } // ComponentDidMount
 
