@@ -239,44 +239,63 @@ router.put('/edit_client/:cid', passport.authenticate('both_rule', {session: fal
         return res.status(400).json({error : "No data sent to server!"})
     }
 
+    Client.findOne({_id: clientId})
+        .then(clientResult => {
+            if (clientResult){
+                if(clientResult._id.toString() === signedInId || clientResult.ptId === signedInId){
+                    // If it exists as the for loop above checked if password was null or undefined, hash the password and update client
+                    // profile if password doesn't exist update profile without hashing non existent password
+                    if (updateClient.Password) {
 
-    // If it exists as the for loop above checked if password was null or undefined, hash the password and update client profile if password doesn't exist update profile without hashing non existent password
-    if (updateClient.Password) {
-
-        // This can be done synchronously via bcrypt.genSaltSync and bcrypt.hashSync, but for better performance async is used so the
-        // encrypting of users passwords does not tie up the node.js thread.
-        bcrypt.genSalt(12, (err, salt) => {
-            bcrypt.hash(updateClient.Password, salt, (err, hash) => {
-                if (err) throw err;
-                // Set plain Password to the hash that was created for the Password
-                updateClient.Password = hash;
-                // Update password in client database
-                Client.findByIdAndUpdate(clientId, updateClient, {new: true})
-                    .then(result => {
-                        if(result) {
-                            res.status(200).json(result)
-                        }
-                        res.status(404).json({err: "Client does not exist!"})
-                    })
-                    .catch(err => {
-                        res.status(400).json(err)
-                    });
-            })
-        })
-    }
-    else {
-        // Find client by id
-        Client.findByIdAndUpdate(clientId, updateClient, {new: true})
-            .then(client => {
-                if (client) {
-                    return res.status(200).json(client);
+                        // This can be done synchronously via bcrypt.genSaltSync and bcrypt.hashSync, but for better performance async
+                        // is used so the encrypting of users passwords does not tie up the node.js thread.
+                        bcrypt.genSalt(12, (err, salt) => {
+                            bcrypt.hash(updateClient.Password, salt, (err, hash) => {
+                                if (err) throw err;
+                                // Set plain Password to the hash that was created for the Password
+                                updateClient.Password = hash;
+                                // Update password in client database
+                                Client.findByIdAndUpdate(clientId, updateClient, {new: true})
+                                    .then(result => {
+                                        if(result) {
+                                            res.status(200).json(result)
+                                        }
+                                        res.status(404).json({err: "Client does not exist!"})
+                                    })
+                                    .catch(err => {
+                                        res.status(400).json(err)
+                                    });
+                            })
+                        })
+                    }
+                    else {
+                        // Find client by id
+                        Client.findByIdAndUpdate(clientId, updateClient, {new: true})
+                            .then(client => {
+                                if (client) {
+                                    return res.status(200).json(client);
+                                }
+                                return res.status(400).json({error: "Client does not exist!"});
+                            })
+                            .catch(err => {
+                                return res.status(400).json(err)
+                            });
+                    }
                 }
-                return res.status(400).json({error: "Client does not exist!"});
-            })
-            .catch(err => {
-                return res.status(400).json(err)
-            });
-    }
+                else{
+                    res.status(400).json({error: "Not authorised to update data."})
+                }
+
+            }
+            else{
+                res.status(400).json({error: "Client not found"})
+            }
+        })
+        .catch(err => {
+            console.log(err)
+            res.status(400).json();
+            }
+        )
 }); // PUT /edit_client/:id
 
 // @route  GET api/personal_trainer/:id
