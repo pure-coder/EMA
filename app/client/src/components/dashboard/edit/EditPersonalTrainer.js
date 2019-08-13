@@ -10,6 +10,7 @@ import ErrorComponent from "../../error/ErrorComponent"; // Allows proper routin
 import DisplayMessage from '../../common/DisplayMessage';
 import FormSelectComp from "../../common/FormSelectComp";
 import defaultUserImage from "../../../img/user-regular.svg";
+import checkExp from "../../../utilities/checkExp";
 
 class EditPersonalTrainer extends Component {
     // This allows the component states to be updated and re-rendered
@@ -46,6 +47,7 @@ class EditPersonalTrainer extends Component {
     }
 
     componentDidMount() {
+        checkExp();
         if(this.props.ptProfile.pt_data === null){
             this.props.getPtData(this.props.authenticatedUser.user.id);
         }
@@ -90,6 +92,7 @@ class EditPersonalTrainer extends Component {
     }
 
     componentWillUnmount(){
+
         this.props.clearErrors();
         this.props.clearSuccess();
     }

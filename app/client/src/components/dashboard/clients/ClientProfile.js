@@ -29,6 +29,7 @@ import Loading from "../../../elements/Loading";
 import UserInfo from "../UserInfo";
 import ProfileNotes from "../profileNotes/ProfileNotes";
 import BodyGraphs from "../bodyBio/BodyGraphs";
+import checkExp from "../../../utilities/checkExp";
 
 // import FormInputGroup from "../common/FormInputGroup"; // Allows proper routing and linking using browsers match, location, and history properties
 
@@ -96,6 +97,7 @@ class ClientProfile extends Component {
     }
 
     componentDidMount() {
+        checkExp();
         if(this.props.authenticatedUser.user.pt){
             this.props.getCurrentClient(this.state.clientId, this.props.history);
             this.props.getClientProfileNotes(this.state.clientId, this.props.history);
@@ -109,6 +111,10 @@ class ClientProfile extends Component {
     } // did mount
 
     componentWillUnmount(){
+        const {isAuthenticated} = this.props.authenticatedUser;
+        if(!isAuthenticated){
+            this.props.history.push('/re-login');
+        }
         // This got rid of the Date: null bug for now, need to find route cause!!!
         if(this.props.authenticatedUser.user.pt){
             this.props.clearCurrentClient();

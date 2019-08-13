@@ -2,32 +2,16 @@
 import store from "../store";
 import {Redirect, Route} from "react-router-dom";
 import React from "react";
-import {checkExp} from "../utilities/checkExp";
 
-const PrivateRoute = ({component: Component, ...rest}) => {
-
-    const auth = store.getState();
-    const {isAuthenticated} = auth.authenticatedUser;
-
-    return(
-        <Route
+const PrivateRoute = ({component: Component, ...rest}) => (
+            <Route
             {...rest}
-            render={(props) =>
-            {
-                checkExp(store);
-                console.log(1)
-                if (!isAuthenticated) {
-                    // console.log("auth empty - pr")
-                    // If direct url used and auth is empty, this will send user to login screen!
-                    return <Redirect to={{pathname: '/login', state: {from: props.location}}}/>
-                }
-                else {
-                    return <Component {...props} />
-                }
-            }
+            render={
+                props =>
+                    store.getState().authenticatedUser.isAuthenticated ? (<Component {...props} />):
+                        (<Redirect to={{pathname: '/re-login'}}/>)
             }
         />
-    )
-}
+);
 
 export default PrivateRoute;

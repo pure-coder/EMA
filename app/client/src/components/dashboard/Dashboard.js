@@ -10,10 +10,13 @@ import ClientData from "./clients/ClientData";
 import isEmpty from "../../utilities/is_empty";
 import ErrorComponent from "../error/ErrorComponent";
 import UserInfo from "./UserInfo";
+import checkExp from '../../utilities/checkExp'
 
 class Dashboard extends Component {
+
     // Life cycle method for react which will run when this component receives new properties
     componentDidMount() {
+        checkExp();
         // console.log(this.props.ptProfile.pt_data === null)
         // console.log(this.props)
         if(this.props.ptProfile.pt_data === null || this.props.clientProfile.client_data === null){
@@ -30,12 +33,18 @@ class Dashboard extends Component {
         this.props.clearSuccess();
     } // ComponentDidMount
 
+    componentWillUnmount(){
+        const {isAuthenticated} = this.props.authenticatedUser;
+        if(!isAuthenticated){
+            this.props.history.push('/re-login');
+        }
+    }
+
 
     render() {
-
-
         let displayContent;
         const {user} = this.props.authenticatedUser;
+
         if(user.pt){
             let {pt_data, loading, clients} = this.props.ptProfile;
 
@@ -103,7 +112,6 @@ Dashboard.propTypes = {
     getClients: PropTypes.func.isRequired,
     getClientData: PropTypes.func.isRequired,
     getPtData: PropTypes.func.isRequired,
-    clearErrors: PropTypes.func.isRequired,
     clearSuccess: PropTypes.func.isRequired,
     errors: PropTypes.object.isRequired
 };

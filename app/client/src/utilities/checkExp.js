@@ -1,15 +1,21 @@
-import {logOutUser} from "../actions/authenticationActions";
+import store from '../store'
+import {refreshToken} from "../actions/authenticationActions";
 
-export const checkExp = (store) => {
+const checkExp = () => {
     const auth = store.getState();
-    if(auth.authenticatedUser.isAuthenticated){
-        const expiredTime = (auth.authenticatedUser.user.exp * 1000);
+    if (auth.authenticatedUser.isAuthenticated) {
+        const init = auth.authenticatedUser.user.iat; // initiated token time
+        const expiredTime = auth.authenticatedUser.user.exp; // expiration time against initiated token time
+
+        const refreshPeriod = 300; // period in seconds (refeshes token 5 mins (60*5 = 300) before expiration if still active!)
         const currentTime = Date.now();
-        if (expiredTime < currentTime) {
-            // Log the user out
-            store.dispatch(logOutUser());
-            // Redirect the user to the login page
-            window.location.href = '/re-login';
-        } // if decodedToken
+        const countDown = ((currentTime - (init* 1000)) / 1000);
+        const marker = (expiredTime - init) - refreshPeriod;
+
+        if(countDown > marker){
+            store.dispatch(refreshToken());
+        }
     }
 };
+
+export default checkExp;

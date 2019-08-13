@@ -10,10 +10,9 @@ import {
     BODY_BIO_CLIENT,
     CLEAR_BODY_BIO_CLIENT
 } from "./types"; // import custom defined types
-import {manageErrors, updateExp} from "./authenticationActions";
+import {manageErrors} from "./authenticationActions";
 
 export const getClientData = (clientId, history) => dispatch => {
-    dispatch(updateExp());
     dispatch(setProfileLoading());
     axios
         .get(`/api/client/${clientId}`)

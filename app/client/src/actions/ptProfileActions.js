@@ -19,7 +19,7 @@ import {
     PT_CLIENT_BODY_BIO,
     CLEAR_BODY_BIO
 } from "./types"; // import custom defined types
-import {manageErrors, updateExp} from "./authenticationActions";
+import {manageErrors} from "./authenticationActions";
 
 // Register client
 export const registerClient =(Data, props, history) => (dispatch) => {
@@ -38,7 +38,6 @@ export const registerClient =(Data, props, history) => (dispatch) => {
 
 // Get pt Clients
 export const getClients = (ptId, history) => dispatch => {
-    dispatch(updateExp());
     axios
         .get(`/api/pt_clients/${ptId}`)
         .then(result => {

@@ -38,7 +38,7 @@ const isEmpty = require('../validation/is_empty');
 router.post('/login', (req, res) => {
     const Email = req.body.Email;
     const Password = req.body.Password;
-    const expirationTime = 5;//3600; // Expiration access token set to 1hr (3600)
+    const expirationTime = 3600;//3600; // Expiration access token set to 1hr (3600)
 
     // Set up validation checking for every field that has been posted
     const {errors, isValid} = validateLoginInput(req.body);
@@ -356,7 +356,7 @@ router.post('/new_client', passport.authenticate('pt_rule', {session: false}), (
 
 // @route  GET api/refreshToken
 // @desc  TokenRefresh
-// @access Public
+// @access User that is logged in
 router.get('/refreshToken', passport.authenticate('both_rule', {session: false}), (req, res) => {
 
     let token = req.headers.authorization.split(' ')[1];
@@ -364,7 +364,6 @@ router.get('/refreshToken', passport.authenticate('both_rule', {session: false})
     let userId = payload.id;
     let isPt = payload.pt;
     const expirationTime = 3600; // Expiration access token set to 1hr (3600)
-
 
     // User matched so create payload for client
     const newPayload = {id: userId, pt: isPt};

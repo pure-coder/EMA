@@ -10,6 +10,7 @@ import isEmpty from "../../utilities/is_empty";
 import ErrorComponent from "../error/ErrorComponent";
 import UserInfo from "../dashboard/UserInfo";
 import SchedulerHTML from "./SchedulerHTML";
+import checkExp from "../../utilities/checkExp";
 
 
 class Scheduler extends Component {
@@ -27,6 +28,7 @@ class Scheduler extends Component {
 
 
     componentDidMount() {
+        checkExp();
         // Check if isAuthenticated is false then redirect to the dashboard
         if(this.props.authenticatedUser.user.pt){
             this.props.getCurrentClient(this.state.clientId, this.props.history);
