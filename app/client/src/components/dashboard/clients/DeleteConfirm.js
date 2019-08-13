@@ -48,7 +48,7 @@ class DeleteConfirm extends Component {
     }
 
     onConfirm(){
-        this.props.deleteClient(this.props.clientId, this.props.ptId, this.props.history);
+        this.props.deleteClient(this.props.clientId, this.props.history);
         this.props.onClickAway();
     }
 

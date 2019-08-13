@@ -37,9 +37,9 @@ export const registerClient =(Data, props, history) => (dispatch) => {
 }; // registerClient
 
 // Get pt Clients
-export const getClients = (ptId, history) => dispatch => {
+export const getClients = (history) => dispatch => {
     axios
-        .get(`/api/pt_clients/${ptId}`)
+        .get(`/api/pt_clients`)
         .then(result => {
                 // return {clients : result.data}
                 // dispatch this action to the action below so the data can be sent to the respective reducer
@@ -166,13 +166,13 @@ export const clearClientProfileNotes = () => dispatch => {
 };
 
 // Delete Client
-export const deleteClient = (clientId, ptId, history) => dispatch => {
+export const deleteClient = (clientId, history) => dispatch => {
     axios
         .delete(`/api/delete_client/${clientId}`)
         .then(result => {
             // causes refresh of dashboard with updated client list
             if(result.status === 200) {
-                dispatch(getClients(ptId, history));
+                dispatch(getClients(history));
                 dispatch(setSuccess("Client deleted successfully."));
             }
         })

@@ -34,44 +34,25 @@ const ProfileNotes = require('../models/ProfileNotes');
 // Require events
 const Events = require('../models/Events');
 
-// For creating Body bio for clients that didn't get initialised with one.
-// function createBio(pId, cId, res){
-//
-//     // Add default body bio for client
-//     const newBio = new BodyBio({
-//         clientId: cId,
-//         ptId: pId,
-//         bodyMetrics: []
-//     });
-//
-//     newBio.save()
-//         .then(() =>{
-//             // console.log(bioResult)
-//             res.status(200).json();
-//         })
-//         .catch(() => {
-//             // console.log(err)
-//             res.status(400).json();
-//         });
-// }
-
-// @route  GET api/pt_clients/:ptid
+// @route  GET api/pt_clients
 // @desc   Get up to date clients of personal trainer
 // @access Private for PT's
-router.get('/pt_clients/:ptId', passport.authenticate('pt_rule', {session: false}, null), (req, res) => {
-    let ptId = req.params.ptId;
+router.get('/pt_clients', passport.authenticate('pt_rule', {session: false}, null), (req, res) => {
+
+    let token = req.headers.authorization.split(' ')[1];
+    let payload = jwt.decode(token, keys.secretOrKey);
+    let signedInId = payload.id;
+
     // get personal trainers client list
-    PersonalTrainer.findOne({_id: ptId}).populate('ClientIDs', '-Password -Date -Activated -__v')
+    PersonalTrainer.findOne({_id: signedInId}).populate('ClientIDs', '-Password -Date -Activated -__v')
         .exec(function (err, personalTrainer) {
-                if (err) return res.json("No data for ptid: " + err.stringValue);
+                if (err) return res.json("No data for personal trainer logged in: " + err.stringValue);
 
                 if (personalTrainer) {
                     return res.json(personalTrainer.ClientIDs)
                 }
             }
         ) // Client.findOne
-
-
 });
 // router get /pt_clients
 
@@ -81,75 +62,86 @@ router.get('/pt_clients/:ptId', passport.authenticate('pt_rule', {session: false
 // @access Private for PT's
 router.delete('/delete_client/:cid', passport.authenticate('pt_rule', {session: false}, null), (req, res) => {
 
+    let token = req.headers.authorization.split(' ')[1];
+    let payload = jwt.decode(token, keys.secretOrKey);
+    let signedInId = payload.id;
+
     let clientId = req.params.cid;
     // Delete the client
     Client.findOne({_id: clientId})
         .then(client => {
             if (client) {
-                // Had to change $unset to $pull
-                PersonalTrainer.update({_id: client.ptId}, {$pull: {ClientIDs: client.id}})
-                    .then(pt => {
-                        if (pt) {
-                            Client.remove({_id: clientId}).remove()
-                                .then(result => {
-                                    if (result) {
-                                        ClientProgression.remove({clientId: clientId})
-                                            .then(() => {
-                                                    // res.status(200).json("Client deleted successfully")
-                                                }
-                                            )
-                                            .catch(() => {
-                                                // console.log("error deleting client progress")
-                                            });
-                                        Events.remove({clientId: clientId})
-                                            .then(() => {
-                                                    // res.status(200).json("Client deleted successfully")
-                                                    // console.log( "Events deleted for user: " + client.FullName + " ", events)
-                                                }
-                                            )
-                                            // Events.remove
-                                            .catch(() => {
-                                                // console.log("error deleting client progress")
-                                            });
-                                        BodyBio.remove({clientId: clientId})
-                                            .then(() => {
-                                                    return res.status(200).json("Client deleted successfully")
-                                                    // console.log( "Events deleted for user: " + client.FullName + " ", events)
-                                                }
-                                            )
-                                            // Events.remove
-                                            .catch(err => {
-                                                return res.status(400).json(err)
-                                            });
-                                        ProfileNotes.remove({clientId: clientId})
-                                            .then(() => {
-                                                    return res.status(200).json("Client deleted successfully")
-                                                    // console.log( "Events deleted for user: " + client.FullName + " ", events)
-                                                }
-                                            )
-                                            // Events.remove
-                                            .catch(err => {
-                                                return res.status(400).json(err)
-                                            })
-                                    }
-                                    // console.log("Deletion of user: " + client.FullName + " ", result)
-                                    else{
-                                        return res.status(400).json({error: "Could not delete client."})
-                                    }
-                                })
-                                // Client.remove
-                                .catch(err => {
-                                    return res.status(400).json(err)
-                                })
-                        }
-                        else {
-                            return res.status(400).json({error: "Could not update personal trainer documents whilst deleting client."})
-                        }
-                    })
-                    // PersonalTrainer.update
-                    .catch(err => {
-                        return res.status(400).json(err)
-                    })
+
+                // Check to see if signed in pt is pt associated with client
+                if(client.ptId === signedInId){
+                    // Had to change $unset to $pull
+                    PersonalTrainer.update({_id: client.ptId}, {$pull: {ClientIDs: client.id}})
+                        .then(pt => {
+                            if (pt) {
+                                Client.remove({_id: clientId}).remove()
+                                    .then(result => {
+                                        if (result) {
+                                            ClientProgression.remove({clientId: clientId})
+                                                .then(() => {
+                                                        // res.status(200).json("Client deleted successfully")
+                                                    }
+                                                )
+                                                .catch(() => {
+                                                    // console.log("error deleting client progress")
+                                                });
+                                            Events.remove({clientId: clientId})
+                                                .then(() => {
+                                                        // res.status(200).json("Client deleted successfully")
+                                                        // console.log( "Events deleted for user: " + client.FullName + " ", events)
+                                                    }
+                                                )
+                                                // Events.remove
+                                                .catch(() => {
+                                                    // console.log("error deleting client progress")
+                                                });
+                                            BodyBio.remove({clientId: clientId})
+                                                .then(() => {
+                                                        return res.status(200).json("Client deleted successfully")
+                                                        // console.log( "Events deleted for user: " + client.FullName + " ", events)
+                                                    }
+                                                )
+                                                // Events.remove
+                                                .catch(err => {
+                                                    return res.status(400).json(err)
+                                                });
+                                            ProfileNotes.remove({clientId: clientId})
+                                                .then(() => {
+                                                        return res.status(200).json("Client deleted successfully")
+                                                        // console.log( "Events deleted for user: " + client.FullName + " ", events)
+                                                    }
+                                                )
+                                                // Events.remove
+                                                .catch(err => {
+                                                    return res.status(400).json(err)
+                                                })
+                                        }
+                                        // console.log("Deletion of user: " + client.FullName + " ", result)
+                                        else{
+                                            return res.status(400).json({error: "Could not delete client."})
+                                        }
+                                    })
+                                    // Client.remove
+                                    .catch(err => {
+                                        return res.status(400).json(err)
+                                    })
+                            }
+                            else {
+                                return res.status(400).json({error: "Could not update personal trainer documents whilst deleting client."})
+                            }
+                        })
+                        // PersonalTrainer.update
+                        .catch(err => {
+                            return res.status(400).json(err)
+                        })
+                }// if client.ptId === signedInId
+                else {
+                    res.status(400).json({error: "Signed in PT is not granted access to delete this client."})
+                }
             }
             else {
                 return res.status(400).json({error: "Client does not exist."})
@@ -166,20 +158,32 @@ router.delete('/delete_client/:cid', passport.authenticate('pt_rule', {session: 
 // @desc   Get client data
 // @access Private for PT's and client
 router.get('/client/:cid', passport.authenticate('both_rule', {session: false}, null), (req, res) => {
+
+
+    let token = req.headers.authorization.split(' ')[1];
+    let payload = jwt.decode(token, keys.secretOrKey);
+    let signedInId = payload.id;
     let cid = req.params.cid;
     // get client data
     Client.findOne({_id: cid})
         .then(client => {
                 if (client) {
-                    let data = {};
-                    data._id = client._id;
-                    data.FullName = client.FullName;
-                    data.DateOfBirth = client.DateOfBirth;
-                    data.Email = client.Email;
-                    data.ContactNumber = client.ContactNumber;
-                    data.ProfilePicUrl = client.ProfilePicUrl;
-                    data.Sex = client.Sex;
-                    return res.json(data)
+
+                    // Check access rights allowing the data to be requested
+                    if(client.ptId === signedInId || cid === signedInId){
+                        let data = {};
+                        data._id = client._id;
+                        data.FullName = client.FullName;
+                        data.DateOfBirth = client.DateOfBirth;
+                        data.Email = client.Email;
+                        data.ContactNumber = client.ContactNumber;
+                        data.ProfilePicUrl = client.ProfilePicUrl;
+                        data.Sex = client.Sex;
+                        res.status(200).json(data)
+                    }
+                    else{
+                        res.status(400).json({error: "Signed in user does not have authorisation to request this data."})
+                    }
                 }
                 // if client is null
                 else {
@@ -199,6 +203,10 @@ router.get('/client/:cid', passport.authenticate('both_rule', {session: false}, 
 // @access Private access for either personal trainer or client
 router.put('/edit_client/:cid', passport.authenticate('both_rule', {session: false}, null), (req, res) => {
     // Set up validation checking for every field that has been posted
+
+    let token = req.headers.authorization.split(' ')[1];
+    let payload = jwt.decode(token, keys.secretOrKey);
+    let signedInId = payload.id;
     const clientId = req.params.cid;
     const data = req.body;
 
@@ -246,12 +254,12 @@ router.put('/edit_client/:cid', passport.authenticate('both_rule', {session: fal
                 Client.findByIdAndUpdate(clientId, updateClient, {new: true})
                     .then(result => {
                         if(result) {
-                            return res.status(200).json(result)
+                            res.status(200).json(result)
                         }
-                        return res.status(404).json({err: "Client does not exist!"})
+                        res.status(404).json({err: "Client does not exist!"})
                     })
                     .catch(err => {
-                        return res.status(400).json(err)
+                        res.status(400).json(err)
                     });
             })
         })

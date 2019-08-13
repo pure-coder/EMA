@@ -14,6 +14,14 @@ import checkExp from '../../utilities/checkExp'
 
 class Dashboard extends Component {
 
+    static getDerivedStateFromProps(prevProps){
+        const {isAuthenticated} = prevProps.authenticatedUser;
+        if(!isAuthenticated){
+            this.props.history.push('/re-login');
+        }
+        return null
+    }
+
     // Life cycle method for react which will run when this component receives new properties
     componentDidMount() {
         checkExp();
@@ -22,7 +30,7 @@ class Dashboard extends Component {
         if(this.props.ptProfile.pt_data === null || this.props.clientProfile.client_data === null){
             if(this.props.authenticatedUser.user.pt){
                 this.props.getPtData(this.props.authenticatedUser.user.id, this.props.history);
-                this.props.getClients(this.props.authenticatedUser.user.id, this.props.history);
+                this.props.getClients(this.props.history);
             }
             else {
                 this.props.getClientData(this.props.authenticatedUser.user.id, this.props.history);
@@ -32,14 +40,6 @@ class Dashboard extends Component {
         this.props.clearErrors();
         this.props.clearSuccess();
     } // ComponentDidMount
-
-    componentWillUnmount(){
-        const {isAuthenticated} = this.props.authenticatedUser;
-        if(!isAuthenticated){
-            this.props.history.push('/re-login');
-        }
-    }
-
 
     render() {
         let displayContent;

@@ -42,7 +42,7 @@ class Navigation extends Component {
         if(isAuthenticated){
             if(this.props.authenticatedUser.user.pt){
                 this.props.getPtData(this.props.authenticatedUser.user.id, this.props.history);
-                this.props.getClients(this.props.authenticatedUser.user.id, this.props.history);
+                this.props.getClients(this.props.history);
             }
             else {
                 this.props.getClientData(this.props.authenticatedUser.user.id, this.props.history);
@@ -73,7 +73,7 @@ class Navigation extends Component {
             <div className="collapse navbar-collapse" id="mobile-navigation">
                 {
                     userData ?
-                        <Link className="nav-main" to={`/users/${userData._id}/Dashboard`}>
+                        <Link className="nav-main" to={`/users/${userData._id}/dashboard`}>
                             Dashboard
                         </Link>
                         : null

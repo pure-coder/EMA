@@ -80,7 +80,6 @@ export const loginUser = (Data, history) => (dispatch) => {
             // in authenticatedReducer.js
             dispatch(setSignedInUser(decodedToken));
             if (decodedToken.pt === true) {
-                //dispatch(getClients(decodedToken.id, history));
                 dispatch(getPtData(decodedToken.id, history))
             }
             else{
