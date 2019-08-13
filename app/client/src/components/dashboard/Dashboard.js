@@ -10,16 +10,27 @@ import ClientData from "./clients/ClientData";
 import isEmpty from "../../utilities/is_empty";
 import ErrorComponent from "../error/ErrorComponent";
 import UserInfo from "./UserInfo";
+import checkExp from '../../utilities/checkExp'
 
 class Dashboard extends Component {
+
+    static getDerivedStateFromProps(prevProps){
+        const {isAuthenticated} = prevProps.authenticatedUser;
+        if(!isAuthenticated){
+            this.props.history.push('/re-login');
+        }
+        return null
+    }
+
     // Life cycle method for react which will run when this component receives new properties
     componentDidMount() {
+        checkExp();
         // console.log(this.props.ptProfile.pt_data === null)
         // console.log(this.props)
         if(this.props.ptProfile.pt_data === null || this.props.clientProfile.client_data === null){
             if(this.props.authenticatedUser.user.pt){
-                this.props.getPtData(this.props.authenticatedUser.user.id, this.props.history);
-                this.props.getClients(this.props.authenticatedUser.user.id, this.props.history);
+                this.props.getPtData(this.props.history);
+                this.props.getClients(this.props.history);
             }
             else {
                 this.props.getClientData(this.props.authenticatedUser.user.id, this.props.history);
@@ -30,12 +41,10 @@ class Dashboard extends Component {
         this.props.clearSuccess();
     } // ComponentDidMount
 
-
     render() {
-
-
         let displayContent;
         const {user} = this.props.authenticatedUser;
+
         if(user.pt){
             let {pt_data, loading, clients} = this.props.ptProfile;
 
@@ -103,7 +112,6 @@ Dashboard.propTypes = {
     getClients: PropTypes.func.isRequired,
     getClientData: PropTypes.func.isRequired,
     getPtData: PropTypes.func.isRequired,
-    clearErrors: PropTypes.func.isRequired,
     clearSuccess: PropTypes.func.isRequired,
     errors: PropTypes.object.isRequired
 };

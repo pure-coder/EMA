@@ -26,43 +26,28 @@ import EditClient from './components/dashboard/edit/EditClient'
 import ErrorComponent from './components/error/ErrorComponent';
 /* import PrivateRoute function for authorised access of pages */
 import PrivateRoute from './elements/PrivateRoute';
-
 import './App.css';
-
-
-// To use tokens for signed in users on every request
-import jwtDecode from 'jwt-decode';
-import setAuthorisationToken from './utilities/setAuthorisationToken';
-import { setSignedInUser} from './actions/authenticationActions';
-
-// Used to log the user out
-import {logOutUser} from './actions/authenticationActions';
 import EditPersonalTrainer from "./components/dashboard/edit/EditPersonalTrainer";
 import ExpiredLogin from "./components/authentication/ExpiredLogin";
-// import connect from "react-redux/es/connect/connect";
+import setAuthorisationToken from "./utilities/setAuthorisationToken";
+import jwtDecode from "jwt-decode";
+import {setSignedInUser} from "./actions/authenticationActions";
 
-// check if token exists in local storage
+// Check if user is signed in if page is refreshed, if so then dispatch that they are already signed in.
 if (localStorage.jwtToken) {
     // Set the token to local storage item 'jwtToken'
     setAuthorisationToken(localStorage.jwtToken);
     // Decode the token so user data can be used and get information and expiration data
     const decodedToken = jwtDecode(localStorage.jwtToken);
     // Call the setSignedInUser action/reducer and set the user and isAuthenticated
-    store.dispatch(setSignedInUser(decodedToken));
-
     // I have set the jwt token in the REST API to expire in 1 hr, so they will have to log back in
     // - Delete the jwt token given in the expiration.
-    const currentTime = Date.now() / 1000; // convert to milliseconds
-    if (decodedToken.exp < currentTime) {
-        // Log the user out
-        store.dispatch(logOutUser());
-        // Redirect the user to the login page
-        window.location.href = '/login';
-    } // if decodedToken
+    store.dispatch(setSignedInUser(decodedToken));
 } // if localStorage.jwtToken
 
-class App extends Component {
 
+
+class App extends Component {
     render() {
         return (
             <Provider store={store}>

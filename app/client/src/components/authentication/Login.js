@@ -89,7 +89,7 @@ class Login extends Component {
                                 onChange={this.onChange}
                                 error={errors.Password}
                             />
-                            <input type="submit" className="btn btn-info btn-block mt-5"/>
+                            <input type="submit" value="Login" className="btn btn-info btn-block mt-5"/>
                         </form>
                     </div>
                 </div>

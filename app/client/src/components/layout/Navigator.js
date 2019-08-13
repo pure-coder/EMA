@@ -38,18 +38,21 @@ class Navigation extends Component {
     }
 
     componentDidMount() {
-        if(this.props.authenticatedUser.user.pt){
-            this.props.getPtData(this.props.authenticatedUser.user.id, this.props.history);
-            this.props.getClients(this.props.authenticatedUser.user.id, this.props.history);
-        }
-        else {
-            this.props.getClientData(this.props.authenticatedUser.user.id, this.props.history);
+        const {isAuthenticated} = this.props.authenticatedUser;
+        if(isAuthenticated){
+            if(this.props.authenticatedUser.user.pt){
+                this.props.getPtData(this.props.history);
+                this.props.getClients(this.props.history);
+            }
+            else {
+                this.props.getClientData(this.props.authenticatedUser.user.id, this.props.history);
+            }
         }
     } // ComponentDidMount
 
     // Create log out link functionality
-    onLogOutClick(event) {
-        event.preventDefault();
+    onLogOutClick(e) {
+        e.preventDefault();
         if(this.props.authenticatedUser.user.pt){
             this.props.clearCurrentProfile();
         }
@@ -68,6 +71,14 @@ class Navigation extends Component {
         // Define navbar for dynamic navbar
         const authorisedLinks = (
             <div className="collapse navbar-collapse" id="mobile-navigation">
+                {
+                    userData ?
+                        <Link className="nav-main" to={`/users/${userData._id}/dashboard`}>
+                            Dashboard
+                        </Link>
+                        : null
+
+                }
                 <ul className="navbar-nav ml-auto">
                     <a href="" onClick={this.onLogOutClick.bind(this)} className="nav-link">
                         <img

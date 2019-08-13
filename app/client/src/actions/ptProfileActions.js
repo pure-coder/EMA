@@ -19,7 +19,7 @@ import {
     PT_CLIENT_BODY_BIO,
     CLEAR_BODY_BIO
 } from "./types"; // import custom defined types
-import {manageErrors, updateExp} from "./authenticationActions";
+import {manageErrors} from "./authenticationActions";
 
 // Register client
 export const registerClient =(Data, props, history) => (dispatch) => {
@@ -37,10 +37,9 @@ export const registerClient =(Data, props, history) => (dispatch) => {
 }; // registerClient
 
 // Get pt Clients
-export const getClients = (ptId, history) => dispatch => {
-    dispatch(updateExp());
+export const getClients = (history) => dispatch => {
     axios
-        .get(`/api/pt_clients/${ptId}`)
+        .get(`/api/pt_clients`)
         .then(result => {
                 // return {clients : result.data}
                 // dispatch this action to the action below so the data can be sent to the respective reducer
@@ -61,10 +60,10 @@ export const setPtClients = (data) => {
     }
 };
 
-export const getPtData = (ptId, history) => dispatch => {
+export const getPtData = (history) => dispatch => {
     dispatch(setProfileLoading());
     axios
-        .get(`/api/personal_trainer/${ptId}`)
+        .get(`/api/personal_trainer`)
         .then(result => {
                 // If no data is returned (no data === string) then direct user to error page
                 if (typeof result.data === "string"){
@@ -96,9 +95,9 @@ export const getCurrentClient = (clientId, history) => dispatch => {
         });
 };
 
-export const editPtData = (ptId, Data, history) => dispatch => {
+export const editPtData = (Data, history) => dispatch => {
     axios
-        .put(`/api/edit_personal_trainer/${ptId}`, Data)
+        .put(`/api/edit_personal_trainer`, Data)
         .then(result => {
                 if(result.status === 200){
                     dispatch(setSuccess("Personal Trainer profile has been updated successfully"));
@@ -167,13 +166,13 @@ export const clearClientProfileNotes = () => dispatch => {
 };
 
 // Delete Client
-export const deleteClient = (clientId, ptId, history) => dispatch => {
+export const deleteClient = (clientId, history) => dispatch => {
     axios
         .delete(`/api/delete_client/${clientId}`)
         .then(result => {
             // causes refresh of dashboard with updated client list
             if(result.status === 200) {
-                dispatch(getClients(ptId, history));
+                dispatch(getClients(history));
                 dispatch(setSuccess("Client deleted successfully."));
             }
         })

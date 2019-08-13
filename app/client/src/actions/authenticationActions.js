@@ -2,12 +2,11 @@ import axios from 'axios';
 import {
     GET_ERRS,
     SET_SIGNED_IN_USER,
-    ACTION_MADE
 } from "./types"; // import custom defined types
 import setAuthorisationToken from '../utilities/setAuthorisationToken';
 import jwtDecode from 'jwt-decode';
-import {clearErrors, setSuccess, getPtData} from "./ptProfileActions";
-import {getClientData} from "./clientProfileActions";
+import {clearErrors, setSuccess, getPtData, clearCurrentProfile} from "./ptProfileActions";
+import {clearClientProfile, getClientData} from "./clientProfileActions";
 
 export const manageErrors = (err, dispatch, history) => {
     // 401 Unauthorised
@@ -81,8 +80,7 @@ export const loginUser = (Data, history) => (dispatch) => {
             // in authenticatedReducer.js
             dispatch(setSignedInUser(decodedToken));
             if (decodedToken.pt === true) {
-                //dispatch(getClients(decodedToken.id, history));
-                dispatch(getPtData(decodedToken.id, history))
+                dispatch(getPtData(history))
             }
             else{
                 dispatch(getClientData(decodedToken.id, history))
@@ -116,12 +114,34 @@ export const logOutUser = () => dispatch => {
     // Set signed in user to an empty object and isAuthenticated to false by passing in {} (empty object)
     dispatch(setSignedInUser({}));
     // Remove data based on user (either pt or client)
+
+    // Clear Profile if pt
+    dispatch(clearCurrentProfile());
+
+    // Clear Profile if client
+    dispatch(clearClientProfile());
 };
 
-export const updateExp = () => dispatch => {
-    const currentTime = Date.now()  + (1000 * 3600); // Get current time and add an hour, this will overwrite the exp time
-    dispatch({
-        type: ACTION_MADE,
-        payload: currentTime
-    })
+// RefreshToken
+export const refreshToken = () => dispatch => {
+    axios
+        .get('/api/refreshToken')
+        .then(result => {
+            if(result){
+                console.log(result);
+                // Save JWT to local storage
+                const { token } = result.data;
+                // Set the token to local storage item 'jwtToken' (local storage can only store strings!)
+                localStorage.setItem('jwtToken', token);
+                // Set the token to authorisation header
+                setAuthorisationToken(token);
+                // Decode the token so user data can be used
+                const decodedToken = jwtDecode(token);
+                dispatch(setSignedInUser(decodedToken));
+            }
+        })
+        .catch(err =>{
+            console.log(err);
+            }
+        )
 };

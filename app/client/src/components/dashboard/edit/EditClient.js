@@ -11,6 +11,7 @@ import ErrorComponent from "../../error/ErrorComponent"; // Allows proper routin
 import DisplayMessage from '../../common/DisplayMessage';
 import FormSelectComp from "../../common/FormSelectComp";
 import defaultUserImage from "../../../img/user-regular.svg";
+import checkExp from "../../../utilities/checkExp";
 
 class EditClient extends Component {
     // This allows the component states to be updated and re-rendered
@@ -81,6 +82,7 @@ class EditClient extends Component {
     }
 
     componentDidMount() {
+        checkExp();
         if(this.props.authenticatedUser.user.pt){
             this.props.getCurrentClient(this.state.clientId, this.props.history)
         }
@@ -117,6 +119,10 @@ class EditClient extends Component {
     }
 
     componentWillUnmount(){
+        const {isAuthenticated} = this.props.authenticatedUser;
+        if(!isAuthenticated){
+            this.props.history.push('/re-login');
+        }
         if(this.props.authenticatedUser.user.pt){
             this.props.clearCurrentClient();
         }

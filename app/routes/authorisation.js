@@ -38,7 +38,7 @@ const isEmpty = require('../validation/is_empty');
 router.post('/login', (req, res) => {
     const Email = req.body.Email;
     const Password = req.body.Password;
-    const expirationTime = 3600; // Expiration access token set to 1hr (3600)
+    const expirationTime = 5;//3600; // Expiration access token set to 1hr (3600)
 
     // Set up validation checking for every field that has been posted
     const {errors, isValid} = validateLoginInput(req.body);
@@ -352,6 +352,35 @@ router.post('/new_client', passport.authenticate('pt_rule', {session: false}), (
             //console.log(6, err)
         }
     ); // catch client find
+});
+
+// @route  GET api/refreshToken
+// @desc  TokenRefresh
+// @access User that is logged in
+router.get('/refreshToken', passport.authenticate('both_rule', {session: false}), (req, res) => {
+
+    let token = req.headers.authorization.split(' ')[1];
+    let payload = jwt.decode(token, keys.secretOrKey);
+    let userId = payload.id;
+    let isPt = payload.pt;
+    const expirationTime = 3600; // Expiration access token set to 1hr (3600)
+
+    // User matched so create payload for client
+    const newPayload = {id: userId, pt: isPt};
+
+    // Sign Token (needs payload, secret key, and expiry detail (3600 = 1hr) for re-login
+    // and callback for token
+    jwt.sign(newPayload, keys.secretOrKey, {expiresIn: expirationTime}, (err, token) => {
+        if (token){
+            res.json({
+                success: true,
+                token: 'Bearer ' + token // Using Bearer token protocol
+            })
+        }
+        else{
+            res.json(err);
+        }
+    });
 });
 
 // @route  GET api/verify
