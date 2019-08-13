@@ -128,7 +128,6 @@ export const refreshToken = () => dispatch => {
         .get('/api/refreshToken')
         .then(result => {
             if(result){
-                console.log(result);
                 // Save JWT to local storage
                 const { token } = result.data;
                 // Set the token to local storage item 'jwtToken' (local storage can only store strings!)

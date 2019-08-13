@@ -2,10 +2,10 @@ import React, {Component} from 'react';  // Used to create this component
 import PropTypes from 'prop-types'; // Used to document prop types sent to components
 import {connect} from 'react-redux' // Needed when using redux inside a component (connects redux to this component)
 import {withRouter} from 'react-router-dom';
-import isEmpty from '../../utilities/is_empty';
-import Loading from "../../elements/Loading";
-import ErrorComponent from "../error/ErrorComponent";
-import defaultUserImage from '../../img/user-regular.svg';
+import isEmpty from '../../../utilities/is_empty';
+import Loading from "../../../elements/Loading";
+import ErrorComponent from "../../error/ErrorComponent";
+import defaultUserImage from '../../../img/user-regular.svg';
 
 class UserInfo extends Component {
 

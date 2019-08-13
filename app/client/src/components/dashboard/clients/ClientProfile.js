@@ -26,7 +26,7 @@ import Graphs from "../progression/Graphs";
 import isEmpty from '../../../utilities/is_empty';
 import ErrorComponent from "../../error/ErrorComponent";
 import Loading from "../../../elements/Loading";
-import UserInfo from "../UserInfo";
+import UserInfo from "../profile/UserInfo";
 import ProfileNotes from "../profileNotes/ProfileNotes";
 import BodyGraphs from "../bodyBio/BodyGraphs";
 import checkExp from "../../../utilities/checkExp";

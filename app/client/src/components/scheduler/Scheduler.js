@@ -8,7 +8,7 @@ import 'dhtmlx-scheduler';
 import Loading from "../../elements/Loading";
 import isEmpty from "../../utilities/is_empty";
 import ErrorComponent from "../error/ErrorComponent";
-import UserInfo from "../dashboard/UserInfo";
+import UserInfo from "../dashboard/profile/UserInfo";
 import SchedulerHTML from "./SchedulerHTML";
 import checkExp from "../../utilities/checkExp";
 
