@@ -40,7 +40,7 @@ const ProfileInputForm = ({
                 cols={cols}>
             </textarea>
             {
-                {ptCheck} ?  <input type="submit" value="Update" className="btn btn-info btn-block mt-1 profile_notes"/> :
+                ptCheck ? <input type="submit" value="Update" className="btn btn-info btn-block mt-1 profile_notes"/> :
                 null
             }
         </form>

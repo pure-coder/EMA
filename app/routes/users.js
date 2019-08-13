@@ -46,10 +46,10 @@ router.get('/pt_clients', passport.authenticate('pt_rule', {session: false}, nul
     // get personal trainers client list
     PersonalTrainer.findOne({_id: signedInId}).populate('ClientIDs', '-Password -Date -Activated -__v')
         .exec(function (err, personalTrainer) {
-                if (err) return res.json("No data for personal trainer logged in: " + err.stringValue);
+                if (err) res.status(200).json("No data for personal trainer logged in: " + err.stringValue);
 
                 if (personalTrainer) {
-                    return res.json(personalTrainer.ClientIDs)
+                    res.status(400).json(personalTrainer.ClientIDs)
                 }
             }
         ) // Client.findOne
@@ -101,42 +101,42 @@ router.delete('/delete_client/:cid', passport.authenticate('pt_rule', {session: 
                                                 });
                                             BodyBio.remove({clientId: clientId})
                                                 .then(() => {
-                                                        return res.status(200).json("Client deleted successfully")
+                                                        res.status(200).json("Client deleted successfully")
                                                         // console.log( "Events deleted for user: " + client.FullName + " ", events)
                                                     }
                                                 )
                                                 // Events.remove
                                                 .catch(err => {
-                                                    return res.status(400).json(err)
+                                                    res.status(400).json(err)
                                                 });
                                             ProfileNotes.remove({clientId: clientId})
                                                 .then(() => {
-                                                        return res.status(200).json("Client deleted successfully")
+                                                        res.status(200).json("Client deleted successfully")
                                                         // console.log( "Events deleted for user: " + client.FullName + " ", events)
                                                     }
                                                 )
                                                 // Events.remove
                                                 .catch(err => {
-                                                    return res.status(400).json(err)
+                                                    res.status(400).json(err)
                                                 })
                                         }
                                         // console.log("Deletion of user: " + client.FullName + " ", result)
                                         else{
-                                            return res.status(400).json({error: "Could not delete client."})
+                                            res.status(400).json({error: "Could not delete client."})
                                         }
                                     })
                                     // Client.remove
                                     .catch(err => {
-                                        return res.status(400).json(err)
+                                        res.status(400).json(err)
                                     })
                             }
                             else {
-                                return res.status(400).json({error: "Could not update personal trainer documents whilst deleting client."})
+                                res.status(400).json({error: "Could not update personal trainer documents whilst deleting client."})
                             }
                         })
                         // PersonalTrainer.update
                         .catch(err => {
-                            return res.status(400).json(err)
+                            res.status(400).json(err)
                         })
                 }// if client.ptId === signedInId
                 else {
@@ -144,12 +144,12 @@ router.delete('/delete_client/:cid', passport.authenticate('pt_rule', {session: 
                 }
             }
             else {
-                return res.status(400).json({error: "Client does not exist."})
+                res.status(400).json({error: "Client does not exist."})
             }
         }
         ) // then Client.findOne
         .catch(err => {
-            return res.json({err})
+            res.status(400).json({err})
         })
 
 }); // router post /delete_client
@@ -187,12 +187,12 @@ router.get('/client/:cid', passport.authenticate('both_rule', {session: false}, 
                 }
                 // if client is null
                 else {
-                    return res.status(404).json({error: `Client with id: ${cid} does not exist.`})
+                    res.status(404).json({error: `Client with id: ${cid} does not exist.`})
                 }
             }
         ) // then Client.findOne
         .catch(() => {
-            return res.status(404).json({error: `Client with id: ${cid} does not exist.`})
+            res.status(404).json({error: `Client with id: ${cid} does not exist.`})
         })
 
 });
@@ -232,17 +232,17 @@ router.put('/edit_client/:cid', passport.authenticate('both_rule', {session: fal
         const {errors, isValid} = validateEditClientInput(updateClient);
         // Check validation (so if it isn't valid give 400 error and message of error, status(400) makes sure the response is caught and not successful for authenticationAction editClientData
         if (!isValid) {
-            return res.status(400).json(errors);
+            res.status(400).json(errors);
         }
     }
     else{
-        return res.status(400).json({error : "No data sent to server!"})
+        res.status(400).json({error : "No data sent to server!"})
     }
 
     Client.findOne({_id: clientId})
         .then(clientResult => {
             if (clientResult){
-                if(clientResult._id.toString() === signedInId || clientResult.ptId === signedInId){
+                if(clientId === signedInId || clientResult.ptId === signedInId){
                     // If it exists as the for loop above checked if password was null or undefined, hash the password and update client
                     // profile if password doesn't exist update profile without hashing non existent password
                     if (updateClient.Password) {
@@ -273,12 +273,12 @@ router.put('/edit_client/:cid', passport.authenticate('both_rule', {session: fal
                         Client.findByIdAndUpdate(clientId, updateClient, {new: true})
                             .then(client => {
                                 if (client) {
-                                    return res.status(200).json(client);
+                                    res.status(200).json(client);
                                 }
-                                return res.status(400).json({error: "Client does not exist!"});
+                                res.status(400).json({error: "Client does not exist!"});
                             })
                             .catch(err => {
-                                return res.status(400).json(err)
+                                res.status(400).json(err)
                             });
                     }
                 }
@@ -291,8 +291,8 @@ router.put('/edit_client/:cid', passport.authenticate('both_rule', {session: fal
                 res.status(400).json({error: "Client not found"})
             }
         })
-        .catch(err => {
-            console.log(err)
+        .catch(() => {
+            // console.log(err)
             res.status(400).json();
             }
         )
@@ -300,11 +300,14 @@ router.put('/edit_client/:cid', passport.authenticate('both_rule', {session: fal
 
 // @route  GET api/personal_trainer/:id
 // @desc   Get personal trainer data
-// @access Private for PT's and client
-router.get('/personal_trainer/:id', passport.authenticate('pt_rule', {session: false}, null), (req, res) => {
-    let id = req.params.id;
+// @access Private for PT's
+router.get('/personal_trainer', passport.authenticate('pt_rule', {session: false}, null), (req, res) => {
+
+    let token = req.headers.authorization.split(' ')[1];
+    let payload = jwt.decode(token, keys.secretOrKey);
+    let signedInId = payload.id;
     // get client data
-    PersonalTrainer.findOne({_id: id})
+    PersonalTrainer.findOne({_id: signedInId})
         .then(pt => {
                 if (pt) {
                     let data = {};
@@ -314,27 +317,29 @@ router.get('/personal_trainer/:id', passport.authenticate('pt_rule', {session: f
                     data.DateOfBirth = pt.DateOfBirth;
                     data.Sex = pt.Sex;
                     data.ProfilePicUrl = pt.ProfilePicUrl;
-                    return res.json(data)
+                    res.status(200).json(data)
                 }
                 // if pt is null
                 else {
-                    return res.json("No data for id: " + id)
+                    res.status(400).json("No data for id: " + id)
                 }
             }
         ) // then PersonalTrainer.findOne
         .catch(err => {
-            return res.json("No data for id: " + err.stringValue)
+            res.status(400).json("No data for id: " + err.stringValue)
         })
 
 });
-// router GET /api/personal_trainer/:id
+// router GET /api/personal_trainer
 
-// @route  PUT api/edit_personal_trainer/:id
+// @route  PUT api/edit_personal_trainer
 // @desc   Update personal trainer profile data
-// @access Private access for either personal trainer
-router.put('/edit_personal_trainer/:id', passport.authenticate('pt_rule', {session: false}, null), (req, res) => {
+// @access Private access for personal trainer
+router.put('/edit_personal_trainer', passport.authenticate('pt_rule', {session: false}, null), (req, res) => {
     // Set up validation checking for every field that has been posted
-    const ptId = req.params.id;
+    let token = req.headers.authorization.split(' ')[1];
+    let payload = jwt.decode(token, keys.secretOrKey);
+    let signedInId = payload.id;
     const data = req.body;
 
     let updatePt = {};
@@ -356,11 +361,11 @@ router.put('/edit_personal_trainer/:id', passport.authenticate('pt_rule', {sessi
         const {errors, isValid} = validateEditClientInput(updatePt);
         // Check validation (so if it isn't valid give 400 error and message of error, status(400) makes sure the response is caught and not successful for authenticationAction editClientData
         if (!isValid) {
-            return res.status(400).json(errors);
+            res.status(400).json(errors);
         }
     }
     else{
-        return res.status(400).json({error : "No data sent to server!"})
+        res.status(400).json({error : "No data sent to server!"})
     }
 
     // If it exists as the for loop above checked if password was null or undefined, hash the password and update client profile if password doesn't exist update profile without hashing non existent password
@@ -374,33 +379,33 @@ router.put('/edit_personal_trainer/:id', passport.authenticate('pt_rule', {sessi
                 // Set plain Password to the hash that was created for the Password
                 updatePt.Password = hash;
                 // Update password in client database
-                PersonalTrainer.findByIdAndUpdate(ptId, updatePt, {new: true})
+                PersonalTrainer.findByIdAndUpdate(signedInId, updatePt, {new: true})
                     .then(result => {
                         if(result) {
-                            return res.status(200).json(result)
+                            res.status(200).json(result)
                         }
-                        return res.status(404).json({err: "Personal Trainer does not exist!"})
+                        res.status(404).json({err: "Personal Trainer does not exist!"})
                     })
                     .catch(err => {
-                        return res.status(400).json(err)
+                        res.status(400).json(err)
                     });
             })
         })
     }
     else {
         // Find client by id
-        PersonalTrainer.findByIdAndUpdate(ptId, updatePt, {new: true})
+        PersonalTrainer.findByIdAndUpdate(signedInId, updatePt, {new: true})
             .then(pt => {
                 if (pt) {
-                    return res.status(200).json(pt);
+                    res.status(200).json(pt);
                 }
-                return res.status(400).json({error: "Personal Trainer does not exist!"});
+                res.status(400).json({error: "Personal Trainer does not exist!"});
             })
             .catch(err => {
-                return res.status(400).json(err)
+                res.status(400).json(err)
             });
     }
-}); // PUT /edit_personal_trainer/:id
+}); // PUT /edit_personal_trainer
 
 // @route  POST api/client_progression/:cid
 // @desc   Add client progression data to db
@@ -412,7 +417,7 @@ router.post('/client_progression/:cid', passport.authenticate('pt_rule', {sessio
     const {errors, isValid} = validateNewProgressInput(data);
 
     if (!isValid) {
-        return res.status(400).json(errors);
+        res.status(400).json(errors);
     }
 
     let token = req.headers.authorization.split(' ')[1];
@@ -462,14 +467,14 @@ router.post('/client_progression/:cid', passport.authenticate('pt_rule', {sessio
                                     // Update metrics of this document using its unique id (_id), pushing in new metric data with the $push operator.
                                     ClientProgression.update({_id: result._id}, {$push: {metrics: newMetrics}}, {safe: true})
                                         .then(update => {
-                                            return res.json(update);
+                                            res.status(200).json(update);
                                         })
                                         .catch(err => {
-                                            return res.status(400).json(err);
+                                            res.status(400).json(err);
                                         });
                                 }
                                 else {
-                                    return res.status(400).json({Date: "Date duplication found for exercise!"})
+                                    res.status(400).json({Date: "Date duplication found for exercise!"})
                                 }
 
                             }
@@ -495,26 +500,26 @@ router.post('/client_progression/:cid', passport.authenticate('pt_rule', {sessio
                                     .then(() => {
                                         // Send back response expected in authenticatedActions for newClientProgress action
                                         let data = {n: 1, nModified: 1};
-                                        return res.status(200).json(data);
+                                        res.status(200).json(data);
                                     })
                                     .catch(err => {
-                                        return res.status(400).json(err);
+                                        res.status(400).json(err);
                                     });
                             }
                         })
                         .catch(err => {
                             // console.log(err)
-                            return res.status(400).json(err)
+                            res.status(400).json(err)
                         });
 
                 }
                 else {
-                    return res.status(400).json({err: "Personal Trainer not authorised to access Progression"});
+                    res.status(400).json({err: "Personal Trainer not authorised to access Progression"});
                 }
             }
         })
         .catch(() => {
-            return res.status(400).json({err: "Client not found!"})
+            res.status(400).json({err: "Client not found!"})
         }); // Client.findOne()
 
 }); // router post /client_progression
@@ -544,31 +549,31 @@ router.get('/client_progression/:cid', passport.authenticate('both_rule', {sessi
                     ClientProgression.find({clientId: clientId}, 'exerciseName metrics._id metrics.maxWeight metrics.Date')
                         .then(result => {
                             if (result) {
-                                return res.status(200).json(result);
+                                res.status(200).json(result);
                             }
                             else{
-                                return res.status(400).json();
+                                res.status(400).json();
                             }
                         })
                         .catch(err => {
-                                return res.status(400).json(err);
+                                res.status(400).json(err);
                             }
                         ); // router get client progression
 
                 }
                 else {
                     // 401 Unauthorised
-                    return res.status(401).json({err: "User not authorised to access Progression"});
+                    res.status(401).json({err: "User not authorised to access Progression"});
                 }
             }
             else{
                 // 404 Not found
-                return res.status(404).json();
+                res.status(404).json();
             }
         })
         .catch(() => {
             // Return an empty object
-            return res.json({});
+            res.status(400).json({});
         }); // Client.findOne()
 
 }); // router get /:id/client_progression/:cid
@@ -699,7 +704,7 @@ router.post('/body_bio/:cid', passport.authenticate('pt_rule', {session: false},
     const {errors, isValid} = validateNewBodyInput(data);
 
     if (!isValid) {
-        return res.status(400).json(errors);
+        res.status(400).json(errors);
     }
 
     let token = req.headers.authorization.split(' ')[1];
@@ -742,14 +747,14 @@ router.post('/body_bio/:cid', passport.authenticate('pt_rule', {session: false},
                                     // Update metrics of this document using its unique id (_id), pushing in new metric data with the $push operator.
                                     BodyBio.update({_id: result._id}, {$push: {bodyMetrics: newMetrics}}, {safe: true})
                                         .then(update => {
-                                            return res.json(update);
+                                            res.status(200).json(update);
                                         })
                                         .catch(err => {
-                                            return res.status(400).json(err);
+                                            res.status(400).json(err);
                                         });
                                 }
                                 else {
-                                    return res.status(400).json({Date: "Date duplication found for measurement!"})
+                                    res.status(400).json({Date: "Date duplication found for measurement!"})
                                 }
 
                             }
@@ -772,26 +777,26 @@ router.post('/body_bio/:cid', passport.authenticate('pt_rule', {session: false},
                                     .then(() => {
                                         // Send back response expected in authenticatedActions for newBodyBio action
                                         let data = {n: 1, nModified: 1};
-                                        return res.status(200).json(data);
+                                        res.status(200).json(data);
                                     })
                                     .catch(err => {
-                                        return res.status(400).json(err);
+                                        res.status(400).json(err);
                                     });
                             }
                         })
                         .catch(err => {
                             // console.log(err)
-                            return res.status(400).json(err)
+                            res.status(400).json(err)
                         });
 
                 }
                 else {
-                    return res.status(400).json({err: "Personal Trainer not authorised to access BodyBio"});
+                    res.status(400).json({err: "Personal Trainer not authorised to access BodyBio"});
                 }
             }
         })
         .catch(() => {
-            return res.status(400).json({err: "Client not found!"})
+            res.status(400).json({err: "Client not found!"})
         }); // Client.findOne()
 
 }); // router post /body_bio
@@ -811,7 +816,6 @@ router.get('/body_bio/:cid', passport.authenticate('both_rule', {session: false}
         .then(result => {
             // If client is found
             if (result) {
-
                 // Check to see if signed in user is same as clientId or ptId is allowed access
                 if (clientId === signedInId || result.ptId === signedInId) {
 
@@ -821,31 +825,31 @@ router.get('/body_bio/:cid', passport.authenticate('both_rule', {session: false}
                     BodyBio.find({clientId: clientId}, 'bodyPart bodyMetrics._id bodyMetrics.measurement bodyMetrics.Date')
                         .then(result => {
                             if (result) {
-                                return res.status(200).json(result);
+                                res.status(200).json(result);
                             }
                             else{
-                                return res.status(400).json();
+                                res.status(400).json();
                             }
                         })
                         .catch(err => {
-                                return res.status(400).json(err);
+                                res.status(400).json(err);
                             }
                         ); // router get client progression
 
                 }
                 else {
                     // 401 Unauthorised
-                    return res.status(401).json({err: "User not authorised to access Progression"});
+                    res.status(401).json({err: "User not authorised to access Progression"});
                 }
             }
             else{
                 // 404 Not found
-                return res.status(404).json();
+                res.status(404).json();
             }
         })
         .catch(() => {
             // Return an empty object
-            return res.json({});
+            res.status(400).json({});
         }); // Client.findOne()
 
 }); // router get /body_bio/:cid
@@ -991,31 +995,31 @@ router.get('/profile_notes/:cid', passport.authenticate('both_rule', {session: f
                     ProfileNotes.findOne({clientId: clientId}, '-_id notes goals injuries')
                         .then(result => {
                             if (result) {
-                                return res.status(200).json(result);
+                                res.status(200).json(result);
                             }
                             else{
-                                return res.status(400).json();
+                                res.status(400).json();
                             }
                         })
                         .catch(err => {
-                                return res.status(400).json(err);
+                                res.status(400).json(err);
                             }
                         ); // router get profile notes
 
                 }
                 else {
                     // 401 Unauthorised
-                    return res.status(401).json({err: "User not authorised to access profile notes"});
+                    res.status(401).json({err: "User not authorised to access profile notes"});
                 }
             }
             else{
                 // 404 Not found
-                return res.status(404).json();
+                res.status(404).json();
             }
         })
         .catch(() => {
             // Return an empty object
-            return res.json({});
+            res.status(400).json({});
         }); // Client.findOne()
 
 }); // router get /profile_notes/:cid
