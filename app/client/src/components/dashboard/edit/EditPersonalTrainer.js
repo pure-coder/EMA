@@ -49,7 +49,7 @@ class EditPersonalTrainer extends Component {
     componentDidMount() {
         checkExp();
         if(this.props.ptProfile.pt_data === null){
-            this.props.getPtData(this.props.authenticatedUser.user.id);
+            this.props.getPtData(this.props.history);
         }
         this.props.clearErrors();
         this.props.clearSuccess();
@@ -174,7 +174,7 @@ class EditPersonalTrainer extends Component {
                 Password2: '',
                 pt_data: pt_data
             });
-            this.props.editPtData(this.state.ptId, editData, this.props.history);
+            this.props.editPtData(editData, this.props.history);
             // Clear password match errors
             this.props.clearErrors()
         }

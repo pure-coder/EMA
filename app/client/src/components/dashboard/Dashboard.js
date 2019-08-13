@@ -29,7 +29,7 @@ class Dashboard extends Component {
         // console.log(this.props)
         if(this.props.ptProfile.pt_data === null || this.props.clientProfile.client_data === null){
             if(this.props.authenticatedUser.user.pt){
-                this.props.getPtData(this.props.authenticatedUser.user.id, this.props.history);
+                this.props.getPtData(this.props.history);
                 this.props.getClients(this.props.history);
             }
             else {

@@ -46,10 +46,10 @@ router.get('/pt_clients', passport.authenticate('pt_rule', {session: false}, nul
     // get personal trainers client list
     PersonalTrainer.findOne({_id: signedInId}).populate('ClientIDs', '-Password -Date -Activated -__v')
         .exec(function (err, personalTrainer) {
-                if (err) res.status(200).json("No data for personal trainer logged in: " + err.stringValue);
+                if (err) res.status(400).json("No data for personal trainer logged in: " + err.stringValue);
 
                 if (personalTrainer) {
-                    res.status(400).json(personalTrainer.ClientIDs)
+                    res.status(200).json(personalTrainer.ClientIDs)
                 }
             }
         ) // Client.findOne

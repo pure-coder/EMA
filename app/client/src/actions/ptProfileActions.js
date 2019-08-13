@@ -60,10 +60,10 @@ export const setPtClients = (data) => {
     }
 };
 
-export const getPtData = (ptId, history) => dispatch => {
+export const getPtData = (history) => dispatch => {
     dispatch(setProfileLoading());
     axios
-        .get(`/api/personal_trainer/${ptId}`)
+        .get(`/api/personal_trainer`)
         .then(result => {
                 // If no data is returned (no data === string) then direct user to error page
                 if (typeof result.data === "string"){
@@ -95,9 +95,9 @@ export const getCurrentClient = (clientId, history) => dispatch => {
         });
 };
 
-export const editPtData = (ptId, Data, history) => dispatch => {
+export const editPtData = (Data, history) => dispatch => {
     axios
-        .put(`/api/edit_personal_trainer/${ptId}`, Data)
+        .put(`/api/edit_personal_trainer`, Data)
         .then(result => {
                 if(result.status === 200){
                     dispatch(setSuccess("Personal Trainer profile has been updated successfully"));
