@@ -32,6 +32,7 @@ import ExpiredLogin from "./components/authentication/ExpiredLogin";
 import setAuthorisationToken from "./utilities/setAuthorisationToken";
 import jwtDecode from "jwt-decode";
 import {setSignedInUser} from "./actions/authenticationActions";
+import ProfilePicUpload from "./components/dashboard/profile/ProfilePicUpload";
 
 // Check if user is signed in if page is refreshed, if so then dispatch that they are already signed in.
 if (localStorage.jwtToken) {
@@ -65,6 +66,7 @@ class App extends Component {
                             <PrivateRoute path="/users/:uid?/scheduler/:cid?" component={Scheduler}/>
                             {/* Register Dashboard below uses restful url*/}
                             <PrivateRoute path="/users/:uid?/dashboard/:cid?" component={Dashboard}/>
+                            <PrivateRoute path="/users/:uid?/upload_profile_picture" component={ProfilePicUpload}/>
                             <PrivateRoute path="/users/:uid?/client_profile/:cid?" component={ClientProfile}/>
                             <PrivateRoute path="/users/:uid?/edit_personal_trainer" component={EditPersonalTrainer}/>
 

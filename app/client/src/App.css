@@ -12,7 +12,7 @@ html, body {
     font-family: Arial, Helvetica, sans-serif;
 }
 
-img {
+.navbar-brand img {
     width: 3.5em;
     padding-right: 10px;
 }
@@ -804,5 +804,40 @@ nav a.active {
 
 input[type=submit].profile_notes {
     width: 100px;
+}
+
+/* Profile pic */
+
+.Profile_pic_upload {
+    min-height: 485px;
+}
+
+.Profile_canvas {
+    height: 400px;
+    width: 100%;
+    max-width: 500px;
+    min-width: 300px;
+    background-color: black;
+    overflow: auto;
+}
+
+.btn-file {
+    position: relative;
+    overflow: hidden;
+}
+.btn-file input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 100px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;
+    background: white;
+    cursor: inherit;
+    display: block;
 }
 
