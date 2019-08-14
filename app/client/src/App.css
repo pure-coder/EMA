@@ -10,6 +10,12 @@ html, body {
     overflow: visible;
     overflow-x: hidden;
     font-family: Arial, Helvetica, sans-serif;
+    background-color: black;
+
+}
+
+#root, .App {
+    background-color: white;
 }
 
 .navbar-brand img {
@@ -810,15 +816,17 @@ input[type=submit].profile_notes {
 
 .Profile_pic_upload {
     min-height: 485px;
+    min-width: 500px;
 }
 
 .Profile_canvas {
-    height: 400px;
-    width: 100%;
-    max-width: 500px;
-    min-width: 300px;
-    background-color: black;
-    overflow: auto;
+    height: 100%;
+    width: 500px;
+    margin: auto;
+}
+
+.viewing_canvas canvas {
+    margin: auto;
 }
 
 .btn-file {
