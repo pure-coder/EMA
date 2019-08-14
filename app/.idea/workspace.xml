@@ -4,9 +4,8 @@
     <bookmark url="file://C:/Learning/clientObjectData.js" description="export {&quot;_id&quot;:&quot;5c2e3454d27ace097420b414&quot;,&quot;FullName..." line="2" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ec8ccf39-8487-4892-a38d-de9c288878a3" name="Default" comment="New profile upload pic and zoom working">
+    <list default="true" id="ec8ccf39-8487-4892-a38d-de9c288878a3" name="Default" comment="canvas working.&#10;canvas to blob and blob to img working.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/App.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/dashboard/profile/ProfilePicUpload.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/dashboard/profile/ProfilePicUpload.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -52,17 +51,17 @@
           <entry key="eslintignore" value="18" />
           <entry key="gitignore" value="22" />
           <entry key="html" value="1117" />
-          <entry key="js" value="217205" />
+          <entry key="js" value="217270" />
           <entry key="json" value="29" />
           <entry key="md" value="150" />
-          <entry key="txt" value="20618" />
+          <entry key="txt" value="20689" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="CSS" value="1655" />
-          <entry key="JavaScript" value="28965" />
-          <entry key="PLAIN_TEXT" value="7601" />
+          <entry key="JavaScript" value="29030" />
+          <entry key="PLAIN_TEXT" value="7672" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -75,7 +74,7 @@
           <entry key="gitignore" value="9" />
           <entry key="html" value="19" />
           <entry key="ico" value="1" />
-          <entry key="js" value="1760" />
+          <entry key="js" value="1761" />
           <entry key="json" value="13" />
           <entry key="map" value="1" />
           <entry key="md" value="4" />
@@ -91,7 +90,7 @@
           <entry key="HTML" value="19" />
           <entry key="Image" value="2" />
           <entry key="JSON" value="14" />
-          <entry key="JavaScript" value="1760" />
+          <entry key="JavaScript" value="1761" />
           <entry key="PLAIN_TEXT" value="20" />
           <entry key="SVG" value="1" />
           <entry key="Scratch" value="1" />
@@ -112,20 +111,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/src/App.css">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="163">
-              <caret line="830" column="20" selection-start-line="830" selection-start-column="20" selection-end-line="830" selection-end-column="20" />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/profile/ProfilePicUpload.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
-              <caret line="171" column="57" selection-start-line="171" selection-start-column="57" selection-end-line="171" selection-end-column="57" />
+            <state relative-caret-position="204">
+              <caret line="126" column="44" selection-start-line="126" selection-start-column="44" selection-end-line="126" selection-end-column="44" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
@@ -136,8 +126,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/edit/EditClient.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="143">
-              <caret line="247" column="45" lean-forward="true" selection-start-line="247" selection-start-column="40" selection-end-line="247" selection-end-column="68" />
+            <state relative-caret-position="177">
+              <caret line="249" column="120" lean-forward="true" selection-start-line="248" selection-start-column="40" selection-end-line="249" selection-end-column="120" />
               <folding>
                 <element signature="e#532#600#0" expanded="true" />
               </folding>
@@ -509,14 +499,7 @@
       <workItem from="1564246061042" duration="2948000" />
       <workItem from="1565171718827" duration="88626000" />
       <workItem from="1565691741200" duration="30487000" />
-      <workItem from="1565814825599" duration="11017000" />
-    </task>
-    <task id="LOCAL-00171" summary="Refactored ClientProfile and Graphs">
-      <created>1565368313754</created>
-      <option name="number" value="00171" />
-      <option name="presentableId" value="LOCAL-00171" />
-      <option name="project" value="LOCAL" />
-      <updated>1565368313754</updated>
+      <workItem from="1565814825599" duration="11865000" />
     </task>
     <task id="LOCAL-00172" summary="CSS sorted for ClientProfile (margin auto for both cols working fine, window resize working fine)">
       <created>1565372773200</created>
@@ -854,11 +837,18 @@
       <option name="project" value="LOCAL" />
       <updated>1565796822179</updated>
     </task>
-    <option name="localTasksCounter" value="220" />
+    <task id="LOCAL-00220" summary="canvas working.&#10;canvas to blob and blob to img working.">
+      <created>1565826121863</created>
+      <option name="number" value="00220" />
+      <option name="presentableId" value="LOCAL-00220" />
+      <option name="project" value="LOCAL" />
+      <updated>1565826121864</updated>
+    </task>
+    <option name="localTasksCounter" value="221" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1923853000" />
+    <option name="totallyTimeSpent" value="1924701000" />
   </component>
   <component name="TodoView" selected-index="4">
     <todo-panel id="selected-file">
@@ -876,7 +866,7 @@
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.20758928" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.24943988" />
       <window_info id="Favorites" order="2" side_tool="true" weight="0.32935026" />
-      <window_info active="true" anchor="bottom" id="Messages" order="0" sideWeight="0.49813294" visible="true" weight="0.3276923" />
+      <window_info anchor="bottom" id="Messages" order="0" sideWeight="0.49813294" weight="0.3276923" />
       <window_info anchor="bottom" id="Message" order="1" />
       <window_info anchor="bottom" id="Find" order="2" weight="0.32615384" />
       <window_info anchor="bottom" id="Run" order="3" />
@@ -885,11 +875,11 @@
       <window_info anchor="bottom" id="Inspection" order="6" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="7" weight="0.3276923" />
       <window_info anchor="bottom" id="Docker" order="8" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Terminal" order="9" sideWeight="0.49776787" visible="true" weight="0.29692307" />
+      <window_info anchor="bottom" id="Terminal" order="9" sideWeight="0.49776787" weight="0.29692307" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.50223213" side_tool="true" weight="0.1923077" />
       <window_info anchor="bottom" id="Version Control" order="11" sideWeight="0.6152815" weight="0.36" />
       <window_info anchor="bottom" id="Inspection Results" order="12" weight="0.3276923" />
-      <window_info anchor="bottom" id="File Transfer" order="13" weight="0.32615384" />
+      <window_info anchor="bottom" id="File Transfer" order="13" visible="true" weight="0.32615384" />
       <window_info anchor="bottom" id="TypeScript" order="14" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -961,7 +951,6 @@
   <component name="VcsManagerConfiguration">
     <option name="SHOW_DIRTY_RECURSIVELY" value="true" />
     <option name="LIMIT_HISTORY" value="false" />
-    <MESSAGE value="EditBodyDataProgressForm refactored correctly and working." />
     <MESSAGE value="ClientProfile layout modified as preferred." />
     <MESSAGE value="refactored drawProgressGraph to take variables for customisation." />
     <MESSAGE value="Modified measurement metric if body part progress is body weight" />
@@ -986,7 +975,8 @@
     <MESSAGE value="Starting work on profile pic uploader.&#10;Created profile dir and moved Dashboard and UserInfo into it.&#10;Installed react-image-crop for cropping image." />
     <MESSAGE value="Found better avatar editor so switching to that!&#10;Name is react-avatar-editor" />
     <MESSAGE value="New profile upload pic and zoom working" />
-    <option name="LAST_COMMIT_MESSAGE" value="New profile upload pic and zoom working" />
+    <MESSAGE value="canvas working.&#10;canvas to blob and blob to img working." />
+    <option name="LAST_COMMIT_MESSAGE" value="canvas working.&#10;canvas to blob and blob to img working." />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/client/src/reducers/ptProfileReducer.js">
@@ -1322,8 +1312,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/edit/EditClient.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="143">
-          <caret line="247" column="45" lean-forward="true" selection-start-line="247" selection-start-column="40" selection-end-line="247" selection-end-column="68" />
+        <state relative-caret-position="177">
+          <caret line="249" column="120" lean-forward="true" selection-start-line="248" selection-start-column="40" selection-end-line="249" selection-end-column="120" />
           <folding>
             <element signature="e#532#600#0" expanded="true" />
           </folding>
@@ -1332,8 +1322,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/profile/ProfilePicUpload.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="171" column="57" selection-start-line="171" selection-start-column="57" selection-end-line="171" selection-end-column="57" />
+        <state relative-caret-position="204">
+          <caret line="126" column="44" selection-start-line="126" selection-start-column="44" selection-end-line="126" selection-end-column="44" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>
