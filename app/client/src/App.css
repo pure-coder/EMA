@@ -825,6 +825,13 @@ input[type=submit].profile_notes {
     margin: auto;
 }
 
+label.Profile_label {
+    display: inline-block;
+    width: 70px;
+    text-align: left;
+    min-width: 70px;
+}
+
 .viewing_canvas canvas {
     margin: auto;
 }
