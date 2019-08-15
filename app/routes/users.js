@@ -10,8 +10,11 @@ const {capitaliseFirstLetter} = require('../services/capitalise');
 const jwt = require('jsonwebtoken');
 // jwt keys
 const keys = require('../config/db');
-const streamifier = require('streamifier');
-const fs = require('fs');
+// const streamifier = require('streamifier');
+// const fs = require('fs');
+const multer  = require('multer');
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage });
 
 
 
@@ -1096,10 +1099,6 @@ router.put('/profile_notes/:cid', passport.authenticate('pt_rule', {session: fal
 
 }); // router put /profile_notes/:cid
 
-const multer  = require('multer')
-const storage = multer.memoryStorage()
-const upload = multer({ storage: storage })
-
 // @route  PUT api/upload_profile_pic
 // @desc   update profile notes data in db
 // @access Private for PT's - clients can't update profile notes data in db collection
@@ -1112,13 +1111,12 @@ router.post('/upload_profile_pic',  upload.single('profilePicture') ,passport.au
 
     let data = req.file;
     let buffer = data.buffer;
-    console.log(buffer)
-    // let magic = buffer.toString('hex')
-    let magic = buffer.toString('base64')
-    console.log(magic);
 
-    let writeStream = fs.createWriteStream('.test.png');
-    streamifier.createReadStream(req.file.buffer).pipe(writeStream);
+    // let magic = buffer.toString('hex')
+    let magic = buffer.toString('base64');
+
+    // let writeStream = fs.createWriteStream('.test.png');
+    // streamifier.createReadStream(req.file.buffer).pipe(writeStream);
 
     //let otherBuffer = new Buffer('ODk1MDRlNDc=', 'hex')
     //console.log(otherBuffer.toString())
