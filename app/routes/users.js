@@ -1100,7 +1100,7 @@ const upload = multer({ storage: storage })
 // @route  PUT api/upload_profile_pic
 // @desc   update profile notes data in db
 // @access Private for PT's - clients can't update profile notes data in db collection
-router.post('/upload_profile_pic',  upload.single('image') ,passport.authenticate('pt_rule', {session: false}, null), (req, res) =>{
+router.post('/upload_profile_pic',  upload.single('my-file') ,passport.authenticate('pt_rule', {session: false}, null), (req, res) =>{
 
     let token = req.headers.authorization.split(' ')[1];
     let payload = jwt.decode(token, keys.secretOrKey);

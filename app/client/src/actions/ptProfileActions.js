@@ -420,24 +420,9 @@ export const clearWorkoutData = () => dispatch => {
 
 export const saveProfilePic = (data, image ,history) => dispatch => {
     const formData = new FormData();
-    const extension = data.type.split('/')[1];
-    const imageFile = new File([data], `profilePic.${extension}`, {
-        type: data.type,
-    });
-    formData.append('image', imageFile);
+    formData.append('my-file', data, 'filename.png');
 
-    console.log(data)
-    console.log(image)
-
-    axios({
-        method: 'post',
-        url: '/api/upload_profile_pic',
-        headers: {
-            'X-Requested-With': 'XMLHttpRequest',
-            'X-CSRF-TOKEN': 'csrfToken',
-        },
-        data: formData,
-    })
+    axios.post(`/api/upload_profile_pic`, formData)
         .then(
             dispatch({
                 type: UPDATE_PROFILE_PIC,
