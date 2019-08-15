@@ -10,6 +10,9 @@ const {capitaliseFirstLetter} = require('../services/capitalise');
 const jwt = require('jsonwebtoken');
 // jwt keys
 const keys = require('../config/db');
+const streamifier = require('streamifier');
+const fs = require('fs');
+
 
 
 // Require Input validation for editing client profile
@@ -1100,7 +1103,7 @@ const upload = multer({ storage: storage })
 // @route  PUT api/upload_profile_pic
 // @desc   update profile notes data in db
 // @access Private for PT's - clients can't update profile notes data in db collection
-router.post('/upload_profile_pic',  upload.single('my-file') ,passport.authenticate('pt_rule', {session: false}, null), (req, res) =>{
+router.post('/upload_profile_pic',  upload.single('profilePicture') ,passport.authenticate('pt_rule', {session: false}, null), (req, res) =>{
 
     let token = req.headers.authorization.split(' ')[1];
     let payload = jwt.decode(token, keys.secretOrKey);
@@ -1108,6 +1111,20 @@ router.post('/upload_profile_pic',  upload.single('my-file') ,passport.authentic
     let ptStatus = payload.pt;
 
     let data = req.file;
+    let buffer = data.buffer;
+    console.log(buffer)
+    // let magic = buffer.toString('hex')
+    let magic = buffer.toString('base64')
+    console.log(magic);
+
+    let writeStream = fs.createWriteStream('.test.png');
+    streamifier.createReadStream(req.file.buffer).pipe(writeStream);
+
+    //let otherBuffer = new Buffer('ODk1MDRlNDc=', 'hex')
+    //console.log(otherBuffer.toString())
+
+
+
 
     if(isEmpty(data)){
         res.status(400).json({msg: "No data supplied for update"});
@@ -1115,8 +1132,6 @@ router.post('/upload_profile_pic',  upload.single('my-file') ,passport.authentic
     if(!ptStatus){
         res.status(400).json({msg: "You do not have the authorisation to update this data!"})
     }
-
-    console.log(data.buffer)
 
     // Check to see if client exists
     PersonalTrainer.findOne({_id: signedInId})
@@ -1130,13 +1145,13 @@ router.post('/upload_profile_pic',  upload.single('my-file') ,passport.authentic
                     PersonalTrainer.findOneAndUpdate(
                         {_id: signedInId},
                         {$set: {
-                                ProfilePicUrl: data.buffer
+                                ProfilePicUrl: magic
                             }
                         },
                     )
                         .then(result => {
                             if (result) {
-                                console.log(result)
+                                // console.log(result)
                                 res.status(200).json({msg: "Data successfully updated"})
                             }
                         })

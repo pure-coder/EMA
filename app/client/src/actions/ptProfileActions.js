@@ -66,16 +66,21 @@ export const getPtData = (history) => dispatch => {
     axios
         .get(`/api/personal_trainer`)
         .then(result => {
-                // If no data is returned (no data === string) then direct user to error page
-                if (typeof result.data === "string"){
-                    history.replace('/error_page');
-                }
-                dispatch({
-                    type: GET_PT_PROFILE,
-                    payload: result.data
-                })
+
+            //console.log(result.data.ProfilePicUrl.data)
+
+            if (typeof result.data === "string"){
+                history.replace('/error_page');
             }
-        )
+            dispatch({
+                type: GET_PT_PROFILE,
+                payload: result.data
+            })
+            // dispatch({
+            //     type: UPDATE_PROFILE_PIC,
+            //     payload: .toString('base64')
+            // })
+        })
         .catch(err => {
             manageErrors(err, dispatch, history);
         })
@@ -420,7 +425,8 @@ export const clearWorkoutData = () => dispatch => {
 
 export const saveProfilePic = (data, image ,history) => dispatch => {
     const formData = new FormData();
-    formData.append('my-file', data, 'filename.png');
+    formData.append('profilePicture', data, 'filename.png');
+    console.log(data)
 
     axios.post(`/api/upload_profile_pic`, formData)
         .then(
