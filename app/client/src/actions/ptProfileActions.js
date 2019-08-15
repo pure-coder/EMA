@@ -17,7 +17,8 @@ import {
     GET_CLIENT_PROFILE_NOTES,
     CLEAR_CLIENT_PROFILE_NOTES,
     PT_CLIENT_BODY_BIO,
-    CLEAR_BODY_BIO
+    CLEAR_BODY_BIO,
+    UPDATE_PROFILE_PIC
 } from "./types"; // import custom defined types
 import {manageErrors} from "./authenticationActions";
 
@@ -415,4 +416,36 @@ export const clearWorkoutData = () => dispatch => {
     dispatch({
             type: CLEAR_WORKOUT_DATA
     })
+};
+
+export const saveProfilePic = (data, image ,history) => dispatch => {
+    const formData = new FormData();
+    const extension = data.type.split('/')[1];
+    const imageFile = new File([data], `profilePic.${extension}`, {
+        type: data.type,
+    });
+    formData.append('image', imageFile);
+
+    console.log(data)
+    console.log(image)
+
+    axios({
+        method: 'post',
+        url: '/api/upload_profile_pic',
+        headers: {
+            'X-Requested-With': 'XMLHttpRequest',
+            'X-CSRF-TOKEN': 'csrfToken',
+        },
+        data: formData,
+    })
+        .then(
+            dispatch({
+                type: UPDATE_PROFILE_PIC,
+                payload: image
+            })
+        )
+        .catch(err => {
+            console.log(err)
+            }
+        )
 };

@@ -9,7 +9,7 @@ import isEmpty from "../../../utilities/is_empty";
 import ErrorComponent from "../../error/ErrorComponent"; // Allows proper routing and linking using browsers match, location, and history properties
 import DisplayMessage from '../../common/DisplayMessage';
 import FormSelectComp from "../../common/FormSelectComp";
-import defaultUserImage from "../../../img/user-regular.svg";
+//import defaultUserImage from "../../../img/user-regular.svg";
 import checkExp from "../../../utilities/checkExp";
 
 class EditPersonalTrainer extends Component {
@@ -198,10 +198,11 @@ class EditPersonalTrainer extends Component {
                             <div className="m-auto col-md-8">
                                 <h1 className=" text-center display-5">Edit Personal Trainer Profile</h1>
                                 <div className="edit_image">
+                                    {console.log(this.props.ptProfile.pt_data)}
                                     {(<img
                                         className = "rounded-circle"
                                         alt={this.props.ptProfile.pt_data.ProfilePicUrl === "NA" ? "Default user image." : "User profile picture."}
-                                        src = {this.props.ptProfile.pt_data.ProfilePicUrl === "NA" ? defaultUserImage : defaultUserImage}
+                                        src = {this.props.ptProfile.pt_data.ProfilePicUrl}
                                     />)}
                                 </div>
                                 <form autoComplete="off" onSubmit={this.onSubmit}>

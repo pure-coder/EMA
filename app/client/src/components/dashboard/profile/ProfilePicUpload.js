@@ -2,7 +2,9 @@ import React, {Component} from 'react';
 import AvatarEditor from 'react-avatar-editor'
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
+import PropTypes from 'prop-types';
 import defaultProfilePic from '../../../img/default_profile_pic.png';
+import {saveProfilePic} from "../../../actions/ptProfileActions";
 
 class ProfilePicUpload extends Component {
     constructor(props){
@@ -18,7 +20,6 @@ class ProfilePicUpload extends Component {
             rotate: 0,
             fileName: "profile_pic_test",
             croppedImage: null,
-            otherCanvas: null,
             img: null
         };
 
@@ -74,8 +75,9 @@ class ProfilePicUpload extends Component {
             // This returns a HTMLCanvasElement, it can be made into a data URL or a blob,
             // drawn on another canvas, or added to the DOM.
             const canvas = this.editor.getImage();
-            const blob = ProfilePicUpload.dataURItoBlob(canvas.toDataURL());
-            this.setState({croppedImage: blob})
+            const blob = await ProfilePicUpload.dataURItoBlob(canvas.toDataURL());
+            this.setState({croppedImage: blob});
+            this.props.saveProfilePic(blob, canvas.toDataURL() ,this.state.history);
         }
     }
 
@@ -83,7 +85,7 @@ class ProfilePicUpload extends Component {
         if(this.state.croppedImage !== null){
             let imageUrl = URL.createObjectURL(this.state.croppedImage);
             URL.revokeObjectURL(this.state.croppedImage);
-            this.setState({img: imageUrl})
+            this.setState({img: imageUrl});
         }
     }
 
@@ -131,4 +133,17 @@ class ProfilePicUpload extends Component {
     }
 }
 
-export default connect()(withRouter(ProfilePicUpload));
+ProfilePicUpload.propTypes = ({
+    authenticatedUser: PropTypes.object.isRequired,
+    ptProfile: PropTypes.object.isRequired,
+    clientProfile: PropTypes.object.isRequired,
+    saveProfilePic: PropTypes.func.isRequired,
+});
+
+const stateToProps = state => ({
+    authenticatedUser: state.authenticatedUser,
+    ptProfile: state.ptProfile,
+    clientProfile: state.clientProfile
+});
+
+export default connect(stateToProps, {saveProfilePic})(withRouter(ProfilePicUpload));

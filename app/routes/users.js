@@ -1093,6 +1093,74 @@ router.put('/profile_notes/:cid', passport.authenticate('pt_rule', {session: fal
 
 }); // router put /profile_notes/:cid
 
+const multer  = require('multer')
+const storage = multer.memoryStorage()
+const upload = multer({ storage: storage })
+
+// @route  PUT api/upload_profile_pic
+// @desc   update profile notes data in db
+// @access Private for PT's - clients can't update profile notes data in db collection
+router.post('/upload_profile_pic',  upload.single('image') ,passport.authenticate('pt_rule', {session: false}, null), (req, res) =>{
+
+    let token = req.headers.authorization.split(' ')[1];
+    let payload = jwt.decode(token, keys.secretOrKey);
+    let signedInId = payload.id;
+    let ptStatus = payload.pt;
+
+    let data = req.file;
+
+    if(isEmpty(data)){
+        res.status(400).json({msg: "No data supplied for update"});
+    }
+    if(!ptStatus){
+        res.status(400).json({msg: "You do not have the authorisation to update this data!"})
+    }
+
+    console.log(data.buffer)
+
+    // Check to see if client exists
+    PersonalTrainer.findOne({_id: signedInId})
+        .then(result => {
+            if(result) {
+
+                // // As pt's are the only ones that can access this route, check to see if signed in pt is pt who has access to client data.
+                if(result._id.toString() === signedInId){
+
+                    // update exercise for client
+                    PersonalTrainer.findOneAndUpdate(
+                        {_id: signedInId},
+                        {$set: {
+                                ProfilePicUrl: data.buffer
+                            }
+                        },
+                    )
+                        .then(result => {
+                            if (result) {
+                                console.log(result)
+                                res.status(200).json({msg: "Data successfully updated"})
+                            }
+                        })
+                        .catch(() => {
+                            res.status(400).json({msg: "Could not update data"})
+                        })
+
+                    //res.status(200).json()
+
+                }
+                else{
+                    // Respond with a forbidden status code as the uid given is not allowed to access this data
+                    res.status(403).json({msg : "User not allowed to access data."})
+                }
+            }
+        })
+        .catch(() => {
+            res.status(400).json({msg: "Client not found!"});
+        })
+    // end of Client.findOne
+    // res.status(200).json("check");
+
+}); // router put /upload_profile_pic
+
 
 //Export router so it can work with the main restful api server
     module.exports = router;

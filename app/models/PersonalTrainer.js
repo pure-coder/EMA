@@ -24,7 +24,7 @@ const PersonalTrainerSchema = new Schema({
         type: String, required: false, default: 'NA', trim: true,
     },
     ProfilePicUrl: {
-        type: String, required: false, default: 'NA', trim: true,
+        type: Buffer, required: false, default: 'NA', trim: true,
     },
     Date: {
         type: Date

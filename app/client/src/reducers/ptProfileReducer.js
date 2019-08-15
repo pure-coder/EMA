@@ -12,7 +12,8 @@ import {
     GET_CLIENT_PROFILE_NOTES,
     CLEAR_CLIENT_PROFILE_NOTES,
     PT_CLIENT_BODY_BIO,
-    CLEAR_BODY_BIO
+    CLEAR_BODY_BIO,
+    UPDATE_PROFILE_PIC
 } from '../actions/types';
 
 const initialState = {
@@ -104,6 +105,14 @@ export default function(state = initialState, action) {
                 ...state,
                 scheduler: null
             };
+        case UPDATE_PROFILE_PIC:
+            return {
+                ...state,
+                pt_data: {
+                    ...state.pt_data,
+                    ProfilePicUrl: action.payload
+                }
+            }
         default:
             return state;
     }
