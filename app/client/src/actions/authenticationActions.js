@@ -5,8 +5,8 @@ import {
 } from "./types"; // import custom defined types
 import setAuthorisationToken from '../utilities/setAuthorisationToken';
 import jwtDecode from 'jwt-decode';
-import {clearErrors, setSuccess, getPtData, clearCurrentProfile} from "./ptProfileActions";
-import {clearClientProfile, getClientData} from "./clientProfileActions";
+import {clearErrors, setSuccess, clearCurrentProfile} from "./ptProfileActions";
+import {clearClientProfile} from "./clientProfileActions";
 
 export const manageErrors = (err, dispatch, history) => {
     // 401 Unauthorised
@@ -61,7 +61,7 @@ export const registerUser =(Data, history) => (dispatch) => {
 }; // registerUser
 
 // Login User - get JWT for user
-export const loginUser = (Data, history) => (dispatch) => {
+export const loginUser = (Data) => (dispatch) => {
     // Post user data to the API specifically the user/register route
     axios
         .post('/api/login', Data)
@@ -79,12 +79,6 @@ export const loginUser = (Data, history) => (dispatch) => {
             // data is sent to setSignedInUser which is then added to the store under user, which is in InitialisedState
             // in authenticatedReducer.js
             dispatch(setSignedInUser(decodedToken));
-            if (decodedToken.pt === true) {
-                dispatch(getPtData(history))
-            }
-            else{
-                dispatch(getClientData(decodedToken.id, history))
-            }
         })
         .catch(err => {
                 dispatch({

@@ -200,7 +200,7 @@ class EditPersonalTrainer extends Component {
                                 <div className="edit_image">
                                     {console.log(this.props.ptProfile.pt_data)}
                                     {(<img
-                                        className = "rounded-circle"
+                                        className = "rounded"
                                         alt={this.props.ptProfile.pt_data.ProfilePicUrl === "NA" ? "Default user image." : "User profile picture."}
                                         src = {this.props.ptProfile.pt_data.ProfilePicUrl}
                                     />)}

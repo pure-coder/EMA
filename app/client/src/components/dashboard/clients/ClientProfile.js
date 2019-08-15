@@ -149,6 +149,7 @@ class ClientProfile extends Component {
         const client_data = this.state.clientData;
         const clientProgressData = this.state.client_progression;
         const bodyProgressData = this.state.body_bio;
+        // const ProfilePicUrl =
 
         let profile_notes;
 

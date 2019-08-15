@@ -245,7 +245,7 @@ class EditClient extends Component {
                                 <h1 className=" text-center display-5">Edit Client Profile</h1>
                                 <div className="edit_image">
                                     {(<img
-                                        className = "rounded-circle"
+                                        className = "rounded"
                                         alt={client_data.ProfilePicUrl === "NA" ? "Default user image." : "User profile picture."}
                                         src = {client_data.ProfilePicUrl === "NA" ? defaultUserImage : defaultUserImage}
                                     />)}

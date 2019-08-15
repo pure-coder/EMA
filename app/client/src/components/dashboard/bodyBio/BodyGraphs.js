@@ -104,8 +104,10 @@ class BodyGraphs extends Component {
         }
         else{
             let Data = BodyGraphs.sortedProgressionBodyPart(bodyGraphData);
+            let showData = false;
             const graphs = Data.map(graph => {
                 if(graph.bodyMetrics.length > 1){
+                    showData = true;
                     return (
                         // Changed key from GraphComp to div as div was first child, otherwise error was given.
                         <div className="graphs card mb-5" key={graph._id}>
@@ -128,9 +130,10 @@ class BodyGraphs extends Component {
                                onClick={this.openModal}/>
                         : null
                     }
+                    {console.log(Data)}
                     {/*If enough data show graph/s otherwise show message stating no data to show*/}
                     {
-                        !isEmpty(Data) ? graphs : <NoProgressDataComp/>
+                        showData ? graphs : <NoProgressDataComp/>
                     }
                     <Modal visible={this.state.visible} width={this.state.modalWidth} height={this.state.modalHeight} effect="fadeInUp"
                            onClickAway={this.onClickAway}>

@@ -16,6 +16,7 @@ html, body {
 
 #root, .App {
     background-color: white;
+    min-width: 580px;
 }
 
 .navbar-brand img {
@@ -282,9 +283,10 @@ svg {
 }
 
 .edit_client .edit_image img {
+    border-radius: 25px !important;
     background-color: white;
-    width: 150px;
-    height: 140px;
+    width: 170px;
+    height: 170px;
     border: solid 1px black;
     padding-right: 0;
 }
@@ -384,7 +386,7 @@ svg {
 }
 
 .Progression {
-    min-width: inherit;
+    min-width: 90%;
     display: inline-block;
     padding: 0 60px;
     background-color: whitesmoke;
@@ -687,14 +689,15 @@ input[type=submit] {
 }
 
 .user_image {
-    width: 102px;
+    width: 135px;
     float: left;
 }
 
 .user_image img {
+    border-radius: 25px !important;
     background-color: white;
-    width: 100px;
-    height: 90px;
+    width: 130px;
+    height: 130px;
     border: solid 1px black;
     padding-right: 0;
 }
@@ -703,6 +706,7 @@ input[type=submit] {
     display: inline-block;
     margin-left: 15px;
     line-height: .7;
+    margin-top: 20px;
 }
 
 .user_data p {
@@ -781,7 +785,7 @@ nav a.active {
 /* Profile notes */
 
 .Profile_notes {
-    width: 480px;
+    width: 90%;
     margin-left: 50px;
     margin-bottom: 50px;
     padding: 0 30px;

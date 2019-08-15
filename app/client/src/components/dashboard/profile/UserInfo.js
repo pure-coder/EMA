@@ -8,6 +8,13 @@ import ErrorComponent from "../../error/ErrorComponent";
 import defaultUserImage from '../../../img/user-regular.svg';
 
 class UserInfo extends Component {
+    constructor(props){
+        super(props);
+        this.state = {
+            ProfilePicUrl: defaultUserImage
+        }
+    }
+
 
     static getAge(dateOfBirth){
         let DOB = new Date(dateOfBirth).getTime();
@@ -17,6 +24,7 @@ class UserInfo extends Component {
     }
 
     render() {
+        const {ProfilePicUrl} = this.props.userData;
         if (this.props.userData === null) {
             return <Loading myClassName="loading_container"/>
         }
@@ -32,9 +40,9 @@ class UserInfo extends Component {
                 <div className="userInfo-custom">
                     <div className="user_image">
                         {(<img
-                            className = "rounded-circle"
-                            alt={this.props.userData.ProfilePicUrl === "NA" ? "Default user image." : "User profile picture."}
-                            src = {this.props.userData.ProfilePicUrl === "NA" ? defaultUserImage : defaultUserImage}
+                            className = "rounded"
+                            alt={ProfilePicUrl === "NA" ? "Default user image." : "User profile picture."}
+                            src = {ProfilePicUrl === "NA" ? defaultUserImage : ProfilePicUrl}
                         />)}
                     </div>
                     <div className="user_data">

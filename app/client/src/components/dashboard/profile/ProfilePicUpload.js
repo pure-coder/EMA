@@ -14,7 +14,7 @@ class ProfilePicUpload extends Component {
             width: 300,
             height: 300,
             border: 50,
-            borderRadius: 200,
+            borderRadius: 60,
             color: [255,255,255, 0.2], // RGBA
             scale: 1,
             rotate: 0,
@@ -124,7 +124,7 @@ class ProfilePicUpload extends Component {
                     <button type="button" onClick={this.onSample}>Sample</button>
                 </div>
                 {this.state.img !== null &&
-                    <img className="rounded-circle"
+                    <img className="rounded"
                          src={this.state.img}
                          alt="Upload profile"
                     />}

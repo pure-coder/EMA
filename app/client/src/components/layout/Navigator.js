@@ -15,26 +15,32 @@ class Navigation extends Component {
         super(props);
         this.state = {
             userData: null,
+            ProfilePicUrl: defaultUserImage
         };
     }
 
-    static getDerivedStateFromProps(props, state){
-        if(props.authenticatedUser.user.pt) {
-            if (props.ptProfile.pt_data !== state.userData) {
-                return {
-                    userData: props.ptProfile.pt_data
+    static getDerivedStateFromProps(props){
+        if(props.authenticatedUser.isAuthenticated) {
+            if (props.authenticatedUser.user.pt) {
+                if (props.ptProfile.pt_data !== null) {
+                    return {
+                        userData: props.ptProfile.pt_data,
+                        ProfilePicUrl: props.ptProfile.pt_data.ProfilePicUrl
+                    }
                 }
+                return null;
             }
-            return null;
-        }
-        else{
-            if (props.clientProfile.client_data !== state.userData) {
-                return {
-                    userData: props.clientProfile.client_data
+            else {
+                if (props.clientProfile.client_data !== null) {
+                    return {
+                        userData: props.clientProfile.client_data,
+                        ProfilePicUrl: props.clientProfile.client_data.ProfilePicUrl
+                    }
                 }
+                return null;
             }
-            return null;
         }
+        return null;
     }
 
     componentDidMount() {
@@ -66,7 +72,7 @@ class Navigation extends Component {
     render() {
 
         const {isAuthenticated} = this.props.authenticatedUser;
-        const {userData} = this.state;
+        const {userData, ProfilePicUrl} = this.state;
 
         // Define navbar for dynamic navbar
         const authorisedLinks = (
@@ -82,12 +88,11 @@ class Navigation extends Component {
                 <ul className="navbar-nav ml-auto">
                     <a href="" onClick={this.onLogOutClick.bind(this)} className="nav-link">
                         <img
-                            className="rounded-circle"
+                            className="rounded"
                             // If user has profile pic display it otherwise display default user image
-                            src={defaultUserImage}
-                            // src={isAuthenticated ? defaultUserImage : defaultUserImage}
+                            src={!(userData !== null || ProfilePicUrl === "NA") ? defaultUserImage : ProfilePicUrl}
                             alt={"Profile"}
-                            style={{backgroundColor: 'white', width: 30, height: 27, paddingRight: 0}}
+                            style={{backgroundColor: 'white', 'borderRadius': 25, width: 45, height: 45, paddingRight: 0}}
                         />
                         {/*{' '} is used to provide space */}
                         {' '}
