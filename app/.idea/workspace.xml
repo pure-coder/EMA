@@ -4,12 +4,10 @@
     <bookmark url="file://C:/Learning/clientObjectData.js" description="export {&quot;_id&quot;:&quot;5c2e3454d27ace097420b414&quot;,&quot;FullName..." line="2" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ec8ccf39-8487-4892-a38d-de9c288878a3" name="Default" comment="Adding link to profile picture upload component.">
+    <list default="true" id="ec8ccf39-8487-4892-a38d-de9c288878a3" name="Default" comment="Changed onSelectFile = e =&gt; {} to ..... onSelectFile(e){} which stopped the setting of state of the returned value of FileReader.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/App.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/dashboard/edit/EditPersonalTrainer.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/dashboard/edit/EditPersonalTrainer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/dashboard/profile/ProfilePicUpload.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/dashboard/edit/ProfilePicUpload.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/dashboard/edit/ProfilePicUpload.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/dashboard/edit/ProfilePicUpload.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -49,22 +47,22 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="css" value="10905" />
+          <entry key="css" value="11035" />
           <entry key="editorConfig" value="285" />
           <entry key="eslintignore" value="18" />
           <entry key="gitignore" value="22" />
           <entry key="html" value="1117" />
-          <entry key="js" value="221848" />
+          <entry key="js" value="222344" />
           <entry key="json" value="29" />
           <entry key="md" value="150" />
-          <entry key="txt" value="20835" />
+          <entry key="txt" value="21014" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="CSS" value="1800" />
-          <entry key="JavaScript" value="33608" />
-          <entry key="PLAIN_TEXT" value="7818" />
+          <entry key="CSS" value="1930" />
+          <entry key="JavaScript" value="34104" />
+          <entry key="PLAIN_TEXT" value="7997" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -115,11 +113,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/edit/ProfilePicUpload.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="248">
-              <caret line="132" column="72" selection-start-line="132" selection-start-column="72" selection-end-line="132" selection-end-column="72" />
+            <state relative-caret-position="129">
+              <caret line="53" column="6" selection-start-line="53" selection-start-column="6" selection-end-line="53" selection-end-column="6" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
@@ -127,11 +125,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/client/src/App.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="112">
-              <caret line="862" column="21" lean-forward="true" selection-start-line="862" selection-start-column="21" selection-end-line="862" selection-end-column="21" />
+            <state relative-caret-position="153">
+              <caret line="827" column="15" selection-start-line="827" selection-start-column="15" selection-end-line="827" selection-end-column="15" />
             </state>
           </provider>
         </entry>
@@ -195,7 +193,6 @@
       <find>.Profile_u</find>
       <find>}</find>
       <find>.Profile_pic</find>
-      <find>Profile_c</find>
       <find>var</find>
       <find>edit_client</find>
       <find>user_image</find>
@@ -203,6 +200,7 @@
       <find>.Profi</find>
       <find>.edit_client .edit_image img</find>
       <find>.user_image img</find>
+      <find>Profile_c</find>
     </findStrings>
     <replaceStrings>
       <replace>this.props.ptProfile.pt_data</replace>
@@ -306,8 +304,8 @@
         <option value="$PROJECT_DIR$/client/src/components/layout/Navigator.js" />
         <option value="$PROJECT_DIR$/client/src/actions/authenticationActions.js" />
         <option value="$PROJECT_DIR$/client/src/components/dashboard/edit/EditPersonalTrainer.js" />
-        <option value="$PROJECT_DIR$/client/src/components/dashboard/edit/ProfilePicUpload.js" />
         <option value="$PROJECT_DIR$/client/src/App.css" />
+        <option value="$PROJECT_DIR$/client/src/components/dashboard/edit/ProfilePicUpload.js" />
       </list>
     </option>
   </component>
@@ -527,14 +525,7 @@
       <workItem from="1565171718827" duration="88626000" />
       <workItem from="1565691741200" duration="30487000" />
       <workItem from="1565814825599" duration="34529000" />
-      <workItem from="1565849788934" duration="14518000" />
-    </task>
-    <task id="LOCAL-00178" summary="Post client progression updated (pt check done from jwt).&#10;Modified action to create progression respectively.">
-      <created>1565397209704</created>
-      <option name="number" value="00178" />
-      <option name="presentableId" value="LOCAL-00178" />
-      <option name="project" value="LOCAL" />
-      <updated>1565397209704</updated>
+      <workItem from="1565849788934" duration="24686000" />
     </task>
     <task id="LOCAL-00179" summary="Get API created for body bio, working correctly!">
       <created>1565397524707</created>
@@ -872,11 +863,18 @@
       <option name="project" value="LOCAL" />
       <updated>1565894893831</updated>
     </task>
-    <option name="localTasksCounter" value="227" />
+    <task id="LOCAL-00227" summary="Creating better file upload for profile picture">
+      <created>1565900354202</created>
+      <option name="number" value="00227" />
+      <option name="presentableId" value="LOCAL-00227" />
+      <option name="project" value="LOCAL" />
+      <updated>1565900354202</updated>
+    </task>
+    <option name="localTasksCounter" value="228" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1961883000" />
+    <option name="totallyTimeSpent" value="1972051000" />
   </component>
   <component name="TodoView" selected-index="4">
     <todo-panel id="selected-file">
@@ -891,10 +889,10 @@
     <frame x="-8" y="-8" width="1382" height="784" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.20758928" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.20758928" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.24943988" />
       <window_info id="Favorites" order="2" side_tool="true" weight="0.32935026" />
-      <window_info anchor="bottom" id="Messages" order="0" sideWeight="0.49813294" visible="true" weight="0.3276923" />
+      <window_info active="true" anchor="bottom" id="Messages" order="0" sideWeight="0.49813294" visible="true" weight="0.3276923" />
       <window_info anchor="bottom" id="Message" order="1" />
       <window_info anchor="bottom" id="Find" order="2" weight="0.32615384" />
       <window_info anchor="bottom" id="Run" order="3" />
@@ -979,8 +977,6 @@
   <component name="VcsManagerConfiguration">
     <option name="SHOW_DIRTY_RECURSIVELY" value="true" />
     <option name="LIMIT_HISTORY" value="false" />
-    <MESSAGE value="bootstrap card effect added to ClientProfile." />
-    <MESSAGE value="CSS changes to edit client/pt and register forms." />
     <MESSAGE value="Table styling added to ClientList table." />
     <MESSAGE value="Starting refactor of expired token refresh" />
     <MESSAGE value="Token refreshed everytime user visits dashboard." />
@@ -1004,7 +1000,9 @@
     <MESSAGE value="as blob" />
     <MESSAGE value="Profile image upload working!" />
     <MESSAGE value="Adding link to profile picture upload component." />
-    <option name="LAST_COMMIT_MESSAGE" value="Adding link to profile picture upload component." />
+    <MESSAGE value="Creating better file upload for profile picture" />
+    <MESSAGE value="Changed onSelectFile = e =&gt; {} to ..... onSelectFile(e){} which stopped the setting of state of the returned value of FileReader." />
+    <option name="LAST_COMMIT_MESSAGE" value="Changed onSelectFile = e =&gt; {} to ..... onSelectFile(e){} which stopped the setting of state of the returned value of FileReader." />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/bodyBio/EditBodyDataProgressForm.js">
@@ -1364,20 +1362,20 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/edit/ProfilePicUpload.js">
+    <entry file="file://$PROJECT_DIR$/client/src/App.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="248">
-          <caret line="132" column="72" selection-start-line="132" selection-start-column="72" selection-end-line="132" selection-end-column="72" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="153">
+          <caret line="827" column="15" selection-start-line="827" selection-start-column="15" selection-end-line="827" selection-end-column="15" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/App.css">
+    <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/edit/ProfilePicUpload.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="112">
-          <caret line="862" column="21" lean-forward="true" selection-start-line="862" selection-start-column="21" selection-end-line="862" selection-end-column="21" />
+        <state relative-caret-position="129">
+          <caret line="53" column="6" selection-start-line="53" selection-start-column="6" selection-end-line="53" selection-end-column="6" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

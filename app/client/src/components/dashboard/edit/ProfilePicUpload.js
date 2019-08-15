@@ -23,7 +23,8 @@ class ProfilePicUpload extends Component {
             message : {
                 type: null,
                 msg: null
-            }
+            },
+            loaded : null,
             //img: null
         };
 
@@ -45,14 +46,12 @@ class ProfilePicUpload extends Component {
     onSelectFile = e => {
         if (e.target.files && e.target.files.length > 0) {
             const reader = new FileReader();
-            reader.addEventListener("load", () =>
-                this.setState({ src: reader.result })
-            );
+            reader.addEventListener("load", () => {
+                this.setState({src: reader.result});
+            });
             reader.readAsDataURL(e.target.files[0]);
         }
     };
-
-
 
     onClickSave(){
         this.makeCroppedImage()
@@ -126,13 +125,13 @@ class ProfilePicUpload extends Component {
                         scale={parseFloat(this.state.scale)}
                         rotate={this.state.rotate}
                     />
-                    <DisplayMessage message={this.state.message}/>
                     <form method="post" action="#" id="#">
                         <div className="form-group files">
                             <label>Upload Your File </label>
-                            <input type="file" className="form-control"/>
+                            <input type="file" className="form-control" onChange={this.onSelectFile}/>
                         </div>
                     </form>
+                    <DisplayMessage message={this.state.message}/>
                     <div>
                         <label className="Profile_label">
                             Zoom:
