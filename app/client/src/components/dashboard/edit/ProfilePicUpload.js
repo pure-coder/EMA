@@ -5,6 +5,7 @@ import {withRouter} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import defaultProfilePic from '../../../img/default_profile_pic.png';
 import {saveProfilePic} from "../../../actions/ptProfileActions";
+import DisplayMessage from "../../common/DisplayMessage";
 
 class ProfilePicUpload extends Component {
     constructor(props){
@@ -18,14 +19,17 @@ class ProfilePicUpload extends Component {
             color: [255,255,255, 0.2], // RGBA
             scale: 1,
             rotate: 0,
-            fileName: "profile_pic_test",
-            croppedImage: null,
-            img: null
+            fileName: "profile_pic",
+            message : {
+                type: null,
+                msg: null
+            }
+            //img: null
         };
 
         this.onChange = this.onChange.bind(this);
         this.onClickSave = this.onClickSave.bind(this);
-        this.onSample = this.onSample.bind(this);
+        // this.onSample = this.onSample.bind(this);
     }
 
     setEditorRef = (editor) => this.editor = editor;
@@ -48,8 +52,23 @@ class ProfilePicUpload extends Component {
         }
     };
 
+
+
     onClickSave(){
-        this.makeCroppedImage();
+        this.makeCroppedImage()
+            .then(blob => {
+                    this.props.saveProfilePic(blob, this.state.history);
+                    this.setState({message: {
+                        type: "SUCCESS",
+                        msg: "Profile Imaged Uploading."
+                    }});
+                }).catch(() => {
+            this.setState({message: {
+                    type: "ERROR",
+                    msg: "Could not upload profile image."
+                }});
+                this.setState({error: "Could not upload profile image."})
+        })
     }
 
     static dataURItoBlob(dataURI) {
@@ -75,19 +94,20 @@ class ProfilePicUpload extends Component {
             // This returns a HTMLCanvasElement, it can be made into a data URL or a blob,
             // drawn on another canvas, or added to the DOM.
             const canvas = this.editor.getImage();
-            const blob = await ProfilePicUpload.dataURItoBlob(canvas.toDataURL());
-            this.setState({croppedImage: blob});
-            this.props.saveProfilePic(blob, canvas.toDataURL() ,this.state.history);
+            return await ProfilePicUpload.dataURItoBlob(canvas.toDataURL());
+
+            // used for previous tests
+            //this.props.saveProfilePic(blob, canvas.toDataURL() ,this.state.history);
         }
     }
 
-    onSample(){
-        if(this.state.croppedImage !== null){
-            let imageUrl = URL.createObjectURL(this.state.croppedImage);
-            URL.revokeObjectURL(this.state.croppedImage);
-            this.setState({img: imageUrl});
-        }
-    }
+    // onSample(){
+    //     if(this.state.croppedImage !== null){
+    //         let imageUrl = URL.createObjectURL(this.state.croppedImage);
+    //         URL.revokeObjectURL(this.state.croppedImage);
+    //         this.setState({img: imageUrl});
+    //     }
+    // }
 
     render(){
         const {src} = this.state;
@@ -106,7 +126,13 @@ class ProfilePicUpload extends Component {
                         scale={parseFloat(this.state.scale)}
                         rotate={this.state.rotate}
                     />
-                    <input type="file" name="newImage" onChange={this.onSelectFile}/>
+                    <DisplayMessage message={this.state.message}/>
+                    <form method="post" action="#" id="#">
+                        <div className="form-group files">
+                            <label>Upload Your File </label>
+                            <input type="file" className="form-control"/>
+                        </div>
+                    </form>
                     <div>
                         <label className="Profile_label">
                             Zoom:
@@ -120,14 +146,16 @@ class ProfilePicUpload extends Component {
                                onChange={this.onChange} value={this.state.scale}
                         />
                     </div>
-                    <button type="button" onClick={this.onClickSave}>Upload</button>
-                    <button type="button" onClick={this.onSample}>Sample</button>
+                    <button type="button" className="btn btn-info mb-4" onClick={this.onClickSave}>
+                        Upload
+                    </button>
+                    {/*<button type="button" onClick={this.onSample}>Sample</button>*/}
                 </div>
-                {this.state.img !== null &&
-                    <img className="rounded"
-                         src={this.state.img}
-                         alt="Upload profile"
-                    />}
+                {/*{this.state.img !== null &&*/}
+                    {/*<img className="rounded"*/}
+                         {/*src={this.state.img}*/}
+                         {/*alt="Upload profile"*/}
+                    {/*/>}*/}
             </div>
         );
     }

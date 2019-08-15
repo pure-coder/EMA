@@ -32,7 +32,7 @@ import ExpiredLogin from "./components/authentication/ExpiredLogin";
 import setAuthorisationToken from "./utilities/setAuthorisationToken";
 import jwtDecode from "jwt-decode";
 import {setSignedInUser} from "./actions/authenticationActions";
-import ProfilePicUpload from "./components/dashboard/profile/ProfilePicUpload";
+import ProfilePicUpload from "./components/dashboard/edit/ProfilePicUpload";
 
 // Check if user is signed in if page is refreshed, if so then dispatch that they are already signed in.
 if (localStorage.jwtToken) {

@@ -11,6 +11,7 @@ import DisplayMessage from '../../common/DisplayMessage';
 import FormSelectComp from "../../common/FormSelectComp";
 //import defaultUserImage from "../../../img/user-regular.svg";
 import checkExp from "../../../utilities/checkExp";
+import {Link} from 'react-router-dom';
 
 class EditPersonalTrainer extends Component {
     // This allows the component states to be updated and re-rendered
@@ -198,12 +199,13 @@ class EditPersonalTrainer extends Component {
                             <div className="m-auto col-md-8">
                                 <h1 className=" text-center display-5">Edit Personal Trainer Profile</h1>
                                 <div className="edit_image">
-                                    {console.log(this.props.ptProfile.pt_data)}
-                                    {(<img
-                                        className = "rounded"
-                                        alt={this.props.ptProfile.pt_data.ProfilePicUrl === "NA" ? "Default user image." : "User profile picture."}
-                                        src = {this.props.ptProfile.pt_data.ProfilePicUrl}
-                                    />)}
+                                    {(<Link to={`upload_profile_picture`}>
+                                        <img
+                                            className = "rounded"
+                                            alt={this.props.ptProfile.pt_data.ProfilePicUrl === "NA" ? "Default user image." : "User profile picture."}
+                                            src = {this.props.ptProfile.pt_data.ProfilePicUrl}
+                                        />
+                                    </Link>)}
                                 </div>
                                 <form autoComplete="off" onSubmit={this.onSubmit}>
                                     {/*// Deals with Chromes password auto complete*/}
