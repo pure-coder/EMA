@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'; // Used to document prop types sent to compo
 import {connect} from 'react-redux' // Needed when using redux inside a component (connects redux to this component)
 import {editClientData, passwordsMatchError, setErrors, clearErrors, setSuccess, clearSuccess, getCurrentClient, clearCurrentClient} from "../../../actions/ptProfileActions"; // Used to import create action for getting client data and editing client data
 import {getClientData} from "../../../actions/clientProfileActions";
-import {withRouter} from 'react-router-dom';
+import {Link, withRouter} from 'react-router-dom';
 import FormInputGroup from "../../common/FormInputGroup";
 import Loading from "../../../elements/Loading";
 import isEmpty from "../../../utilities/is_empty";
@@ -244,11 +244,13 @@ class EditClient extends Component {
                             <div className="m-auto col-md-8">
                                 <h1 className=" text-center display-5">Edit Client Profile</h1>
                                 <div className="edit_image">
-                                    {(<img
-                                        className = "rounded"
-                                        alt={client_data.ProfilePicUrl === "NA" ? "Default user image." : "User profile picture."}
-                                        src = {client_data.ProfilePicUrl === "NA" ? defaultUserImage : defaultUserImage}
-                                    />)}
+                                    {<Link to={`upload_profile_picture`}>
+                                        {(<img
+                                            className="rounded"
+                                            alt={client_data.ProfilePicUrl === "NA" ? "Default user image." : "User profile picture."}
+                                            src ={client_data.ProfilePicUrl === "NA" ? defaultUserImage : defaultUserImage}
+                                        />)}
+                                    </Link>}
                                 </div>
                                 <form autoComplete="off" onSubmit={this.onSubmit}>
                                     {/*// Deals with Chromes password auto complete*/}

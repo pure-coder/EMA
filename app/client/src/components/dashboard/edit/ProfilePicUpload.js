@@ -17,7 +17,11 @@ class ProfilePicUpload extends Component {
             border: 50,
             borderRadius: 60,
             color: [255,255,255, 0.2], // RGBA
-            scale: 1,
+            position: {
+                x: 0.48,
+                y: 0.5,
+            },
+            scale: 1.2,
             rotate: 0,
             fileName: "profile_pic",
             message : {
@@ -42,6 +46,10 @@ class ProfilePicUpload extends Component {
 
         this.setState({[name]: value});
     }
+
+    myChange = e => {
+        this.setState({position: e})
+    };
 
     onSelectFile = e => {
         if (e.target.files && e.target.files.length > 0) {
@@ -120,10 +128,13 @@ class ProfilePicUpload extends Component {
                         width={this.state.width}
                         height={this.state.height}
                         border={this.state.border}
+                        position={this.state.position}
                         borderRadius={parseFloat(this.state.borderRadius)}
                         color={this.state.color} // RGBA
                         scale={parseFloat(this.state.scale)}
                         rotate={this.state.rotate}
+                        onPositionChange={this.myChange.bind(this.state.position)}
+                        // onPositionChange={this.myChange.bind('mousemove',{data: this.state.position})}
                     />
                     <form method="post" action="#" id="#">
                         <div className="form-group files">
