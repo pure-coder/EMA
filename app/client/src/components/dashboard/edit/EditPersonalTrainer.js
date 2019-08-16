@@ -9,7 +9,7 @@ import isEmpty from "../../../utilities/is_empty";
 import ErrorComponent from "../../error/ErrorComponent"; // Allows proper routing and linking using browsers match, location, and history properties
 import DisplayMessage from '../../common/DisplayMessage';
 import FormSelectComp from "../../common/FormSelectComp";
-//import defaultUserImage from "../../../img/user-regular.svg";
+import defaultUserImage from "../../../img/user-regular.svg";
 import checkExp from "../../../utilities/checkExp";
 import {Link} from 'react-router-dom';
 
@@ -18,6 +18,7 @@ class EditPersonalTrainer extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            defaultImage: defaultUserImage,
             pt_data: undefined,
             FullName: '',
             Email: '',
@@ -203,7 +204,8 @@ class EditPersonalTrainer extends Component {
                                         <img
                                             className = "rounded"
                                             alt={this.props.ptProfile.pt_data.ProfilePicUrl === "NA" ? "Default user image." : "User profile picture."}
-                                            src = {this.props.ptProfile.pt_data.ProfilePicUrl}
+                                            src = {this.props.ptProfile.pt_data.ProfilePicUrl === "NA" ? this.state.defaultImage :
+                                                this.props.ptProfile.pt_data.ProfilePicUrl}
                                         />
                                     </Link>)}
                                 </div>

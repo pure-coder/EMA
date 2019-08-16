@@ -18,7 +18,8 @@ import {
     CLEAR_CLIENT_PROFILE_NOTES,
     PT_CLIENT_BODY_BIO,
     CLEAR_BODY_BIO,
-    UPDATE_PROFILE_PIC
+    UPDATE_PROFILE_PIC_PT,
+    UPDATE_PROFILE_PIC_CURRENT_CLIENT
 } from "./types"; // import custom defined types
 import {manageErrors} from "./authenticationActions";
 
@@ -66,10 +67,6 @@ export const getPtData = (history) => dispatch => {
     axios
         .get(`/api/personal_trainer`)
         .then(result => {
-
-            let formatString ='data:image/png;base64,';
-
-
             if (typeof result.data === "string"){
                 history.replace('/error_page');
             }
@@ -77,10 +74,12 @@ export const getPtData = (history) => dispatch => {
                 type: GET_PT_PROFILE,
                 payload: result.data
             });
-            dispatch({
-                type: UPDATE_PROFILE_PIC,
-                payload: formatString.concat(result.data.ProfilePicUrl)
-            });
+            if(result.data.ProfilePicUrl !== "NA"){
+                dispatch({
+                    type: UPDATE_PROFILE_PIC_PT,
+                    payload: result.data.ProfilePicUrl
+                });
+            }
         })
         .catch(err => {
             manageErrors(err, dispatch, history);
@@ -95,7 +94,13 @@ export const getCurrentClient = (clientId, history) => dispatch => {
             dispatch({
                 type: GET_CURRENT_CLIENT,
                 payload: result.data
-            })
+            });
+            if(result.data.ProfilePicUrl !== "NA") {
+                dispatch({
+                    type: UPDATE_PROFILE_PIC_CURRENT_CLIENT,
+                    payload: result.data.ProfilePicUrl
+                });
+            }
         })
         .catch(err => {
             manageErrors(err, dispatch, history);
@@ -424,12 +429,17 @@ export const clearWorkoutData = () => dispatch => {
     })
 };
 
-export const saveProfilePicPt = (data, history) => dispatch => {
+export const saveProfilePicPt = (data, image, history) => dispatch => {
     const formData = new FormData();
     formData.append('profilePicture', data, 'filename.png');
     axios.post(`/api/upload_profile_pic`, formData)
-        .then(
-            dispatch(setSuccess("Profile Picture has been updated."))
+        .then(() => {
+                dispatch({
+                    type: UPDATE_PROFILE_PIC_PT,
+                    payload: image
+                });
+                dispatch(setSuccess("Profile Picture has been updated."));
+            }
         )
         .catch(err => {
             manageErrors(err, dispatch, history);

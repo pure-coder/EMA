@@ -17,8 +17,6 @@ class Dashboard extends Component {
     // Life cycle method for react which will run when this component receives new properties
     componentDidMount() {
         checkExp();
-        // console.log(this.props.ptProfile.pt_data === null)
-        // console.log(this.props)
         if(this.props.ptProfile.pt_data === null || this.props.clientProfile.client_data === null){
             if(this.props.authenticatedUser.user.pt){
                 this.props.getPtData(this.props.history);

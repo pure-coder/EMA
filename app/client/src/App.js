@@ -59,19 +59,15 @@ class App extends Component {
                         {/*Using Switch allows the route to be checked to see if it exists or not, if not the last component (error) which doesn't have a path
                          will be rendered*/}
                         <Switch>
-                            {/* Register Scheduler below uses restful url*/}
-                            {/* Register_client below uses restful url*/}
                             <PrivateRoute path="/users/:uid?/edit_client/:cid?" component={EditClient}/>
                             <PrivateRoute path="/users/:uid?/register_client" component={RegisterClient}/>
                             <PrivateRoute path="/users/:uid?/scheduler/:cid?" component={Scheduler}/>
-                            {/* Register Dashboard below uses restful url*/}
                             <PrivateRoute path="/users/:uid?/dashboard/:cid?" component={Dashboard}/>
                             <PrivateRoute path="/users/:uid?/upload_profile_picture" component={ProfilePicUpload}/>
                             <PrivateRoute path="/users/:uid?/client_profile/:cid?" component={ClientProfile}/>
                             <PrivateRoute path="/users/:uid?/edit_personal_trainer" component={EditPersonalTrainer}/>
-
-                            <Route exact path="/"
-                                   component={Landing_page}/> {/* using Route functionality that adds the landing_page component to web app*/}
+                            <Route exact path="/" component={Landing_page}/>
+                            {/* using Route functionality that adds the landing_page component to web app*/}
                             <Route exact path="/register" component={Register}/>
                             <Route exact path="/login" component={Login}/>
                             <Route exact path="/re-login" component={ExpiredLogin}/>

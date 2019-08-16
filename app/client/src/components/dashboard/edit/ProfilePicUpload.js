@@ -14,6 +14,7 @@ class ProfilePicUpload extends Component {
         this.state = {
             userId: props.authenticatedUser.user.id,
             src: defaultProfilePic,
+            croppedImage: null,
             width: 300,
             height: 300,
             border: 50,
@@ -37,7 +38,6 @@ class ProfilePicUpload extends Component {
         this.onChange = this.onChange.bind(this);
         this.onClickSave = this.onClickSave.bind(this);
         // this.onSample = this.onSample.bind(this);
-        console.log(this.props)
     }
 
     setEditorRef = (editor) => this.editor = editor;
@@ -68,23 +68,22 @@ class ProfilePicUpload extends Component {
         this.makeCroppedImage()
             .then(blob => {
                 if(this.props.authenticatedUser.user.pt){
-                    this.props.saveProfilePicPt(blob ,this.state.history);
+                    this.props.saveProfilePicPt(blob, this.state.croppedImage ,this.state.history);
                 }
                 else{
-                    this.props.saveProfilePicClient(blob ,this.state.history);
+                    this.props.saveProfilePicClient(blob, this.state.croppedImage ,this.state.history);
                 }
-
-                    this.setState({message: {
-                        type: "SUCCESS",
-                        msg: "Profile Imaged Uploading."
-                    }});
-                }).catch(() => {
-            this.setState({message: {
-                    type: "ERROR",
-                    msg: "Could not upload profile image."
+                this.setState({message: {
+                    type: "SUCCESS",
+                    msg: "Profile Imaged Uploading."
                 }});
-                this.setState({error: "Could not upload profile image."})
-        })
+            }).catch(() => {
+                this.setState({message: {
+                        type: "ERROR",
+                        msg: "Could not upload profile image."
+                    }});
+                    this.setState({error: "Could not upload profile image."})
+            })
     }
 
     static dataURItoBlob(dataURI) {
@@ -110,7 +109,9 @@ class ProfilePicUpload extends Component {
             // This returns a HTMLCanvasElement, it can be made into a data URL or a blob,
             // drawn on another canvas, or added to the DOM.
             const canvas = this.editor.getImage();
-            return await ProfilePicUpload.dataURItoBlob(canvas.toDataURL());
+            const image = canvas.toDataURL();
+            this.setState({croppedImage: image });
+            return await ProfilePicUpload.dataURItoBlob(image);
 
             // used for previous tests
             //this.props.saveProfilePicPt(blob, canvas.toDataURL() ,this.state.history);

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'; // Used to document prop types sent to compo
 import {connect} from 'react-redux' // Needed when using redux inside a component (connects redux to this component)
 import {editClientData, passwordsMatchError, setErrors, clearErrors, setSuccess, clearSuccess, getCurrentClient, clearCurrentClient} from "../../../actions/ptProfileActions"; // Used to import create action for getting client data and editing client data
 import {getClientData} from "../../../actions/clientProfileActions";
-import {Link, withRouter} from 'react-router-dom';
+import {withRouter} from 'react-router-dom';
 import FormInputGroup from "../../common/FormInputGroup";
 import Loading from "../../../elements/Loading";
 import isEmpty from "../../../utilities/is_empty";
@@ -12,13 +12,16 @@ import DisplayMessage from '../../common/DisplayMessage';
 import FormSelectComp from "../../common/FormSelectComp";
 import defaultUserImage from "../../../img/user-regular.svg";
 import checkExp from "../../../utilities/checkExp";
+import {ProfileImage} from "../profile/ProfileImage";
 
 class EditClient extends Component {
     // This allows the component states to be updated and re-rendered
     constructor(props) {
         super(props);
         this.state = {
-            client_data: undefined,
+            defaultImage : defaultUserImage,
+            client_data: null,
+            profilePicture: null,
             clientId: !props.authenticatedUser.user.pt ? props.authenticatedUser.user.id : props.match.params.cid,
             FullName: '',
             Email: '',
@@ -54,6 +57,7 @@ class EditClient extends Component {
             if (props.ptProfile.current_client !== state.client_data) {
                 return {
                     client_data: props.ptProfile.current_client,
+                    profilePicture: props.ptProfile.current_client.ProfilePicUrl,
                     success: props.success,
                     errors: props.errors,
                     loaded: true
@@ -63,6 +67,7 @@ class EditClient extends Component {
         else if (props.clientProfile.client_data !== state.client_data) {
             return {
                 client_data: props.clientProfile.client_data,
+                profilePicture: props.clientProfile.client_data.ProfilePicUrl,
                 success: props.success,
                 errors: props.errors,
                 loaded: true
@@ -163,7 +168,6 @@ class EditClient extends Component {
             FullName: this.state.FullName,
             Email: this.state.Email,
             ContactNumber: this.state.ContactNumber,
-            // ProfilePicUrl: this.state.ProfilePicUrl,
             DateOfBirth: this.state.DateOfBirth,
             Sex: this.state.Sex,
             Password: this.state.Password,
@@ -244,13 +248,7 @@ class EditClient extends Component {
                             <div className="m-auto col-md-8">
                                 <h1 className=" text-center display-5">Edit Client Profile</h1>
                                 <div className="edit_image">
-                                    {<Link to={`upload_profile_picture`}>
-                                        {(<img
-                                            className="rounded"
-                                            alt={client_data.ProfilePicUrl === "NA" ? "Default user image." : "User profile picture."}
-                                            src ={client_data.ProfilePicUrl === "NA" ? defaultUserImage : defaultUserImage}
-                                        />)}
-                                    </Link>}
+                                    <ProfileImage image={this.state.profilePicture} />
                                 </div>
                                 <form autoComplete="off" onSubmit={this.onSubmit}>
                                     {/*// Deals with Chromes password auto complete*/}

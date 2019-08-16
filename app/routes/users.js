@@ -1112,14 +1112,9 @@ router.post('/upload_profile_pic',  upload.single('profilePicture') ,passport.au
     let data = req.file;
     let buffer = data.buffer;
 
-    // let magic = buffer.toString('hex')
-    let magic = buffer.toString('base64');
-
-    // let writeStream = fs.createWriteStream('.test.png');
-    // streamifier.createReadStream(req.file.buffer).pipe(writeStream);
-
-    //let otherBuffer = new Buffer('ODk1MDRlNDc=', 'hex')
-    //console.log(otherBuffer.toString())
+    let formatString ='data:image/png;base64,';
+    let newBuffer = buffer.toString('base64');
+    let magic = formatString.concat(newBuffer);
 
     if(isEmpty(data)){
         res.status(400).json({msg: "No data supplied for update"});

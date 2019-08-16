@@ -90,7 +90,8 @@ class Navigation extends Component {
                         <img
                             className="rounded"
                             // If user has profile pic display it otherwise display default user image
-                            src={!(userData !== null || ProfilePicUrl === "NA") ? defaultUserImage : ProfilePicUrl}
+
+                            src={userData !== null && ProfilePicUrl === "NA" ? defaultUserImage : ProfilePicUrl}
                             alt={"Profile"}
                             style={{backgroundColor: 'white', 'borderRadius': 25, width: 45, height: 45, paddingRight: 0}}
                         />

@@ -8,7 +8,8 @@ import {
     GET_PROFILE_NOTES,
     CLEAR_PROFILE_NOTES,
     BODY_BIO_CLIENT,
-    CLEAR_BODY_BIO_CLIENT
+    CLEAR_BODY_BIO_CLIENT,
+    UPDATE_PROFILE_PIC_CLIENT
 } from "./types"; // import custom defined types
 import {manageErrors} from "./authenticationActions";
 import {setSuccess} from "./ptProfileActions";
@@ -21,7 +22,13 @@ export const getClientData = (clientId, history) => dispatch => {
             dispatch({
                 type: GET_CLIENT_PROFILE,
                 payload: result.data
-            })
+            });
+            if(result.data.ProfilePicUrl !== "NA"){
+                dispatch({
+                    type: UPDATE_PROFILE_PIC_CLIENT,
+                    payload: result.data.ProfilePicUrl
+                });
+            }
         })
         .catch(err => {
             manageErrors(err, dispatch, history);
@@ -108,12 +115,17 @@ export const clearErrors = () => dispatch => {
     })
 };
 
-export const saveProfilePicClient = (data, history) => dispatch => {
+export const saveProfilePicClient = (data, image, history) => dispatch => {
     const formData = new FormData();
     formData.append('profilePicture', data, 'filename.png');
     axios.post(`/api/upload_profile_pic`, formData)
-        .then(
-            dispatch(setSuccess("Profile Picture has been updated."))
+        .then(() => {
+                dispatch({
+                    type: UPDATE_PROFILE_PIC_CLIENT,
+                    payload: image
+                });
+                dispatch(setSuccess("Profile Picture has been updated."));
+            }
         )
         .catch(err => {
             manageErrors(err, dispatch, history);
