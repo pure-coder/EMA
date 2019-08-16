@@ -6,6 +6,7 @@ import isEmpty from '../../../utilities/is_empty';
 import Loading from "../../../elements/Loading";
 import ErrorComponent from "../../error/ErrorComponent";
 import defaultUserImage from '../../../img/user-regular.svg';
+import {ProfileImage} from "./ProfileImage";
 
 class UserInfo extends Component {
     constructor(props){
@@ -39,11 +40,7 @@ class UserInfo extends Component {
                 // send clients data to client component, and render client component
                 <div className="userInfo-custom">
                     <div className="user_image">
-                        {(<img
-                            className = "rounded"
-                            alt={ProfilePicUrl === "NA" ? "Default user image." : "User profile picture."}
-                            src = {ProfilePicUrl === "NA" ? defaultUserImage : ProfilePicUrl}
-                        />)}
+                        <ProfileImage image={ProfilePicUrl}/>
                     </div>
                     <div className="user_data">
                         <p>Name: <span className="data text-primary">{this.props.userData.FullName}</span></p><br/>

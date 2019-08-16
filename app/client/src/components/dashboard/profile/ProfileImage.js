@@ -1,15 +1,19 @@
 import React from 'react'
-import {Link} from "react-router-dom";
+import defaultUserImage from '../../../img/user-regular.svg';
 
-export const ProfileImage = ({image}) => {
+export const ProfileImage = ({image, style}) => {
+
+    if(image === null){
+        image = defaultUserImage;
+    }
+
     return (
-        <Link to={`upload_profile_picture`}>
-            {(<img
+            (<img
                 className="rounded"
                 alt={"User profile."}
                 src = {image}
-            />)}
-        </Link>
+                style={style}
+            />)
     )
 };
 

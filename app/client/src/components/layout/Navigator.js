@@ -9,6 +9,7 @@ import {getPtData, getClients, clearCurrentProfile} from "../../actions/ptProfil
 import {getClientData, clearClientProfile} from "../../actions/clientProfileActions";
 
 import defaultUserImage from '../../img/user-regular.svg';
+import {ProfileImage} from "../dashboard/profile/ProfileImage";
 
 class Navigation extends Component {
     constructor(props){
@@ -87,14 +88,7 @@ class Navigation extends Component {
                 }
                 <ul className="navbar-nav ml-auto">
                     <a href="" onClick={this.onLogOutClick.bind(this)} className="nav-link">
-                        <img
-                            className="rounded"
-                            // If user has profile pic display it otherwise display default user image
-
-                            src={userData !== null && ProfilePicUrl === "NA" ? defaultUserImage : ProfilePicUrl}
-                            alt={"Profile"}
-                            style={{backgroundColor: 'white', 'borderRadius': 25, width: 45, height: 45, paddingRight: 0}}
-                        />
+                        <ProfileImage image={ProfilePicUrl} style={{backgroundColor: 'white', 'borderRadius': 25, width: 45, height: 45, paddingRight: 0}}/>
                         {/*{' '} is used to provide space */}
                         {' '}
                         {userData !== null ? userData.FullName : null}

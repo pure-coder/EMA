@@ -67,7 +67,6 @@ class App extends Component {
                             <PrivateRoute path="/users/:uid?/client_profile/:cid?" component={ClientProfile}/>
                             <PrivateRoute path="/users/:uid?/edit_personal_trainer" component={EditPersonalTrainer}/>
                             <Route exact path="/" component={Landing_page}/>
-                            {/* using Route functionality that adds the landing_page component to web app*/}
                             <Route exact path="/register" component={Register}/>
                             <Route exact path="/login" component={Login}/>
                             <Route exact path="/re-login" component={ExpiredLogin}/>
