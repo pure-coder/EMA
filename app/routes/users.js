@@ -1101,8 +1101,8 @@ router.put('/profile_notes/:cid', passport.authenticate('pt_rule', {session: fal
 
 // @route  PUT api/upload_profile_pic
 // @desc   update profile notes data in db
-// @access Private for PT's - clients can't update profile notes data in db collection
-router.post('/upload_profile_pic',  upload.single('profilePicture') ,passport.authenticate('pt_rule', {session: false}, null), (req, res) =>{
+// @access Private for PT's and clients - PT's and clients can update their own profile picture db collection
+router.post('/upload_profile_pic',  upload.single('profilePicture') ,passport.authenticate('both_rule', {session: false}, null), (req, res) =>{
 
     let token = req.headers.authorization.split(' ')[1];
     let payload = jwt.decode(token, keys.secretOrKey);
@@ -1121,54 +1121,49 @@ router.post('/upload_profile_pic',  upload.single('profilePicture') ,passport.au
     //let otherBuffer = new Buffer('ODk1MDRlNDc=', 'hex')
     //console.log(otherBuffer.toString())
 
-
-
-
     if(isEmpty(data)){
         res.status(400).json({msg: "No data supplied for update"});
     }
-    if(!ptStatus){
-        res.status(400).json({msg: "You do not have the authorisation to update this data!"})
+
+    // Check if the user is a PT
+    if(ptStatus){
+        // update exercise for client
+        PersonalTrainer.findOneAndUpdate(
+            {_id: signedInId},
+            {$set: {
+                    ProfilePicUrl: magic
+                }
+            },
+        )
+            .then(result => {
+                if (result) {
+                    // console.log(result)
+                    res.status(200).json({msg: "Profile picture updated"})
+                }
+            })
+            .catch(() => {
+                res.status(400).json({msg: "Not authorised to update profile picture"})
+            })
+    }
+    else {
+        Client.findOneAndUpdate(
+            {_id: signedInId},
+            {$set: {
+                    ProfilePicUrl: magic
+                }
+            },
+        )
+            .then(result => {
+                if (result) {
+                    // console.log(result)
+                    res.status(200).json({msg: "Profile picture updated"})
+                }
+            })
+            .catch(() => {
+                res.status(400).json({msg: "Not authorised to update profile picture"})
+            })
     }
 
-    // Check to see if client exists
-    PersonalTrainer.findOne({_id: signedInId})
-        .then(result => {
-            if(result) {
-
-                // // As pt's are the only ones that can access this route, check to see if signed in pt is pt who has access to client data.
-                if(result._id.toString() === signedInId){
-
-                    // update exercise for client
-                    PersonalTrainer.findOneAndUpdate(
-                        {_id: signedInId},
-                        {$set: {
-                                ProfilePicUrl: magic
-                            }
-                        },
-                    )
-                        .then(result => {
-                            if (result) {
-                                // console.log(result)
-                                res.status(200).json({msg: "Data successfully updated"})
-                            }
-                        })
-                        .catch(() => {
-                            res.status(400).json({msg: "Could not update data"})
-                        })
-
-                    //res.status(200).json()
-
-                }
-                else{
-                    // Respond with a forbidden status code as the uid given is not allowed to access this data
-                    res.status(403).json({msg : "User not allowed to access data."})
-                }
-            }
-        })
-        .catch(() => {
-            res.status(400).json({msg: "Client not found!"});
-        })
     // end of Client.findOne
     // res.status(200).json("check");
 

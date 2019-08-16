@@ -11,6 +11,7 @@ import {
     CLEAR_BODY_BIO_CLIENT
 } from "./types"; // import custom defined types
 import {manageErrors} from "./authenticationActions";
+import {setSuccess} from "./ptProfileActions";
 
 export const getClientData = (clientId, history) => dispatch => {
     dispatch(setProfileLoading());
@@ -105,4 +106,16 @@ export const clearErrors = () => dispatch => {
         type: GET_ERRS,
         payload: {}
     })
+};
+
+export const saveProfilePicClient = (data, history) => dispatch => {
+    const formData = new FormData();
+    formData.append('profilePicture', data, 'filename.png');
+    axios.post(`/api/upload_profile_pic`, formData)
+        .then(
+            dispatch(setSuccess("Profile Picture has been updated."))
+        )
+        .catch(err => {
+            manageErrors(err, dispatch, history);
+        });
 };

@@ -4,13 +4,15 @@ import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import defaultProfilePic from '../../../img/default_profile_pic.png';
-import {saveProfilePic} from "../../../actions/ptProfileActions";
+import {saveProfilePicPt} from "../../../actions/ptProfileActions";
+import {saveProfilePicClient} from "../../../actions/clientProfileActions";
 import DisplayMessage from "../../common/DisplayMessage";
 
 class ProfilePicUpload extends Component {
     constructor(props){
         super(props);
         this.state = {
+            userId: props.authenticatedUser.user.id,
             src: defaultProfilePic,
             width: 300,
             height: 300,
@@ -35,6 +37,7 @@ class ProfilePicUpload extends Component {
         this.onChange = this.onChange.bind(this);
         this.onClickSave = this.onClickSave.bind(this);
         // this.onSample = this.onSample.bind(this);
+        console.log(this.props)
     }
 
     setEditorRef = (editor) => this.editor = editor;
@@ -64,7 +67,13 @@ class ProfilePicUpload extends Component {
     onClickSave(){
         this.makeCroppedImage()
             .then(blob => {
-                    this.props.saveProfilePic(blob, this.state.history);
+                if(this.props.authenticatedUser.user.pt){
+                    this.props.saveProfilePicPt(blob ,this.state.history);
+                }
+                else{
+                    this.props.saveProfilePicClient(blob ,this.state.history);
+                }
+
                     this.setState({message: {
                         type: "SUCCESS",
                         msg: "Profile Imaged Uploading."
@@ -104,7 +113,7 @@ class ProfilePicUpload extends Component {
             return await ProfilePicUpload.dataURItoBlob(canvas.toDataURL());
 
             // used for previous tests
-            //this.props.saveProfilePic(blob, canvas.toDataURL() ,this.state.history);
+            //this.props.saveProfilePicPt(blob, canvas.toDataURL() ,this.state.history);
         }
     }
 
@@ -172,16 +181,12 @@ class ProfilePicUpload extends Component {
 }
 
 ProfilePicUpload.propTypes = ({
-    authenticatedUser: PropTypes.object.isRequired,
-    ptProfile: PropTypes.object.isRequired,
-    clientProfile: PropTypes.object.isRequired,
-    saveProfilePic: PropTypes.func.isRequired,
+    saveProfilePicPt: PropTypes.func.isRequired,
+    saveProfilePicClient: PropTypes.func.isRequired,
 });
 
 const stateToProps = state => ({
     authenticatedUser: state.authenticatedUser,
-    ptProfile: state.ptProfile,
-    clientProfile: state.clientProfile
 });
 
-export default connect(stateToProps, {saveProfilePic})(withRouter(ProfilePicUpload));
+export default connect(stateToProps, {saveProfilePicPt,saveProfilePicClient})(withRouter(ProfilePicUpload));
