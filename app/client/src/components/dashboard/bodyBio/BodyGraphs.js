@@ -130,7 +130,6 @@ class BodyGraphs extends Component {
                                onClick={this.openModal}/>
                         : null
                     }
-                    {console.log(Data)}
                     {/*If enough data show graph/s otherwise show message stating no data to show*/}
                     {
                         showData ? graphs : <NoProgressDataComp/>

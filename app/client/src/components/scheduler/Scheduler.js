@@ -28,6 +28,9 @@ class Scheduler extends Component {
 
 
     componentDidMount() {
+        const {isAuthenticated} = this.props.authenticatedUser;
+        if(!isAuthenticated)
+            this.props.history.push('/login');
         checkExp();
         // Check if isAuthenticated is false then redirect to the dashboard
         if(this.props.authenticatedUser.user.pt){

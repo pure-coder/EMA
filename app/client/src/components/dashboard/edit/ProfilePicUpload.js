@@ -40,6 +40,12 @@ class ProfilePicUpload extends Component {
         // this.onSample = this.onSample.bind(this);
     }
 
+    componentDidMount(){
+        const {isAuthenticated} = this.props.authenticatedUser;
+        if(!isAuthenticated)
+            this.props.history.push('/login');
+    }
+
     setEditorRef = (editor) => this.editor = editor;
 
     onChange(e){

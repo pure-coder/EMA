@@ -52,6 +52,9 @@ class RegisterClient extends Component {
     }
 
     componentDidMount() {
+        const {isAuthenticated} = this.props.authenticatedUser;
+        if(!isAuthenticated)
+            this.props.history.push('/login');
         this.props.clearErrors();
         this.props.clearSuccess();
         document.body.scrollTo(0,0);

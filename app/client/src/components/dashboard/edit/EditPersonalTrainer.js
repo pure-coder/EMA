@@ -48,6 +48,9 @@ class EditPersonalTrainer extends Component {
     }
 
     componentDidMount() {
+        const {isAuthenticated} = this.props.authenticatedUser;
+        if(!isAuthenticated)
+            this.props.history.push('/login');
         checkExp();
         if(this.props.ptProfile.pt_data === null){
             this.props.getPtData(this.props.history);
