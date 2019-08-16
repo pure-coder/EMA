@@ -100,6 +100,9 @@ class EditClient extends Component {
     }
 
     componentDidUpdate(){
+        if(this.props.match.url === `/users/${this.props.match.params.uid}/edit_client/upload_profile_picture`){
+            this.props.history.push('/error_page');
+        }
         let data = null;
         if(this.props.authenticatedUser.user.pt) {
             if (this.props.ptProfile.current_client !== null) {
