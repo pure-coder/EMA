@@ -34,10 +34,6 @@ class ProfilePicUpload extends Component {
             loaded : null,
             //img: null
         };
-
-        this.onChange = this.onChange.bind(this);
-        this.onClickSave = this.onClickSave.bind(this);
-        // this.onSample = this.onSample.bind(this);
     }
 
     componentDidMount(){
@@ -68,16 +64,16 @@ class ProfilePicUpload extends Component {
 
     setEditorRef = (editor) => this.editor = editor;
 
-    onChange(e){
+    onChange = e => {
         e.preventDefault();
         let name = e.target.name;
         let value = e.target.value;
 
         this.setState({[name]: value});
-    }
+    };
 
     myChange = e => {
-        this.setState({position: e})
+        this.setState({position: e});
     };
 
     onSelectFile = e => {
@@ -90,7 +86,7 @@ class ProfilePicUpload extends Component {
         }
     };
 
-    onClickSave(){
+    onClickSave = () => {
         this.makeCroppedImage()
             .then(blob => {
                 if(this.props.authenticatedUser.user.pt){
@@ -105,7 +101,7 @@ class ProfilePicUpload extends Component {
                         msg: "Could not upload profile image."
                     }});
             })
-    }
+    };
 
     static dataURItoBlob(dataURI) {
         // convert base64 to raw binary data held in a string

@@ -43,12 +43,6 @@ class EditClient extends Component {
                 type: null
             } // Set to null so null is returned from DisplayMessage by default
         };
-
-        // This sets the state value to it's respective state (via binding)
-        this.onChange = this.onChange.bind(this);
-
-        // This binds the onSubmit function to this.OnSubmit
-        this.onSubmit = this.onSubmit.bind(this);
     }
 
     // Populate state data with data from the database for the client
@@ -142,9 +136,9 @@ class EditClient extends Component {
     }
 
     // This captures what the user types and sets the specific input to the respective state variable
-    onChange(event) {
-        let eventName = event.target.name;
-        let eventValue = event.target.value;
+    valueChange = e => {
+        let eventName = e.target.name;
+        let eventValue = e.target.value;
         // Initialise previous data to this data
         this.setState({[eventName]: eventValue});
 
@@ -155,10 +149,10 @@ class EditClient extends Component {
         if(!isEmpty(this.props.success)){
             this.props.clearSuccess();
         }
-    }
+    };
 
-    onSubmit(event) {
-        event.preventDefault();
+    onSubmit = e => {
+        e.preventDefault();
         this.props.clearSuccess();
 
         // Clear errors
@@ -231,7 +225,7 @@ class EditClient extends Component {
                 client_data: client_data
             });
         }
-    }
+    };
 
     render() {
 
@@ -267,7 +261,7 @@ class EditClient extends Component {
                                         placeholder={this.state.client_data.FullName}
                                         value={this.state.FullName}
                                         type="text"
-                                        onChange={this.onChange}
+                                        onChange={this.valueChange}
                                         error={errors.FullName}
                                     />
                                     <FormInputGroup
@@ -276,7 +270,7 @@ class EditClient extends Component {
                                         placeholder="Email"
                                         value={this.state.Email}
                                         type="Email"
-                                        onChange={this.onChange}
+                                        onChange={this.valueChange}
                                         error={errors.Email}
                                     />
                                     <FormInputGroup
@@ -285,7 +279,7 @@ class EditClient extends Component {
                                         placeholder="ContactNumber"
                                         value={this.state.ContactNumber}
                                         type="text"
-                                        onChange={this.onChange}
+                                        onChange={this.valueChange}
                                         error={errors.ContactNumber}
                                     />
                                     <div className="form-group edit-profile-date-div">
@@ -298,7 +292,7 @@ class EditClient extends Component {
                                                 name="DateOfBirth"
                                                 value={this.state.DateOfBirth.toString()}
                                                 type="date"
-                                                onChange={this.onChange}
+                                                onChange={this.valueChange}
                                                 error={errors.DateOfBirth}
                                             />
                                         </div>
@@ -311,7 +305,7 @@ class EditClient extends Component {
                                                 name="Sex"
                                                 id="Sex"
                                                 values={this.state.values}
-                                                onChange={this.onChange}
+                                                onChange={this.valueChange}
                                                 error={errors.Sex}
                                             />
                                         </div>
@@ -322,7 +316,7 @@ class EditClient extends Component {
                                         placeholder="Enter Password"
                                         value={this.state.Password}
                                         type="password"
-                                        onChange={this.onChange}
+                                        onChange={this.valueChange}
                                         error={errors.Password}
                                     />
                                     <FormInputGroup
@@ -330,7 +324,7 @@ class EditClient extends Component {
                                         placeholder="Confirm Password"
                                         value={this.state.Password2}
                                         type="password"
-                                        onChange={this.onChange}
+                                        onChange={this.valueChange}
                                         error={errors.Password2}
                                     />
                                     <DisplayMessage message={message}/>
