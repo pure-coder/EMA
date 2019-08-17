@@ -827,7 +827,8 @@ input[type=submit].profile_notes {
     position: relative;
     top: -30px;
     height: 100%;
-    width: 500px;
+    min-width: 500px;
+    max-width: 900px;
     margin: auto;
 }
 
@@ -923,4 +924,15 @@ label.Profile_label {
     text-transform: capitalize;
     text-align: center;
 }
+
+.profile-canvas {
+    display: inline-block;
+    padding: 0 20px;
+}
+
+ .upload-zoom-profile-image {
+     display: inline-block;
+     text-align: center;
+     padding: 0 20px;
+ }
 

@@ -137,29 +137,24 @@ class ProfilePicUpload extends Component {
         return (
             <div className="Profile_pic_upload">
                 <div className="Profile_canvas" id="Profile_canvas">
-                    <AvatarEditor
-                        ref={this.setEditorRef}
-                        image={src}
-                        className="Viewing_canvas"
-                        width={this.state.width}
-                        height={this.state.height}
-                        border={this.state.border}
-                        position={this.state.position}
-                        borderRadius={parseFloat(this.state.borderRadius)}
-                        color={this.state.color} // RGBA
-                        scale={parseFloat(this.state.scale)}
-                        rotate={this.state.rotate}
-                        onPositionChange={this.myChange.bind(this.state.position)}
-                        // onPositionChange={this.myChange.bind('mousemove',{data: this.state.position})}
-                    />
-                    <form method="post" action="#" id="#">
-                        <div className="form-group files">
-                            <label>Upload Your File </label>
-                            <input type="file" className="form-control" onChange={this.onSelectFile}/>
-                        </div>
-                    </form>
-                    <DisplayMessage message={this.state.message}/>
-                    <div>
+                    <div className="profile-canvas">
+                        <AvatarEditor
+                            ref={this.setEditorRef}
+                            image={src}
+                            className="Viewing_canvas"
+                            width={this.state.width}
+                            height={this.state.height}
+                            border={this.state.border}
+                            position={this.state.position}
+                            borderRadius={parseFloat(this.state.borderRadius)}
+                            color={this.state.color} // RGBA
+                            scale={parseFloat(this.state.scale)}
+                            rotate={this.state.rotate}
+                            onPositionChange={this.myChange.bind(this.state.position)}
+                            // onPositionChange={this.myChange.bind('mousemove',{data: this.state.position})}
+                        />
+                    </div>
+                    <div className="upload-zoom-profile-image">
                         <label className="Profile_label">
                             Zoom:
                         </label>
@@ -171,10 +166,17 @@ class ProfilePicUpload extends Component {
                                name="scale"
                                onChange={this.onChange} value={this.state.scale}
                         />
+                        <form method="post" action="#" id="#">
+                            <div className="form-group files">
+                                <label>Upload Your File </label>
+                                <input type="file" className="form-control" onChange={this.onSelectFile}/>
+                            </div>
+                        </form>
+                        <DisplayMessage message={this.state.message}/>
+                        <button type="button" className="btn btn-info mb-4" onClick={this.onClickSave}>
+                            Upload
+                        </button>
                     </div>
-                    <button type="button" className="btn btn-info mb-4" onClick={this.onClickSave}>
-                        Upload
-                    </button>
                     {/*<button type="button" onClick={this.onSample}>Sample</button>*/}
                 </div>
                 {/*{this.state.img !== null &&*/}
