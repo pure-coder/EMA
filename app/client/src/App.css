@@ -927,17 +927,13 @@ label.Profile_label {
 .profile-canvas {
     display: inline-block;
     padding: 0 20px;
+    position: relative;
 }
 
  .upload-zoom-profile-image {
      display: inline-block;
-     text-align: center;
+     /*text-align: center;*/
      padding: 0 20px;
- }
-
- .zoom-slider {
-     height: 50px;
-     margin-bottom: 10px;
  }
 
  .zoom {
@@ -946,3 +942,31 @@ label.Profile_label {
      top: 15px;
      left: -15px;
  }
+
+.upload-zoom-profile-image #display-message{
+     position: relative;
+     top: -25px;
+    text-align: center;
+ }
+
+ #upload-profile {
+     height: 250px;
+     position: relative;
+     display: initial;
+     top: -20px;
+ }
+
+ .zoom-slider {
+     position: relative;
+     top: -25px;
+     padding-bottom: 10px;
+ }
+
+ .upload-button {
+     position: relative;
+     display: block;
+     top: -25px;
+     margin: auto;
+ }
+
+

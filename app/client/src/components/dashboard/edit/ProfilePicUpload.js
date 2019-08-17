@@ -183,14 +183,17 @@ class ProfilePicUpload extends Component {
                                    onChange={this.onChange} value={this.state.scale}
                             />
                         </div>
-                        <form method="post" action="#" id="#">
+                        <form method="post" action="#" id="upload-profile">
                             <div className="form-group files">
-                                <label>Upload Your File </label>
+                                <label>Upload Your File: </label>
                                 <input type="file" className="form-control" onChange={this.onSelectFile}/>
                             </div>
                         </form>
                         <DisplayMessage message={this.state.message}/>
-                        <button type="button" className="btn btn-info mb-4" onClick={this.onClickSave}>
+                        <button type="button"
+                                className="btn btn-info mb-4 upload-button"
+                                onClick={this.onClickSave}
+                        >
                             Upload
                         </button>
                     </div>
