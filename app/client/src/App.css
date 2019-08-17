@@ -825,7 +825,6 @@ input[type=submit].profile_notes {
 
 .Profile_canvas {
     position: relative;
-    top: -30px;
     height: 100%;
     min-width: 500px;
     max-width: 900px;
@@ -936,3 +935,14 @@ label.Profile_label {
      padding: 0 20px;
  }
 
+ .zoom-slider {
+     height: 50px;
+     margin-bottom: 10px;
+ }
+
+ .zoom {
+     position: relative;
+     display: inline-block;
+     top: 15px;
+     left: -15px;
+ }

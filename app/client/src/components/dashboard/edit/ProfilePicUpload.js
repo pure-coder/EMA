@@ -46,6 +46,26 @@ class ProfilePicUpload extends Component {
             this.props.history.push('/login');
     }
 
+    static getDerivedStateFromProps(props, state){
+        if(props.success !== state.message) {
+            return {
+                message: {
+                    type: props.success.type,
+                    msg: props.success.msg
+                }
+            }
+        }
+        if(props.errors !== state.message){
+            return {
+                message: {
+                    type : "ERROR",
+                    msg: props.errors
+                }
+            }
+        }
+        return null
+    }
+
     setEditorRef = (editor) => this.editor = editor;
 
     onChange(e){
@@ -79,16 +99,11 @@ class ProfilePicUpload extends Component {
                 else{
                     this.props.saveProfilePicClient(blob, this.state.croppedImage ,this.state.history);
                 }
-                this.setState({message: {
-                    type: "SUCCESS",
-                    msg: "Profile Imaged Uploading."
-                }});
             }).catch(() => {
                 this.setState({message: {
                         type: "ERROR",
                         msg: "Could not upload profile image."
                     }});
-                    this.setState({error: "Could not upload profile image."})
             })
     }
 
@@ -155,17 +170,19 @@ class ProfilePicUpload extends Component {
                         />
                     </div>
                     <div className="upload-zoom-profile-image">
-                        <label className="Profile_label">
-                            Zoom:
-                        </label>
-                        <input className="zoom"
-                               type="range"
-                               step="0.01"
-                               min="1"
-                               max="2"
-                               name="scale"
-                               onChange={this.onChange} value={this.state.scale}
-                        />
+                        <div className="zoom-slider">
+                            <label className="Profile_label">
+                                Zoom:
+                            </label>
+                            <input className="zoom"
+                                   type="range"
+                                   step="0.01"
+                                   min="1"
+                                   max="2"
+                                   name="scale"
+                                   onChange={this.onChange} value={this.state.scale}
+                            />
+                        </div>
                         <form method="post" action="#" id="#">
                             <div className="form-group files">
                                 <label>Upload Your File </label>
@@ -196,6 +213,8 @@ ProfilePicUpload.propTypes = ({
 
 const stateToProps = state => ({
     authenticatedUser: state.authenticatedUser,
+    success: state.success,
+    errors: state.errors
 });
 
-export default connect(stateToProps, {saveProfilePicPt,saveProfilePicClient})(withRouter(ProfilePicUpload));
+export default connect(stateToProps, {saveProfilePicPt, saveProfilePicClient})(withRouter(ProfilePicUpload));
