@@ -228,8 +228,6 @@ class EditClient extends Component {
     };
 
     render() {
-
-
         const client_data = this.state.client_data;
 
         if(client_data === null){

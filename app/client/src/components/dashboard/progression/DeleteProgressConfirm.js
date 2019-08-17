@@ -13,8 +13,6 @@ class DeleteProgressConfirm extends Component {
             clientId: props.ids.clientId,
             progressFormHeight: props.progressFormHeight,
         };
-        this.onCancel = this.onCancel.bind(this);
-        this.onConfirm = this.onConfirm.bind(this);
     } // constructor
 
     static getDerivedStateFromProps(props, state) {
@@ -42,14 +40,14 @@ class DeleteProgressConfirm extends Component {
         }
     }
 
-    onCancel(){
+    onCancel = () => {
         this.props.onClickAway();
-    }
+    };
 
-    onConfirm(e){
+    onConfirm = e => {
         this.props.deleteExercise(this.state.clientId, e.target.name, this.props.history);
         this.props.onClickAway();
-    }
+    };
 
     render() {
         return (

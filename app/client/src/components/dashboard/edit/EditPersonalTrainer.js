@@ -39,12 +39,6 @@ class EditPersonalTrainer extends Component {
                 type: null
             } // Set to null so null is returned from DisplayMessage by default
         };
-
-        // This sets the state value to it's respective state (via binding)
-        this.onChange = this.onChange.bind(this);
-
-        // This binds the onSubmit function to this.OnSubmit
-        this.onSubmit = this.onSubmit.bind(this);
     }
 
     componentDidMount() {
@@ -102,7 +96,7 @@ class EditPersonalTrainer extends Component {
     }
 
     // This captures what the user types and sets the specific input to the respective state variable
-    onChange(event) {
+    onChange = event => {
         this.setState({[event.target.name]: event.target.value});
 
         if(!isEmpty(this.props.errors)){
@@ -112,9 +106,9 @@ class EditPersonalTrainer extends Component {
         if(!isEmpty(this.props.success)){
             this.props.clearSuccess();
         }
-    }
+    };
 
-    onSubmit(event) {
+    onSubmit = event => {
         event.preventDefault();
         this.props.clearSuccess();
 
@@ -182,7 +176,7 @@ class EditPersonalTrainer extends Component {
             // Clear password match errors
             this.props.clearErrors()
         }
-    }
+    };
 
     render() {
         // if loaded is false then return loading screen

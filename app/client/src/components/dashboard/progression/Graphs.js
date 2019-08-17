@@ -28,11 +28,6 @@ class Graphs extends Component {
             visible: false, // For modal
             loaded: false
         };
-
-        this.getClientProgression = this.getClientProgression.bind(this);
-        this.modalSize = this.modalSize.bind(this);
-        this.openModal = this.openModal.bind(this);
-        this.onClickAway = this.onClickAway.bind(this);
     }
 
     static getDerivedStateFromProps(props, state){
@@ -68,31 +63,31 @@ class Graphs extends Component {
         });
     }; // sortedMap
 
-    modalSize(height){
+    modalSize = height =>{
         this.setState({modalHeight: height});
-    }
+    };
 
-    openModal() {
+    openModal = () => {
         this.setState({
             visible : true
         });
-    }
+    };
 
-    onClickAway() {
+    onClickAway = () => {
         this.setState({
             visible: false
         });
         this.getClientProgression();
-    }
+    };
 
-    getClientProgression(){
+    getClientProgression = () =>{
         if(this.props.authenticatedUser.user.pt){
             this.props.ptGetClientProgression(this.state.clientId, this.props.history);
         }
         else{
             this.props.getClientProgression(this.state.clientId, this.props.history);
         }
-    }
+    };
 
     render() {
         const {graphData} = this.state;

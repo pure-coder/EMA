@@ -28,11 +28,6 @@ class BodyGraphs extends Component {
             visible: false, // For modal
             loaded: false
         };
-
-        this.getBodyBioClient = this.getBodyBioClient.bind(this);
-        this.modalSize = this.modalSize.bind(this);
-        this.openModal = this.openModal.bind(this);
-        this.onClickAway = this.onClickAway.bind(this);
     }
 
     static getDerivedStateFromProps(props, state){
@@ -68,31 +63,31 @@ class BodyGraphs extends Component {
         });
     }; // sortedMap
 
-    modalSize(height){
+    modalSize = height => {
         this.setState({modalHeight: height});
-    }
+    };
 
-    openModal() {
+    openModal = () => {
         this.setState({
             visible : true
         });
-    }
+    };
 
-    onClickAway() {
+    onClickAway = () => {
         this.setState({
             visible: false
         });
         this.getBodyBioClient();
-    }
+    };
 
-    getBodyBioClient(){
+    getBodyBioClient = () => {
         if(this.props.authenticatedUser.user.pt){
             this.props.ptGetClientBodyBio(this.state.clientId, this.props.history);
         }
         else{
             this.props.getBodyBioClient(this.state.clientId, this.props.history);
         }
-    }
+    };
 
     render() {
         const {bodyGraphData} = this.state;

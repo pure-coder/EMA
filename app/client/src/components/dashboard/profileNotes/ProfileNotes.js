@@ -23,9 +23,6 @@ class ProfileNotes extends Component {
             fieldUpdated: '',
             updated: false
         };
-
-        this.onChange = this.onChange.bind(this);
-        this.onSubmit = this.onSubmit.bind(this);
     }
 
     static getDerivedStateFromProps(prevProps, state){
@@ -62,7 +59,7 @@ class ProfileNotes extends Component {
         }
     }
 
-    onChange(e){
+    onChange = e => {
         e.preventDefault();
         let name = e.target.name;
         let value = e.target.value;
@@ -74,9 +71,9 @@ class ProfileNotes extends Component {
         if(!isEmpty(this.props.success)){
             this.props.clearSuccess();
         }
-    }
+    };
 
-    onSubmit(e){
+    onSubmit = e => {
         e.preventDefault();
         let name = e.target.name;
 
@@ -89,7 +86,7 @@ class ProfileNotes extends Component {
             this.props.updateClientProfileNotes(this.state.clientId, data, this.props.history);
             this.setState({fieldUpdated: name});
         }
-    }
+    };
 
     render() {
         return (

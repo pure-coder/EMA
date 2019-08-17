@@ -14,12 +14,6 @@ class Login extends Component {
             Password: '',
             errors: {}
         };
-
-        // This sets the state value to it's respective state (via binding)
-        this.onChange = this.onChange.bind(this);
-
-        // This binds the onSubmit function to this.OnSubmit
-        this.onSubmit = this.onSubmit.bind(this);
     }
 
     // Life cycle method for react which will run when this component receives new properties
@@ -43,13 +37,13 @@ class Login extends Component {
     }
 
     // This captures what the user types and sets the specific input to the respective state variable
-    onChange(event) {
+    onChange = event => {
         // event.target.name is used instead of a specific named state (ie "event.target.FullName") as there is more then
         // one, making it easier to capture all of them with this onChange function.
         this.setState({[event.target.name]: event.target.value})
-    }
+    };
 
-    onSubmit(event) {
+    onSubmit = event => {
         event.preventDefault();
 
         const user = {
@@ -59,7 +53,7 @@ class Login extends Component {
 
         // Calls the action/reducer loginUser with the user data (defined in actions/authenticatedActions.js)
         this.props.loginUser(user, this.props.history);
-    }
+    };
 
 
     render() {

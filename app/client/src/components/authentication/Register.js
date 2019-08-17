@@ -26,12 +26,6 @@ class Register extends Component {
             success: undefined,
             errors: {}
         };
-
-        // This sets the state value to it's respective state (via binding)
-        this.onChange = this.onChange.bind(this);
-
-        // This binds the onSubmit function to this.OnSubmit
-        this.onSubmit = this.onSubmit.bind(this);
     }
 
     static getDerivedStateFromProps(nextProps) {
@@ -61,13 +55,13 @@ class Register extends Component {
     }
 
     // This captures what the user types and sets the specific input to the respective state variable
-    onChange(event) {
+    onChange = event => {
         // event.target.name is used instead of a specific named state (ie "event.target.FullName") as there is more then
         // one, making it easier to capture all of them with this onChange function.
         this.setState({[event.target.name]: event.target.value})
-    }
+    };
 
-    onSubmit(event) {
+    onSubmit = event => {
         event.preventDefault();
         // Clear previous success messages
         this.props.clearSuccess();
@@ -87,7 +81,7 @@ class Register extends Component {
 
         // If no errors occur then register user
         this.props.registerUser(newUser, this.props.history);
-    }
+    };
 
     render() {
         const {errors} = this.state; // This allows errors to be pulled out of this.state with pulling them out directly

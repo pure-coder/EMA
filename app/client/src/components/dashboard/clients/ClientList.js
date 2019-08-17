@@ -23,30 +23,26 @@ class ClientList extends Component {
             modalHeight: "400",
             modalWidth: "500",
         };
-
-        this.openModal = this.openModal.bind(this);
-        this.onClickAway = this.onClickAway.bind(this);
-        this.modalSize = this.modalSize.bind(this);
     }
 
-    openModal(clientId, ptId, clientName) {
+    openModal = (clientId, ptId, clientName) => {
         this.setState({
             visible : true,
             deleteId: clientId,
             ptId: ptId,
             clientName: clientName
         });
-    }
+    };
 
-    onClickAway() {
+    onClickAway = () => {
         this.setState({
             visible: false
         });
-    }
+    };
 
-    modalSize(height){
+    modalSize = height => {
         this.setState({modalHeight: height});
-    }
+    };
 
     static getDerivedStateFromProps(nextProps, state){
         if(nextProps.errors !== state.errors){
