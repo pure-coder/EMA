@@ -2,7 +2,7 @@ import React, {Component} from 'react' // React is need for rendering JSX HTML e
 import {withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
-import {newClientProgress, setErrors, clearErrors, clearSuccess, ptGetClientProgression} from "../../../actions/ptProfileActions";
+import {ptNewClientBodyBio, setErrors, clearErrors, clearSuccess, ptGetClientProgression} from "../../../actions/ptProfileActions";
 import FormInputGroup from "../../common/FormInputGroup";
 import DisplayMessage from "../../common/DisplayMessage";
 import isEmpty from "../../../validation/is_empty";
@@ -178,7 +178,7 @@ class AddDataProgressForm extends Component {
         }
         else{
             this.props.clearErrors();
-            this.props.newClientProgress(this.state.clientId, clientProgressData, this.props.history);
+            this.props.ptNewClientBodyBio(this.state.clientId, clientProgressData, this.props.history);
             // Clear data from fields
             this.clearFields();
             // Show data added to database and updated on page in real time
@@ -191,7 +191,7 @@ class AddDataProgressForm extends Component {
     render() {
         let {errors, message} = this.state;
         return (
-            <div className="newClientProgress">
+            <div className="ptNewClientBodyBio">
                 <div>
                     <button className="closeButton"  onClick={this.onClose}><i className="fas fa-window-close 2x"></i></button>
                 </div>
@@ -239,7 +239,7 @@ class AddDataProgressForm extends Component {
 AddDataProgressForm.propTypes = {
     modalSize: PropTypes.func.isRequired,
     progressFormHeight: PropTypes.string.isRequired,
-    newClientProgress: PropTypes.func.isRequired,
+    ptNewClientBodyBio: PropTypes.func.isRequired,
     setErrors: PropTypes.func.isRequired,
     clearSuccess: PropTypes.func.isRequired,
     clearErrors: PropTypes.func.isRequired,
@@ -254,4 +254,4 @@ const stateToProps = (state) => ({
 });
 
 
-export default connect(stateToProps, {newClientProgress, setErrors, clearErrors, clearSuccess, ptGetClientProgression})(withRouter(AddDataProgressForm));
+export default connect(stateToProps, {ptNewClientBodyBio, setErrors, clearErrors, clearSuccess, ptGetClientProgression})(withRouter(AddDataProgressForm));

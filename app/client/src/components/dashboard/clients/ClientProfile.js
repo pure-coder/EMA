@@ -3,22 +3,24 @@ import PropTypes from 'prop-types'; // Used to document prop types sent to compo
 import {connect} from 'react-redux' // Needed when using redux inside a component (connects redux to this component)
 import {withRouter} from 'react-router-dom';
 import {
+    ptGetCurrentClient,
     ptGetClientProgression,
-    clearProgression,
-    getCurrentClient,
-    clearCurrentClient,
-    getClientProfileNotes,
-    clearClientProfileNotes,
     ptGetClientBodyBio,
-    clearBodyBio
+    ptGetClientProfileNotes,
+    ptClearCurrentClientProfile,
+    ptClearClientProgression,
+    ptClearClientBodyBio,
+    ptClearClientProfileNotes,
 } from "../../../actions/ptProfileActions";
 import {
-    getClientData,
-    getClientProgression,
-    getProfileNotes,
-    clearProfileNotes,
-    getBodyBioClient,
-    clearBodyBioClient
+    clientGetData,
+    clientGetProgression,
+    clientGetBodyBio,
+    clientGetProfileNotes,
+    clientClearProfile,
+    clientClearProgression,
+    clientClearBodyBio,
+    clientClearProfileNotes,
 } from "../../../actions/clientProfileActions";
 import Graphs from "../progression/Graphs";
 // import NewClientProgressForm from "../progression/NewClientProgressForm";
@@ -44,57 +46,13 @@ class ClientProfile extends Component {
                 props.clientProfile.body_bio,
             userId: props.authenticatedUser.user.id,
             clientId: props.authenticatedUser.user.pt ? props.match.params.cid : props.authenticatedUser.user.id,
-            clientData: undefined,
+            clientData: props.authenticatedUser.user.pt ? props.ptProfile.current_client :
+                props.clientProfile.client_data,
             loaded: false,
             errors: {},
         };
-
-        this.getClientProgression = this.getClientProgression.bind(this);
-        this.getBodyBioClient = this.getBodyBioClient.bind(this);
     }
 
-    static getDerivedStateFromProps(props, state){
-        if(props.authenticatedUser.user.pt){
-            if(props.ptProfile.current_client !== state.clientData){
-                return {
-                    clientData: props.ptProfile.current_client
-                }
-            }
-            if(props.ptProfile.client_progression !== state.client_progression){
-                return {
-                    client_progression: props.ptProfile.client_progression,
-                    loaded: true,
-                }
-            }
-            if(props.ptProfile.body_bio !== state.body_bio){
-                return {
-                    body_bio: props.ptProfile.body_bio,
-                    loaded: true,
-                }
-            }
-            return null;
-        }
-        else {
-            if(props.clientProfile.client_data !== state.clientData) {
-                return {
-                    clientData: props.clientProfile.client_data
-                }
-            }
-            if(props.clientProfile.client_progression !== state.client_progression){
-                return {
-                    client_progression: props.clientProfile.client_progression,
-                    loaded: true,
-                }
-            }
-            if(props.clientProfile.body_bio !== state.body_bio){
-                return {
-                    body_bio: props.clientProfile.body_bio,
-                    loaded: true,
-                }
-            }
-            return null;
-        }
-    }
 
     componentDidMount() {
         const {isAuthenticated} = this.props.authenticatedUser;
@@ -102,15 +60,17 @@ class ClientProfile extends Component {
             this.props.history.push('/login');
         checkExp();
         if(this.props.authenticatedUser.user.pt){
-            this.props.getCurrentClient(this.state.clientId, this.props.history);
-            this.props.getClientProfileNotes(this.state.clientId, this.props.history);
+            this.props.ptGetCurrentClient(this.state.clientId, this.props.history);
+            this.props.ptGetClientProgression(this.state.clientId, this.props.history);
             this.props.ptGetClientBodyBio(this.state.clientId, this.props.history);
+            this.props.ptGetClientProfileNotes(this.state.clientId, this.props.history);
         }
         else{
-            this.props.getProfileNotes(this.state.clientId, this.state.history);
-            this.props.getBodyBioClient(this.state.clientId, this.props.history);
+            this.props.clientGetData(this.state.clientId, this.props.history);
+            this.props.clientGetBodyBio(this.state.clientId, this.props.history);
+            this.props.clientGetProfileNotes(this.state.clientId, this.props.history);
+            this.props.clientGetProgression(this.state.clientId, this.props.history);
         }
-        this.getClientProgression();
     } // did mount
 
     componentWillUnmount(){
@@ -119,32 +79,20 @@ class ClientProfile extends Component {
             this.props.history.push('/re-login');
         }
         // This got rid of the Date: null bug for now, need to find route cause!!!
-        if(this.props.authenticatedUser.user.pt){
-            this.props.clearCurrentClient();
-            this.props.clearClientProfileNotes();
-            this.props.clearBodyBio();
-        }
-        this.props.clearProgression();
-        this.props.clearBodyBioClient();
-        this.setState({loaded: false})
-    }
-
-    getClientProgression(){
-        if(this.props.authenticatedUser.user.pt){
-            this.props.ptGetClientProgression(this.state.clientId, this.props.history);
+        else if(this.props.authenticatedUser.user.pt){
+            this.props.ptClearCurrentClient(this.state.clientId, this.props.history);
+            this.props.ptClearClientProgression(this.state.clientId, this.props.history);
+            this.props.ptClearClientBodyBio(this.state.clientId, this.props.history);
+            this.props.ptClearClientProfileNotes(this.state.clientId, this.props.history);
         }
         else{
-            this.props.getClientProgression(this.state.clientId, this.props.history);
-        }
-    }
+            this.props.clientClearData(this.state.clientId, this.props.history);
+            this.props.clientClearBodyBio(this.state.clientId, this.props.history);
+            this.props.clientClearProfileNotes(this.state.clientId, this.props.history);
+            this.props.clientClearProgression(this.state.clientId, this.props.history);
 
-    getBodyBioClient(){
-        if(this.props.authenticatedUser.user.pt){
-            this.props.ptGetClientBodyBio(this.state.clientId, this.props.history);
         }
-        else{
-            this.props.getBodyBioClient(this.state.clientId, this.props.history);
-        }
+
     }
 
     render() {
@@ -192,23 +140,32 @@ class ClientProfile extends Component {
 // Documents what props are needed for this component and will log a warning in the console in dev mode if not complied to
 ClientProfile.propTypes = {
     authenticatedUser: PropTypes.object.isRequired,
-    clientProfile: PropTypes.object.isRequired,
-    getClientData: PropTypes.func.isRequired,
-    getClientProfileNotes: PropTypes.func.isRequired,
-    getProfileNotes: PropTypes.func.isRequired,
     ptProfile: PropTypes.object.isRequired,
+    clientProfile: PropTypes.object.isRequired,
+
+    // Get PT client data
     getCurrentClient: PropTypes.func.isRequired,
-    getClientProgression: PropTypes.func.isRequired,
-    ptGetClientProgression: PropTypes.func.isRequired,
-    getBodyBioClient: PropTypes.func.isRequired,
     ptGetClientBodyBio: PropTypes.func.isRequired,
-    clearProgression: PropTypes.func.isRequired,
-    clearCurrentClient: PropTypes.func.isRequired,
-    clearClientProfileNotes: PropTypes.func.isRequired,
-    clearProfileNotes: PropTypes.func.isRequired,
-    clearBodyBio: PropTypes.func.isRequired,
-    clearBodyBioClient: PropTypes.func.isRequired,
-    errors: PropTypes.object.isRequired
+    ptGetClientProgression: PropTypes.func.isRequired,
+    ptGetProfileClientNotes: PropTypes.func.isRequired,
+
+    // Clear PT client data
+    ptClearCurrentClientProfile: PropTypes.func.isRequired,
+    ptClearClientBodyBio: PropTypes.func.isRequired,
+    ptClearProgression: PropTypes.func.isRequired,
+    ptClearClientProfileNotes: PropTypes.func.isRequired,
+
+    // Client get data
+    clientGetData: PropTypes.func.isRequired,
+    clientGetBodyBio: PropTypes.func.isRequired,
+    clientGetProgression: PropTypes.func.isRequired,
+    clientGetProfileNotes: PropTypes.func.isRequired,
+    
+    // Client clear data
+    clientClearData: PropTypes.func.isRequired,
+    clientClearBodyBio: PropTypes.func.isRequired,
+    clientClearProgression: PropTypes.func.isRequired,
+    clientClearProfileNotes: PropTypes.func.isRequired,
 };
 
 // Used to pull auth state and errors into this component
@@ -220,4 +177,19 @@ const stateToProps = (state) => {
         errors: state.errors
 }};
 
-export default connect(stateToProps, {getClientProgression, ptGetClientProgression, clearProgression, getCurrentClient, getClientData, clearCurrentClient, getClientProfileNotes,clearClientProfileNotes, getProfileNotes, clearProfileNotes, getBodyBioClient, ptGetClientBodyBio, clearBodyBio, clearBodyBioClient})(withRouter(ClientProfile));
+export default connect(stateToProps, {ptGetCurrentClient,
+    ptGetClientProgression,
+    ptGetClientBodyBio,
+    ptGetClientProfileNotes,
+    ptClearCurrentClientProfile,
+    ptClearClientProgression,
+    ptClearClientBodyBio,
+    ptClearClientProfileNotes,
+    clientGetData,
+    clientGetProgression,
+    clientGetBodyBio,
+    clientGetProfileNotes,
+    clientClearProfile,
+    clientClearProgression,
+    clientClearBodyBio,
+    clientClearProfileNotes,})(withRouter(ClientProfile));

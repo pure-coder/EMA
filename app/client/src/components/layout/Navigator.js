@@ -5,8 +5,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { logOutUser } from "../../actions/authenticationActions";
 import { withRouter } from 'react-router-dom';
-import {getPtData, getClients, clearCurrentProfile} from "../../actions/ptProfileActions";
-import {getClientData, clearClientProfile} from "../../actions/clientProfileActions";
+import {ptGetData, ptGetClients, ptClearProfile} from "../../actions/ptProfileActions";
+import {clientGetData, clientClearProfile} from "../../actions/clientProfileActions";
 
 import defaultUserImage from '../../img/user-regular.svg';
 import {ProfileImage} from "../dashboard/profile/ProfileImage";
@@ -48,11 +48,11 @@ class Navigation extends Component {
         const {isAuthenticated} = this.props.authenticatedUser;
         if(isAuthenticated){
             if(this.props.authenticatedUser.user.pt){
-                this.props.getPtData(this.props.history);
-                this.props.getClients(this.props.history);
+                this.props.ptGetData(this.props.history);
+                this.props.ptGetClients(this.props.history);
             }
             else {
-                this.props.getClientData(this.props.authenticatedUser.user.id, this.props.history);
+                this.props.clientGetData(this.props.authenticatedUser.user.id, this.props.history);
             }
         }
     } // ComponentDidMount
@@ -61,10 +61,10 @@ class Navigation extends Component {
     onLogOutClick = e => {
         e.preventDefault();
         if(this.props.authenticatedUser.user.pt){
-            this.props.clearCurrentProfile();
+            this.props.ptClearProfile();
         }
         else {
-            this.props.clearClientProfile();
+            this.props.clientClearProfile();
         }
         this.props.logOutUser();
         this.props.history.push('/');
@@ -141,12 +141,12 @@ Navigation.propTypes = {
     authenticatedUser: PropTypes.object.isRequired,
     ptProfile: PropTypes.object.isRequired,
     clientProfile: PropTypes.object.isRequired,
-    clearCurrentProfile: PropTypes.func.isRequired,
-    clearClientProfile: PropTypes.func.isRequired,
+    ptClearProfile: PropTypes.func.isRequired,
+    clientClearProfile: PropTypes.func.isRequired,
     logOutUser: PropTypes.func.isRequired,
-    getPtData: PropTypes.func.isRequired,
-    getClients: PropTypes.func.isRequired,
-    getClientData: PropTypes.func.isRequired,
+    ptGetData: PropTypes.func.isRequired,
+    ptGetClients: PropTypes.func.isRequired,
+    clientGetData: PropTypes.func.isRequired,
 };
 
 // Used to pull auth state into this component
@@ -160,4 +160,4 @@ const stateToProps = (state) => ({
 // connect must be exported with a passed parameter (not direct parameter) of Register this is wrapped with withRouter
 // allowing the functions of the package to be used with the component eg, proper routing, and direct parameters of
 // stateToProps for the 1st parameter and the action which is registerUser as the 2nd parameter
-export default connect(stateToProps, { logOutUser, getClientData, getPtData, getClients, clearCurrentProfile, clearClientProfile })(withRouter(Navigation));
+export default connect(stateToProps, { logOutUser, clientGetData, ptGetData, ptGetClients, ptClearProfile, clientClearProfile })(withRouter(Navigation));

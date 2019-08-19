@@ -2,7 +2,7 @@ import React, {Component} from 'react' // React is need for rendering JSX HTML e
 import {withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
-import {setErrors, clearErrors, clearSuccess, deleteExercise, editClientExercise} from "../../../actions/ptProfileActions";
+import {setErrors, clearErrors, clearSuccess, ptDeleteExercise, ptEditClientExercise} from "../../../actions/ptProfileActions";
 import FormInputGroup from "../../common/FormInputGroup";
 import DisplayMessage from "../../common/DisplayMessage";
 import isEmpty from "../../../validation/is_empty";
@@ -193,13 +193,13 @@ class EditDataProgressForm extends Component {
 
             // Delete whole exercise from client progression (if all checkboxes are ticked, so nothing has been modified)
             if(isEmpty(originalMetrics)){
-                this.props.deleteExercise(this.state.clientId, this.props.exerciseName, this.props.history);
+                this.props.ptDeleteExercise(this.state.clientId, this.props.exerciseName, this.props.history);
                 // Close edit modal there is no data to display.
                 this.onClose();
             }
             // Send new array to overwrite current data for exercise in db for client
             else{
-                this.props.editClientExercise(this.state.clientId, this.props.exerciseId, newMetrics, this.props.history);
+                this.props.ptEditClientExercise(this.state.clientId, this.props.exerciseId, newMetrics, this.props.history);
 
             }
 
@@ -287,8 +287,8 @@ EditDataProgressForm.propTypes = {
     setErrors: PropTypes.func.isRequired,
     clearSuccess: PropTypes.func.isRequired,
     clearErrors: PropTypes.func.isRequired,
-    deleteExercise: PropTypes.func.isRequired,
-    editClientExercise: PropTypes.func.isRequired,
+    ptDeleteExercise: PropTypes.func.isRequired,
+    ptEditClientExercise: PropTypes.func.isRequired,
     errors: PropTypes.object.isRequired,
     success: PropTypes.object.isRequired
 };
@@ -299,4 +299,4 @@ const stateToProps = (state) => ({
 });
 
 
-export default connect(stateToProps, {setErrors, clearErrors, clearSuccess, deleteExercise, editClientExercise})(withRouter(EditDataProgressForm));
+export default connect(stateToProps, {setErrors, clearErrors, clearSuccess, ptDeleteExercise, ptEditClientExercise})(withRouter(EditDataProgressForm));

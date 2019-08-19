@@ -1,7 +1,7 @@
 import React, {Component} from 'react';  // Used to create this component
 import PropTypes from 'prop-types'; // Used to document prop types sent to components
 import {connect} from 'react-redux' // Needed when using redux inside a component (connects redux to this component)
-import {getPtData,  editPtData, passwordsMatchError, setErrors, clearErrors, setSuccess, clearSuccess} from "../../../actions/ptProfileActions"; // Used to import create action for getting pt data and editing pt data
+import {ptGetData,  ptEditData, passwordsMatchError, setErrors, clearErrors, setSuccess, clearSuccess} from "../../../actions/ptProfileActions"; // Used to import create action for getting pt data and editing pt data
 import {withRouter} from 'react-router-dom';
 import FormInputGroup from "../../common/FormInputGroup";
 import Loading from "../../../elements/Loading";
@@ -47,7 +47,7 @@ class EditPersonalTrainer extends Component {
             this.props.history.push('/login');
         checkExp();
         if(this.props.ptProfile.pt_data === null){
-            this.props.getPtData(this.props.history);
+            this.props.ptGetData(this.props.history);
         }
         this.props.clearErrors();
         this.props.clearSuccess();
@@ -172,7 +172,7 @@ class EditPersonalTrainer extends Component {
                 Password2: '',
                 pt_data: pt_data
             });
-            this.props.editPtData(editData, this.props.history);
+            this.props.ptEditData(editData, this.props.history);
             // Clear password match errors
             this.props.clearErrors()
         }
@@ -282,7 +282,7 @@ class EditPersonalTrainer extends Component {
 
 // Documents what props are needed for this component and will log a warning in the console in dev mode if not complied to
 EditPersonalTrainer.propTypes = {
-    getPtData: PropTypes.func.isRequired,
+    ptGetData: PropTypes.func.isRequired,
     clearErrors: PropTypes.func.isRequired,
     setErrors: PropTypes.func.isRequired,
     setSuccess: PropTypes.func.isRequired,
@@ -302,4 +302,4 @@ const stateToProps = (state) => ({
     success: state.success
 });
 
-export default connect(stateToProps, {getPtData, editPtData, passwordsMatchError, setErrors, clearErrors, setSuccess, clearSuccess})(withRouter(EditPersonalTrainer));
+export default connect(stateToProps, {ptGetData, ptEditData, passwordsMatchError, setErrors, clearErrors, setSuccess, clearSuccess})(withRouter(EditPersonalTrainer));

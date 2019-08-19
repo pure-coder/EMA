@@ -2,7 +2,7 @@ import React, {Component} from 'react' // React is need for rendering JSX HTML e
 import {withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
-import {newClientBodyBio, setErrors, clearErrors, clearSuccess, ptGetClientBodyBio} from "../../../actions/ptProfileActions";
+import {ptNewClientBodyBio, setErrors, clearErrors, clearSuccess, ptGetClientBodyBio} from "../../../actions/ptProfileActions";
 import FormInputGroup from "../../common/FormInputGroup";
 import DisplayMessage from "../../common/DisplayMessage";
 import isEmpty from "../../../validation/is_empty";
@@ -176,7 +176,7 @@ class AddBodyDataProgressForm extends Component {
         }
         else{
             this.props.clearErrors();
-            this.props.newClientBodyBio(this.state.clientId, clientBodyProgressData, this.props.history);
+            this.props.ptNewClientBodyBio(this.state.clientId, clientBodyProgressData, this.props.history);
             // Clear data from fields
             this.clearFields();
             // Show data added to database and updated on page in real time
@@ -237,7 +237,7 @@ class AddBodyDataProgressForm extends Component {
 AddBodyDataProgressForm.propTypes = {
     modalSize: PropTypes.func.isRequired,
     progressFormHeight: PropTypes.string.isRequired,
-    newClientBodyBio: PropTypes.func.isRequired,
+    ptNewClientBodyBio: PropTypes.func.isRequired,
     setErrors: PropTypes.func.isRequired,
     clearSuccess: PropTypes.func.isRequired,
     clearErrors: PropTypes.func.isRequired,
@@ -252,4 +252,4 @@ const stateToProps = (state) => ({
 });
 
 
-export default connect(stateToProps, {newClientBodyBio, setErrors, clearErrors, clearSuccess, ptGetClientBodyBio})(withRouter(AddBodyDataProgressForm));
+export default connect(stateToProps, {ptNewClientBodyBio, setErrors, clearErrors, clearSuccess, ptGetClientBodyBio})(withRouter(AddBodyDataProgressForm));

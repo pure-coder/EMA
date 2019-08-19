@@ -1,8 +1,8 @@
 import React, {Component} from 'react';  // Used to create this component
 import PropTypes from 'prop-types'; // Used to document prop types sent to components
 import {connect} from 'react-redux' // Needed when using redux inside a component (connects redux to this component)
-import {editClientData, passwordsMatchError, setErrors, clearErrors, setSuccess, clearSuccess, getCurrentClient, clearCurrentClient} from "../../../actions/ptProfileActions"; // Used to import create action for getting client data and editing client data
-import {getClientData} from "../../../actions/clientProfileActions";
+import {ptEditClientData, passwordsMatchError, setErrors, clearErrors, setSuccess, clearSuccess, ptGetCurrentClient, ptClearCurrentClientProfile} from "../../../actions/ptProfileActions"; // Used to import create action for getting client data and editing client data
+import {clientGetData} from "../../../actions/clientProfileActions";
 import {Link, withRouter} from 'react-router-dom';
 import FormInputGroup from "../../common/FormInputGroup";
 import Loading from "../../../elements/Loading";
@@ -86,10 +86,10 @@ class EditClient extends Component {
             this.props.history.push('/login');
         checkExp();
         if(this.props.authenticatedUser.user.pt){
-            this.props.getCurrentClient(this.state.clientId, this.props.history)
+            this.props.ptGetCurrentClient(this.state.clientId, this.props.history)
         }
         else {
-            this.props.getClientData(this.state.clientId, this.props.history);
+            this.props.clientGetData(this.state.clientId, this.props.history);
         }
         this.props.clearErrors();
         this.props.clearSuccess();
@@ -129,7 +129,7 @@ class EditClient extends Component {
             this.props.history.push('/re-login');
         }
         if(this.props.authenticatedUser.user.pt){
-            this.props.clearCurrentClient();
+            this.props.ptClearCurrentClientProfile();
         }
         this.props.clearErrors();
         this.props.clearSuccess();
@@ -211,7 +211,7 @@ class EditClient extends Component {
             return null;
         }
         else {
-            this.props.editClientData(this.state.clientId, editData, this.props.history);
+            this.props.ptEditClientData(this.state.clientId, editData, this.props.history);
             // Clear password match errors
             this.props.clearErrors();
             this.setState({
@@ -340,13 +340,13 @@ class EditClient extends Component {
 
 // Documents what props are needed for this component and will log a warning in the console in dev mode if not complied to
 EditClient.propTypes = {
-    getClientData: PropTypes.func.isRequired,
-    getCurrentClient: PropTypes.func.isRequired,
+    clientGetData: PropTypes.func.isRequired,
+    ptGetCurrentClient: PropTypes.func.isRequired,
     clearErrors: PropTypes.func.isRequired,
     setErrors: PropTypes.func.isRequired,
     setSuccess: PropTypes.func.isRequired,
     clearSuccess: PropTypes.func.isRequired,
-    clearCurrentClient: PropTypes.func.isRequired,
+    ptClearCurrentClientProfile: PropTypes.func.isRequired,
     passwordsMatchError: PropTypes.func.isRequired,
     authenticatedUser: PropTypes.object.isRequired,
     ptProfile: PropTypes.object.isRequired,
@@ -363,4 +363,4 @@ const stateToProps = (state) => ({
     success: state.success
 });
 
-export default connect(stateToProps, {getClientData, getCurrentClient ,editClientData, passwordsMatchError, setErrors, setSuccess, clearErrors, clearSuccess, clearCurrentClient})(withRouter(EditClient));
+export default connect(stateToProps, {clientGetData, ptGetCurrentClient ,ptEditClientData, passwordsMatchError, setErrors, setSuccess, clearErrors, clearSuccess, ptClearCurrentClientProfile})(withRouter(EditClient));

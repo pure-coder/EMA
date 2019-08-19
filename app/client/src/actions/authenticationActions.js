@@ -5,8 +5,8 @@ import {
 } from "./types"; // import custom defined types
 import setAuthorisationToken from '../utilities/setAuthorisationToken';
 import jwtDecode from 'jwt-decode';
-import {clearErrors, setSuccess, clearCurrentProfile} from "./ptProfileActions";
-import {clearClientProfile} from "./clientProfileActions";
+import {clearErrors, setSuccess, ptClearProfile} from "./ptProfileActions";
+import {clientClearProfile} from "./clientProfileActions";
 
 export const manageErrors = (err, dispatch, history) => {
     // 401 Unauthorised
@@ -108,12 +108,10 @@ export const logOutUser = () => dispatch => {
     // Set signed in user to an empty object and isAuthenticated to false by passing in {} (empty object)
     dispatch(setSignedInUser({}));
     // Remove data based on user (either pt or client)
-
     // Clear Profile if pt
-    dispatch(clearCurrentProfile());
-
+    dispatch(ptClearProfile());
     // Clear Profile if client
-    dispatch(clearClientProfile());
+    dispatch(clientClearProfile());
 };
 
 // RefreshToken

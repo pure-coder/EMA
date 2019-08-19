@@ -2,8 +2,8 @@ import React, {Component} from 'react';  // Used to create this component
 import PropTypes from 'prop-types'; // Used to document prop types sent to components
 import {connect} from 'react-redux'; // Needed when using redux inside a component (connects redux to this component)
 import {withRouter} from 'react-router-dom';
-import {getClients, getPtData, clearErrors, clearSuccess} from "../../../actions/ptProfileActions";
-import {getClientData} from "../../../actions/clientProfileActions";
+import {ptGetClients, ptGetData, clearErrors, clearSuccess} from "../../../actions/ptProfileActions";
+import {clientGetData} from "../../../actions/clientProfileActions";
 import ClientList from '../clients/ClientList'
 import Loading from "../../../elements/Loading";
 import ClientData from "../clients/ClientData";
@@ -22,11 +22,11 @@ class Dashboard extends Component {
         checkExp();
         if(this.props.ptProfile.pt_data === null || this.props.clientProfile.client_data === null){
             if(this.props.authenticatedUser.user.pt){
-                this.props.getPtData(this.props.history);
-                this.props.getClients(this.props.history);
+                this.props.ptGetData(this.props.history);
+                this.props.ptGetClients(this.props.history);
             }
             else {
-                this.props.getClientData(this.props.authenticatedUser.user.id, this.props.history);
+                this.props.clientGetData(this.props.authenticatedUser.user.id, this.props.history);
             }
         }
         document.body.scrollTo(0,0);
@@ -102,9 +102,9 @@ Dashboard.propTypes = {
     authenticatedUser: PropTypes.object.isRequired,
     ptProfile: PropTypes.object.isRequired,
     clientProfile: PropTypes.object.isRequired,
-    getClients: PropTypes.func.isRequired,
-    getClientData: PropTypes.func.isRequired,
-    getPtData: PropTypes.func.isRequired,
+    ptGetClients: PropTypes.func.isRequired,
+    clientGetData: PropTypes.func.isRequired,
+    ptGetData: PropTypes.func.isRequired,
     clearSuccess: PropTypes.func.isRequired,
     errors: PropTypes.object.isRequired
 };
@@ -118,4 +118,4 @@ const stateToProps = (state) => ({
     location: state.location
 });
 
-export default connect(stateToProps, {getClients, getPtData, getClientData, clearSuccess, clearErrors})(withRouter(Dashboard));
+export default connect(stateToProps, {ptGetClients, ptGetData, clientGetData, clearSuccess, clearErrors})(withRouter(Dashboard));

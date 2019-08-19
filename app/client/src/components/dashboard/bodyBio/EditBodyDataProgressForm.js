@@ -2,7 +2,7 @@ import React, {Component} from 'react' // React is need for rendering JSX HTML e
 import {withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
-import {setErrors, clearErrors, clearSuccess, deleteBodyPart, editClientBodyBio} from "../../../actions/ptProfileActions";
+import {setErrors, clearErrors, clearSuccess, ptDeleteBodyPart, ptEditClientBodyBio} from "../../../actions/ptProfileActions";
 import FormInputGroup from "../../common/FormInputGroup";
 import DisplayMessage from "../../common/DisplayMessage";
 import isEmpty from "../../../validation/is_empty";
@@ -192,13 +192,13 @@ class EditBodyDataProgressForm extends Component {
 
             // Delete whole body part from body bio progression (if all checkboxes are ticked, so nothing has been modified)
             if(isEmpty(originalMetrics)){
-                this.props.deleteBodyPart(this.state.clientId, this.props.bodyPart, this.props.history);
+                this.props.ptDeleteBodyPart(this.state.clientId, this.props.bodyPart, this.props.history);
                 // Close edit modal there is no data to display.
                 this.onClose();
             }
             // Send new array to overwrite current data for bodyPart in db for client
             else{
-                this.props.editClientBodyBio(this.state.clientId, this.props.bodyPartId, newMetrics, this.props.history);
+                this.props.ptEditClientBodyBio(this.state.clientId, this.props.bodyPartId, newMetrics, this.props.history);
 
             }
 
@@ -286,8 +286,8 @@ EditBodyDataProgressForm.propTypes = {
     setErrors: PropTypes.func.isRequired,
     clearSuccess: PropTypes.func.isRequired,
     clearErrors: PropTypes.func.isRequired,
-    deleteBodyPart: PropTypes.func.isRequired,
-    editClientBodyBio: PropTypes.func.isRequired,
+    ptDeleteBodyPart: PropTypes.func.isRequired,
+    ptEditClientBodyBio: PropTypes.func.isRequired,
     errors: PropTypes.object.isRequired,
     success: PropTypes.object.isRequired
 };
@@ -298,4 +298,4 @@ const stateToProps = (state) => ({
 });
 
 
-export default connect(stateToProps, {setErrors, clearErrors, clearSuccess, deleteBodyPart, editClientBodyBio})(withRouter(EditBodyDataProgressForm));
+export default connect(stateToProps, {setErrors, clearErrors, clearSuccess, ptDeleteBodyPart, ptEditClientBodyBio})(withRouter(EditBodyDataProgressForm));

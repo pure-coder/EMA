@@ -2,7 +2,7 @@ import React, {Component} from 'react' // React is need for rendering JSX HTML e
 import {withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
-import {newClientProgress, setErrors, clearErrors, clearSuccess} from "../../../actions/ptProfileActions";
+import {ptNewClientProgress, setErrors, clearErrors, clearSuccess} from "../../../actions/ptProfileActions";
 import autocomplete from '../../../utilities/autoComplete';
 import FormInputGroup from "../../common/FormInputGroup";
 import DisplayMessage from "../../common/DisplayMessage";
@@ -224,14 +224,14 @@ class NewClientProgressForm extends Component {
         }
         else{
             this.props.clearErrors();
-            this.props.newClientProgress(this.state.clientId, clientProgressData, this.props.history);
+            this.props.ptNewClientProgress(this.state.clientId, clientProgressData, this.props.history);
         }
     };// onSubmit
 
     render() {
         let {errors, message} = this.state;
         return (
-            <div className="newClientProgress">
+            <div className="ptNewClientProgress">
                 <div>
                     <button className="closeButton"  onClick={this.onClose}><i className="fas fa-window-close 2x"></i></button>
                 </div>
@@ -292,7 +292,7 @@ class NewClientProgressForm extends Component {
 NewClientProgressForm.propTypes = {
     modalSize: PropTypes.func.isRequired,
     progressFormHeight: PropTypes.string.isRequired,
-    newClientProgress: PropTypes.func.isRequired,
+    ptNewClientProgress: PropTypes.func.isRequired,
     setErrors: PropTypes.func.isRequired,
     clearSuccess: PropTypes.func.isRequired,
     clearErrors: PropTypes.func.isRequired,
@@ -308,4 +308,4 @@ const stateToProps = (state) => ({
 });
 
 
-export default connect(stateToProps, {newClientProgress, setErrors, clearErrors, clearSuccess})(withRouter(NewClientProgressForm));
+export default connect(stateToProps, {ptNewClientProgress, setErrors, clearErrors, clearSuccess})(withRouter(NewClientProgressForm));

@@ -3,10 +3,10 @@ import {
     GET_PT_CLIENTS_DATA,
     GET_CURRENT_CLIENT,
     PROFILE_LOADING,
-    CLEAR_CURRENT_PROFILE,
+    PT_CLEAR_PROFILE,
     PT_CLIENT_PROGRESSION,
-    CLEAR_PROGRESSION,
-    CLEAR_CURRENT_CLIENT,
+    CLEAR_CLIENT_PROGRESSION,
+    CLEAR_CURRENT_CLIENT_PROFILE,
     SCHEDULER,
     CLEAR_WORKOUT_DATA,
     GET_CLIENT_PROFILE_NOTES,
@@ -72,7 +72,7 @@ export default function(state = initialState, action) {
                 ...state,
                 profile_notes: null
             };
-        case CLEAR_CURRENT_PROFILE:
+        case PT_CLEAR_PROFILE:
             return {
                 ...state,
                 pt_data: null,
@@ -80,7 +80,7 @@ export default function(state = initialState, action) {
                 clients: null,
                 client_progression: null,
             };
-        case CLEAR_CURRENT_CLIENT:
+        case CLEAR_CURRENT_CLIENT_PROFILE:
             return {
                 ...state,
                 current_client: null
@@ -90,7 +90,7 @@ export default function(state = initialState, action) {
                 ...state,
                 client_progression: action.payload
             };
-        case CLEAR_PROGRESSION:
+        case CLEAR_CLIENT_PROGRESSION:
             return {
                 ...state,
                 client_progression: null
