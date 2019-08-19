@@ -35,9 +35,11 @@ export default function(state = initialState, action) {
             };
         case CLEAR_CLIENT_PROFILE:
             return {
-                ...state,
                 client_data: null,
+                profile_notes: null,
+                body_bio: null,
                 client_progression: null,
+                clientLoading: false
             };
         case GET_PROFILE_NOTES:
             return {

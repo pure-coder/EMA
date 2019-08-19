@@ -35,45 +35,62 @@ import checkExp from "../../../utilities/checkExp";
 // import FormInputGroup from "../common/FormInputGroup"; // Allows proper routing and linking using browsers match, location, and history properties
 
 class ClientProfile extends Component {
-    // This allows the component states to be up{dated and re-rendered
-    constructor(props) {
+    constructor(props){
         super(props);
         this.state = {
-            clientId: props.authenticatedUser.user.pt ? props.match.params.cid : props.match.params.uid,
-            clientData: props.clientProfile.client_data,
+            clientData: props.authenticatedUser.user.pt ? props.ptProfile.current_client : props.clientProfile,
         };
-        console.log(props)
     }
 
+    static getDerivedStateFromProps(prevProps, prevState){
+        if(prevProps.clientProfile !== prevState.clientData){
+            return {
+                clientData: prevProps.clientProfile
+            }
+        }
+        return null
+    }
 
     componentDidMount() {
         const {isAuthenticated} = this.props.authenticatedUser;
         if(!isAuthenticated)
             this.props.history.push('/login');
         checkExp();
+        if(this.props.authenticatedUser.user.pt){
+            this.props.ptGetCurrentClient(this.props.match.params.cid);
+            this.props.ptGetClientBodyBio(this.props.match.params.cid);
+            this.props.ptGetClientProgression(this.props.match.params.cid);
+            this.props.ptGetClientProfileNotes(this.props.match.params.cid);
+        }
+        else{
+            this.props.clientGetData(this.props.authenticatedUser.user.id);
+            this.props.clientGetBodyBio(this.props.authenticatedUser.user.id);
+            this.props.clientGetProgression(this.props.authenticatedUser.user.id);
+            this.props.clientGetProfileNotes(this.props.authenticatedUser.user.id);
+        }
+
     } // did mount
 
     componentWillUnmount(){
         // This got rid of the Date: null bug for now, need to find route cause!!!
-        // if(this.props.authenticatedUser.user.pt){
-        //     this.props.ptClearCurrentClientProfile(this.state.clientId, this.props.history);
-        //     this.props.ptClearClientProgression(this.state.clientId, this.props.history);
-        //     this.props.ptClearClientBodyBio(this.state.clientId, this.props.history);
-        //     this.props.ptClearClientProfileNotes(this.state.clientId, this.props.history);
-        // }
-        // else{
-        //     this.props.clientClearProfile(this.state.clientId, this.props.history);
-        //     this.props.clientClearBodyBio(this.state.clientId, this.props.history);
-        //     this.props.clientClearProfileNotes(this.state.clientId, this.props.history);
-        //     this.props.clientClearProgression(this.state.clientId, this.props.history);
-        // }
+        if(this.props.authenticatedUser.user.pt){
+            this.props.ptClearCurrentClientProfile(this.props.ptProfile.current_client._id, this.props.history);
+            this.props.ptClearClientProgression(this.props.ptProfile.current_client._id, this.props.history);
+            this.props.ptClearClientBodyBio(this.props.ptProfile.current_client._id, this.props.history);
+            this.props.ptClearClientProfileNotes(this.props.ptProfile.current_client._id, this.props.history);
+        }
+        else{
+            this.props.clientClearProfile(this.props.authenticatedUser.user.id, this.props.history);
+            this.props.clientClearBodyBio(this.props.authenticatedUser.user.id, this.props.history);
+            this.props.clientClearProfileNotes(this.props.authenticatedUser.user.id, this.props.history);
+            this.props.clientClearProgression(this.props.authenticatedUser.user.id, this.props.history);
+        }
     }
 
     render() {
         const {user, isAuthenticated} = this.props.authenticatedUser;
-        const {client_data, body_bio, client_progression, profile_notes, clientLoading} = this.props.clientProfile;
-        // let profile_notes;
-        //
+        const {clientData} = this.state;
+
         // if(user.pt){
         //     profile_notes = this.props.ptProfile.profile_notes;
         // }
@@ -81,11 +98,11 @@ class ClientProfile extends Component {
         //     profile_notes = this.props.clientProfile.profile_notes;
         // }
 
-        if( client_data === null ||
-            body_bio === null ||
-            client_progression === null ||
-            profile_notes === null ||
-            clientLoading){
+        if( clientData.client_data === null ||
+            clientData.body_bio === null ||
+            clientData.client_progression === null ||
+            clientData.profile_notes === null ||
+            clientData.clientLoading){
             return <Loading myClassName="loading_container"/>
         }
         if(!isAuthenticated){
@@ -95,14 +112,14 @@ class ClientProfile extends Component {
             return (
                 <div className="client-profile">
                     <h1 className=" text-center display-5 mb-3">Client Profile</h1>
-                    <UserInfo userData={client_data}/> {/* Use data from props.location.state*/}
+                    <UserInfo userData={clientData.client_data}/> {/* Use data from props.location.state*/}
                     <div className="row">
                         <div className="col-sm Profile_margin">
-                            <BodyGraphs bodyGraphData={body_bio}/>
-                            <Graphs graphData={client_progression}/>
+                            <BodyGraphs bodyGraphData={clientData.body_bio}/>
+                            <Graphs graphData={clientData.client_progression}/>
                         </div>
                         <div className="col-sm">
-                            <ProfileNotes data={profile_notes}/>
+                            <ProfileNotes data={clientData.profile_notes}/>
                         </div>
                     </div>
                 </div>
@@ -116,15 +133,6 @@ ClientProfile.propTypes = {
     authenticatedUser: PropTypes.object.isRequired,
     ptProfile: PropTypes.object.isRequired,
     clientProfile: PropTypes.object.isRequired,
-
-    // PT data
-    ptGetClients: PropTypes.func.isRequired,
-    ptGetData: PropTypes.func.isRequired,
-
-    // Client data
-    clientGetData: PropTypes.func.isRequired,
-
-    clearSuccess: PropTypes.func.isRequired,
     errors: PropTypes.object.isRequired
 };
 

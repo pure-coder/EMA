@@ -2,8 +2,26 @@ import React, {Component} from 'react';  // Used to create this component
 import PropTypes from 'prop-types'; // Used to document prop types sent to components
 import {connect} from 'react-redux'; // Needed when using redux inside a component (connects redux to this component)
 import {withRouter} from 'react-router-dom';
-import {ptGetClients, ptGetData, clearErrors, clearSuccess} from "../../../actions/ptProfileActions";
-import {clientGetData} from "../../../actions/clientProfileActions";
+import {
+    ptGetClients,
+    ptGetData,
+    clearErrors,
+    clearSuccess,
+    ptClearCurrentClientProfile,
+    ptClearClientProgression,
+    ptClearClientBodyBio,
+    ptClearClientProfileNotes,
+} from "../../../actions/ptProfileActions";
+import {
+    clientGetData,
+    clientGetProgression,
+    clientGetBodyBio,
+    clientGetProfileNotes,
+    clientClearProfile,
+    clientClearProgression,
+    clientClearBodyBio,
+    clientClearProfileNotes,
+} from "../../../actions/clientProfileActions";
 import ClientList from '../clients/ClientList'
 import Loading from "../../../elements/Loading";
 import ClientData from "../clients/ClientData";
@@ -13,12 +31,40 @@ import UserInfo from "./UserInfo";
 import checkExp from '../../../utilities/checkExp'
 
 class Dashboard extends Component {
+    constructor(props){
+        super(props);
+        this.state = {
+            clientData: props.authenticatedUser.user.pt ? props.ptProfile.current_client : props.clientProfile,
+        };
+    }
+
+    static getDerivedStateFromProps(prevProps, prevState){
+        if(prevProps.clientProfile !== prevState.clientData){
+            return {
+                clientData: prevProps.clientProfile
+            }
+        }
+        return null
+    }
+
     // Life cycle method for react which will run when this component receives new properties
     componentDidMount() {
         const {isAuthenticated} = this.props.authenticatedUser;
         if(!isAuthenticated)
             this.props.history.push('/login');
         checkExp();
+        if(this.props.authenticatedUser.user.pt){
+            this.props.ptGetCurrentClient(this.props.match.params.cid);
+            this.props.ptGetClientBodyBio(this.props.match.params.cid);
+            this.props.ptGetClientProgression(this.props.match.params.cid);
+            this.props.ptGetClientProfileNotes(this.props.match.params.cid);
+        }
+        else{
+            this.props.clientGetData(this.props.authenticatedUser.user.id);
+            this.props.clientGetBodyBio(this.props.authenticatedUser.user.id);
+            this.props.clientGetProgression(this.props.authenticatedUser.user.id);
+            this.props.clientGetProfileNotes(this.props.authenticatedUser.user.id);
+        }
         document.body.scrollTo(0,0);
     } // ComponentDidMount
 
@@ -26,7 +72,7 @@ class Dashboard extends Component {
         let displayContent;
         const {user, isAuthenticated} = this.props.authenticatedUser;
         const {pt_data, ptLoading, clients} = this.props.ptProfile;
-        const {client_data, clientLoading} = this.props.clientProfile;
+        const {clientData} = this.state;
 
         if(user.pt){
             if (pt_data === null || ptLoading) {
@@ -52,7 +98,7 @@ class Dashboard extends Component {
             }
         } //if user is pt
         else{
-            if (client_data === null || clientLoading) {
+            if (clientData.client_data === null || clientData.clientLoading) {
                 return <Loading myClassName="loading_container"/>
             }
 
@@ -64,8 +110,8 @@ class Dashboard extends Component {
                 displayContent = (
                     // send clients data to client component, and render client component
                     <div className="dashboard-custom client">
-                        <UserInfo userData={client_data}/>
-                        <ClientData clientData={client_data}/>
+                        <UserInfo userData={clientData.client_data}/>
+                        <ClientData clientData={clientData.client_data}/>
                     </div>
                 )
             }
@@ -109,7 +155,18 @@ const stateToProps = (state) => ({
 export default connect(stateToProps, {
     ptGetClients,
     ptGetData,
-    clientGetData,
     clearSuccess,
-    clearErrors
+    clearErrors,
+    ptClearCurrentClientProfile,
+    ptClearClientProgression,
+    ptClearClientBodyBio,
+    ptClearClientProfileNotes,
+    clientGetData,
+    clientGetProgression,
+    clientGetBodyBio,
+    clientGetProfileNotes,
+    clientClearProfile,
+    clientClearProgression,
+    clientClearBodyBio,
+    clientClearProfileNotes,
 })(withRouter(Dashboard));

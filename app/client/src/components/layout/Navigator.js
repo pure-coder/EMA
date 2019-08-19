@@ -20,7 +20,6 @@ import {
     clientGetProfileNotes
 } from "../../actions/clientProfileActions";
 
-import defaultUserImage from '../../img/user-regular.svg';
 import {ProfileImage} from "../dashboard/profile/ProfileImage";
 
 class Navigation extends Component {
@@ -28,26 +27,26 @@ class Navigation extends Component {
         super(props);
         this.state = {
             userData: null,
-            ProfilePicUrl: defaultUserImage
+            ProfilePicUrl: null
         };
     }
 
-    static getDerivedStateFromProps(props){
-        if(props.authenticatedUser.isAuthenticated) {
-            if (props.authenticatedUser.user.pt) {
-                if (props.ptProfile.pt_data !== null) {
+    static getDerivedStateFromProps(prevProps, state){
+        if(prevProps.authenticatedUser.isAuthenticated) {
+            if (prevProps.authenticatedUser.user.pt) {
+                if (prevProps.ptProfile.pt_data !== state.userData) {
                     return {
-                        userData: props.ptProfile.pt_data,
-                        ProfilePicUrl: props.ptProfile.pt_data.ProfilePicUrl
+                        userData: prevProps.ptProfile.pt_data,
+                        ProfilePicUrl: prevProps.ptProfile.pt_data.ProfilePicUrl
                     }
                 }
                 return null;
             }
             else {
-                if (props.clientProfile.client_data !== null) {
+                if (prevProps.clientProfile.client_data !== null) {
                     return {
-                        userData: props.clientProfile.client_data,
-                        ProfilePicUrl: props.clientProfile.client_data.ProfilePicUrl
+                        userData: prevProps.clientProfile.client_data,
+                        ProfilePicUrl: prevProps.clientProfile.client_data.ProfilePicUrl
                     }
                 }
                 return null;
@@ -65,9 +64,6 @@ class Navigation extends Component {
             }
             else {
                 this.props.clientGetData(this.props.authenticatedUser.user.id, this.props.history);
-                this.props.clientGetProfileNotes(this.props.authenticatedUser.user.id, this.props.history);
-                this.props.clientGetProgression(this.props.authenticatedUser.user.id, this.props.history);
-                this.props.clientGetBodyBio(this.props.authenticatedUser.user.id, this.props.history);
             }
         }
     } // ComponentDidMount
@@ -82,7 +78,7 @@ class Navigation extends Component {
             this.props.clientClearProfile();
         }
         this.props.logOutUser();
-        this.props.history.push('/');
+        window.location.href='/';
     };
 
     render() {
@@ -156,12 +152,6 @@ Navigation.propTypes = {
     authenticatedUser: PropTypes.object.isRequired,
     ptProfile: PropTypes.object.isRequired,
     clientProfile: PropTypes.object.isRequired,
-    ptClearProfile: PropTypes.func.isRequired,
-    clientClearProfile: PropTypes.func.isRequired,
-    logOutUser: PropTypes.func.isRequired,
-    ptGetData: PropTypes.func.isRequired,
-    ptGetClients: PropTypes.func.isRequired,
-    clientGetData: PropTypes.func.isRequired,
 };
 
 // Used to pull auth state into this component

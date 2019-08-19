@@ -23,18 +23,10 @@ class ClientData extends Component {
         document.body.scrollTo(0,0);
     }
 
-    static onScheduleClick(id) {
-        this.props.history.push(`/users/${id}/scheduler/${id}`);
-    };
-
-    onEditProfile(id) {
-        this.props.history.push(`/users/${id}/edit_client`);
-    };
-
     render() {
 
         const {user, isAuthenticated} = this.props.authenticatedUser;
-        const {clientLoading} = this.props.clientProfile;
+        const {clientLoading} = this.props.clientData;
 
         if(!isAuthenticated){
             return <ErrorComponent/>
@@ -57,14 +49,19 @@ class ClientData extends Component {
                             <tr>
                                 <td align="center">
                                     <Link to={{pathname: `/users/${user.id}/client_profile`}}>
-                                    <i className="fas fa-columns fa-2x"></i></Link>
+                                        <i className="fas fa-columns fa-2x"></i>
+                                    </Link>
                                 </td>
-                                <td align="center"><a
-                                    onClick={ClientData.onScheduleClick.bind(this, user.id)}><i
-                                    className="far fa-calendar-alt fa-2x"></i></a>
+                                <td align="center">
+                                    <Link
+                                        to={{pathname: `/users/${user.id}/scheduler`}}>
+                                        <i className="far fa-calendar-alt fa-2x"></i>
+                                    </Link>
                                 </td>
-                                <td align="center"><a onClick={this.onEditProfile.bind(this, user.id)}><i
-                                    className="fas fa-edit fa-2x"></i></a>
+                                <td align="center">
+                                    <Link to={{pathname: `/users/${user.id}/edit_client`}}>
+                                        <i className="fas fa-edit fa-2x"></i>
+                                </Link>
                                 </td>
                             </tr>
                             </thead>
