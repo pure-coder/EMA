@@ -18,10 +18,7 @@ class AddBodyDataProgressForm extends Component {
             Date: '',
             visible: false,
             errors: {},
-            success: {},
-            message: {
-                type: null
-            },
+            message: {},
             progressFormHeight: props.progressFormHeight
         };
     } // constructor
@@ -35,14 +32,20 @@ class AddBodyDataProgressForm extends Component {
         if (props.visible !== state.visible) {
             return {visible: props.visible}
         }
-        if (isEmpty(props.errors) !== isEmpty(state.errors)){
+        if(isEmpty(props.success) !== isEmpty(state.message)) {
             return {
-                errors: props.errors
+                message: {
+                    type: props.success.type,
+                    msg: props.success.msg
+                }
             }
         }
-        if (isEmpty(props.success) !== isEmpty(state.success)) {
+        if(isEmpty(props.errors) !== isEmpty(state.message)){
             return {
-                message: props.success
+                message: {
+                    type : "ERROR",
+                    msg: props.errors.Date
+                }
             }
         }
         return null
@@ -64,16 +67,7 @@ class AddBodyDataProgressForm extends Component {
     // Checking if previous props modal visibility and this states visibility is not equal (stops reacts maximum loop message when
     // setting state) so that fields and errors can be cleared when exiting modal (using onClickAway instead of close button).
     componentDidUpdate(prevProps){
-        if(prevProps.visible !== this.state.visible){
-            this.setState({
-                measurement: '',
-                Date: ''
-            });
-            this.props.clearErrors();
-            this.props.clearSuccess();
-        }
-
-        if(this.state.progressFormHeight > prevProps.progressFormHeight ){
+        if(this.state.progressFormHeight > prevProps.progressFormHeight ) {
             let newHeight = this.state.progressFormHeight;
             this.props.modalSize(newHeight.toString())
         }
@@ -109,7 +103,7 @@ class AddBodyDataProgressForm extends Component {
             return null;
         }
         else{
-            this.setState({message: {type: null}}); // reset to null
+            this.setState({message: {}}); // reset to null
         }
 
         this.setState({[name]: value});
@@ -117,7 +111,7 @@ class AddBodyDataProgressForm extends Component {
         if(!isEmpty(this.props.errors)){
             this.props.clearErrors();
         }
-        this.setState({message: {type: null}}); // reset to null
+        this.setState({message: {}}); // reset to null
         if(!isEmpty(this.props.success)){
             this.props.clearSuccess();
         }
@@ -128,7 +122,7 @@ class AddBodyDataProgressForm extends Component {
         this.props.onClickAway();
         // Clear errors once the modal has been exited
         this.props.clearErrors();
-        this.setState({message: {type: null}});
+        this.setState({message: {}});
         // Reset/ Clear input fields once modal has been exited
         this.clearFields();
     };
@@ -145,7 +139,7 @@ class AddBodyDataProgressForm extends Component {
     onSubmit = e => {
         e.preventDefault();
         this.setState({
-            message: {type: null},
+            message: {},
         });
         this.props.clearSuccess();
 
@@ -242,8 +236,6 @@ AddBodyDataProgressForm.propTypes = {
     clearSuccess: PropTypes.func.isRequired,
     clearErrors: PropTypes.func.isRequired,
     ptGetClientBodyBio: PropTypes.func.isRequired,
-    errors: PropTypes.object.isRequired,
-    success: PropTypes.object.isRequired
 };
 
 const stateToProps = (state) => ({

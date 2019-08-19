@@ -48,9 +48,6 @@ class ClientProfile extends Component {
             loaded: false,
             errors: {},
         };
-
-        this.getClientProgression = this.getClientProgression.bind(this);
-        this.getBodyBioClient = this.getBodyBioClient.bind(this);
     }
 
     static getDerivedStateFromProps(props, state){
@@ -111,6 +108,7 @@ class ClientProfile extends Component {
             this.props.getBodyBioClient(this.state.clientId, this.props.history);
         }
         this.getClientProgression();
+        this.getBodyBioClient();
     } // did mount
 
     componentWillUnmount(){
@@ -126,26 +124,25 @@ class ClientProfile extends Component {
         }
         this.props.clearProgression();
         this.props.clearBodyBioClient();
-        this.setState({loaded: false})
     }
 
-    getClientProgression(){
+    getClientProgression = () => {
         if(this.props.authenticatedUser.user.pt){
             this.props.ptGetClientProgression(this.state.clientId, this.props.history);
         }
         else{
             this.props.getClientProgression(this.state.clientId, this.props.history);
         }
-    }
+    };
 
-    getBodyBioClient(){
+    getBodyBioClient = () => {
         if(this.props.authenticatedUser.user.pt){
             this.props.ptGetClientBodyBio(this.state.clientId, this.props.history);
         }
         else{
             this.props.getBodyBioClient(this.state.clientId, this.props.history);
         }
-    }
+    };
 
     render() {
         const {user} = this.props.authenticatedUser;

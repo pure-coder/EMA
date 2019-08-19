@@ -19,19 +19,12 @@ class EditBodyDataProgressForm extends Component {
             toDelete: [],
             edited: false,
             errors: {},
-            message: {
-                type: null
-            },
+            message: {},
             progressFormHeight: props.progressFormHeight
         };
     } // constructor
 
     static getDerivedStateFromProps(props, state) {
-        if(props.progressFormHeight !== state.progressFormHeight){
-            return {
-                progressFormHeight: state.progressFormHeight
-            }
-        }
         if (props.visible !== state.visible) {
             return {visible: props.visible}
         }
@@ -40,9 +33,14 @@ class EditBodyDataProgressForm extends Component {
                 errors: props.errors
             }
         }
-        if (isEmpty(props.success) !== isEmpty(state.success)) {
+        if (isEmpty(props.success) !== isEmpty(state.message)) {
             return {
                 message: props.success
+            }
+        }
+        if (isEmpty(props.message) !== isEmpty(state.message)) {
+            return {
+                message: props.message
             }
         }
         return null
@@ -107,11 +105,11 @@ class EditBodyDataProgressForm extends Component {
                 type: "ERROR",
                 msg: "Measurement value must be between 0-999!"
             };
-            this.setState({message});
+            this.setState({message : message});
             return null;
         }
         else{
-            this.setState({message: {type: null}}); // reset to null
+            this.setState({message: {}}); // reset to null
         }
 
         // For delete checkbox, check to see if data key exists in delete if un/checked.
@@ -150,13 +148,13 @@ class EditBodyDataProgressForm extends Component {
         this.props.onClickAway();
         // Clear errors once the modal has been exited
         this.props.clearErrors();
-        this.setState({message: {type: null}});
+        this.setState({message: {}});
     };
 
     onSubmit = e => {
         e.preventDefault();
         this.setState({
-            message: {type: null},
+            message: {},
         });
         this.props.clearSuccess();
 
@@ -169,7 +167,7 @@ class EditBodyDataProgressForm extends Component {
                 type: "ERROR",
                 msg: "No data has been modified or deleted!"
             };
-            this.setState({message});
+            this.setState({message}, () => console.log(message));
             return null;
         }
         else{
@@ -289,12 +287,14 @@ EditBodyDataProgressForm.propTypes = {
     deleteBodyPart: PropTypes.func.isRequired,
     editClientBodyBio: PropTypes.func.isRequired,
     errors: PropTypes.object.isRequired,
-    success: PropTypes.object.isRequired
+    success: PropTypes.object.isRequired,
+    message: PropTypes.object.isRequired,
 };
 
 const stateToProps = (state) => ({
     errors: state.errors,
-    success: state.success
+    success: state.success,
+    message: state.message
 });
 
 

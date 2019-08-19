@@ -4,28 +4,11 @@
     <bookmark url="file://C:/Learning/clientObjectData.js" description="export {&quot;_id&quot;:&quot;5c2e3454d27ace097420b414&quot;,&quot;FullName..." line="2" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ec8ccf39-8487-4892-a38d-de9c288878a3" name="Default" comment="Removing all binds as refactoring to arrow functions">
+    <list default="true" id="ec8ccf39-8487-4892-a38d-de9c288878a3" name="Default" comment="Removed binds replaced with arrow functions">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/authentication/ExpiredLogin.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/authentication/ExpiredLogin.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/authentication/Login.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/authentication/Login.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/authentication/Register.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/authentication/Register.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/authentication/RegisterClient.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/authentication/RegisterClient.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/dashboard/bodyBio/AddBodyDataProgressForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/dashboard/bodyBio/AddBodyDataProgressForm.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/dashboard/bodyBio/BodyGraphComp.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/dashboard/bodyBio/BodyGraphComp.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/dashboard/bodyBio/BodyGraphs.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/dashboard/bodyBio/BodyGraphs.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/dashboard/bodyBio/DeleteBodyProgressConfirm.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/dashboard/bodyBio/DeleteBodyProgressConfirm.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/dashboard/bodyBio/EditBodyDataProgressForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/dashboard/bodyBio/EditBodyDataProgressForm.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/dashboard/bodyBio/NewBodyProgressForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/dashboard/bodyBio/NewBodyProgressForm.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/dashboard/edit/EditClient.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/dashboard/edit/EditClient.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/dashboard/edit/EditPersonalTrainer.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/dashboard/edit/EditPersonalTrainer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/dashboard/profileNotes/ProfileNotes.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/dashboard/profileNotes/ProfileNotes.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/dashboard/progression/AddDataProgressForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/dashboard/progression/AddDataProgressForm.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/dashboard/progression/DeleteProgressConfirm.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/dashboard/progression/DeleteProgressConfirm.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/dashboard/progression/EditDataProgressForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/dashboard/progression/EditDataProgressForm.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/dashboard/progression/GraphComp.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/dashboard/progression/GraphComp.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/dashboard/progression/Graphs.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/dashboard/progression/Graphs.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/dashboard/progression/NewClientProgressForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/dashboard/progression/NewClientProgressForm.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/layout/Navigator.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/layout/Navigator.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/dashboard/clients/ClientProfile.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/dashboard/clients/ClientProfile.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -70,17 +53,17 @@
           <entry key="eslintignore" value="18" />
           <entry key="gitignore" value="22" />
           <entry key="html" value="1117" />
-          <entry key="js" value="229428" />
+          <entry key="js" value="230159" />
           <entry key="json" value="29" />
           <entry key="md" value="150" />
-          <entry key="txt" value="21791" />
+          <entry key="txt" value="21829" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="CSS" value="2599" />
-          <entry key="JavaScript" value="41188" />
-          <entry key="PLAIN_TEXT" value="8774" />
+          <entry key="JavaScript" value="41919" />
+          <entry key="PLAIN_TEXT" value="8812" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -93,7 +76,7 @@
           <entry key="gitignore" value="9" />
           <entry key="html" value="19" />
           <entry key="ico" value="1" />
-          <entry key="js" value="1909" />
+          <entry key="js" value="1916" />
           <entry key="json" value="13" />
           <entry key="map" value="1" />
           <entry key="md" value="4" />
@@ -110,7 +93,7 @@
           <entry key="HTML" value="19" />
           <entry key="Image" value="3" />
           <entry key="JSON" value="14" />
-          <entry key="JavaScript" value="1909" />
+          <entry key="JavaScript" value="1916" />
           <entry key="PLAIN_TEXT" value="21" />
           <entry key="SVG" value="1" />
           <entry key="Scratch" value="1" />
@@ -131,77 +114,14 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/src/components/error/ErrorComponent.js">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/clients/ClientProfile.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
+            <state relative-caret-position="1221">
+              <caret line="110" column="32" selection-start-line="110" selection-start-column="32" selection-end-line="110" selection-end-column="32" />
               <folding>
-                <element signature="e#0#39#0" expanded="true" />
+                <element signature="e#277#321#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/src/components/scheduler/Scheduler.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
-              <caret line="32" column="46" selection-start-line="32" selection-start-column="46" selection-end-line="32" selection-end-column="46" />
-              <folding>
-                <element signature="e#0#41#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/src/components/scheduler/SchedulerHTML.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-153">
-              <folding>
-                <element signature="e#0#41#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/src/elements/Loading.js">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/src/elements/PrivateRoute.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="119">
-              <caret line="9" column="7" selection-start-line="9" selection-start-column="7" selection-end-line="9" selection-end-column="7" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/bodyBio/NewBodyProgressForm.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1906">
-              <caret line="41" column="10" selection-start-line="41" selection-start-column="10" selection-end-line="41" selection-end-column="10" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/bodyBio/EditBodyDataProgressForm.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1989">
-              <caret line="153" column="6" selection-start-line="153" selection-start-column="6" selection-end-line="153" selection-end-column="6" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/bodyBio/DeleteBodyProgressConfirm.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="782">
-              <caret line="49" column="6" selection-start-line="49" selection-start-column="6" selection-end-line="49" selection-end-column="6" />
             </state>
           </provider>
         </entry>
@@ -209,20 +129,17 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/bodyBio/BodyGraphs.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-646">
-              <caret line="29" column="10" selection-start-line="29" selection-start-column="10" selection-end-line="29" selection-end-column="10" />
+            <state relative-caret-position="-629">
+              <caret line="48" column="66" selection-start-line="48" selection-start-column="66" selection-end-line="48" selection-end-column="66" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/bodyBio/BodyGraphComp.js">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/bodyBio/EditBodyDataProgressForm.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
-              <caret line="28" column="10" selection-start-line="28" selection-start-column="10" selection-end-line="28" selection-end-column="10" />
-              <folding>
-                <element signature="e#0#39#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="204">
+              <caret line="109" column="47" selection-start-line="109" selection-start-column="47" selection-end-line="109" selection-end-column="47" />
             </state>
           </provider>
         </entry>
@@ -239,8 +156,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>return re</find>
-      <find>res.json</find>
       <find>getPtData</find>
       <find>editPtData</find>
       <find>pt_clients</find>
@@ -269,6 +184,8 @@
       <find>(event)</find>
       <find>(e)</find>
       <find>bind</find>
+      <find>message</find>
+      <find>&quot;ERROR&quot;</find>
     </findStrings>
     <replaceStrings>
       <replace>className</replace>
@@ -351,7 +268,6 @@
         <option value="$PROJECT_DIR$/client/src/elements/PrivateRoute.js" />
         <option value="$PROJECT_DIR$/client/src/components/dashboard/profile/Dashboard.js" />
         <option value="$PROJECT_DIR$/client/src/components/scheduler/Scheduler.js" />
-        <option value="$PROJECT_DIR$/client/src/components/dashboard/clients/ClientProfile.js" />
         <option value="$PROJECT_DIR$/client/src/App.css" />
         <option value="$PROJECT_DIR$/client/src/components/dashboard/edit/ProfilePicUpload.js" />
         <option value="$PROJECT_DIR$/client/src/components/layout/Navigator.js" />
@@ -360,9 +276,7 @@
         <option value="$PROJECT_DIR$/client/src/components/authentication/Login.js" />
         <option value="$PROJECT_DIR$/client/src/components/authentication/Register.js" />
         <option value="$PROJECT_DIR$/client/src/components/authentication/RegisterClient.js" />
-        <option value="$PROJECT_DIR$/client/src/components/dashboard/bodyBio/AddBodyDataProgressForm.js" />
         <option value="$PROJECT_DIR$/client/src/components/dashboard/bodyBio/DeleteBodyProgressConfirm.js" />
-        <option value="$PROJECT_DIR$/client/src/components/dashboard/bodyBio/EditBodyDataProgressForm.js" />
         <option value="$PROJECT_DIR$/client/src/components/dashboard/edit/EditPersonalTrainer.js" />
         <option value="$PROJECT_DIR$/client/src/components/dashboard/profileNotes/ProfileNotes.js" />
         <option value="$PROJECT_DIR$/client/src/components/dashboard/progression/AddDataProgressForm.js" />
@@ -372,8 +286,11 @@
         <option value="$PROJECT_DIR$/client/src/components/dashboard/progression/NewClientProgressForm.js" />
         <option value="$PROJECT_DIR$/client/src/components/dashboard/progression/Graphs.js" />
         <option value="$PROJECT_DIR$/client/src/components/dashboard/bodyBio/NewBodyProgressForm.js" />
-        <option value="$PROJECT_DIR$/client/src/components/dashboard/bodyBio/BodyGraphs.js" />
         <option value="$PROJECT_DIR$/client/src/components/dashboard/bodyBio/BodyGraphComp.js" />
+        <option value="$PROJECT_DIR$/client/src/components/dashboard/clients/ClientProfile.js" />
+        <option value="$PROJECT_DIR$/client/src/components/dashboard/bodyBio/BodyGraphs.js" />
+        <option value="$PROJECT_DIR$/client/src/components/dashboard/bodyBio/AddBodyDataProgressForm.js" />
+        <option value="$PROJECT_DIR$/client/src/components/dashboard/bodyBio/EditBodyDataProgressForm.js" />
       </list>
     </option>
   </component>
@@ -402,11 +319,11 @@
       <path value="$PROJECT_DIR$/package.json" />
     </packageJsonPaths>
   </component>
-  <component name="ProjectFrameBounds">
-    <option name="x" value="-7" />
-    <option name="y" value="2" />
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="-23" />
+    <option name="y" value="-22" />
     <option name="width" value="1378" />
-    <option name="height" value="773" />
+    <option name="height" value="741" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <OptionsSetting value="false" id="Update" />
@@ -467,7 +384,16 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="components" type="462c0819:PsiDirectoryNode" />
               <item name="dashboard" type="462c0819:PsiDirectoryNode" />
-              <item name="profileNotes" type="462c0819:PsiDirectoryNode" />
+              <item name="clients" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="app" type="b2602c69:ProjectViewProjectNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="client" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="components" type="462c0819:PsiDirectoryNode" />
+              <item name="dashboard" type="462c0819:PsiDirectoryNode" />
+              <item name="edit" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="app" type="b2602c69:ProjectViewProjectNode" />
@@ -604,14 +530,7 @@
       <workItem from="1565171718827" duration="88626000" />
       <workItem from="1565691741200" duration="30487000" />
       <workItem from="1565814825599" duration="34529000" />
-      <workItem from="1565849788934" duration="81098000" />
-    </task>
-    <task id="LOCAL-00190" summary="ClientProfile displaying initial BodyGraphs component correctly.">
-      <created>1565457018553</created>
-      <option name="number" value="00190" />
-      <option name="presentableId" value="LOCAL-00190" />
-      <option name="project" value="LOCAL" />
-      <updated>1565457018553</updated>
+      <workItem from="1565849788934" duration="86853000" />
     </task>
     <task id="LOCAL-00191" summary="NewBodyProgressForm refactored and working correctly.">
       <created>1565458270608</created>
@@ -949,11 +868,18 @@
       <option name="project" value="LOCAL" />
       <updated>1566059547710</updated>
     </task>
-    <option name="localTasksCounter" value="239" />
+    <task id="LOCAL-00239" summary="Removed binds replaced with arrow functions">
+      <created>1566061607772</created>
+      <option name="number" value="00239" />
+      <option name="presentableId" value="LOCAL-00239" />
+      <option name="project" value="LOCAL" />
+      <updated>1566061607772</updated>
+    </task>
+    <option name="localTasksCounter" value="240" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="2028463000" />
+    <option name="totallyTimeSpent" value="2034218000" />
   </component>
   <component name="TodoView" selected-index="4">
     <todo-panel id="selected-file">
@@ -965,13 +891,12 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="2" width="1378" height="773" extended-state="0" />
-    <editor active="true" />
+    <frame x="-8" y="-8" width="1382" height="784" extended-state="6" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.20820895" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.20758928" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.24943988" />
       <window_info id="Favorites" order="2" side_tool="true" weight="0.32935026" />
-      <window_info anchor="bottom" id="Messages" order="0" sideWeight="0.49813294" visible="true" weight="0.32707354" />
+      <window_info anchor="bottom" id="Messages" order="0" sideWeight="0.49813294" weight="0.32707354" />
       <window_info anchor="bottom" id="Message" order="1" />
       <window_info anchor="bottom" id="Find" order="2" weight="0.32615384" />
       <window_info anchor="bottom" id="Run" order="3" />
@@ -982,7 +907,7 @@
       <window_info anchor="bottom" id="Docker" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="Terminal" order="9" sideWeight="0.49776787" weight="0.36153847" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.50223213" side_tool="true" weight="0.1923077" />
-      <window_info anchor="bottom" id="Version Control" order="11" sideWeight="0.6152815" weight="0.36" />
+      <window_info active="true" anchor="bottom" id="Version Control" order="11" sideWeight="0.6152815" visible="true" weight="0.36" />
       <window_info anchor="bottom" id="Inspection Results" order="12" weight="0.3276923" />
       <window_info anchor="bottom" id="File Transfer" order="13" weight="0.32615384" />
       <window_info anchor="bottom" id="TypeScript" order="14" />
@@ -1056,7 +981,6 @@
   <component name="VcsManagerConfiguration">
     <option name="SHOW_DIRTY_RECURSIVELY" value="true" />
     <option name="LIMIT_HISTORY" value="false" />
-    <MESSAGE value="Refactoring for refresh token" />
     <MESSAGE value="checkExp refreshes token every 55 mins if the user has been active in the last 5 mins of the 1hr token exp time." />
     <MESSAGE value="Updating API checks on JWT for access rights" />
     <MESSAGE value="JWT tokens updated, just need to do two more (get/put - personal_trainer)" />
@@ -1081,7 +1005,8 @@
     <MESSAGE value="Changed layout of profile picture upload component, made child divs inline-blocks, gave container max-width and min-width with margin auto, allowing dynamic layout so zoom and upload fall beneath canvas." />
     <MESSAGE value="Zoom slider for profile picture upload positioned correctly." />
     <MESSAGE value="Removing all binds as refactoring to arrow functions" />
-    <option name="LAST_COMMIT_MESSAGE" value="Removing all binds as refactoring to arrow functions" />
+    <MESSAGE value="Removed binds replaced with arrow functions" />
+    <option name="LAST_COMMIT_MESSAGE" value="Removed binds replaced with arrow functions" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/.test.png">
@@ -1193,16 +1118,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/clients/ClientProfile.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="355">
-          <caret line="101" column="46" selection-start-line="101" selection-start-column="46" selection-end-line="101" selection-end-column="46" />
-          <folding>
-            <element signature="e#277#321#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/client/src/App.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="432">
@@ -1289,13 +1204,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/bodyBio/AddBodyDataProgressForm.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="185">
-          <caret line="25" column="10" selection-start-line="25" selection-start-column="10" selection-end-line="25" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/edit/EditPersonalTrainer.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="340">
@@ -1313,16 +1221,6 @@
           <folding>
             <element signature="e#532#600#0" expanded="true" />
             <element signature="e#959#1016#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/edit/ProfilePicUpload.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="527">
-          <caret line="88" column="20" selection-start-line="88" selection-start-column="20" selection-end-line="88" selection-end-column="20" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1451,24 +1349,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/bodyBio/EditBodyDataProgressForm.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1989">
-          <caret line="153" column="6" selection-start-line="153" selection-start-column="6" selection-end-line="153" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/bodyBio/DeleteBodyProgressConfirm.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="782">
           <caret line="49" column="6" selection-start-line="49" selection-start-column="6" selection-end-line="49" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/bodyBio/BodyGraphs.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-646">
-          <caret line="29" column="10" selection-start-line="29" selection-start-column="10" selection-end-line="29" selection-end-column="10" />
         </state>
       </provider>
     </entry>
@@ -1478,6 +1362,47 @@
           <caret line="28" column="10" selection-start-line="28" selection-start-column="10" selection-end-line="28" selection-end-column="10" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/edit/ProfilePicUpload.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="612">
+          <caret line="36" column="5" lean-forward="true" selection-start-line="36" selection-start-column="5" selection-end-line="36" selection-end-column="5" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/bodyBio/AddBodyDataProgressForm.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="207">
+          <caret line="33" column="9" lean-forward="true" selection-start-line="33" selection-start-column="9" selection-end-line="33" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/bodyBio/BodyGraphs.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-629">
+          <caret line="48" column="66" selection-start-line="48" selection-start-column="66" selection-end-line="48" selection-end-column="66" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/bodyBio/EditBodyDataProgressForm.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="109" column="47" selection-start-line="109" selection-start-column="47" selection-end-line="109" selection-end-column="47" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/clients/ClientProfile.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1221">
+          <caret line="110" column="32" selection-start-line="110" selection-start-column="32" selection-end-line="110" selection-end-column="32" />
+          <folding>
+            <element signature="e#277#321#0" expanded="true" />
           </folding>
         </state>
       </provider>
