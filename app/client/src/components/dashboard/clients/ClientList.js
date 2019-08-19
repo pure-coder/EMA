@@ -15,7 +15,6 @@ class ClientList extends Component {
         super(props);
         this.state = {
             loaded: false,
-            userId : props.match.params.uid || props.authenticatedUser.user.id,
             clientId: props.authenticatedUser.clientId || props.match.params.cid,
             deleteId: "",
             ptId: "",
@@ -24,30 +23,26 @@ class ClientList extends Component {
             modalHeight: "400",
             modalWidth: "500",
         };
-
-        this.openModal = this.openModal.bind(this);
-        this.onClickAway = this.onClickAway.bind(this);
-        this.modalSize = this.modalSize.bind(this);
     }
 
-    openModal(clientId, ptId, clientName) {
+    openModal = (clientId, ptId, clientName) => {
         this.setState({
             visible : true,
             deleteId: clientId,
             ptId: ptId,
             clientName: clientName
         });
-    }
+    };
 
-    onClickAway() {
+    onClickAway = () => {
         this.setState({
             visible: false
         });
-    }
+    };
 
-    modalSize(height){
+    modalSize = height => {
         this.setState({modalHeight: height});
-    }
+    };
 
     static getDerivedStateFromProps(nextProps, state){
         if(nextProps.errors !== state.errors){
@@ -73,9 +68,9 @@ class ClientList extends Component {
         this.props.history.push(`/users/${ptId}/scheduler/${id}`);
     };
 
-    onEditProfile(id) {
+    onEditProfile(userId, clientId) {
         // Direct user with history push to edit profile of user id
-        this.props.history.push(`/users/${id}/edit_client`);
+        this.props.history.push(`/users/${userId}/edit_client/${clientId}`);
     };
 
     sortedMap = (clients) => {
@@ -117,7 +112,7 @@ class ClientList extends Component {
                             className="far fa-calendar-alt fa-2x"></i></a>
                     </td>
                     <td align="center">
-                        <a onClick={this.onEditProfile.bind(this, client._id)}><i
+                        <a onClick={this.onEditProfile.bind(this, user.id, client._id)}><i
                             className="fas fa-edit fa-2x"></i></a>
                     </td>
                     <td align="center">
@@ -134,13 +129,13 @@ class ClientList extends Component {
                     <div className="ClientList">
                         <div className="m-auto">
                             <div className="pt-buttons mt-5">
-                                <Link to={'/users/' + this.props.authenticatedUser.user.id + '/register_client'}>
+                                <Link to={`/users/${user.id}/register_client`}>
                                     <button
                                         className="btn btn-primary dashboard-new-client">
                                         Add new Client
                                     </button>
                                 </Link>
-                                <Link to={'/users/' + this.props.authenticatedUser.user.id + '/edit_personal_trainer'}>
+                                <Link to={`/users/${user.id}/edit_personal_trainer`}>
                                     <button
                                         className="btn btn-success dashboard-edit-own-profile">
                                         Edit own profile

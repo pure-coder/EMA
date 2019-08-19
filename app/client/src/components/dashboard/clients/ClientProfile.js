@@ -26,7 +26,7 @@ import Graphs from "../progression/Graphs";
 import isEmpty from '../../../utilities/is_empty';
 import ErrorComponent from "../../error/ErrorComponent";
 import Loading from "../../../elements/Loading";
-import UserInfo from "../UserInfo";
+import UserInfo from "../profile/UserInfo";
 import ProfileNotes from "../profileNotes/ProfileNotes";
 import BodyGraphs from "../bodyBio/BodyGraphs";
 import checkExp from "../../../utilities/checkExp";
@@ -97,6 +97,9 @@ class ClientProfile extends Component {
     }
 
     componentDidMount() {
+        const {isAuthenticated} = this.props.authenticatedUser;
+        if(!isAuthenticated)
+            this.props.history.push('/login');
         checkExp();
         if(this.props.authenticatedUser.user.pt){
             this.props.getCurrentClient(this.state.clientId, this.props.history);
@@ -149,6 +152,7 @@ class ClientProfile extends Component {
         const client_data = this.state.clientData;
         const clientProgressData = this.state.client_progression;
         const bodyProgressData = this.state.body_bio;
+        // const ProfilePicUrl =
 
         let profile_notes;
 

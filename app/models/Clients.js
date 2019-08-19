@@ -22,10 +22,10 @@ const ClientSchema = new Schema({
         type: String, trim: true,
     },
     Sex: {
-        type: String, default: 'NA', trim: true,
+        type: String, default: null, trim: true,
     },
     ProfilePicUrl: {
-        type: String, default: 'NA', trim: true,
+        type: String, default: null, trim: true,
     },
     Activated: {
         type: Boolean, default: false

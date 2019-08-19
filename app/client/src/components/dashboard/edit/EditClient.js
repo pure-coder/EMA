@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'; // Used to document prop types sent to compo
 import {connect} from 'react-redux' // Needed when using redux inside a component (connects redux to this component)
 import {editClientData, passwordsMatchError, setErrors, clearErrors, setSuccess, clearSuccess, getCurrentClient, clearCurrentClient} from "../../../actions/ptProfileActions"; // Used to import create action for getting client data and editing client data
 import {getClientData} from "../../../actions/clientProfileActions";
-import {withRouter} from 'react-router-dom';
+import {Link, withRouter} from 'react-router-dom';
 import FormInputGroup from "../../common/FormInputGroup";
 import Loading from "../../../elements/Loading";
 import isEmpty from "../../../utilities/is_empty";
@@ -12,13 +12,16 @@ import DisplayMessage from '../../common/DisplayMessage';
 import FormSelectComp from "../../common/FormSelectComp";
 import defaultUserImage from "../../../img/user-regular.svg";
 import checkExp from "../../../utilities/checkExp";
+import {ProfileImage} from "../profile/ProfileImage";
 
 class EditClient extends Component {
     // This allows the component states to be updated and re-rendered
     constructor(props) {
         super(props);
         this.state = {
-            client_data: undefined,
+            defaultImage : defaultUserImage,
+            client_data: null,
+            profilePicture: null,
             clientId: !props.authenticatedUser.user.pt ? props.authenticatedUser.user.id : props.match.params.cid,
             FullName: '',
             Email: '',
@@ -40,12 +43,6 @@ class EditClient extends Component {
                 type: null
             } // Set to null so null is returned from DisplayMessage by default
         };
-
-        // This sets the state value to it's respective state (via binding)
-        this.onChange = this.onChange.bind(this);
-
-        // This binds the onSubmit function to this.OnSubmit
-        this.onSubmit = this.onSubmit.bind(this);
     }
 
     // Populate state data with data from the database for the client
@@ -54,6 +51,7 @@ class EditClient extends Component {
             if (props.ptProfile.current_client !== state.client_data) {
                 return {
                     client_data: props.ptProfile.current_client,
+                    profilePicture: props.ptProfile.current_client.ProfilePicUrl,
                     success: props.success,
                     errors: props.errors,
                     loaded: true
@@ -63,6 +61,7 @@ class EditClient extends Component {
         else if (props.clientProfile.client_data !== state.client_data) {
             return {
                 client_data: props.clientProfile.client_data,
+                profilePicture: props.clientProfile.client_data.ProfilePicUrl,
                 success: props.success,
                 errors: props.errors,
                 loaded: true
@@ -82,6 +81,9 @@ class EditClient extends Component {
     }
 
     componentDidMount() {
+        const {isAuthenticated} = this.props.authenticatedUser;
+        if(!isAuthenticated)
+            this.props.history.push('/login');
         checkExp();
         if(this.props.authenticatedUser.user.pt){
             this.props.getCurrentClient(this.state.clientId, this.props.history)
@@ -95,6 +97,9 @@ class EditClient extends Component {
     }
 
     componentDidUpdate(){
+        if(this.props.match.url === `/users/${this.props.match.params.uid}/edit_client/upload_profile_picture`){
+            this.props.history.push('/error_page');
+        }
         let data = null;
         if(this.props.authenticatedUser.user.pt) {
             if (this.props.ptProfile.current_client !== null) {
@@ -131,9 +136,9 @@ class EditClient extends Component {
     }
 
     // This captures what the user types and sets the specific input to the respective state variable
-    onChange(event) {
-        let eventName = event.target.name;
-        let eventValue = event.target.value;
+    valueChange = e => {
+        let eventName = e.target.name;
+        let eventValue = e.target.value;
         // Initialise previous data to this data
         this.setState({[eventName]: eventValue});
 
@@ -144,10 +149,10 @@ class EditClient extends Component {
         if(!isEmpty(this.props.success)){
             this.props.clearSuccess();
         }
-    }
+    };
 
-    onSubmit(event) {
-        event.preventDefault();
+    onSubmit = e => {
+        e.preventDefault();
         this.props.clearSuccess();
 
         // Clear errors
@@ -163,7 +168,6 @@ class EditClient extends Component {
             FullName: this.state.FullName,
             Email: this.state.Email,
             ContactNumber: this.state.ContactNumber,
-            // ProfilePicUrl: this.state.ProfilePicUrl,
             DateOfBirth: this.state.DateOfBirth,
             Sex: this.state.Sex,
             Password: this.state.Password,
@@ -221,11 +225,9 @@ class EditClient extends Component {
                 client_data: client_data
             });
         }
-    }
+    };
 
     render() {
-
-
         const client_data = this.state.client_data;
 
         if(client_data === null){
@@ -244,11 +246,9 @@ class EditClient extends Component {
                             <div className="m-auto col-md-8">
                                 <h1 className=" text-center display-5">Edit Client Profile</h1>
                                 <div className="edit_image">
-                                    {(<img
-                                        className = "rounded-circle"
-                                        alt={client_data.ProfilePicUrl === "NA" ? "Default user image." : "User profile picture."}
-                                        src = {client_data.ProfilePicUrl === "NA" ? defaultUserImage : defaultUserImage}
-                                    />)}
+                                    <Link to={`upload_profile_picture`}>
+                                        <ProfileImage image={this.state.profilePicture} />
+                                    </Link>
                                 </div>
                                 <form autoComplete="off" onSubmit={this.onSubmit}>
                                     {/*// Deals with Chromes password auto complete*/}
@@ -259,7 +259,7 @@ class EditClient extends Component {
                                         placeholder={this.state.client_data.FullName}
                                         value={this.state.FullName}
                                         type="text"
-                                        onChange={this.onChange}
+                                        onChange={this.valueChange}
                                         error={errors.FullName}
                                     />
                                     <FormInputGroup
@@ -268,7 +268,7 @@ class EditClient extends Component {
                                         placeholder="Email"
                                         value={this.state.Email}
                                         type="Email"
-                                        onChange={this.onChange}
+                                        onChange={this.valueChange}
                                         error={errors.Email}
                                     />
                                     <FormInputGroup
@@ -277,7 +277,7 @@ class EditClient extends Component {
                                         placeholder="ContactNumber"
                                         value={this.state.ContactNumber}
                                         type="text"
-                                        onChange={this.onChange}
+                                        onChange={this.valueChange}
                                         error={errors.ContactNumber}
                                     />
                                     <div className="form-group edit-profile-date-div">
@@ -290,7 +290,7 @@ class EditClient extends Component {
                                                 name="DateOfBirth"
                                                 value={this.state.DateOfBirth.toString()}
                                                 type="date"
-                                                onChange={this.onChange}
+                                                onChange={this.valueChange}
                                                 error={errors.DateOfBirth}
                                             />
                                         </div>
@@ -303,7 +303,7 @@ class EditClient extends Component {
                                                 name="Sex"
                                                 id="Sex"
                                                 values={this.state.values}
-                                                onChange={this.onChange}
+                                                onChange={this.valueChange}
                                                 error={errors.Sex}
                                             />
                                         </div>
@@ -314,7 +314,7 @@ class EditClient extends Component {
                                         placeholder="Enter Password"
                                         value={this.state.Password}
                                         type="password"
-                                        onChange={this.onChange}
+                                        onChange={this.valueChange}
                                         error={errors.Password}
                                     />
                                     <FormInputGroup
@@ -322,7 +322,7 @@ class EditClient extends Component {
                                         placeholder="Confirm Password"
                                         value={this.state.Password2}
                                         type="password"
-                                        onChange={this.onChange}
+                                        onChange={this.valueChange}
                                         error={errors.Password2}
                                     />
                                     <DisplayMessage message={message}/>

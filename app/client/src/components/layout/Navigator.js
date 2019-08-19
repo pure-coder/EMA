@@ -9,32 +9,39 @@ import {getPtData, getClients, clearCurrentProfile} from "../../actions/ptProfil
 import {getClientData, clearClientProfile} from "../../actions/clientProfileActions";
 
 import defaultUserImage from '../../img/user-regular.svg';
+import {ProfileImage} from "../dashboard/profile/ProfileImage";
 
 class Navigation extends Component {
     constructor(props){
         super(props);
         this.state = {
             userData: null,
+            ProfilePicUrl: defaultUserImage
         };
     }
 
-    static getDerivedStateFromProps(props, state){
-        if(props.authenticatedUser.user.pt) {
-            if (props.ptProfile.pt_data !== state.userData) {
-                return {
-                    userData: props.ptProfile.pt_data
+    static getDerivedStateFromProps(props){
+        if(props.authenticatedUser.isAuthenticated) {
+            if (props.authenticatedUser.user.pt) {
+                if (props.ptProfile.pt_data !== null) {
+                    return {
+                        userData: props.ptProfile.pt_data,
+                        ProfilePicUrl: props.ptProfile.pt_data.ProfilePicUrl
+                    }
                 }
+                return null;
             }
-            return null;
-        }
-        else{
-            if (props.clientProfile.client_data !== state.userData) {
-                return {
-                    userData: props.clientProfile.client_data
+            else {
+                if (props.clientProfile.client_data !== null) {
+                    return {
+                        userData: props.clientProfile.client_data,
+                        ProfilePicUrl: props.clientProfile.client_data.ProfilePicUrl
+                    }
                 }
+                return null;
             }
-            return null;
         }
+        return null;
     }
 
     componentDidMount() {
@@ -51,7 +58,7 @@ class Navigation extends Component {
     } // ComponentDidMount
 
     // Create log out link functionality
-    onLogOutClick(e) {
+    onLogOutClick = e => {
         e.preventDefault();
         if(this.props.authenticatedUser.user.pt){
             this.props.clearCurrentProfile();
@@ -61,12 +68,12 @@ class Navigation extends Component {
         }
         this.props.logOutUser();
         this.props.history.push('/');
-    }
+    };
 
     render() {
 
         const {isAuthenticated} = this.props.authenticatedUser;
-        const {userData} = this.state;
+        const {userData, ProfilePicUrl} = this.state;
 
         // Define navbar for dynamic navbar
         const authorisedLinks = (
@@ -80,16 +87,8 @@ class Navigation extends Component {
 
                 }
                 <ul className="navbar-nav ml-auto">
-                    <a href="" onClick={this.onLogOutClick.bind(this)} className="nav-link">
-                        <img
-                            className="rounded-circle"
-                            // If user has profile pic display it otherwise display default user image
-                            src={userData !== null && userData.ProfilePicUrl !== "NA" ?
-                             userData.ProfilePicUrl : defaultUserImage}
-                            // src={isAuthenticated ? defaultUserImage : defaultUserImage}
-                            alt={userData !== null && userData.ProfilePicUrl !== "NA" ? "User profile picture." : "Default user image."}
-                            style={{backgroundColor: 'white', width: 30, height: 27, paddingRight: 0}}
-                        />
+                    <a href="" onClick={this.onLogOutClick} className="nav-link">
+                        <ProfileImage image={ProfilePicUrl} style={{backgroundColor: 'white', 'borderRadius': 25, width: 45, height: 45, paddingRight: 0}}/>
                         {/*{' '} is used to provide space */}
                         {' '}
                         {userData !== null ? userData.FullName : null}

@@ -27,13 +27,9 @@ class GraphComp extends Component {
             yTitle : "Weight (Kg)",
             xTitle : "Date",
         };
-
-        this.openModal = this.openModal.bind(this);
-        this.onClickAway = this.onClickAway.bind(this);
-        this.modalSize = this.modalSize.bind(this);
     }
 
-    openModal(e) {
+    openModal = e => {
         if(e.target.value === "Delete"){
             this.setState({form: "Delete"})
         }
@@ -46,9 +42,9 @@ class GraphComp extends Component {
         this.setState({
             visible : true
         });
-    }
+    };
 
-    onClickAway() {
+    onClickAway = () => {
         this.setState({
             visible: false,
             form: undefined
@@ -59,15 +55,15 @@ class GraphComp extends Component {
 
         // Get new data
         this.getClientProgression();
-    }
+    };
 
     getClientProgression(){
         this.props.ptGetClientProgression(this.state.clientId, this.props.history);
     }
 
-    modalSize(height){
+    modalSize = height =>{
         this.setState({modalHeight: height});
-    }
+    };
 
     sortedProgressionMap(graphData){
         return graphData.sort((obj1, obj2) => {

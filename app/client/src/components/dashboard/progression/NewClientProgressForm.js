@@ -54,12 +54,6 @@ class NewClientProgressForm extends Component {
                 "Back extension"
             ],
         };
-
-        this.onChange = this.onChange.bind(this);
-        this.onSubmit = this.onSubmit.bind(this);
-        this.onClose= this.onClose.bind(this);
-        this.onClick = this.onClick.bind(this);
-        this.onBlur = this.onBlur.bind(this);
     } // constructor
 
     static getDerivedStateFromProps(props, state) {
@@ -117,7 +111,7 @@ class NewClientProgressForm extends Component {
         }
     }
 
-    onClick(e){
+    onClick = e => {
         // If input field is for exerciseName, complete the auto list
         if(e.target.name === 'exerciseName') {
             this.onLoadList(e);
@@ -127,9 +121,9 @@ class NewClientProgressForm extends Component {
         if(!isEmpty(this.state.success)) {
             this.props.clearSuccess();
         }
-    }
+    };
 
-    onChange(e) {
+    onChange = e => {
         let name = e.target.name;
         let value = e.target.value;
 
@@ -160,7 +154,7 @@ class NewClientProgressForm extends Component {
         if(!isEmpty(this.props.success)){
             this.props.clearSuccess();
         }
-    }
+    };
 
     // When input field is click (Really on clicked)
     onLoadList(e){
@@ -170,7 +164,7 @@ class NewClientProgressForm extends Component {
         autocomplete(e.target, exerciseList, this.state);
     }
 
-    onClose(){
+    onClose= () =>{
         // The use of onClick with this.props.onClickAway() allows this to call the parents onClickAway (note the use of props)
         this.props.onClickAway();
         // Clear errors once the modal has been exited
@@ -182,15 +176,15 @@ class NewClientProgressForm extends Component {
             maxWeight: '',
             Date: ''
         });
-    }
+    };
 
     // This is needed to set the exercise name to state on blur, as can't set state in the autocomplete external function
-    onBlur(){
+    onBlur = () =>{
         let selectedExercise = document.getElementById("exerciseName").value;
         this.setState({exerciseName: selectedExercise });
-    }
+    };
 
-    onSubmit(e) {
+    onSubmit = e => {
         e.preventDefault();
         this.setState({
             message: {type: null},
@@ -232,7 +226,7 @@ class NewClientProgressForm extends Component {
             this.props.clearErrors();
             this.props.newClientProgress(this.state.clientId, clientProgressData, this.props.history);
         }
-    } // onSubmit
+    };// onSubmit
 
     render() {
         let {errors, message} = this.state;

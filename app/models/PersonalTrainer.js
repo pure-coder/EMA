@@ -21,10 +21,10 @@ const PersonalTrainerSchema = new Schema({
         type: String, trim: true,
     },
     Sex: {
-        type: String, required: false, default: 'NA', trim: true,
+        type: String, required: false, default: null, trim: true,
     },
     ProfilePicUrl: {
-        type: String, required: false, default: 'NA', trim: true,
+        type: String, default: null, trim: true,
     },
     Date: {
         type: Date

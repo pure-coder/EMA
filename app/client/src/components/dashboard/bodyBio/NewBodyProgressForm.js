@@ -40,12 +40,6 @@ class NewBodyProgressForm extends Component {
                 "R-calf"
             ],
         };
-
-        this.onChange = this.onChange.bind(this);
-        this.onSubmit = this.onSubmit.bind(this);
-        this.onClose= this.onClose.bind(this);
-        this.onClick = this.onClick.bind(this);
-        this.onBlur = this.onBlur.bind(this);
     } // constructor
 
     static getDerivedStateFromProps(props, state) {
@@ -103,7 +97,7 @@ class NewBodyProgressForm extends Component {
         }
     }
 
-    onClick(e){
+    onClick = e => {
         // If input field is for bodyPart, complete the auto list
         if(e.target.name === 'bodyPart') {
             this.onLoadList(e);
@@ -113,9 +107,9 @@ class NewBodyProgressForm extends Component {
         if(!isEmpty(this.state.success)) {
             this.props.clearSuccess();
         }
-    }
+    };
 
-    onChange(e) {
+    onChange = e => {
         let name = e.target.name;
         let value = e.target.value;
 
@@ -146,7 +140,7 @@ class NewBodyProgressForm extends Component {
         if(!isEmpty(this.props.success)){
             this.props.clearSuccess();
         }
-    }
+    };
 
     // When input field is click (Really on clicked)
     onLoadList(e){
@@ -156,7 +150,7 @@ class NewBodyProgressForm extends Component {
         autocomplete(e.target, bodyPartList, this.state);
     }
 
-    onClose(){
+    onClose = () => {
         // The use of onClick with this.props.onClickAway() allows this to call the parents onClickAway (note the use of props)
         this.props.onClickAway();
         // Clear errors once the modal has been exited
@@ -168,15 +162,15 @@ class NewBodyProgressForm extends Component {
             measurement: '',
             Date: ''
         });
-    }
+    };
 
     // This is needed to set the exercise name to state on blur, as can't set state in the autocomplete external function
-    onBlur(){
+    onBlur = () => {
         let selectedBodyPart = document.getElementById("bodyPart").value;
         this.setState({bodyPart: selectedBodyPart });
-    }
+    };
 
-    onSubmit(e) {
+    onSubmit = e => {
         e.preventDefault();
         this.setState({
             message: {type: null},
@@ -218,7 +212,7 @@ class NewBodyProgressForm extends Component {
             this.props.clearErrors();
             this.props.newClientBodyBio(this.state.clientId, clientBodyProgressData, this.props.history);
         }
-    } // onSubmit
+    }; // onSubmit
 
     render() {
         let {errors, message} = this.state;

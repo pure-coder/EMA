@@ -27,13 +27,9 @@ class BodyGraphComp extends Component {
             yTitle : this.props.bodyGraphData.bodyPart === "Body Weight" ? "Measurement (Kg)" : "Measurement (in)",
             xTitle : "Date",
         };
-
-        this.openModal = this.openModal.bind(this);
-        this.onClickAway = this.onClickAway.bind(this);
-        this.modalSize = this.modalSize.bind(this);
     }
 
-    openModal(e) {
+    openModal = e => {
         if(e.target.value === "Delete"){
             this.setState({form: "Delete"})
         }
@@ -46,9 +42,9 @@ class BodyGraphComp extends Component {
         this.setState({
             visible : true
         });
-    }
+    };
 
-    onClickAway() {
+    onClickAway = () => {
         this.setState({
             visible: false,
             form: undefined
@@ -59,15 +55,15 @@ class BodyGraphComp extends Component {
 
         // Get new data
         this.getBodyBioClient();
-    }
+    };
 
     getBodyBioClient(){
         this.props.ptGetClientBodyBio(this.state.clientId, this.props.history);
     }
 
-    modalSize(height){
+    modalSize = height => {
         this.setState({modalHeight: height});
-    }
+    };
 
     sortedProgressionMap(bodyGraphData){
         return bodyGraphData.sort((obj1, obj2) => {

@@ -28,11 +28,6 @@ class BodyGraphs extends Component {
             visible: false, // For modal
             loaded: false
         };
-
-        this.getBodyBioClient = this.getBodyBioClient.bind(this);
-        this.modalSize = this.modalSize.bind(this);
-        this.openModal = this.openModal.bind(this);
-        this.onClickAway = this.onClickAway.bind(this);
     }
 
     static getDerivedStateFromProps(props, state){
@@ -68,31 +63,31 @@ class BodyGraphs extends Component {
         });
     }; // sortedMap
 
-    modalSize(height){
+    modalSize = height => {
         this.setState({modalHeight: height});
-    }
+    };
 
-    openModal() {
+    openModal = () => {
         this.setState({
             visible : true
         });
-    }
+    };
 
-    onClickAway() {
+    onClickAway = () => {
         this.setState({
             visible: false
         });
         this.getBodyBioClient();
-    }
+    };
 
-    getBodyBioClient(){
+    getBodyBioClient = () => {
         if(this.props.authenticatedUser.user.pt){
             this.props.ptGetClientBodyBio(this.state.clientId, this.props.history);
         }
         else{
             this.props.getBodyBioClient(this.state.clientId, this.props.history);
         }
-    }
+    };
 
     render() {
         const {bodyGraphData} = this.state;
@@ -104,8 +99,10 @@ class BodyGraphs extends Component {
         }
         else{
             let Data = BodyGraphs.sortedProgressionBodyPart(bodyGraphData);
+            let showData = false;
             const graphs = Data.map(graph => {
                 if(graph.bodyMetrics.length > 1){
+                    showData = true;
                     return (
                         // Changed key from GraphComp to div as div was first child, otherwise error was given.
                         <div className="graphs card mb-5" key={graph._id}>
@@ -130,7 +127,7 @@ class BodyGraphs extends Component {
                     }
                     {/*If enough data show graph/s otherwise show message stating no data to show*/}
                     {
-                        !isEmpty(Data) ? graphs : <NoProgressDataComp/>
+                        showData ? graphs : <NoProgressDataComp/>
                     }
                     <Modal visible={this.state.visible} width={this.state.modalWidth} height={this.state.modalHeight} effect="fadeInUp"
                            onClickAway={this.onClickAway}>

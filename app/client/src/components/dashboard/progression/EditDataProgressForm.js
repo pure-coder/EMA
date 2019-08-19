@@ -25,10 +25,6 @@ class EditDataProgressForm extends Component {
             },
             progressFormHeight: props.progressFormHeight
         };
-
-        this.onChange = this.onChange.bind(this);
-        this.onSubmit = this.onSubmit.bind(this);
-        this.onClose= this.onClose.bind(this);
     } // constructor
 
     static getDerivedStateFromProps(props, state) {
@@ -94,7 +90,7 @@ class EditDataProgressForm extends Component {
         }
     }
 
-    onChange(e) {
+    onChange = e => {
         const metrics = this.state.metrics;
         const toDelete = this.state.toDelete;
         let id = e.target.id;
@@ -148,17 +144,17 @@ class EditDataProgressForm extends Component {
         if(!isEmpty(this.props.success)){
             this.props.clearSuccess();
         }
-    }
+    };
 
-    onClose(){
+    onClose = () => {
         // The use of onClick with this.props.onClickAway() allows this to call the parents onClickAway (note the use of props)
         this.props.onClickAway();
         // Clear errors once the modal has been exited
         this.props.clearErrors();
         this.setState({message: {type: null}});
-    }
+    };
 
-    onSubmit(e) {
+    onSubmit = e => {
         e.preventDefault();
         this.setState({
             message: {type: null},
@@ -208,7 +204,7 @@ class EditDataProgressForm extends Component {
             }
 
         }
-    } // onSubmit
+    }; // onSubmit
 
     render() {
         let {errors, message} = this.state;

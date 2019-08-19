@@ -25,11 +25,6 @@ class AddDataProgressForm extends Component {
             },
             progressFormHeight: props.progressFormHeight
         };
-
-        this.onChange = this.onChange.bind(this);
-        this.onSubmit = this.onSubmit.bind(this);
-        this.onClose= this.onClose.bind(this);
-        this.onClick = this.onClick.bind(this);
     } // constructor
 
     static getDerivedStateFromProps(props, state) {
@@ -85,19 +80,19 @@ class AddDataProgressForm extends Component {
         }
     }
 
-    onClick(){
+    onClick = () => {
         // Set success message to empty if re-entering data after a successful previous submission.
         if(!isEmpty(this.state.success)) {
             this.props.clearSuccess();
         }
         this.props.modalSize(this.state.progressFormHeight)
-    }
+    };
 
     static onFocus(){
         document.getElementsByName('maxWeight')[0].focus();
     }
 
-    onChange(e) {
+    onChange = e => {
         let name = e.target.name;
         let value = e.target.value;
 
@@ -128,9 +123,9 @@ class AddDataProgressForm extends Component {
         if(!isEmpty(this.props.success)){
             this.props.clearSuccess();
         }
-    }
+    };
 
-    onClose(){
+    onClose = () => {
         // The use of onClick with this.props.onClickAway() allows this to call the parents onClickAway (note the use of props)
         this.props.onClickAway();
         // Clear errors once the modal has been exited
@@ -138,7 +133,7 @@ class AddDataProgressForm extends Component {
         this.setState({message: {type: null}});
         // Reset/ Clear input fields once modal has been exited
         this.clearFields();
-    }
+    };
 
     ptGetClientProgression(){
         this.props.ptGetClientProgression(this.state.clientId, this.props.history);
@@ -149,7 +144,7 @@ class AddDataProgressForm extends Component {
         this.setState({Date: ''});
     }
 
-    onSubmit(e) {
+    onSubmit = e => {
         e.preventDefault();
         this.setState({
             message: {type: null},
@@ -191,7 +186,7 @@ class AddDataProgressForm extends Component {
             // Once data is submitted focus on adding new data (via focusing on 1st input element, in this case max weight!)
             AddDataProgressForm.onFocus();
         }
-    } // onSubmit
+    }; // onSubmit
 
     render() {
         let {errors, message} = this.state;

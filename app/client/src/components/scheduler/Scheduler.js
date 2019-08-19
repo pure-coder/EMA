@@ -8,7 +8,7 @@ import 'dhtmlx-scheduler';
 import Loading from "../../elements/Loading";
 import isEmpty from "../../utilities/is_empty";
 import ErrorComponent from "../error/ErrorComponent";
-import UserInfo from "../dashboard/UserInfo";
+import UserInfo from "../dashboard/profile/UserInfo";
 import SchedulerHTML from "./SchedulerHTML";
 import checkExp from "../../utilities/checkExp";
 
@@ -28,6 +28,9 @@ class Scheduler extends Component {
 
 
     componentDidMount() {
+        const {isAuthenticated} = this.props.authenticatedUser;
+        if(!isAuthenticated)
+            this.props.history.push('/login');
         checkExp();
         // Check if isAuthenticated is false then redirect to the dashboard
         if(this.props.authenticatedUser.user.pt){

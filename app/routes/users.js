@@ -10,6 +10,12 @@ const {capitaliseFirstLetter} = require('../services/capitalise');
 const jwt = require('jsonwebtoken');
 // jwt keys
 const keys = require('../config/db');
+// const streamifier = require('streamifier');
+// const fs = require('fs');
+const multer  = require('multer');
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage });
+
 
 
 // Require Input validation for editing client profile
@@ -1092,6 +1098,71 @@ router.put('/profile_notes/:cid', passport.authenticate('pt_rule', {session: fal
     // res.status(200).json("check");
 
 }); // router put /profile_notes/:cid
+
+// @route  PUT api/upload_profile_pic
+// @desc   update profile notes data in db
+// @access Private for PT's and clients - PT's and clients can update their own profile picture db collection
+router.post('/upload_profile_pic',  upload.single('profilePicture') ,passport.authenticate('both_rule', {session: false}, null), (req, res) =>{
+
+    let token = req.headers.authorization.split(' ')[1];
+    let payload = jwt.decode(token, keys.secretOrKey);
+    let signedInId = payload.id;
+    let ptStatus = payload.pt;
+
+    let data = req.file;
+    let buffer = data.buffer;
+
+    let formatString ='data:image/png;base64,';
+    let newBuffer = buffer.toString('base64');
+    let magic = formatString.concat(newBuffer);
+
+    if(isEmpty(data)){
+        res.status(400).json({msg: "No data supplied for update"});
+    }
+
+    // Check if the user is a PT
+    if(ptStatus){
+        // update exercise for client
+        PersonalTrainer.findOneAndUpdate(
+            {_id: signedInId},
+            {$set: {
+                    ProfilePicUrl: magic
+                }
+            },
+        )
+            .then(result => {
+                if (result) {
+                    // console.log(result)
+                    res.status(200).json({msg: "Profile picture updated"})
+                }
+            })
+            .catch(() => {
+                res.status(400).json({msg: "Not authorised to update profile picture"})
+            })
+    }
+    else {
+        Client.findOneAndUpdate(
+            {_id: signedInId},
+            {$set: {
+                    ProfilePicUrl: magic
+                }
+            },
+        )
+            .then(result => {
+                if (result) {
+                    // console.log(result)
+                    res.status(200).json({msg: "Profile picture updated"})
+                }
+            })
+            .catch(() => {
+                res.status(400).json({msg: "Not authorised to update profile picture"})
+            })
+    }
+
+    // end of Client.findOne
+    // res.status(200).json("check");
+
+}); // router put /upload_profile_pic
 
 
 //Export router so it can work with the main restful api server

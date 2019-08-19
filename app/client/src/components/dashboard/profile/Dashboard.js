@@ -1,32 +1,25 @@
 import React, {Component} from 'react';  // Used to create this component
 import PropTypes from 'prop-types'; // Used to document prop types sent to components
-import {connect} from 'react-redux' // Needed when using redux inside a component (connects redux to this component)
+import {connect} from 'react-redux'; // Needed when using redux inside a component (connects redux to this component)
 import {withRouter} from 'react-router-dom';
-import {getClients, getPtData, clearErrors, clearSuccess} from "../../actions/ptProfileActions";
-import {getClientData} from "../../actions/clientProfileActions";
-import ClientList from './clients/ClientList'
-import Loading from "../../elements/Loading";
-import ClientData from "./clients/ClientData";
-import isEmpty from "../../utilities/is_empty";
-import ErrorComponent from "../error/ErrorComponent";
+import {getClients, getPtData, clearErrors, clearSuccess} from "../../../actions/ptProfileActions";
+import {getClientData} from "../../../actions/clientProfileActions";
+import ClientList from '../clients/ClientList'
+import Loading from "../../../elements/Loading";
+import ClientData from "../clients/ClientData";
+import isEmpty from "../../../utilities/is_empty";
+import ErrorComponent from "../../error/ErrorComponent";
 import UserInfo from "./UserInfo";
-import checkExp from '../../utilities/checkExp'
+import checkExp from '../../../utilities/checkExp'
 
 class Dashboard extends Component {
 
-    static getDerivedStateFromProps(prevProps){
-        const {isAuthenticated} = prevProps.authenticatedUser;
-        if(!isAuthenticated){
-            this.props.history.push('/re-login');
-        }
-        return null
-    }
-
     // Life cycle method for react which will run when this component receives new properties
     componentDidMount() {
+        const {isAuthenticated} = this.props.authenticatedUser;
+        if(!isAuthenticated)
+            this.props.history.push('/login');
         checkExp();
-        // console.log(this.props.ptProfile.pt_data === null)
-        // console.log(this.props)
         if(this.props.ptProfile.pt_data === null || this.props.clientProfile.client_data === null){
             if(this.props.authenticatedUser.user.pt){
                 this.props.getPtData(this.props.history);

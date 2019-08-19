@@ -9,8 +9,9 @@ import isEmpty from "../../../utilities/is_empty";
 import ErrorComponent from "../../error/ErrorComponent"; // Allows proper routing and linking using browsers match, location, and history properties
 import DisplayMessage from '../../common/DisplayMessage';
 import FormSelectComp from "../../common/FormSelectComp";
-import defaultUserImage from "../../../img/user-regular.svg";
 import checkExp from "../../../utilities/checkExp";
+import {Link} from 'react-router-dom';
+import {ProfileImage} from "../profile/ProfileImage";
 
 class EditPersonalTrainer extends Component {
     // This allows the component states to be updated and re-rendered
@@ -38,15 +39,12 @@ class EditPersonalTrainer extends Component {
                 type: null
             } // Set to null so null is returned from DisplayMessage by default
         };
-
-        // This sets the state value to it's respective state (via binding)
-        this.onChange = this.onChange.bind(this);
-
-        // This binds the onSubmit function to this.OnSubmit
-        this.onSubmit = this.onSubmit.bind(this);
     }
 
     componentDidMount() {
+        const {isAuthenticated} = this.props.authenticatedUser;
+        if(!isAuthenticated)
+            this.props.history.push('/login');
         checkExp();
         if(this.props.ptProfile.pt_data === null){
             this.props.getPtData(this.props.history);
@@ -98,7 +96,7 @@ class EditPersonalTrainer extends Component {
     }
 
     // This captures what the user types and sets the specific input to the respective state variable
-    onChange(event) {
+    onChange = event => {
         this.setState({[event.target.name]: event.target.value});
 
         if(!isEmpty(this.props.errors)){
@@ -108,9 +106,9 @@ class EditPersonalTrainer extends Component {
         if(!isEmpty(this.props.success)){
             this.props.clearSuccess();
         }
-    }
+    };
 
-    onSubmit(event) {
+    onSubmit = event => {
         event.preventDefault();
         this.props.clearSuccess();
 
@@ -178,11 +176,12 @@ class EditPersonalTrainer extends Component {
             // Clear password match errors
             this.props.clearErrors()
         }
-    }
+    };
 
     render() {
         // if loaded is false then return loading screen
-        if (this.props.ptProfile.pt_data === null) {
+        const {pt_data} = this.props.ptProfile;
+        if (pt_data === null) {
             return <Loading myClassName="loading_container"/>
         }
         if(isEmpty(this.props.authenticatedUser.user)){
@@ -198,11 +197,9 @@ class EditPersonalTrainer extends Component {
                             <div className="m-auto col-md-8">
                                 <h1 className=" text-center display-5">Edit Personal Trainer Profile</h1>
                                 <div className="edit_image">
-                                    {(<img
-                                        className = "rounded-circle"
-                                        alt={this.props.ptProfile.pt_data.ProfilePicUrl === "NA" ? "Default user image." : "User profile picture."}
-                                        src = {this.props.ptProfile.pt_data.ProfilePicUrl === "NA" ? defaultUserImage : defaultUserImage}
-                                    />)}
+                                    <Link to={`upload_profile_picture`}>
+                                        <ProfileImage image={pt_data.ProfilePicUrl}/>
+                                    </Link>
                                 </div>
                                 <form autoComplete="off" onSubmit={this.onSubmit}>
                                     {/*// Deals with Chromes password auto complete*/}
@@ -210,7 +207,7 @@ class EditPersonalTrainer extends Component {
                                     <FormInputGroup
                                         myClassName="edit-pt"
                                         name="FullName"
-                                        placeholder={this.props.ptProfile.pt_data.FullName}
+                                        placeholder={pt_data.FullName}
                                         value={this.state.FullName}
                                         type="text"
                                         onChange={this.onChange}
@@ -219,7 +216,7 @@ class EditPersonalTrainer extends Component {
                                     <FormInputGroup
                                         myClassName="edit-pt"
                                         name="Email"
-                                        placeholder={this.props.ptProfile.pt_data.Email}
+                                        placeholder={pt_data.Email}
                                         value={this.state.Email}
                                         type="Email"
                                         onChange={this.onChange}

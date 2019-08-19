@@ -2,12 +2,20 @@ import React, {Component} from 'react';  // Used to create this component
 import PropTypes from 'prop-types'; // Used to document prop types sent to components
 import {connect} from 'react-redux' // Needed when using redux inside a component (connects redux to this component)
 import {withRouter} from 'react-router-dom';
-import isEmpty from '../../utilities/is_empty';
-import Loading from "../../elements/Loading";
-import ErrorComponent from "../error/ErrorComponent";
-import defaultUserImage from '../../img/user-regular.svg';
+import isEmpty from '../../../utilities/is_empty';
+import Loading from "../../../elements/Loading";
+import ErrorComponent from "../../error/ErrorComponent";
+import defaultUserImage from '../../../img/user-regular.svg';
+import {ProfileImage} from "./ProfileImage";
 
 class UserInfo extends Component {
+    constructor(props){
+        super(props);
+        this.state = {
+            ProfilePicUrl: defaultUserImage
+        }
+    }
+
 
     static getAge(dateOfBirth){
         let DOB = new Date(dateOfBirth).getTime();
@@ -17,6 +25,7 @@ class UserInfo extends Component {
     }
 
     render() {
+        const {ProfilePicUrl} = this.props.userData;
         if (this.props.userData === null) {
             return <Loading myClassName="loading_container"/>
         }
@@ -31,11 +40,7 @@ class UserInfo extends Component {
                 // send clients data to client component, and render client component
                 <div className="userInfo-custom">
                     <div className="user_image">
-                        {(<img
-                            className = "rounded-circle"
-                            alt={this.props.userData.ProfilePicUrl === "NA" ? "Default user image." : "User profile picture."}
-                            src = {this.props.userData.ProfilePicUrl === "NA" ? defaultUserImage : defaultUserImage}
-                        />)}
+                        <ProfileImage image={ProfilePicUrl}/>
                     </div>
                     <div className="user_data">
                         <p>Name: <span className="data text-primary">{this.props.userData.FullName}</span></p><br/>
