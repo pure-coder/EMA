@@ -5,8 +5,20 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { logOutUser } from "../../actions/authenticationActions";
 import { withRouter } from 'react-router-dom';
-import {ptGetData, ptGetClients, ptClearProfile} from "../../actions/ptProfileActions";
-import {clientGetData, clientClearProfile} from "../../actions/clientProfileActions";
+import {
+    ptGetData,
+    ptGetClients,
+    ptClearProfile,
+    ptGetClientBodyBio,
+    ptGetClientProgression
+} from "../../actions/ptProfileActions";
+import {
+    clientGetData,
+    clientClearProfile,
+    clientGetProgression,
+    clientGetBodyBio,
+    clientGetProfileNotes
+} from "../../actions/clientProfileActions";
 
 import defaultUserImage from '../../img/user-regular.svg';
 import {ProfileImage} from "../dashboard/profile/ProfileImage";
@@ -53,6 +65,9 @@ class Navigation extends Component {
             }
             else {
                 this.props.clientGetData(this.props.authenticatedUser.user.id, this.props.history);
+                this.props.clientGetProfileNotes(this.props.authenticatedUser.user.id, this.props.history);
+                this.props.clientGetProgression(this.props.authenticatedUser.user.id, this.props.history);
+                this.props.clientGetBodyBio(this.props.authenticatedUser.user.id, this.props.history);
             }
         }
     } // ComponentDidMount
@@ -160,4 +175,15 @@ const stateToProps = (state) => ({
 // connect must be exported with a passed parameter (not direct parameter) of Register this is wrapped with withRouter
 // allowing the functions of the package to be used with the component eg, proper routing, and direct parameters of
 // stateToProps for the 1st parameter and the action which is registerUser as the 2nd parameter
-export default connect(stateToProps, { logOutUser, clientGetData, ptGetData, ptGetClients, ptClearProfile, clientClearProfile })(withRouter(Navigation));
+export default connect(stateToProps, {logOutUser,
+    clientGetData,
+    ptGetData,
+    ptGetClients,
+    ptGetClientBodyBio,
+    ptGetClientProgression,
+    ptClearProfile,
+    clientClearProfile,
+    clientGetProgression,
+    clientGetBodyBio,
+    clientGetProfileNotes
+})(withRouter(Navigation));

@@ -1,7 +1,7 @@
 import axios from 'axios';
 import {
     GET_CLIENT_PROFILE,
-    PROFILE_LOADING,
+    CLIENT_PROFILE_LOADING,
     CLEAR_CLIENT_PROFILE,
     CLIENT_PROGRESSION,
     GET_ERRS,
@@ -24,12 +24,6 @@ export const clientGetData = (clientId, history) => dispatch => {
                 type: GET_CLIENT_PROFILE,
                 payload: result.data
             });
-            if(result.data.ProfilePicUrl !== "NA"){
-                dispatch({
-                    type: UPDATE_PROFILE_PIC_CLIENT,
-                    payload: result.data.ProfilePicUrl
-                });
-            }
         })
         .catch(err => {
             manageErrors(err, dispatch, history);
@@ -38,7 +32,7 @@ export const clientGetData = (clientId, history) => dispatch => {
 
 export const setProfileLoading = () => {
     return {
-        type: PROFILE_LOADING
+        type: CLIENT_PROFILE_LOADING
     }
 };
 

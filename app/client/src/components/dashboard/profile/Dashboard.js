@@ -13,39 +13,27 @@ import UserInfo from "./UserInfo";
 import checkExp from '../../../utilities/checkExp'
 
 class Dashboard extends Component {
-
     // Life cycle method for react which will run when this component receives new properties
     componentDidMount() {
         const {isAuthenticated} = this.props.authenticatedUser;
         if(!isAuthenticated)
             this.props.history.push('/login');
         checkExp();
-        if(this.props.ptProfile.pt_data === null || this.props.clientProfile.client_data === null){
-            if(this.props.authenticatedUser.user.pt){
-                this.props.ptGetData(this.props.history);
-                this.props.ptGetClients(this.props.history);
-            }
-            else {
-                this.props.clientGetData(this.props.authenticatedUser.user.id, this.props.history);
-            }
-        }
         document.body.scrollTo(0,0);
-        this.props.clearErrors();
-        this.props.clearSuccess();
     } // ComponentDidMount
 
     render() {
         let displayContent;
-        const {user} = this.props.authenticatedUser;
+        const {user, isAuthenticated} = this.props.authenticatedUser;
+        const {pt_data, ptLoading, clients} = this.props.ptProfile;
+        const {client_data, clientLoading} = this.props.clientProfile;
 
         if(user.pt){
-            let {pt_data, loading, clients} = this.props.ptProfile;
-
-            if (pt_data === null || loading) {
+            if (pt_data === null || ptLoading) {
                 return <Loading myClassName="loading_container"/>
             }
 
-            if(isEmpty(user)){
+            if(!isAuthenticated){
                 return <ErrorComponent/>
             }
             else {
@@ -64,9 +52,7 @@ class Dashboard extends Component {
             }
         } //if user is pt
         else{
-            const {client_data, loading} = this.props.clientProfile;
-
-            if (client_data === null || loading) {
+            if (client_data === null || clientLoading) {
                 return <Loading myClassName="loading_container"/>
             }
 
@@ -74,15 +60,12 @@ class Dashboard extends Component {
                 return <ErrorComponent/>
             }
             else {
-                if (client_data === null) {
-                    return <Loading myClassName="loading_container"/>
-                }
                 // Define content to display..
                 displayContent = (
                     // send clients data to client component, and render client component
                     <div className="dashboard-custom client">
                         <UserInfo userData={client_data}/>
-                        <ClientData/>
+                        <ClientData clientData={client_data}/>
                     </div>
                 )
             }
@@ -102,9 +85,14 @@ Dashboard.propTypes = {
     authenticatedUser: PropTypes.object.isRequired,
     ptProfile: PropTypes.object.isRequired,
     clientProfile: PropTypes.object.isRequired,
+
+    // PT data
     ptGetClients: PropTypes.func.isRequired,
-    clientGetData: PropTypes.func.isRequired,
     ptGetData: PropTypes.func.isRequired,
+
+    // Client data
+    clientGetData: PropTypes.func.isRequired,
+
     clearSuccess: PropTypes.func.isRequired,
     errors: PropTypes.object.isRequired
 };
@@ -118,4 +106,10 @@ const stateToProps = (state) => ({
     location: state.location
 });
 
-export default connect(stateToProps, {ptGetClients, ptGetData, clientGetData, clearSuccess, clearErrors})(withRouter(Dashboard));
+export default connect(stateToProps, {
+    ptGetClients,
+    ptGetData,
+    clientGetData,
+    clearSuccess,
+    clearErrors
+})(withRouter(Dashboard));

@@ -240,7 +240,9 @@ svg {
     margin-right: 10px;
 }
 
-
+button.dashboard-new-client , button.dashboard-edit-own-profile {
+    font-size: 1.1rem;
+}
 
 .client {
     min-height: 300px

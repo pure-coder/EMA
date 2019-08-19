@@ -2,7 +2,7 @@ import axios from 'axios';
 import 'dhtmlx-scheduler';
 import {
     GET_PT_PROFILE,
-    PROFILE_LOADING,
+    PT_PROFILE_LOADING,
     CLEAR_CURRENT_CLIENT_PROFILE,
     GET_PT_CLIENTS_DATA,
     PT_CLIENT_PROGRESSION,
@@ -74,12 +74,6 @@ export const ptGetData = (history) => dispatch => {
                 type: GET_PT_PROFILE,
                 payload: result.data
             });
-            if(result.data.ProfilePicUrl !== "NA"){
-                dispatch({
-                    type: UPDATE_PROFILE_PIC_PT,
-                    payload: result.data.ProfilePicUrl
-                });
-            }
         })
         .catch(err => {
             manageErrors(err, dispatch, history);
@@ -189,7 +183,7 @@ export const ptDeleteClient = (clientId, history) => dispatch => {
 
 export const ptSetProfileLoading = () => {
     return {
-        type: PROFILE_LOADING
+        type: PT_PROFILE_LOADING
     }
 };
 

@@ -2,7 +2,7 @@ import {
     GET_PT_PROFILE,
     GET_PT_CLIENTS_DATA,
     GET_CURRENT_CLIENT,
-    PROFILE_LOADING,
+    PT_PROFILE_LOADING,
     PT_CLEAR_PROFILE,
     PT_CLIENT_PROGRESSION,
     CLEAR_CLIENT_PROGRESSION,
@@ -23,34 +23,34 @@ const initialState = {
     scheduler: null,
     profile_notes: null,
     body_bio: null,
-    loading: false
+    ptLoading: false
 };
 
 
 export default function(state = initialState, action) {
     switch (action.type) {
-        case PROFILE_LOADING:
+        case PT_PROFILE_LOADING:
             return {
                 ...state,
-                loading: true
+                ptLoading: true
             };
         case GET_PT_PROFILE:
             return {
                 ...state,
                 pt_data: action.payload,
-                loading: false
+                ptLoading: false
             };
         case GET_PT_CLIENTS_DATA:
             return {
                 ...state,
                 clients: action.payload,
-                loading: false
+                ptLoading: false
             };
         case GET_CURRENT_CLIENT:
             return {
                 ...state,
                 current_client: action.payload,
-                loading: false
+                ptLoading: false
             };
         case PT_CLIENT_BODY_BIO:
             return {
