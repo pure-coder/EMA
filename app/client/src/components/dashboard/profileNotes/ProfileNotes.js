@@ -53,9 +53,6 @@ class ProfileNotes extends Component {
             this.props.clearErrors();
             this.props.clearSuccess();
         }
-        else{
-            this.props.clientClearProfileNotes();
-        }
     }
 
     onChange = e => {
