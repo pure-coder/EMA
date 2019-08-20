@@ -34,11 +34,19 @@ class Dashboard extends Component {
     constructor(props){
         super(props);
         this.state = {
-            clientData: props.authenticatedUser.user.pt ? props.ptProfile.current_client : props.clientProfile,
+            clientData: !props.authenticatedUser.user.pt && props.clientProfile,
+            ptData: props.authenticatedUser.user.pt && props.ptProfile,
         };
     }
 
     static getDerivedStateFromProps(prevProps, prevState){
+        if(prevProps.authenticatedUser.user.pt){
+            if(prevProps.ptProfile !== prevState.ptData){
+                return {
+                    ptData: prevProps.ptProfile
+                }
+            }
+        }
         if(prevProps.clientProfile !== prevState.clientData){
             return {
                 clientData: prevProps.clientProfile
@@ -54,16 +62,11 @@ class Dashboard extends Component {
             this.props.history.push('/login');
         checkExp();
         if(this.props.authenticatedUser.user.pt){
-            this.props.ptGetCurrentClient(this.props.match.params.cid);
-            this.props.ptGetClientBodyBio(this.props.match.params.cid);
-            this.props.ptGetClientProgression(this.props.match.params.cid);
-            this.props.ptGetClientProfileNotes(this.props.match.params.cid);
+            this.props.ptGetData(this.props.history);
+            this.props.ptGetClients(this.props.history);
         }
         else{
             this.props.clientGetData(this.props.authenticatedUser.user.id);
-            this.props.clientGetBodyBio(this.props.authenticatedUser.user.id);
-            this.props.clientGetProgression(this.props.authenticatedUser.user.id);
-            this.props.clientGetProfileNotes(this.props.authenticatedUser.user.id);
         }
         document.body.scrollTo(0,0);
     } // ComponentDidMount
@@ -71,28 +74,23 @@ class Dashboard extends Component {
     render() {
         let displayContent;
         const {user, isAuthenticated} = this.props.authenticatedUser;
-        const {pt_data, ptLoading, clients} = this.props.ptProfile;
+        const {ptData} = this.state;
         const {clientData} = this.state;
 
         if(user.pt){
-            if (pt_data === null || ptLoading) {
-                return <Loading myClassName="loading_container"/>
-            }
-
             if(!isAuthenticated){
                 return <ErrorComponent/>
             }
+            if (ptData.pt_data === null || ptData.clients === null || ptData.ptLoading) {
+                return <Loading myClassName="loading_container"/>
+            }
             else {
-                // If user is a PT then display pt dashboard of clients
-                if (pt_data === null || (clients === null)) {
-                    return <Loading myClassName="loading_container"/>
-                }
                 // Define content to display.. in this case the list of clients
                 displayContent = (
                     // send clients data to client component, and render client component
                     <div className="dashboard-custom">
-                        <UserInfo userData={pt_data}/>
-                        <ClientList clients={clients} userData={pt_data}/>
+                        <UserInfo userData={ptData.pt_data}/>
+                        <ClientList ptData={ptData}/>
                     </div>
                 )
             }
@@ -101,7 +99,6 @@ class Dashboard extends Component {
             if (clientData.client_data === null || clientData.clientLoading) {
                 return <Loading myClassName="loading_container"/>
             }
-
             if(isEmpty(user)){
                 return <ErrorComponent/>
             }

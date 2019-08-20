@@ -88,15 +88,8 @@ class ClientProfile extends Component {
     }
 
     render() {
-        const {user, isAuthenticated} = this.props.authenticatedUser;
+        const {isAuthenticated} = this.props.authenticatedUser;
         const {clientData} = this.state;
-
-        // if(user.pt){
-        //     profile_notes = this.props.ptProfile.profile_notes;
-        // }
-        // else{
-        //     profile_notes = this.props.clientProfile.profile_notes;
-        // }
 
         if( clientData.client_data === null ||
             clientData.body_bio === null ||

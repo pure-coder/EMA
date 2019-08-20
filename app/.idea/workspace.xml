@@ -4,13 +4,11 @@
     <bookmark url="file://C:/Learning/clientObjectData.js" description="export {&quot;_id&quot;:&quot;5c2e3454d27ace097420b414&quot;,&quot;FullName..." line="2" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ec8ccf39-8487-4892-a38d-de9c288878a3" name="Default" comment="ClientProfile Clients refactored">
+    <list default="true" id="ec8ccf39-8487-4892-a38d-de9c288878a3" name="Default" comment="Navigator data was persistent after logout using push, re-login with different user used old users profile pic and name before changing it to new user. FIXED with using window.location.href which basically refreshes redux state.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/dashboard/clients/ClientData.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/dashboard/clients/ClientData.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/dashboard/clients/ClientList.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/dashboard/clients/ClientList.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/dashboard/clients/ClientProfile.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/dashboard/clients/ClientProfile.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/dashboard/profile/Dashboard.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/dashboard/profile/Dashboard.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/layout/Navigator.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/layout/Navigator.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/reducers/clientProfileReducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/reducers/clientProfileReducer.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -55,17 +53,17 @@
           <entry key="eslintignore" value="18" />
           <entry key="gitignore" value="22" />
           <entry key="html" value="1117" />
-          <entry key="js" value="232914" />
+          <entry key="js" value="235129" />
           <entry key="json" value="29" />
           <entry key="md" value="150" />
-          <entry key="txt" value="21865" />
+          <entry key="txt" value="22109" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="CSS" value="2793" />
-          <entry key="JavaScript" value="44674" />
-          <entry key="PLAIN_TEXT" value="8848" />
+          <entry key="JavaScript" value="46889" />
+          <entry key="PLAIN_TEXT" value="9092" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -78,7 +76,7 @@
           <entry key="gitignore" value="9" />
           <entry key="html" value="19" />
           <entry key="ico" value="1" />
-          <entry key="js" value="1974" />
+          <entry key="js" value="1977" />
           <entry key="json" value="13" />
           <entry key="map" value="1" />
           <entry key="md" value="4" />
@@ -95,7 +93,7 @@
           <entry key="HTML" value="19" />
           <entry key="Image" value="3" />
           <entry key="JSON" value="14" />
-          <entry key="JavaScript" value="1974" />
+          <entry key="JavaScript" value="1977" />
           <entry key="PLAIN_TEXT" value="21" />
           <entry key="SVG" value="1" />
           <entry key="Scratch" value="1" />
@@ -116,96 +114,14 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/profileNotes/ProfileNotes.js">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/clients/ClientList.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret line="54" column="9" selection-start-line="54" selection-start-column="9" selection-end-line="54" selection-end-column="9" />
-              <folding>
-                <element signature="e#0#39#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/profile/Dashboard.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="357">
-              <caret line="48" selection-start-line="48" selection-end-line="48" />
-              <folding>
-                <element signature="e#278#322#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/clients/ClientData.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="952">
-              <caret line="61" column="87" selection-start-line="61" selection-start-column="87" selection-end-line="61" selection-end-column="87" />
+            <state relative-caret-position="129">
+              <caret line="43" column="6" selection-start-line="43" selection-start-column="6" selection-end-line="43" selection-end-column="6" />
               <folding>
                 <element signature="e#0#36#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/clients/ClientProfile.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="333">
-              <caret line="43" selection-start-line="43" selection-end-line="43" />
-              <folding>
-                <element signature="e#277#321#0" expanded="true" />
-                <element signature="e#1021#1077#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/src/actions/clientProfileActions.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-136">
-              <caret line="7" column="22" lean-forward="true" selection-start-line="7" selection-start-column="22" selection-end-line="7" selection-end-column="22" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/src/reducers/clientProfileReducer.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="612">
-              <caret line="36" column="20" selection-start-line="36" selection-start-column="20" selection-end-line="36" selection-end-column="20" />
-              <folding>
-                <element signature="e#0#286#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/client/src/components/layout/Navigator.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="289">
-              <caret line="86" column="53" selection-start-line="86" selection-start-column="53" selection-end-line="86" selection-end-column="53" />
-              <folding>
-                <element signature="e#0#39#0" expanded="true" />
-                <element signature="e#254#289#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/profile/ProfileImage.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="34">
-              <caret line="2" lean-forward="true" selection-start-line="2" selection-end-line="2" />
-              <folding>
-                <element signature="e#0#25#0" expanded="true" />
+                <element signature="e#221#256#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -344,7 +260,6 @@
         <option value="$PROJECT_DIR$/client/src/components/dashboard/bodyBio/NewBodyProgressForm.js" />
         <option value="$PROJECT_DIR$/client/src/components/dashboard/bodyBio/EditBodyDataProgressForm.js" />
         <option value="$PROJECT_DIR$/client/src/components/dashboard/edit/EditPersonalTrainer.js" />
-        <option value="$PROJECT_DIR$/client/src/components/dashboard/clients/ClientList.js" />
         <option value="$PROJECT_DIR$/client/src/components/dashboard/progression/EditDataProgressForm.js" />
         <option value="$PROJECT_DIR$/client/src/components/dashboard/edit/EditClient.js" />
         <option value="$PROJECT_DIR$/client/src/components/dashboard/profileNotes/ProfileNotes.js" />
@@ -354,10 +269,11 @@
         <option value="$PROJECT_DIR$/client/src/actions/types.js" />
         <option value="$PROJECT_DIR$/client/src/reducers/ptProfileReducer.js" />
         <option value="$PROJECT_DIR$/client/src/components/dashboard/clients/ClientData.js" />
-        <option value="$PROJECT_DIR$/client/src/components/dashboard/clients/ClientProfile.js" />
-        <option value="$PROJECT_DIR$/client/src/components/dashboard/profile/Dashboard.js" />
         <option value="$PROJECT_DIR$/client/src/reducers/clientProfileReducer.js" />
         <option value="$PROJECT_DIR$/client/src/components/layout/Navigator.js" />
+        <option value="$PROJECT_DIR$/client/src/components/dashboard/clients/ClientProfile.js" />
+        <option value="$PROJECT_DIR$/client/src/components/dashboard/profile/Dashboard.js" />
+        <option value="$PROJECT_DIR$/client/src/components/dashboard/clients/ClientList.js" />
       </list>
     </option>
   </component>
@@ -601,14 +517,7 @@
       <workItem from="1565691741200" duration="30487000" />
       <workItem from="1565814825599" duration="34529000" />
       <workItem from="1565849788934" duration="81098000" />
-      <workItem from="1566251293964" duration="2997000" />
-    </task>
-    <task id="LOCAL-00193" summary="DeleteBodyDataProgressForm refactored correctly">
-      <created>1565461284802</created>
-      <option name="number" value="00193" />
-      <option name="presentableId" value="LOCAL-00193" />
-      <option name="project" value="LOCAL" />
-      <updated>1565461284802</updated>
+      <workItem from="1566251293964" duration="12392000" />
     </task>
     <task id="LOCAL-00194" summary="Had to modify BodyBio modal schema as clientId was mistakenly added as an index">
       <created>1565461969831</created>
@@ -946,11 +855,18 @@
       <option name="project" value="LOCAL" />
       <updated>1566229781066</updated>
     </task>
-    <option name="localTasksCounter" value="242" />
+    <task id="LOCAL-00242" summary="Navigator data was persistent after logout using push, re-login with different user used old users profile pic and name before changing it to new user. FIXED with using window.location.href which basically refreshes redux state.">
+      <created>1566254717255</created>
+      <option name="number" value="00242" />
+      <option name="presentableId" value="LOCAL-00242" />
+      <option name="project" value="LOCAL" />
+      <updated>1566254717256</updated>
+    </task>
+    <option name="localTasksCounter" value="243" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="2052678000" />
+    <option name="totallyTimeSpent" value="2062073000" />
   </component>
   <component name="TodoView" selected-index="4">
     <todo-panel id="selected-file">
@@ -968,7 +884,7 @@
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.20758928" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.24943988" />
       <window_info id="Favorites" order="2" side_tool="true" weight="0.32935026" />
-      <window_info anchor="bottom" id="Messages" order="0" sideWeight="0.49813294" visible="true" weight="0.32615384" />
+      <window_info anchor="bottom" id="Messages" order="0" sideWeight="0.49813294" weight="0.32615384" />
       <window_info anchor="bottom" id="Message" order="1" />
       <window_info anchor="bottom" id="Find" order="2" weight="0.32615384" />
       <window_info anchor="bottom" id="Run" order="3" />
@@ -1053,7 +969,6 @@
   <component name="VcsManagerConfiguration">
     <option name="SHOW_DIRTY_RECURSIVELY" value="true" />
     <option name="LIMIT_HISTORY" value="false" />
-    <MESSAGE value="Updating API checks on JWT for access rights" />
     <MESSAGE value="JWT tokens updated, just need to do two more (get/put - personal_trainer)" />
     <MESSAGE value="All JWT check updates complete and working in API." />
     <MESSAGE value="Corrected wrong status response in API for getting pt_clients." />
@@ -1078,7 +993,8 @@
     <MESSAGE value="Removing all binds as refactoring to arrow functions" />
     <MESSAGE value="Initial Actions and reducers refactor done" />
     <MESSAGE value="ClientProfile Clients refactored" />
-    <option name="LAST_COMMIT_MESSAGE" value="ClientProfile Clients refactored" />
+    <MESSAGE value="Navigator data was persistent after logout using push, re-login with different user used old users profile pic and name before changing it to new user. FIXED with using window.location.href which basically refreshes redux state." />
+    <option name="LAST_COMMIT_MESSAGE" value="Navigator data was persistent after logout using push, re-login with different user used old users profile pic and name before changing it to new user. FIXED with using window.location.href which basically refreshes redux state." />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/client/node_modules/react-redux/lib/connect/connect.js">
@@ -1169,13 +1085,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/profile/UserInfo.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="629">
-          <caret line="42" column="58" selection-start-line="42" selection-start-column="58" selection-end-line="42" selection-end-column="58" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/client/src/components/error/ErrorComponent.js">
       <provider selected="true" editor-type-id="text-editor">
         <state>
@@ -1232,6 +1141,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2771">
           <caret line="167" column="54" selection-start-line="167" selection-start-column="54" selection-end-line="167" selection-end-column="54" />
+          <folding>
+            <element signature="e#0#36#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1253,6 +1165,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2771">
           <caret line="167" column="58" selection-start-line="167" selection-start-column="58" selection-end-line="167" selection-end-column="58" />
+          <folding>
+            <element signature="e#0#36#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1353,69 +1268,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/clients/ClientList.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3298">
-          <caret line="193" column="52" selection-start-line="193" selection-start-column="52" selection-end-line="193" selection-end-column="52" />
-          <folding>
-            <element signature="e#0#36#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/client/src/App.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="238">
           <caret line="68" column="76" selection-start-line="68" selection-start-column="76" selection-end-line="68" selection-end-column="76" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/profileNotes/ProfileNotes.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret line="54" column="9" selection-start-line="54" selection-start-column="9" selection-end-line="54" selection-end-column="9" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/profile/Dashboard.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="48" selection-start-line="48" selection-end-line="48" />
-          <folding>
-            <element signature="e#278#322#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/clients/ClientData.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="952">
-          <caret line="61" column="87" selection-start-line="61" selection-start-column="87" selection-end-line="61" selection-end-column="87" />
-          <folding>
-            <element signature="e#0#36#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/actions/clientProfileActions.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-136">
-          <caret line="7" column="22" lean-forward="true" selection-start-line="7" selection-start-column="22" selection-end-line="7" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/reducers/clientProfileReducer.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="612">
-          <caret line="36" column="20" selection-start-line="36" selection-start-column="20" selection-end-line="36" selection-end-column="20" />
-          <folding>
-            <element signature="e#0#286#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1427,17 +1285,6 @@
           <folding>
             <element signature="e#0#26#0" expanded="true" />
             <element signature="e#123#194#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/clients/ClientProfile.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="333">
-          <caret line="43" selection-start-line="43" selection-end-line="43" />
-          <folding>
-            <element signature="e#277#321#0" expanded="true" />
-            <element signature="e#1021#1077#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1466,6 +1313,16 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/clients/ClientData.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="356">
+          <caret line="61" column="87" selection-start-line="61" selection-start-column="87" selection-end-line="61" selection-end-column="87" />
+          <folding>
+            <element signature="e#0#36#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/client/src/components/layout/Navigator.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="289">
@@ -1473,6 +1330,72 @@
           <folding>
             <element signature="e#0#39#0" expanded="true" />
             <element signature="e#254#289#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/reducers/clientProfileReducer.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="612">
+          <caret line="36" column="20" selection-start-line="36" selection-start-column="20" selection-end-line="36" selection-end-column="20" />
+          <folding>
+            <element signature="e#0#286#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/actions/clientProfileActions.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-136">
+          <caret line="7" column="22" lean-forward="true" selection-start-line="7" selection-start-column="22" selection-end-line="7" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/clients/ClientProfile.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="11">
+          <caret line="70" lean-forward="true" selection-start-line="70" selection-end-line="70" />
+          <folding>
+            <element signature="e#277#321#0" expanded="true" />
+            <element signature="e#1021#1077#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/profile/UserInfo.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="30" column="9" lean-forward="true" selection-start-line="30" selection-start-column="9" selection-end-line="30" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/profileNotes/ProfileNotes.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret line="54" column="9" selection-start-line="54" selection-start-column="9" selection-end-line="54" selection-end-column="9" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/profile/Dashboard.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="86" column="18" selection-start-line="86" selection-start-column="18" selection-end-line="86" selection-end-column="18" />
+          <folding>
+            <element signature="e#278#322#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/clients/ClientList.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="129">
+          <caret line="43" column="6" selection-start-line="43" selection-start-column="6" selection-end-line="43" selection-end-column="6" />
+          <folding>
+            <element signature="e#0#36#0" expanded="true" />
+            <element signature="e#221#256#0" expanded="true" />
           </folding>
         </state>
       </provider>
