@@ -20,6 +20,7 @@ const initialState = {
     pt_data: null,
     current_client: null,
     clients: null,
+    client_progression: null,
     scheduler: null,
     profile_notes: null,
     body_bio: null,
@@ -74,11 +75,14 @@ export default function(state = initialState, action) {
             };
         case PT_CLEAR_PROFILE:
             return {
-                ...state,
                 pt_data: null,
                 current_client: null,
                 clients: null,
                 client_progression: null,
+                scheduler: null,
+                profile_notes: null,
+                body_bio: null,
+                ptLoading: false
             };
         case CLEAR_CURRENT_CLIENT_PROFILE:
             return {

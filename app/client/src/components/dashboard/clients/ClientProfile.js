@@ -38,16 +38,26 @@ class ClientProfile extends Component {
     constructor(props){
         super(props);
         this.state = {
-            clientData: props.authenticatedUser.user.pt ? props.ptProfile.current_client : props.clientProfile,
+            clientData: props.authenticatedUser.user.pt ? props.ptProfile : props.clientProfile,
         };
     }
 
     static getDerivedStateFromProps(prevProps, prevState){
-        if(prevProps.clientProfile !== prevState.clientData){
-            return {
-                clientData: prevProps.clientProfile
+        if(prevProps.authenticatedUser.user.pt){
+            if(prevProps.ptProfile !== prevState.clientData){
+                return {
+                    clientData: prevProps.ptProfile
+                }
             }
         }
+        else{
+            if(prevProps.clientProfile !== prevState.clientData){
+                return {
+                    clientData: prevProps.clientProfile
+                }
+            }
+        }
+
         return null
     }
 
@@ -74,10 +84,10 @@ class ClientProfile extends Component {
     componentWillUnmount(){
         // This got rid of the Date: null bug for now, need to find route cause!!!
         if(this.props.authenticatedUser.user.pt){
-            this.props.ptClearCurrentClientProfile(this.props.ptProfile.current_client._id, this.props.history);
-            this.props.ptClearClientProgression(this.props.ptProfile.current_client._id, this.props.history);
-            this.props.ptClearClientBodyBio(this.props.ptProfile.current_client._id, this.props.history);
-            this.props.ptClearClientProfileNotes(this.props.ptProfile.current_client._id, this.props.history);
+            this.props.ptClearCurrentClientProfile(this.props.match.params.cid, this.props.history);
+            this.props.ptClearClientProgression(this.props.match.params.cid, this.props.history);
+            this.props.ptClearClientBodyBio(this.props.match.params.cid, this.props.history);
+            this.props.ptClearClientProfileNotes(this.props.match.params.cid, this.props.history);
         }
         else{
             this.props.clientClearProfile(this.props.authenticatedUser.user.id, this.props.history);
@@ -88,15 +98,26 @@ class ClientProfile extends Component {
     }
 
     render() {
-        const {isAuthenticated} = this.props.authenticatedUser;
+        const {user, isAuthenticated} = this.props.authenticatedUser;
         const {clientData} = this.state;
 
-        if( clientData.client_data === null ||
-            clientData.body_bio === null ||
-            clientData.client_progression === null ||
-            clientData.profile_notes === null ||
-            clientData.clientLoading){
-            return <Loading myClassName="loading_container"/>
+        if(user.pt){
+            if (clientData.current_client === null ||
+                clientData.body_bio === null ||
+                clientData.client_progression === null ||
+                clientData.profile_notes === null ||
+                clientData.ptLoading) {
+                return <Loading myClassName="loading_container"/>
+            }
+        }
+        else {
+            if (clientData.client_data === null ||
+                clientData.body_bio === null ||
+                clientData.client_progression === null ||
+                clientData.profile_notes === null ||
+                clientData.clientLoading) {
+                return <Loading myClassName="loading_container"/>
+            }
         }
         if(!isAuthenticated){
             return <ErrorComponent/>
@@ -105,7 +126,8 @@ class ClientProfile extends Component {
             return (
                 <div className="client-profile">
                     <h1 className=" text-center display-5 mb-3">Client Profile</h1>
-                    <UserInfo userData={clientData.client_data}/> {/* Use data from props.location.state*/}
+                    <UserInfo userData={user.pt ? clientData.current_client
+                        : clientData.client_data}/>
                     <div className="row">
                         <div className="col-sm Profile_margin">
                             <BodyGraphs bodyGraphData={clientData.body_bio}/>
