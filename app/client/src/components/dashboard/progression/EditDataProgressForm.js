@@ -20,28 +20,26 @@ class EditDataProgressForm extends Component {
             edited: false,
             formId : "#"+ props.exerciseName.replace(/\s+/g, '-'),
             errors: {},
-            message: {
-                type: null
-            },
+            message: {},
             progressFormHeight: props.progressFormHeight
         };
     } // constructor
 
     static getDerivedStateFromProps(props, state) {
-        if(props.progressFormHeight !== state.progressFormHeight){
-            return {
-                progressFormHeight: state.progressFormHeight
-            }
-        }
         if (props.visible !== state.visible) {
             return {visible: props.visible}
         }
-        if (isEmpty(props.errors) !== isEmpty(state.errors)){
+        if (state.errors !== state.message){
             return {
-                errors: props.errors
+                message: state.errors
             }
         }
-        if (isEmpty(props.success) !== isEmpty(state.success)) {
+        if (!isEmpty(props.errors) && isEmpty(state.message)){
+            return {
+                message: props.errors
+            }
+        }
+        if (!isEmpty(props.success) && isEmpty(state.message)) {
             return {
                 message: props.success
             }
@@ -91,6 +89,7 @@ class EditDataProgressForm extends Component {
     }
 
     onChange = e => {
+        this.setState({errors: {}});
         const metrics = this.state.metrics;
         const toDelete = this.state.toDelete;
         let id = e.target.id;
@@ -102,17 +101,30 @@ class EditDataProgressForm extends Component {
             return null;
         }
 
+        // Check that valid date is given and is not null
+        if(e.target.name === 'Date'){
+            if(e.target.value === ""){
+                this.setState({errors: {
+                        type: "ERROR",
+                        msg: "A valid date must be entered."
+                    }});
+                return null
+            }
+            else {
+                this.setState({errors: {}});
+            }
+        }
+
         // Make sure maxWeight value does not exceed 3 characters
         if(name === 'maxWeight' && (value.length > 3)){
-            let message = {
+            this.setState({ error: {
                 type: "ERROR",
                 msg: "Max Weight value must be between 0-999!"
-            };
-            this.setState({message});
+            }});
             return null;
         }
         else{
-            this.setState({message: {type: null}}); // reset to null
+            this.setState({message: {}}); // reset to null
         }
 
         // For delete checkbox, check to see if data key exists in delete if un/checked.
@@ -151,26 +163,26 @@ class EditDataProgressForm extends Component {
         this.props.onClickAway();
         // Clear errors once the modal has been exited
         this.props.clearErrors();
-        this.setState({message: {type: null}});
+        this.setState({message: {}});
     };
 
     onSubmit = e => {
         e.preventDefault();
         this.setState({
-            message: {type: null},
+            message: {},
         });
         this.props.clearSuccess();
 
         // Check if any data has been changed, don't want to waste server load and bandwidth on empty requests
         let dataChanged = this.state.edited;
-        let message;
 
         if(!dataChanged){
-            message = {
-                type: "ERROR",
-                msg: "No data has been modified or deleted!"
-            };
-            this.setState({message});
+            this.setState({
+                errors: {
+                    type: "ERROR",
+                    msg: "No data has been modified or deleted!"
+                }
+            });
             return null;
         }
         else{
@@ -202,7 +214,6 @@ class EditDataProgressForm extends Component {
                 this.props.ptEditClientExercise(this.state.clientId, this.props.exerciseId, newMetrics, this.props.history);
 
             }
-
         }
     }; // onSubmit
 
