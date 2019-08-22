@@ -1,6 +1,7 @@
-export default function autocomplete (inp, arr) {
-    /*the autocomplete function takes two arguments,
-    the text field element and an array of possible autocompleted values:*/
+export default function autocomplete (inp, arr){
+
+    // the text field element and an array of possible autocompleted values:*/
+    let remove = document.getElementsByClassName('App')[0];
     let currentFocus;
     // Show whole list of exercises if input field is empty
     if(inp.value.length === 0){
@@ -131,7 +132,8 @@ export default function autocomplete (inp, arr) {
         }
     }
     /*execute a function when someone clicks in the document:*/
-    document.addEventListener("click", function (e) {
+    remove.addEventListener("click", function (e) {
         closeAllLists(e.target);
     });
-};
+}
+

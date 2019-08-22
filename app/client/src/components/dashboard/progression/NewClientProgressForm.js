@@ -3,7 +3,7 @@ import {withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import {ptNewClientProgress, setErrors, clearErrors, clearSuccess} from "../../../actions/ptProfileActions";
-import autocomplete from '../../../utilities/autoComplete';
+import autocomplete, {aValue} from '../../../utilities/autoComplete';
 import FormInputGroup from "../../common/FormInputGroup";
 import DisplayMessage from "../../common/DisplayMessage";
 import isEmpty from "../../../validation/is_empty";
@@ -17,11 +17,9 @@ class NewClientProgressForm extends Component {
             clientId: props.match.params.cid,
             exerciseName: '',
             maxWeight: '',
-            Date: '',
+            progressDate: '',
             visible: false,
-            message: {
-                type: null
-            },
+            message: {},
             errors: {},
             progressFormHeight: props.progressFormHeight,
             exercises : [
@@ -57,20 +55,25 @@ class NewClientProgressForm extends Component {
     } // constructor
 
     static getDerivedStateFromProps(props, state) {
-        if(props.progressFormHeight !== state.progressFormHeight){
-            return {
-                progressFormHeight: state.progressFormHeight
-            }
-        }
         if (props.visible !== state.visible) {
-            return {visible: props.visible}
-        }
-        if (isEmpty(props.errors) !== isEmpty(state.errors)){
+            let defaultDate = new Date(Date.now()).toISOString().substring(0, 10);
             return {
-                errors: props.errors
+                progressDate: defaultDate,
+                visible: props.visible,
+                message: {}
             }
         }
-        if (isEmpty(props.success) !== isEmpty(state.success)) {
+        if (state.errors !== state.message){
+            return {
+                message: state.errors
+            }
+        }
+        if (!isEmpty(props.errors) && isEmpty(state.message)){
+            return {
+                message: props.errors
+            }
+        }
+        if (!isEmpty(props.success) && isEmpty(state.message)) {
             return {
                 message: props.success
             }
@@ -94,60 +97,77 @@ class NewClientProgressForm extends Component {
     // Checking if previous props modal visibility and this states visibility is not equal (stops reacts maximum loop message when
     // setting state) so that fields and errors can be cleared when exiting modal (using onClickAway instead of close button).
     componentDidUpdate(prevProps){
-        if(prevProps.visible !== this.state.visible){
-            this.props.clearErrors();
-            this.props.clearSuccess();
-            this.setState({
-                exerciseName: '',
-                maxWeight: '',
-                Date: '',
-                message: {type: null}
-            });
-        }
-
         if(this.state.progressFormHeight < prevProps.progressFormHeight ){
             let newHeight = this.state.progressFormHeight;
             this.props.modalSize(newHeight.toString())
         }
     }
 
-    onClick = e => {
-        // If input field is for exerciseName, complete the auto list
-        if(e.target.name === 'exerciseName') {
-            this.onLoadList(e);
-            this.setState({message: {type: null}}); // reset to null
-        }
-        // Set success message to empty if re-entering data after a successful previous submission.
-        if(!isEmpty(this.state.success)) {
-            this.props.clearSuccess();
-        }
-    };
+    // onClick(e){
+    //     // If input field is for exerciseName, complete the auto list
+    //     this.onLoadList(e);
+    //     this.setState({
+    //         message: {},
+    //         errors: {}
+    //     }); // reset to null
+    //     // Set success message to empty if re-entering data after a successful previous submission.
+    //     if(!isEmpty(this.state.success)) {
+    //         this.props.clearSuccess();
+    //     }
+    // };
 
     onChange = e => {
+        this.setState({
+            message: {},
+            errors: {}
+        });
         let name = e.target.name;
         let value = e.target.value;
 
+        if(name === 'exerciseName' && isEmpty(value)) {
+            this.onLoadList(e);
+            this.setState({
+                message: {},
+                errors: {}
+            }); // reset to null
+        }
+
         // For maxWeight Check to see if value entered is a number, if not then don't update state and exit function.
         if(name === 'maxWeight' && isNaN(value)){
+            this.setState({
+                errors: {
+                    maxWeight: "Max Weight must be a numerical value between 0-999"
+                }
+            });
+        }
+        else if(name === 'maxWeight' && value.length > 3){
+            this.setState({
+                errors: {
+                    maxWeight: "Max Weight value must be between 0-999"
+                }
+            });
             return null;
         }
 
-        // Make sure maxWeight value does not exceed 3 characters
-        if(name === 'maxWeight' && (value.length > 3)){
-            let message = {
-                type: "ERROR",
-                msg: "Max Weight value must be between 0-999!"
-            };
-            this.setState({message});
-            return null;
-        }
-        else{
-            this.setState({message: {type: null}}); // reset to null
+        let defaultDate = new Date(Date.now()).toISOString().substring(0, 10);
+
+        // Check that valid date is given and is not in future.
+        if(name === 'progressDate'){
+            if(value === "" || (value > defaultDate)){
+                this.setState({
+                    errors: {
+                        progressDate: "A valid date must be entered."
+                    }});
+                return null
+            }
         }
 
-        this.setState({[name]: value});
+        this.setState({
+            [name]: value,
+            message: {},
+            errors: {}
+        });
 
-        this.setState({message: {type: null}}); // reset to null
         if(!isEmpty(this.state.errors)){
             this.props.clearErrors();
         }
@@ -157,72 +177,77 @@ class NewClientProgressForm extends Component {
     };
 
     // When input field is click (Really on clicked)
-    onLoadList(e){
-        // Sort the array, this is then used as argument for autocomplete
+    onLoadList  = e => {
         const exerciseList = this.state.exercises.sort();
-        // e.target and document.getElementById(e.target.id) return the same output, so using former.
-        autocomplete(e.target, exerciseList, this.state);
-    }
+        autocomplete(e.target, exerciseList);
 
-    onClose= () =>{
+    };
+
+    onClose = () =>{
         // The use of onClick with this.props.onClickAway() allows this to call the parents onClickAway (note the use of props)
         this.props.onClickAway();
         // Clear errors once the modal has been exited
         this.props.clearErrors();
-        this.setState({message: {type: null}});
+        this.setState({message: {}});
         // Reset/ Clear input fields once modal has been exited
         this.setState({
             exerciseName: '',
             maxWeight: '',
-            Date: ''
+            progressDate: '',
+            message: {},
+            errors: {}
         });
     };
 
     // This is needed to set the exercise name to state on blur, as can't set state in the autocomplete external function
     onBlur = () =>{
-        let selectedExercise = document.getElementById("exerciseName").value;
-        this.setState({exerciseName: selectedExercise });
+        let selectedBodyPart = document.getElementById("exerciseName").value;
+        this.setState({exerciseName: selectedBodyPart });
     };
 
     onSubmit = e => {
         e.preventDefault();
         this.setState({
-            message: {type: null},
+            message: {},
+            errors: {}
         });
         this.props.clearSuccess();
 
-        let exerciseName = this.state.exerciseName;
+        let {exercises ,exerciseName, maxWeight, progressDate } = this.state;
 
-        // Check if any data has been changed, don't want to waste server load and bandwidth on empty requests
-        let dataChanged = false;
-        let message;
-
-        const clientProgressData = {
-            exerciseName: this.state.exerciseName,
-            metrics: {
-                maxWeight: this.state.maxWeight,
-                Date: new Date(this.state.Date)
-            }
-        };
-
-        // Check to see if data has been entered or modified
-        if(!isEmpty(clientProgressData.exerciseName) || !isEmpty(clientProgressData.metrics.maxWeight) ||
-            !isEmpty(clientProgressData.metrics.Date)){
-                dataChanged = true;
-        }
-
-        if(!dataChanged){
-            message = {
-                type: "ERROR",
-                msg: "No data has been entered or modified!"
-            };
-            this.setState({message});
+        // Check if values have been entered
+        if (!exercises.includes(exerciseName)) {
+            this.setState({
+                errors: {
+                    exerciseName: " Please enter a valid body part."
+                }
+            });
             return null;
         }
-        else if (!this.state.exercises.includes(exerciseName)){
-            this.props.setErrors({exerciseName: "Please select an exercise from those provided!"});
+        else if (isEmpty(maxWeight)){
+            this.setState({
+                errors: {
+                    maxWeight: " Please enter a measurement value."
+                }
+            });
+            return null;
+        }
+        else if(isEmpty(progressDate)){
+            this.setState({
+                errors: {
+                    progressDate: " Please enter a valid date."
+                }
+            });
+            return null;
         }
         else{
+            const clientProgressData = {
+                exerciseName: exerciseName,
+                bodyMetrics: {
+                    maxWeight: maxWeight,
+                    Date: new Date(progressDate)
+                }
+            };
             this.props.clearErrors();
             this.props.ptNewClientProgress(this.state.clientId, clientProgressData, this.props.history);
         }
@@ -231,7 +256,7 @@ class NewClientProgressForm extends Component {
     render() {
         let {errors, message} = this.state;
         return (
-            <div className="ptNewClientProgress">
+            <div className="NewClientProgressForm">
                 <div>
                     <button className="closeButton"  onClick={this.onClose}><i className="fas fa-window-close 2x"></i></button>
                 </div>
@@ -242,14 +267,15 @@ class NewClientProgressForm extends Component {
                         </label>
                         <div className="autocomplete">
                             <FormInputGroup
+                                myClassName="exerciseNameForm"
                                 name="exerciseName"
                                 PlaceHolder="Exercise Name"
                                 value={this.state.exerciseName}
                                 id="exerciseName"
                                 type="text"
                                 onChange={this.onChange}
-                                error={errors.msg}
-                                onClick={this.onClick}
+                                error={errors.exerciseName}
+                                onClick={this.onLoadList}
                                 onBlur={this.onBlur}
                             />
                         </div>
@@ -262,7 +288,6 @@ class NewClientProgressForm extends Component {
                             value={this.state.maxWeight}
                             type="text"
                             onChange={this.onChange}
-                            onClick={this.onClick}
                             error={errors.maxWeight}
                         />
                         <label className="control-label form-control-lg new-progression">
@@ -270,13 +295,12 @@ class NewClientProgressForm extends Component {
                         </label>
                         <FormInputGroup
                             myClassName="progress-date"
-                            name="Date"
+                            name="progressDate"
                             PlaceHolder="Date"
-                            value={this.state.Date}
+                            value={this.state.progressDate}
                             type="Date"
                             onChange={this.onChange}
-                            onClick={this.onClick}
-                            error={errors.Date}
+                            error={errors.Date || errors.progressDate}
                         />
                         <DisplayMessage message={message}/>
                         {/*<div className="valid-feedback">{this.state.success.msg}</div>*/}

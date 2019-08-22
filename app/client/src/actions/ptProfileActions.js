@@ -317,7 +317,7 @@ export const ptWorkoutScheduler = (userId, clientId) => dispatch => {
             }
         })
         .catch(err => {
-            console.log(err)
+            manageErrors(err, dispatch);
         });
 };
 
