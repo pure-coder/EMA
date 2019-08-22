@@ -90,19 +90,6 @@ class NewBodyProgressForm extends Component {
         }
     }
 
-    // onClick(e){
-    //     // If input field is for bodyPart, complete the auto list
-    //     this.onLoadList(e);
-    //     this.setState({
-    //         message: {},
-    //         errors: {}
-    //     }); // reset to null
-    //     // Set success message to empty if re-entering data after a successful previous submission.
-    //     if(!isEmpty(this.state.success)) {
-    //         this.props.clearSuccess();
-    //     }
-    // };
-
     onChange = e => {
         if(!isEmpty(this.state.errors)){
             this.props.clearErrors();
@@ -114,8 +101,7 @@ class NewBodyProgressForm extends Component {
             message: {},
             errors: {}
         });
-        let name = e.target.name;
-        let value = e.target.value;
+        let {name, value} = e.target;
 
         if(name === 'bodyPart' && isEmpty(value)) {
             this.onLoadList(e);
@@ -198,7 +184,8 @@ class NewBodyProgressForm extends Component {
         });
         this.props.clearSuccess();
 
-        let {bodyParts, bodyPart, measurement, progressDate} = this.state;
+        let {bodyParts, bodyPart, measurement, progressDate, clientId} = this.state;
+        let {history} = this.props;
 
         // Check if values have been entered
         if (!bodyParts.includes(bodyPart)) {
@@ -234,12 +221,12 @@ class NewBodyProgressForm extends Component {
                 }
             };
             this.props.clearErrors();
-            this.props.ptNewClientBodyBio(this.state.clientId, clientBodyProgressData, this.props.history);
+            this.props.ptNewClientBodyBio(clientId, clientBodyProgressData, history);
         }
     }; // onSubmit
 
     render() {
-        let {errors, message} = this.state;
+        let {errors, message, bodyPart, measurement, progressDate, measurementMetric} = this.state;
         return (
             <div className="NewBodyProgressForm">
                 <div>
@@ -255,7 +242,7 @@ class NewBodyProgressForm extends Component {
                                 myClassName="bodyPartForm"
                                 name="bodyPart"
                                 PlaceHolder="Body Part"
-                                value={this.state.bodyPart}
+                                value={bodyPart}
                                 id="bodyPart"
                                 type="text"
                                 onChange={this.onChange}
@@ -265,12 +252,12 @@ class NewBodyProgressForm extends Component {
                             />
                         </div>
                         <label className="control-label form-control-lg new-progression">
-                            Measurement {this.state.bodyPart === "Body Weight" ? "(Kg)" : this.state.measurementMetric}:
+                            Measurement {bodyPart === "Body Weight" ? "(Kg)" : measurementMetric}:
                         </label>
                         <FormInputGroup
                             name="measurement"
                             PlaceHolder="Measurement (In)"
-                            value={this.state.measurement}
+                            value={measurement}
                             type="text"
                             onChange={this.onChange}
                             error={errors.measurement}
@@ -282,7 +269,7 @@ class NewBodyProgressForm extends Component {
                             myClassName="progress-date"
                             name="progressDate"
                             PlaceHolder="Date"
-                            value={this.state.progressDate}
+                            value={progressDate}
                             type="Date"
                             onChange={this.onChange}
                             error={errors.Date || errors.progressDate}

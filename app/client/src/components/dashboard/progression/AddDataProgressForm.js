@@ -191,7 +191,7 @@ class AddDataProgressForm extends Component {
     render() {
         let {errors, message} = this.state;
         return (
-            <div className="ptNewClientBodyBio">
+            <div className="AddBodyDataProgressForm">
                 <div>
                     <button className="closeButton"  onClick={this.onClose}><i className="fas fa-window-close 2x"></i></button>
                 </div>

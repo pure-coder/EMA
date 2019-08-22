@@ -90,11 +90,9 @@ class EditDataProgressForm extends Component {
 
     onChange = e => {
         this.setState({errors: {}});
-        const metrics = this.state.metrics;
-        const toDelete = this.state.toDelete;
-        let id = e.target.id;
-        let name = e.target.name;
-        let value = e.target.value;
+        const {metrics, toDelete} = this.state;
+        let {id, name, value} = e.target;
+
 
         // For maxWeight Check to see if value entered is a number, if not then don't update state and exit function.
         if(name === 'maxWeight' && isNaN(value)){
@@ -102,8 +100,8 @@ class EditDataProgressForm extends Component {
         }
 
         // Check that valid date is given and is not null
-        if(e.target.name === 'Date'){
-            if(e.target.value === ""){
+        if(name === 'Date'){
+            if(value === ""){
                 this.setState({errors: {
                         type: "ERROR",
                         msg: "A valid date must be entered."
@@ -187,49 +185,42 @@ class EditDataProgressForm extends Component {
         }
         else{
             this.props.clearErrors();
-            let deleteMetrics = this.state.toDelete;
-            let originalMetrics = this.state.metrics;
+            let {metrics, toDelete, clientId} = this.state;
+            let {exerciseName, history, exerciseId} = this.props;
             let newMetrics = [];
 
-            // Check if all items have been selected for deletion, if so make new empty array and send that to edit function
-            if(originalMetrics.length === deleteMetrics.length){
-                originalMetrics = [];
-            }
-            else{
-                for(let i = 0, len = originalMetrics.length; i < len; i++){
-                    if(!deleteMetrics.includes(originalMetrics[i]._id)){
-                        newMetrics.push(originalMetrics[i]);
-                    }
-                }
-            }
-
-            // Delete whole exercise from client progression (if all checkboxes are ticked, so nothing has been modified)
-            if(isEmpty(originalMetrics)){
-                this.props.ptDeleteExercise(this.state.clientId, this.props.exerciseName, this.props.history);
+            // Check if all items have been selected for deletion, delete whole exercise from client progression
+            if(metrics.length === toDelete.length){
+                this.props.ptDeleteExercise(clientId, exerciseName, history);
                 // Close edit modal there is no data to display.
                 this.onClose();
             }
             // Send new array to overwrite current data for exercise in db for client
             else{
-                this.props.ptEditClientExercise(this.state.clientId, this.props.exerciseId, newMetrics, this.props.history);
-
+                for(let i = 0, len = metrics.length; i < len; i++){
+                    if(!toDelete.includes(metrics[i]._id)){
+                        newMetrics.push(metrics[i]);
+                    }
+                }
+                this.props.ptEditClientExercise(clientId, exerciseId, newMetrics, history);
             }
         }
     }; // onSubmit
 
     render() {
-        let {errors, message} = this.state;
-        let metrics = this.state.metrics;
+        let {errors, message, metrics} = this.state;
+        let {exerciseName} = this.props;
+
         
         return (
             <div className="editClientProgress">
                 <div>
                     <button className="closeButton"  onClick={this.onClose}><i className="fas fa-window-close 2x"></i></button>
                 </div>
-                <div id={this.props.exerciseName.replace(/\s+/g, '-') + "-form"} className="modal-margin">
+                <div id={exerciseName.replace(/\s+/g, '-') + "-form"} className="modal-margin">
                     <form autoComplete="off" onSubmit={this.onSubmit}>
                         <label className="control-label form-control-lg new-progression">
-                            Exercise: {this.props.exerciseName}
+                            Exercise: {exerciseName}
                         </label>
                         <label className="control-label form-control-lg new-progression">
                             Data to be modified or deleted:
@@ -242,14 +233,14 @@ class EditDataProgressForm extends Component {
                                 <th align="center">Delete</th>
                             </tr>
                             {
-                                metrics.map((metric, index) => {
-                                    return ( <tr key={metric._id}>
+                                metrics.map(({Date, maxWeight, _id}, index) => {
+                                    return ( <tr key={_id}>
                                         <td>
                                             < FormInputGroup
                                                 myClassName="edit-exercise"
                                                 name="Date"
                                                 id={index}
-                                                value={metric.Date.toString()}
+                                                value={Date.toString()}
                                                 type="date"
                                                 onChange={this.onChange}
                                                 error={errors.Date}
@@ -260,7 +251,7 @@ class EditDataProgressForm extends Component {
                                                 myClassName="edit-exercise"
                                                 name="maxWeight"
                                                 id={index}
-                                                value={metric.maxWeight.toString()}
+                                                value={maxWeight.toString()}
                                                 type="text"
                                                 onChange={this.onChange}
                                                 error={errors.maxWeight}
@@ -272,7 +263,7 @@ class EditDataProgressForm extends Component {
                                                 name="Delete"
                                                 id={index}
                                                 type="checkbox"
-                                                value={metric._id}
+                                                value={_id}
                                                 onChange={this.onChange}
                                                 error={errors.deleted}
                                             />

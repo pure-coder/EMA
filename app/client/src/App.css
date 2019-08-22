@@ -457,13 +457,13 @@ button.dashboard-new-client , button.dashboard-edit-own-profile {
 }
 /* Enter progress Modal */
 
-.NewClientProgressForm,  .NewBodyProgressForm {
+.NewClientProgressForm,  .NewBodyProgressForm, .AddBodyDataProgressForm {
     width: 450px;
     height: 600px;
     margin: auto;
 }
 
-.NewClientProgressForm .form-group, .NewBodyProgressForm .form-group {
+.NewClientProgressForm .form-group, .NewBodyProgressForm .form-group, .AddBodyDataProgressForm .form-group{
     height: 45px;
     margin-bottom: 22px;
 }

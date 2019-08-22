@@ -27,11 +27,6 @@ class AddBodyDataProgressForm extends Component {
     } // constructor
 
     static getDerivedStateFromProps(props, state) {
-        if(props.progressFormHeight !== state.progressFormHeight){
-            return {
-                progressFormHeight: state.progressFormHeight
-            }
-        }
         if (props.visible !== state.visible) {
             return {visible: props.visible}
         }
@@ -91,8 +86,7 @@ class AddBodyDataProgressForm extends Component {
     }
 
     onChange = e => {
-        let name = e.target.name;
-        let value = e.target.value;
+        let {name, value} = e.target;
 
         // For measurement Check to see if value entered is a number, if not then don't update state and exit function.
         if(name === 'measurement' && isNaN(value)){
@@ -187,24 +181,25 @@ class AddBodyDataProgressForm extends Component {
     }; // onSubmit
 
     render() {
-        let {errors, message} = this.state;
+        let {errors, message, measurement, Date} = this.state;
+        let {bodyPart} = this.props;
         return (
-            <div className="newClientProgress">
+            <div className="AddBodyDataProgressForm">
                 <div>
                     <button className="closeButton"  onClick={this.onClose}><i className="fas fa-window-close 2x"></i></button>
                 </div>
                 <div className="progress-form-div">
                     <form autoComplete="off" onSubmit={this.onSubmit}>
                         <label className="control-label form-control-lg new-progression">
-                            Body Part: {this.props.bodyPart}
+                            Body Part: {bodyPart}
                         </label>
                         <label className="control-label form-control-lg new-progression">
-                            Measurement: {this.props.bodyPart === "Body Weight" ? "(Kg)" : "(In)" }
+                            Measurement: {bodyPart.toString() === "Body Weight" ? "(Kg)" : "(In)" }
                         </label>
                         <FormInputGroup
                             name="measurement"
                             PlaceHolder="Measurement"
-                            value={this.state.measurement}
+                            value={measurement}
                             type="text"
                             onChange={this.onChange}
                             onClick={this.onClick}
@@ -217,7 +212,7 @@ class AddBodyDataProgressForm extends Component {
                             myClassName="progress-date"
                             name="Date"
                             PlaceHolder="Date"
-                            value={this.state.Date}
+                            value={Date}
                             type="Date"
                             onChange={this.onChange}
                             onClick={this.onClick}

@@ -89,8 +89,7 @@ class EditBodyDataProgressForm extends Component {
 
     onChange = e => {
         this.setState({message: {}});
-        const bodyMetrics = this.state.bodyMetrics;
-        const toDelete = this.state.toDelete;
+        const {bodyMetrics, toDelete} = this.state;
         let id = e.target.id;
         let name = e.target.name;
         let value = e.target.value;
@@ -101,8 +100,8 @@ class EditBodyDataProgressForm extends Component {
         }
 
         // Check that valid date is given and is not null
-        if(e.target.name === 'Date'){
-            if(e.target.value === ""){
+        if(name === 'Date'){
+            if(value === ""){
                 this.setState({errors: {
                         type: "ERROR",
                         msg: "A valid date must be entered."
@@ -184,40 +183,31 @@ class EditBodyDataProgressForm extends Component {
         }
         else{
             this.props.clearErrors();
-            let deleteMetrics = this.state.toDelete;
-            let originalMetrics = this.state.bodyMetrics;
+            let {toDelete, bodyMetrics, clientId} = this.state;
+            let {bodyPart, bodyPartId, history} = this.props;
             let newMetrics = [];
 
-            // Check if all items have been selected for deletion, if so make new empty array and send that to edit function
-            if(originalMetrics.length === deleteMetrics.length){
-                originalMetrics = [];
-            }
-            else{
-                for(let i = 0, len = originalMetrics.length; i < len; i++){
-                    if(!deleteMetrics.includes(originalMetrics[i]._id)){
-                        newMetrics.push(originalMetrics[i]);
-                    }
-                }
-            }
-
-            // Delete whole body part from body bio progression (if all checkboxes are ticked, so nothing has been modified)
-            if(isEmpty(originalMetrics)){
-                this.props.ptDeleteBodyPart(this.state.clientId, this.props.bodyPart, this.props.history);
+            // Check if all items have been selected for deletion, if so delete data
+            if(bodyMetrics.length === toDelete.length){
+                this.props.ptDeleteBodyPart(clientId, bodyPart, history);
                 // Close edit modal there is no data to display.
                 this.onClose();
             }
             // Send new array to overwrite current data for bodyPart in db for client
             else{
-                this.props.ptEditClientBodyBio(this.state.clientId, this.props.bodyPartId, newMetrics, this.props.history);
-
+                for(let i = 0, len = bodyMetrics.length; i < len; i++){
+                    if(!toDelete.includes(bodyMetrics[i]._id)){
+                        newMetrics.push(bodyMetrics[i]);
+                    }
+                }
+                this.props.ptEditClientBodyBio(clientId, bodyPartId, newMetrics, history);
             }
-
         }
     }; // onSubmit
 
     render() {
-        let {errors, message} = this.state;
-        let bodyMetrics = this.state.bodyMetrics;
+        let {errors, message, bodyMetrics} = this.state;
+        let {bodyPart} = this.props;
         
         return (
             <div className="editClientProgressBodyPart">
@@ -227,7 +217,7 @@ class EditBodyDataProgressForm extends Component {
                 <div className="progress-form-div">
                     <form autoComplete="off" onSubmit={this.onSubmit}>
                         <label className="control-label form-control-lg new-progression">
-                            Exercise: {this.props.bodyPart}
+                            Exercise: {bodyPart}
                         </label>
                         <label className="control-label form-control-lg new-progression">
                             Data to be modified or deleted:
@@ -240,14 +230,14 @@ class EditBodyDataProgressForm extends Component {
                                 <th align="center">Delete</th>
                             </tr>
                             {
-                                bodyMetrics.map((metric, index) => {
-                                    return ( <tr key={metric._id}>
+                                bodyMetrics.map(({Date, measurement, _id}, index) => {
+                                    return ( <tr key={_id}>
                                         <td>
                                             < FormInputGroup
                                                 myClassName="edit-bodyPart"
                                                 name="Date"
                                                 id={index}
-                                                value={metric.Date.toString()}
+                                                value={Date.toString()}
                                                 type="date"
                                                 onChange={this.onChange}
                                                 error={errors.Date}
@@ -258,7 +248,7 @@ class EditBodyDataProgressForm extends Component {
                                                 myClassName="edit-bodyPart"
                                                 name="measurement"
                                                 id={index}
-                                                value={metric.measurement.toString()}
+                                                value={measurement.toString()}
                                                 type="text"
                                                 onChange={this.onChange}
                                                 error={errors.measurement}
@@ -270,7 +260,7 @@ class EditBodyDataProgressForm extends Component {
                                                 name="Delete"
                                                 id={index}
                                                 type="checkbox"
-                                                value={metric._id}
+                                                value={_id}
                                                 onChange={this.onChange}
                                                 error={errors.deleted}
                                             />

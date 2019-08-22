@@ -103,26 +103,12 @@ class NewClientProgressForm extends Component {
         }
     }
 
-    // onClick(e){
-    //     // If input field is for exerciseName, complete the auto list
-    //     this.onLoadList(e);
-    //     this.setState({
-    //         message: {},
-    //         errors: {}
-    //     }); // reset to null
-    //     // Set success message to empty if re-entering data after a successful previous submission.
-    //     if(!isEmpty(this.state.success)) {
-    //         this.props.clearSuccess();
-    //     }
-    // };
-
     onChange = e => {
         this.setState({
             message: {},
             errors: {}
         });
-        let name = e.target.name;
-        let value = e.target.value;
+        let {name, value} = e.target;
 
         if(name === 'exerciseName' && isEmpty(value)) {
             this.onLoadList(e);
@@ -213,7 +199,8 @@ class NewClientProgressForm extends Component {
         });
         this.props.clearSuccess();
 
-        let {exercises ,exerciseName, maxWeight, progressDate } = this.state;
+        let {exercises ,exerciseName, maxWeight, progressDate, clientId} = this.state;
+        let {history} = this.props;
 
         // Check if values have been entered
         if (!exercises.includes(exerciseName)) {
@@ -249,12 +236,12 @@ class NewClientProgressForm extends Component {
                 }
             };
             this.props.clearErrors();
-            this.props.ptNewClientProgress(this.state.clientId, clientProgressData, this.props.history);
+            this.props.ptNewClientProgress(clientId, clientProgressData, history);
         }
     };// onSubmit
 
     render() {
-        let {errors, message} = this.state;
+        let {errors, message, exerciseName, maxWeight, progressDate} = this.state;
         return (
             <div className="NewClientProgressForm">
                 <div>
@@ -270,7 +257,7 @@ class NewClientProgressForm extends Component {
                                 myClassName="exerciseNameForm"
                                 name="exerciseName"
                                 PlaceHolder="Exercise Name"
-                                value={this.state.exerciseName}
+                                value={exerciseName}
                                 id="exerciseName"
                                 type="text"
                                 onChange={this.onChange}
@@ -285,7 +272,7 @@ class NewClientProgressForm extends Component {
                         <FormInputGroup
                             name="maxWeight"
                             PlaceHolder="Max Weight"
-                            value={this.state.maxWeight}
+                            value={maxWeight}
                             type="text"
                             onChange={this.onChange}
                             error={errors.maxWeight}
@@ -297,7 +284,7 @@ class NewClientProgressForm extends Component {
                             myClassName="progress-date"
                             name="progressDate"
                             PlaceHolder="Date"
-                            value={this.state.progressDate}
+                            value={progressDate}
                             type="Date"
                             onChange={this.onChange}
                             error={errors.Date || errors.progressDate}
