@@ -3,7 +3,7 @@ import {withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import {ptNewClientBodyBio, setErrors, clearErrors, clearSuccess} from "../../../actions/ptProfileActions";
-import autocomplete, {aValue} from '../../../utilities/autoComplete';
+import autocomplete from '../../../utilities/autoComplete';
 import FormInputGroup from "../../common/FormInputGroup";
 import DisplayMessage from "../../common/DisplayMessage";
 import isEmpty from "../../../validation/is_empty";
