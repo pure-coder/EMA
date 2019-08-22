@@ -47,7 +47,8 @@ class NewBodyProgressForm extends Component {
             return {
                 progressDate: defaultDate,
                 visible: props.visible,
-                message: {}
+                message: {},
+                errors: {}
             }
         }
         if (state.errors !== state.message){
@@ -64,6 +65,9 @@ class NewBodyProgressForm extends Component {
             return {
                 message: props.success
             }
+        }
+        if(isEmpty(props.errors)){
+            NewBodyProgressForm.onFocus();
         }
         return null
     }
@@ -175,6 +179,10 @@ class NewBodyProgressForm extends Component {
         let selectedBodyPart = document.getElementById("bodyPart").value;
         this.setState({bodyPart: selectedBodyPart });
     };
+
+    static onFocus(){
+        document.getElementsByName('measurement')[0].focus();
+    }
 
     onSubmit = e => {
         e.preventDefault();

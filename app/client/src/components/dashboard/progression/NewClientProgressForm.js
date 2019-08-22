@@ -78,6 +78,9 @@ class NewClientProgressForm extends Component {
                 message: props.success
             }
         }
+        if(isEmpty(props.errors)){
+            NewClientProgressForm.onFocus();
+        }
         return null
     }
 
@@ -190,6 +193,10 @@ class NewClientProgressForm extends Component {
         let selectedBodyPart = document.getElementById("exerciseName").value;
         this.setState({exerciseName: selectedBodyPart });
     };
+
+    static onFocus(){
+        document.getElementsByName('maxWeight')[0].focus();
+    }
 
     onSubmit = e => {
         e.preventDefault();

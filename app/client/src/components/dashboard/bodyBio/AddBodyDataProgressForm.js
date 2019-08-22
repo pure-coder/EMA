@@ -2,7 +2,12 @@ import React, {Component} from 'react' // React is need for rendering JSX HTML e
 import {withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
-import {ptNewClientBodyBio, setErrors, clearErrors, clearSuccess, ptGetClientBodyBio} from "../../../actions/ptProfileActions";
+import {
+    ptNewClientBodyBio,
+    setErrors,
+    clearErrors,
+    clearSuccess
+} from "../../../actions/ptProfileActions";
 import FormInputGroup from "../../common/FormInputGroup";
 import DisplayMessage from "../../common/DisplayMessage";
 import isEmpty from "../../../validation/is_empty";
@@ -15,30 +20,41 @@ class AddBodyDataProgressForm extends Component {
             userId: props.ids.userId,
             clientId: props.ids.clientId,
             measurement: '',
-            Date: '',
+            progressDate: '',
             visible: false,
             errors: {},
-            success: {},
-            message: {
-                type: null
-            },
+            message: {},
             progressFormHeight: props.progressFormHeight
         };
     } // constructor
 
     static getDerivedStateFromProps(props, state) {
+        //Set default date to today's date, makes sure date is always entered.
         if (props.visible !== state.visible) {
-            return {visible: props.visible}
-        }
-        if (isEmpty(props.errors) !== isEmpty(state.errors)){
+            let defaultDate = new Date(Date.now()).toISOString().substring(0, 10);
             return {
-                errors: props.errors
+                progressDate: defaultDate,
+                visible: props.visible,
+                message: {}
             }
         }
-        if (isEmpty(props.success) !== isEmpty(state.success)) {
+        if (state.errors !== state.message){
+            return {
+                message: state.errors
+            }
+        }
+        if (!isEmpty(props.errors) && isEmpty(state.message)){
+            return {
+                message: props.errors
+            }
+        }
+        if (!isEmpty(props.success) && isEmpty(state.message)) {
             return {
                 message: props.success
             }
+        }
+        if(isEmpty(props.errors)){
+            AddBodyDataProgressForm.onFocus();
         }
         return null
     }
@@ -59,27 +75,11 @@ class AddBodyDataProgressForm extends Component {
     // Checking if previous props modal visibility and this states visibility is not equal (stops reacts maximum loop message when
     // setting state) so that fields and errors can be cleared when exiting modal (using onClickAway instead of close button).
     componentDidUpdate(prevProps){
-        if(prevProps.visible !== this.state.visible){
-            this.setState({
-                measurement: '',
-                Date: ''
-            });
-            this.props.clearErrors();
-            this.props.clearSuccess();
-        }
-
         if(this.state.progressFormHeight > prevProps.progressFormHeight ){
             let newHeight = this.state.progressFormHeight;
             this.props.modalSize(newHeight.toString())
         }
     }
-
-    onClick = () => {
-        // Set success message to empty if re-entering data after a successful previous submission.
-        if(!isEmpty(this.state.success)) {
-            this.props.clearSuccess();
-        }
-    };
 
     static onFocus(){
         document.getElementsByName('measurement')[0].focus();
@@ -88,30 +88,46 @@ class AddBodyDataProgressForm extends Component {
     onChange = e => {
         let {name, value} = e.target;
 
-        // For measurement Check to see if value entered is a number, if not then don't update state and exit function.
+        // Make sure measurement entered is a number and value does not exceed 3 characters if not then don't
+        // update state and exit function
         if(name === 'measurement' && isNaN(value)){
+            this.setState({
+                errors: {
+                    measurement: "Measurement must be a numerical value between 0-999"
+                }
+            });
+            return null;
+        }
+        else if(name === 'measurement' && value.length > 3) {
+            this.setState({
+                errors: {
+                    measurement: "Measurement value must be between 0-999"
+                }
+            });
             return null;
         }
 
-        // Make sure measurement value does not exceed 3 characters
-        if(name === 'measurement' && (value.length > 3)){
-            let message = {
-                type: "ERROR",
-                msg: "Measurement value must be between 0-999!"
-            };
-            this.setState({message});
-            return null;
-        }
-        else{
-            this.setState({message: {type: null}}); // reset to null
+        let defaultDate = new Date(Date.now()).toISOString().substring(0, 10);
+
+        // Check that valid date is given and is not in future.
+        if(name === 'progressDate'){
+            if(value === "" || (value > defaultDate)){
+                this.setState({errors: {
+                        progressDate: "A valid date must be entered."
+                    }});
+                return null
+            }
         }
 
-        this.setState({[name]: value});
+        this.setState({
+            [name]: value,
+            message: {},
+            errors: {}
+        });
 
         if(!isEmpty(this.props.errors)){
             this.props.clearErrors();
         }
-        this.setState({message: {type: null}}); // reset to null
         if(!isEmpty(this.props.success)){
             this.props.clearSuccess();
         }
@@ -122,66 +138,53 @@ class AddBodyDataProgressForm extends Component {
         this.props.onClickAway();
         // Clear errors once the modal has been exited
         this.props.clearErrors();
-        this.setState({message: {type: null}});
+        this.setState({
+            message: {},
+            errors: {}
+        });
         // Reset/ Clear input fields once modal has been exited
-        this.clearFields();
     };
-
-    ptGetClientBodyBio(){
-        this.props.ptGetClientBodyBio(this.state.clientId, this.props.history);
-    }
-
-    clearFields(){
-        this.setState({measurement: ''});
-        this.setState({Date: ''});
-    }
 
     onSubmit = e => {
         e.preventDefault();
         this.setState({
-            message: {type: null},
+            message: {},
         });
         this.props.clearSuccess();
 
-        // Check if any data has been changed, don't want to waste server load and bandwidth on empty requests
-        let dataChanged = false;
-        let message;
+        let {bodyPart, history} = this.props;
+        let {measurement, progressDate, clientId} = this.state;
 
-        const clientBodyProgressData = {
-            bodyPart: this.props.bodyPart,
-            bodyMetrics: {
-                measurement: this.state.measurement,
-                Date: new Date(this.state.Date)
-            }
-        };
-
-        // Check to see if data has been entered or modified
-        if(!isEmpty(clientBodyProgressData.bodyMetrics.measurement) || !isEmpty(clientBodyProgressData.bodyMetrics.Date)){
-                dataChanged = true;
+        if (isEmpty(measurement)){
+            this.setState({
+                errors: {
+                    measurement: " Please enter a measurement value."
+                }
+            });
+            return null;
         }
-
-        if(!dataChanged){
-            message = {
-                type: "ERROR",
-                msg: "No data has been entered or modified!"
-            };
-            this.setState({message});
+        else if(isEmpty(progressDate)){
+            this.setState({
+                errors: {
+                    progressDate: " Please enter a valid date."
+                }
+            });
             return null;
         }
         else{
-            this.props.clearErrors();
-            this.props.ptNewClientBodyBio(this.state.clientId, clientBodyProgressData, this.props.history);
-            // Clear data from fields
-            this.clearFields();
-            // Show data added to database and updated on page in real time
-            this.ptGetClientBodyBio();
-            // Once data is submitted focus on adding new data (via focusing on 1st input element, in this case max weight!)
-            AddBodyDataProgressForm.onFocus();
+            const clientBodyProgressData = {
+                bodyPart: bodyPart,
+                bodyMetrics: {
+                    measurement: measurement,
+                    Date: new Date(progressDate)
+                }
+            };
+            this.props.ptNewClientBodyBio(clientId, clientBodyProgressData, history);
         }
     }; // onSubmit
 
     render() {
-        let {errors, message, measurement, Date} = this.state;
+        let {errors, message, measurement, progressDate} = this.state;
         let {bodyPart} = this.props;
         return (
             <div className="AddBodyDataProgressForm">
@@ -210,13 +213,13 @@ class AddBodyDataProgressForm extends Component {
                         </label>
                         <FormInputGroup
                             myClassName="progress-date"
-                            name="Date"
+                            name="progressDate"
                             PlaceHolder="Date"
-                            value={Date}
+                            value={progressDate}
                             type="Date"
                             onChange={this.onChange}
                             onClick={this.onClick}
-                            error={errors.Date}
+                            error={errors.Date || errors.progressDate}
                         />
                         <DisplayMessage message={message}/>
                         {/*<div className="valid-feedback">{this.state.success.msg}</div>*/}
@@ -236,7 +239,6 @@ AddBodyDataProgressForm.propTypes = {
     setErrors: PropTypes.func.isRequired,
     clearSuccess: PropTypes.func.isRequired,
     clearErrors: PropTypes.func.isRequired,
-    ptGetClientBodyBio: PropTypes.func.isRequired,
     errors: PropTypes.object.isRequired,
     success: PropTypes.object.isRequired
 };
@@ -247,4 +249,4 @@ const stateToProps = (state) => ({
 });
 
 
-export default connect(stateToProps, {ptNewClientBodyBio, setErrors, clearErrors, clearSuccess, ptGetClientBodyBio})(withRouter(AddBodyDataProgressForm));
+export default connect(stateToProps, {ptNewClientBodyBio, setErrors, clearErrors, clearSuccess})(withRouter(AddBodyDataProgressForm));
