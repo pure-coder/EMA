@@ -1164,6 +1164,85 @@ router.post('/upload_profile_pic',  upload.single('profilePicture') ,passport.au
 
 }); // router put /upload_profile_pic
 
+// @route  DELETE api/delete_personal_trainer
+// @desc   Delete personal trainer account and all related client accounts (along with their progression, events, etc)  from db
+// @access Private for PT's - PT's can only delete their account and related clients
+router.delete('/delete_personal_trainer', passport.authenticate('pt_rule', {session: false}, null), (req, res) =>{
+
+    let token = req.headers.authorization.split(' ')[1];
+    let payload = jwt.decode(token, keys.secretOrKey);
+    let signedInId = payload.id;
+
+    // Check to see if personal trainer exists
+    PersonalTrainer.findOne({_id: signedInId})
+        .then(result => {
+            if(result) {
+                const clientsArray = result.ClientIDs;
+
+                // Clients exist then remove them
+                if(!isEmpty(clientsArray)){
+                    // For each that removes all clients that were in clientsArray
+                    Client.deleteMany({_id: {$in: clientsArray}})
+                        .then(result => {
+                            
+                        })
+                        // Client.remove
+                        .catch(err => {
+                            res.status(400).json(err)
+                        });
+                    ClientProgression.deleteMany({clientId: {$in: clientsArray}})
+                        .then(() => {
+                                // res.status(200).json("Client deleted successfully")
+                            }
+                        )
+                        .catch(() => {
+                            // console.log("error deleting client progress")
+                        });
+                    Events.deleteMany({clientId: {$in: clientsArray}})
+                        .then(() => {
+                                // res.status(200).json("Client deleted successfully")
+                                // console.log( "Events deleted for user: " + client.FullName + " ", events)
+                            }
+                        )
+                        // Events.deleteMany
+                        .catch(() => {
+                            // console.log("error deleting client progress")
+                        });
+                    BodyBio.deleteMany({clientId: {$in: clientsArray}})
+                        .then(() => {
+                                // res.status(200).json("Client deleted successfully")
+                                // console.log( "Events deleted for user: " + client.FullName + " ", events)
+                            }
+                        )
+                        // Events.deleteMany
+                        .catch(err => {
+                            res.status(400).json(err)
+                        });
+                    ProfileNotes.deleteMany({clientId: {$in: clientsArray}})
+                        .then(() => {
+                                // res.status(200).json("Client deleted successfully")
+                                // console.log( "Events deleted for user: " + client.FullName + " ", events)
+                            }
+                        )
+                        // Events.deleteMany
+                        .catch(err => {
+                            res.status(400).json(err)
+                        });
+                }
+            }
+            PersonalTrainer.deleteMany({_id: signedInId})
+                .then(()=>{
+                    res.status(200).json("Personal trainer deleted along with associated clients.");
+                })
+                .catch(()=>{
+                    res.status(400).json("Personal trainer account could not be deleted.");
+                });
+        })
+        .catch(() => {
+            res.status(400).json({msg: "Personal trainer not found!"});
+        })
+}); // router delete /delete_personal_trainer
+
 
 //Export router so it can work with the main restful api server
     module.exports = router;

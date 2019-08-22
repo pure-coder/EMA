@@ -4,9 +4,11 @@
     <bookmark url="file://C:/Learning/clientObjectData.js" description="export {&quot;_id&quot;:&quot;5c2e3454d27ace097420b414&quot;,&quot;FullName..." line="2" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ec8ccf39-8487-4892-a38d-de9c288878a3" name="Default" comment="Changed CCS background-size to cover.">
+    <list default="true" id="ec8ccf39-8487-4892-a38d-de9c288878a3" name="Default" comment="Changed CCS background-size to cover.&#10;CSS changed for buttons on graph better aligned.&#10;Register, edit CSS changed to align DOB and Gender.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/App.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/actions/authenticationActions.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/actions/authenticationActions.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/dashboard/progression/AddDataProgressForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/dashboard/progression/AddDataProgressForm.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/users.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/users.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -51,30 +53,30 @@
           <entry key="eslintignore" value="18" />
           <entry key="gitignore" value="22" />
           <entry key="html" value="1117" />
-          <entry key="js" value="244598" />
+          <entry key="js" value="245594" />
           <entry key="json" value="29" />
           <entry key="md" value="150" />
-          <entry key="txt" value="23512" />
+          <entry key="txt" value="23626" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="CSS" value="3107" />
-          <entry key="JavaScript" value="56358" />
-          <entry key="PLAIN_TEXT" value="10495" />
+          <entry key="JavaScript" value="57354" />
+          <entry key="PLAIN_TEXT" value="10609" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="Local" value="1" />
-          <entry key="bson" value="1" />
+          <entry key="bson" value="2" />
           <entry key="css" value="110" />
           <entry key="editorConfig" value="2" />
           <entry key="eslintignore" value="3" />
           <entry key="gitignore" value="9" />
           <entry key="html" value="19" />
           <entry key="ico" value="1" />
-          <entry key="js" value="2049" />
+          <entry key="js" value="2053" />
           <entry key="json" value="13" />
           <entry key="map" value="1" />
           <entry key="md" value="4" />
@@ -90,8 +92,8 @@
           <entry key="CSS" value="110" />
           <entry key="HTML" value="19" />
           <entry key="Image" value="3" />
-          <entry key="JSON" value="14" />
-          <entry key="JavaScript" value="2049" />
+          <entry key="JSON" value="15" />
+          <entry key="JavaScript" value="2053" />
           <entry key="PLAIN_TEXT" value="21" />
           <entry key="SVG" value="1" />
           <entry key="Scratch" value="1" />
@@ -113,22 +115,35 @@
   <component name="FileEditorManager">
     <leaf>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/progression/AddDataProgressForm.js">
+        <entry file="file://$PROJECT_DIR$/routes/users.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="212">
-              <caret line="84" column="19" selection-start-line="84" selection-start-column="19" selection-end-line="84" selection-end-column="19" />
-              <folding>
-                <element signature="e#109#153#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="78">
+              <caret line="1175" column="46" selection-start-line="1175" selection-start-column="46" selection-end-line="1175" selection-end-column="46" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/client/src/App.css">
+        <entry file="file://$PROJECT_DIR$/client/src/actions/authenticationActions.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="190">
-              <caret line="252" column="23" lean-forward="true" selection-start-line="252" selection-start-column="23" selection-end-line="252" selection-end-column="23" />
+            <state relative-caret-position="221">
+              <caret line="31" column="38" selection-start-line="31" selection-start-column="38" selection-end-line="31" selection-end-column="38" />
+              <folding>
+                <element signature="e#0#26#0" expanded="true" />
+                <element signature="e#123#194#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/client/src/actions/ptProfileActions.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="17">
+              <caret line="382" column="49" selection-start-line="382" selection-start-column="49" selection-end-line="382" selection-end-column="49" />
+              <folding>
+                <element signature="e#0#26#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -145,9 +160,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>newClientProgress</find>
-      <find>newClientBodyBio</find>
-      <find>editClientBodyBio</find>
       <find>getClientData</find>
       <find>editPtData</find>
       <find>pDeleteClient</find>
@@ -175,9 +187,11 @@
       <find>profile_notes</find>
       <find>Prog</find>
       <find>gender</find>
+      <find>edit-profile</find>
+      <find>delete</find>
+      <find>remove</find>
     </findStrings>
     <replaceStrings>
-      <replace>let</replace>
       <replace>saveProfilePicPt</replace>
       <replace>success</replace>
       <replace>= event =&gt;</replace>
@@ -207,6 +221,7 @@
       <replace>maxWeight</replace>
       <replace>toDelete</replace>
       <replace>exerciseName</replace>
+      <replace>deleteMany</replace>
     </replaceStrings>
     <dirStrings>
       <dir>C:\TM470\app\client\src\components</dir>
@@ -266,20 +281,20 @@
         <option value="$PROJECT_DIR$/client/src/reducers/ptProfileReducer.js" />
         <option value="$PROJECT_DIR$/client/src/components/dashboard/clients/ClientProfile.js" />
         <option value="$PROJECT_DIR$/validation/newBody.js" />
-        <option value="$PROJECT_DIR$/routes/users.js" />
         <option value="$PROJECT_DIR$/routes/authorisation.js" />
         <option value="$PROJECT_DIR$/client/src/actions/ptProfileActions.js" />
         <option value="$PROJECT_DIR$/client/src/components/common/FormInputGroup.js" />
         <option value="$PROJECT_DIR$/client/src/utilities/autoComplete.js" />
-        <option value="$PROJECT_DIR$/client/src/actions/authenticationActions.js" />
         <option value="$PROJECT_DIR$/validation/newProgress.js" />
         <option value="$PROJECT_DIR$/client/src/components/dashboard/bodyBio/EditBodyDataProgressForm.js" />
         <option value="$PROJECT_DIR$/client/src/components/dashboard/progression/EditDataProgressForm.js" />
         <option value="$PROJECT_DIR$/client/src/components/dashboard/progression/NewClientProgressForm.js" />
         <option value="$PROJECT_DIR$/client/src/components/dashboard/bodyBio/NewBodyProgressForm.js" />
         <option value="$PROJECT_DIR$/client/src/components/dashboard/bodyBio/AddBodyDataProgressForm.js" />
-        <option value="$PROJECT_DIR$/client/src/components/dashboard/progression/AddDataProgressForm.js" />
         <option value="$PROJECT_DIR$/client/src/App.css" />
+        <option value="$PROJECT_DIR$/client/src/components/dashboard/progression/AddDataProgressForm.js" />
+        <option value="$PROJECT_DIR$/routes/users.js" />
+        <option value="$PROJECT_DIR$/client/src/actions/authenticationActions.js" />
       </list>
     </option>
   </component>
@@ -380,6 +395,11 @@
               <item name="components" type="462c0819:PsiDirectoryNode" />
               <item name="dashboard" type="462c0819:PsiDirectoryNode" />
               <item name="progression" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="app" type="b2602c69:ProjectViewProjectNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="routes" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="app" type="b2602c69:ProjectViewProjectNode" />
@@ -513,14 +533,7 @@
       <workItem from="1565691741200" duration="30487000" />
       <workItem from="1565814825599" duration="34529000" />
       <workItem from="1565849788934" duration="81098000" />
-      <workItem from="1566251293964" duration="84711000" />
-    </task>
-    <task id="LOCAL-00201" summary="CSS changes to edit client/pt and register forms.">
-      <created>1565534032226</created>
-      <option name="number" value="00201" />
-      <option name="presentableId" value="LOCAL-00201" />
-      <option name="project" value="LOCAL" />
-      <updated>1565534032226</updated>
+      <workItem from="1566251293964" duration="92410000" />
     </task>
     <task id="LOCAL-00202" summary="CSS changes to edit client/pt and register forms.">
       <created>1565534585733</created>
@@ -858,11 +871,18 @@
       <option name="project" value="LOCAL" />
       <updated>1566480969845</updated>
     </task>
-    <option name="localTasksCounter" value="250" />
+    <task id="LOCAL-00250" summary="Changed CCS background-size to cover.&#10;CSS changed for buttons on graph better aligned.&#10;Register, edit CSS changed to align DOB and Gender.">
+      <created>1566488949797</created>
+      <option name="number" value="00250" />
+      <option name="presentableId" value="LOCAL-00250" />
+      <option name="project" value="LOCAL" />
+      <updated>1566488949797</updated>
+    </task>
+    <option name="localTasksCounter" value="251" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="2134392000" />
+    <option name="totallyTimeSpent" value="2142091000" />
   </component>
   <component name="TodoView" selected-index="4">
     <todo-panel id="selected-file">
@@ -889,7 +909,7 @@
       <window_info anchor="bottom" id="Inspection" order="6" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="7" weight="0.3276923" />
       <window_info anchor="bottom" id="Docker" order="8" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Terminal" order="9" sideWeight="0.49776787" weight="0.36153847" />
+      <window_info anchor="bottom" id="Terminal" order="9" sideWeight="0.49776787" visible="true" weight="0.36153847" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.50223213" side_tool="true" weight="0.1923077" />
       <window_info anchor="bottom" id="Version Control" order="11" sideWeight="0.6152815" weight="0.5353846" />
       <window_info anchor="bottom" id="Inspection Results" order="12" weight="0.3276923" />
@@ -1036,7 +1056,6 @@
   <component name="VcsManagerConfiguration">
     <option name="SHOW_DIRTY_RECURSIVELY" value="true" />
     <option name="LIMIT_HISTORY" value="false" />
-    <MESSAGE value="as blob" />
     <MESSAGE value="Profile image upload working!" />
     <MESSAGE value="Adding link to profile picture upload component." />
     <MESSAGE value="Creating better file upload for profile picture" />
@@ -1061,16 +1080,10 @@
     <MESSAGE value="NewBodyProgressForm and NewClientProgressForm working properly, can to fix autocomplete bug for both." />
     <MESSAGE value="Destructured variable in Progression and BodyBio components" />
     <MESSAGE value="Add body/progress forms for progressions refactored.&#10;Added focus to respective data entry fields for New body/progress forms when data is successfully added." />
-    <option name="LAST_COMMIT_MESSAGE" value="Add body/progress forms for progressions refactored.&#10;Added focus to respective data entry fields for New body/progress forms when data is successfully added." />
+    <MESSAGE value="Changed CCS background-size to cover.&#10;CSS changed for buttons on graph better aligned.&#10;Register, edit CSS changed to align DOB and Gender." />
+    <option name="LAST_COMMIT_MESSAGE" value="Changed CCS background-size to cover.&#10;CSS changed for buttons on graph better aligned.&#10;Register, edit CSS changed to align DOB and Gender." />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/client/src/components/authentication/RegisterClient.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="177">
-          <caret line="84" column="6" selection-start-line="84" selection-start-column="6" selection-end-line="84" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/client/src/components/authentication/Register.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="143">
@@ -1373,16 +1386,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/actions/ptProfileActions.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret line="382" column="49" selection-start-line="382" selection-start-column="49" selection-end-line="382" selection-end-column="49" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/client/src/components/common/FormInputGroup.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="319">
@@ -1394,24 +1397,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state>
           <caret column="38" selection-start-column="38" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/actions/authenticationActions.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="22" column="8" selection-start-line="22" selection-start-column="8" selection-end-line="22" selection-end-column="8" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-            <element signature="e#123#194#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/routes/users.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="22" column="6" selection-start-line="22" selection-start-column="6" selection-end-line="22" selection-end-column="30" />
         </state>
       </provider>
     </entry>
@@ -1472,20 +1457,55 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/App.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="190">
+          <caret line="252" column="23" lean-forward="true" selection-start-line="252" selection-start-column="23" selection-end-line="252" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/progression/AddDataProgressForm.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="212">
-          <caret line="84" column="19" selection-start-line="84" selection-start-column="19" selection-end-line="84" selection-end-column="19" />
+        <state relative-caret-position="348">
+          <caret line="83" lean-forward="true" selection-start-line="83" selection-end-line="83" />
           <folding>
             <element signature="e#109#153#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/App.css">
+    <entry file="file://$USER_HOME$/fitness_app/newest/7/dump/fitness_app/ProfileNotes.bson">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="190">
-          <caret line="252" column="23" lean-forward="true" selection-start-line="252" selection-start-column="23" selection-end-line="252" selection-end-column="23" />
+        <state relative-caret-position="68">
+          <caret column="688" lean-forward="true" selection-start-column="688" selection-end-column="688" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/users.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="78">
+          <caret line="1175" column="46" selection-start-line="1175" selection-start-column="46" selection-end-line="1175" selection-end-column="46" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/actions/ptProfileActions.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="382" column="49" selection-start-line="382" selection-start-column="49" selection-end-line="382" selection-end-column="49" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/actions/authenticationActions.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="31" column="38" selection-start-line="31" selection-start-column="38" selection-end-line="31" selection-end-column="38" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+            <element signature="e#123#194#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

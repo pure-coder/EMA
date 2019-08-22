@@ -20,11 +20,17 @@ export const manageErrors = (err, dispatch, history) => {
         });
         dispatch(logOutUser());
         dispatch(clearErrors());
-        window.location.href = '/re-login';
+        history.push('/re-login');
     }
     // If used direct url, and id doesn't exist send user to error page (404 - Not Found)
     else if (err.response.status === 404){
         history.replace('/error_page');
+    }
+    else if (err.response.status === 400){
+        dispatch({
+            type: GET_ERRS,
+            payload: err.response.data
+        });
     }
     else {
         dispatch(setErrors(err.response.data.msg));

@@ -82,7 +82,8 @@ class AddDataProgressForm extends Component {
         }
     }
 
-    static onFocus(){
+    static onFocus(
+    ){
         document.getElementsByName('maxWeight')[0].focus();
     }
 
