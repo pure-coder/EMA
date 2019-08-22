@@ -1,7 +1,7 @@
 import axios from 'axios';
 import {
     GET_CLIENT_PROFILE,
-    PROFILE_LOADING,
+    CLIENT_PROFILE_LOADING,
     CLEAR_CLIENT_PROFILE,
     CLIENT_PROGRESSION,
     GET_ERRS,
@@ -9,12 +9,13 @@ import {
     CLEAR_PROFILE_NOTES,
     BODY_BIO_CLIENT,
     CLEAR_BODY_BIO_CLIENT,
-    UPDATE_PROFILE_PIC_CLIENT
+    UPDATE_PROFILE_PIC_CLIENT,
+    CLEAR_CLIENT_PROGRESSION
 } from "./types"; // import custom defined types
 import {manageErrors} from "./authenticationActions";
 import {setSuccess} from "./ptProfileActions";
 
-export const getClientData = (clientId, history) => dispatch => {
+export const clientGetData = (clientId, history) => dispatch => {
     dispatch(setProfileLoading());
     axios
         .get(`/api/client/${clientId}`)
@@ -23,34 +24,20 @@ export const getClientData = (clientId, history) => dispatch => {
                 type: GET_CLIENT_PROFILE,
                 payload: result.data
             });
-            if(result.data.ProfilePicUrl !== "NA"){
-                dispatch({
-                    type: UPDATE_PROFILE_PIC_CLIENT,
-                    payload: result.data.ProfilePicUrl
-                });
-            }
         })
         .catch(err => {
             manageErrors(err, dispatch, history);
         });
 };
 
-
-
 export const setProfileLoading = () => {
     return {
-        type: PROFILE_LOADING
-    }
-};
-
-export const clearClientProfile = () => {
-    return {
-        type: CLEAR_CLIENT_PROFILE
+        type: CLIENT_PROFILE_LOADING
     }
 };
 
 // Get pt Clients profile notes
-export const getProfileNotes = (clientId, history) => dispatch => {
+export const clientGetProfileNotes = (clientId, history) => dispatch => {
     axios
         .get(`/api/profile_notes/${clientId}`)
         .then(result => {
@@ -68,13 +55,7 @@ export const getProfileNotes = (clientId, history) => dispatch => {
         })
 };
 
-export const clearProfileNotes = () => dispatch => {
-    dispatch({
-        type: CLEAR_PROFILE_NOTES
-    })
-};
-
-export const getBodyBioClient = (clientId, history) => dispatch => {
+export const clientGetBodyBio = (clientId, history) => dispatch => {
     // userId can either be same as clientId or the id of the personal trainer
     axios.get(`/api/body_bio/${clientId}` ) // using grave accent instead of single quote
         .then(result => {
@@ -88,13 +69,7 @@ export const getBodyBioClient = (clientId, history) => dispatch => {
         });
 };
 
-export const clearBodyBioClient = () => dispatch => {
-    dispatch({
-        type: CLEAR_BODY_BIO_CLIENT
-    });
-};
-
-export const getClientProgression = (clientId, history) => dispatch => {
+export const clientGetProgression = (clientId, history) => dispatch => {
     // userId can either be same as clientId or the id of the personal trainer
     axios.get(`/api/client_progression/${clientId}` ) // using grave accent instead of single quote
         .then(result => {
@@ -108,14 +83,7 @@ export const getClientProgression = (clientId, history) => dispatch => {
         });
 };
 
-export const clearErrors = () => dispatch => {
-    dispatch({
-        type: GET_ERRS,
-        payload: {}
-    })
-};
-
-export const saveProfilePicClient = (data, image, history) => dispatch => {
+export const clientSaveProfilePic = (data, image, history) => dispatch => {
     const formData = new FormData();
     formData.append('profilePicture', data, 'filename.png');
     axios.post(`/api/upload_profile_pic`, formData)
@@ -130,4 +98,38 @@ export const saveProfilePicClient = (data, image, history) => dispatch => {
         .catch(err => {
             manageErrors(err, dispatch, history);
         });
+};
+
+
+/* Clear */
+
+export const clientClearProfile = () => {
+    return {
+        type: CLEAR_CLIENT_PROFILE
+    }
+};
+
+export const clientClearBodyBio = () => dispatch => {
+    dispatch({
+        type: CLEAR_BODY_BIO_CLIENT
+    });
+};
+
+export const clientClearProgression = () => dispatch => {
+    dispatch({
+        type: CLEAR_CLIENT_PROGRESSION
+    });
+};
+
+export const clientClearProfileNotes = () => dispatch => {
+    dispatch({
+        type: CLEAR_PROFILE_NOTES
+    })
+};
+
+export const clearErrors = () => dispatch => {
+    dispatch({
+        type: GET_ERRS,
+        payload: {}
+    })
 };

@@ -2,8 +2,26 @@ import React, {Component} from 'react';  // Used to create this component
 import PropTypes from 'prop-types'; // Used to document prop types sent to components
 import {connect} from 'react-redux'; // Needed when using redux inside a component (connects redux to this component)
 import {withRouter} from 'react-router-dom';
-import {getClients, getPtData, clearErrors, clearSuccess} from "../../../actions/ptProfileActions";
-import {getClientData} from "../../../actions/clientProfileActions";
+import {
+    ptGetClients,
+    ptGetData,
+    clearErrors,
+    clearSuccess,
+    ptClearCurrentClientProfile,
+    ptClearClientProgression,
+    ptClearClientBodyBio,
+    ptClearClientProfileNotes,
+} from "../../../actions/ptProfileActions";
+import {
+    clientGetData,
+    clientGetProgression,
+    clientGetBodyBio,
+    clientGetProfileNotes,
+    clientClearProfile,
+    clientClearProgression,
+    clientClearBodyBio,
+    clientClearProfileNotes,
+} from "../../../actions/clientProfileActions";
 import ClientList from '../clients/ClientList'
 import Loading from "../../../elements/Loading";
 import ClientData from "../clients/ClientData";
@@ -13,6 +31,29 @@ import UserInfo from "./UserInfo";
 import checkExp from '../../../utilities/checkExp'
 
 class Dashboard extends Component {
+    constructor(props){
+        super(props);
+        this.state = {
+            clientData: !props.authenticatedUser.user.pt && props.clientProfile,
+            ptData: props.authenticatedUser.user.pt && props.ptProfile,
+        };
+    }
+
+    static getDerivedStateFromProps(prevProps, prevState){
+        if(prevProps.authenticatedUser.user.pt){
+            if(prevProps.ptProfile !== prevState.ptData){
+                return {
+                    ptData: prevProps.ptProfile
+                }
+            }
+        }
+        if(prevProps.clientProfile !== prevState.clientData){
+            return {
+                clientData: prevProps.clientProfile
+            }
+        }
+        return null
+    }
 
     // Life cycle method for react which will run when this component receives new properties
     componentDidMount() {
@@ -20,69 +61,54 @@ class Dashboard extends Component {
         if(!isAuthenticated)
             this.props.history.push('/login');
         checkExp();
-        if(this.props.ptProfile.pt_data === null || this.props.clientProfile.client_data === null){
-            if(this.props.authenticatedUser.user.pt){
-                this.props.getPtData(this.props.history);
-                this.props.getClients(this.props.history);
-            }
-            else {
-                this.props.getClientData(this.props.authenticatedUser.user.id, this.props.history);
-            }
+        if(this.props.authenticatedUser.user.pt){
+            this.props.ptGetData(this.props.history);
+            this.props.ptGetClients(this.props.history);
+        }
+        else{
+            this.props.clientGetData(this.props.authenticatedUser.user.id);
         }
         document.body.scrollTo(0,0);
-        this.props.clearErrors();
-        this.props.clearSuccess();
     } // ComponentDidMount
 
     render() {
         let displayContent;
-        const {user} = this.props.authenticatedUser;
+        const {user, isAuthenticated} = this.props.authenticatedUser;
+        const {ptData} = this.state;
+        const {clientData} = this.state;
 
         if(user.pt){
-            let {pt_data, loading, clients} = this.props.ptProfile;
-
-            if (pt_data === null || loading) {
-                return <Loading myClassName="loading_container"/>
-            }
-
-            if(isEmpty(user)){
+            if(!isAuthenticated){
                 return <ErrorComponent/>
             }
+            if (ptData.pt_data === null || ptData.clients === null || ptData.ptLoading) {
+                return <Loading myClassName="loading_container"/>
+            }
             else {
-                // If user is a PT then display pt dashboard of clients
-                if (pt_data === null || (clients === null)) {
-                    return <Loading myClassName="loading_container"/>
-                }
                 // Define content to display.. in this case the list of clients
                 displayContent = (
                     // send clients data to client component, and render client component
                     <div className="dashboard-custom">
-                        <UserInfo userData={pt_data}/>
-                        <ClientList clients={clients} userData={pt_data}/>
+                        <UserInfo userData={ptData.pt_data}/>
+                        <ClientList ptData={ptData}/>
                     </div>
                 )
             }
         } //if user is pt
         else{
-            const {client_data, loading} = this.props.clientProfile;
-
-            if (client_data === null || loading) {
+            if (clientData.client_data === null || clientData.clientLoading) {
                 return <Loading myClassName="loading_container"/>
             }
-
             if(isEmpty(user)){
                 return <ErrorComponent/>
             }
             else {
-                if (client_data === null) {
-                    return <Loading myClassName="loading_container"/>
-                }
                 // Define content to display..
                 displayContent = (
                     // send clients data to client component, and render client component
                     <div className="dashboard-custom client">
-                        <UserInfo userData={client_data}/>
-                        <ClientData/>
+                        <UserInfo userData={clientData.client_data}/>
+                        <ClientData clientData={clientData.client_data}/>
                     </div>
                 )
             }
@@ -102,9 +128,14 @@ Dashboard.propTypes = {
     authenticatedUser: PropTypes.object.isRequired,
     ptProfile: PropTypes.object.isRequired,
     clientProfile: PropTypes.object.isRequired,
-    getClients: PropTypes.func.isRequired,
-    getClientData: PropTypes.func.isRequired,
-    getPtData: PropTypes.func.isRequired,
+
+    // PT data
+    ptGetClients: PropTypes.func.isRequired,
+    ptGetData: PropTypes.func.isRequired,
+
+    // Client data
+    clientGetData: PropTypes.func.isRequired,
+
     clearSuccess: PropTypes.func.isRequired,
     errors: PropTypes.object.isRequired
 };
@@ -118,4 +149,21 @@ const stateToProps = (state) => ({
     location: state.location
 });
 
-export default connect(stateToProps, {getClients, getPtData, getClientData, clearSuccess, clearErrors})(withRouter(Dashboard));
+export default connect(stateToProps, {
+    ptGetClients,
+    ptGetData,
+    clearSuccess,
+    clearErrors,
+    ptClearCurrentClientProfile,
+    ptClearClientProgression,
+    ptClearClientBodyBio,
+    ptClearClientProfileNotes,
+    clientGetData,
+    clientGetProgression,
+    clientGetBodyBio,
+    clientGetProfileNotes,
+    clientClearProfile,
+    clientClearProgression,
+    clientClearBodyBio,
+    clientClearProfileNotes,
+})(withRouter(Dashboard));

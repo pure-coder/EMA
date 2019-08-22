@@ -21,7 +21,7 @@ const FormInputGroup = ({
                 // Using classnames package to display errors to user if they occur
                 // 1st parameter are default classes that should always be used, the 2nd
                 // parameter adds 'is-invalid' if errors.FullName exists
-                   className={classnames(`form-control form-control-lg`, {'is-invalid': error})}
+                   className={classnames(`form-control form-control-lg` , {'is-invalid': error})}
                    placeholder={placeholder}
                    id={id}
                    name={name}

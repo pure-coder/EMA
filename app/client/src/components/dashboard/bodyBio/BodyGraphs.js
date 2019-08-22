@@ -8,7 +8,7 @@ import ErrorComponent from "../../error/ErrorComponent";
 import Loading from "../../../elements/Loading";
 import NewBodyProgressForm from "./NewBodyProgressForm";
 import Modal from "react-awesome-modal";
-import {getBodyBioClient} from "../../../actions/clientProfileActions";
+import {clientGetBodyBio} from "../../../actions/clientProfileActions";
 import {ptGetClientBodyBio, clearErrors, clearSuccess} from "../../../actions/ptProfileActions";
 import {NoProgressDataComp} from "../../common/NoProgessDataComp";
 import {ProgressTitleComp} from "../../common/ProgressTitleComp";
@@ -77,15 +77,15 @@ class BodyGraphs extends Component {
         this.setState({
             visible: false
         });
-        this.getBodyBioClient();
+        this.clientGetBodyBio();
     };
 
-    getBodyBioClient = () => {
+    clientGetBodyBio = () => {
         if(this.props.authenticatedUser.user.pt){
             this.props.ptGetClientBodyBio(this.state.clientId, this.props.history);
         }
         else{
-            this.props.getBodyBioClient(this.state.clientId, this.props.history);
+            this.props.clientGetBodyBio(this.state.clientId, this.props.history);
         }
     };
 
@@ -134,7 +134,7 @@ class BodyGraphs extends Component {
                         <div>
                             {/*Sending onClickAway into child component NewClientProgress allows the child to affect this parents state!!!
                              Also sending modal visibility so fields and errors can be cleared when visibility is false.
-                             Also sending getBodyBioClient so that the page can be updated once a new progress submission
+                             Also sending clientGetBodyBio so that the page can be updated once a new progress submission
                                has been successful.*/}
                             <NewBodyProgressForm
                                 onClickAway={this.onClickAway}
@@ -153,7 +153,7 @@ class BodyGraphs extends Component {
 
 BodyGraphs.propTypes = {
     authenticatedUser: PropTypes.object.isRequired,
-    getBodyBioClient: PropTypes.func.isRequired,
+    clientGetBodyBio: PropTypes.func.isRequired,
     ptGetClientBodyBio: PropTypes.func.isRequired,
     clearErrors: PropTypes.func.isRequired,
     clearSuccess: PropTypes.func.isRequired
@@ -165,4 +165,4 @@ const stateToProps = (state) => ({
     success: state.success
 });
 
-export default connect(stateToProps, {getBodyBioClient, ptGetClientBodyBio, clearErrors, clearSuccess})(withRouter(BodyGraphs));
+export default connect(stateToProps, {clientGetBodyBio, ptGetClientBodyBio, clearErrors, clearSuccess})(withRouter(BodyGraphs));

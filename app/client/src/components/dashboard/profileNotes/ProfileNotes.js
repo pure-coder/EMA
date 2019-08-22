@@ -1,8 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import PropTypes from "prop-types";
-import {clearClientProfileNotes, updateClientProfileNotes, clearErrors, clearSuccess} from "../../../actions/ptProfileActions";
-import {clearProfileNotes} from "../../../actions/clientProfileActions";
+import {ptClearClientProfileNotes, ptUpdateClientProfileNotes, clearErrors, clearSuccess} from "../../../actions/ptProfileActions";
 import isEmpty from "../../../validation/is_empty";
 import ProfileInputForm from "../../common/ProfileInputForm";
 
@@ -50,12 +49,9 @@ class ProfileNotes extends Component {
 
     componentWillUnmount(){
         if(this.props.authenticatedUser.user.pt){
-            this.props.clearClientProfileNotes();
+            this.props.ptClearClientProfileNotes();
             this.props.clearErrors();
             this.props.clearSuccess();
-        }
-        else{
-            this.props.clearProfileNotes();
         }
     }
 
@@ -83,7 +79,7 @@ class ProfileNotes extends Component {
 
         // make sure user is a pt
         if(this.props.authenticatedUser.user.pt){
-            this.props.updateClientProfileNotes(this.state.clientId, data, this.props.history);
+            this.props.ptUpdateClientProfileNotes(this.state.clientId, data, this.props.history);
             this.setState({fieldUpdated: name});
         }
     };
@@ -145,9 +141,8 @@ ProfileNotes.propTypes = {
     authenticatedUser: PropTypes.object.isRequired,
     ptProfile: PropTypes.object.isRequired,
     clientProfile: PropTypes.object.isRequired,
-    clearProfileNotes: PropTypes.func.isRequired,
-    updateClientProfileNotes: PropTypes.func.isRequired,
-    clearClientProfileNotes: PropTypes.func.isRequired,
+    ptClearClientProfileNotes: PropTypes.func.isRequired,
+    ptUpdateClientProfileNotes: PropTypes.func.isRequired,
     clearSuccess: PropTypes.func.isRequired,
     clearErrors: PropTypes.func.isRequired
 };
@@ -160,4 +155,4 @@ const stateToProps = (state) => ({
     success: state.success
 });
 
-export default connect(stateToProps, {clearClientProfileNotes, clearProfileNotes, updateClientProfileNotes, clearErrors, clearSuccess})(ProfileNotes);
+export default connect(stateToProps, {ptClearClientProfileNotes, ptUpdateClientProfileNotes, clearErrors, clearSuccess})(ProfileNotes);

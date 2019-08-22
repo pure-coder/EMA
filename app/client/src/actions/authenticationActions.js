@@ -5,12 +5,12 @@ import {
 } from "./types"; // import custom defined types
 import setAuthorisationToken from '../utilities/setAuthorisationToken';
 import jwtDecode from 'jwt-decode';
-import {clearErrors, setSuccess, clearCurrentProfile} from "./ptProfileActions";
-import {clearClientProfile} from "./clientProfileActions";
+import {clearErrors, setSuccess, ptClearProfile, setErrors} from "./ptProfileActions";
+import {clientClearProfile} from "./clientProfileActions";
 
 export const manageErrors = (err, dispatch, history) => {
     // 401 Unauthorised
-    if(err.response.status === 401){
+    if(err.response.status === 401 || err.response.status === 500){
         dispatch({
             type: GET_ERRS,
             payload: {
@@ -20,17 +20,14 @@ export const manageErrors = (err, dispatch, history) => {
         });
         dispatch(logOutUser());
         dispatch(clearErrors());
-        //history.push('/re-login');
+        window.location.href = '/re-login';
     }
     // If used direct url, and id doesn't exist send user to error page (404 - Not Found)
     else if (err.response.status === 404){
         history.replace('/error_page');
     }
     else {
-        dispatch({
-            type: GET_ERRS,
-            payload: err.response.data
-        })
+        dispatch(setErrors(err.response.data.msg));
     }
 };
 
@@ -108,12 +105,10 @@ export const logOutUser = () => dispatch => {
     // Set signed in user to an empty object and isAuthenticated to false by passing in {} (empty object)
     dispatch(setSignedInUser({}));
     // Remove data based on user (either pt or client)
-
     // Clear Profile if pt
-    dispatch(clearCurrentProfile());
-
+    dispatch(ptClearProfile());
     // Clear Profile if client
-    dispatch(clearClientProfile());
+    dispatch(clientClearProfile());
 };
 
 // RefreshToken

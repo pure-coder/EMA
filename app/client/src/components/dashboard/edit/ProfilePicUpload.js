@@ -4,8 +4,8 @@ import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import defaultProfilePic from '../../../img/default_profile_pic.png';
-import {saveProfilePicPt} from "../../../actions/ptProfileActions";
-import {saveProfilePicClient} from "../../../actions/clientProfileActions";
+import {ptSaveProfilePic} from "../../../actions/ptProfileActions";
+import {clientSaveProfilePic} from "../../../actions/clientProfileActions";
 import DisplayMessage from "../../common/DisplayMessage";
 
 class ProfilePicUpload extends Component {
@@ -90,10 +90,10 @@ class ProfilePicUpload extends Component {
         this.makeCroppedImage()
             .then(blob => {
                 if(this.props.authenticatedUser.user.pt){
-                    this.props.saveProfilePicPt(blob, this.state.croppedImage ,this.state.history);
+                    this.props.ptSaveProfilePic(blob, this.state.croppedImage ,this.state.history);
                 }
                 else{
-                    this.props.saveProfilePicClient(blob, this.state.croppedImage ,this.state.history);
+                    this.props.clientSaveProfilePic(blob, this.state.croppedImage ,this.state.history);
                 }
             }).catch(() => {
                 this.setState({message: {
@@ -131,7 +131,7 @@ class ProfilePicUpload extends Component {
             return await ProfilePicUpload.dataURItoBlob(image);
 
             // used for previous tests
-            //this.props.saveProfilePicPt(blob, canvas.toDataURL() ,this.state.history);
+            //this.props.ptSaveProfilePic(blob, canvas.toDataURL() ,this.state.history);
         }
     }
 
@@ -206,8 +206,8 @@ class ProfilePicUpload extends Component {
 }
 
 ProfilePicUpload.propTypes = ({
-    saveProfilePicPt: PropTypes.func.isRequired,
-    saveProfilePicClient: PropTypes.func.isRequired,
+    ptSaveProfilePic: PropTypes.func.isRequired,
+    clientSaveProfilePic: PropTypes.func.isRequired,
 });
 
 const stateToProps = state => ({
@@ -216,4 +216,4 @@ const stateToProps = state => ({
     errors: state.errors
 });
 
-export default connect(stateToProps, {saveProfilePicPt, saveProfilePicClient})(withRouter(ProfilePicUpload));
+export default connect(stateToProps, {ptSaveProfilePic, clientSaveProfilePic})(withRouter(ProfilePicUpload));

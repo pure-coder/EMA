@@ -52,7 +52,7 @@ router.get('/pt_clients', passport.authenticate('pt_rule', {session: false}, nul
     // get personal trainers client list
     PersonalTrainer.findOne({_id: signedInId}).populate('ClientIDs', '-Password -Date -Activated -__v')
         .exec(function (err, personalTrainer) {
-                if (err) res.status(400).json("No data for personal trainer logged in: " + err.stringValue);
+                if (err) res.status(400).json({msg : "No data for personal trainer logged in: " + err.stringValue});
 
                 if (personalTrainer) {
                     res.status(200).json(personalTrainer.ClientIDs)
@@ -128,7 +128,7 @@ router.delete('/delete_client/:cid', passport.authenticate('pt_rule', {session: 
                                         }
                                         // console.log("Deletion of user: " + client.FullName + " ", result)
                                         else{
-                                            res.status(400).json({error: "Could not delete client."})
+                                            res.status(400).json({msg: "Could not delete client."})
                                         }
                                     })
                                     // Client.remove
@@ -137,7 +137,7 @@ router.delete('/delete_client/:cid', passport.authenticate('pt_rule', {session: 
                                     })
                             }
                             else {
-                                res.status(400).json({error: "Could not update personal trainer documents whilst deleting client."})
+                                res.status(400).json({msg: "Could not update personal trainer documents whilst deleting client."})
                             }
                         })
                         // PersonalTrainer.update
@@ -146,11 +146,11 @@ router.delete('/delete_client/:cid', passport.authenticate('pt_rule', {session: 
                         })
                 }// if client.ptId === signedInId
                 else {
-                    res.status(400).json({error: "Signed in PT is not granted access to delete this client."})
+                    res.status(400).json({msg: "Signed in PT is not granted access to delete this client."});
                 }
             }
             else {
-                res.status(400).json({error: "Client does not exist."})
+                res.status(400).json({msg: "Client does not exist."});
             }
         }
         ) // then Client.findOne
@@ -188,7 +188,7 @@ router.get('/client/:cid', passport.authenticate('both_rule', {session: false}, 
                         res.status(200).json(data)
                     }
                     else{
-                        res.status(400).json({error: "Signed in user does not have authorisation to request this data."})
+                        res.status(400).json({msg: "Signed in user does not have authorisation to request this data."})
                     }
                 }
                 // if client is null
@@ -242,7 +242,7 @@ router.put('/edit_client/:cid', passport.authenticate('both_rule', {session: fal
         }
     }
     else{
-        res.status(400).json({error : "No data sent to server!"})
+        res.status(400).json({msg : "No data sent to server!"})
     }
 
     Client.findOne({_id: clientId})
@@ -281,7 +281,7 @@ router.put('/edit_client/:cid', passport.authenticate('both_rule', {session: fal
                                 if (client) {
                                     res.status(200).json(client);
                                 }
-                                res.status(400).json({error: "Client does not exist!"});
+                                res.status(400).json({msg: "Client does not exist!"});
                             })
                             .catch(err => {
                                 res.status(400).json(err)
@@ -289,12 +289,12 @@ router.put('/edit_client/:cid', passport.authenticate('both_rule', {session: fal
                     }
                 }
                 else{
-                    res.status(400).json({error: "Not authorised to update data."})
+                    res.status(400).json({msg: "Not authorised to update data."})
                 }
 
             }
             else{
-                res.status(400).json({error: "Client not found"})
+                res.status(400).json({msg: "Client not found"})
             }
         })
         .catch(() => {
@@ -371,7 +371,7 @@ router.put('/edit_personal_trainer', passport.authenticate('pt_rule', {session: 
         }
     }
     else{
-        res.status(400).json({error : "No data sent to server!"})
+        res.status(400).json({msg : "No data sent to server!"})
     }
 
     // If it exists as the for loop above checked if password was null or undefined, hash the password and update client profile if password doesn't exist update profile without hashing non existent password
@@ -405,7 +405,7 @@ router.put('/edit_personal_trainer', passport.authenticate('pt_rule', {session: 
                 if (pt) {
                     res.status(200).json(pt);
                 }
-                res.status(400).json({error: "Personal Trainer does not exist!"});
+                res.status(400).json({msg: "Personal Trainer does not exist!"});
             })
             .catch(err => {
                 res.status(400).json(err)
@@ -480,7 +480,7 @@ router.post('/client_progression/:cid', passport.authenticate('pt_rule', {sessio
                                         });
                                 }
                                 else {
-                                    res.status(400).json({Date: "Date duplication found for exercise!"})
+                                    res.status(400).json({msg: "Date duplication found for exercise!"})
                                 }
 
                             }
@@ -520,12 +520,12 @@ router.post('/client_progression/:cid', passport.authenticate('pt_rule', {sessio
 
                 }
                 else {
-                    res.status(400).json({err: "Personal Trainer not authorised to access Progression"});
+                    res.status(400).json({msg: "Personal Trainer not authorised to access Progression"});
                 }
             }
         })
         .catch(() => {
-            res.status(400).json({err: "Client not found!"})
+            res.status(400).json({msg: "Client not found!"})
         }); // Client.findOne()
 
 }); // router post /client_progression
@@ -760,7 +760,7 @@ router.post('/body_bio/:cid', passport.authenticate('pt_rule', {session: false},
                                         });
                                 }
                                 else {
-                                    res.status(400).json({Date: "Date duplication found for measurement!"})
+                                    res.status(400).json({msg: "Date duplication found for measurement!"})
                                 }
 
                             }
@@ -797,12 +797,12 @@ router.post('/body_bio/:cid', passport.authenticate('pt_rule', {session: false},
 
                 }
                 else {
-                    res.status(400).json({err: "Personal Trainer not authorised to access BodyBio"});
+                    res.status(400).json({msg: "Personal Trainer not authorised to access BodyBio"});
                 }
             }
         })
         .catch(() => {
-            res.status(400).json({err: "Client not found!"})
+            res.status(400).json({msg: "Client not found!"})
         }); // Client.findOne()
 
 }); // router post /body_bio

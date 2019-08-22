@@ -2,7 +2,7 @@ import React, {Component} from 'react' // React is need for rendering JSX HTML e
 import {withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
-import {deleteBodyPart} from "../../../actions/ptProfileActions";
+import {ptDeleteBodyPart} from "../../../actions/ptProfileActions";
 
 
 class DeleteBodyProgressConfirm extends Component {
@@ -45,7 +45,7 @@ class DeleteBodyProgressConfirm extends Component {
     };
 
     onConfirm = e => {
-        this.props.deleteBodyPart(this.state.clientId, e.target.name, this.props.history);
+        this.props.ptDeleteBodyPart(this.state.clientId, e.target.name, this.props.history);
         this.props.onClickAway();
     };
 
@@ -64,10 +64,10 @@ class DeleteBodyProgressConfirm extends Component {
 }
 
 DeleteBodyProgressConfirm.proptypes = {
-    deleteBodyPart: PropTypes.func.isRequired,
+    ptDeleteBodyPart: PropTypes.func.isRequired,
     modalSize: PropTypes.func.isRequired,
     progressFormHeight: PropTypes.string.isRequired,
 };
 
 
-export default connect(null, {deleteBodyPart})(withRouter(DeleteBodyProgressConfirm));
+export default connect(null, {ptDeleteBodyPart})(withRouter(DeleteBodyProgressConfirm));

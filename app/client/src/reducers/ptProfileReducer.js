@@ -2,11 +2,11 @@ import {
     GET_PT_PROFILE,
     GET_PT_CLIENTS_DATA,
     GET_CURRENT_CLIENT,
-    PROFILE_LOADING,
-    CLEAR_CURRENT_PROFILE,
+    PT_PROFILE_LOADING,
+    PT_CLEAR_PROFILE,
     PT_CLIENT_PROGRESSION,
-    CLEAR_PROGRESSION,
-    CLEAR_CURRENT_CLIENT,
+    CLEAR_CLIENT_PROGRESSION,
+    CLEAR_CURRENT_CLIENT_PROFILE,
     SCHEDULER,
     CLEAR_WORKOUT_DATA,
     GET_CLIENT_PROFILE_NOTES,
@@ -20,37 +20,38 @@ const initialState = {
     pt_data: null,
     current_client: null,
     clients: null,
+    client_progression: null,
     scheduler: null,
     profile_notes: null,
     body_bio: null,
-    loading: false
+    ptLoading: false
 };
 
 
 export default function(state = initialState, action) {
     switch (action.type) {
-        case PROFILE_LOADING:
+        case PT_PROFILE_LOADING:
             return {
                 ...state,
-                loading: true
+                ptLoading: true
             };
         case GET_PT_PROFILE:
             return {
                 ...state,
                 pt_data: action.payload,
-                loading: false
+                ptLoading: false
             };
         case GET_PT_CLIENTS_DATA:
             return {
                 ...state,
                 clients: action.payload,
-                loading: false
+                ptLoading: false
             };
         case GET_CURRENT_CLIENT:
             return {
                 ...state,
                 current_client: action.payload,
-                loading: false
+                ptLoading: false
             };
         case PT_CLIENT_BODY_BIO:
             return {
@@ -72,15 +73,18 @@ export default function(state = initialState, action) {
                 ...state,
                 profile_notes: null
             };
-        case CLEAR_CURRENT_PROFILE:
+        case PT_CLEAR_PROFILE:
             return {
-                ...state,
                 pt_data: null,
                 current_client: null,
                 clients: null,
                 client_progression: null,
+                scheduler: null,
+                profile_notes: null,
+                body_bio: null,
+                ptLoading: false
             };
-        case CLEAR_CURRENT_CLIENT:
+        case CLEAR_CURRENT_CLIENT_PROFILE:
             return {
                 ...state,
                 current_client: null
@@ -90,7 +94,7 @@ export default function(state = initialState, action) {
                 ...state,
                 client_progression: action.payload
             };
-        case CLEAR_PROGRESSION:
+        case CLEAR_CLIENT_PROGRESSION:
             return {
                 ...state,
                 client_progression: null

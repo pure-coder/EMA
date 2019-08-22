@@ -1,6 +1,6 @@
 import {
     GET_CLIENT_PROFILE,
-    PROFILE_LOADING,
+    CLIENT_PROFILE_LOADING,
     CLIENT_PROGRESSION,
     CLEAR_PROGRESSION,
     CLEAR_CLIENT_PROFILE,
@@ -16,28 +16,30 @@ const initialState = {
     profile_notes: null,
     body_bio: null,
     client_progression: null,
-    loading: false
+    clientLoading: false
 };
 
 
 export default function(state = initialState, action) {
     switch (action.type) {
-        case PROFILE_LOADING:
+        case CLIENT_PROFILE_LOADING:
             return {
                 ...state,
-                loading: true
+                clientLoading: true
             };
         case GET_CLIENT_PROFILE:
             return {
                 ...state,
                 client_data: action.payload,
-                loading: false
+                clientLoading: false
             };
         case CLEAR_CLIENT_PROFILE:
             return {
-                ...state,
                 client_data: null,
+                profile_notes: null,
+                body_bio: null,
                 client_progression: null,
+                clientLoading: false
             };
         case GET_PROFILE_NOTES:
             return {

@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {addGraph} from "../../../utilities/drawProgressGraph";
-import {deleteExercise, ptGetClientBodyBio} from "../../../actions/ptProfileActions";
+import {ptDeleteExercise, ptGetClientBodyBio} from "../../../actions/ptProfileActions";
 import PropTypes from "prop-types";
 import connect from "react-redux/es/connect/connect";
 import {withRouter} from "react-router-dom";
@@ -182,7 +182,7 @@ BodyGraphComp.propTypes = {
     bodyGraphData: PropTypes.object.isRequired,
     ptProfile: PropTypes.object.isRequired,
     clientProfile: PropTypes.object.isRequired,
-    deleteExercise: PropTypes.func.isRequired,
+    ptDeleteExercise: PropTypes.func.isRequired,
     ptGetClientBodyBio: PropTypes.func.isRequired
 };
 
@@ -193,4 +193,4 @@ const stateToProps = (state) => ({
     errors: state.errors
 });
 
-export default connect(stateToProps, {deleteExercise, ptGetClientBodyBio})(withRouter(BodyGraphComp));
+export default connect(stateToProps, {ptDeleteExercise, ptGetClientBodyBio})(withRouter(BodyGraphComp));

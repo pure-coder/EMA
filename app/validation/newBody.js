@@ -25,6 +25,7 @@ module.exports = function validateRegistrationInput(data) {
 
 
     if(!isEmpty(data) && data.bodyMetrics.Date !== undefined){
+        //console.log(data.bodyMetrics.Date)
         if (!Validator.isISO8601(data.bodyMetrics.Date)) {
             errors.Date = 'Must be a valid date!';
         }

@@ -8,7 +8,7 @@ import ErrorComponent from "../../error/ErrorComponent";
 import Loading from "../../../elements/Loading";
 import NewClientProgressForm from "./NewClientProgressForm";
 import Modal from "react-awesome-modal";
-import {getClientProgression} from "../../../actions/clientProfileActions";
+import {clientGetProgression} from "../../../actions/clientProfileActions";
 import {ptGetClientProgression, clearErrors, clearSuccess} from "../../../actions/ptProfileActions";
 import {NoProgressDataComp} from "../../common/NoProgessDataComp";
 import {ProgressTitleComp} from "../../common/ProgressTitleComp";
@@ -77,15 +77,15 @@ class Graphs extends Component {
         this.setState({
             visible: false
         });
-        this.getClientProgression();
+        this.clientGetProgression();
     };
 
-    getClientProgression = () =>{
+    clientGetProgression = () =>{
         if(this.props.authenticatedUser.user.pt){
             this.props.ptGetClientProgression(this.state.clientId, this.props.history);
         }
         else{
-            this.props.getClientProgression(this.state.clientId, this.props.history);
+            this.props.clientGetProgression(this.state.clientId, this.props.history);
         }
     };
 
@@ -134,7 +134,7 @@ class Graphs extends Component {
                         <div>
                             {/*Sending onClickAway into child component NewClientProgress allows the child to affect this parents state!!!
                              Also sending modal visibility so fields and errors can be cleared when visibility is false.
-                             Also sending getClientProgression so that the page can be updated once a new progress submission
+                             Also sending clientGetProgression so that the page can be updated once a new progress submission
                                has been successful.*/}
                             <NewClientProgressForm
                                 onClickAway={this.onClickAway}
@@ -153,7 +153,7 @@ class Graphs extends Component {
 
 Graphs.propTypes = {
     authenticatedUser: PropTypes.object.isRequired,
-    getClientProgression: PropTypes.func.isRequired,
+    clientGetProgression: PropTypes.func.isRequired,
     ptGetClientProgression: PropTypes.func.isRequired,
     clearErrors: PropTypes.func.isRequired,
     clearSuccess: PropTypes.func.isRequired
@@ -165,4 +165,4 @@ const stateToProps = (state) => ({
     success: state.success
 });
 
-export default connect(stateToProps, {getClientProgression, ptGetClientProgression, clearErrors, clearSuccess})(withRouter(Graphs));
+export default connect(stateToProps, {clientGetProgression, ptGetClientProgression, clearErrors, clearSuccess})(withRouter(Graphs));

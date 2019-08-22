@@ -1,7 +1,7 @@
 const Validator = require('validator');
 const isEmpty = require('./is_empty');
 
-module.exports = function validateRegistrationInput(data) {
+module.exports = function validateNewProgressInput(data) {
     let errors = {};
 
     // Check to see if value is not undefined as Validator functions only works on strings (otherwise throws error)
