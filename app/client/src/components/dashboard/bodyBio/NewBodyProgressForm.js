@@ -43,6 +43,8 @@ class NewBodyProgressForm extends Component {
     static getDerivedStateFromProps(props, state) {
         //Set default date to today's date, makes sure date is always entered.
         if (props.visible !== state.visible) {
+            props.clearErrors();
+            props.clearSuccess();
             let defaultDate = new Date(Date.now()).toISOString().substring(0, 10);
             return {
                 progressDate: defaultDate,
@@ -164,7 +166,6 @@ class NewBodyProgressForm extends Component {
         // The use of onClick with this.props.onClickAway() allows this to call the parents onClickAway (note the use of props)
         this.props.onClickAway();
         // Clear errors once the modal has been exited
-        this.props.clearErrors();
         this.setState({
             bodyPart: '',
             measurement: '',

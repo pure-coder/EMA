@@ -41,7 +41,7 @@ class Dashboard extends Component {
 
     static getDerivedStateFromProps(prevProps, prevState){
         if(prevProps.authenticatedUser.user.pt){
-            if(prevProps.ptProfile !== prevState.ptData){
+            if(prevProps.ptProfile.pt_data !== prevState.ptData){
                 return {
                     ptData: prevProps.ptProfile
                 }
@@ -61,12 +61,17 @@ class Dashboard extends Component {
         if(!isAuthenticated)
             this.props.history.push('/login');
         checkExp();
+        // Check to see if data is already loaded, increases performance
         if(this.props.authenticatedUser.user.pt){
-            this.props.ptGetData(this.props.history);
-            this.props.ptGetClients(this.props.history);
+            if(this.props.ptProfile.pt_data === null){
+                this.props.ptGetData(this.props.history);
+                this.props.ptGetClients(this.props.history);
+            }
         }
         else{
-            this.props.clientGetData(this.props.authenticatedUser.user.id);
+            if(this.props.ptProfile.client_data === null) {
+                this.props.clientGetData(this.props.authenticatedUser.user.id);
+            }
         }
         document.body.scrollTo(0,0);
     } // ComponentDidMount

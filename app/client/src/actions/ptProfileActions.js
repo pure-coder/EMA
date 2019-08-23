@@ -10,6 +10,7 @@ import {
     PASSWORD_ERROR,
     GET_ERRS,
     SUCCESS,
+    CLEAR_SUCCESS,
     GET_CURRENT_CLIENT,
     PT_CLEAR_PROFILE,
     SCHEDULER,
@@ -434,7 +435,7 @@ export const clearErrors = () => dispatch => {
 
 export const clearSuccess = () => dispatch => {
     dispatch({
-        type: SUCCESS,
+        type: CLEAR_SUCCESS,
         payload: {}
     })
 };

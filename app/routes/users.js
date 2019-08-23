@@ -1132,7 +1132,6 @@ router.post('/upload_profile_pic',  upload.single('profilePicture') ,passport.au
         )
             .then(result => {
                 if (result) {
-                    // console.log(result)
                     res.status(200).json({msg: "Profile picture updated"})
                 }
             })

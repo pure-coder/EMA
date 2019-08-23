@@ -57,6 +57,8 @@ class NewClientProgressForm extends Component {
     static getDerivedStateFromProps(props, state) {
         if (props.visible !== state.visible) {
             let defaultDate = new Date(Date.now()).toISOString().substring(0, 10);
+            props.clearErrors();
+            props.clearSuccess();
             return {
                 progressDate: defaultDate,
                 visible: props.visible,
@@ -176,7 +178,6 @@ class NewClientProgressForm extends Component {
         // The use of onClick with this.props.onClickAway() allows this to call the parents onClickAway (note the use of props)
         this.props.onClickAway();
         // Clear errors once the modal has been exited
-        this.props.clearErrors();
         this.setState({message: {}});
         // Reset/ Clear input fields once modal has been exited
         this.setState({

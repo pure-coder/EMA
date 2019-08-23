@@ -69,6 +69,7 @@ class EditPersonalTrainer extends Component {
     // Replacement for componentWillReceiveProps (as was depreciated)
     static getDerivedStateFromProps(props, state) {
         if (props.ptProfile.pt_data !== state.pt_data) {
+            props.ptGetData();
             return {
                 pt_data: props.ptProfile.pt_data,
                 errors: props.errors,
