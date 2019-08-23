@@ -4,11 +4,8 @@
     <bookmark url="file://C:/Learning/clientObjectData.js" description="export {&quot;_id&quot;:&quot;5c2e3454d27ace097420b414&quot;,&quot;FullName..." line="2" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ec8ccf39-8487-4892-a38d-de9c288878a3" name="Default" comment="Changed CCS background-size to cover.&#10;CSS changed for buttons on graph better aligned.&#10;Register, edit CSS changed to align DOB and Gender.">
+    <list default="true" id="ec8ccf39-8487-4892-a38d-de9c288878a3" name="Default" comment="Error for client registration had messed up so fixed bug, errors now showing correctly.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/actions/authenticationActions.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/actions/authenticationActions.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/dashboard/progression/AddDataProgressForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/dashboard/progression/AddDataProgressForm.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/users.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/users.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -56,14 +53,14 @@
           <entry key="js" value="245594" />
           <entry key="json" value="29" />
           <entry key="md" value="150" />
-          <entry key="txt" value="23626" />
+          <entry key="txt" value="23724" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="CSS" value="3107" />
           <entry key="JavaScript" value="57354" />
-          <entry key="PLAIN_TEXT" value="10609" />
+          <entry key="PLAIN_TEXT" value="10707" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -113,42 +110,7 @@
     <favorites_list name="app" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/routes/users.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="78">
-              <caret line="1175" column="46" selection-start-line="1175" selection-start-column="46" selection-end-line="1175" selection-end-column="46" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/client/src/actions/authenticationActions.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="221">
-              <caret line="31" column="38" selection-start-line="31" selection-start-column="38" selection-end-line="31" selection-end-column="38" />
-              <folding>
-                <element signature="e#0#26#0" expanded="true" />
-                <element signature="e#123#194#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/src/actions/ptProfileActions.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
-              <caret line="382" column="49" selection-start-line="382" selection-start-column="49" selection-end-line="382" selection-end-column="49" />
-              <folding>
-                <element signature="e#0#26#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -533,14 +495,7 @@
       <workItem from="1565691741200" duration="30487000" />
       <workItem from="1565814825599" duration="34529000" />
       <workItem from="1565849788934" duration="81098000" />
-      <workItem from="1566251293964" duration="92410000" />
-    </task>
-    <task id="LOCAL-00202" summary="CSS changes to edit client/pt and register forms.">
-      <created>1565534585733</created>
-      <option name="number" value="00202" />
-      <option name="presentableId" value="LOCAL-00202" />
-      <option name="project" value="LOCAL" />
-      <updated>1565534585733</updated>
+      <workItem from="1566251293964" duration="93879000" />
     </task>
     <task id="LOCAL-00203" summary="Table styling added to ClientList table.">
       <created>1565595869114</created>
@@ -878,11 +833,18 @@
       <option name="project" value="LOCAL" />
       <updated>1566488949797</updated>
     </task>
-    <option name="localTasksCounter" value="251" />
+    <task id="LOCAL-00251" summary="Changed CCS background-size to cover.&#10;CSS changed for buttons on graph better aligned.&#10;Register, edit CSS changed to align DOB and Gender.">
+      <created>1566517643127</created>
+      <option name="number" value="00251" />
+      <option name="presentableId" value="LOCAL-00251" />
+      <option name="project" value="LOCAL" />
+      <updated>1566517643127</updated>
+    </task>
+    <option name="localTasksCounter" value="252" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="2142091000" />
+    <option name="totallyTimeSpent" value="2143560000" />
   </component>
   <component name="TodoView" selected-index="4">
     <todo-panel id="selected-file">
@@ -895,9 +857,8 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="784" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.20758928" />
+      <window_info content_ui="combo" id="Project" order="0" weight="0.20758928" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.24943988" />
       <window_info id="Favorites" order="2" side_tool="true" weight="0.32935026" />
       <window_info anchor="bottom" id="Messages" order="0" sideWeight="0.49813294" weight="0.32615384" />
@@ -909,9 +870,9 @@
       <window_info anchor="bottom" id="Inspection" order="6" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="7" weight="0.3276923" />
       <window_info anchor="bottom" id="Docker" order="8" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Terminal" order="9" sideWeight="0.49776787" visible="true" weight="0.36153847" />
+      <window_info anchor="bottom" id="Terminal" order="9" sideWeight="0.49776787" weight="0.36153847" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.50223213" side_tool="true" weight="0.1923077" />
-      <window_info anchor="bottom" id="Version Control" order="11" sideWeight="0.6152815" weight="0.5353846" />
+      <window_info active="true" anchor="bottom" id="Version Control" order="11" sideWeight="0.6152815" visible="true" weight="0.5353846" />
       <window_info anchor="bottom" id="Inspection Results" order="12" weight="0.3276923" />
       <window_info anchor="bottom" id="File Transfer" order="13" weight="0.32615384" />
       <window_info anchor="bottom" id="TypeScript" order="14" />
@@ -1056,7 +1017,6 @@
   <component name="VcsManagerConfiguration">
     <option name="SHOW_DIRTY_RECURSIVELY" value="true" />
     <option name="LIMIT_HISTORY" value="false" />
-    <MESSAGE value="Profile image upload working!" />
     <MESSAGE value="Adding link to profile picture upload component." />
     <MESSAGE value="Creating better file upload for profile picture" />
     <MESSAGE value="Changed onSelectFile = e =&gt; {} to ..... onSelectFile(e){} which stopped the setting of state of the returned value of FileReader." />
@@ -1081,7 +1041,8 @@
     <MESSAGE value="Destructured variable in Progression and BodyBio components" />
     <MESSAGE value="Add body/progress forms for progressions refactored.&#10;Added focus to respective data entry fields for New body/progress forms when data is successfully added." />
     <MESSAGE value="Changed CCS background-size to cover.&#10;CSS changed for buttons on graph better aligned.&#10;Register, edit CSS changed to align DOB and Gender." />
-    <option name="LAST_COMMIT_MESSAGE" value="Changed CCS background-size to cover.&#10;CSS changed for buttons on graph better aligned.&#10;Register, edit CSS changed to align DOB and Gender." />
+    <MESSAGE value="Error for client registration had messed up so fixed bug, errors now showing correctly." />
+    <option name="LAST_COMMIT_MESSAGE" value="Error for client registration had messed up so fixed bug, errors now showing correctly." />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/client/src/components/authentication/Register.js">
@@ -1481,6 +1442,17 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/actions/authenticationActions.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="527">
+          <caret line="31" column="38" selection-start-line="31" selection-start-column="38" selection-end-line="31" selection-end-column="38" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+            <element signature="e#123#194#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/routes/users.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="78">
@@ -1494,17 +1466,6 @@
           <caret line="382" column="49" selection-start-line="382" selection-start-column="49" selection-end-line="382" selection-end-column="49" />
           <folding>
             <element signature="e#0#26#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/actions/authenticationActions.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="31" column="38" selection-start-line="31" selection-start-column="38" selection-end-line="31" selection-end-column="38" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-            <element signature="e#123#194#0" expanded="true" />
           </folding>
         </state>
       </provider>
