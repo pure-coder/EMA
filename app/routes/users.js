@@ -1245,9 +1245,14 @@ router.post(`/upload_profile_pic`,passport.authenticate('both_rule', {session: f
     let payload = jwt.decode(token, keys.secretOrKey);
     let signedInId = payload.id;
 
-    let {fileName, fileType} = req.body.params;
-    console.log(fileName, fileType);
-    console.log(signedInId)
+    // Following is getting params using axios
+    // let {fileName, fileType} = req.body.params;
+
+    // Following is getting params using fetch
+    // let{fileName, fileType} = req.body;
+    // console.log(fileName, fileType);
+
+
     res.status(200).json("Response ok");
 
 }); // router delete /delete_personal_trainer

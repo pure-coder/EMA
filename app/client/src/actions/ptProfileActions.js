@@ -1,5 +1,5 @@
 import axios from 'axios';
-import S3 from 'aws-sdk/clients/s3'
+// AWS functionality
 import 'dhtmlx-scheduler';
 import {
     GET_PT_PROFILE,
@@ -24,6 +24,9 @@ import {
     UPDATE_PROFILE_PIC_CURRENT_CLIENT
 } from "./types"; // import custom defined types
 import {manageErrors} from "./authenticationActions";
+require('es6-promise').polyfill();
+require('isomorphic-fetch');
+let crypto = require("crypto-js");
 
 // Register client
 export const registerClient =(Data, props, history) => (dispatch) => {
@@ -450,14 +453,6 @@ export const passwordsMatchError = (error) => dispatch => {
 };
 
 
-// AWS put
-require('es6-promise').polyfill();
-require('isomorphic-fetch');
-let crypto = require("crypto-js");
-
-
-
-
 function getSignatureKey(key, dateStamp, regionName, serviceName) {
     let kDate = crypto.HmacSHA256(dateStamp, "AWS4" + key);
     let kRegion = crypto.HmacSHA256(regionName, kDate);
@@ -467,109 +462,46 @@ function getSignatureKey(key, dateStamp, regionName, serviceName) {
 }
 
 export const uploadProfilePic = () => dispatch => {
-    // console.log("fired")
-    //
-    // const host = 'https://jrdunkleyfitnessapp.s3.amazonaws.com';
-    // const folder = '/images/';
-    // const method = 'PUT';
-    // const contentType = 'text/plain';
-    // const key = 'AKIAJMW245GLOFVVWOFQ';
-    // const XAmzDate = new Date(Date.now()).toISOString().replace(/[ :,.-]/g, "").substring(0, 15).concat('Z');
-    // const dateStamp = XAmzDate.substring(0, 8).replace(/-/g, '');
-    // const region = 'eu-west-2';
-    // const service = 's3';
-    // const requestURI =  `${folder}${nameOfFile}`;
-    // const scope = `${dateStamp}/${region}/${service}/aws4_request`;
-    // const encodedReqURI = requestURI.toString(16);
-    //
-    // const stringToSign = `AWS4-HMAC-SHA256
-    // ${XAmzDate}
-    // ${scope}
-    // ${encodedReqURI}`;
-    // console.log(stringToSign);
-    //
-    // const signingKey = getSignatureKey(key, dateStamp, region, service);
-    // const signature = crypto.HmacSHA256(stringToSign);
-    //
-    // const Authorization = `AWS4-HMAC-SHA256 Credential=${key}/${dateStamp}/${region}/${service}/aws4_request, SignedHeaders=host;x-amz-content-sha256;x-amz-date, Signature=${signature}`;
-    //
-    //
-    // fetch(`${host}${folder}${nameOfFile}`, {
-    //     method: method,
-    //     // mode: 'no-cors',
-    //     headers: new Headers({
-    //         'Host' : host,
-    //         'X-Amz-Content-Sha256' : signingKey,
-    //         'X-Amz-Date': XAmzDate,
-    //         Authorization: Authorization,
-    //         'Content-Type': contentType,
-    //         'Accept' : '*/*',
-    //         'Cache-Control': 'no-cache',
-    //         'Accept-Encoding' : 'gzip, deflate',
-    //         'Content-Length': data.size,
-    //         'Connection' : 'keep-alive',
-    //
-    //         // 'Access-Control-Allow-Origin' : '*',
-    //         // 'Access-Control-Allow-Methods': 'POST, GET, DELETE, PUT',
-    //         // 'Access-Control-Allow-Headers': 'Content-Type',
-    //         // // 'Content-Type': 'application/x-binary',
-    //         // Expect: '/'
-    //     }),
-    //     body: data
-    // })
-    //     .then(result =>{
-    //     console.log(result);
-    //     dispatch();
-    // })
-    //     .catch(err =>{
-    //         console.log(err)
-    //     })
-
     const fileName = "newFile";
     const fileType = 'image/jpeg';
     const host = 'https://jrdunkleyfitnessapp.s3.amazonaws.com';
-    //
-    // const s3Params = {
-    //     Bucket: host,
-    //     Key: fileName,
-    //     ContentType: fileType,
-    //     ACL: 'public-read'
-    // };
-    //
-    // console.log("fired");
-    // S3.getSignedUrl('putObject', s3Params, (err, data) => {
-    //     if (err) {
-    //         console.error(err);
-    //     } else {
-    //         console.log("fired");
-    //         console.log({
-    //             signedRequest: data,
-    //             url: `https://jrdunkleyfitnessapp.s3.amazonaws.com/${fileName}`,
-    //         });
-    //     }
-    // });
 
-    // const signedUrl = fetch(`${host}/sign-s3`)
-    //     .then(response => {
-    //         if (!response.ok) {
-    //             console.log(`${response.status}: ${response.statusText}`);
-    //         }
-    //         return response.json();
+    // axios.post('/api/upload_profile_pic', {
+    //     params: {
+    //         fileName: fileName,
+    //         fileType: fileType
+    //      }
+    // })
+    //     .then(result =>{
+    //         console.log(result);
+    //     })
+    //     .catch(err =>{
+    //         console.log(err);
     //     });
-    //
-    // console.log(signedUrl)
 
-    axios.post('/api/upload_profile_pic', {
-        params: {
-            fileName: fileName,
-            fileType: fileType
-         }
-    })
-        .then(result =>{
-            console.log(result);
-        })
-        .catch(err =>{
-            console.log(err);
-        })
+    // Get token for fetch
+    const token = localStorage.getItem('jwtToken');
+    if(token !== null){
+        let config = {
+            method: 'POST',
+            headers: new Headers({
+                Authorization: token,
+                'Accept': 'application/json, text/plain, */*',
+                'Content-Type': 'application/json'
+            }),
+            body: JSON.stringify({
+                fileName: fileName,
+                fileType: fileType
+            })
+        };
+
+        fetch(`/api/upload_profile_pic`, config)
+            .then()
+            .catch()
+    }
+
+
+
+
 };
 
