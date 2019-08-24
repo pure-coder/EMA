@@ -5,13 +5,13 @@ import {withRouter} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import defaultProfilePic from '../../../img/default_profile_pic.png';
 import {
-    ptSaveProfilePic,
+    // ptSaveProfilePic,
     uploadProfilePic
 } from "../../../actions/ptProfileActions";
 import {
-    clientSaveProfilePic
+    // clientSaveProfilePic
 } from "../../../actions/clientProfileActions";
-import DisplayMessage from "../../common/DisplayMessage";
+// import DisplayMessage from "../../common/DisplayMessage";
 import isEmpty from "../../../validation/is_empty";
 
 class ProfilePicUpload extends Component {
@@ -114,7 +114,8 @@ class ProfilePicUpload extends Component {
                     }
                     else{
                         //this.props.clientSaveProfilePic(blob, croppedImage, this.props.history);
-                        this.props.uploadProfilePic(blob, "something.jpg");
+                        this.props.uploadProfilePic("something.jpg");
+                        // this.props.uploadProfilePic(blob, "something.jpg");
                     }
                 }).catch(() => {
                 this.setState({
@@ -219,7 +220,7 @@ class ProfilePicUpload extends Component {
 }
 
 ProfilePicUpload.propTypes = ({
-    ptSaveProfilePic: PropTypes.func.isRequired,
+    // ptSaveProfilePic: PropTypes.func.isRequired,
     clientSaveProfilePic: PropTypes.func.isRequired
 });
 
@@ -230,7 +231,7 @@ const stateToProps = state => ({
 });
 
 export default connect(stateToProps, {
-    ptSaveProfilePic,
-    clientSaveProfilePic,
+    // ptSaveProfilePic,
+    // clientSaveProfilePic,
     uploadProfilePic
 })(withRouter(ProfilePicUpload));
