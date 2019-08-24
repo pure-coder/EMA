@@ -164,12 +164,11 @@ router.delete('/delete_client/:cid', passport.authenticate('pt_rule', {session: 
 // @desc   Get client data
 // @access Private for PT's and client
 router.get('/client/:cid', passport.authenticate('both_rule', {session: false}, null), (req, res) => {
-
-
     let token = req.headers.authorization.split(' ')[1];
     let payload = jwt.decode(token, keys.secretOrKey);
     let signedInId = payload.id;
     let cid = req.params.cid;
+
     // get client data
     Client.findOne({_id: cid})
         .then(client => {
@@ -190,10 +189,6 @@ router.get('/client/:cid', passport.authenticate('both_rule', {session: false}, 
                     else{
                         res.status(400).json({msg: "Signed in user does not have authorisation to request this data."})
                     }
-                }
-                // if client is null
-                else {
-                    res.status(404).json({error: `Client with id: ${cid} does not exist.`})
                 }
             }
         ) // then Client.findOne
@@ -281,7 +276,9 @@ router.put('/edit_client/:cid', passport.authenticate('both_rule', {session: fal
                                 if (client) {
                                     res.status(200).json(client);
                                 }
-                                res.status(400).json({msg: "Client does not exist!"});
+                                else {
+                                    res.status(400).json({msg: "Client does not exist!"});
+                                }
                             })
                             .catch(err => {
                                 res.status(400).json(err)
@@ -304,7 +301,7 @@ router.put('/edit_client/:cid', passport.authenticate('both_rule', {session: fal
         )
 }); // PUT /edit_client/:id
 
-// @route  GET api/personal_trainer/:id
+// @route  GET api/personal_trainer
 // @desc   Get personal trainer data
 // @access Private for PT's
 router.get('/personal_trainer', passport.authenticate('pt_rule', {session: false}, null), (req, res) => {
@@ -405,7 +402,9 @@ router.put('/edit_personal_trainer', passport.authenticate('pt_rule', {session: 
                 if (pt) {
                     res.status(200).json(pt);
                 }
-                res.status(400).json({msg: "Personal Trainer does not exist!"});
+                else {
+                    res.status(400).json({msg: "Personal Trainer does not exist!"});
+                }
             })
             .catch(err => {
                 res.status(400).json(err)
@@ -1241,7 +1240,6 @@ router.delete('/delete_personal_trainer', passport.authenticate('pt_rule', {sess
             res.status(400).json({msg: "Personal trainer not found!"});
         })
 }); // router delete /delete_personal_trainer
-
 
 //Export router so it can work with the main restful api server
     module.exports = router;

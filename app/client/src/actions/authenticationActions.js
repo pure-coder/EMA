@@ -8,7 +8,7 @@ import jwtDecode from 'jwt-decode';
 import {clearErrors, setSuccess, ptClearProfile, setErrors} from "./ptProfileActions";
 import {clientClearProfile} from "./clientProfileActions";
 
-export const manageErrors = (err, dispatch, history) => {
+export const manageErrors = (err, dispatch) => {
     // 401 Unauthorised
     if(err.response.status === 401 || err.response.status === 500){
         dispatch({
@@ -20,11 +20,11 @@ export const manageErrors = (err, dispatch, history) => {
         });
         dispatch(logOutUser());
         dispatch(clearErrors());
-        window.location.href = '/re-login';
+        //window.location.href = '/re-login';
     }
     // If used direct url, and id doesn't exist send user to error page (404 - Not Found)
     else if (err.response.status === 404){
-        history.replace('/error_page');
+        //window.location.href = '/error_page';
     }
     else if (err.response.status === 400){
         dispatch({

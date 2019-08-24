@@ -1,7 +1,16 @@
 import React, {Component} from 'react';  // Used to create this component
 import PropTypes from 'prop-types'; // Used to document prop types sent to components
 import {connect} from 'react-redux' // Needed when using redux inside a component (connects redux to this component)
-import {ptEditClientData, passwordsMatchError, setErrors, clearErrors, setSuccess, clearSuccess, ptGetCurrentClient, ptClearCurrentClientProfile} from "../../../actions/ptProfileActions"; // Used to import create action for getting client data and editing client data
+import {ptEditClientData,
+    passwordsMatchError,
+    setErrors,
+    clearErrors,
+    setSuccess,
+    clearSuccess,
+    ptGetCurrentClient,
+    ptClearCurrentClientProfile,
+    ptGetClients,
+} from "../../../actions/ptProfileActions"; // Used to import create action for getting client data and editing client data
 import {clientGetData} from "../../../actions/clientProfileActions";
 import {Link, withRouter} from 'react-router-dom';
 import FormInputGroup from "../../common/FormInputGroup";
@@ -237,7 +246,7 @@ class EditClient extends Component {
             return <ErrorComponent/>
         }
         else {
-            let {errors, message} = this.state;
+            let {errors, message, profilePicture} = this.state;
 
             return (
                 <div className="edit_client">
@@ -246,9 +255,12 @@ class EditClient extends Component {
                             <div className="m-auto col-md-8">
                                 <h1 className=" text-center display-5">Edit Client Profile</h1>
                                 <div className="edit_image">
-                                    <Link to={`upload_profile_picture`}>
-                                        <ProfileImage image={this.state.profilePicture} />
-                                    </Link>
+                                    {!this.props.authenticatedUser.user.pt ?
+                                        <Link to={`upload_profile_picture`}>
+                                            <ProfileImage image={profilePicture} />
+                                        </Link> :
+                                        <ProfileImage image={profilePicture} />
+                                    }
                                 </div>
                                 <form autoComplete="off" onSubmit={this.onSubmit}>
                                     {/*// Deals with Chromes password auto complete*/}
@@ -342,6 +354,7 @@ class EditClient extends Component {
 EditClient.propTypes = {
     clientGetData: PropTypes.func.isRequired,
     ptGetCurrentClient: PropTypes.func.isRequired,
+    ptGetClients: PropTypes.func.isRequired,
     clearErrors: PropTypes.func.isRequired,
     setErrors: PropTypes.func.isRequired,
     setSuccess: PropTypes.func.isRequired,
@@ -363,4 +376,15 @@ const stateToProps = (state) => ({
     success: state.success
 });
 
-export default connect(stateToProps, {clientGetData, ptGetCurrentClient ,ptEditClientData, passwordsMatchError, setErrors, setSuccess, clearErrors, clearSuccess, ptClearCurrentClientProfile})(withRouter(EditClient));
+export default connect(stateToProps, {
+    clientGetData,
+    ptGetCurrentClient,
+    ptEditClientData,
+    passwordsMatchError,
+    setErrors,
+    setSuccess,
+    clearErrors,
+    clearSuccess,
+    ptClearCurrentClientProfile,
+    ptGetClients
+})(withRouter(EditClient));

@@ -447,3 +447,67 @@ export const passwordsMatchError = (error) => dispatch => {
         }
     )
 };
+
+
+// AWS put
+require('es6-promise').polyfill();
+require('isomorphic-fetch');
+
+
+
+
+// const authString = 'AWS4-HMAC-SHA256 ' + todaysDateISO + ' ' + todaysDateOther + '/eu-west-2/s3/aws4_request ' +
+//                 '4baa16ed6287a4c11a937d86003657309d71caaca2b1da57c02bc52fd635ccdd'
+
+export const uploadProfilePic = (data, nameOfFile) => dispatch => {
+
+    const todaysDateOther = todaysDateISO.substring(0, 10).replace(/-/g, '');
+    const method = 'PUT';
+    // Other data
+    const bucket = 'jrdunkleyfitnessapp';
+    const folder = '/images/';
+    const accessKey = 'AKIAJMW245GLOFVVWOFQ';
+    const secretKey = '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';
+    const region = 'eu-west-2';
+    const requestURI =  `${folder}${nameOfFile}`;
+    const canResource = `/${bucket}${requestURI}`;
+
+    // signed headers
+    const xAmzContentSha256 = '';
+    const host = 'jrdunkleyfitnessapp.s3.amazonaws.com';
+    const XAmzDate = new Date(Date.now()).toISOString().replace(/[ :,.-]/g, "").substring(0, 15).concat('Z');
+    const contentType = 'text/plain';
+    const Authorization = `AWS4-HMAC-SHA256 Credential=${accessKey}/${region}/s3/aws4_request, SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=0574d082a26875dcd3c11f991ea58dc1c9b2204d09e0f0cc427d296bd056ec06`;
+
+
+    console.log(canResource)
+
+    fetch(`https;//${host}${folder}${nameOfFile}`, {
+        method: method,
+        // mode: 'no-cors',
+        headers: new Headers({
+            'Host' : host,
+            'X-Amz-Content-Sha256' : xAmzContentSha256,
+            'X-Amz-Date': XAmzDate,
+            Authorization: Authorization,
+            'Content-Type': contentType,
+            'Accept' : '*/*',
+            'Content-Length': data.size,
+            'Connection' : 'keep-alive',
+
+            // 'Access-Control-Allow-Origin' : '*',
+            // 'Access-Control-Allow-Methods': 'POST, GET, DELETE, PUT',
+            // 'Access-Control-Allow-Headers': 'Content-Type',
+            // // 'Content-Type': 'application/x-binary',
+            // Expect: '/'
+        }),
+        body: data
+    })
+        .then(result =>{
+        console.log(result);
+    })
+        .catch(err =>{
+            console.log(err)
+        })
+};
+

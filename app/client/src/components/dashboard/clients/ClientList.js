@@ -84,7 +84,7 @@ class ClientList extends Component {
                         </Link>
                     </td>
                     <td align="center">
-                        <Link to={`/users/$${ptData.pt_data._id}/edit_client/${client._id}`}><i
+                        <Link to={`/users/${ptData.pt_data._id}/edit_client/${client._id}`}><i
                             className="fas fa-edit fa-2x"></i>
                         </Link>
                     </td>

@@ -6,9 +6,11 @@ import PropTypes from 'prop-types';
 import defaultProfilePic from '../../../img/default_profile_pic.png';
 import {
     ptSaveProfilePic,
-    ptGetData,
+    uploadProfilePic
 } from "../../../actions/ptProfileActions";
-import {clientSaveProfilePic} from "../../../actions/clientProfileActions";
+import {
+    clientSaveProfilePic
+} from "../../../actions/clientProfileActions";
 import DisplayMessage from "../../common/DisplayMessage";
 import isEmpty from "../../../validation/is_empty";
 
@@ -46,7 +48,6 @@ class ProfilePicUpload extends Component {
 
     static getDerivedStateFromProps(props, state){
         if(!isEmpty(props.success)) {
-            props.ptGetData();
             return {
                 message: {
                     type: props.success.type,
@@ -105,14 +106,15 @@ class ProfilePicUpload extends Component {
         this.setState({
             errors: {}
         });
-        if(src !== defaultProfilePic || croppedImage !== null){
+        if(src !== defaultProfilePic){
             this.makeCroppedImage()
                 .then(blob => {
                     if(this.props.authenticatedUser.user.pt){
-                        this.props.ptSaveProfilePic(blob, croppedImage, this.props.history);
+                        //this.props.ptSaveProfilePic(blob, croppedImage, this.props.history);
                     }
                     else{
-                        this.props.clientSaveProfilePic(blob, croppedImage, this.props.history);
+                        //this.props.clientSaveProfilePic(blob, croppedImage, this.props.history);
+                        this.props.uploadProfilePic(blob, "something.jpg");
                     }
                 }).catch(() => {
                 this.setState({
@@ -157,7 +159,7 @@ class ProfilePicUpload extends Component {
             // drawn on another canvas, or added to the DOM.
             const canvas = this.editor.getImage();
             const image = canvas.toDataURL();
-            this.setState({croppedImage: image });
+            this.setState({croppedImage: image});
             return await ProfilePicUpload.dataURItoBlob(image);
         }
     }
@@ -202,7 +204,7 @@ class ProfilePicUpload extends Component {
                                 <input type="file" className="form-control" onChange={this.onSelectFile}/>
                             </div>
                         </form>
-                        <DisplayMessage message={message}/>
+                        {/*<DisplayMessage message={message}/>*/}
                         <button type="button"
                                 className="btn btn-info mb-4 upload-button"
                                 onClick={this.onClickSave}
@@ -218,8 +220,7 @@ class ProfilePicUpload extends Component {
 
 ProfilePicUpload.propTypes = ({
     ptSaveProfilePic: PropTypes.func.isRequired,
-    clientSaveProfilePic: PropTypes.func.isRequired,
-    ptGetData: PropTypes.func.isRequired
+    clientSaveProfilePic: PropTypes.func.isRequired
 });
 
 const stateToProps = state => ({
@@ -231,5 +232,5 @@ const stateToProps = state => ({
 export default connect(stateToProps, {
     ptSaveProfilePic,
     clientSaveProfilePic,
-    ptGetData
+    uploadProfilePic
 })(withRouter(ProfilePicUpload));

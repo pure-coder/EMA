@@ -41,15 +41,17 @@ class Dashboard extends Component {
 
     static getDerivedStateFromProps(prevProps, prevState){
         if(prevProps.authenticatedUser.user.pt){
-            if(prevProps.ptProfile.pt_data !== prevState.ptData){
+            if(prevProps.ptProfile !== prevState.ptData){
                 return {
                     ptData: prevProps.ptProfile
                 }
             }
         }
-        if(prevProps.clientProfile !== prevState.clientData){
-            return {
-                clientData: prevProps.clientProfile
+        else{
+            if(prevProps.clientProfile !== prevState.clientData){
+                return {
+                    clientData: prevProps.clientProfile
+                }
             }
         }
         return null
@@ -69,7 +71,7 @@ class Dashboard extends Component {
             }
         }
         else{
-            if(this.props.ptProfile.client_data === null) {
+            if(this.props.clientProfile.client_data === null) {
                 this.props.clientGetData(this.props.authenticatedUser.user.id);
             }
         }
