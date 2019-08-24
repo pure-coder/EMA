@@ -10,9 +10,16 @@ const {capitaliseFirstLetter} = require('../services/capitalise');
 const jwt = require('jsonwebtoken');
 // jwt keys
 const keys = require('../config/db');
-// const multer  = require('multer');
-// const storage = multer.memoryStorage();
-// const upload = multer({ storage: storage });
+const multer  = require('multer');
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage });
+require('es6-promise').polyfill();
+require('isomorphic-fetch');
+
+// AWS
+const AWS = require('aws-sdk');
+AWS.config.loadFromPath('./config/AWS.json');
+const s3 = new AWS.S3();
 
 
 
@@ -1239,7 +1246,33 @@ router.delete('/delete_personal_trainer', passport.authenticate('pt_rule', {sess
         })
 }); // router delete /delete_personal_trainer
 
-router.post(`/upload_profile_pic`,passport.authenticate('both_rule', {session: false}, null), (req, res) =>{
+// Change to config file and and use when in production.
+// let credentials = {
+//     accessKeyId: process.env.S3_ACCESS_KEY,
+//     secretAccessKey : process.env.S3_SECRET_KEY
+// };
+
+// let presignedGETURL = s3.getSignedUrl('getObject', {
+//     Bucket: bucket,
+//     Key: 'images', //filename
+//     Expires: 100 //time to expire in seconds
+// });
+
+async function putSignedURL(fileName){
+
+    let Promise = new Promise(resolve => {
+        resolve(s3.getSignedUrl('putObject', {
+        Bucket: bucket,
+        Key: `images/${fileName}`, //filename
+        Expires: 10000 //time to expire in seconds
+        }));
+    });
+
+    return await Promise;
+}
+
+
+router.post(`/upload_profile_pic`, upload.single('profileImage'),passport.authenticate('both_rule', {session: false}, null), (req, res) =>{
 
     let token = req.headers.authorization.split(' ')[1];
     let payload = jwt.decode(token, keys.secretOrKey);
@@ -1252,10 +1285,43 @@ router.post(`/upload_profile_pic`,passport.authenticate('both_rule', {session: f
     // let{fileName, fileType} = req.body;
     // console.log(fileName, fileType);
 
+    // Check blob details
+    // console.log(req.file)
 
-    res.status(200).json("Response ok");
+    let fileName = req.file.originalname;
+    let imageBuffer = req.file.buffer;
+    let fileType = req.file.mimetype;
+    let fileSize = req.file.size;
 
+    const bucket = 'jrdunkleyfitnessapp';
+
+    s3.getSignedUrl('putObject', {
+        Bucket: bucket,
+        Key: `images/${fileName}`, //filename
+        Expires: 10000 //time to expire in seconds
+    }, (err, url) => {
+        if(err){
+            res.status(400).json(err);
+        }
+        else{
+            fetch(url, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": fileType,
+                    "Content-Length": fileSize
+                },
+                body: imageBuffer
+            }).then(result => {
+                    console.log(result.statusText);
+                })
+                .catch(err => {
+                    console.log(err);
+                })
+            res.status(200).json({data: url});
+        }
+
+    });
 }); // router delete /delete_personal_trainer
 
 //Export router so it can work with the main restful api server
-    module.exports = router;
+module.exports = router;

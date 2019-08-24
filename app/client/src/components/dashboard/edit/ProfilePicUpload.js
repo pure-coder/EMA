@@ -107,6 +107,7 @@ class ProfilePicUpload extends Component {
             errors: {}
         });
         if(src !== defaultProfilePic){
+            let fileName = "SomeImage";
             this.makeCroppedImage()
                 .then(blob => {
                     if(this.props.authenticatedUser.user.pt){
@@ -114,8 +115,7 @@ class ProfilePicUpload extends Component {
                     }
                     else{
                         //this.props.clientSaveProfilePic(blob, croppedImage, this.props.history);
-                        this.props.uploadProfilePic("something.jpg");
-                        // this.props.uploadProfilePic(blob, "something.jpg");
+                        this.props.uploadProfilePic(blob, fileName);
                     }
                 }).catch(() => {
                 this.setState({

@@ -26,7 +26,6 @@ import {
 import {manageErrors} from "./authenticationActions";
 require('es6-promise').polyfill();
 require('isomorphic-fetch');
-let crypto = require("crypto-js");
 
 // Register client
 export const registerClient =(Data, props, history) => (dispatch) => {
@@ -452,56 +451,26 @@ export const passwordsMatchError = (error) => dispatch => {
     )
 };
 
-
-function getSignatureKey(key, dateStamp, regionName, serviceName) {
-    let kDate = crypto.HmacSHA256(dateStamp, "AWS4" + key);
-    let kRegion = crypto.HmacSHA256(regionName, kDate);
-    let kService = crypto.HmacSHA256(serviceName, kRegion);
-    let kSigning = crypto.HmacSHA256("aws4_request", kService);
-    return kSigning;
-}
-
-export const uploadProfilePic = () => dispatch => {
-    const fileName = "newFile";
+export const uploadProfilePic = (dataImage, fileName) => dispatch => {
     const fileType = 'image/jpeg';
     const host = 'https://jrdunkleyfitnessapp.s3.amazonaws.com';
 
-    // axios.post('/api/upload_profile_pic', {
-    //     params: {
-    //         fileName: fileName,
-    //         fileType: fileType
-    //      }
-    // })
-    //     .then(result =>{
-    //         console.log(result);
-    //     })
-    //     .catch(err =>{
-    //         console.log(err);
-    //     });
+    const formData = new FormData();
+    formData.append('profileImage', dataImage, fileName);
 
-    // Get token for fetch
+    // Get token for fetch ---- content type
     const token = localStorage.getItem('jwtToken');
     if(token !== null){
         let config = {
             method: 'POST',
             headers: new Headers({
-                Authorization: token,
-                'Accept': 'application/json, text/plain, */*',
-                'Content-Type': 'application/json'
+                Authorization: token
             }),
-            body: JSON.stringify({
-                fileName: fileName,
-                fileType: fileType
-            })
+            body : formData
         };
 
         fetch(`/api/upload_profile_pic`, config)
             .then()
             .catch()
     }
-
-
-
-
 };
-
