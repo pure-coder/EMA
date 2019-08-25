@@ -5,13 +5,12 @@ import {withRouter} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import defaultProfilePic from '../../../img/default_profile_pic.png';
 import {
-    // ptSaveProfilePic,
-    uploadProfilePic
+    ptUploadProfilePic
 } from "../../../actions/ptProfileActions";
 import {
-    // clientSaveProfilePic
+    clientUploadProfilePic
 } from "../../../actions/clientProfileActions";
-// import DisplayMessage from "../../common/DisplayMessage";
+import DisplayMessage from "../../common/DisplayMessage";
 import isEmpty from "../../../validation/is_empty";
 
 class ProfilePicUpload extends Component {
@@ -20,7 +19,6 @@ class ProfilePicUpload extends Component {
         this.state = {
             userId: props.authenticatedUser.user.id,
             src: defaultProfilePic,
-            croppedImage: null,
             width: 300,
             height: 300,
             border: 50,
@@ -101,21 +99,23 @@ class ProfilePicUpload extends Component {
     };
 
     onClickSave = () => {
-        let {src, croppedImage} = this.state;
+        let {src} = this.state;
         // Reset error message
         this.setState({
             errors: {}
         });
         if(src !== defaultProfilePic){
-            let fileName = "SomeImage";
+            // Create file name out of date and user id
+            const XAmzDate = new Date(Date.now()).toISOString().replace(/[ :,.-]/g, "").substring(0, 15).concat('Z');
+            const {id} = this.props.authenticatedUser.user;
+            let fileName = `${XAmzDate}-${id}`;
             this.makeCroppedImage()
                 .then(blob => {
                     if(this.props.authenticatedUser.user.pt){
-                        //this.props.ptSaveProfilePic(blob, croppedImage, this.props.history);
+                        this.props.ptUploadProfilePic(blob, fileName);
                     }
                     else{
-                        //this.props.clientSaveProfilePic(blob, croppedImage, this.props.history);
-                        this.props.uploadProfilePic(blob, fileName);
+                        this.props.clientUploadProfilePic(blob, fileName);
                     }
                 }).catch(() => {
                 this.setState({
@@ -160,7 +160,6 @@ class ProfilePicUpload extends Component {
             // drawn on another canvas, or added to the DOM.
             const canvas = this.editor.getImage();
             const image = canvas.toDataURL();
-            this.setState({croppedImage: image});
             return await ProfilePicUpload.dataURItoBlob(image);
         }
     }
@@ -205,7 +204,7 @@ class ProfilePicUpload extends Component {
                                 <input type="file" className="form-control" onChange={this.onSelectFile}/>
                             </div>
                         </form>
-                        {/*<DisplayMessage message={message}/>*/}
+                        <DisplayMessage message={message}/>
                         <button type="button"
                                 className="btn btn-info mb-4 upload-button"
                                 onClick={this.onClickSave}
@@ -220,8 +219,8 @@ class ProfilePicUpload extends Component {
 }
 
 ProfilePicUpload.propTypes = ({
-    // ptSaveProfilePic: PropTypes.func.isRequired,
-    clientSaveProfilePic: PropTypes.func.isRequired
+    ptUploadProfilePic: PropTypes.func.isRequired,
+    clientUploadProfilePic: PropTypes.func.isRequired,
 });
 
 const stateToProps = state => ({
@@ -231,7 +230,6 @@ const stateToProps = state => ({
 });
 
 export default connect(stateToProps, {
-    // ptSaveProfilePic,
-    // clientSaveProfilePic,
-    uploadProfilePic
+    ptUploadProfilePic,
+    clientUploadProfilePic
 })(withRouter(ProfilePicUpload));

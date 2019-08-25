@@ -83,23 +83,35 @@ export const clientGetProgression = (clientId, history) => dispatch => {
         });
 };
 
-// export const clientSaveProfilePic = (data, image, history) => dispatch => {
-//     const formData = new FormData();
-//     formData.append('profilePicture', data, 'filename.png');
-//     axios.post(`/api/upload_profile_pic`, formData)
-//         .then(() => {
-//                 dispatch({
-//                     type: UPDATE_PROFILE_PIC_CLIENT,
-//                     payload: image
-//                 });
-//                 dispatch(setSuccess("Profile Picture has been updated."));
-//             }
-//         )
-//         .catch(err => {
-//             manageErrors(err, dispatch, history);
-//         });
-// };
+export const clientUploadProfilePic = (dataImage, fileName) => dispatch => {
+    const formData = new FormData();
+    formData.append('profileImage', dataImage, fileName);
 
+    // Get token for fetch ---- content type
+    const token = localStorage.getItem('jwtToken');
+    if(token !== null){
+        let config = {
+            method: 'POST',
+            headers: new Headers({
+                Authorization: token
+            }),
+            body : formData
+        };
+
+        fetch(`/api/upload_profile_pic`, config)
+            .then(result => result.json())
+            .then(data => {
+                dispatch({
+                    type: UPDATE_PROFILE_PIC_CLIENT,
+                    payload: data.url
+                });
+                dispatch(setSuccess(data.msg))
+            })
+            .catch(err => {
+                dispatch(manageErrors(err))
+            })
+    }
+};
 
 /* Clear */
 

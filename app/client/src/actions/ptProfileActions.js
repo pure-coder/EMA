@@ -325,22 +325,35 @@ export const ptWorkoutScheduler = (userId, clientId) => dispatch => {
         });
 };
 
-// export const ptSaveProfilePic = (data, image, history) => dispatch => {
-//     const formData = new FormData();
-//     formData.append('profilePicture', data, 'filename.png');
-//     axios.post(`/api/upload_profile_pic`, formData)
-//         .then(() => {
-//                 dispatch({
-//                     type: UPDATE_PROFILE_PIC_PT,
-//                     payload: image
-//                 });
-//                 dispatch(setSuccess("Profile Picture has been updated."));
-//             }
-//         )
-//         .catch(err => {
-//             manageErrors(err, dispatch, history);
-//         });
-// };
+export const ptUploadProfilePic = (dataImage, fileName) => dispatch => {
+    const formData = new FormData();
+    formData.append('profileImage', dataImage, fileName);
+
+    // Get token for fetch ---- content type
+    const token = localStorage.getItem('jwtToken');
+    if(token !== null){
+        let config = {
+            method: 'POST',
+            headers: new Headers({
+                Authorization: token
+            }),
+            body : formData
+        };
+
+        fetch(`/api/upload_profile_pic`, config)
+            .then(result => result.json())
+            .then(data => {
+                dispatch({
+                    type: UPDATE_PROFILE_PIC_PT,
+                    payload: data.url
+                });
+                dispatch(setSuccess(data.msg))
+            })
+            .catch(err => {
+                dispatch(manageErrors(err))
+            })
+    }
+};
 
 
 // Clear
@@ -449,28 +462,4 @@ export const passwordsMatchError = (error) => dispatch => {
             payload: error
         }
     )
-};
-
-export const uploadProfilePic = (dataImage, fileName) => dispatch => {
-    const fileType = 'image/jpeg';
-    const host = 'https://jrdunkleyfitnessapp.s3.amazonaws.com';
-
-    const formData = new FormData();
-    formData.append('profileImage', dataImage, fileName);
-
-    // Get token for fetch ---- content type
-    const token = localStorage.getItem('jwtToken');
-    if(token !== null){
-        let config = {
-            method: 'POST',
-            headers: new Headers({
-                Authorization: token
-            }),
-            body : formData
-        };
-
-        fetch(`/api/upload_profile_pic`, config)
-            .then()
-            .catch()
-    }
 };
