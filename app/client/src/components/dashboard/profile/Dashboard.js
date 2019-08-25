@@ -65,15 +65,11 @@ class Dashboard extends Component {
         checkExp();
         // Check to see if data is already loaded, increases performance
         if(this.props.authenticatedUser.user.pt){
-            if(this.props.ptProfile.pt_data === null){
-                this.props.ptGetData(this.props.history);
-                this.props.ptGetClients(this.props.history);
-            }
+            this.props.ptGetData(this.props.history);
+            this.props.ptGetClients(this.props.history);
         }
         else{
-            if(this.props.clientProfile.client_data === null) {
-                this.props.clientGetData(this.props.authenticatedUser.user.id);
-            }
+            this.props.clientGetData(this.props.authenticatedUser.user.id);
         }
         document.body.scrollTo(0,0);
     } // ComponentDidMount

@@ -1122,6 +1122,8 @@ router.post(`/upload_profile_pic`, upload.single('profileImage'),passport.authen
     const bucket = 'jrdunkleyfitnessapp';
     const region = AWS.config.region;
 
+    let newUrl;
+
     s3.getSignedUrl('putObject', {
         Bucket: bucket,
         Key: key, //filename
@@ -1142,7 +1144,7 @@ router.post(`/upload_profile_pic`, upload.single('profileImage'),passport.authen
             }).then(result => {
                 // Upload successful, send profile pic url to db.
                 if(result.status === 200){
-                    let newUrl = `https://${bucket}.s3.${region}.amazonaws.com/${key}`;
+                    newUrl = `https://${bucket}.s3.${region}.amazonaws.com/${key}`;
 
                     // User is pt so update pt users profile pic
                     // Check if the user is a PT
@@ -1157,7 +1159,7 @@ router.post(`/upload_profile_pic`, upload.single('profileImage'),passport.authen
                         )
                             .then(result => {
                                 if (result) {
-                                    res.status(200).json({msg: "Profile picture updated"})
+                                    res.status(200).json({msg: "Profile picture updated", url: newUrl})
                                 }
                             })
                             .catch(() => {
@@ -1186,9 +1188,9 @@ router.post(`/upload_profile_pic`, upload.single('profileImage'),passport.authen
                     res.status(400).json("Failed to upload profile picture");
                 }
             })
-                .catch(err => {
-                    console.log(err);
-                })
+            .catch(err => {
+                console.log(err);
+            });
         }
     });
 }); // router post upload profile picture

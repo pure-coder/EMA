@@ -21,7 +21,8 @@ import {
     PT_CLIENT_BODY_BIO,
     CLEAR_BODY_BIO,
     UPDATE_PROFILE_PIC_PT,
-    UPDATE_PROFILE_PIC_CURRENT_CLIENT
+    PT_PROFILE_EDITED,
+    PT_CLIENT_PROFILE_EDITED,
 } from "./types"; // import custom defined types
 import {manageErrors} from "./authenticationActions";
 require('es6-promise').polyfill();
@@ -93,12 +94,6 @@ export const ptGetCurrentClient = (clientId, history) => dispatch => {
                 type: GET_CURRENT_CLIENT,
                 payload: result.data
             });
-            if(result.data.ProfilePicUrl !== "NA") {
-                dispatch({
-                    type: UPDATE_PROFILE_PIC_CURRENT_CLIENT,
-                    payload: result.data.ProfilePicUrl
-                });
-            }
         })
         .catch(err => {
             manageErrors(err, dispatch, history);
@@ -110,6 +105,10 @@ export const ptEditData = (Data, history) => dispatch => {
         .put(`/api/edit_personal_trainer`, Data)
         .then(result => {
                 if(result.status === 200){
+                    dispatch({
+                        type : PT_PROFILE_EDITED,
+                        payload: result.data
+                    });
                     dispatch(setSuccess("Personal Trainer profile has been updated successfully"));
                 }
             }
@@ -124,6 +123,10 @@ export const ptEditClientData = (clientId, data, history) => dispatch => {
         .put(`/api/edit_client/${clientId}`, data)
         .then(result => {
             if(result.status === 200){
+                dispatch({
+                    type : PT_CLIENT_PROFILE_EDITED,
+                    payload: result.data
+                });
                 dispatch(setSuccess("Client data successfully updated."))
             }
         })
@@ -351,7 +354,7 @@ export const ptUploadProfilePic = (dataImage, fileName) => dispatch => {
             })
             .catch(err => {
                 dispatch(manageErrors(err))
-            })
+            });
     }
 };
 

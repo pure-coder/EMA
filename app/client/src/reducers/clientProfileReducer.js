@@ -8,7 +8,9 @@ import {
     CLEAR_PROFILE_NOTES,
     BODY_BIO_CLIENT,
     CLEAR_BODY_BIO_CLIENT,
-    UPDATE_PROFILE_PIC_CLIENT
+    UPDATE_PROFILE_PIC_CLIENT,
+    CLIENT_PROFILE_EDITED,
+    PT_CLIENT_PROFILE_EDITED
 } from '../actions/types';
 
 const initialState = {
@@ -78,6 +80,16 @@ export default function(state = initialState, action) {
                     ...state.client_data,
                     ProfilePicUrl: action.payload
                 }
+            };
+        case CLIENT_PROFILE_EDITED:
+            return {
+                ...state,
+                client_data: action.payload
+            };
+        case PT_CLIENT_PROFILE_EDITED:
+            return {
+                ...state,
+                client_data: action.payload
             };
         default:
             return state;

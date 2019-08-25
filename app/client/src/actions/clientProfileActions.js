@@ -10,7 +10,8 @@ import {
     BODY_BIO_CLIENT,
     CLEAR_BODY_BIO_CLIENT,
     UPDATE_PROFILE_PIC_CLIENT,
-    CLEAR_CLIENT_PROGRESSION
+    CLEAR_CLIENT_PROGRESSION,
+    CLIENT_PROFILE_EDITED
 } from "./types"; // import custom defined types
 import {manageErrors} from "./authenticationActions";
 import {setSuccess} from "./ptProfileActions";
@@ -111,6 +112,23 @@ export const clientUploadProfilePic = (dataImage, fileName) => dispatch => {
                 dispatch(manageErrors(err))
             })
     }
+};
+
+export const clientEditData = (clientId, data, history) => dispatch => {
+    axios
+        .put(`/api/edit_client/${clientId}`, data)
+        .then(result => {
+            if(result.status === 200){
+                dispatch({
+                    type : CLIENT_PROFILE_EDITED,
+                    payload: result.data
+                });
+                dispatch(setSuccess("Client data successfully updated."))
+            }
+        })
+        .catch(err => {
+            manageErrors(err, dispatch, history);
+        })
 };
 
 /* Clear */

@@ -1,7 +1,15 @@
 import React, {Component} from 'react';  // Used to create this component
 import PropTypes from 'prop-types'; // Used to document prop types sent to components
 import {connect} from 'react-redux' // Needed when using redux inside a component (connects redux to this component)
-import {ptGetData,  ptEditData, passwordsMatchError, setErrors, clearErrors, setSuccess, clearSuccess} from "../../../actions/ptProfileActions"; // Used to import create action for getting pt data and editing pt data
+import {
+    ptGetData,
+    ptEditData,
+    passwordsMatchError,
+    setErrors,
+    clearErrors,
+    setSuccess,
+    clearSuccess
+} from "../../../actions/ptProfileActions"; // Used to import create action for getting pt data and editing pt data
 import {withRouter} from 'react-router-dom';
 import FormInputGroup from "../../common/FormInputGroup";
 import Loading from "../../../elements/Loading";

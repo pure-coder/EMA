@@ -1,7 +1,8 @@
 import React, {Component} from 'react';  // Used to create this component
 import PropTypes from 'prop-types'; // Used to document prop types sent to components
 import {connect} from 'react-redux' // Needed when using redux inside a component (connects redux to this component)
-import {ptEditClientData,
+import {
+    ptEditClientData,
     passwordsMatchError,
     setErrors,
     clearErrors,
@@ -9,8 +10,11 @@ import {ptEditClientData,
     clearSuccess,
     ptGetCurrentClient,
     ptClearCurrentClientProfile,
-    ptGetClients,
+    ptGetClients
 } from "../../../actions/ptProfileActions"; // Used to import create action for getting client data and editing client data
+import {
+    clientEditData
+} from "../../../actions/clientProfileActions";
 import {clientGetData} from "../../../actions/clientProfileActions";
 import {Link, withRouter} from 'react-router-dom';
 import FormInputGroup from "../../common/FormInputGroup";
@@ -220,7 +224,12 @@ class EditClient extends Component {
             return null;
         }
         else {
-            this.props.ptEditClientData(this.state.clientId, editData, this.props.history);
+            if(this.props.authenticatedUser.user.pt){
+                this.props.ptEditClientData(this.state.clientId, editData, this.props.history);
+            }
+            else{
+                this.props.clientEditData(this.state.clientId, editData, this.props.history);
+            }
             // Clear password match errors
             this.props.clearErrors();
             this.setState({
@@ -353,6 +362,7 @@ class EditClient extends Component {
 // Documents what props are needed for this component and will log a warning in the console in dev mode if not complied to
 EditClient.propTypes = {
     clientGetData: PropTypes.func.isRequired,
+    clientEditData: PropTypes.func.isRequired,
     ptGetCurrentClient: PropTypes.func.isRequired,
     ptGetClients: PropTypes.func.isRequired,
     clearErrors: PropTypes.func.isRequired,
@@ -378,6 +388,7 @@ const stateToProps = (state) => ({
 
 export default connect(stateToProps, {
     clientGetData,
+    clientEditData,
     ptGetCurrentClient,
     ptEditClientData,
     passwordsMatchError,
