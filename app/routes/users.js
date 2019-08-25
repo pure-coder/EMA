@@ -1252,53 +1252,27 @@ router.delete('/delete_personal_trainer', passport.authenticate('pt_rule', {sess
 //     secretAccessKey : process.env.S3_SECRET_KEY
 // };
 
-// let presignedGETURL = s3.getSignedUrl('getObject', {
-//     Bucket: bucket,
-//     Key: 'images', //filename
-//     Expires: 100 //time to expire in seconds
-// });
-
-async function putSignedURL(fileName){
-
-    let Promise = new Promise(resolve => {
-        resolve(s3.getSignedUrl('putObject', {
-        Bucket: bucket,
-        Key: `images/${fileName}`, //filename
-        Expires: 10000 //time to expire in seconds
-        }));
-    });
-
-    return await Promise;
-}
-
-
 router.post(`/upload_profile_pic`, upload.single('profileImage'),passport.authenticate('both_rule', {session: false}, null), (req, res) =>{
 
     let token = req.headers.authorization.split(' ')[1];
     let payload = jwt.decode(token, keys.secretOrKey);
     let signedInId = payload.id;
-
-    // Following is getting params using axios
-    // let {fileName, fileType} = req.body.params;
-
-    // Following is getting params using fetch
-    // let{fileName, fileType} = req.body;
-    // console.log(fileName, fileType);
-
-    // Check blob details
-    // console.log(req.file)
+    let isPt = payload.pt;
 
     let fileName = req.file.originalname;
     let imageBuffer = req.file.buffer;
     let fileType = req.file.mimetype;
     let fileSize = req.file.size;
+    let key = `images/${fileName}.jpg`;
 
     const bucket = 'jrdunkleyfitnessapp';
+    const region = AWS.config.region;
 
-    s3.getSignedUrl('putObject', {
+    let result = s3.getSignedUrl('putObject', {
         Bucket: bucket,
-        Key: `images/${fileName}`, //filename
-        Expires: 10000 //time to expire in seconds
+        Key: key, //filename
+        Expires: 10000, //time to expire in seconds
+        ACL : 'public-read' // Use this to make resource url available to public
     }, (err, url) => {
         if(err){
             res.status(400).json(err);
@@ -1312,15 +1286,60 @@ router.post(`/upload_profile_pic`, upload.single('profileImage'),passport.authen
                 },
                 body: imageBuffer
             }).then(result => {
-                    console.log(result.statusText);
-                })
-                .catch(err => {
-                    console.log(err);
-                })
-            res.status(200).json({data: url});
-        }
+                // Upload successful, send profile pic url to db.
+                if(result.status === 200){
+                    let url = `https://${bucket}.s3.${region}.amazonaws.com/${key}`;
 
+                    // User is pt so update pt users profile pic
+                    // Check if the user is a PT
+                    if(isPt){
+                        // update exercise for client
+                        PersonalTrainer.findOneAndUpdate(
+                            {_id: signedInId},
+                            {$set: {
+                                    ProfilePicUrl: url
+                                }
+                            },
+                        )
+                            .then(result => {
+                                if (result) {
+                                    res.status(200).json({msg: "Profile picture updated"})
+                                }
+                            })
+                            .catch(() => {
+                                res.status(400).json({msg: "Not authorised to update profile picture"})
+                            })
+                    }
+                    else {
+                        Client.findOneAndUpdate(
+                            {_id: signedInId},
+                            {$set: {
+                                    ProfilePicUrl: url
+                                }
+                            },
+                        )
+                            .then(result => {
+                                if (result) {
+                                    // console.log(result)
+                                    res.status(200).json({msg: "Profile picture updated"})
+                                }
+                            })
+                            .catch(() => {
+                                res.status(400).json({msg: "Not authorised to update profile picture"})
+                            })
+                    }
+                }
+                else{
+                    res.status(400).json("Failed to upload profile picture");
+                }
+            })
+            .catch(err => {
+                console.log(err);
+            })
+        }
     });
+
+    // s3.utilities().getUrl(getUrlRequest);
 }); // router delete /delete_personal_trainer
 
 //Export router so it can work with the main restful api server
