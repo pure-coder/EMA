@@ -250,6 +250,14 @@ button.dashboard-new-client , button.dashboard-edit-own-profile {
 
 /* EditClient */
 
+.edit_client h5 {
+    margin-left: 18px;
+}
+
+.edit_client a:hover {
+    text-decoration: none;
+}
+
 .edit-profile-date-div{
     width: 400px;
     height: 150px;
@@ -283,7 +291,7 @@ label.edit-profile-label {
 
 .edit_image {
     margin: auto;
-    width: 150px;
+    width: 170px;
 }
 
 .edit_client .edit_image img {
@@ -651,7 +659,6 @@ input[type=submit] {
 
 .register-client, .register-pt, .edit-client, .edit-pt {
     height: 62px;
-    margin-top: 20px;
 }
 
 .text-success {

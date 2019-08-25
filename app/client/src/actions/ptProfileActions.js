@@ -100,7 +100,7 @@ export const ptGetCurrentClient = (clientId, history) => dispatch => {
         });
 };
 
-export const ptEditData = (Data, history) => dispatch => {
+export const ptEditData = (Data) => dispatch => {
     axios
         .put(`/api/edit_personal_trainer`, Data)
         .then(result => {
@@ -114,7 +114,7 @@ export const ptEditData = (Data, history) => dispatch => {
             }
         )
         .catch(err => {
-            manageErrors(err, dispatch, history);
+            // manageErrors(err, dispatch, history);
         })
 };
 

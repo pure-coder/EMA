@@ -26,10 +26,11 @@ class EditPersonalTrainer extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            pt_data: undefined,
+            pt_data: null,
             FullName: '',
             Email: '',
             DateOfBirth: '',
+            profilePicture: null,
             Sex: '',
             Password: '',
             Password2: '',
@@ -49,38 +50,16 @@ class EditPersonalTrainer extends Component {
         };
     }
 
-    componentDidMount() {
-        const {isAuthenticated} = this.props.authenticatedUser;
-        if(!isAuthenticated)
-            this.props.history.push('/login');
-        checkExp();
-        if(this.props.ptProfile.pt_data === null){
-            this.props.ptGetData(this.props.history);
-        }
-        this.props.clearErrors();
-        this.props.clearSuccess();
-        document.body.scrollTo(0,0);
-    }
-
-    componentDidUpdate(){
-        if(this.props.ptProfile.pt_data !== null && !this.state.updated){
-            this.setState({
-                FullName : this.props.ptProfile.pt_data.FullName,
-                Email : this.props.ptProfile.pt_data.Email,
-                Sex : this.props.ptProfile.pt_data.Sex,
-                DateOfBirth: this.props.ptProfile.pt_data.DateOfBirth.substring(0, 10),
-                updated : true
-            })
-        }
-    }
-
     // Replacement for componentWillReceiveProps (as was depreciated)
     static getDerivedStateFromProps(props, state) {
-        if (props.ptProfile.pt_data !== state.pt_data) {
-            return {
-                pt_data: props.ptProfile.pt_data,
-                errors: props.errors,
-                loaded: true
+        if(props.authenticatedUser.user.pt){
+            if (props.ptProfile.pt_data !== state.pt_data) {
+                return {
+                    pt_data: props.ptProfile.pt_data,
+                    profilePicture: props.ptProfile.pt_data.ProfilePicUrl,
+                    errors: props.errors,
+                    loaded: true
+                }
             }
         }
         if(isEmpty(props.success) !== isEmpty(state.success)){
@@ -93,8 +72,30 @@ class EditPersonalTrainer extends Component {
                 errors: props.errors
             }
         }
-
         return null
+    }
+
+    componentDidMount() {
+        const {isAuthenticated} = this.props.authenticatedUser;
+        if(!isAuthenticated)
+            this.props.history.push('/login');
+        checkExp();
+        this.props.clearErrors();
+        this.props.clearSuccess();
+        document.body.scrollTo(0,0);
+    }
+
+    componentDidUpdate(){
+        if(this.props.ptProfile.pt_data !== null && !this.state.updated){
+            this.setState({
+                FullName : this.props.ptProfile.pt_data.FullName,
+                profilePicture: this.props.ptProfile.pt_data.ProfilePicUrl,
+                Email : this.props.ptProfile.pt_data.Email,
+                Sex : this.props.ptProfile.pt_data.Sex,
+                DateOfBirth: this.props.ptProfile.pt_data.DateOfBirth.substring(0, 10),
+                updated : true
+            })
+        }
     }
 
     componentWillUnmount(){
@@ -128,7 +129,6 @@ class EditPersonalTrainer extends Component {
         const editData = {
             FullName: this.state.FullName,
             Email: this.state.Email,
-            //ProfilePicUrl: this.state.ProfilePicUrl,
             DateOfBirth: this.state.DateOfBirth,
             Sex: this.state.Sex,
             Password: this.state.Password,
@@ -196,7 +196,7 @@ class EditPersonalTrainer extends Component {
             return <ErrorComponent/>
         }
         else{
-            const {errors, message} = this.state; // This allows errors to be pulled out of this.state without pulling them out directly
+            const {errors, message, profilePicture} = this.state; // This allows errors to be pulled out of this.state without pulling them out directly
 
             return (
                 <div className="edit_client">
@@ -206,7 +206,8 @@ class EditPersonalTrainer extends Component {
                                 <h1 className=" text-center display-5">Edit Personal Trainer Profile</h1>
                                 <div className="edit_image">
                                     <Link to={`upload_profile_picture`}>
-                                        <ProfileImage image={pt_data.ProfilePicUrl}/>
+                                        <ProfileImage image={profilePicture} />
+                                        <h5>Upload Picture</h5>
                                     </Link>
                                 </div>
                                 <form autoComplete="off" onSubmit={this.onSubmit}>

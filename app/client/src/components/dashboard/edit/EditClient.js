@@ -267,7 +267,9 @@ class EditClient extends Component {
                                     {!this.props.authenticatedUser.user.pt ?
                                         <Link to={`upload_profile_picture`}>
                                             <ProfileImage image={profilePicture} />
-                                        </Link> :
+                                            <h5>Upload Picture</h5>
+                                        </Link>
+                                        :
                                         <ProfileImage image={profilePicture} />
                                     }
                                 </div>

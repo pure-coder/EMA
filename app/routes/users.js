@@ -57,10 +57,10 @@ router.get('/pt_clients', passport.authenticate('pt_rule', {session: false}, nul
     // get personal trainers client list
     PersonalTrainer.findOne({_id: signedInId}).populate('ClientIDs', '-Password -Date -Activated -__v')
         .exec(function (err, personalTrainer) {
-                if (err) res.status(400).json({msg : "No data for personal trainer logged in: " + err.stringValue});
+                if (err) return res.status(400).json({msg : "No data for personal trainer logged in: " + err.stringValue});
 
                 if (personalTrainer) {
-                    res.status(200).json(personalTrainer.ClientIDs)
+                    return res.status(200).json(personalTrainer.ClientIDs)
                 }
             }
         ) // Client.findOne
@@ -94,7 +94,7 @@ router.delete('/delete_client/:cid', passport.authenticate('pt_rule', {session: 
                                         if (result) {
                                             ClientProgression.remove({clientId: clientId})
                                                 .then(() => {
-                                                        // res.status(200).json("Client deleted successfully")
+                                                        // return res.status(200).json("Client deleted successfully")
                                                     }
                                                 )
                                                 .catch(() => {
@@ -102,7 +102,7 @@ router.delete('/delete_client/:cid', passport.authenticate('pt_rule', {session: 
                                                 });
                                             Events.remove({clientId: clientId})
                                                 .then(() => {
-                                                        // res.status(200).json("Client deleted successfully")
+                                                        // return res.status(200).json("Client deleted successfully")
                                                         // console.log( "Events deleted for user: " + client.FullName + " ", events)
                                                     }
                                                 )
@@ -112,55 +112,55 @@ router.delete('/delete_client/:cid', passport.authenticate('pt_rule', {session: 
                                                 });
                                             BodyBio.remove({clientId: clientId})
                                                 .then(() => {
-                                                        res.status(200).json("Client deleted successfully")
+                                                        return res.status(200).json("Client deleted successfully")
                                                         // console.log( "Events deleted for user: " + client.FullName + " ", events)
                                                     }
                                                 )
                                                 // Events.remove
                                                 .catch(err => {
-                                                    res.status(400).json(err)
+                                                    return res.status(400).json(err)
                                                 });
                                             ProfileNotes.remove({clientId: clientId})
                                                 .then(() => {
-                                                        res.status(200).json("Client deleted successfully")
+                                                        return res.status(200).json("Client deleted successfully")
                                                         // console.log( "Events deleted for user: " + client.FullName + " ", events)
                                                     }
                                                 )
                                                 // Events.remove
                                                 .catch(err => {
-                                                    res.status(400).json(err)
+                                                    return res.status(400).json(err)
                                                 })
                                         }
                                         // console.log("Deletion of user: " + client.FullName + " ", result)
                                         else{
-                                            res.status(400).json({msg: "Could not delete client."})
+                                            return res.status(400).json({msg: "Could not delete client."})
                                         }
                                     })
                                     // Client.remove
                                     .catch(err => {
-                                        res.status(400).json(err)
+                                        return res.status(400).json(err)
                                     })
                             }
                             else {
-                                res.status(400).json({msg: "Could not update personal trainer documents whilst deleting client."})
+                                return res.status(400).json({msg: "Could not update personal trainer documents whilst deleting client."})
                             }
                         })
                         // PersonalTrainer.update
                         .catch(err => {
-                            res.status(400).json(err)
+                            return res.status(400).json(err)
                         })
                 }// if client.ptId === signedInId
                 else {
-                    res.status(400).json({msg: "Signed in PT is not granted access to delete this client."});
+                    return res.status(400).json({msg: "Signed in PT is not granted access to delete this client."});
                 }
             }
             else {
-                res.status(400).json({msg: "Client does not exist."});
+                return res.status(400).json({msg: "Client does not exist."});
             }
         }
         ) // then Client.findOne
         .catch(err => {
-            res.status(400).json({err})
+            return res.status(400).json({err})
         })
 
 }); // router post /delete_client
@@ -189,16 +189,16 @@ router.get('/client/:cid', passport.authenticate('both_rule', {session: false}, 
                         data.ContactNumber = client.ContactNumber;
                         data.ProfilePicUrl = client.ProfilePicUrl;
                         data.Sex = client.Sex;
-                        res.status(200).json(data)
+                        return res.status(200).json(data)
                     }
                     else{
-                        res.status(400).json({msg: "Signed in user does not have authorisation to request this data."})
+                        return res.status(400).json({msg: "Signed in user does not have authorisation to request this data."})
                     }
                 }
             }
         ) // then Client.findOne
         .catch(() => {
-            res.status(404).json({error: `Client with id: ${cid} does not exist.`})
+            return res.status(404).json({error: `Client with id: ${cid} does not exist.`})
         })
 
 });
@@ -238,11 +238,11 @@ router.put('/edit_client/:cid', passport.authenticate('both_rule', {session: fal
         const {errors, isValid} = validateEditClientInput(updateClient);
         // Check validation (so if it isn't valid give 400 error and message of error, status(400) makes sure the response is caught and not successful for authenticationAction editClientData
         if (!isValid) {
-            res.status(400).json(errors);
+            return res.status(400).json(errors);
         }
     }
     else{
-        res.status(400).json({msg : "No data sent to server!"})
+        return res.status(400).json({msg : "No data sent to server!"})
     }
 
     Client.findOne({_id: clientId})
@@ -264,12 +264,12 @@ router.put('/edit_client/:cid', passport.authenticate('both_rule', {session: fal
                                 Client.findByIdAndUpdate(clientId, updateClient, {new: true})
                                     .then(result => {
                                         if(result) {
-                                            res.status(200).json(result)
+                                            return res.status(200).json(result)
                                         }
-                                        res.status(404).json({err: "Client does not exist!"})
+                                        return res.status(404).json({err: "Client does not exist!"})
                                     })
                                     .catch(err => {
-                                        res.status(400).json(err)
+                                        return res.status(400).json(err)
                                     });
                             })
                         })
@@ -279,29 +279,29 @@ router.put('/edit_client/:cid', passport.authenticate('both_rule', {session: fal
                         Client.findByIdAndUpdate(clientId, updateClient, {new: true})
                             .then(client => {
                                 if (client) {
-                                    res.status(200).json(client);
+                                    return res.status(200).json(client);
                                 }
                                 else {
-                                    res.status(400).json({msg: "Client does not exist!"});
+                                    return res.status(400).json({msg: "Client does not exist!"});
                                 }
                             })
                             .catch(err => {
-                                res.status(400).json(err)
+                                return res.status(400).json(err)
                             });
                     }
                 }
                 else{
-                    res.status(400).json({msg: "Not authorised to update data."})
+                    return res.status(400).json({msg: "Not authorised to update data."})
                 }
 
             }
             else{
-                res.status(400).json({msg: "Client not found"})
+                return res.status(400).json({msg: "Client not found"})
             }
         })
         .catch(() => {
             // console.log(err)
-            res.status(400).json();
+            return res.status(400).json();
             }
         )
 }); // PUT /edit_client/:id
@@ -325,16 +325,16 @@ router.get('/personal_trainer', passport.authenticate('pt_rule', {session: false
                     data.DateOfBirth = pt.DateOfBirth;
                     data.Sex = pt.Sex;
                     data.ProfilePicUrl = pt.ProfilePicUrl;
-                    res.status(200).json(data)
+                    return res.status(200).json(data)
                 }
                 // if pt is null
                 else {
-                    res.status(400).json("No data for id: " + id)
+                    return res.status(400).json("No data for id: " + id)
                 }
             }
         ) // then PersonalTrainer.findOne
         .catch(err => {
-            res.status(400).json("No data for id: " + err.stringValue)
+            return res.status(400).json("No data for id: " + err.stringValue)
         })
 
 });
@@ -369,11 +369,11 @@ router.put('/edit_personal_trainer', passport.authenticate('pt_rule', {session: 
         const {errors, isValid} = validateEditClientInput(updatePt);
         // Check validation (so if it isn't valid give 400 error and message of error, status(400) makes sure the response is caught and not successful for authenticationAction editClientData
         if (!isValid) {
-            res.status(400).json(errors);
+            return res.status(400).json(errors);
         }
     }
     else{
-        res.status(400).json({msg : "No data sent to server!"})
+        return res.status(400).json({msg : "No data sent to server!"})
     }
 
     // If it exists as the for loop above checked if password was null or undefined, hash the password and update client profile if password doesn't exist update profile without hashing non existent password
@@ -390,12 +390,12 @@ router.put('/edit_personal_trainer', passport.authenticate('pt_rule', {session: 
                 PersonalTrainer.findByIdAndUpdate(signedInId, updatePt, {new: true})
                     .then(result => {
                         if(result) {
-                            res.status(200).json(result)
+                            return res.status(200).json(result)
                         }
-                        res.status(404).json({err: "Personal Trainer does not exist!"})
+                        return res.status(404).json({err: "Personal Trainer does not exist!"})
                     })
                     .catch(err => {
-                        res.status(400).json(err)
+                        return res.status(400).json(err)
                     });
             })
         })
@@ -405,14 +405,14 @@ router.put('/edit_personal_trainer', passport.authenticate('pt_rule', {session: 
         PersonalTrainer.findByIdAndUpdate(signedInId, updatePt, {new: true})
             .then(pt => {
                 if (pt) {
-                    res.status(200).json(pt);
+                    return res.status(200).json(pt);
                 }
                 else {
-                    res.status(400).json({msg: "Personal Trainer does not exist!"});
+                    return res.status(400).json({msg: "Personal Trainer does not exist!"});
                 }
             })
             .catch(err => {
-                res.status(400).json(err)
+                return res.status(400).json(err)
             });
     }
 }); // PUT /edit_personal_trainer
@@ -427,7 +427,7 @@ router.post('/client_progression/:cid', passport.authenticate('pt_rule', {sessio
     const {errors, isValid} = validateNewProgressInput(data);
 
     if (!isValid) {
-        res.status(400).json(errors);
+        return res.status(400).json(errors);
     }
 
     let token = req.headers.authorization.split(' ')[1];
@@ -477,14 +477,14 @@ router.post('/client_progression/:cid', passport.authenticate('pt_rule', {sessio
                                     // Update metrics of this document using its unique id (_id), pushing in new metric data with the $push operator.
                                     ClientProgression.update({_id: result._id}, {$push: {metrics: newMetrics}}, {safe: true})
                                         .then(update => {
-                                            res.status(200).json(update);
+                                            return res.status(200).json(update);
                                         })
                                         .catch(err => {
-                                            res.status(400).json(err);
+                                            return res.status(400).json(err);
                                         });
                                 }
                                 else {
-                                    res.status(400).json({msg: "Date duplication found for exercise!"})
+                                    return res.status(400).json({msg: "Date duplication found for exercise!"})
                                 }
 
                             }
@@ -510,26 +510,26 @@ router.post('/client_progression/:cid', passport.authenticate('pt_rule', {sessio
                                     .then(() => {
                                         // Send back response expected in authenticatedActions for newClientProgress action
                                         let data = {n: 1, nModified: 1};
-                                        res.status(200).json(data);
+                                        return res.status(200).json(data);
                                     })
                                     .catch(err => {
-                                        res.status(400).json(err);
+                                        return res.status(400).json(err);
                                     });
                             }
                         })
                         .catch(err => {
                             // console.log(err)
-                            res.status(400).json(err)
+                            return res.status(400).json(err)
                         });
 
                 }
                 else {
-                    res.status(400).json({msg: "Personal Trainer not authorised to access Progression"});
+                    return res.status(400).json({msg: "Personal Trainer not authorised to access Progression"});
                 }
             }
         })
         .catch(() => {
-            res.status(400).json({msg: "Client not found!"})
+            return res.status(400).json({msg: "Client not found!"})
         }); // Client.findOne()
 
 }); // router post /client_progression
@@ -559,31 +559,31 @@ router.get('/client_progression/:cid', passport.authenticate('both_rule', {sessi
                     ClientProgression.find({clientId: clientId}, 'exerciseName metrics._id metrics.maxWeight metrics.Date')
                         .then(result => {
                             if (result) {
-                                res.status(200).json(result);
+                                return res.status(200).json(result);
                             }
                             else{
-                                res.status(400).json();
+                                return res.status(400).json();
                             }
                         })
                         .catch(err => {
-                                res.status(400).json(err);
+                                return res.status(400).json(err);
                             }
                         ); // router get client progression
 
                 }
                 else {
                     // 401 Unauthorised
-                    res.status(401).json({err: "User not authorised to access Progression"});
+                    return res.status(401).json({err: "User not authorised to access Progression"});
                 }
             }
             else{
                 // 404 Not found
-                res.status(404).json();
+                return res.status(404).json();
             }
         })
         .catch(() => {
             // Return an empty object
-            res.status(400).json({});
+            return res.status(400).json({});
         }); // Client.findOne()
 
 }); // router get /:id/client_progression/:cid
@@ -609,7 +609,7 @@ router.delete('/client_progression/:cid', passport.authenticate('pt_rule', {sess
                 // As pt's are the only ones that can access this route, check to see if uid given matches the ptId for this client
                 if(result.ptId === signedInId){
 
-                    // res.status(200).json({userId, clientId, data, result});
+                    // return res.status(200).json({userId, clientId, data, result});
 
                     // Remove exercise for client
                     ClientProgression.remove({$and: [{clientId: clientId}, {exerciseName: data.exerciseName}]})
@@ -618,27 +618,27 @@ router.delete('/client_progression/:cid', passport.authenticate('pt_rule', {sess
                             // Successful removal returns n:1, unsuccessful returns n:0
                             if(result.n === 1){
                                 // This returns n:1, ok:1 which will be used on client to show appropriate message
-                                res.status(200).json(result);
+                                return res.status(200).json(result);
                             }
                             else{
-                                res.status(400).json({msg: "Could not find and delete exercise."});
+                                return res.status(400).json({msg: "Could not find and delete exercise."});
                             }
 
                             }
                         )
                         .catch(() => {
-                            res.status(400).json({msg: "Could not delete this exercise."})
+                            return res.status(400).json({msg: "Could not delete this exercise."})
                         })
 
                 }
                 else{
                     // Respond with a forbidden status code as the uid given is not allowed to access this data
-                    res.status(403).json({msg : "User not allowed to access data."})
+                    return res.status(403).json({msg : "User not allowed to access data."})
                 }
             }
         })
         .catch(() => {
-            res.status(400).json({msg: "Client not found!"});
+            return res.status(400).json({msg: "Client not found!"});
         })
 
 }); // router delete /client_progression/:cid
@@ -663,7 +663,7 @@ router.put('/client_progression/:cid', passport.authenticate('pt_rule', {session
                 // As pt's are the only ones that can access this route, check to see if uid given matches the ptId for this client
                 if(result.ptId === signedInId){
 
-                    // res.status(200).json({userId, clientId, data, result});
+                    // return res.status(200).json({userId, clientId, data, result});
 
                     // update exercise for client
                     ClientProgression.findOneAndUpdate(
@@ -676,27 +676,27 @@ router.put('/client_progression/:cid', passport.authenticate('pt_rule', {session
                     )
                         .then(result => {
                                 if(result){
-                                    res.status(200).json({msg: "Client Data successfully modified."})
+                                    return res.status(200).json({msg: "Client Data successfully modified."})
                                 }
                                 else{
-                                    res.status(400).json({msg: "Could not update exercise."})
+                                    return res.status(400).json({msg: "Could not update exercise."})
                                 }
 
                             }
                         )
                         .catch(() => {
-                            res.status(400).json({msg: "Could not update this exercise."})
+                            return res.status(400).json({msg: "Could not update this exercise."})
                         })
 
                 }
                 else{
                     // Respond with a forbidden status code as the uid given is not allowed to access this data
-                    res.status(403).json({msg : "User not allowed to access data."})
+                    return res.status(403).json({msg : "User not allowed to access data."})
                 }
             }
         })
         .catch(() => {
-            res.status(400).json({msg: "Client not found!"});
+            return res.status(400).json({msg: "Client not found!"});
         })
     // end of Client.findOne
 
@@ -714,7 +714,7 @@ router.post('/body_bio/:cid', passport.authenticate('pt_rule', {session: false},
     const {errors, isValid} = validateNewBodyInput(data);
 
     if (!isValid) {
-        res.status(400).json(errors);
+        return res.status(400).json(errors);
     }
 
     let token = req.headers.authorization.split(' ')[1];
@@ -757,14 +757,14 @@ router.post('/body_bio/:cid', passport.authenticate('pt_rule', {session: false},
                                     // Update metrics of this document using its unique id (_id), pushing in new metric data with the $push operator.
                                     BodyBio.update({_id: result._id}, {$push: {bodyMetrics: newMetrics}}, {safe: true})
                                         .then(update => {
-                                            res.status(200).json(update);
+                                            return res.status(200).json(update);
                                         })
                                         .catch(err => {
-                                            res.status(400).json(err);
+                                            return res.status(400).json(err);
                                         });
                                 }
                                 else {
-                                    res.status(400).json({msg: "Date duplication found for measurement!"})
+                                    return res.status(400).json({msg: "Date duplication found for measurement!"})
                                 }
 
                             }
@@ -787,26 +787,26 @@ router.post('/body_bio/:cid', passport.authenticate('pt_rule', {session: false},
                                     .then(() => {
                                         // Send back response expected in authenticatedActions for newBodyBio action
                                         let data = {n: 1, nModified: 1};
-                                        res.status(200).json(data);
+                                        return res.status(200).json(data);
                                     })
                                     .catch(err => {
-                                        res.status(400).json(err);
+                                        return res.status(400).json(err);
                                     });
                             }
                         })
                         .catch(err => {
                             // console.log(err)
-                            res.status(400).json(err)
+                            return res.status(400).json(err)
                         });
 
                 }
                 else {
-                    res.status(400).json({msg: "Personal Trainer not authorised to access BodyBio"});
+                    return res.status(400).json({msg: "Personal Trainer not authorised to access BodyBio"});
                 }
             }
         })
         .catch(() => {
-            res.status(400).json({msg: "Client not found!"})
+            return res.status(400).json({msg: "Client not found!"})
         }); // Client.findOne()
 
 }); // router post /body_bio
@@ -835,31 +835,31 @@ router.get('/body_bio/:cid', passport.authenticate('both_rule', {session: false}
                     BodyBio.find({clientId: clientId}, 'bodyPart bodyMetrics._id bodyMetrics.measurement bodyMetrics.Date')
                         .then(result => {
                             if (result) {
-                                res.status(200).json(result);
+                                return res.status(200).json(result);
                             }
                             else{
-                                res.status(400).json();
+                                return res.status(400).json();
                             }
                         })
                         .catch(err => {
-                                res.status(400).json(err);
+                                return res.status(400).json(err);
                             }
                         ); // router get client progression
 
                 }
                 else {
                     // 401 Unauthorised
-                    res.status(401).json({err: "User not authorised to access Progression"});
+                    return res.status(401).json({err: "User not authorised to access Progression"});
                 }
             }
             else{
                 // 404 Not found
-                res.status(404).json();
+                return res.status(404).json();
             }
         })
         .catch(() => {
             // Return an empty object
-            res.status(400).json({});
+            return res.status(400).json({});
         }); // Client.findOne()
 
 }); // router get /body_bio/:cid
@@ -885,7 +885,7 @@ router.delete('/body_bio/:cid', passport.authenticate('pt_rule', {session: false
                 // As pt's are the only ones that can access this route, check to see if uid given matches the ptId for this client
                 if(result.ptId === signedInId){
 
-                    // res.status(200).json({userId, clientId, data, result});
+                    // return res.status(200).json({userId, clientId, data, result});
 
                     // Remove exercise for client
                     BodyBio.remove({$and: [{clientId: clientId}, {bodyPart: data.bodyPart}]})
@@ -894,27 +894,27 @@ router.delete('/body_bio/:cid', passport.authenticate('pt_rule', {session: false
                                 // Successful removal returns n:1, unsuccessful returns n:0
                                 if(result.n === 1){
                                     // This returns n:1, ok:1 which will be used on client to show appropriate message
-                                    res.status(200).json(result);
+                                    return res.status(200).json(result);
                                 }
                                 else{
-                                    res.status(400).json({msg: "Could not find and delete exercise."});
+                                    return res.status(400).json({msg: "Could not find and delete exercise."});
                                 }
 
                             }
                         )
                         .catch(() => {
-                            res.status(400).json({msg: "Could not delete this exercise."})
+                            return res.status(400).json({msg: "Could not delete this exercise."})
                         })
 
                 }
                 else{
                     // Respond with a forbidden status code as the uid given is not allowed to access this data
-                    res.status(403).json({msg : "User not allowed to access data."})
+                    return res.status(403).json({msg : "User not allowed to access data."})
                 }
             }
         })
         .catch(() => {
-            res.status(400).json({msg: "Client not found!"});
+            return res.status(400).json({msg: "Client not found!"});
         })
 
 }); // router delete /body_bio/:cid
@@ -939,7 +939,7 @@ router.put('/body_bio/:cid', passport.authenticate('pt_rule', {session: false}, 
                 // As pt's are the only ones that can access this route, check to see if uid given matches the ptId for this client
                 if(result.ptId === signedInId){
 
-                    // res.status(200).json({userId, clientId, data, result});
+                    // return res.status(200).json({userId, clientId, data, result});
 
                     // update exercise for client
                     BodyBio.findOneAndUpdate(
@@ -952,27 +952,27 @@ router.put('/body_bio/:cid', passport.authenticate('pt_rule', {session: false}, 
                     )
                         .then(result => {
                             if(result){
-                                res.status(200).json({msg: "Client Data successfully modified."})
+                                return res.status(200).json({msg: "Client Data successfully modified."})
                             }
                             else{
-                                res.status(400).json({msg: "Could not update body part."})
+                                return res.status(400).json({msg: "Could not update body part."})
                             }
 
                             }
                         )
                         .catch(() => {
-                            res.status(400).json({msg: "Could not update this body part."})
+                            return res.status(400).json({msg: "Could not update this body part."})
                         })
 
                 }
                 else{
                     // Respond with a forbidden status code as the uid given is not allowed to access this data
-                    res.status(403).json({msg : "User not allowed to access data."})
+                    return res.status(403).json({msg : "User not allowed to access data."})
                 }
             }
         })
         .catch(() => {
-            res.status(400).json({msg: "Client not found!"});
+            return res.status(400).json({msg: "Client not found!"});
         })
     // end of Client.findOne
 
@@ -1005,31 +1005,31 @@ router.get('/profile_notes/:cid', passport.authenticate('both_rule', {session: f
                     ProfileNotes.findOne({clientId: clientId}, '-_id notes goals injuries')
                         .then(result => {
                             if (result) {
-                                res.status(200).json(result);
+                                return res.status(200).json(result);
                             }
                             else{
-                                res.status(400).json();
+                                return res.status(400).json();
                             }
                         })
                         .catch(err => {
-                                res.status(400).json(err);
+                                return res.status(400).json(err);
                             }
                         ); // router get profile notes
 
                 }
                 else {
                     // 401 Unauthorised
-                    res.status(401).json({err: "User not authorised to access profile notes"});
+                    return res.status(401).json({err: "User not authorised to access profile notes"});
                 }
             }
             else{
                 // 404 Not found
-                res.status(404).json();
+                return res.status(404).json();
             }
         })
         .catch(() => {
             // Return an empty object
-            res.status(400).json({});
+            return res.status(400).json({});
         }); // Client.findOne()
 
 }); // router get /profile_notes/:cid
@@ -1050,10 +1050,10 @@ router.put('/profile_notes/:cid', passport.authenticate('pt_rule', {session: fal
     // let data = req.query;
 
     if(isEmpty(data)){
-        res.status(400).json({msg: "No data supplied for update"});
+        return res.status(400).json({msg: "No data supplied for update"});
     }
     if(!ptStatus){
-        res.status(400).json({msg: "You do not have the authorisation to update this data!"})
+        return res.status(400).json({msg: "You do not have the authorisation to update this data!"})
     }
 
     // Check to see if client exists
@@ -1079,27 +1079,27 @@ router.put('/profile_notes/:cid', passport.authenticate('pt_rule', {session: fal
                     )
                         .then(result => {
                             if (result) {
-                                res.status(200).json({msg: "Data successfully updated"})
+                                return res.status(200).json({msg: "Data successfully updated"})
                             }
                         })
                         .catch(() => {
-                            res.status(400).json({msg: "Could not update data"})
+                            return res.status(400).json({msg: "Could not update data"})
                         })
 
-                    //res.status(200).json()
+                    //return res.status(200).json()
 
                 }
                 else{
                     // Respond with a forbidden status code as the uid given is not allowed to access this data
-                    res.status(403).json({msg : "User not allowed to access data."})
+                    return res.status(403).json({msg : "User not allowed to access data."})
                 }
             }
         })
         .catch(() => {
-            res.status(400).json({msg: "Client not found!"});
+            return res.status(400).json({msg: "Client not found!"});
         })
     // end of Client.findOne
-    // res.status(200).json("check");
+    // return res.status(200).json("check");
 
 }); // router put /profile_notes/:cid
 
@@ -1131,7 +1131,7 @@ router.post(`/upload_profile_pic`, upload.single('profileImage'),passport.authen
         ACL : 'public-read' // Use this to make resource url available to public
     }, (err, url) => {
         if(err){
-            res.status(400).json(err);
+            return res.status(400).json(err);
         }
         else{
             fetch(url, {
@@ -1159,11 +1159,11 @@ router.post(`/upload_profile_pic`, upload.single('profileImage'),passport.authen
                         )
                             .then(result => {
                                 if (result) {
-                                    res.status(200).json({msg: "Profile picture updated", url: newUrl})
+                                    return res.status(200).json({msg: "Profile picture updated", url: newUrl})
                                 }
                             })
                             .catch(() => {
-                                res.status(400).json({msg: "Not authorised to update profile picture"})
+                                return res.status(400).json({msg: "Not authorised to update profile picture"})
                             })
                     }
                     else {
@@ -1176,16 +1176,16 @@ router.post(`/upload_profile_pic`, upload.single('profileImage'),passport.authen
                         )
                             .then(result => {
                                 if (result) {
-                                    res.status(200).json({msg: "User profile image updated.", url: newUrl})
+                                    return res.status(200).json({msg: "User profile image updated.", url: newUrl})
                                 }
                             })
                             .catch(() => {
-                                res.status(400).json({msg: "Not authorised to update profile picture"})
+                                return res.status(400).json({msg: "Not authorised to update profile picture"})
                             })
                     }
                 }
                 else{
-                    res.status(400).json("Failed to upload profile picture");
+                    return res.status(400).json("Failed to upload profile picture");
                 }
             })
             .catch(err => {
@@ -1220,11 +1220,11 @@ router.delete('/delete_personal_trainer', passport.authenticate('pt_rule', {sess
                         })
                         // Client.remove
                         .catch(err => {
-                            res.status(400).json(err)
+                            return res.status(400).json(err)
                         });
                     ClientProgression.deleteMany({clientId: {$in: clientsArray}})
                         .then(() => {
-                                // res.status(200).json("Client deleted successfully")
+                                // return res.status(200).json("Client deleted successfully")
                             }
                         )
                         .catch(() => {
@@ -1232,7 +1232,7 @@ router.delete('/delete_personal_trainer', passport.authenticate('pt_rule', {sess
                         });
                     Events.deleteMany({clientId: {$in: clientsArray}})
                         .then(() => {
-                                // res.status(200).json("Client deleted successfully")
+                                // return res.status(200).json("Client deleted successfully")
                                 // console.log( "Events deleted for user: " + client.FullName + " ", events)
                             }
                         )
@@ -1242,36 +1242,36 @@ router.delete('/delete_personal_trainer', passport.authenticate('pt_rule', {sess
                         });
                     BodyBio.deleteMany({clientId: {$in: clientsArray}})
                         .then(() => {
-                                // res.status(200).json("Client deleted successfully")
+                                // return res.status(200).json("Client deleted successfully")
                                 // console.log( "Events deleted for user: " + client.FullName + " ", events)
                             }
                         )
                         // Events.deleteMany
                         .catch(err => {
-                            res.status(400).json(err)
+                            return res.status(400).json(err)
                         });
                     ProfileNotes.deleteMany({clientId: {$in: clientsArray}})
                         .then(() => {
-                                // res.status(200).json("Client deleted successfully")
+                                // return res.status(200).json("Client deleted successfully")
                                 // console.log( "Events deleted for user: " + client.FullName + " ", events)
                             }
                         )
                         // Events.deleteMany
                         .catch(err => {
-                            res.status(400).json(err)
+                            return res.status(400).json(err)
                         });
                 }
             }
             PersonalTrainer.deleteMany({_id: signedInId})
                 .then(()=>{
-                    res.status(200).json("Personal trainer deleted along with associated clients.");
+                    return res.status(200).json("Personal trainer deleted along with associated clients.");
                 })
                 .catch(()=>{
-                    res.status(400).json("Personal trainer account could not be deleted.");
+                    return res.status(400).json("Personal trainer account could not be deleted.");
                 });
         })
         .catch(() => {
-            res.status(400).json({msg: "Personal trainer not found!"});
+            return res.status(400).json({msg: "Personal trainer not found!"});
         })
 }); // router delete /delete_personal_trainer
 
