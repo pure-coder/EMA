@@ -214,7 +214,7 @@ router.get('/client/:cid', passport.authenticate('both_rule', {session: false}, 
 // @route  PUT /edit_client/:cid
 // @desc   Update client profile data
 // @access Private access for either personal trainer or client
-router.put('/edit_client/*:cid?', passport.authenticate('both_rule', {session: false}, null), (req, res) => {
+router.put('/edit_client/:cid?', passport.authenticate('both_rule', {session: false}, null), (req, res) => {
     // Set up validation checking for every field that has been posted
 
     let token = req.headers.authorization.split(' ')[1];
@@ -222,6 +222,8 @@ router.put('/edit_client/*:cid?', passport.authenticate('both_rule', {session: f
     let isPt = payload.pt;
     let signedInId = payload.id;
     const data = req.body;
+
+    console.log(req.params)
 
     let id;
 

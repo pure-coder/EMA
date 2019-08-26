@@ -225,7 +225,7 @@ class EditClient extends Component {
         }
         else {
             if(this.props.authenticatedUser.user.pt){
-                this.props.ptEditClientData(this.state.clientId, editData, this.props.history);
+                this.props.ptEditClientData(this.state.clientId, editData);
             }
             else{
                 this.props.clientEditData(editData);
