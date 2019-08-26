@@ -21,7 +21,8 @@ class Navigation extends Component {
         super(props);
         this.state = {
             userData: null,
-            ProfilePicUrl: null
+            ProfilePicUrl: null,
+            loaded: false
         };
     }
 
@@ -30,25 +31,25 @@ class Navigation extends Component {
         const {pt_data} = this.props.ptProfile;
         const {client_data} = this.props.clientProfile;
 
-        // console.log(prevProps)
-        // console.log(prevState)
-        // console.log(this.props.clientProfile)
-        if(isAuthenticated && user.pt){
-            if(prevProps.ptProfile.pt_data !== pt_data){
-                this.setState({
-                    userData: pt_data,
-                    ProfilePicUrl: pt_data.ProfilePicUrl
-                });
+        if(isAuthenticated){
+            if(user.pt){
+                if(prevProps.ptProfile.pt_data !== pt_data){
+                    this.setState({
+                        userData: pt_data,
+                        ProfilePicUrl: pt_data.ProfilePicUrl
+                    });
+                }
             }
-        }
-        else {
-            if(prevProps.clientProfile.client_data !== this.state.userData) {
-                this.setState({
-                    userData: client_data,
-                    ProfilePicUrl: client_data.ProfilePicUrl
-                })
+            else {
+                // if(prevProps.clientProfile.client_data !== this.state.userData ||
+                if(prevProps.clientProfile.client_data !== client_data) {
+                    this.setState({
+                        userData: client_data,
+                        ProfilePicUrl: client_data.ProfilePicUrl
+                    })
+                }
             }
-        }
+        } // isAuthenticated
     }
 
     componentDidMount() {

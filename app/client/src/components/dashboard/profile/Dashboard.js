@@ -30,7 +30,7 @@ class Dashboard extends Component {
     componentDidUpdate(prevProps, prevState){
         const {isAuthenticated, user} = this.props.authenticatedUser;
         const {pt_data, clients} = this.props.ptProfile;
-        //const {client_data} = this.props.clientProfile;
+        const {client_data} = this.props.clientProfile;
 
         if(isAuthenticated && user.pt){
             if(prevProps.ptProfile.pt_data !== prevState.userData){
@@ -45,17 +45,14 @@ class Dashboard extends Component {
                 });
             }
         }
-        // else if(prevProps.clientProfile.client_data !== this.state.userData){
-        //     this.setState({
-        //         userData: client_data,
-        //         ProfilePicUrl: prevProps.clientProfile.client_data.ProfilePicUrl
-        //     });
-        // else if(prevProps.clientProfile.client_data !== prevState.userData){
-        //     this.setState({
-        //         userData: client_data,
-        //         ProfilePicUrl: client_data.ProfilePicUrl
-        //     });
-        // }
+        else{
+            if(prevProps.clientProfile.client_data !== this.state.userData) {
+                this.setState({
+                    userData: client_data,
+                    ProfilePicUrl: client_data.ProfilePicUrl
+                })
+            }
+        }
     }
 
 

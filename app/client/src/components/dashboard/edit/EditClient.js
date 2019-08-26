@@ -57,26 +57,6 @@ class EditClient extends Component {
 
     // Populate state data with data from the database for the client
     static getDerivedStateFromProps(props, state) {
-        if(props.authenticatedUser.user.pt){
-            if (props.ptProfile.current_client !== state.client_data) {
-                return {
-                    client_data: props.ptProfile.current_client,
-                    profilePicture: props.ptProfile.current_client.ProfilePicUrl,
-                    success: props.success,
-                    errors: props.errors,
-                    loaded: true
-                }
-            }
-        }
-        // else if (props.clientProfile.client_data !== state.client_data) {
-        //     return {
-        //         client_data: props.clientProfile.client_data,
-        //         profilePicture: props.clientProfile.client_data.ProfilePicUrl,
-        //         success: props.success,
-        //         errors: props.errors,
-        //         loaded: true
-        //     }
-        // }
         if (!isEmpty(state.errors)){
             return {
                 message: state.errors

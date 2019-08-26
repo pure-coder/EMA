@@ -37,9 +37,9 @@ export const setProfileLoading = () => {
 };
 
 // Get pt Clients profile notes
-export const clientGetProfileNotes = (clientId) => dispatch => {
+export const clientGetProfileNotes = () => dispatch => {
     axios
-        .get(`/api/profile_notes/${clientId}`)
+        .get(`/api/profile_notes/`)
         .then(result => {
                 // dispatch this action to the action below so the data can be sent to the respective reducer
                 dispatch(
@@ -55,9 +55,9 @@ export const clientGetProfileNotes = (clientId) => dispatch => {
         })
 };
 
-export const clientGetBodyBio = (clientId) => dispatch => {
+export const clientGetBodyBio = () => dispatch => {
     // userId can either be same as clientId or the id of the personal trainer
-    axios.get(`/api/body_bio/${clientId}` ) // using grave accent instead of single quote
+    axios.get(`/api/body_bio/` ) // using grave accent instead of single quote
         .then(result => {
             dispatch({
                 type: BODY_BIO_CLIENT,
@@ -69,9 +69,9 @@ export const clientGetBodyBio = (clientId) => dispatch => {
         });
 };
 
-export const clientGetProgression = (clientId) => dispatch => {
+export const clientGetProgression = () => dispatch => {
     // userId can either be same as clientId or the id of the personal trainer
-    axios.get(`/api/client_progression/${clientId}` ) // using grave accent instead of single quote
+    axios.get(`/api/client_progression/` ) // using grave accent instead of single quote
         .then(result => {
             dispatch({
                 type: CLIENT_PROGRESSION,

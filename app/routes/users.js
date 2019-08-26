@@ -168,9 +168,10 @@ router.delete('/delete_client/:cid', passport.authenticate('pt_rule', {session: 
 // @route  GET api/client/:cid
 // @desc   Get client data
 // @access Private for PT's and client
-router.get('/client/:cid', passport.authenticate('both_rule', {session: false}, null), (req, res) => {
+router.get('/client/:cid?', passport.authenticate('both_rule', {session: false}, null), (req, res) => {
     let token = req.headers.authorization.split(' ')[1];
     let payload = jwt.decode(token, keys.secretOrKey);
+    let signedInId = payload.id;
     let isPt = payload.pt;
     let id;
 
@@ -187,7 +188,7 @@ router.get('/client/:cid', passport.authenticate('both_rule', {session: false}, 
                 if (client) {
 
                     // Check access rights allowing the data to be requested
-                    if(client._id.toString() === id || client.ptId ===  id){
+                    if(client._id.toString() === id || client.ptId ===  signedInId){
                         let data = {};
                         data._id = client._id;
                         data.FullName = client.FullName;
@@ -553,26 +554,35 @@ router.post('/client_progression/:cid', passport.authenticate('pt_rule', {sessio
 // @route  GET api/:id/client_progression/:cid
 // @desc   Retrieve client progression data from db
 // @access Available for both authorised Pt's and clients
-router.get('/client_progression/:cid', passport.authenticate('both_rule', {session: false}), (req, res) => {
+router.get('/client_progression/:cid?', passport.authenticate('both_rule', {session: false}), (req, res) => {
     // Get clientId from url
-    let clientId = req.params.cid;
     let token = req.headers.authorization.split(' ')[1];
     let payload = jwt.decode(token, keys.secretOrKey);
     let signedInId = payload.id;
+    let isPt = payload.pt;
+    let id;
+
+    // Check if pt or client
+    if(isPt){
+        id = req.params.cid;
+    }
+    else {
+        id = signedInId;
+    }
 
     // Verify that client exists and that personal trainer id is linked to client
-    Client.findOne({_id: clientId})
+    Client.findOne({_id: id})
         .then(result => {
             // If client is found
             if (result) {
 
                 // Check to see if signed in user is same as clientId or ptId is allowed access
-                if (clientId === signedInId || result.ptId === signedInId) {
+                if (result._id.toString() === id || result.ptId === signedInId) {
 
                     // '-_id exerciseName metrics.maxWeight metrics.Date' part allows only exerciseName and metrics to be returned,
                     // as _id is returned by default use the minus sign with it to explicitly ignore it ie '-_id' (deleted -_id as needed for refactoring -- creating component for each graph)
                     // CHANGE - _id needed for mapping in progression editing functionality
-                    ClientProgression.find({clientId: clientId}, 'exerciseName metrics._id metrics.maxWeight metrics.Date')
+                    ClientProgression.find({clientId: id}, 'exerciseName metrics._id metrics.maxWeight metrics.Date')
                         .then(result => {
                             if (result) {
                                 return res.status(200).json(result);
@@ -662,22 +672,31 @@ router.delete('/client_progression/:cid', passport.authenticate('pt_rule', {sess
 // @route  PUT api/client_progression/:cid
 // @desc   update client progression exercise from db
 // @access Private for PT's - clients can't update progression data for exercises in db collection
-router.put('/client_progression/:cid', passport.authenticate('pt_rule', {session: false}, null), (req, res) =>{
+router.put('/client_progression/:cid?', passport.authenticate('pt_rule', {session: false}, null), (req, res) =>{
 
+    let clientId = req.params.cid;
     let token = req.headers.authorization.split(' ')[1];
     let payload = jwt.decode(token, keys.secretOrKey);
     let signedInId = payload.id;
-    let clientId = req.params.cid;
+    let isPt = payload.pt;
     let data = req.body.data.newMetrics;
     let exerciseId = req.body.data.exerciseId;
+    let id;
+
+    if(isPt){
+        id = clientId;
+    }
+    else{
+        id = signedInId
+    }
 
     // Check to see if client exists
-    Client.findOne({_id: clientId})
+    Client.findOne({_id: id})
         .then(result => {
             if(result) {
 
                 // As pt's are the only ones that can access this route, check to see if uid given matches the ptId for this client
-                if(result.ptId === signedInId){
+                if(result._id.toString() === id || result.ptId === signedInId){
 
                     // return res.status(200).json({userId, clientId, data, result});
 
@@ -733,10 +752,10 @@ router.post('/body_bio/:cid', passport.authenticate('pt_rule', {session: false},
         return res.status(400).json(errors);
     }
 
+    let clientId = req.params.cid;
     let token = req.headers.authorization.split(' ')[1];
     let payload = jwt.decode(token, keys.secretOrKey);
     let signedInId = payload.id;
-    let clientId = req.params.cid;
 
     // Verify that client exists and that personal trainer id is linked to client
     Client.findOne({_id: clientId})
@@ -744,10 +763,10 @@ router.post('/body_bio/:cid', passport.authenticate('pt_rule', {session: false},
             // If client is found
             if (resultClient) {
 
-                // Check to see if ptId is allowed
+                // Check to see if signed in user or ptId is allowed
                 if (resultClient.ptId === signedInId) {
 
-                    BodyBio.findOne({$and: [{clientId: clientId}, {bodyPart: data.bodyPart}]})
+                    BodyBio.findOne({$and: [{clientId: id}, {bodyPart: data.bodyPart}]})
                         .then(result => {
                             if (result) {
 
@@ -830,25 +849,35 @@ router.post('/body_bio/:cid', passport.authenticate('pt_rule', {session: false},
 // @route  GET api/body_bio/:cid
 // @desc   Retrieve body bio data from db
 // @access Available for both authorised Pt's and clients
-router.get('/body_bio/:cid', passport.authenticate('both_rule', {session: false}), (req, res) => {
+router.get('/body_bio/:cid?', passport.authenticate('both_rule', {session: false}), (req, res) => {
     // Get clientId from url
-    let clientId = req.params.cid;
     let token = req.headers.authorization.split(' ')[1];
     let payload = jwt.decode(token, keys.secretOrKey);
+    let isPt = payload.pt;
     let signedInId = payload.id;
+    let id;
+
+    // Check if pt or client
+    if(isPt){
+        id = req.params.cid;
+    }
+    else {
+        id = signedInId;
+    }
 
     // Verify that client exists and that personal trainer id is linked to client
-    Client.findOne({_id: clientId})
+    Client.findOne({_id: id})
         .then(result => {
             // If client is found
             if (result) {
                 // Check to see if signed in user is same as clientId or ptId is allowed access
-                if (clientId === signedInId || result.ptId === signedInId) {
+                // Check to see if signed in user or ptId is allowed
+                if (result._id.toString() === signedInId || result.ptId === signedInId) {
 
                     // '-_id exerciseName metrics.maxWeight metrics.Date' part allows only exerciseName and metrics to be returned,
                     // as _id is returned by default use the minus sign with it to explicitly ignore it ie '-_id' (deleted -_id as needed for refactoring -- creating component for each graph)
                     // CHANGE - _id needed for mapping in progression editing functionality
-                    BodyBio.find({clientId: clientId}, 'bodyPart bodyMetrics._id bodyMetrics.measurement bodyMetrics.Date')
+                    BodyBio.find({clientId: id}, 'bodyPart bodyMetrics._id bodyMetrics.measurement bodyMetrics.Date')
                         .then(result => {
                             if (result) {
                                 return res.status(200).json(result);
@@ -884,27 +913,37 @@ router.get('/body_bio/:cid', passport.authenticate('both_rule', {session: false}
 // @route  DELETE api/body_bio/:cid
 // @desc   Delete body bio body part data from db
 // @access Private for PT's - clients can't delete progression data for body part in db collection
-router.delete('/body_bio/:cid', passport.authenticate('pt_rule', {session: false}, null), (req, res) =>{
+router.delete('/body_bio/:cid?', passport.authenticate('pt_rule', {session: false}, null), (req, res) =>{
 
     let token = req.headers.authorization.split(' ')[1];
     let payload = jwt.decode(token, keys.secretOrKey);
-    let signedInId = payload.id;
-    let clientId = req.params.cid;
+    let isPt = payload.pt;
     let data = req.body;
+    let signedInId = payload.id;
+    let id;
+
+    // Check if pt or client
+    if(isPt){
+        id = req.params.cid;
+    }
+    else {
+        id = signedInId;
+    }
 
     // Check to see if client exists
 
-    Client.findOne({_id: clientId})
+    Client.findOne({_id: id})
         .then(result => {
             if(result) {
 
                 // As pt's are the only ones that can access this route, check to see if uid given matches the ptId for this client
-                if(result.ptId === signedInId){
+                // Check to see if signed in user or ptId is allowed
+                if (result._id.toString() === id || result.ptId === signedInId){
 
                     // return res.status(200).json({userId, clientId, data, result});
 
                     // Remove exercise for client
-                    BodyBio.remove({$and: [{clientId: clientId}, {bodyPart: data.bodyPart}]})
+                    BodyBio.remove({$and: [{clientId: id}, {bodyPart: data.bodyPart}]})
                         .then(result => {
 
                                 // Successful removal returns n:1, unsuccessful returns n:0
@@ -938,22 +977,22 @@ router.delete('/body_bio/:cid', passport.authenticate('pt_rule', {session: false
 // @route  PUT api/body_bio/:cid
 // @desc   update client progression for body part from db
 // @access Private for PT's - clients can't update progression data for body parts in db collection
-router.put('/body_bio/:cid', passport.authenticate('pt_rule', {session: false}, null), (req, res) =>{
+router.put('/body_bio/:cid?', passport.authenticate('pt_rule', {session: false}, null), (req, res) =>{
 
     let token = req.headers.authorization.split(' ')[1];
     let payload = jwt.decode(token, keys.secretOrKey);
-    let signedInId = payload.id;
-    let clientId = req.params.cid;
     let data = req.body.data.bodyMetrics;
     let bodyPartId = req.body.data.bodyPartId;
+    let clientId = req.params.cid;
+    let signedInId = payload.id;
 
     // Check to see if client exists
     Client.findOne({_id: clientId})
         .then(result => {
             if(result) {
 
-                // As pt's are the only ones that can access this route, check to see if uid given matches the ptId for this client
-                if(result.ptId === signedInId){
+                // Check to see if signed in user or ptId is allowed
+                if (result.ptId === signedInId){
 
                     // return res.status(200).json({userId, clientId, data, result});
 
@@ -1000,25 +1039,33 @@ router.put('/body_bio/:cid', passport.authenticate('pt_rule', {session: false}, 
 // @route  GET api/profile_notes/:cid
 // @desc   Retrieve client profile notes data from db
 // @access Available for both authorised Pt's and clients
-router.get('/profile_notes/:cid', passport.authenticate('both_rule', {session: false}), (req, res) => {
+router.get('/profile_notes/:cid?', passport.authenticate('both_rule', {session: false}), (req, res) => {
     // Get clientId from url
     let clientId = req.params.cid;
-
     let token = req.headers.authorization.split(' ')[1];
     let payload = jwt.decode(token, keys.secretOrKey);
     let signedInId = payload.id;
+    let isPt = payload.pt;
+    let id;
+
+    if(isPt){
+        id = clientId;
+    }
+    else{
+        id = signedInId;
+    }
 
     // Verify that client exists and that personal trainer id is linked to client
-    Client.findOne({_id: clientId})
+    Client.findOne({_id: id})
         .then(result => {
             // If client is found
             if (result) {
 
                 // Check to see if signed in user is same as clientId or ptId is allowed access
-                if (clientId === signedInId || result.ptId === signedInId) {
+                if (result._id.toString() === id || result.ptId === signedInId) {
 
                     // Only return notes, goals, and injuries (have to use -_id to stop returning of id as it is returned by default)
-                    ProfileNotes.findOne({clientId: clientId}, '-_id notes goals injuries')
+                    ProfileNotes.findOne({clientId: id}, '-_id notes goals injuries')
                         .then(result => {
                             if (result) {
                                 return res.status(200).json(result);
@@ -1128,6 +1175,14 @@ router.post(`/upload_profile_pic`, upload.single('profileImage'),passport.authen
     let payload = jwt.decode(token, keys.secretOrKey);
     let signedInId = payload.id;
     let isPt = payload.pt;
+    let id;
+
+    if(isPt){
+        id = req.params.cid;
+    }
+    else{
+        id = signedInId;
+    }
 
     let fileName = req.file.originalname;
     let imageBuffer = req.file.buffer;
@@ -1184,7 +1239,7 @@ router.post(`/upload_profile_pic`, upload.single('profileImage'),passport.authen
                     }
                     else {
                         Client.findOneAndUpdate(
-                            {_id: signedInId},
+                            {_id: id},
                             {$set: {
                                     ProfilePicUrl: newUrl
                                 }
