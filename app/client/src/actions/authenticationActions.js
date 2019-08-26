@@ -5,37 +5,8 @@ import {
 } from "./types"; // import custom defined types
 import setAuthorisationToken from '../utilities/setAuthorisationToken';
 import jwtDecode from 'jwt-decode';
-import {clearErrors, setSuccess, ptClearProfile, setErrors} from "./ptProfileActions";
+import {setSuccess, ptClearProfile} from "./ptProfileActions";
 import {clientClearProfile} from "./clientProfileActions";
-
-export const manageErrors = (err, dispatch) => {
-    // 401 Unauthorised
-    if(err.response.status === 401 || err.response.status === 500){
-        dispatch({
-            type: GET_ERRS,
-            payload: {
-                error_message: err.response.data,
-                error_code: err.response.status
-            }
-        });
-        dispatch(logOutUser());
-        dispatch(clearErrors());
-        window.location.href = '/re-login';
-    }
-    // If used direct url, and id doesn't exist send user to error page (404 - Not Found)
-    else if (err.response.status === 404){
-        //window.location.href = '/error_page';
-    }
-    else if (err.response.status === 400){
-        dispatch({
-            type: GET_ERRS,
-            payload: err.response.data
-        });
-    }
-    else {
-        dispatch(setErrors(err.response.data.msg));
-    }
-};
 
 // Register User
 // Used to dispatch (action) data to a reducer, in this case it is the registerUser action with the sign up data
@@ -47,7 +18,7 @@ export const manageErrors = (err, dispatch) => {
 // thus allowing the result to be passed to the dispatch function, the dispatch function is called via the connect function in the component.
 //
 // history is passed in from register.js onSubmit so it can be used to direct the user to another link/route
-export const registerUser =(Data, history) => (dispatch) => {
+export const registerUser =(Data) => (dispatch) => {
     // Post user data to the API specifically the user/register route
     axios
         .post('/api/register', Data)
@@ -58,7 +29,7 @@ export const registerUser =(Data, history) => (dispatch) => {
             }
         }) // Uses history.push to direct the user
         .catch(err => {
-            manageErrors(err, dispatch, history)
+
         }
     );
 }; // registerUser

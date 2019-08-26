@@ -7,17 +7,11 @@ import { logOutUser } from "../../actions/authenticationActions";
 import { withRouter } from 'react-router-dom';
 import {
     ptGetData,
-    ptGetClients,
-    ptClearProfile,
-    ptGetClientBodyBio,
-    ptGetClientProgression
+    ptClearProfile
 } from "../../actions/ptProfileActions";
 import {
     clientGetData,
-    clientClearProfile,
-    clientGetProgression,
-    clientGetBodyBio,
-    clientGetProfileNotes
+    clientClearProfile
 } from "../../actions/clientProfileActions";
 
 import {ProfileImage} from "../dashboard/profile/ProfileImage";
@@ -31,45 +25,20 @@ class Navigation extends Component {
         };
     }
 
-    // static getDerivedStateFromProps(prevProps, state){
-    //     if(prevProps.authenticatedUser.isAuthenticated) {
-    //         if (prevProps.authenticatedUser.user.pt) {
-    //             if (prevProps.ptProfile.pt_data !== state.userData) {
-    //                 return {
-    //                     userData: prevProps.ptProfile.pt_data,
-    //                     ProfilePicUrl: prevProps.ptProfile.pt_data.ProfilePicUrl
-    //                 }
-    //             }
-    //             return null;
-    //         }
-    //         else {
-    //             if (prevProps.clientProfile.client_data !== null) {
-    //                 return {
-    //                     userData: prevProps.clientProfile.client_data,
-    //                     ProfilePicUrl: prevProps.clientProfile.client_data.ProfilePicUrl
-    //                 }
-    //             }
-    //             return null;
-    //         }
-    //     }
-    //     return null;
-    // }
-
-    componentDidUpdate(){
+    componentDidUpdate(prevProps, prevState, snapshot){
         const {isAuthenticated, user} = this.props.authenticatedUser;
-        const {userData} = this.state;
         const {pt_data} = this.props.ptProfile;
         const {client_data} = this.props.clientProfile;
 
         if(isAuthenticated && user.pt){
-            if(userData === null && pt_data !== null){
+            if(prevProps.ptProfile.pt_data !== pt_data){
                 this.setState({
                     userData: pt_data,
                     ProfilePicUrl: pt_data.ProfilePicUrl
                 });
             }
         }
-        else if(userData === null && client_data !== null){
+        else if(prevProps.clientProfile.client_data !== client_data){
             this.setState({
                 userData: client_data,
                 ProfilePicUrl: client_data.ProfilePicUrl
@@ -78,16 +47,15 @@ class Navigation extends Component {
     }
 
     componentDidMount() {
-        // const {isAuthenticated} = this.props.authenticatedUser;
-        // if(isAuthenticated){
-        //     if(this.props.authenticatedUser.user.pt){
-        //         this.props.ptGetData(this.props.history);
-        //         this.props.ptGetClients(this.props.history);
-        //     }
-        //     else {
-        //         this.props.clientGetData(this.props.authenticatedUser.user.id, this.props.history);
-        //     }
-        // }
+        const {isAuthenticated} = this.props.authenticatedUser;
+        if(isAuthenticated){
+            if(this.props.authenticatedUser.user.pt){
+                this.props.ptGetData();
+            }
+            else {
+                this.props.clientGetData();
+            }
+        }
     } // ComponentDidMount
 
     // Create log out link functionality
@@ -104,7 +72,6 @@ class Navigation extends Component {
     };
 
     render() {
-
         const {isAuthenticated} = this.props.authenticatedUser;
         const {userData, ProfilePicUrl} = this.state;
 
@@ -187,15 +154,10 @@ const stateToProps = (state) => ({
 // connect must be exported with a passed parameter (not direct parameter) of Register this is wrapped with withRouter
 // allowing the functions of the package to be used with the component eg, proper routing, and direct parameters of
 // stateToProps for the 1st parameter and the action which is registerUser as the 2nd parameter
-export default connect(stateToProps, {logOutUser,
+export default connect(stateToProps, {
+    logOutUser,
     clientGetData,
-    ptGetData,
-    ptGetClients,
-    ptGetClientBodyBio,
-    ptGetClientProgression,
-    ptClearProfile,
     clientClearProfile,
-    clientGetProgression,
-    clientGetBodyBio,
-    clientGetProfileNotes
+    ptGetData,
+    ptClearProfile
 })(withRouter(Navigation));

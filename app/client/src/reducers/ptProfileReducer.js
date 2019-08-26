@@ -76,14 +76,7 @@ export default function(state = initialState, action) {
             };
         case PT_CLEAR_PROFILE:
             return {
-                pt_data: null,
-                current_client: null,
-                clients: null,
-                client_progression: null,
-                scheduler: null,
-                profile_notes: null,
-                body_bio: null,
-                ptLoading: false
+                ...initialState
             };
         case CLEAR_CURRENT_CLIENT_PROFILE:
             return {

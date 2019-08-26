@@ -13,13 +13,12 @@ import {
     CLEAR_CLIENT_PROGRESSION,
     CLIENT_PROFILE_EDITED
 } from "./types"; // import custom defined types
-import {manageErrors} from "./authenticationActions";
 import {setSuccess} from "./ptProfileActions";
 
-export const clientGetData = (clientId, history) => dispatch => {
+export const clientGetData = () => dispatch => {
     dispatch(setProfileLoading());
     axios
-        .get(`/api/client/${clientId}`)
+        .get(`/api/client/:cid`)
         .then(result => {
             dispatch({
                 type: GET_CLIENT_PROFILE,
@@ -27,7 +26,7 @@ export const clientGetData = (clientId, history) => dispatch => {
             });
         })
         .catch(err => {
-            manageErrors(err, dispatch, history);
+
         });
 };
 
@@ -38,7 +37,7 @@ export const setProfileLoading = () => {
 };
 
 // Get pt Clients profile notes
-export const clientGetProfileNotes = (clientId, history) => dispatch => {
+export const clientGetProfileNotes = (clientId) => dispatch => {
     axios
         .get(`/api/profile_notes/${clientId}`)
         .then(result => {
@@ -52,11 +51,11 @@ export const clientGetProfileNotes = (clientId, history) => dispatch => {
             }
         )
         .catch(err => {
-            manageErrors(err, dispatch, history);
+
         })
 };
 
-export const clientGetBodyBio = (clientId, history) => dispatch => {
+export const clientGetBodyBio = (clientId) => dispatch => {
     // userId can either be same as clientId or the id of the personal trainer
     axios.get(`/api/body_bio/${clientId}` ) // using grave accent instead of single quote
         .then(result => {
@@ -66,11 +65,11 @@ export const clientGetBodyBio = (clientId, history) => dispatch => {
             });
         })
         .catch(err => {
-            manageErrors(err, dispatch, history);
+
         });
 };
 
-export const clientGetProgression = (clientId, history) => dispatch => {
+export const clientGetProgression = (clientId) => dispatch => {
     // userId can either be same as clientId or the id of the personal trainer
     axios.get(`/api/client_progression/${clientId}` ) // using grave accent instead of single quote
         .then(result => {
@@ -80,7 +79,7 @@ export const clientGetProgression = (clientId, history) => dispatch => {
             });
         })
         .catch(err => {
-            manageErrors(err, dispatch, history);
+
         });
 };
 
@@ -109,12 +108,12 @@ export const clientUploadProfilePic = (dataImage, fileName) => dispatch => {
                 dispatch(setSuccess(data.msg))
             })
             .catch(err => {
-                dispatch(manageErrors(err))
+
             })
     }
 };
 
-export const clientEditData = (clientId, data, history) => dispatch => {
+export const clientEditData = (clientId, data) => dispatch => {
     axios
         .put(`/api/edit_client/${clientId}`, data)
         .then(result => {
@@ -127,7 +126,7 @@ export const clientEditData = (clientId, data, history) => dispatch => {
             }
         })
         .catch(err => {
-            manageErrors(err, dispatch, history);
+
         })
 };
 

@@ -40,27 +40,28 @@ class Dashboard extends Component {
         };
     }
 
-    componentDidUpdate(){
-        const {isAuthenticated, user} = this.props.authenticatedUser;
-        const {ptData, clientData} = this.state;
-        const {ptProfile} = this.props;
-        const {clientProfile} = this.props;
-
-        if(isAuthenticated && user.pt){
-            if(ptData === null && ptProfile.pt_data !== null && ptProfile.clients !== null){
-                console.log("fire1")
-                this.setState({
-                    ptData: ptProfile,
-                    ptClients: ptProfile.clients
-                });
-            }
-        }
-        else if(clientData === null && clientProfile.client_data !== null){
-            console.log("fire2")
-            this.setState({
-                clientData: clientProfile,
-            });
-        }
+    componentDidUpdate(prevProps, prevState, snapshot){
+        // const {isAuthenticated, user} = this.props.authenticatedUser;
+        // const {ptData, clientData} = this.state;
+        // const {ptProfile} = this.props;
+        // const {clientProfile} = this.props;
+        //
+        // if(isAuthenticated && user.pt){
+        //     if(ptData === null && ptProfile.pt_data !== null && ptProfile.clients !== null){
+        //         this.setState({
+        //             ptData: ptProfile,
+        //             ptClients: ptProfile.clients
+        //         });
+        //     }
+        // }
+        // else if(clientData === null && clientProfile.client_data !== null){
+        //     this.setState({
+        //         clientData: clientProfile,
+        //     });
+        // }
+        console.log(prevProps);
+        // console.log(pt_data);
+        console.log(prevState);
     }
 
 
@@ -85,9 +86,6 @@ class Dashboard extends Component {
         let displayContent;
         const {user, isAuthenticated} = this.props.authenticatedUser;
         const {ptData, ptClients, clientData} = this.state;
-        const {} = this.state;
-
-        console.log(ptData)
 
         if(user.pt){
             if(!isAuthenticated){
@@ -108,7 +106,7 @@ class Dashboard extends Component {
             }
         } //if user is pt
         else{
-            if (clientData === null || clientData.clients === null || clientData.clientLoading) {
+            if (clientData === null) {
                 return <Loading myClassName="loading_container"/>
             }
             if(isEmpty(user)){

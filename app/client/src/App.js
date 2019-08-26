@@ -59,21 +59,19 @@ class App extends Component {
                         {/*Using Switch allows the route to be checked to see if it exists or not, if not the last component (error) which doesn't have a path
                          will be rendered*/}
                         <Switch>
-                            <PrivateRoute path="/users/:uid?/edit_client/:cid?" component={EditClient}/>
-                            <PrivateRoute path="/users/:uid?/register_client" component={RegisterClient}/>
-                            <PrivateRoute path="/users/:uid?/scheduler/:cid?" component={Scheduler}/>
-                            <PrivateRoute path="/users/:uid?/dashboard/:cid?" component={Dashboard}/>
-                            <PrivateRoute path="/users/:uid?/upload_profile_picture" component={ProfilePicUpload}/>
-                            <PrivateRoute path="/users/:uid?/client_profile/:cid?" component={ClientProfile}/>
-                            <PrivateRoute path="/users/:uid?/edit_personal_trainer" component={EditPersonalTrainer}/>
+                            <PrivateRoute exact path="/users/:uid?/edit_client/:cid?" component={EditClient}/>
+                            <PrivateRoute exact path="/users/:uid?/register_client" component={RegisterClient}/>
+                            <PrivateRoute exact path="/users/:uid?/scheduler/:cid?" component={Scheduler}/>
+                            <PrivateRoute exact path="/users/:uid?/dashboard/:cid?" component={Dashboard}/>
+                            <PrivateRoute exact path="/users/:uid?/upload_profile_picture" component={ProfilePicUpload}/>
+                            <PrivateRoute exact path="/users/:uid?/client_profile/:cid?" component={ClientProfile}/>
+                            <PrivateRoute exact path="/users/:uid?/edit_personal_trainer" component={EditPersonalTrainer}/>
                             <Route exact path="/" component={Landing_page}/>
                             <Route exact path="/register" component={Register}/>
                             <Route exact path="/login" component={Login}/>
                             <Route exact path="/re-login" component={ExpiredLogin}/>
                             <Route exact path="/error_page" component={ErrorComponent}/>
                             <Route component={ErrorComponent}/>
-                            {/*If page doesn't exist * then show error page component*/}
-
                         </Switch>
                         <Footer/> {/*adds footer component to web app*/}
                     </div>

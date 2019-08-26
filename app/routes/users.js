@@ -171,16 +171,23 @@ router.delete('/delete_client/:cid', passport.authenticate('pt_rule', {session: 
 router.get('/client/:cid', passport.authenticate('both_rule', {session: false}, null), (req, res) => {
     let token = req.headers.authorization.split(' ')[1];
     let payload = jwt.decode(token, keys.secretOrKey);
-    let signedInId = payload.id;
-    let cid = req.params.cid;
+    let isPt = payload.pt;
+    let id;
+
+    if(isPt){
+        id = req.params.cid;
+    }
+    else{
+        id = payload.id;
+    }
 
     // get client data
-    Client.findOne({_id: cid})
+    Client.findOne({_id: id})
         .then(client => {
                 if (client) {
 
                     // Check access rights allowing the data to be requested
-                    if(client.ptId === signedInId || cid === signedInId){
+                    if(client._id.toString() === id || client.ptId ===  id){
                         let data = {};
                         data._id = client._id;
                         data.FullName = client.FullName;

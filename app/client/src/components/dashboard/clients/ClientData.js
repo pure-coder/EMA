@@ -26,12 +26,12 @@ class ClientData extends Component {
     render() {
 
         const {user, isAuthenticated} = this.props.authenticatedUser;
-        const {clientLoading} = this.props.clientData;
+        const {clientData} = this.props;
 
         if(!isAuthenticated){
             return <ErrorComponent/>
         }
-        if(clientLoading){
+        if(clientData === null){
             return <Loading/>;
         }
         else {
