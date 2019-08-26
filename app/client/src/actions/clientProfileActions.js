@@ -126,7 +126,10 @@ export const clientEditData = (data) => dispatch => {
             }
         })
         .catch(err => {
-
+            dispatch({
+                type: GET_ERRS,
+                payload: err.response.data
+            })
         })
 };
 

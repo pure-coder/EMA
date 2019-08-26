@@ -49,12 +49,9 @@ class EditClient extends Component {
             ],
             errors: {},
             location: this.props.location,
-            success: {},
             loaded: false,
             updated: false,
-            message: {
-                type: null
-            } // Set to null so null is returned from DisplayMessage by default
+            message: {} // Set to null so null is returned from DisplayMessage by default
         };
     }
 
@@ -80,14 +77,19 @@ class EditClient extends Component {
                 loaded: true
             }
         }
-        if(isEmpty(props.success) !== isEmpty(state.success)){
+        if (!isEmpty(state.errors)){
             return {
-                message: props.success
+                message: state.errors
             }
         }
-        if(isEmpty(props.errors) !== isEmpty(state.errors)){
+        if (!isEmpty(props.errors) && isEmpty(state.errors)){
             return {
                 errors: props.errors
+            }
+        }
+        if (!isEmpty(props.success)) {
+            return {
+                message: props.success
             }
         }
         return null
@@ -158,7 +160,7 @@ class EditClient extends Component {
         if(!isEmpty(this.props.errors)){
             this.props.clearErrors();
         }
-        this.setState({message: {type: null}}); // reset to null
+        this.setState({message: {}}); // reset to null
         if(!isEmpty(this.props.success)){
             this.props.clearSuccess();
         }
@@ -206,14 +208,13 @@ class EditClient extends Component {
             }
         }
 
-        let message;
-
         if (!dataChanged){
-            message = {
-                type: "ERROR",
-                msg: "No data has been modified!"
-            };
-            this.setState({message});
+            this.setState({
+                errors: {
+                    type: "ERROR",
+                    msg: "No data has been modified!"
+                }
+            });
             this.props.setErrors(errors);
             return null;
         }

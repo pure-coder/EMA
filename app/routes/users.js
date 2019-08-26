@@ -222,9 +222,6 @@ router.put('/edit_client/:cid?', passport.authenticate('both_rule', {session: fa
     let isPt = payload.pt;
     let signedInId = payload.id;
     const data = req.body;
-
-    console.log(req.params)
-
     let id;
 
     // Check if pt or client
