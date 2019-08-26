@@ -25,7 +25,7 @@ class Navigation extends Component {
         };
     }
 
-    componentDidUpdate(prevProps, prevState){
+    componentDidUpdate(prevProps){
         const {isAuthenticated, user} = this.props.authenticatedUser;
         const {pt_data} = this.props.ptProfile;
         const {client_data} = this.props.clientProfile;
@@ -44,8 +44,8 @@ class Navigation extends Component {
         else {
             if(prevProps.clientProfile.client_data !== this.state.userData) {
                 this.setState({
-                    userData: this.props.clientProfile.client_data,
-                    ProfilePicUrl: this.props.clientProfile.client_data.ProfilePicUrl
+                    userData: client_data,
+                    ProfilePicUrl: client_data.ProfilePicUrl
                 })
             }
         }

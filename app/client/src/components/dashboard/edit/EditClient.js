@@ -68,15 +68,15 @@ class EditClient extends Component {
                 }
             }
         }
-        else if (props.clientProfile.client_data !== state.client_data) {
-            return {
-                client_data: props.clientProfile.client_data,
-                profilePicture: props.clientProfile.client_data.ProfilePicUrl,
-                success: props.success,
-                errors: props.errors,
-                loaded: true
-            }
-        }
+        // else if (props.clientProfile.client_data !== state.client_data) {
+        //     return {
+        //         client_data: props.clientProfile.client_data,
+        //         profilePicture: props.clientProfile.client_data.ProfilePicUrl,
+        //         success: props.success,
+        //         errors: props.errors,
+        //         loaded: true
+        //     }
+        // }
         if (!isEmpty(state.errors)){
             return {
                 message: state.errors
@@ -116,13 +116,21 @@ class EditClient extends Component {
             this.props.history.push('/error_page');
         }
         let data = null;
-        if(this.props.authenticatedUser.user.pt) {
-            if (this.props.ptProfile.current_client !== null) {
+        if(this.props.authenticatedUser.user.pt){
+            if(this.state.client_data === null && this.props.ptProfile.current_client !== null){
+                this.setState({
+                    client_data: this.props.ptProfile.current_client,
+                    profilePicture: this.props.ptProfile.current_client.ProfilePicUrl
+                });
                 data = this.props.ptProfile.current_client;
             }
         }
-        else{
-            if (this.props.clientProfile.client_data !== null) {
+        else {
+            if(this.state.client_data === null && this.props.clientProfile.client_data !== null){
+                this.setState({
+                    client_data: this.props.clientProfile.client_data,
+                    profilePicture: this.props.clientProfile.client_data.ProfilePicUrl
+                });
                 data = this.props.clientProfile.client_data;
             }
         }
@@ -143,6 +151,7 @@ class EditClient extends Component {
         if(!isAuthenticated){
             this.props.history.push('/re-login');
         }
+        // Clear current client profile from redux as when accessing another the previous will still be shown.
         if(this.props.authenticatedUser.user.pt){
             this.props.ptClearCurrentClientProfile();
         }
@@ -247,7 +256,9 @@ class EditClient extends Component {
     };
 
     render() {
-        const client_data = this.state.client_data;
+        let {client_data, errors, message, FullName, Email, ContactNumber, profilePicture,
+        DateOfBirth, values, Password, Password2
+        } = this.state;
 
         if(client_data === null){
             return <Loading myClassName="loading_container"/>
@@ -256,8 +267,6 @@ class EditClient extends Component {
             return <ErrorComponent/>
         }
         else {
-            let {errors, message, profilePicture} = this.state;
-
             return (
                 <div className="edit_client">
                     <div className="container  edit_client-custom">
@@ -280,8 +289,8 @@ class EditClient extends Component {
                                     <FormInputGroup
                                         myClassName="edit-client"
                                         name="FullName"
-                                        placeholder={this.state.client_data.FullName}
-                                        value={this.state.FullName}
+                                        placeholder={FullName}
+                                        value={FullName}
                                         type="text"
                                         onChange={this.valueChange}
                                         error={errors.FullName}
@@ -290,7 +299,7 @@ class EditClient extends Component {
                                         myClassName="edit-client"
                                         name="Email"
                                         placeholder="Email"
-                                        value={this.state.Email}
+                                        value={Email}
                                         type="Email"
                                         onChange={this.valueChange}
                                         error={errors.Email}
@@ -299,7 +308,7 @@ class EditClient extends Component {
                                         myClassName="edit-client"
                                         name="ContactNumber"
                                         placeholder="ContactNumber"
-                                        value={this.state.ContactNumber}
+                                        value={ContactNumber}
                                         type="text"
                                         onChange={this.valueChange}
                                         error={errors.ContactNumber}
@@ -312,7 +321,7 @@ class EditClient extends Component {
                                             < FormInputGroup
                                                 myClassName="edit-exercise"
                                                 name="DateOfBirth"
-                                                value={this.state.DateOfBirth.toString()}
+                                                value={DateOfBirth.toString()}
                                                 type="date"
                                                 onChange={this.valueChange}
                                                 error={errors.DateOfBirth}
@@ -326,7 +335,7 @@ class EditClient extends Component {
                                             <FormSelectComp
                                                 name="Sex"
                                                 id="Sex"
-                                                values={this.state.values}
+                                                values={values}
                                                 onChange={this.valueChange}
                                                 error={errors.Sex}
                                             />
@@ -336,7 +345,7 @@ class EditClient extends Component {
                                         myClassName="edit-client"
                                         name="Password"
                                         placeholder="Enter Password"
-                                        value={this.state.Password}
+                                        value={Password}
                                         type="password"
                                         onChange={this.valueChange}
                                         error={errors.Password}
@@ -344,7 +353,7 @@ class EditClient extends Component {
                                     <FormInputGroup
                                         name="Password2"
                                         placeholder="Confirm Password"
-                                        value={this.state.Password2}
+                                        value={Password2}
                                         type="password"
                                         onChange={this.valueChange}
                                         error={errors.Password2}
