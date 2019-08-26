@@ -32,9 +32,6 @@ class Dashboard extends Component {
         const {pt_data, clients} = this.props.ptProfile;
         const {client_data} = this.props.clientProfile;
 
-        // console.log(prevProps)
-        // console.log(prevState)
-        // console.log(this.props.clientProfile)
         if(isAuthenticated && user.pt){
             if(prevProps.ptProfile.pt_data !== prevState.userData){
                 this.setState({

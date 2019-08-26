@@ -228,7 +228,7 @@ class EditClient extends Component {
                 this.props.ptEditClientData(this.state.clientId, editData, this.props.history);
             }
             else{
-                this.props.clientEditData(this.state.clientId, editData, this.props.history);
+                this.props.clientEditData(editData);
             }
             // Clear password match errors
             this.props.clearErrors();

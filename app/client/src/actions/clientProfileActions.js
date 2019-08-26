@@ -113,9 +113,9 @@ export const clientUploadProfilePic = (dataImage, fileName) => dispatch => {
     }
 };
 
-export const clientEditData = (clientId, data) => dispatch => {
+export const clientEditData = (data) => dispatch => {
     axios
-        .put(`/api/edit_client/${clientId}`, data)
+        .put(`/api/edit_client/`, data)
         .then(result => {
             if(result.status === 200){
                 dispatch({

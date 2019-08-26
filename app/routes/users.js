@@ -214,14 +214,24 @@ router.get('/client/:cid', passport.authenticate('both_rule', {session: false}, 
 // @route  PUT /edit_client/:cid
 // @desc   Update client profile data
 // @access Private access for either personal trainer or client
-router.put('/edit_client/:cid', passport.authenticate('both_rule', {session: false}, null), (req, res) => {
+router.put('/edit_client/*:cid?', passport.authenticate('both_rule', {session: false}, null), (req, res) => {
     // Set up validation checking for every field that has been posted
 
     let token = req.headers.authorization.split(' ')[1];
     let payload = jwt.decode(token, keys.secretOrKey);
+    let isPt = payload.pt;
     let signedInId = payload.id;
-    const clientId = req.params.cid;
     const data = req.body;
+
+    let id;
+
+    // Check if pt or client
+    if(isPt){
+        id = req.params.cid;
+    }
+    else {
+        id = signedInId;
+    }
 
     let updateClient = {};
     // Checked on client if empty, but make sure!!
@@ -252,10 +262,10 @@ router.put('/edit_client/:cid', passport.authenticate('both_rule', {session: fal
         return res.status(400).json({msg : "No data sent to server!"})
     }
 
-    Client.findOne({_id: clientId})
+    Client.findOne({_id: id})
         .then(clientResult => {
             if (clientResult){
-                if(clientId === signedInId || clientResult.ptId === signedInId){
+                if(clientResult._id.toString() === id || clientResult.ptId === signedInId){
                     // If it exists as the for loop above checked if password was null or undefined, hash the password and update client
                     // profile if password doesn't exist update profile without hashing non existent password
                     if (updateClient.Password) {
@@ -268,7 +278,7 @@ router.put('/edit_client/:cid', passport.authenticate('both_rule', {session: fal
                                 // Set plain Password to the hash that was created for the Password
                                 updateClient.Password = hash;
                                 // Update password in client database
-                                Client.findByIdAndUpdate(clientId, updateClient, {new: true})
+                                Client.findByIdAndUpdate(id, updateClient, {new: true})
                                     .then(result => {
                                         if(result) {
                                             return res.status(200).json(result)
@@ -283,7 +293,7 @@ router.put('/edit_client/:cid', passport.authenticate('both_rule', {session: fal
                     }
                     else {
                         // Find client by id
-                        Client.findByIdAndUpdate(clientId, updateClient, {new: true})
+                        Client.findByIdAndUpdate(id, updateClient, {new: true})
                             .then(client => {
                                 if (client) {
                                     return res.status(200).json(client);
