@@ -25,11 +25,14 @@ class Navigation extends Component {
         };
     }
 
-    componentDidUpdate(prevProps){
+    componentDidUpdate(prevProps, prevState){
         const {isAuthenticated, user} = this.props.authenticatedUser;
         const {pt_data} = this.props.ptProfile;
         const {client_data} = this.props.clientProfile;
 
+        // console.log(prevProps)
+        // console.log(prevState)
+        // console.log(this.props.clientProfile)
         if(isAuthenticated && user.pt){
             if(prevProps.ptProfile.pt_data !== pt_data){
                 this.setState({
@@ -38,11 +41,13 @@ class Navigation extends Component {
                 });
             }
         }
-        else if(prevProps.clientProfile.client_data !== client_data){
-            this.setState({
-                userData: client_data,
-                ProfilePicUrl: client_data.ProfilePicUrl
-            });
+        else {
+            if(prevProps.clientProfile.client_data !== this.state.userData) {
+                this.setState({
+                    userData: this.props.clientProfile.client_data,
+                    ProfilePicUrl: this.props.clientProfile.client_data.ProfilePicUrl
+                })
+            }
         }
     }
 

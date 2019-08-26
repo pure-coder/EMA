@@ -22,7 +22,8 @@ class Dashboard extends Component {
         super(props);
         this.state = {
             userData: null,
-            clients: null
+            clients: null,
+            ProfilePicUrl: null
         };
     }
 
@@ -31,6 +32,9 @@ class Dashboard extends Component {
         const {pt_data, clients} = this.props.ptProfile;
         const {client_data} = this.props.clientProfile;
 
+        // console.log(prevProps)
+        // console.log(prevState)
+        // console.log(this.props.clientProfile)
         if(isAuthenticated && user.pt){
             if(prevProps.ptProfile.pt_data !== prevState.userData){
                 this.setState({
@@ -44,12 +48,17 @@ class Dashboard extends Component {
                 });
             }
         }
-        else if(prevProps.clientProfile.client_data !== client_data){
-            this.setState({
-                userData: client_data,
-                ProfilePicUrl: client_data.ProfilePicUrl
-            });
-        }
+        // else if(prevProps.clientProfile.client_data !== this.state.userData){
+        //     this.setState({
+        //         userData: client_data,
+        //         ProfilePicUrl: prevProps.clientProfile.client_data.ProfilePicUrl
+        //     });
+        // else if(prevProps.clientProfile.client_data !== prevState.userData){
+        //     this.setState({
+        //         userData: client_data,
+        //         ProfilePicUrl: client_data.ProfilePicUrl
+        //     });
+        // }
     }
 
 
@@ -61,11 +70,11 @@ class Dashboard extends Component {
         checkExp();
         // Check to see if data is already loaded, increases performance
         if(this.props.authenticatedUser.user.pt){
-            this.props.ptGetData(this.props.history);
-            this.props.ptGetClients(this.props.history);
+            this.props.ptGetData();
+            this.props.ptGetClients();
         }
         else{
-            this.props.clientGetData(this.props.authenticatedUser.user.id);
+            this.props.clientGetData();
         }
         document.body.scrollTo(0,0);
     } // ComponentDidMount
@@ -74,7 +83,7 @@ class Dashboard extends Component {
         let displayContent;
         const {user, isAuthenticated} = this.props.authenticatedUser;
         const {clients, pt_data} = this.props.ptProfile;
-        const {userData} = this.state;
+        const {client_data} = this.props.clientProfile;
 
         if(user.pt){
             if(!isAuthenticated){
@@ -95,7 +104,7 @@ class Dashboard extends Component {
             }
         } //if user is pt
         else{
-            if (userData === null) {
+            if (client_data === null) {
                 return <Loading myClassName="loading_container"/>
             }
             if(isEmpty(user)){
@@ -106,8 +115,8 @@ class Dashboard extends Component {
                 displayContent = (
                     // send clients data to client component, and render client component
                     <div className="dashboard-custom client">
-                        <UserInfo userData={userData}/>
-                        <ClientData clientData={userData}/>
+                        <UserInfo userData={client_data}/>
+                        <ClientData clientData={client_data}/>
                     </div>
                 )
             }
