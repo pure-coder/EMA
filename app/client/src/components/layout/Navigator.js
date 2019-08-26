@@ -31,41 +31,63 @@ class Navigation extends Component {
         };
     }
 
-    static getDerivedStateFromProps(prevProps, state){
-        if(prevProps.authenticatedUser.isAuthenticated) {
-            if (prevProps.authenticatedUser.user.pt) {
-                if (prevProps.ptProfile.pt_data !== state.userData) {
-                    return {
-                        userData: prevProps.ptProfile.pt_data,
-                        ProfilePicUrl: prevProps.ptProfile.pt_data.ProfilePicUrl
-                    }
-                }
-                return null;
-            }
-            else {
-                if (prevProps.clientProfile.client_data !== null) {
-                    return {
-                        userData: prevProps.clientProfile.client_data,
-                        ProfilePicUrl: prevProps.clientProfile.client_data.ProfilePicUrl
-                    }
-                }
-                return null;
+    // static getDerivedStateFromProps(prevProps, state){
+    //     if(prevProps.authenticatedUser.isAuthenticated) {
+    //         if (prevProps.authenticatedUser.user.pt) {
+    //             if (prevProps.ptProfile.pt_data !== state.userData) {
+    //                 return {
+    //                     userData: prevProps.ptProfile.pt_data,
+    //                     ProfilePicUrl: prevProps.ptProfile.pt_data.ProfilePicUrl
+    //                 }
+    //             }
+    //             return null;
+    //         }
+    //         else {
+    //             if (prevProps.clientProfile.client_data !== null) {
+    //                 return {
+    //                     userData: prevProps.clientProfile.client_data,
+    //                     ProfilePicUrl: prevProps.clientProfile.client_data.ProfilePicUrl
+    //                 }
+    //             }
+    //             return null;
+    //         }
+    //     }
+    //     return null;
+    // }
+
+    componentDidUpdate(){
+        const {isAuthenticated, user} = this.props.authenticatedUser;
+        const {userData} = this.state;
+        const {pt_data} = this.props.ptProfile;
+        const {client_data} = this.props.clientProfile;
+
+        if(isAuthenticated && user.pt){
+            if(userData === null && pt_data !== null){
+                this.setState({
+                    userData: pt_data,
+                    ProfilePicUrl: pt_data.ProfilePicUrl
+                });
             }
         }
-        return null;
+        else if(userData === null && client_data !== null){
+            this.setState({
+                userData: client_data,
+                ProfilePicUrl: client_data.ProfilePicUrl
+            });
+        }
     }
 
     componentDidMount() {
-        const {isAuthenticated} = this.props.authenticatedUser;
-        if(isAuthenticated){
-            if(this.props.authenticatedUser.user.pt){
-                this.props.ptGetData(this.props.history);
-                this.props.ptGetClients(this.props.history);
-            }
-            else {
-                this.props.clientGetData(this.props.authenticatedUser.user.id, this.props.history);
-            }
-        }
+        // const {isAuthenticated} = this.props.authenticatedUser;
+        // if(isAuthenticated){
+        //     if(this.props.authenticatedUser.user.pt){
+        //         this.props.ptGetData(this.props.history);
+        //         this.props.ptGetClients(this.props.history);
+        //     }
+        //     else {
+        //         this.props.clientGetData(this.props.authenticatedUser.user.id, this.props.history);
+        //     }
+        // }
     } // ComponentDidMount
 
     // Create log out link functionality

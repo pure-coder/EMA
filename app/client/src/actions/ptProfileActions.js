@@ -100,11 +100,12 @@ export const ptGetCurrentClient = (clientId, history) => dispatch => {
         });
 };
 
-export const ptEditData = (Data) => dispatch => {
+export const ptEditData = (Data, history) => dispatch => {
     axios
         .put(`/api/edit_personal_trainer`, Data)
         .then(result => {
                 if(result.status === 200){
+                    console.log("fire-edit")
                     dispatch({
                         type : PT_PROFILE_EDITED,
                         payload: result.data
@@ -114,7 +115,7 @@ export const ptEditData = (Data) => dispatch => {
             }
         )
         .catch(err => {
-            // manageErrors(err, dispatch, history);
+            manageErrors(err, dispatch, history);
         })
 };
 

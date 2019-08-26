@@ -59,7 +59,7 @@ class ClientList extends Component {
     render() {
         const {user} = this.props.authenticatedUser;
         const {ptData} = this.props;
-        if (ptData.ptLoading) {
+        if (ptData.clients === null) {
             return <Loading myClassName="loading_container"/>
         }
         if(isEmpty(user)){

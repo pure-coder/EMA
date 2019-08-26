@@ -52,16 +52,6 @@ class EditPersonalTrainer extends Component {
 
     // Replacement for componentWillReceiveProps (as was depreciated)
     static getDerivedStateFromProps(props, state) {
-        if(props.authenticatedUser.user.pt){
-            if (props.ptProfile.pt_data !== state.pt_data) {
-                return {
-                    pt_data: props.ptProfile.pt_data,
-                    profilePicture: props.ptProfile.pt_data.ProfilePicUrl,
-                    errors: props.errors,
-                    loaded: true
-                }
-            }
-        }
         if(isEmpty(props.success) !== isEmpty(state.success)){
             return {
                 message: props.success
@@ -80,6 +70,7 @@ class EditPersonalTrainer extends Component {
         if(!isAuthenticated)
             this.props.history.push('/login');
         checkExp();
+        this.props.ptGetData(this.props.history);
         this.props.clearErrors();
         this.props.clearSuccess();
         document.body.scrollTo(0,0);
@@ -96,10 +87,12 @@ class EditPersonalTrainer extends Component {
                 updated : true
             })
         }
+        if(this.state.pt_data === null && this.props.ptProfile.pt_data !== null){
+            this.setState({pt_data: this.props.ptProfile.pt_data});
+        }
     }
 
     componentWillUnmount(){
-
         this.props.clearErrors();
         this.props.clearSuccess();
     }
@@ -170,16 +163,6 @@ class EditPersonalTrainer extends Component {
             return null;
         }
         else {
-            // Reset state field to empty for error messages
-            this.setState({
-                FullName : this.state.FullName,
-                Email : this.state.Email,
-                DateOfBirth: this.state.DateOfBirth,
-                Sex: this.state.Sex,
-                Password: '',
-                Password2: '',
-                pt_data: pt_data
-            });
             this.props.ptEditData(editData, this.props.history);
             // Clear password match errors
             this.props.clearErrors()
@@ -188,7 +171,7 @@ class EditPersonalTrainer extends Component {
 
     render() {
         // if loaded is false then return loading screen
-        const {pt_data} = this.props.ptProfile;
+        const {pt_data, FullName, Email} = this.props.ptProfile;
         if (pt_data === null) {
             return <Loading myClassName="loading_container"/>
         }
@@ -216,7 +199,7 @@ class EditPersonalTrainer extends Component {
                                     <FormInputGroup
                                         myClassName="edit-pt"
                                         name="FullName"
-                                        placeholder={pt_data.FullName}
+                                        placeholder={FullName}
                                         value={this.state.FullName}
                                         type="text"
                                         onChange={this.onChange}
@@ -225,7 +208,7 @@ class EditPersonalTrainer extends Component {
                                     <FormInputGroup
                                         myClassName="edit-pt"
                                         name="Email"
-                                        placeholder={pt_data.Email}
+                                        placeholder={Email}
                                         value={this.state.Email}
                                         type="Email"
                                         onChange={this.onChange}

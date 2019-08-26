@@ -34,28 +34,35 @@ class Dashboard extends Component {
     constructor(props){
         super(props);
         this.state = {
-            clientData: !props.authenticatedUser.user.pt && props.clientProfile,
-            ptData: props.authenticatedUser.user.pt && props.ptProfile,
+            clientData: null,
+            ptData: null,
+            ptClients: null
         };
     }
 
-    static getDerivedStateFromProps(prevProps, prevState){
-        if(prevProps.authenticatedUser.user.pt){
-            if(prevProps.ptProfile !== prevState.ptData){
-                return {
-                    ptData: prevProps.ptProfile
-                }
+    componentDidUpdate(){
+        const {isAuthenticated, user} = this.props.authenticatedUser;
+        const {ptData, clientData} = this.state;
+        const {ptProfile} = this.props;
+        const {clientProfile} = this.props;
+
+        if(isAuthenticated && user.pt){
+            if(ptData === null && ptProfile.pt_data !== null && ptProfile.clients !== null){
+                console.log("fire1")
+                this.setState({
+                    ptData: ptProfile,
+                    ptClients: ptProfile.clients
+                });
             }
         }
-        else{
-            if(prevProps.clientProfile !== prevState.clientData){
-                return {
-                    clientData: prevProps.clientProfile
-                }
-            }
+        else if(clientData === null && clientProfile.client_data !== null){
+            console.log("fire2")
+            this.setState({
+                clientData: clientProfile,
+            });
         }
-        return null
     }
+
 
     // Life cycle method for react which will run when this component receives new properties
     componentDidMount() {
@@ -77,14 +84,16 @@ class Dashboard extends Component {
     render() {
         let displayContent;
         const {user, isAuthenticated} = this.props.authenticatedUser;
-        const {ptData} = this.state;
-        const {clientData} = this.state;
+        const {ptData, ptClients, clientData} = this.state;
+        const {} = this.state;
+
+        console.log(ptData)
 
         if(user.pt){
             if(!isAuthenticated){
                 return <ErrorComponent/>
             }
-            if (ptData.pt_data === null || ptData.clients === null || ptData.ptLoading) {
+            if (ptData === null && ptClients === null) {
                 return <Loading myClassName="loading_container"/>
             }
             else {
@@ -99,7 +108,7 @@ class Dashboard extends Component {
             }
         } //if user is pt
         else{
-            if (clientData.client_data === null || clientData.clientLoading) {
+            if (clientData === null || clientData.clients === null || clientData.clientLoading) {
                 return <Loading myClassName="loading_container"/>
             }
             if(isEmpty(user)){
