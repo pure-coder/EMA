@@ -58,8 +58,9 @@ class ClientList extends Component {
 
     render() {
         const {user} = this.props.authenticatedUser;
-        const {ptData} = this.props;
-        if (ptData.clients === null) {
+        const {ptData, clients} = this.props;
+
+        if (clients === null) {
             return <Loading myClassName="loading_container"/>
         }
         if(isEmpty(user)){
@@ -69,22 +70,22 @@ class ClientList extends Component {
             // check clients are set properly
 
             // Use sortedMap function to sort the client names and then send to view
-            const ptClients = this.sortedMap(ptData.clients).map((client, index) => (
+            const ptClients = this.sortedMap(clients).map((client, index) => (
                 <tr key={client._id} className={index % 2 === 0 ? "odd-row" : "even-row"}>
                     <td><b>{client.FullName}</b></td>
                     <td align="center">
-                        <Link to={`/users/${ptData.pt_data._id}/client_profile/${client._id}`}>
+                        <Link to={`/users/${ptData._id}/client_profile/${client._id}`}>
                             <i className="fas fa-columns fa-2x"></i>
                         </Link>
 
                     </td>
                     <td align="center">
-                        <Link to={`/users/${ptData.pt_data._id}/scheduler/${client._id}`}><i
+                        <Link to={`/users/${ptData._id}/scheduler/${client._id}`}><i
                             className="far fa-calendar-alt fa-2x"></i>
                         </Link>
                     </td>
                     <td align="center">
-                        <Link to={`/users/${ptData.pt_data._id}/edit_client/${client._id}`}><i
+                        <Link to={`/users/${ptData._id}/edit_client/${client._id}`}><i
                             className="fas fa-edit fa-2x"></i>
                         </Link>
                     </td>

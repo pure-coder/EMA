@@ -5,22 +5,9 @@ import {withRouter} from 'react-router-dom';
 import {
     ptGetClients,
     ptGetData,
-    clearErrors,
-    clearSuccess,
-    ptClearCurrentClientProfile,
-    ptClearClientProgression,
-    ptClearClientBodyBio,
-    ptClearClientProfileNotes,
 } from "../../../actions/ptProfileActions";
 import {
     clientGetData,
-    clientGetProgression,
-    clientGetBodyBio,
-    clientGetProfileNotes,
-    clientClearProfile,
-    clientClearProgression,
-    clientClearBodyBio,
-    clientClearProfileNotes,
 } from "../../../actions/clientProfileActions";
 import ClientList from '../clients/ClientList'
 import Loading from "../../../elements/Loading";
@@ -34,34 +21,35 @@ class Dashboard extends Component {
     constructor(props){
         super(props);
         this.state = {
-            clientData: null,
-            ptData: null,
-            ptClients: null
+            userData: null,
+            clients: null
         };
     }
 
-    componentDidUpdate(prevProps, prevState, snapshot){
-        // const {isAuthenticated, user} = this.props.authenticatedUser;
-        // const {ptData, clientData} = this.state;
-        // const {ptProfile} = this.props;
-        // const {clientProfile} = this.props;
-        //
-        // if(isAuthenticated && user.pt){
-        //     if(ptData === null && ptProfile.pt_data !== null && ptProfile.clients !== null){
-        //         this.setState({
-        //             ptData: ptProfile,
-        //             ptClients: ptProfile.clients
-        //         });
-        //     }
-        // }
-        // else if(clientData === null && clientProfile.client_data !== null){
-        //     this.setState({
-        //         clientData: clientProfile,
-        //     });
-        // }
-        console.log(prevProps);
-        // console.log(pt_data);
-        console.log(prevState);
+    componentDidUpdate(prevProps, prevState){
+        const {isAuthenticated, user} = this.props.authenticatedUser;
+        const {pt_data, clients} = this.props.ptProfile;
+        const {client_data} = this.props.clientProfile;
+
+        if(isAuthenticated && user.pt){
+            if(prevProps.ptProfile.pt_data !== prevState.userData){
+                this.setState({
+                    userData: pt_data,
+                    ProfilePicUrl: pt_data.ProfilePicUrl
+                });
+            }
+            if(prevProps.ptProfile.clients !== prevState.clients){
+                this.setState({
+                    clients: clients
+                });
+            }
+        }
+        else if(prevProps.clientProfile.client_data !== client_data){
+            this.setState({
+                userData: client_data,
+                ProfilePicUrl: client_data.ProfilePicUrl
+            });
+        }
     }
 
 
@@ -85,13 +73,14 @@ class Dashboard extends Component {
     render() {
         let displayContent;
         const {user, isAuthenticated} = this.props.authenticatedUser;
-        const {ptData, ptClients, clientData} = this.state;
+        const {clients, pt_data} = this.props.ptProfile;
+        const {userData} = this.state;
 
         if(user.pt){
             if(!isAuthenticated){
                 return <ErrorComponent/>
             }
-            if (ptData === null && ptClients === null) {
+            if (pt_data === null && clients === null){
                 return <Loading myClassName="loading_container"/>
             }
             else {
@@ -99,14 +88,14 @@ class Dashboard extends Component {
                 displayContent = (
                     // send clients data to client component, and render client component
                     <div className="dashboard-custom">
-                        <UserInfo userData={ptData.pt_data}/>
-                        <ClientList ptData={ptData}/>
+                        <UserInfo userData={pt_data}/>
+                        <ClientList ptData={pt_data} clients={clients}/>
                     </div>
                 )
             }
         } //if user is pt
         else{
-            if (clientData === null) {
+            if (userData === null) {
                 return <Loading myClassName="loading_container"/>
             }
             if(isEmpty(user)){
@@ -117,8 +106,8 @@ class Dashboard extends Component {
                 displayContent = (
                     // send clients data to client component, and render client component
                     <div className="dashboard-custom client">
-                        <UserInfo userData={clientData.client_data}/>
-                        <ClientData clientData={clientData.client_data}/>
+                        <UserInfo userData={userData}/>
+                        <ClientData clientData={userData}/>
                     </div>
                 )
             }
@@ -146,8 +135,6 @@ Dashboard.propTypes = {
     // Client data
     clientGetData: PropTypes.func.isRequired,
 
-    clearSuccess: PropTypes.func.isRequired,
-    errors: PropTypes.object.isRequired
 };
 
 // Used to pull auth state and errors into this component.... DEFINED IN reducers/index.js {combineReducers} !!!! USED FOR THE REDUX STORE
@@ -156,24 +143,10 @@ const stateToProps = (state) => ({
     ptProfile: state.ptProfile,
     clientProfile: state.clientProfile,
     errors: state.errors, // errors is set in index.js file in the reducers folder
-    location: state.location
 });
 
 export default connect(stateToProps, {
     ptGetClients,
     ptGetData,
-    clearSuccess,
-    clearErrors,
-    ptClearCurrentClientProfile,
-    ptClearClientProgression,
-    ptClearClientBodyBio,
-    ptClearClientProfileNotes,
     clientGetData,
-    clientGetProgression,
-    clientGetBodyBio,
-    clientGetProfileNotes,
-    clientClearProfile,
-    clientClearProgression,
-    clientClearBodyBio,
-    clientClearProfileNotes,
 })(withRouter(Dashboard));

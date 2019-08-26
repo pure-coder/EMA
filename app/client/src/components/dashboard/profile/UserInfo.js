@@ -25,8 +25,8 @@ class UserInfo extends Component {
     }
 
     render() {
-        const {ProfilePicUrl} = this.props.userData;
-        if (this.props.userData === null) {
+        const {userData} = this.props;
+        if (userData === null) {
             return <Loading myClassName="loading_container"/>
         }
         if (isEmpty(this.props.authenticatedUser.user)) {
@@ -40,15 +40,15 @@ class UserInfo extends Component {
                 // send clients data to client component, and render client component
                 <div className="userInfo-custom">
                     <div className="user_image">
-                        <ProfileImage image={ProfilePicUrl}/>
+                        <ProfileImage image={userData.ProfilePicUrl}/>
                     </div>
                     <div className="user_data">
-                        <p>Name: <span className="data text-primary">{this.props.userData.FullName}</span></p><br/>
-                        <p>Email: <span className="data text-primary">{this.props.userData.Email}</span></p><br/>
-                        {this.props.userData.ContactNumber ? <p>Contact: <span className="data text-primary">{this.props.userData.ContactNumber}</span></p> : null}
-                        {this.props.userData.ContactNumber ? <br/> : null} {/* had to add conditional statement for break as won't let me use in statement above with other tags */}
-                        <p>Gender: <span className="data text-primary">{this.props.userData.Sex}</span></p><br/>
-                        <p>Age: <span className="data text-primary">{UserInfo.getAge(this.props.userData.DateOfBirth)}</span></p><br/>
+                        <p>Name: <span className="data text-primary">{userData.FullName}</span></p><br/>
+                        <p>Email: <span className="data text-primary">{userData.Email}</span></p><br/>
+                        {userData.ContactNumber ? <p>Contact: <span className="data text-primary">{userData.ContactNumber}</span></p> : null}
+                        {userData.ContactNumber ? <br/> : null} {/* had to add conditional statement for break as won't let me use in statement above with other tags */}
+                        <p>Gender: <span className="data text-primary">{userData.Sex}</span></p><br/>
+                        <p>Age: <span className="data text-primary">{UserInfo.getAge(userData.DateOfBirth)}</span></p><br/>
                     </div>
                 </div>
             );

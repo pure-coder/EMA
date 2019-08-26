@@ -25,7 +25,7 @@ class Navigation extends Component {
         };
     }
 
-    componentDidUpdate(prevProps, prevState, snapshot){
+    componentDidUpdate(prevProps){
         const {isAuthenticated, user} = this.props.authenticatedUser;
         const {pt_data} = this.props.ptProfile;
         const {client_data} = this.props.clientProfile;
