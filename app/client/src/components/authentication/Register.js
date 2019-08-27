@@ -54,6 +54,11 @@ class Register extends Component {
         document.body.scrollTo(0,0);
     }
 
+    componentWillUnmount(){
+        this.props.clearErrors();
+        this.props.clearSuccess();
+    }
+
     // This captures what the user types and sets the specific input to the respective state variable
     onChange = event => {
         // event.target.name is used instead of a specific named state (ie "event.target.FullName") as there is more then

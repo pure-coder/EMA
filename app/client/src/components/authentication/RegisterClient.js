@@ -54,6 +54,11 @@ class RegisterClient extends Component {
         document.body.scrollTo(0,0);
     }
 
+    componentWillUnmount(){
+        this.props.clearErrors();
+        this.props.clearSuccess();
+    }
+
     // This captures what the user types and sets the specific input to the respective state variable
     onChange = event => {
         let eventName = event.target.name;
