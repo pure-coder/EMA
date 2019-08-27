@@ -19,7 +19,7 @@ class BodyGraphs extends Component {
         super(props);
         this.state = {
             userId: props.authenticatedUser.user.id,
-            clientId: props.authenticatedUser.user.pt ? props.match.params.cid : props.authenticatedUser.user.id,
+            clientId: props.match.params.cid,
             bodyGraphData: props.bodyGraphData,
             success: {},
             errors: {},
@@ -82,10 +82,10 @@ class BodyGraphs extends Component {
 
     clientGetBodyBio = () => {
         if(this.props.authenticatedUser.user.pt){
-            this.props.ptGetClientBodyBio(this.state.clientId, this.props.history);
+            this.props.ptGetClientBodyBio(this.state.clientId);
         }
         else{
-            this.props.clientGetBodyBio(this.state.clientId, this.props.history);
+            this.props.clientGetBodyBio();
         }
     };
 

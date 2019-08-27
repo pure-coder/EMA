@@ -31,11 +31,30 @@ class ClientProfile extends Component {
         super(props);
         this.state = {
             client_data: null,
-            profile_notes: null,
-            body_bio: null,
-            client_progression: null
+            // profile_notes: null,
+            // body_bio: null,
+            // client_progression: null
         };
     }
+
+    static getDerivedStateFromProps(prevProps, prevState){
+        if(prevProps.authenticatedUser.user.pt){
+            if(prevProps.ptProfile !== prevState.clientData){
+                return {
+                    client_data: prevProps.ptProfile
+                }
+            }
+        }
+        else{
+            if(prevProps.clientProfile !== prevState.clientData){
+                return {
+                    client_data: prevProps.clientProfile
+                }
+            }
+        }
+        return null
+    }
+
 
     componentDidMount() {
         const {isAuthenticated} = this.props.authenticatedUser;
@@ -57,56 +76,24 @@ class ClientProfile extends Component {
 
     } // did mount
 
-    componentDidUpdate(){
-        if(this.props.authenticatedUser.user.pt){
-            if((this.state.client_data === null && this.props.ptProfile.current_client !== null) &&
-                (this.state.profile_notes === null && this.props.ptProfile.profile_notes !== null) &&
-                (this.state.body_bio === null && this.props.ptProfile.body_bio !== null) &&
-                (this.state.client_progression === null && this.props.ptProfile.client_progression !== null)
-            ){
-                this.setState({
-                    client_data: this.props.ptProfile.current_client,
-                    profile_notes: this.props.ptProfile.profile_notes,
-                    body_bio: this.props.ptProfile.body_bio,
-                    client_progression: this.props.ptProfile.client_progression
-                });
-            }
-
-        }
-        else {
-            if((this.state.client_data === null && this.props.clientProfile.client_data !== null) &&
-                (this.state.profile_notes === null && this.props.clientProfile.profile_notes !== null) &&
-                (this.state.body_bio === null && this.props.clientProfile.body_bio !== null) &&
-                (this.state.client_progression === null && this.props.clientProfile.client_progression !== null)
-            ){
-                this.setState({
-                    client_data: this.props.clientProfile.client_data,
-                    profile_notes: this.props.clientProfile.profile_notes,
-                    body_bio: this.props.clientProfile.body_bio,
-                    client_progression: this.props.clientProfile.client_progression
-                });
-            }
-        }
-    }
-
     render() {
         const {user, isAuthenticated} = this.props.authenticatedUser;
-        const {client_data, profile_notes, body_bio, client_progression} = this.state;
+        const {client_data} = this.state;
 
         if(user.pt){
             if (client_data === null ||
-                body_bio === null ||
-                client_progression === null ||
-                profile_notes === null
+                client_data.body_bio === null ||
+                client_data.client_progression === null ||
+                client_data.profile_notes === null
             ) {
                 return <Loading myClassName="loading_container"/>
             }
         }
         else {
             if (client_data === null ||
-                body_bio === null ||
-                client_progression === null ||
-                profile_notes === null
+                client_data.body_bio === null ||
+                client_data.client_progression === null ||
+                client_data.profile_notes === null
             ){
                 return <Loading myClassName="loading_container"/>
             }
@@ -118,14 +105,14 @@ class ClientProfile extends Component {
             return (
                 <div className="client-profile">
                     <h1 className=" text-center display-5 mb-3">Client Profile</h1>
-                    <UserInfo userData={client_data}/>
+                    <UserInfo userData={user.pt ? client_data.current_client : client_data.client_data}/>
                     <div className="row">
                         <div className="col-sm Profile_margin">
-                            <BodyGraphs bodyGraphData={body_bio}/>
-                            <Graphs graphData={client_progression}/>
+                            <BodyGraphs bodyGraphData={client_data.body_bio}/>
+                            <Graphs graphData={client_data.client_progression}/>
                         </div>
                         <div className="col-sm">
-                            <ProfileNotes data={profile_notes}/>
+                            <ProfileNotes data={client_data.profile_notes}/>
                         </div>
                     </div>
                 </div>
@@ -144,10 +131,10 @@ ClientProfile.propTypes = {
 
 // Used to pull auth state and errors into this component
 const stateToProps = (state) => ({
-        authenticatedUser: state.authenticatedUser,
-        clientProfile: state.clientProfile,
-        ptProfile: state.ptProfile,
-        errors: state.errors
+    authenticatedUser: state.authenticatedUser,
+    clientProfile: state.clientProfile,
+    ptProfile: state.ptProfile,
+    errors: state.errors
 });
 
 export default connect(stateToProps, {
