@@ -127,10 +127,6 @@ class EditClient extends Component {
     }
 
     componentWillUnmount(){
-        const {isAuthenticated} = this.props.authenticatedUser;
-        if(!isAuthenticated){
-            this.props.history.push('/re-login');
-        }
         // Clear current client profile from redux as when accessing another the previous will still be shown.
         if(this.props.authenticatedUser.user.pt){
             this.props.ptClearCurrentClientProfile();
@@ -143,6 +139,24 @@ class EditClient extends Component {
     valueChange = e => {
         let eventName = e.target.name;
         let eventValue = e.target.value;
+
+        if(eventName === 'ContactNumber' && isNaN(eventValue)){
+            this.setState({
+                errors: {
+                    ContactNumber: "Must contain numbers only."
+                }
+            });
+            return null;
+        }
+        else if(eventName === 'ContactNumber' && eventValue.length > 11) {
+            this.setState({
+                errors: {
+                    ContactNumber: "Contact Number must not contain more than 11 numbers."
+                }
+            });
+            return null;
+        }
+
         // Initialise previous data to this data
         this.setState({[eventName]: eventValue});
 

@@ -182,12 +182,6 @@ const stateToProps = (state) => ({
     authenticatedUser: state.authenticatedUser,
     errors: state.errors,
     success: state.success
-    });
+});
 
-
-/* connect has stateToProps for the 1st parameter which is used to retrieve the current state of the redux store, the parameter is used to for the action, which is used to change the current state of the redux store. Remember that the redux-store cannot be directly accessed, this is done via actions.
-
-
- Connect must be exported with a passed parameter (not direct parameter) of Register this is wrapped with withRouter function that is part of the react-router-dom package. This allows
- the functions of the package to be used with the component (in this case Register) eg, proper routing, and direct parameters */
 export default connect(stateToProps, { registerUser, clearErrors, clearSuccess })(withRouter(Register));

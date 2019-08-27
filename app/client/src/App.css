@@ -260,7 +260,7 @@ button.dashboard-new-client , button.dashboard-edit-own-profile {
 
 .edit-profile-date-div{
     width: 400px;
-    height: 150px;
+    height: 160px;
     margin: 0;
 }
 
@@ -303,9 +303,6 @@ label.edit-profile-label {
     padding-right: 0;
 }
 
-/*.edit-profile-date-div .invalid-feedback {*/
-    /*display: block;*/
-/*}*/
 
 .edit-gender-div {
     width: 450px;

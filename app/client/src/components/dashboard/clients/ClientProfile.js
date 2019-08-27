@@ -31,9 +31,6 @@ class ClientProfile extends Component {
         super(props);
         this.state = {
             client_data: null,
-            // profile_notes: null,
-            // body_bio: null,
-            // client_progression: null
         };
     }
 

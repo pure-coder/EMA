@@ -8,8 +8,6 @@ const PrivateRoute = ({component: Component, ...rest}) => {
     // const props = {...rest};
     // console.log(props.location.pathname);
     // console.log(props);
-
-
     return (
         <Route
             {...rest}

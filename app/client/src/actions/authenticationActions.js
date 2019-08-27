@@ -1,6 +1,5 @@
 import axios from 'axios';
 import {
-    GET_ERRS,
     SET_SIGNED_IN_USER,
 } from "./types"; // import custom defined types
 import setAuthorisationToken from '../utilities/setAuthorisationToken';
@@ -30,7 +29,7 @@ export const registerUser =(Data) => (dispatch) => {
             }
         }) // Uses history.push to direct the user
         .catch(err => {
-
+            dispatch(manageErrors(err));
         }
     );
 }; // registerUser
@@ -56,10 +55,7 @@ export const loginUser = (Data) => (dispatch) => {
             dispatch(setSignedInUser(decodedToken));
         })
         .catch(err => {
-                dispatch({
-                    type: GET_ERRS,
-                    payload: err.response.data
-                })
+                dispatch(manageErrors(err));
             }
         );
 }; // loginUser

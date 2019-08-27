@@ -59,7 +59,7 @@ module.exports = function validateRegistrationInput(data) {
         errors.ContactNumber = 'Contact number must be a telephone number!';
     }
     else if (!Validator.isLength(data.ContactNumber, {min: 11, max: 11})) {
-        errors.ContactNumber = 'ContactNumber must be 11 characters';
+        errors.ContactNumber = 'Contact Number must be 11 characters';
     }
 
 

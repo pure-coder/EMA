@@ -2,7 +2,6 @@ import {connect} from 'react-redux';
 import React, {Component} from 'react';
 import {Link, withRouter} from 'react-router-dom';
 // import {ptDeleteClient, ptGetClientProgression} from "../../../actions/ptProfileActions";
-import PropTypes from "prop-types";
 import Modal from "react-awesome-modal";
 import DeleteConfirm from './DeleteConfirm'
 import isEmpty from "../../../utilities/is_empty";
@@ -153,13 +152,6 @@ class ClientList extends Component {
         }
     }
 }
-
-ClientList.propTypes = {
-    // ptDeleteClient: PropTypes.func.isRequired,
-    // ptGetClientProgression: PropTypes.func.isRequired,
-    // ptProfile: PropTypes.object.isRequired
-    ptData: PropTypes.object.isRequired,
-};
 
 const stateToProps = (state) => ({
     authenticatedUser: state.authenticatedUser,
