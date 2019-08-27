@@ -338,18 +338,18 @@ router.post('/new_client', passport.authenticate('pt_rule', {session: false}), (
 
                             })
                             .catch(err => {
-                                    //console.log(4, err)
+                                    return res.status(400).json(err)
                                 }
                             ); // catch client save
                     } // else
 
                 }).catch(err => {
-                    //console.log(5, err)
+                return res.status(400).json(err)
                 }
             ); // catch pt find
 
         }).catch(err => {
-            //console.log(6, err)
+        return res.status(400).json(err)
         }
     ); // catch client find
 });
@@ -433,7 +433,7 @@ router.get('/verify', (req, res) => {
                 return res.status(400).json({msg: "Token not found"});
             }
         }).catch(err => {
-        console.log(err);
+        return res.status(400).json(err);
     })// catch end
 
 });

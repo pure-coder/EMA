@@ -3,7 +3,7 @@ import {GET_ERRS} from './types';
 export const manageErrors = (err) => dispatch => {
 
     // If 404 status code (not found) then redirect to error page
-    if(err.response.status === 404 || err.response.status === 400){
+    if(err.response.status === 404){
         window.location.href = '/error_page';
     }
     // If 401 status code (unauthorised) then redirect to login page

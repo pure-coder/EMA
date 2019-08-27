@@ -155,12 +155,12 @@ router.delete('/delete_client/:cid', passport.authenticate('pt_rule', {session: 
                 }
             }
             else {
-                return res.status(400).json({msg: "Client does not exist."});
+                return res.status(404).json({msg: "Client does not exist."});
             }
         }
         ) // then Client.findOne
         .catch(err => {
-            return res.status(400).json({err})
+            return res.status(404).json({err})
         })
 
 }); // router post /delete_client
@@ -598,8 +598,7 @@ router.get('/client_progression/:cid?', passport.authenticate('both_rule', {sess
 
                 }
                 else {
-                    // 401 Unauthorised
-                    return res.status(401).json({err: "User not authorised to access Progression"});
+                    return res.status(400).json({err: "User not authorised to access Progression"});
                 }
             }
             else{
@@ -892,8 +891,7 @@ router.get('/body_bio/:cid?', passport.authenticate('both_rule', {session: false
 
                 }
                 else {
-                    // 401 Unauthorised
-                    return res.status(401).json({err: "User not authorised to access Progression"});
+                    return res.status(400).json({err: "User not authorised to access Progression"});
                 }
             }
             else{
@@ -1072,8 +1070,7 @@ router.get('/profile_notes/:cid?', passport.authenticate('both_rule', {session: 
 
                 }
                 else {
-                    // 401 Unauthorised
-                    return res.status(401).json({err: "User not authorised to access profile notes"});
+                    return res.status(400).json({err: "User not authorised to access profile notes"});
                 }
             }
             else{
