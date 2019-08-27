@@ -7,20 +7,12 @@ import {
     ptGetClientProgression,
     ptGetClientBodyBio,
     ptGetClientProfileNotes,
-    ptClearCurrentClientProfile,
-    ptClearClientProgression,
-    ptClearClientBodyBio,
-    ptClearClientProfileNotes,
 } from "../../../actions/ptProfileActions";
 import {
     clientGetData,
     clientGetProgression,
     clientGetBodyBio,
     clientGetProfileNotes,
-    clientClearProfile,
-    clientClearProgression,
-    clientClearBodyBio,
-    clientClearProfileNotes,
 } from "../../../actions/clientProfileActions";
 import Graphs from "../progression/Graphs";
 // import NewClientProgressForm from "../progression/NewClientProgressForm";
@@ -67,12 +59,19 @@ class ClientProfile extends Component {
 
     componentDidUpdate(){
         if(this.props.authenticatedUser.user.pt){
-            if(this.state.client_data === null && this.props.ptProfile.current_client !== null){
+            if((this.state.client_data === null && this.props.ptProfile.current_client !== null) &&
+                (this.state.profile_notes === null && this.props.ptProfile.profile_notes !== null) &&
+                (this.state.body_bio === null && this.props.ptProfile.body_bio !== null) &&
+                (this.state.client_progression === null && this.props.ptProfile.client_progression !== null)
+            ){
                 this.setState({
                     client_data: this.props.ptProfile.current_client,
-
+                    profile_notes: this.props.ptProfile.profile_notes,
+                    body_bio: this.props.ptProfile.body_bio,
+                    client_progression: this.props.ptProfile.client_progression
                 });
             }
+
         }
         else {
             if((this.state.client_data === null && this.props.clientProfile.client_data !== null) &&
@@ -90,42 +89,25 @@ class ClientProfile extends Component {
         }
     }
 
-    componentWillUnmount(){
-        // This got rid of the Date: null bug for now, need to find route cause!!!
-        if(this.props.authenticatedUser.user.pt){
-            this.props.ptClearCurrentClientProfile();
-            this.props.ptClearClientProgression();
-            this.props.ptClearClientBodyBio();
-            this.props.ptClearClientProfileNotes();
-        }
-        else{
-            this.props.clientClearProfile();
-            this.props.clientClearBodyBio();
-            this.props.clientClearProfileNotes();
-            this.props.clientClearProgression();
-        }
-    }
-
     render() {
         const {user, isAuthenticated} = this.props.authenticatedUser;
         const {client_data, profile_notes, body_bio, client_progression} = this.state;
-        console.log(client_data, profile_notes, body_bio, client_progression)
 
         if(user.pt){
             if (client_data === null ||
-                client_data.body_bio === null ||
-                client_data.client_progression === null ||
-                client_data.profile_notes === null ||
-                client_data.ptLoading) {
+                body_bio === null ||
+                client_progression === null ||
+                profile_notes === null
+            ) {
                 return <Loading myClassName="loading_container"/>
             }
         }
         else {
             if (client_data === null ||
-                client_data.body_bio === null ||
-                client_data.client_progression === null ||
-                client_data.profile_notes === null ||
-                client_data.clientLoading) {
+                body_bio === null ||
+                client_progression === null ||
+                profile_notes === null
+            ){
                 return <Loading myClassName="loading_container"/>
             }
         }
@@ -136,12 +118,11 @@ class ClientProfile extends Component {
             return (
                 <div className="client-profile">
                     <h1 className=" text-center display-5 mb-3">Client Profile</h1>
-                    <UserInfo userData={user.pt ? client_data
-                        : client_data}/>
+                    <UserInfo userData={client_data}/>
                     <div className="row">
                         <div className="col-sm Profile_margin">
-                            <BodyGraphs bodyGraphData={client_data.body_bio}/>
-                            <Graphs graphData={client_data.client_progression}/>
+                            <BodyGraphs bodyGraphData={body_bio}/>
+                            <Graphs graphData={client_progression}/>
                         </div>
                         <div className="col-sm">
                             <ProfileNotes data={profile_notes}/>
@@ -174,16 +155,8 @@ export default connect(stateToProps, {
     ptGetClientProgression,
     ptGetClientBodyBio,
     ptGetClientProfileNotes,
-    ptClearCurrentClientProfile,
-    ptClearClientProgression,
-    ptClearClientBodyBio,
-    ptClearClientProfileNotes,
     clientGetData,
     clientGetProgression,
     clientGetBodyBio,
     clientGetProfileNotes,
-    clientClearProfile,
-    clientClearProgression,
-    clientClearBodyBio,
-    clientClearProfileNotes,
 })(withRouter(ClientProfile));

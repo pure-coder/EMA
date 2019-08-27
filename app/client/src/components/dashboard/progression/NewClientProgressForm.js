@@ -130,6 +130,7 @@ class NewClientProgressForm extends Component {
                     maxWeight: "Max Weight must be a numerical value between 0-999"
                 }
             });
+            return null;
         }
         else if(name === 'maxWeight' && value.length > 3){
             this.setState({

@@ -15,7 +15,7 @@ import ProfileInputForm from "../../common/ProfileInputForm";
 class ProfileNotes extends Component {
     constructor(props){
         super(props);
-        let {data} = props
+        let {data} = props;
         this.state = {
             clientId: this.props.authenticatedUser.user.pt ? this.props.ptProfile.current_client._id :
                 this.props.clientProfile.client_data._id,
@@ -87,7 +87,6 @@ class ProfileNotes extends Component {
     };
 
     render() {
-        console.log(this.props)
         return (
             <div className="Profile_notes card">
                 <div className="mt-2 mb-5">

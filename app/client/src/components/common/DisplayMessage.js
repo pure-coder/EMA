@@ -3,10 +3,15 @@ import React from 'react';
 /**
  * @return {null}
  */
- function DisplayMessage (props) {
+ function DisplayMessage ({message}) {
 
     // Only two options (true and false) with default being null
-    const message = props.message;
+
+    // If displays this message it is an error so add error as type.
+    if(message.msg === 'Date duplication found for measurement!'){
+        message.type = "ERROR";
+    }
+
     if (message.type === "SUCCESS") {
         return  <div className="text-success mb-2" id="display-message"> {message.msg} </div>
     }

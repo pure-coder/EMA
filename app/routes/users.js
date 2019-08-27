@@ -745,7 +745,6 @@ router.put('/client_progression/:cid?', passport.authenticate('pt_rule', {sessio
 // @access Private for PT's - clients can't post to the progression db collection
 router.post('/body_bio/:cid', passport.authenticate('pt_rule', {session: false}, null), (req, res) => {
     let data = req.body;
-
     const {errors, isValid} = validateNewBodyInput(data);
 
     if (!isValid) {
@@ -766,7 +765,7 @@ router.post('/body_bio/:cid', passport.authenticate('pt_rule', {session: false},
                 // Check to see if signed in user or ptId is allowed
                 if (resultClient.ptId === signedInId) {
 
-                    BodyBio.findOne({$and: [{clientId: id}, {bodyPart: data.bodyPart}]})
+                    BodyBio.findOne({$and: [{clientId: clientId}, {bodyPart: data.bodyPart}]})
                         .then(result => {
                             if (result) {
 
@@ -917,33 +916,25 @@ router.delete('/body_bio/:cid?', passport.authenticate('pt_rule', {session: fals
 
     let token = req.headers.authorization.split(' ')[1];
     let payload = jwt.decode(token, keys.secretOrKey);
-    let isPt = payload.pt;
     let data = req.body;
     let signedInId = payload.id;
-    let id;
+    let clientId = req.params.cid;
 
-    // Check if pt or client
-    if(isPt){
-        id = req.params.cid;
-    }
-    else {
-        id = signedInId;
-    }
 
     // Check to see if client exists
 
-    Client.findOne({_id: id})
+    Client.findOne({_id: clientId})
         .then(result => {
             if(result) {
 
                 // As pt's are the only ones that can access this route, check to see if uid given matches the ptId for this client
                 // Check to see if signed in user or ptId is allowed
-                if (result._id.toString() === id || result.ptId === signedInId){
+                if (result.ptId === signedInId){
 
                     // return res.status(200).json({userId, clientId, data, result});
 
                     // Remove exercise for client
-                    BodyBio.remove({$and: [{clientId: id}, {bodyPart: data.bodyPart}]})
+                    BodyBio.remove({$and: [{clientId: clientId}, {bodyPart: data.bodyPart}]})
                         .then(result => {
 
                                 // Successful removal returns n:1, unsuccessful returns n:0

@@ -38,7 +38,10 @@ export const registerClient =(Data) => (dispatch) => {
             }
         }) // Uses history.push to direct the user) // Uses history.push to direct the user history.push('/login')
         .catch(err => {
-            
+            dispatch({
+                type: GET_ERRS,
+                payload: err.response.data
+            });
         });
 }; // registerClient
 
@@ -53,7 +56,10 @@ export const ptGetClients = () => dispatch => {
             }
         )
         .catch(err => {
-            
+            dispatch({
+                type: GET_ERRS,
+                payload: err.response.data
+            });
         })
 };
 
@@ -80,7 +86,10 @@ export const ptGetData = (history) => dispatch => {
             });
         })
         .catch(err => {
-            
+            dispatch({
+                type: GET_ERRS,
+                payload: err.response.data
+            });
         })
 };
 
@@ -95,7 +104,10 @@ export const ptGetCurrentClient = (clientId) => dispatch => {
             });
         })
         .catch(err => {
-            
+            dispatch({
+                type: GET_ERRS,
+                payload: err.response.data
+            });
         });
 };
 
@@ -113,7 +125,10 @@ export const ptEditData = (Data) => dispatch => {
             }
         )
         .catch(err => {
-            
+            dispatch({
+                type: GET_ERRS,
+                payload: err.response.data
+            });
         })
 };
 
@@ -130,7 +145,10 @@ export const ptEditClientData = (clientId, data) => dispatch => {
             }
         })
         .catch(err => {
-            
+            dispatch({
+                type: GET_ERRS,
+                payload: err.response.data
+            });
         })
 };
 
@@ -149,7 +167,10 @@ export const ptGetClientProfileNotes = (clientId) => dispatch => {
             }
         )
         .catch(err => {
-            
+            dispatch({
+                type: GET_ERRS,
+                payload: err.response.data
+            });
         })
 };
 
@@ -167,7 +188,10 @@ export const ptUpdateClientProfileNotes = (clientId, data) => dispatch => {
             }
         })
         .catch(err => {
-            
+            dispatch({
+                type: GET_ERRS,
+                payload: err.response.data
+            });
         })
 };
 
@@ -183,7 +207,10 @@ export const ptDeleteClient = (clientId) => dispatch => {
             }
         })
         .catch(err => {
-            
+            dispatch({
+                type: GET_ERRS,
+                payload: err.response.data
+            });
         })
 };
 
@@ -203,7 +230,10 @@ export const ptGetClientProgression = (clientId) => dispatch => {
             });
         })
         .catch(err => {
-            
+            dispatch({
+                type: GET_ERRS,
+                payload: err.response.data
+            });
         });
 };
 
@@ -222,7 +252,10 @@ export const ptNewClientProgress = (clientId, data) => dispatch => {
             }
         })
         .catch(err => {
-            
+            dispatch({
+                type: GET_ERRS,
+                payload: err.response.data
+            });
         });
 };
 
@@ -232,7 +265,10 @@ export const ptDeleteExercise =(clientId, data) => dispatch => {
             dispatch(ptGetClientProgression(clientId));
         })
         .catch(err => {
-            
+            dispatch({
+                type: GET_ERRS,
+                payload: err.response.data
+            });
         });
 };
 
@@ -249,7 +285,10 @@ export const ptEditClientExercise =(clientId, exerciseId, data) => dispatch => {
             dispatch(ptGetClientProgression(clientId));
         })
         .catch(err => {
-            
+            dispatch({
+                type: GET_ERRS,
+                payload: err.response.data
+            });
         });
 };
 
@@ -263,7 +302,10 @@ export const ptGetClientBodyBio = (clientId) => dispatch => {
             });
         })
         .catch(err => {
-            
+            dispatch({
+                type: GET_ERRS,
+                payload: err.response.data
+            });
         });
 };
 
@@ -281,7 +323,10 @@ export const ptNewClientBodyBio = (clientId, data) => dispatch => {
             }
         })
         .catch(err => {
-            
+            dispatch({
+                type: GET_ERRS,
+                payload: err.response.data
+            });
         });
 };
 
@@ -308,7 +353,10 @@ export const ptEditClientBodyBio =(clientId, bodyPartId, data) => dispatch => {
             dispatch(ptGetClientBodyBio(clientId));
         })
         .catch(err => {
-            
+            dispatch({
+                type: GET_ERRS,
+                payload: err.response.data
+            });
         });
 };
 
@@ -323,7 +371,10 @@ export const ptWorkoutScheduler = (userId, clientId) => dispatch => {
             }
         })
         .catch(err => {
-            
+            dispatch({
+                type: GET_ERRS,
+                payload: err.response.data
+            });
         });
 };
 
@@ -352,7 +403,10 @@ export const ptUploadProfilePic = (dataImage, fileName) => dispatch => {
                 dispatch(setSuccess(data.msg))
             })
             .catch(err => {
-                dispatch((err))
+                dispatch({
+                    type: GET_ERRS,
+                    payload: err.response.data
+                });
             });
     }
 };
