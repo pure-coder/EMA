@@ -4,7 +4,7 @@ import { connect } from 'react-redux' // Needed when using redux inside a compon
 import { registerClient, clearSuccess, clearErrors} from "../../actions/ptProfileActions"; // Used to import create action for registering user
 import { withRouter } from 'react-router-dom';
 import FormInputGroup from "../common/FormInputGroup";
-import Loading from "../../elements/Loading";
+import Loading from "../common/Loading";
 import isEmpty from "../../utilities/is_empty";
 import ErrorComponent from "../error/ErrorComponent";
 import FormSelectComp from "../common/FormSelectComp"; // Allows proper routing and linking using browsers match, location, and history properties

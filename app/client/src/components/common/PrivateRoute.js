@@ -1,5 +1,5 @@
 // Used to redirect user if they are not authenticated to view a page
-import store from "../store";
+import store from "../../store";
 import {Redirect, Route} from "react-router-dom";
 import React from "react";
 

@@ -3,15 +3,9 @@ import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
 
 class ErrorComponent extends Component {
-    constructor(props) {
-        super(props);
-        // This binds the onSubmit function to this.OnSubmit
-        this.goBack = this.goBack.bind(this);
-    }
-
-    goBack(){
+    goBack = () => {
         this.props.history.go(-2);
-    }
+    };
 
     render() {
         return (

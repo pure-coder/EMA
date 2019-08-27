@@ -18,7 +18,7 @@ import {
 import {clientGetData} from "../../../actions/clientProfileActions";
 import {Link, withRouter} from 'react-router-dom';
 import FormInputGroup from "../../common/FormInputGroup";
-import Loading from "../../../elements/Loading";
+import Loading from "../../common/Loading";
 import isEmpty from "../../../utilities/is_empty";
 import ErrorComponent from "../../error/ErrorComponent"; // Allows proper routing and linking using browsers match, location, and history properties
 import DisplayMessage from '../../common/DisplayMessage';

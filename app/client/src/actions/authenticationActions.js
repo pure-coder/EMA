@@ -7,6 +7,7 @@ import setAuthorisationToken from '../utilities/setAuthorisationToken';
 import jwtDecode from 'jwt-decode';
 import {setSuccess, ptClearProfile} from "./ptProfileActions";
 import {clientClearProfile} from "./clientProfileActions";
+import {manageErrors} from "./errorsAction";
 
 // Register User
 // Used to dispatch (action) data to a reducer, in this case it is the registerUser action with the sign up data
@@ -106,7 +107,7 @@ export const refreshToken = () => dispatch => {
             }
         })
         .catch(err =>{
-            console.log(err);
+           dispatch(manageErrors(err));
             }
         )
 };

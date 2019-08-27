@@ -8,12 +8,11 @@ import {
     GET_PROFILE_NOTES,
     CLEAR_PROFILE_NOTES,
     BODY_BIO_CLIENT,
-    CLEAR_BODY_BIO_CLIENT,
     UPDATE_PROFILE_PIC_CLIENT,
-    CLEAR_CLIENT_PROGRESSION,
     CLIENT_PROFILE_EDITED
 } from "./types"; // import custom defined types
 import {setSuccess} from "./ptProfileActions";
+import {manageErrors} from "./errorsAction";
 
 export const clientGetData = () => dispatch => {
     dispatch(setProfileLoading());
@@ -26,7 +25,7 @@ export const clientGetData = () => dispatch => {
             });
         })
         .catch(err => {
-
+            dispatch(manageErrors(err));
         });
 };
 
@@ -51,7 +50,7 @@ export const clientGetProfileNotes = () => dispatch => {
             }
         )
         .catch(err => {
-
+            dispatch(manageErrors(err));
         })
 };
 
@@ -65,7 +64,7 @@ export const clientGetBodyBio = () => dispatch => {
             });
         })
         .catch(err => {
-
+            dispatch(manageErrors(err));
         });
 };
 
@@ -79,7 +78,7 @@ export const clientGetProgression = () => dispatch => {
             });
         })
         .catch(err => {
-
+            dispatch(manageErrors(err));
         });
 };
 
@@ -107,8 +106,7 @@ export const clientUploadProfilePic = (dataImage, fileName) => dispatch => {
                 });
                 dispatch(setSuccess(data.msg))
             })
-            .catch(err => {
-
+            .catch(err => {dispatch(manageErrors(err));
             })
     }
 };
@@ -126,10 +124,7 @@ export const clientEditData = (data) => dispatch => {
             }
         })
         .catch(err => {
-            dispatch({
-                type: GET_ERRS,
-                payload: err.response.data
-            })
+           dispatch(manageErrors(err));
         })
 };
 
@@ -139,18 +134,6 @@ export const clientClearProfile = () => {
     return {
         type: CLEAR_CLIENT_PROFILE
     }
-};
-
-export const clientClearBodyBio = () => dispatch => {
-    dispatch({
-        type: CLEAR_BODY_BIO_CLIENT
-    });
-};
-
-export const clientClearProgression = () => dispatch => {
-    dispatch({
-        type: CLEAR_CLIENT_PROGRESSION
-    });
 };
 
 export const clientClearProfileNotes = () => dispatch => {

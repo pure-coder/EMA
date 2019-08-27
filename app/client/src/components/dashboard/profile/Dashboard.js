@@ -10,7 +10,7 @@ import {
     clientGetData,
 } from "../../../actions/clientProfileActions";
 import ClientList from '../clients/ClientList'
-import Loading from "../../../elements/Loading";
+import Loading from "../../common/Loading";
 import ClientData from "../clients/ClientData";
 import isEmpty from "../../../utilities/is_empty";
 import ErrorComponent from "../../error/ErrorComponent";
@@ -22,8 +22,7 @@ class Dashboard extends Component {
         super(props);
         this.state = {
             userData: null,
-            clients: null,
-            ProfilePicUrl: null
+            clients: null
         };
     }
 
@@ -36,7 +35,6 @@ class Dashboard extends Component {
             if(prevProps.ptProfile.pt_data !== prevState.userData){
                 this.setState({
                     userData: pt_data,
-                    ProfilePicUrl: pt_data.ProfilePicUrl
                 });
             }
             if(prevProps.ptProfile.clients !== prevState.clients){
@@ -49,7 +47,6 @@ class Dashboard extends Component {
             if(prevProps.clientProfile.client_data !== this.state.userData) {
                 this.setState({
                     userData: client_data,
-                    ProfilePicUrl: client_data.ProfilePicUrl
                 })
             }
         }

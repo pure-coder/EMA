@@ -7,7 +7,7 @@ import Modal from "react-awesome-modal";
 import DeleteConfirm from './DeleteConfirm'
 import isEmpty from "../../../utilities/is_empty";
 import ErrorComponent from "../../error/ErrorComponent";
-import Loading from "../../../elements/Loading";
+import Loading from "../../common/Loading";
 
 class ClientList extends Component {
     constructor(props) {
@@ -60,7 +60,7 @@ class ClientList extends Component {
         const {user} = this.props.authenticatedUser;
         const {ptData, clients} = this.props;
 
-        if (clients === null) {
+        if (ptData === null || clients === null) {
             return <Loading myClassName="loading_container"/>
         }
         if(isEmpty(user)){

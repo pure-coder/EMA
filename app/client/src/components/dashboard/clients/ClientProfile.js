@@ -18,7 +18,7 @@ import Graphs from "../progression/Graphs";
 // import NewClientProgressForm from "../progression/NewClientProgressForm";
 // import Modal from 'react-awesome-modal';
 import ErrorComponent from "../../error/ErrorComponent";
-import Loading from "../../../elements/Loading";
+import Loading from "../../common/Loading";
 import UserInfo from "../profile/UserInfo";
 import ProfileNotes from "../profileNotes/ProfileNotes";
 import BodyGraphs from "../bodyBio/BodyGraphs";

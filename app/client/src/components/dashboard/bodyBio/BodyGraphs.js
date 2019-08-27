@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import BodyGraphComp from './BodyGraphComp';
 import isEmpty from "../../../utilities/is_empty";
 import ErrorComponent from "../../error/ErrorComponent";
-import Loading from "../../../elements/Loading";
+import Loading from "../../common/Loading";
 import NewBodyProgressForm from "./NewBodyProgressForm";
 import Modal from "react-awesome-modal";
 import {clientGetBodyBio} from "../../../actions/clientProfileActions";
