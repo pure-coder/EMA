@@ -15,6 +15,8 @@ import {
 } from "../../actions/clientProfileActions";
 
 import {ProfileImage} from "../dashboard/profile/ProfileImage";
+import PtMenuComp from "../common/PtMenuComp";
+import ClientMenuComp from "../common/ClientMenuComp";
 
 class Navigation extends Component {
     constructor(props){
@@ -78,19 +80,17 @@ class Navigation extends Component {
     };
 
     render() {
-        const {isAuthenticated} = this.props.authenticatedUser;
+        const {user ,isAuthenticated} = this.props.authenticatedUser;
         const {userData, ProfilePicUrl} = this.state;
 
         // Define navbar for dynamic navbar
         const authorisedLinks = (
             <div className="collapse navbar-collapse" id="mobile-navigation">
                 {
-                    userData ?
-                        <Link className="nav-main" to={`/users/${userData._id}/dashboard`}>
-                            Dashboard
-                        </Link>
-                        : null
-
+                    user.pt && userData && <PtMenuComp userData={userData}/>
+                }
+                {
+                    !user.pt && userData && <ClientMenuComp userData={userData}/>
                 }
                 <ul className="navbar-nav ml-auto">
                     <a href="" onClick={this.onLogOutClick} className="nav-link">

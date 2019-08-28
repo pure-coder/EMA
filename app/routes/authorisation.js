@@ -297,7 +297,7 @@ router.post('/new_client', passport.authenticate('pt_rule', {session: false}), (
                                         }
                                     })
                                     .catch(err => {
-                                        //console.log(err)
+                                        return res.status(400).json(err);
                                     });
 
                                 // Add default body bio for client
@@ -312,9 +312,9 @@ router.post('/new_client', passport.authenticate('pt_rule', {session: false}), (
                                         // console.log(bioResult)
                                         res.status(200).json();
                                     })
-                                    .catch(() => {
+                                    .catch(err => {
                                         // console.log(err)
-                                        res.status(400).json();
+                                        res.status(400).json(err);
                                     });
 
                                 // Add default body bio for client
@@ -331,9 +331,9 @@ router.post('/new_client', passport.authenticate('pt_rule', {session: false}), (
                                         // console.log(result)
                                         res.status(200).json();
                                     })
-                                    .catch(() => {
+                                    .catch(err => {
                                         // console.log(err)
-                                        res.status(400).json();
+                                        res.status(400).json(err);
                                     });
 
                             })

@@ -13,8 +13,7 @@ class ClientList extends Component {
         super(props);
         this.state = {
             loaded: false,
-            clientId: props.authenticatedUser.clientId || props.match.params.cid,
-            deleteId: "",
+            clientId: '',
             ptId: "",
             clientName: "",
             visible: false,
@@ -26,7 +25,7 @@ class ClientList extends Component {
     openModal = (cId, ptId, clientName) => {
         this.setState({
             visible: true,
-            cid: cId,
+            clientId: cId,
             ptId: ptId,
             clientName: clientName
         })
@@ -138,7 +137,7 @@ class ClientList extends Component {
                            onClickAway={this.clickAway}
                     >
                         <DeleteConfirm name={this.state.clientName}
-                                       clientId={this.state.deleteId}
+                                       clientId={this.state.clientId}
                                        ptId={this.state.ptId}
                                        onClickAway={this.clickAway}
                                        visible={this.state.visible}

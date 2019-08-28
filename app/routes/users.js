@@ -97,8 +97,8 @@ router.delete('/delete_client/:cid', passport.authenticate('pt_rule', {session: 
                                                         // return res.status(200).json("Client deleted successfully")
                                                     }
                                                 )
-                                                .catch(() => {
-                                                    // console.log("error deleting client progress")
+                                                .catch(err => {
+                                                    return res.status(400).json(err);
                                                 });
                                             Events.remove({clientId: clientId})
                                                 .then(() => {
@@ -107,8 +107,8 @@ router.delete('/delete_client/:cid', passport.authenticate('pt_rule', {session: 
                                                     }
                                                 )
                                                 // Events.remove
-                                                .catch(() => {
-                                                    // console.log("error deleting client progress")
+                                                .catch(err => {
+                                                    return res.status(400).json(err);
                                                 });
                                             BodyBio.remove({clientId: clientId})
                                                 .then(() => {
@@ -118,7 +118,7 @@ router.delete('/delete_client/:cid', passport.authenticate('pt_rule', {session: 
                                                 )
                                                 // Events.remove
                                                 .catch(err => {
-                                                    return res.status(400).json(err)
+                                                    return res.status(400).json(err);
                                                 });
                                             ProfileNotes.remove({clientId: clientId})
                                                 .then(() => {
@@ -128,7 +128,7 @@ router.delete('/delete_client/:cid', passport.authenticate('pt_rule', {session: 
                                                 )
                                                 // Events.remove
                                                 .catch(err => {
-                                                    return res.status(400).json(err)
+                                                    return res.status(400).json(err);
                                                 })
                                         }
                                         // console.log("Deletion of user: " + client.FullName + " ", result)
@@ -138,7 +138,7 @@ router.delete('/delete_client/:cid', passport.authenticate('pt_rule', {session: 
                                     })
                                     // Client.remove
                                     .catch(err => {
-                                        return res.status(400).json(err)
+                                        return res.status(400).json(err);
                                     })
                             }
                             else {
@@ -147,7 +147,7 @@ router.delete('/delete_client/:cid', passport.authenticate('pt_rule', {session: 
                         })
                         // PersonalTrainer.update
                         .catch(err => {
-                            return res.status(400).json(err)
+                            return res.status(400).json(err);
                         })
                 }// if client.ptId === signedInId
                 else {
