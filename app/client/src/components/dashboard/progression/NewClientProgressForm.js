@@ -62,7 +62,10 @@ class NewClientProgressForm extends Component {
             return {
                 progressDate: defaultDate,
                 visible: props.visible,
-                message: {}
+                exerciseName: '',
+                maxWeight: '',
+                message: {},
+                errors: {}
             }
         }
         if (state.errors !== state.message){
@@ -179,8 +182,7 @@ class NewClientProgressForm extends Component {
         // The use of onClick with this.props.onClickAway() allows this to call the parents onClickAway (note the use of props)
         this.props.onClickAway();
         // Clear errors once the modal has been exited
-        this.setState({message: {}});
-        // Reset/ Clear input fields once modal has been exited
+        this.props.clearErrors();
         this.setState({
             exerciseName: '',
             maxWeight: '',

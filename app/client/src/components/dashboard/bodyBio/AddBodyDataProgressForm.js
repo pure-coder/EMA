@@ -38,6 +38,11 @@ class AddBodyDataProgressForm extends Component {
                 message: {}
             }
         }
+        if (!isEmpty(state.errors)){
+            return {
+                message: state.errors
+            }
+        }
         if (state.errors !== state.message){
             return {
                 message: state.errors
@@ -149,6 +154,7 @@ class AddBodyDataProgressForm extends Component {
         e.preventDefault();
         this.setState({
             message: {},
+            errors: {}
         });
         this.props.clearSuccess();
 
@@ -222,7 +228,6 @@ class AddBodyDataProgressForm extends Component {
                             error={errors.Date || errors.progressDate}
                         />
                         <DisplayMessage message={message}/>
-                        {/*<div className="valid-feedback">{this.state.success.msg}</div>*/}
                         <input type="submit" value="Submit" className="btn btn-info btn-block mt-4 mb-5"/>
                     </form>
                 </div>

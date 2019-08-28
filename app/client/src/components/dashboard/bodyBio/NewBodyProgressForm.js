@@ -49,6 +49,8 @@ class NewBodyProgressForm extends Component {
             return {
                 progressDate: defaultDate,
                 visible: props.visible,
+                bodyPart: '',
+                measurement: '',
                 message: {},
                 errors: {}
             }
@@ -166,6 +168,7 @@ class NewBodyProgressForm extends Component {
         // The use of onClick with this.props.onClickAway() allows this to call the parents onClickAway (note the use of props)
         this.props.onClickAway();
         // Clear errors once the modal has been exited
+        this.props.clearErrors();
         this.setState({
             bodyPart: '',
             measurement: '',

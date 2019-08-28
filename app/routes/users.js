@@ -501,7 +501,7 @@ router.post('/client_progression/:cid', passport.authenticate('pt_rule', {sessio
                                         });
                                 }
                                 else {
-                                    return res.status(400).json({msg: "Date duplication found for exercise!"})
+                                    return res.status(400).json({msg: "Date duplication found for exercise!", type: "ERROR"})
                                 }
 
                             }
@@ -797,7 +797,7 @@ router.post('/body_bio/:cid', passport.authenticate('pt_rule', {session: false},
                                         });
                                 }
                                 else {
-                                    return res.status(400).json({msg: "Date duplication found for measurement!"})
+                                    return res.status(400).json({msg: "Date duplication found for measurement!", type: "ERROR"})
                                 }
 
                             }

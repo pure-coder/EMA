@@ -7,11 +7,6 @@ import React from 'react';
 
     // Only two options (true and false) with default being null
 
-    // If displays this message it is an error so add error as type.
-    if(message.msg === 'Date duplication found for measurement!'){
-        message.type = "ERROR";
-    }
-
     if (message.type === "SUCCESS") {
         return  <div className="text-success mb-2" id="display-message"> {message.msg} </div>
     }

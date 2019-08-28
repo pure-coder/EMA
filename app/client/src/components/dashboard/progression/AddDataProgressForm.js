@@ -39,6 +39,11 @@ class AddDataProgressForm extends Component {
                 message: {}
             }
         }
+        if (!isEmpty(state.errors)){
+            return {
+                message: state.errors
+            }
+        }
         if (state.errors !== state.message){
             return {
                 message: state.errors
@@ -148,14 +153,11 @@ class AddDataProgressForm extends Component {
         // Reset/ Clear input fields once modal has been exited
     };
 
-    ptGetClientProgression(){
-        this.props.ptGetClientProgression(this.state.clientId, this.props.history);
-    }
-
     onSubmit = e => {
         e.preventDefault();
         this.setState({
             message: {},
+            errors: {}
         });
         this.props.clearSuccess();
 
