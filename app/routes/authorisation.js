@@ -62,7 +62,7 @@ router.post('/login', (req, res) => {
                         if (!client) {
                             // if Personal client is found this will get over written with a success msg
                             errors.Email = 'User not found';
-                            return res.status(404).json(errors);
+                            return res.status(400).json(errors);
                         }
 
                         // Check if user is activated before Password check and logging in
@@ -106,7 +106,7 @@ router.post('/login', (req, res) => {
                         }
                         if (!pt && !client) {
                             errors.Email = 'User not found';
-                            return res.status(404).json(errors);
+                            return res.status(400).json(errors);
                         }
                     })
             }

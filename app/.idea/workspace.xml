@@ -4,17 +4,15 @@
     <bookmark url="file://C:/Learning/clientObjectData.js" description="export {&quot;_id&quot;:&quot;5c2e3454d27ace097420b414&quot;,&quot;FullName..." line="2" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ec8ccf39-8487-4892-a38d-de9c288878a3" name="Default" comment="Errors cleared via unmount on Register and RegisterClient as they were persisting and show on other pages.">
+    <list default="true" id="ec8ccf39-8487-4892-a38d-de9c288878a3" name="Default" comment="Removed autofocus for now, revisit later.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/common/DisplayMessage.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/common/DisplayMessage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/common/FormInputGroup.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/common/FormInputGroup.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/dashboard/bodyBio/AddBodyDataProgressForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/dashboard/bodyBio/AddBodyDataProgressForm.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/dashboard/bodyBio/EditBodyDataProgressForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/dashboard/bodyBio/EditBodyDataProgressForm.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/dashboard/bodyBio/NewBodyProgressForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/dashboard/bodyBio/NewBodyProgressForm.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/dashboard/progression/AddDataProgressForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/dashboard/progression/AddDataProgressForm.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/dashboard/progression/EditDataProgressForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/dashboard/progression/EditDataProgressForm.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/dashboard/progression/NewClientProgressForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/dashboard/progression/NewClientProgressForm.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/users.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/users.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/App.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/actions/ptProfileActions.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/actions/ptProfileActions.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/authentication/RegisterClient.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/authentication/RegisterClient.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/dashboard/edit/EditClient.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/dashboard/edit/EditClient.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/dashboard/edit/EditPersonalTrainer.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/dashboard/edit/EditPersonalTrainer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/error/ErrorComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/error/ErrorComponent.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/authorisation.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/authorisation.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -54,36 +52,36 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="css" value="12328" />
+          <entry key="css" value="12345" />
           <entry key="editorConfig" value="285" />
           <entry key="eslintignore" value="18" />
           <entry key="gitignore" value="22" />
           <entry key="html" value="1117" />
-          <entry key="js" value="265597" />
+          <entry key="js" value="266052" />
           <entry key="json" value="84" />
           <entry key="md" value="150" />
-          <entry key="txt" value="25692" />
+          <entry key="txt" value="25837" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="CSS" value="3223" />
+          <entry key="CSS" value="3240" />
           <entry key="JSON" value="55" />
-          <entry key="JavaScript" value="77357" />
-          <entry key="PLAIN_TEXT" value="12675" />
+          <entry key="JavaScript" value="77812" />
+          <entry key="PLAIN_TEXT" value="12820" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="Local" value="1" />
           <entry key="bson" value="2" />
-          <entry key="css" value="115" />
+          <entry key="css" value="116" />
           <entry key="editorConfig" value="2" />
           <entry key="eslintignore" value="3" />
           <entry key="gitignore" value="9" />
           <entry key="html" value="19" />
           <entry key="ico" value="1" />
-          <entry key="js" value="2279" />
+          <entry key="js" value="2287" />
           <entry key="json" value="18" />
           <entry key="map" value="1" />
           <entry key="md" value="4" />
@@ -96,11 +94,11 @@
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="CSS" value="115" />
+          <entry key="CSS" value="116" />
           <entry key="HTML" value="19" />
           <entry key="Image" value="3" />
           <entry key="JSON" value="20" />
-          <entry key="JavaScript" value="2279" />
+          <entry key="JavaScript" value="2287" />
           <entry key="PLAIN_TEXT" value="21" />
           <entry key="SVG" value="1" />
           <entry key="Scratch" value="1" />
@@ -122,25 +120,31 @@
   <component name="FileEditorManager">
     <leaf>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/progression/NewClientProgressForm.js">
+        <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/edit/EditPersonalTrainer.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="523">
-              <caret line="65" column="30" selection-start-line="65" selection-start-column="30" selection-end-line="65" selection-end-column="30" />
+            <state relative-caret-position="296">
+              <caret line="269" column="149" selection-start-line="269" selection-start-column="133" selection-end-line="269" selection-end-column="149" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/client/src/components/error/ErrorComponent.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="271">
+              <caret line="18" column="136" selection-start-line="18" selection-start-column="136" selection-end-line="18" selection-end-column="136" />
               <folding>
-                <element signature="e#109#153#0" expanded="true" />
+                <element signature="e#0#39#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/bodyBio/NewBodyProgressForm.js">
+        <entry file="file://$PROJECT_DIR$/client/src/components/authentication/RegisterClient.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="347">
-              <caret line="52" column="32" selection-start-line="52" selection-start-column="32" selection-end-line="52" selection-end-column="32" />
-              <folding>
-                <element signature="e#109#153#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="364">
+              <caret line="185" column="39" lean-forward="true" selection-start-line="185" selection-start-column="39" selection-end-line="185" selection-end-column="39" />
             </state>
           </provider>
         </entry>
@@ -157,15 +161,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>/client</find>
-      <find>, history</find>
-      <find>(err, dispatch,history);</find>
-      <find>(err, dispatch);</find>
-      <find>ptData</find>
-      <find>userData</find>
-      <find>edit</find>
-      <find>GET_ERRS</find>
-      <find>clearC</find>
       <find>clientCl</find>
       <find>clientData</find>
       <find>data</find>
@@ -187,6 +182,15 @@
       <find>_clie</find>
       <find>Date duplication found for measurement!</find>
       <find>measurement</find>
+      <find>ocus</find>
+      <find>delete</find>
+      <find>delete_per</find>
+      <find>login</find>
+      <find>.user_image img</find>
+      <find>&gt;Back&lt;</find>
+      <find>Back</find>
+      <find>Back</find>
+      <find>btn-danger</find>
     </findStrings>
     <replaceStrings>
       <replace>ptEditClientBodyBio</replace>
@@ -207,7 +211,6 @@
       <replace>deleteMany</replace>
       <replace>JwtStrategy</replace>
       <replace>let</replace>
-      <replace />
       <replace>return</replace>
       <replace>userData</replace>
       <replace>ptData</replace>
@@ -219,6 +222,7 @@
       <replace>;(manageErrors(err))</replace>
       <replace>dispatch</replace>
       <replace>maxWeight</replace>
+      <replace />
     </replaceStrings>
     <dirStrings>
       <dir>C:\TM470\app\client\src\components</dir>
@@ -228,8 +232,9 @@
       <dir>C:\TM470\app\routes</dir>
       <dir>C:\TM470\app\services</dir>
       <dir>C:\TM470\app\validation</dir>
-      <dir>C:\TM470\app\client</dir>
       <dir>C:\TM470\app\client\src\actions</dir>
+      <dir>C:\TM470\app\client\src\components\error</dir>
+      <dir>C:\TM470\app\client</dir>
     </dirStrings>
   </component>
   <component name="Git.Settings">
@@ -258,7 +263,6 @@
         <option value="$PROJECT_DIR$/client/src/utilities/is_empty.js" />
         <option value="$PROJECT_DIR$/client/src/utilities/imageExists.js" />
         <option value="$PROJECT_DIR$/client/src/components/dashboard/profile/ProfileImage.js" />
-        <option value="$PROJECT_DIR$/client/src/components/dashboard/edit/EditPersonalTrainer.js" />
         <option value="$PROJECT_DIR$/client/src/elements/PrivateRoute.js" />
         <option value="$PROJECT_DIR$/client/src/index.js" />
         <option value="$PROJECT_DIR$/client/src/App.js" />
@@ -272,8 +276,6 @@
         <option value="$PROJECT_DIR$/client/src/actions/types.js" />
         <option value="$PROJECT_DIR$/client/src/actions/clientProfileActions.js" />
         <option value="$PROJECT_DIR$/client/src/components/error/ErrorComponent.js" />
-        <option value="$PROJECT_DIR$/routes/authorisation.js" />
-        <option value="$PROJECT_DIR$/client/src/App.css" />
         <option value="$PROJECT_DIR$/client/src/components/dashboard/clients/ClientList.js" />
         <option value="$PROJECT_DIR$/client/src/components/common/PrivateRoute.js" />
         <option value="$PROJECT_DIR$/client/src/components/dashboard/edit/EditClient.js" />
@@ -281,18 +283,21 @@
         <option value="$PROJECT_DIR$/client/src/actions/errorsAction.js" />
         <option value="$PROJECT_DIR$/client/src/actions/authenticationActions.js" />
         <option value="$PROJECT_DIR$/client/src/components/layout/Navigator.js" />
-        <option value="$PROJECT_DIR$/client/src/components/authentication/RegisterClient.js" />
         <option value="$PROJECT_DIR$/client/src/components/authentication/Register.js" />
         <option value="$PROJECT_DIR$/client/src/components/dashboard/bodyBio/AddBodyDataProgressForm.js" />
-        <option value="$PROJECT_DIR$/client/src/actions/ptProfileActions.js" />
         <option value="$PROJECT_DIR$/client/src/components/dashboard/progression/AddDataProgressForm.js" />
         <option value="$PROJECT_DIR$/routes/users.js" />
         <option value="$PROJECT_DIR$/client/src/components/common/DisplayMessage.js" />
         <option value="$PROJECT_DIR$/client/src/components/common/FormInputGroup.js" />
         <option value="$PROJECT_DIR$/client/src/components/dashboard/bodyBio/EditBodyDataProgressForm.js" />
         <option value="$PROJECT_DIR$/client/src/components/dashboard/progression/EditDataProgressForm.js" />
-        <option value="$PROJECT_DIR$/client/src/components/dashboard/progression/NewClientProgressForm.js" />
         <option value="$PROJECT_DIR$/client/src/components/dashboard/bodyBio/NewBodyProgressForm.js" />
+        <option value="$PROJECT_DIR$/client/src/components/dashboard/progression/NewClientProgressForm.js" />
+        <option value="$PROJECT_DIR$/client/src/actions/ptProfileActions.js" />
+        <option value="$PROJECT_DIR$/routes/authorisation.js" />
+        <option value="$PROJECT_DIR$/client/src/components/dashboard/edit/EditPersonalTrainer.js" />
+        <option value="$PROJECT_DIR$/client/src/App.css" />
+        <option value="$PROJECT_DIR$/client/src/components/authentication/RegisterClient.js" />
       </list>
     </option>
   </component>
@@ -374,7 +379,7 @@
               <item name="client" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="components" type="462c0819:PsiDirectoryNode" />
-              <item name="common" type="462c0819:PsiDirectoryNode" />
+              <item name="authentication" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="app" type="b2602c69:ProjectViewProjectNode" />
@@ -383,15 +388,6 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="components" type="462c0819:PsiDirectoryNode" />
               <item name="dashboard" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="app" type="b2602c69:ProjectViewProjectNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="client" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
-              <item name="dashboard" type="462c0819:PsiDirectoryNode" />
-              <item name="bodyBio" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="app" type="b2602c69:ProjectViewProjectNode" />
@@ -401,15 +397,6 @@
               <item name="components" type="462c0819:PsiDirectoryNode" />
               <item name="dashboard" type="462c0819:PsiDirectoryNode" />
               <item name="edit" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="app" type="b2602c69:ProjectViewProjectNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="client" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
-              <item name="dashboard" type="462c0819:PsiDirectoryNode" />
-              <item name="progression" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="app" type="b2602c69:ProjectViewProjectNode" />
@@ -438,7 +425,7 @@
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="settings.editor.selected.configurable" value="preferences.customizations" />
+    <property name="settings.editor.selected.configurable" value="editing.templates" />
     <property name="ts.external.directory.path" value="C:\Program Files\JetBrains\WebStorm 2018.2.1\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
   </component>
   <component name="RecentsManager">
@@ -543,21 +530,7 @@
       <workItem from="1565691741200" duration="30487000" />
       <workItem from="1565814825599" duration="34529000" />
       <workItem from="1565849788934" duration="81098000" />
-      <workItem from="1566251293964" duration="262598000" />
-    </task>
-    <task id="LOCAL-00228" summary="Changed onSelectFile = e =&gt; {} to ..... onSelectFile(e){} which stopped the setting of state of the returned value of FileReader.">
-      <created>1565910511634</created>
-      <option name="number" value="00228" />
-      <option name="presentableId" value="LOCAL-00228" />
-      <option name="project" value="LOCAL" />
-      <updated>1565910511634</updated>
-    </task>
-    <task id="LOCAL-00229" summary="Upload profile picture integrated into site via edit profile components">
-      <created>1565923433658</created>
-      <option name="number" value="00229" />
-      <option name="presentableId" value="LOCAL-00229" />
-      <option name="project" value="LOCAL" />
-      <updated>1565923433658</updated>
+      <workItem from="1566251293964" duration="268024000" />
     </task>
     <task id="LOCAL-00230" summary="Link clean up for edit profiles">
       <created>1565959137253</created>
@@ -888,11 +861,25 @@
       <option name="project" value="LOCAL" />
       <updated>1566947616211</updated>
     </task>
-    <option name="localTasksCounter" value="277" />
+    <task id="LOCAL-00277" summary="Errors for New, Add, and Edit refactored and working correctly for both bio and progress.">
+      <created>1566954855110</created>
+      <option name="number" value="00277" />
+      <option name="presentableId" value="LOCAL-00277" />
+      <option name="project" value="LOCAL" />
+      <updated>1566954855110</updated>
+    </task>
+    <task id="LOCAL-00278" summary="Removed autofocus for now, revisit later.">
+      <created>1566956756075</created>
+      <option name="number" value="00278" />
+      <option name="presentableId" value="LOCAL-00278" />
+      <option name="project" value="LOCAL" />
+      <updated>1566956756075</updated>
+    </task>
+    <option name="localTasksCounter" value="279" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="2312279000" />
+    <option name="totallyTimeSpent" value="2317705000" />
   </component>
   <component name="TodoView" selected-index="4">
     <todo-panel id="selected-file">
@@ -1032,8 +1019,6 @@
   <component name="VcsManagerConfiguration">
     <option name="SHOW_DIRTY_RECURSIVELY" value="true" />
     <option name="LIMIT_HISTORY" value="false" />
-    <MESSAGE value="Last commit also created route that works properly, no bugs found at this time" />
-    <MESSAGE value="Added statement stop the default image in profile upload from being uploaded as profile image." />
     <MESSAGE value="building aws auth" />
     <MESSAGE value="building aws auth2" />
     <MESSAGE value="axios vs fetch" />
@@ -1057,7 +1042,9 @@
     <MESSAGE value="HTTP status codes checked and modified accordingly for respective redirects and messages shown." />
     <MESSAGE value="Bug conflict of unauthorised user being directed to re-login when token had expired, forgot to logout user which cleared current expired token and also cleared redux." />
     <MESSAGE value="Errors cleared via unmount on Register and RegisterClient as they were persisting and show on other pages." />
-    <option name="LAST_COMMIT_MESSAGE" value="Errors cleared via unmount on Register and RegisterClient as they were persisting and show on other pages." />
+    <MESSAGE value="Errors for New, Add, and Edit refactored and working correctly for both bio and progress." />
+    <MESSAGE value="Removed autofocus for now, revisit later." />
+    <option name="LAST_COMMIT_MESSAGE" value="Removed autofocus for now, revisit later." />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/config/passport.js">
@@ -1222,13 +1209,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/edit/EditPersonalTrainer.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="591">
-          <caret line="72" column="49" selection-start-line="72" selection-start-column="49" selection-end-line="72" selection-end-column="49" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/client/src/reducers/index.js">
       <provider selected="true" editor-type-id="text-editor">
         <state>
@@ -1254,30 +1234,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="459">
           <caret line="27" selection-start-line="27" selection-end-line="27" selection-end-column="61" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/components/error/ErrorComponent.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="9" column="14" lean-forward="true" selection-start-line="9" selection-start-column="14" selection-end-line="9" selection-end-column="14" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/routes/authorisation.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="347">
-          <caret line="433" column="13" lean-forward="true" selection-start-line="433" selection-start-column="13" selection-end-line="433" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/App.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="207">
-          <caret line="261" column="17" lean-forward="true" selection-start-line="261" selection-start-column="17" selection-end-line="261" selection-end-column="17" />
         </state>
       </provider>
     </entry>
@@ -1341,16 +1297,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/actions/authenticationActions.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="84" column="35" selection-start-line="84" selection-start-column="35" selection-end-line="84" selection-end-column="35" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/clients/ClientProfile.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="13">
@@ -1368,13 +1314,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/components/authentication/RegisterClient.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="56" column="4" lean-forward="true" selection-start-line="56" selection-start-column="4" selection-end-line="59" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/profile/Dashboard.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="170">
@@ -1389,23 +1328,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="119">
           <caret line="7" column="64" selection-start-line="7" selection-start-column="64" selection-end-line="7" selection-end-column="64" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/routes/users.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="190">
-          <caret line="799" column="125" selection-start-line="799" selection-start-column="125" selection-end-line="799" selection-end-column="125" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/actions/ptProfileActions.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="568">
-          <caret line="305" column="10" lean-forward="true" selection-start-line="305" selection-start-column="10" selection-end-line="305" selection-end-column="10" />
-          <folding>
-            <element signature="e#48#74#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1471,8 +1393,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/progression/NewClientProgressForm.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="523">
-          <caret line="65" column="30" selection-start-line="65" selection-start-column="30" selection-end-line="65" selection-end-column="30" />
+        <state relative-caret-position="289">
+          <caret line="80" column="64" selection-start-line="80" selection-start-column="64" selection-end-line="80" selection-end-column="64" />
           <folding>
             <element signature="e#109#153#0" expanded="true" />
           </folding>
@@ -1481,11 +1403,73 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/bodyBio/NewBodyProgressForm.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="347">
-          <caret line="52" column="32" selection-start-line="52" selection-start-column="32" selection-end-line="52" selection-end-column="32" />
+        <state relative-caret-position="211">
+          <caret line="67" column="64" selection-start-line="67" selection-start-column="64" selection-end-line="67" selection-end-column="64" />
           <folding>
             <element signature="e#109#153#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/actions/authenticationActions.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="84" column="35" selection-start-line="84" selection-start-column="35" selection-end-line="84" selection-end-column="35" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/users.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="190">
+          <caret line="1257" column="32" selection-start-line="1257" selection-start-column="22" selection-end-line="1257" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/actions/ptProfileActions.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-7164">
+          <caret line="19" column="23" selection-start-line="19" selection-start-column="23" selection-end-line="19" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/authorisation.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1805">
+          <caret line="135" column="37" lean-forward="true" selection-start-line="135" selection-start-column="37" selection-end-line="135" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/App.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="156">
+          <caret line="701" column="1" lean-forward="true" selection-start-line="701" selection-start-column="1" selection-end-line="701" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/edit/EditPersonalTrainer.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="296">
+          <caret line="269" column="149" selection-start-line="269" selection-start-column="133" selection-end-line="269" selection-end-column="149" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/components/error/ErrorComponent.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="271">
+          <caret line="18" column="136" selection-start-line="18" selection-start-column="136" selection-end-line="18" selection-end-column="136" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/components/authentication/RegisterClient.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="364">
+          <caret line="185" column="39" lean-forward="true" selection-start-line="185" selection-start-column="39" selection-end-line="185" selection-end-column="39" />
         </state>
       </provider>
     </entry>

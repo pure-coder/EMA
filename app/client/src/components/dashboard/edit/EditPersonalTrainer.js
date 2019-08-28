@@ -8,6 +8,7 @@ import {
     setErrors,
     clearErrors,
     setSuccess,
+    ptDeleteAccount,
     clearSuccess
 } from "../../../actions/ptProfileActions"; // Used to import create action for getting pt data and editing pt data
 import {withRouter} from 'react-router-dom';
@@ -169,6 +170,10 @@ class EditPersonalTrainer extends Component {
         }
     };
 
+    deleteAccount = () => {
+        this.props.ptDeleteAccount();
+    };
+
     render() {
         // if loaded is false then return loading screen
         const {pt_data, FullName, Email} = this.props.ptProfile;
@@ -261,7 +266,8 @@ class EditPersonalTrainer extends Component {
                                     />
                                     <DisplayMessage message={message}/>
                                     <input type="submit" value="Update" className="btn btn-info btn-block mt-1"/>
-                                    <button type="button" className="btn btn-danger btn-block mt-3 mb-3" onClick={this.props.history.goBack}>Back</button>
+                                    <button type="button" className="btn btn-success btn-block mt-3 mb-3" onClick={this.props.history.goBack}>Back</button>
+                                    <button type="button" className="btn btn-danger btn-block mt-3 mb-3" onClick={this.deleteAccount}>Delete Account</button>
                                 </form>
                             </div>
                         </div>
@@ -275,6 +281,7 @@ class EditPersonalTrainer extends Component {
 // Documents what props are needed for this component and will log a warning in the console in dev mode if not complied to
 EditPersonalTrainer.propTypes = {
     ptGetData: PropTypes.func.isRequired,
+    ptDeleteAccount: PropTypes.func.isRequired,
     clearErrors: PropTypes.func.isRequired,
     setErrors: PropTypes.func.isRequired,
     setSuccess: PropTypes.func.isRequired,
@@ -294,4 +301,12 @@ const stateToProps = (state) => ({
     success: state.success
 });
 
-export default connect(stateToProps, {ptGetData, ptEditData, passwordsMatchError, setErrors, clearErrors, setSuccess, clearSuccess})(withRouter(EditPersonalTrainer));
+export default connect(stateToProps, {ptGetData,
+    ptEditData,
+    passwordsMatchError,
+    setErrors,
+    clearErrors,
+    setSuccess,
+    clearSuccess,
+    ptDeleteAccount
+})(withRouter(EditPersonalTrainer));

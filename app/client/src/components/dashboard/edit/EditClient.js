@@ -354,7 +354,7 @@ class EditClient extends Component {
                                     />
                                     <DisplayMessage message={message}/>
                                     <input type="submit" value="Update" className="btn btn-info btn-block mt-1"/>
-                                    <button type="button" className="btn btn-danger btn-block mt-3 mb-3" onClick={this.props.history.goBack}>Back</button>
+                                    <button type="button" className="btn btn-success btn-block mt-3 mb-3" onClick={this.props.history.goBack}>Back</button>
                                 </form>
                             </div>
                         </div>

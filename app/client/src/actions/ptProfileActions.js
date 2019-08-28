@@ -7,7 +7,6 @@ import {
     CLEAR_CURRENT_CLIENT_PROFILE,
     GET_PT_CLIENTS_DATA,
     PT_CLIENT_PROGRESSION,
-    CLEAR_CLIENT_PROGRESSION,
     PASSWORD_ERROR,
     GET_ERRS,
     SUCCESS,
@@ -19,12 +18,12 @@ import {
     GET_CLIENT_PROFILE_NOTES,
     CLEAR_CLIENT_PROFILE_NOTES,
     PT_CLIENT_BODY_BIO,
-    CLEAR_BODY_BIO,
     UPDATE_PROFILE_PIC_PT,
     PT_PROFILE_EDITED,
     PT_CLIENT_PROFILE_EDITED,
 } from "./types";
-import {manageErrors} from "./errorsAction"; // import custom defined types
+import {manageErrors} from "./errorsAction";
+import {logOutUser} from "./authenticationActions"; // import custom defined types
 require('es6-promise').polyfill();
 require('isomorphic-fetch');
 
@@ -361,6 +360,16 @@ export const ptUploadProfilePic = (dataImage, fileName) => dispatch => {
     }
 };
 
+export const ptDeleteAccount =() => dispatch => {
+    axios.delete(`/api/delete_personal_trainer/`)
+        .then(() => {
+            dispatch(logOutUser());
+            window.location.href = '/';
+        })
+        .catch(err => {
+            dispatch(manageErrors(err));
+        });
+};
 
 // Clear
 
@@ -374,18 +383,6 @@ export const ptClearCurrentClientProfile = () => {
     return {
         type: CLEAR_CURRENT_CLIENT_PROFILE
     }
-};
-
-export const ptClearClientBodyBio = () => dispatch => {
-    dispatch({
-        type: CLEAR_BODY_BIO
-    });
-};
-
-export const ptClearClientProgression = () => dispatch => {
-    dispatch({
-        type: CLEAR_CLIENT_PROGRESSION
-    });
 };
 
 export const ptClearClientProfileNotes = () => dispatch => {

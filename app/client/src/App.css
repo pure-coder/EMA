@@ -707,7 +707,7 @@ input[type=submit] {
     width: 130px;
     height: 130px;
     border: solid 1px black;
-    padding-right: 0;
+    margin-left: 1px;
 }
 
 .user_data {
