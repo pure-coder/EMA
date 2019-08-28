@@ -70,9 +70,6 @@ class NewBodyProgressForm extends Component {
                 message: props.success
             }
         }
-        if(isEmpty(props.errors)){
-            NewBodyProgressForm.onFocus();
-        }
         return null
     }
 
@@ -184,10 +181,6 @@ class NewBodyProgressForm extends Component {
         this.setState({bodyPart: selectedBodyPart });
     };
 
-    static onFocus(){
-        document.getElementsByName('measurement')[0].focus();
-    }
-
     onSubmit = e => {
         e.preventDefault();
         this.setState({
@@ -269,6 +262,7 @@ class NewBodyProgressForm extends Component {
                         <FormInputGroup
                             name="measurement"
                             PlaceHolder="Measurement (In)"
+                            id="measurement"
                             value={measurement}
                             type="text"
                             onChange={this.onChange}
