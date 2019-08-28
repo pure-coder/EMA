@@ -43,7 +43,7 @@ class EditClient extends Component {
             DateOfBirth: '',
             Password: '',
             Password2: '',
-            values : [
+            Values : [
                 "Male",
                 "Female"
             ],
@@ -57,9 +57,14 @@ class EditClient extends Component {
 
     // Populate state data with data from the database for the client
     static getDerivedStateFromProps(props, state) {
-        if (!isEmpty(state.errors)){
+        if(!isEmpty(state.errors)){
             return {
-                message: state.errors
+                errors: state.errors
+            }
+        }
+        if (!isEmpty(state.message)){
+            return {
+                message: state.message
             }
         }
         if (!isEmpty(props.errors) && isEmpty(state.errors)){
@@ -137,10 +142,18 @@ class EditClient extends Component {
 
     // This captures what the user types and sets the specific input to the respective state variable
     valueChange = e => {
-        let eventName = e.target.name;
-        let eventValue = e.target.value;
+        const {name, value} = e.target;
 
-        if(eventName === 'ContactNumber' && isNaN(eventValue)){
+        if(name === 'FullName' && value.length > 25){
+            this.setState({
+                errors: {
+                    FullName: "Full Name must be less than 25 characters."
+                }
+            });
+            return null;
+        }
+
+        if(name === 'ContactNumber' && isNaN(value)){
             this.setState({
                 errors: {
                     ContactNumber: "Must contain numbers only."
@@ -148,7 +161,7 @@ class EditClient extends Component {
             });
             return null;
         }
-        else if(eventName === 'ContactNumber' && eventValue.length > 11) {
+        else if(name === 'ContactNumber' && value.length > 11) {
             this.setState({
                 errors: {
                     ContactNumber: "Contact Number must not contain more than 11 numbers."
@@ -158,12 +171,15 @@ class EditClient extends Component {
         }
 
         // Initialise previous data to this data
-        this.setState({[eventName]: eventValue});
+        this.setState({[name]: value});
 
         if(!isEmpty(this.props.errors)){
             this.props.clearErrors();
         }
-        this.setState({message: {}}); // reset to null
+        this.setState({
+            message: {},
+            errors: {}
+        }); // reset to null
         if(!isEmpty(this.props.success)){
             this.props.clearSuccess();
         }
@@ -175,26 +191,29 @@ class EditClient extends Component {
 
         // Clear errors
         this.props.clearErrors();
-        this.setState({errors: {}});
+        this.setState({
+            message: {},
+            errors: {}}
+            );
 
         // Check if any data has been changed, don't want to waste server load and bandwidth on empty requests
         let dataChanged = false;
         // Set errors using spread operator on nested state (only calls setState once)
         let errors = {...this.state.errors};
+        const {client_data, FullName, Email, ContactNumber, DateOfBirth, Sex, Password, Password2} = this.state;
 
         const editData = {
-            FullName: this.state.FullName,
-            Email: this.state.Email,
-            ContactNumber: this.state.ContactNumber,
-            DateOfBirth: this.state.DateOfBirth,
-            Sex: this.state.Sex,
-            Password: this.state.Password,
-            Password2: this.state.Password2
+            FullName: FullName,
+            Email: Email,
+            ContactNumber: ContactNumber,
+            DateOfBirth: DateOfBirth,
+            Sex: Sex,
+            Password: Password,
+            Password2: Password2
         };
 
         // Use client data supplied to form for managing form field data after data has been submitted (keeps view the same whilst resetting
         // state.FullName etc.
-        let client_data = this.state.client_data;
 
         // Check if any of the fields have been modified.
         for(let element in editData) {
@@ -213,7 +232,7 @@ class EditClient extends Component {
 
         if (!dataChanged){
             this.setState({
-                errors: {
+                message: {
                     type: "ERROR",
                     msg: "No data has been modified!"
                 }
@@ -221,7 +240,7 @@ class EditClient extends Component {
             this.props.setErrors(errors);
             return null;
         }
-        else if (!(this.state.Password === this.state.Password2)) {
+        else if (!(Password === Password2)) {
             errors.Password = "Passwords must match";
             errors.Password2 = "Passwords must match";
             this.props.passwordsMatchError(errors);
@@ -237,11 +256,11 @@ class EditClient extends Component {
             // Clear password match errors
             this.props.clearErrors();
             this.setState({
-                FullName : this.state.FullName,
-                Email : this.state.Email,
-                ContactNumber : this.state.ContactNumber,
-                Sex: this.state.Sex,
-                DateOfBirth: this.state.DateOfBirth,
+                FullName : FullName,
+                Email : Email,
+                ContactNumber : ContactNumber,
+                Sex: Sex,
+                DateOfBirth: DateOfBirth,
                 Password: '',
                 Password2: '',
                 client_data: client_data
@@ -251,7 +270,7 @@ class EditClient extends Component {
 
     render() {
         let {client_data, errors, message, FullName, Email, ContactNumber, profilePicture,
-        DateOfBirth, values, Password, Password2
+        DateOfBirth, Values, Password, Password2
         } = this.state;
 
         if(client_data === null){
@@ -329,7 +348,7 @@ class EditClient extends Component {
                                             <FormSelectComp
                                                 name="Sex"
                                                 id="Sex"
-                                                values={values}
+                                                values={Values}
                                                 onChange={this.valueChange}
                                                 error={errors.Sex}
                                             />

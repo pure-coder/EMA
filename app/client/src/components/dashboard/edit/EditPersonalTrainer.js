@@ -35,7 +35,7 @@ class EditPersonalTrainer extends Component {
             Sex: '',
             Password: '',
             Password2: '',
-            values : [
+            Values : [
                 "Male",
                 "Female"
             ],
@@ -53,6 +53,11 @@ class EditPersonalTrainer extends Component {
 
     // Replacement for componentWillReceiveProps (as was depreciated)
     static getDerivedStateFromProps(props, state) {
+        if(!isEmpty(state.errors)){
+            return {
+                errors: state.errors
+            }
+        }
         if(isEmpty(props.success) !== isEmpty(state.success)){
             return {
                 message: props.success
@@ -100,12 +105,26 @@ class EditPersonalTrainer extends Component {
 
     // This captures what the user types and sets the specific input to the respective state variable
     onChange = event => {
-        this.setState({[event.target.name]: event.target.value});
+        const {name, value} = event.target;
+
+        if(name === "FullName" && value.length > 25){
+            this.setState({
+                errors: {
+                    FullName: "Full Name must be less than 25 characters."
+                }
+            });
+            return null
+        }
+
+        this.setState({
+            [name]: value,
+            message: {},
+            errors: {}
+        });
 
         if(!isEmpty(this.props.errors)){
             this.props.clearErrors();
         }
-        this.setState({message: {type: null}}); // reset to null
         if(!isEmpty(this.props.success)){
             this.props.clearSuccess();
         }
@@ -119,17 +138,16 @@ class EditPersonalTrainer extends Component {
         let dataChanged = false;
         // Set errors using spread operator on nested state (only calls setState once)
         let errors = {...this.state.errors};
+        const {pt_data, FullName, DateOfBirth, Email, Sex, Password, Password2} = this.state;
 
         const editData = {
-            FullName: this.state.FullName,
-            Email: this.state.Email,
-            DateOfBirth: this.state.DateOfBirth,
-            Sex: this.state.Sex,
-            Password: this.state.Password,
-            Password2: this.state.Password2
+            FullName: FullName,
+            Email: Email,
+            DateOfBirth: DateOfBirth,
+            Sex: Sex,
+            Password: Password,
+            Password2: Password2
         };
-
-        let pt_data = this.state.pt_data;
 
         // Check if any of the fields have been modified, break asap if one has, no need to continue loop.
         for(let element in editData) {
@@ -145,19 +163,18 @@ class EditPersonalTrainer extends Component {
             }
         }
 
-        let message;
-
         if (!dataChanged){
-            message = {
-                type: "ERROR",
-                msg: "No data has been modified!"
-            };
 
-            this.setState({message});
+            this.setState({
+                message: {
+                    type: "ERROR",
+                    msg: "No data has been modified!"
+                }
+            });
             this.props.setErrors(errors);
             return null;
         }
-        else if (!(this.state.Password === this.state.Password2)) {
+        else if (!(Password === Password2)) {
             errors.Password = "Passwords must match";
             errors.Password2 = "Passwords must match";
             this.props.passwordsMatchError(errors);
@@ -176,7 +193,7 @@ class EditPersonalTrainer extends Component {
 
     render() {
         // if loaded is false then return loading screen
-        const {pt_data, FullName, Email} = this.props.ptProfile;
+        const {pt_data} = this.props.ptProfile;
         if (pt_data === null) {
             return <Loading myClassName="loading_container"/>
         }
@@ -184,7 +201,7 @@ class EditPersonalTrainer extends Component {
             return <ErrorComponent/>
         }
         else{
-            const {errors, message, profilePicture} = this.state; // This allows errors to be pulled out of this.state without pulling them out directly
+            const {errors, message, profilePicture, FullName, Email, DateOfBirth, Values, Password, Password2} = this.state; // This allows errors to be pulled out of this.state without pulling them out directly
 
             return (
                 <div className="edit_client">
@@ -205,7 +222,7 @@ class EditPersonalTrainer extends Component {
                                         myClassName="edit-pt"
                                         name="FullName"
                                         placeholder={FullName}
-                                        value={this.state.FullName}
+                                        value={FullName}
                                         type="text"
                                         onChange={this.onChange}
                                         error={errors.FullName}
@@ -214,7 +231,7 @@ class EditPersonalTrainer extends Component {
                                         myClassName="edit-pt"
                                         name="Email"
                                         placeholder={Email}
-                                        value={this.state.Email}
+                                        value={Email}
                                         type="Email"
                                         onChange={this.onChange}
                                         error={errors.Email}
@@ -227,7 +244,7 @@ class EditPersonalTrainer extends Component {
                                             < FormInputGroup
                                                 myClassName="edit-exercise"
                                                 name="DateOfBirth"
-                                                value={this.state.DateOfBirth.toString()}
+                                                value={DateOfBirth.toString()}
                                                 type="date"
                                                 onChange={this.onChange}
                                                 error={errors.DateOfBirth}
@@ -241,7 +258,7 @@ class EditPersonalTrainer extends Component {
                                             <FormSelectComp
                                                 name="Sex"
                                                 id="Sex"
-                                                values={this.state.values}
+                                                values={Values}
                                                 onChange={this.onChange}
                                                 error={errors.Sex}
                                             />
@@ -251,7 +268,7 @@ class EditPersonalTrainer extends Component {
                                         myClassName="edit-pt"
                                         name="Password"
                                         placeholder="Enter Password"
-                                        value={this.state.Password}
+                                        value={Password}
                                         type="Password"
                                         onChange={this.onChange}
                                         error={errors.Password}
@@ -259,7 +276,7 @@ class EditPersonalTrainer extends Component {
                                     <FormInputGroup
                                         name="Password2"
                                         placeholder="Confirm Password"
-                                        value={this.state.Password2}
+                                        value={Password2}
                                         type="Password"
                                         onChange={this.onChange}
                                         error={errors.Password2}
