@@ -1,20 +1,27 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import PropTypes from "prop-types";
-import {clearClientProfileNotes, updateClientProfileNotes, clearErrors, clearSuccess} from "../../../actions/ptProfileActions";
-import {clearProfileNotes} from "../../../actions/clientProfileActions";
+import {
+    ptClearClientProfileNotes,
+    ptUpdateClientProfileNotes,
+    clearErrors, clearSuccess
+} from "../../../actions/ptProfileActions";
+import {
+    clientClearProfileNotes
+} from "../../../actions/clientProfileActions";
 import isEmpty from "../../../validation/is_empty";
-import ProfileInputForm from "../../common/ProfileInputForm";
+import ProfileInputForm from "../../common/Forms/ProfileInputForm";
 
 class ProfileNotes extends Component {
     constructor(props){
         super(props);
+        let {data} = props;
         this.state = {
-            clientId: this.props.authenticatedUser.user.pt ? this.props.ptProfile.current_client._id : this.props.clientProfile._id,
-            profileData: this.props.data,
-            goals: '',
-            injuries: '',
-            notes: '',
+            clientId: this.props.authenticatedUser.user.pt ? this.props.ptProfile.current_client._id :
+                this.props.clientProfile.client_data._id,
+            goals: data.goals,
+            injuries: data.injuries,
+            notes: data.notes,
             rows: '6',
             cols: '36',
             readonly: this.props.authenticatedUser.user.pt,
@@ -26,15 +33,6 @@ class ProfileNotes extends Component {
     }
 
     static getDerivedStateFromProps(prevProps, state){
-        // Initiate state with data from database
-        if(!state.updated){
-            return {
-                goals: prevProps.data.goals,
-                injuries: prevProps.data.injuries,
-                notes: prevProps.data.notes,
-                updated: true
-            }
-        }
         if(prevProps.success !== state.success){
             return {
                 success: prevProps.success
@@ -50,12 +48,12 @@ class ProfileNotes extends Component {
 
     componentWillUnmount(){
         if(this.props.authenticatedUser.user.pt){
-            this.props.clearClientProfileNotes();
+            this.props.ptClearClientProfileNotes();
             this.props.clearErrors();
             this.props.clearSuccess();
         }
         else{
-            this.props.clearProfileNotes();
+            this.props.clientClearProfileNotes();
         }
     }
 
@@ -83,7 +81,7 @@ class ProfileNotes extends Component {
 
         // make sure user is a pt
         if(this.props.authenticatedUser.user.pt){
-            this.props.updateClientProfileNotes(this.state.clientId, data, this.props.history);
+            this.props.ptUpdateClientProfileNotes(this.state.clientId, data, this.props.history);
             this.setState({fieldUpdated: name});
         }
     };
@@ -145,9 +143,9 @@ ProfileNotes.propTypes = {
     authenticatedUser: PropTypes.object.isRequired,
     ptProfile: PropTypes.object.isRequired,
     clientProfile: PropTypes.object.isRequired,
-    clearProfileNotes: PropTypes.func.isRequired,
-    updateClientProfileNotes: PropTypes.func.isRequired,
-    clearClientProfileNotes: PropTypes.func.isRequired,
+    ptClearClientProfileNotes: PropTypes.func.isRequired,
+    clientClearProfileNotes: PropTypes.func.isRequired,
+    ptUpdateClientProfileNotes: PropTypes.func.isRequired,
     clearSuccess: PropTypes.func.isRequired,
     clearErrors: PropTypes.func.isRequired
 };
@@ -160,4 +158,9 @@ const stateToProps = (state) => ({
     success: state.success
 });
 
-export default connect(stateToProps, {clearClientProfileNotes, clearProfileNotes, updateClientProfileNotes, clearErrors, clearSuccess})(ProfileNotes);
+export default connect(stateToProps, {
+    ptClearClientProfileNotes,
+    clientClearProfileNotes,
+    ptUpdateClientProfileNotes,
+    clearErrors, clearSuccess
+})(ProfileNotes);

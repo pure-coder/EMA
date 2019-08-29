@@ -4,7 +4,8 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-// const scheduler = require('./services/scheduler'); ////////////////// SORT OUT 24HR CRON ////////////////
+const path = require('path');
+
 // require passport
 const passport = require('passport');
 
@@ -30,7 +31,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
 // require database setup in the config folder
-const db = require('./config/db');
+const db = require('./config/config_data');
 
 // Connect to MongoDB
 
@@ -51,6 +52,14 @@ require('./config/passport')(passport);
 app.use('/api/', users);
 app.use('/api/', authorisation);
 app.use('/api/', scheduler);
+
+// Use static server build for production
+if(process.env.NODE_ENV === 'production'){
+    app.use(express.static('client/build'));
+    app.get('*', (req, res) => {
+        res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+    })
+}
 
 app.listen(port, () => {
     console.log('We are live on ' + port);

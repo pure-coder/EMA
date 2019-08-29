@@ -3,15 +3,9 @@ import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
 
 class ErrorComponent extends Component {
-    constructor(props) {
-        super(props);
-        // This binds the onSubmit function to this.OnSubmit
-        this.goBack = this.goBack.bind(this);
-    }
-
-    goBack(){
+    goBack = () => {
         this.props.history.go(-2);
-    }
+    };
 
     render() {
         return (
@@ -22,7 +16,7 @@ class ErrorComponent extends Component {
                             <div className="text-center col-md-12 landing_div text-info">
                                 <h1 className="display-1-md display-3-sm">404 - Page Not Found!
                                 </h1>
-                                <button type="button" className="btn btn-danger btn-block mt-5 mb-3 error-button" onClick={this.goBack}>Back</button>
+                                <button type="button" className="btn btn-success btn-block mt-5 mb-3 error-button" onClick={this.goBack}>Back</button>
                             </div>
                         </div>
                     </div>

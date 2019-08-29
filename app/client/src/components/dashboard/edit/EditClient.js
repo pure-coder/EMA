@@ -1,15 +1,28 @@
 import React, {Component} from 'react';  // Used to create this component
 import PropTypes from 'prop-types'; // Used to document prop types sent to components
 import {connect} from 'react-redux' // Needed when using redux inside a component (connects redux to this component)
-import {editClientData, passwordsMatchError, setErrors, clearErrors, setSuccess, clearSuccess, getCurrentClient, clearCurrentClient} from "../../../actions/ptProfileActions"; // Used to import create action for getting client data and editing client data
-import {getClientData} from "../../../actions/clientProfileActions";
+import {
+    ptEditClientData,
+    passwordsMatchError,
+    setErrors,
+    clearErrors,
+    setSuccess,
+    clearSuccess,
+    ptGetCurrentClient,
+    ptClearCurrentClientProfile,
+    ptGetClients
+} from "../../../actions/ptProfileActions"; // Used to import create action for getting client data and editing client data
+import {
+    clientEditData
+} from "../../../actions/clientProfileActions";
+import {clientGetData} from "../../../actions/clientProfileActions";
 import {Link, withRouter} from 'react-router-dom';
-import FormInputGroup from "../../common/FormInputGroup";
-import Loading from "../../../elements/Loading";
+import FormInputGroup from "../../common/Forms/FormInputGroup";
+import Loading from "../../common/Loading/Loading";
 import isEmpty from "../../../utilities/is_empty";
 import ErrorComponent from "../../error/ErrorComponent"; // Allows proper routing and linking using browsers match, location, and history properties
-import DisplayMessage from '../../common/DisplayMessage';
-import FormSelectComp from "../../common/FormSelectComp";
+import DisplayMessage from '../../common/Message/DisplayMessage';
+import FormSelectComp from "../../common/Forms/FormSelectComp";
 import defaultUserImage from "../../../img/user-regular.svg";
 import checkExp from "../../../utilities/checkExp";
 import {ProfileImage} from "../profile/ProfileImage";
@@ -30,51 +43,38 @@ class EditClient extends Component {
             DateOfBirth: '',
             Password: '',
             Password2: '',
-            values : [
+            Values : [
                 "Male",
                 "Female"
             ],
             errors: {},
             location: this.props.location,
-            success: {},
             loaded: false,
             updated: false,
-            message: {
-                type: null
-            } // Set to null so null is returned from DisplayMessage by default
+            message: {} // Set to null so null is returned from DisplayMessage by default
         };
     }
 
     // Populate state data with data from the database for the client
     static getDerivedStateFromProps(props, state) {
-        if(props.authenticatedUser.user.pt){
-            if (props.ptProfile.current_client !== state.client_data) {
-                return {
-                    client_data: props.ptProfile.current_client,
-                    profilePicture: props.ptProfile.current_client.ProfilePicUrl,
-                    success: props.success,
-                    errors: props.errors,
-                    loaded: true
-                }
-            }
-        }
-        else if (props.clientProfile.client_data !== state.client_data) {
+        if(!isEmpty(state.errors)){
             return {
-                client_data: props.clientProfile.client_data,
-                profilePicture: props.clientProfile.client_data.ProfilePicUrl,
-                success: props.success,
-                errors: props.errors,
-                loaded: true
+                errors: state.errors
             }
         }
-        if(isEmpty(props.success) !== isEmpty(state.success)){
+        if (!isEmpty(state.message)){
             return {
-                message: props.success
+                message: state.message
             }
         }
-        if(isEmpty(props.errors) !== isEmpty(state.errors)){
+        if (!isEmpty(props.errors) && isEmpty(state.errors)){
             return {
                 errors: props.errors
+            }
+        }
+        if (!isEmpty(props.success)) {
+            return {
+                message: props.success
             }
         }
         return null
@@ -86,10 +86,10 @@ class EditClient extends Component {
             this.props.history.push('/login');
         checkExp();
         if(this.props.authenticatedUser.user.pt){
-            this.props.getCurrentClient(this.state.clientId, this.props.history)
+            this.props.ptGetCurrentClient(this.state.clientId, this.props.history)
         }
         else {
-            this.props.getClientData(this.state.clientId, this.props.history);
+            this.props.clientGetData(this.state.clientId, this.props.history);
         }
         this.props.clearErrors();
         this.props.clearSuccess();
@@ -101,13 +101,21 @@ class EditClient extends Component {
             this.props.history.push('/error_page');
         }
         let data = null;
-        if(this.props.authenticatedUser.user.pt) {
-            if (this.props.ptProfile.current_client !== null) {
+        if(this.props.authenticatedUser.user.pt){
+            if(this.state.client_data === null && this.props.ptProfile.current_client !== null){
+                this.setState({
+                    client_data: this.props.ptProfile.current_client,
+                    profilePicture: this.props.ptProfile.current_client.ProfilePicUrl
+                });
                 data = this.props.ptProfile.current_client;
             }
         }
-        else{
-            if (this.props.clientProfile.client_data !== null) {
+        else {
+            if(this.state.client_data === null && this.props.clientProfile.client_data !== null){
+                this.setState({
+                    client_data: this.props.clientProfile.client_data,
+                    profilePicture: this.props.clientProfile.client_data.ProfilePicUrl
+                });
                 data = this.props.clientProfile.client_data;
             }
         }
@@ -124,12 +132,9 @@ class EditClient extends Component {
     }
 
     componentWillUnmount(){
-        const {isAuthenticated} = this.props.authenticatedUser;
-        if(!isAuthenticated){
-            this.props.history.push('/re-login');
-        }
+        // Clear current client profile from redux as when accessing another the previous will still be shown.
         if(this.props.authenticatedUser.user.pt){
-            this.props.clearCurrentClient();
+            this.props.ptClearCurrentClientProfile();
         }
         this.props.clearErrors();
         this.props.clearSuccess();
@@ -137,15 +142,44 @@ class EditClient extends Component {
 
     // This captures what the user types and sets the specific input to the respective state variable
     valueChange = e => {
-        let eventName = e.target.name;
-        let eventValue = e.target.value;
+        const {name, value} = e.target;
+
+        if(name === 'FullName' && value.length > 25){
+            this.setState({
+                errors: {
+                    FullName: "Full Name must be less than 25 characters."
+                }
+            });
+            return null;
+        }
+
+        if(name === 'ContactNumber' && isNaN(value)){
+            this.setState({
+                errors: {
+                    ContactNumber: "Must contain numbers only."
+                }
+            });
+            return null;
+        }
+        else if(name === 'ContactNumber' && value.length > 11) {
+            this.setState({
+                errors: {
+                    ContactNumber: "Contact Number must not contain more than 11 numbers."
+                }
+            });
+            return null;
+        }
+
         // Initialise previous data to this data
-        this.setState({[eventName]: eventValue});
+        this.setState({[name]: value});
 
         if(!isEmpty(this.props.errors)){
             this.props.clearErrors();
         }
-        this.setState({message: {type: null}}); // reset to null
+        this.setState({
+            message: {},
+            errors: {}
+        }); // reset to null
         if(!isEmpty(this.props.success)){
             this.props.clearSuccess();
         }
@@ -157,26 +191,29 @@ class EditClient extends Component {
 
         // Clear errors
         this.props.clearErrors();
-        this.setState({errors: {}});
+        this.setState({
+            message: {},
+            errors: {}}
+            );
 
         // Check if any data has been changed, don't want to waste server load and bandwidth on empty requests
         let dataChanged = false;
         // Set errors using spread operator on nested state (only calls setState once)
         let errors = {...this.state.errors};
+        const {client_data, FullName, Email, ContactNumber, DateOfBirth, Sex, Password, Password2} = this.state;
 
         const editData = {
-            FullName: this.state.FullName,
-            Email: this.state.Email,
-            ContactNumber: this.state.ContactNumber,
-            DateOfBirth: this.state.DateOfBirth,
-            Sex: this.state.Sex,
-            Password: this.state.Password,
-            Password2: this.state.Password2
+            FullName: FullName,
+            Email: Email,
+            ContactNumber: ContactNumber,
+            DateOfBirth: DateOfBirth,
+            Sex: Sex,
+            Password: Password,
+            Password2: Password2
         };
 
         // Use client data supplied to form for managing form field data after data has been submitted (keeps view the same whilst resetting
         // state.FullName etc.
-        let client_data = this.state.client_data;
 
         // Check if any of the fields have been modified.
         for(let element in editData) {
@@ -193,33 +230,37 @@ class EditClient extends Component {
             }
         }
 
-        let message;
-
         if (!dataChanged){
-            message = {
-                type: "ERROR",
-                msg: "No data has been modified!"
-            };
-            this.setState({message});
+            this.setState({
+                message: {
+                    type: "ERROR",
+                    msg: "No data has been modified!"
+                }
+            });
             this.props.setErrors(errors);
             return null;
         }
-        else if (!(this.state.Password === this.state.Password2)) {
+        else if (!(Password === Password2)) {
             errors.Password = "Passwords must match";
             errors.Password2 = "Passwords must match";
             this.props.passwordsMatchError(errors);
             return null;
         }
         else {
-            this.props.editClientData(this.state.clientId, editData, this.props.history);
+            if(this.props.authenticatedUser.user.pt){
+                this.props.ptEditClientData(this.state.clientId, editData);
+            }
+            else{
+                this.props.clientEditData(editData);
+            }
             // Clear password match errors
             this.props.clearErrors();
             this.setState({
-                FullName : this.state.FullName,
-                Email : this.state.Email,
-                ContactNumber : this.state.ContactNumber,
-                Sex: this.state.Sex,
-                DateOfBirth: this.state.DateOfBirth,
+                FullName : FullName,
+                Email : Email,
+                ContactNumber : ContactNumber,
+                Sex: Sex,
+                DateOfBirth: DateOfBirth,
                 Password: '',
                 Password2: '',
                 client_data: client_data
@@ -228,7 +269,9 @@ class EditClient extends Component {
     };
 
     render() {
-        const client_data = this.state.client_data;
+        let {client_data, errors, message, FullName, Email, ContactNumber, profilePicture,
+        DateOfBirth, Values, Password, Password2
+        } = this.state;
 
         if(client_data === null){
             return <Loading myClassName="loading_container"/>
@@ -237,8 +280,6 @@ class EditClient extends Component {
             return <ErrorComponent/>
         }
         else {
-            let {errors, message} = this.state;
-
             return (
                 <div className="edit_client">
                     <div className="container  edit_client-custom">
@@ -246,9 +287,14 @@ class EditClient extends Component {
                             <div className="m-auto col-md-8">
                                 <h1 className=" text-center display-5">Edit Client Profile</h1>
                                 <div className="edit_image">
-                                    <Link to={`upload_profile_picture`}>
-                                        <ProfileImage image={this.state.profilePicture} />
-                                    </Link>
+                                    {!this.props.authenticatedUser.user.pt ?
+                                        <Link to={`upload_profile_picture`}>
+                                            <ProfileImage image={profilePicture} />
+                                            <h5>Upload Picture</h5>
+                                        </Link>
+                                        :
+                                        <ProfileImage image={profilePicture} />
+                                    }
                                 </div>
                                 <form autoComplete="off" onSubmit={this.onSubmit}>
                                     {/*// Deals with Chromes password auto complete*/}
@@ -256,8 +302,8 @@ class EditClient extends Component {
                                     <FormInputGroup
                                         myClassName="edit-client"
                                         name="FullName"
-                                        placeholder={this.state.client_data.FullName}
-                                        value={this.state.FullName}
+                                        placeholder={FullName}
+                                        value={FullName}
                                         type="text"
                                         onChange={this.valueChange}
                                         error={errors.FullName}
@@ -266,7 +312,7 @@ class EditClient extends Component {
                                         myClassName="edit-client"
                                         name="Email"
                                         placeholder="Email"
-                                        value={this.state.Email}
+                                        value={Email}
                                         type="Email"
                                         onChange={this.valueChange}
                                         error={errors.Email}
@@ -275,7 +321,7 @@ class EditClient extends Component {
                                         myClassName="edit-client"
                                         name="ContactNumber"
                                         placeholder="ContactNumber"
-                                        value={this.state.ContactNumber}
+                                        value={ContactNumber}
                                         type="text"
                                         onChange={this.valueChange}
                                         error={errors.ContactNumber}
@@ -288,7 +334,7 @@ class EditClient extends Component {
                                             < FormInputGroup
                                                 myClassName="edit-exercise"
                                                 name="DateOfBirth"
-                                                value={this.state.DateOfBirth.toString()}
+                                                value={DateOfBirth.toString()}
                                                 type="date"
                                                 onChange={this.valueChange}
                                                 error={errors.DateOfBirth}
@@ -302,7 +348,7 @@ class EditClient extends Component {
                                             <FormSelectComp
                                                 name="Sex"
                                                 id="Sex"
-                                                values={this.state.values}
+                                                values={Values}
                                                 onChange={this.valueChange}
                                                 error={errors.Sex}
                                             />
@@ -312,7 +358,7 @@ class EditClient extends Component {
                                         myClassName="edit-client"
                                         name="Password"
                                         placeholder="Enter Password"
-                                        value={this.state.Password}
+                                        value={Password}
                                         type="password"
                                         onChange={this.valueChange}
                                         error={errors.Password}
@@ -320,14 +366,14 @@ class EditClient extends Component {
                                     <FormInputGroup
                                         name="Password2"
                                         placeholder="Confirm Password"
-                                        value={this.state.Password2}
+                                        value={Password2}
                                         type="password"
                                         onChange={this.valueChange}
                                         error={errors.Password2}
                                     />
                                     <DisplayMessage message={message}/>
                                     <input type="submit" value="Update" className="btn btn-info btn-block mt-1"/>
-                                    <button type="button" className="btn btn-danger btn-block mt-3 mb-3" onClick={this.props.history.goBack}>Back</button>
+                                    <button type="button" className="btn btn-success btn-block mt-3 mb-3" onClick={this.props.history.goBack}>Back</button>
                                 </form>
                             </div>
                         </div>
@@ -340,13 +386,15 @@ class EditClient extends Component {
 
 // Documents what props are needed for this component and will log a warning in the console in dev mode if not complied to
 EditClient.propTypes = {
-    getClientData: PropTypes.func.isRequired,
-    getCurrentClient: PropTypes.func.isRequired,
+    clientGetData: PropTypes.func.isRequired,
+    clientEditData: PropTypes.func.isRequired,
+    ptGetCurrentClient: PropTypes.func.isRequired,
+    ptGetClients: PropTypes.func.isRequired,
     clearErrors: PropTypes.func.isRequired,
     setErrors: PropTypes.func.isRequired,
     setSuccess: PropTypes.func.isRequired,
     clearSuccess: PropTypes.func.isRequired,
-    clearCurrentClient: PropTypes.func.isRequired,
+    ptClearCurrentClientProfile: PropTypes.func.isRequired,
     passwordsMatchError: PropTypes.func.isRequired,
     authenticatedUser: PropTypes.object.isRequired,
     ptProfile: PropTypes.object.isRequired,
@@ -363,4 +411,16 @@ const stateToProps = (state) => ({
     success: state.success
 });
 
-export default connect(stateToProps, {getClientData, getCurrentClient ,editClientData, passwordsMatchError, setErrors, setSuccess, clearErrors, clearSuccess, clearCurrentClient})(withRouter(EditClient));
+export default connect(stateToProps, {
+    clientGetData,
+    clientEditData,
+    ptGetCurrentClient,
+    ptEditClientData,
+    passwordsMatchError,
+    setErrors,
+    setSuccess,
+    clearErrors,
+    clearSuccess,
+    ptClearCurrentClientProfile,
+    ptGetClients
+})(withRouter(EditClient));
