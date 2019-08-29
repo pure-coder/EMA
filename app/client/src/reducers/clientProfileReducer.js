@@ -19,7 +19,7 @@ const initialState = {
     profile_notes: null,
     body_bio: null,
     client_progression: null,
-    next_workouts: null,
+    client_next_workouts: null,
     clientLoading: false
 };
 
@@ -92,7 +92,7 @@ export default function(state = initialState, action) {
         case CLIENT_NEXT_WORKOUTS:
             return {
                 ...state,
-                next_workouts: action.payload
+                client_next_workouts: action.payload
             };
         default:
             return state;

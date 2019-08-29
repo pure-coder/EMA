@@ -37,7 +37,7 @@ class ClientData extends Component {
         else {
             return (
                 <div className="row">
-                    <div className="m-auto col-md-10">
+                    <div className="m-auto client_data_div">
                         <h3 className="mt-5 mb-3">Client Links</h3>
                         <table className="table client-table">
                             <thead>

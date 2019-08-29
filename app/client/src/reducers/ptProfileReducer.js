@@ -27,7 +27,7 @@ const initialState = {
     scheduler: null,
     profile_notes: null,
     body_bio: null,
-    next_workouts: null,
+    pt_next_workouts: null,
     ptLoading: false
 };
 
@@ -125,7 +125,7 @@ export default function(state = initialState, action) {
         case PT_NEXT_WORKOUTS:
             return {
                 ...state,
-                next_workouts: action.payload
+                pt_next_workouts: action.payload
             };
         case PT_PROFILE_EDITED:
             return {

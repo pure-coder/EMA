@@ -32,8 +32,8 @@ class Dashboard extends Component {
 
     componentDidUpdate(prevProps, prevState){
         const {isAuthenticated, user} = this.props.authenticatedUser;
-        const {pt_data, clients, next_workouts} = this.props.ptProfile;
-        const {client_data} = this.props.clientProfile;
+        const {pt_data, clients, pt_next_workouts} = this.props.ptProfile;
+        const {client_data, client_next_workouts} = this.props.clientProfile;
 
         if(isAuthenticated && user.pt){
             if(prevProps.ptProfile.pt_data !== prevState.userData){
@@ -46,9 +46,9 @@ class Dashboard extends Component {
                     clients: clients
                 });
             }
-            if(prevProps.ptProfile.next_workouts !== prevState.nextWorkouts){
+            if(prevProps.ptProfile.pt_next_workouts !== prevState.nextWorkouts){
                 this.setState({
-                    nextWorkouts: next_workouts
+                    nextWorkouts: pt_next_workouts
                 });
             }
         }
@@ -58,9 +58,9 @@ class Dashboard extends Component {
                     userData: client_data,
                 });
             }
-            if(prevProps.clientProfile.next_workouts !== prevState.nextWorkouts){
+            if(prevProps.clientProfile.client_next_workouts !== this.state.nextWorkouts){
                 this.setState({
-                    nextWorkouts: next_workouts
+                    nextWorkouts: client_next_workouts
                 });
             }
         }
@@ -89,8 +89,9 @@ class Dashboard extends Component {
     render() {
         let displayContent;
         const {user, isAuthenticated} = this.props.authenticatedUser;
-        const {clients, pt_data, next_workouts} = this.props.ptProfile;
-        const {client_data} = this.props.clientProfile;
+        const {clients, pt_data, pt_next_workouts} = this.props.ptProfile;
+        const {client_data, client_next_workouts} = this.props.clientProfile;
+
 
         if(user.pt){
             if(!isAuthenticated){
@@ -102,7 +103,7 @@ class Dashboard extends Component {
             if (clients === null){
                 return <Loading myClassName="loading_container"/>
             }
-            if (next_workouts === null){
+            if (pt_next_workouts === null){
                 return <Loading myClassName="loading_container"/>
             }
             else {
@@ -113,7 +114,7 @@ class Dashboard extends Component {
                         <div className="row dashboard_top_row">
                             <div className="dashboard_row">
                                 <UserInfo userData={pt_data}/>
-                                <NextWorkouts nextWorkouts={next_workouts}/>
+                                <NextWorkouts nextWorkouts={pt_next_workouts}/>
                             </div>
                         </div>
                         <ClientList ptData={pt_data} clients={clients}/>
@@ -133,9 +134,13 @@ class Dashboard extends Component {
                 displayContent = (
                     // send clients data to client component, and render client component
                     <div className="dashboard-custom client">
-                        <UserInfo userData={client_data}/>
-                        {/*<NextWorkouts nextWorkouts={next_workouts}/>*/}
-                        <ClientData clientData={client_data}/>
+                        <div className="row dashboard_top_row">
+                            <div className="dashboard_row">
+                                <UserInfo userData={client_data}/>
+                                <NextWorkouts nextWorkouts={client_next_workouts}/>
+                                <ClientData clientData={client_data}/>
+                            </div>
+                        </div>
                     </div>
                 )
             }

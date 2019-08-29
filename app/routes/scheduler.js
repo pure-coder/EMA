@@ -193,63 +193,100 @@ router.post('/:id/scheduler/:cid', passport.authenticate('pt_rule', {session: fa
 }); // router post /scheduler
 
 
-router.get(`/next_workouts`, passport.authenticate('pt_rule',  {session: false}, null), (req, res) => {
+router.get(`/next_workouts`, passport.authenticate('both_rule',  {session: false}, null), (req, res) => {
     // Check authentication of the current user, will also be used to verify if they can access data
     let token = req.headers.authorization.split(' ')[1];
     let payload = jwt.decode(token, keys.secretOrKey);
     const signedInId = payload.id;
+    const isPt = payload.pt;
 
-    PersonalTrainer.findOne({"_id" : signedInId}).populate('ClientIDs')
-        .then(result =>{
-            if(result){
-                // Returned list of populated clients (all client details)
-                const clients = result.ClientIDs;
-                // Return ids of all clients of pt
-                const clientIds = clients.map(client => {
-                    return client._id;
-                });
+    const todaysDate = new Date(Date.now()).toISOString();
 
-                const todaysDate = new Date(Date.now()).toISOString();
-
-                // Find events for clients from todays date, sorting date in ascending order, and limit to 7 returned docs
-                Events.find({'clientId': {$in : clientIds }})
-                    .where('start_date')
-                    .gte(todaysDate)
-                    .sort('start_date')
-                    .limit(5)
-                    .then(eventResults => {
-
-                        let nextWorkouts = [];
-
-                        eventResults.map((event) => {
-                            clients.forEach(client => {
-                                if(client._id.toString() === event.clientId){
-                                    let workout = {
-                                        id: event._id,
-                                        start_date: event.start_date,
-                                        clientName: client.FullName,
-                                        clientImage: client.ProfilePicUrl,
-                                    };
-                                    nextWorkouts.push(workout);
-                                }
-                            });
-                            return null;
-                        });
-
-                        return res.status(200).json(nextWorkouts)
-                    })
-                    .catch(err =>{
-                        return res.status(400).json(err);
+    if(isPt){
+        PersonalTrainer.findOne({"_id" : signedInId}).populate('ClientIDs')
+            .then(result =>{
+                if(result){
+                    // Returned list of populated clients (all client details)
+                    const clients = result.ClientIDs;
+                    // Return ids of all clients of pt
+                    const clientIds = clients.map(client => {
+                        return client._id;
                     });
 
-            }
-            else {
-                return res.status(400).json("Personal Trainer not found.");
-            }
-        })
-        .catch(err => {
-            return res.status(400).json(err);
-        })
+                    // Find events for clients from todays date, sorting date in ascending order, and limit to 7 returned docs
+                    Events.find({'clientId': {$in : clientIds }})
+                        .where('start_date')
+                        .gte(todaysDate)
+                        .sort('start_date')
+                        .limit(5)
+                        .then(eventResults => {
+
+                            let nextWorkouts = [];
+
+                            eventResults.map((event) => {
+                                clients.forEach(client => {
+                                    if(client._id.toString() === event.clientId){
+                                        let workout = {
+                                            id: event._id,
+                                            start_date: event.start_date,
+                                            clientName: client.FullName,
+                                            clientImage: client.ProfilePicUrl,
+                                        };
+                                        nextWorkouts.push(workout);
+                                    }
+                                });
+                                return null;
+                            });
+
+                            return res.status(200).json(nextWorkouts)
+                        })
+                        .catch(err =>{
+                            return res.status(400).json(err);
+                        });
+                }
+                else {
+                    return res.status(400).json("Personal Trainer not found.");
+                }
+            })
+            .catch(err => {
+                return res.status(400).json(err);
+            });
+    }
+    else {
+        console.log(signedInId)
+        // Find events for clients from todays date, sorting date in ascending order, and limit to 7 returned docs
+        Events.find({'clientId': signedInId})
+            .where('start_date')
+            .gte(todaysDate)
+            .sort('start_date')
+            .limit(5)
+            .then(eventResults => {
+
+                // let nextWorkouts = [];
+                // eventResults.map((event) => {
+                //     clients.forEach(client => {
+                //         if(client._id.toString() === event.clientId){
+                //             let workout = {
+                //                 id: event._id,
+                //                 start_date: event.start_date,
+                //                 clientName: client.FullName,
+                //                 clientImage: client.ProfilePicUrl,
+                //             };
+                //             nextWorkouts.push(workout);
+                //         }
+                //     });
+                //     return null;
+                // });
+
+                console.log(eventResults)
+                return res.status(200).json(eventResults)
+            })
+            .catch(err =>{
+                return res.status(400).json(err);
+            });
+    }
+
+
 
 });
 
