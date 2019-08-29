@@ -5,6 +5,8 @@ const router = express.Router();
 const PersonalTrainer = require('../models/PersonalTrainer');
 // Require events
 const Events = require('../models/Events');
+
+const Clients = require('../models/Clients');
 // require jason web tokens
 const jwt = require('jsonwebtoken');
 // jwt keys
@@ -253,35 +255,38 @@ router.get(`/next_workouts`, passport.authenticate('both_rule',  {session: false
             });
     }
     else {
-        console.log(signedInId)
-        // Find events for clients from todays date, sorting date in ascending order, and limit to 7 returned docs
-        Events.find({'clientId': signedInId})
-            .where('start_date')
-            .gte(todaysDate)
-            .sort('start_date')
-            .limit(5)
-            .then(eventResults => {
 
-                // let nextWorkouts = [];
-                // eventResults.map((event) => {
-                //     clients.forEach(client => {
-                //         if(client._id.toString() === event.clientId){
-                //             let workout = {
-                //                 id: event._id,
-                //                 start_date: event.start_date,
-                //                 clientName: client.FullName,
-                //                 clientImage: client.ProfilePicUrl,
-                //             };
-                //             nextWorkouts.push(workout);
-                //         }
-                //     });
-                //     return null;
-                // });
+        Clients.findOne({"_id": signedInId})
+            .then(client => {
+                if(client){
+                    // Find events for clients from todays date, sorting date in ascending order, and limit to 7 returned docs
+                    Events.find({'clientId': signedInId})
+                        .where('start_date')
+                        .gte(todaysDate)
+                        .sort('start_date')
+                        .limit(5)
+                        .then(eventResults => {
 
-                console.log(eventResults)
-                return res.status(200).json(eventResults)
+                            let nextWorkouts = [];
+                            eventResults.map((event) => {
+
+                                        let workout = {
+                                            id: event._id,
+                                            start_date: event.start_date,
+                                            clientName: client.FullName,
+                                            clientImage: client.ProfilePicUrl,
+                                        };
+                                        nextWorkouts.push(workout);
+                                    });
+
+                            return res.status(200).json(nextWorkouts)
+                        })
+                        .catch(err =>{
+                            return res.status(400).json(err);
+                        });
+                }
             })
-            .catch(err =>{
+            .catch(err => {
                 return res.status(400).json(err);
             });
     }

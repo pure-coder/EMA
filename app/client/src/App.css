@@ -1016,6 +1016,7 @@ label.Profile_label {
     width: 425px;
     display: inline-block;
     float: right;
+    margin-right: 15px;
 }
 
 .next_workout img {
