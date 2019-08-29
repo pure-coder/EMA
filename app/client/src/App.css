@@ -978,4 +978,23 @@ label.Profile_label {
      margin: auto;
  }
 
+ /* next workout */
+
+.next_workout_comp {
+    height: 280px;
+    padding: 10px 5px;
+    width: 425px;
+    display: inline-block;
+}
+
+.next_workout img {
+    height: 30px;
+    width: 30px;
+    margin: 3px 0;
+}
+
+.workout {
+    padding: 0 5px;
+}
+
 

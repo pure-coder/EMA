@@ -5,6 +5,7 @@ import {withRouter} from 'react-router-dom';
 import {
     ptGetClients,
     ptGetData,
+    ptNextWorkouts
 } from "../../../actions/ptProfileActions";
 import {
     clientGetData,
@@ -16,19 +17,21 @@ import isEmpty from "../../../utilities/is_empty";
 import ErrorComponent from "../../error/ErrorComponent";
 import UserInfo from "./UserInfo";
 import checkExp from '../../../utilities/checkExp'
+import NextWorkouts from "../../common/NextWorkouts";
 
 class Dashboard extends Component {
     constructor(props){
         super(props);
         this.state = {
             userData: null,
-            clients: null
+            clients: null,
+            nextWorkouts: null
         };
     }
 
     componentDidUpdate(prevProps, prevState){
         const {isAuthenticated, user} = this.props.authenticatedUser;
-        const {pt_data, clients} = this.props.ptProfile;
+        const {pt_data, clients, next_workouts} = this.props.ptProfile;
         const {client_data} = this.props.clientProfile;
 
         if(isAuthenticated && user.pt){
@@ -40,6 +43,11 @@ class Dashboard extends Component {
             if(prevProps.ptProfile.clients !== prevState.clients){
                 this.setState({
                     clients: clients
+                });
+            }
+            if(prevProps.ptProfile.next_workouts !== prevState.nextWorkouts){
+                this.setState({
+                    nextWorkouts: next_workouts
                 });
             }
         }
@@ -63,6 +71,7 @@ class Dashboard extends Component {
         if(this.props.authenticatedUser.user.pt){
             this.props.ptGetData();
             this.props.ptGetClients();
+            this.props.ptNextWorkouts();
         }
         else{
             this.props.clientGetData();
@@ -73,14 +82,20 @@ class Dashboard extends Component {
     render() {
         let displayContent;
         const {user, isAuthenticated} = this.props.authenticatedUser;
-        const {clients, pt_data} = this.props.ptProfile;
+        const {clients, pt_data, next_workouts} = this.props.ptProfile;
         const {client_data} = this.props.clientProfile;
 
         if(user.pt){
             if(!isAuthenticated){
                 return <ErrorComponent/>
             }
-            if (pt_data === null && clients === null){
+            if (pt_data === null){
+                return <Loading myClassName="loading_container"/>
+            }
+            if (clients === null){
+                return <Loading myClassName="loading_container"/>
+            }
+            if (next_workouts === null){
                 return <Loading myClassName="loading_container"/>
             }
             else {
@@ -88,7 +103,10 @@ class Dashboard extends Component {
                 displayContent = (
                     // send clients data to client component, and render client component
                     <div className="dashboard-custom">
-                        <UserInfo userData={pt_data}/>
+                        <div className="row">
+                            <UserInfo userData={pt_data}/>
+                            <NextWorkouts nextWorkouts={next_workouts}/>
+                        </div>
                         <ClientList ptData={pt_data} clients={clients}/>
                     </div>
                 )
@@ -149,4 +167,5 @@ export default connect(stateToProps, {
     ptGetClients,
     ptGetData,
     clientGetData,
+    ptNextWorkouts
 })(withRouter(Dashboard));

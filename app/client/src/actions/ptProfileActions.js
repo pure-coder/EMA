@@ -21,6 +21,7 @@ import {
     UPDATE_PROFILE_PIC_PT,
     PT_PROFILE_EDITED,
     PT_CLIENT_PROFILE_EDITED,
+    PT_NEXT_WORKOUTS
 } from "./types";
 import {manageErrors} from "./errorsAction";
 import {logOutUser} from "./authenticationActions"; // import custom defined types
@@ -325,6 +326,19 @@ export const ptWorkoutScheduler = (userId, clientId) => dispatch => {
         .catch(err => {
             dispatch(manageErrors(err));
         });
+};
+
+export const ptNextWorkouts = () => dispatch => {
+    axios.get(`/api/next_workouts`)
+        .then(result => {
+            dispatch({
+                type: PT_NEXT_WORKOUTS,
+                payload: result.data
+            })
+        })
+        .catch(err =>{
+            dispatch(manageErrors(err));
+        })
 };
 
 export const ptUploadProfilePic = (dataImage, fileName) => dispatch => {
