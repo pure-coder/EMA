@@ -9,7 +9,8 @@ import {
     CLEAR_PROFILE_NOTES,
     BODY_BIO_CLIENT,
     UPDATE_PROFILE_PIC_CLIENT,
-    CLIENT_PROFILE_EDITED
+    CLIENT_PROFILE_EDITED,
+    CLIENT_NEXT_WORKOUTS
 } from "./types"; // import custom defined types
 import {setSuccess} from "./ptProfileActions";
 import {manageErrors} from "./errorsAction";
@@ -27,6 +28,19 @@ export const clientGetData = () => dispatch => {
         .catch(err => {
             dispatch(manageErrors(err));
         });
+};
+
+export const clientNextWorkouts = () => dispatch => {
+    axios.get(`/api/next_workouts`)
+        .then(result => {
+            dispatch({
+                type: CLIENT_NEXT_WORKOUTS,
+                payload: result.data
+            })
+        })
+        .catch(err =>{
+            dispatch(manageErrors(err));
+        })
 };
 
 export const setProfileLoading = () => {

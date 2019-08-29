@@ -11,8 +11,6 @@ const Workout = ({workout, index}) => {
                 <td align="center" className="workout">{date}</td>
                 <td align="center" className="workout">{time}</td>
             </tr>)
-
-
 };
 
 export default Workout;

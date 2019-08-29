@@ -10,7 +10,8 @@ import {
     CLEAR_BODY_BIO_CLIENT,
     UPDATE_PROFILE_PIC_CLIENT,
     CLIENT_PROFILE_EDITED,
-    PT_CLIENT_PROFILE_EDITED
+    PT_CLIENT_PROFILE_EDITED,
+    CLIENT_NEXT_WORKOUTS
 } from '../actions/types';
 
 const initialState = {
@@ -18,6 +19,7 @@ const initialState = {
     profile_notes: null,
     body_bio: null,
     client_progression: null,
+    next_workouts: null,
     clientLoading: false
 };
 
@@ -86,6 +88,11 @@ export default function(state = initialState, action) {
             return {
                 ...state,
                 client_data: action.payload
+            };
+        case CLIENT_NEXT_WORKOUTS:
+            return {
+                ...state,
+                next_workouts: action.payload
             };
         default:
             return state;

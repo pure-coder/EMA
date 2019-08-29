@@ -9,6 +9,7 @@ import {
 } from "../../../actions/ptProfileActions";
 import {
     clientGetData,
+    clientNextWorkouts
 } from "../../../actions/clientProfileActions";
 import ClientList from '../clients/ClientList'
 import Loading from "../../common/Loading/Loading";
@@ -55,7 +56,12 @@ class Dashboard extends Component {
             if(prevProps.clientProfile.client_data !== this.state.userData) {
                 this.setState({
                     userData: client_data,
-                })
+                });
+            }
+            if(prevProps.clientProfile.next_workouts !== prevState.nextWorkouts){
+                this.setState({
+                    nextWorkouts: next_workouts
+                });
             }
         }
     }
@@ -75,6 +81,7 @@ class Dashboard extends Component {
         }
         else{
             this.props.clientGetData();
+            this.props.clientNextWorkouts();
         }
         document.body.scrollTo(0,0);
     } // ComponentDidMount
@@ -127,6 +134,7 @@ class Dashboard extends Component {
                     // send clients data to client component, and render client component
                     <div className="dashboard-custom client">
                         <UserInfo userData={client_data}/>
+                        {/*<NextWorkouts nextWorkouts={next_workouts}/>*/}
                         <ClientData clientData={client_data}/>
                     </div>
                 )
@@ -169,5 +177,6 @@ export default connect(stateToProps, {
     ptGetClients,
     ptGetData,
     clientGetData,
-    ptNextWorkouts
+    ptNextWorkouts,
+    clientNextWorkouts
 })(withRouter(Dashboard));
