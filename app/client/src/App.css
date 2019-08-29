@@ -5,7 +5,7 @@ html, body {
     max-height: 100vh;
     min-height: 100vh;
     max-width: 2560px;
-    min-width: 320px;
+    min-width: 970px;
     /*height: 100%;*/
     overflow: visible;
     overflow-x: hidden;
@@ -358,6 +358,7 @@ label.edit-profile-label {
 .dashboard_row .row {
     float: left;
     width: 100%;
+    margin-left: 0;
 }
 
 .client_data_div {
@@ -365,8 +366,6 @@ label.edit-profile-label {
     width: 100%;
     float: left;
 }
-
-
 
 /* EditClient */
 
@@ -711,6 +710,7 @@ input[type=submit] {
     width: 400px;
     padding: 10px 0;
     display: inline-block;
+    float: left;
 }
 
 .userInfo-custom {
@@ -763,6 +763,7 @@ input[type=submit] {
     min-height: 600px;
     display: flex;
     flex-direction: column;
+    overflow-x: auto;
 }
 .app-header{
     width: 100%;
@@ -1049,4 +1050,14 @@ label.Profile_label {
     min-width: 500px;
 }
 
+.scheduler_row {
+    margin-left: 35px;
+    width: 90%;
+    min-width: 500px;
+}
 
+.client_profile_row {
+    margin-left: 35px;
+    width: 90%;
+    min-width: 500px;
+}

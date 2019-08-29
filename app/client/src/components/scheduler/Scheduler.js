@@ -73,7 +73,9 @@ class Scheduler extends Component {
             return (
                 <div id="scheduler-container">
                     <h1 className=" text-center display-5 mb-3">Workout Schedule</h1>
-                    <UserInfo userData={client_data}/>
+                    <div className="row scheduler_row">
+                        <UserInfo userData={client_data}/>
+                    </div>
                     <SchedulerHTML Data={Data}/>
                 </div>
             );

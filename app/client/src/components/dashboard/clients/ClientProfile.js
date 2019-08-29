@@ -102,7 +102,9 @@ class ClientProfile extends Component {
             return (
                 <div className="client-profile">
                     <h1 className=" text-center display-5 mb-3">Client Profile</h1>
-                    <UserInfo userData={user.pt ? client_data.current_client : client_data.client_data}/>
+                    <div className=" client_profile_row row">
+                        <UserInfo userData={user.pt ? client_data.current_client : client_data.client_data}/>
+                    </div>
                     <div className="row">
                         <div className="col-sm Profile_margin">
                             <BodyGraphs bodyGraphData={client_data.body_bio}/>
