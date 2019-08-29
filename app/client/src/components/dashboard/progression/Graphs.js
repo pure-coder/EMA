@@ -5,13 +5,13 @@ import PropTypes from 'prop-types';
 import GraphComp from './GraphComp';
 import isEmpty from "../../../utilities/is_empty";
 import ErrorComponent from "../../error/ErrorComponent";
-import Loading from "../../../elements/Loading";
+import Loading from "../../common/Loading/Loading";
 import NewClientProgressForm from "./NewClientProgressForm";
 import Modal from "react-awesome-modal";
 import {clientGetProgression} from "../../../actions/clientProfileActions";
 import {ptGetClientProgression, clearErrors, clearSuccess} from "../../../actions/ptProfileActions";
-import {NoProgressDataComp} from "../../common/NoProgessDataComp";
-import {ProgressTitleComp} from "../../common/ProgressTitleComp";
+import {NoProgressDataComp} from "../../common/Progress/NoProgessDataComp";
+import {ProgressTitleComp} from "../../common/Progress/ProgressTitleComp";
 
 class Graphs extends Component {
     // This allows the component states to be up{dated and re-rendered)

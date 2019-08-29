@@ -8,7 +8,10 @@ import {
     CLEAR_PROFILE_NOTES,
     BODY_BIO_CLIENT,
     CLEAR_BODY_BIO_CLIENT,
-    UPDATE_PROFILE_PIC_CLIENT
+    UPDATE_PROFILE_PIC_CLIENT,
+    CLIENT_PROFILE_EDITED,
+    PT_CLIENT_PROFILE_EDITED,
+    CLIENT_NEXT_WORKOUTS
 } from '../actions/types';
 
 const initialState = {
@@ -16,6 +19,7 @@ const initialState = {
     profile_notes: null,
     body_bio: null,
     client_progression: null,
+    client_next_workouts: null,
     clientLoading: false
 };
 
@@ -35,11 +39,7 @@ export default function(state = initialState, action) {
             };
         case CLEAR_CLIENT_PROFILE:
             return {
-                client_data: null,
-                profile_notes: null,
-                body_bio: null,
-                client_progression: null,
-                clientLoading: false
+                ...initialState
             };
         case GET_PROFILE_NOTES:
             return {
@@ -78,6 +78,21 @@ export default function(state = initialState, action) {
                     ...state.client_data,
                     ProfilePicUrl: action.payload
                 }
+            };
+        case CLIENT_PROFILE_EDITED:
+            return {
+                ...state,
+                client_data: action.payload
+            };
+        case PT_CLIENT_PROFILE_EDITED:
+            return {
+                ...state,
+                client_data: action.payload
+            };
+        case CLIENT_NEXT_WORKOUTS:
+            return {
+                ...state,
+                client_next_workouts: action.payload
             };
         default:
             return state;

@@ -8,8 +8,8 @@ import {
     clearErrors,
     clearSuccess,
 } from "../../../actions/ptProfileActions";
-import FormInputGroup from "../../common/FormInputGroup";
-import DisplayMessage from "../../common/DisplayMessage";
+import FormInputGroup from "../../common/Forms/FormInputGroup";
+import DisplayMessage from "../../common/Message/DisplayMessage";
 import isEmpty from "../../../validation/is_empty";
 
 
@@ -37,6 +37,11 @@ class AddDataProgressForm extends Component {
                 progressDate: defaultDate,
                 visible: props.visible,
                 message: {}
+            }
+        }
+        if (!isEmpty(state.errors)){
+            return {
+                message: state.errors
             }
         }
         if (state.errors !== state.message){
@@ -82,7 +87,8 @@ class AddDataProgressForm extends Component {
         }
     }
 
-    static onFocus(){
+    static onFocus(
+    ){
         document.getElementsByName('maxWeight')[0].focus();
     }
 
@@ -147,14 +153,11 @@ class AddDataProgressForm extends Component {
         // Reset/ Clear input fields once modal has been exited
     };
 
-    ptGetClientProgression(){
-        this.props.ptGetClientProgression(this.state.clientId, this.props.history);
-    }
-
     onSubmit = e => {
         e.preventDefault();
         this.setState({
             message: {},
+            errors: {}
         });
         this.props.clearSuccess();
 

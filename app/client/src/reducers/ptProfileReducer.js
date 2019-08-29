@@ -13,7 +13,10 @@ import {
     CLEAR_CLIENT_PROFILE_NOTES,
     PT_CLIENT_BODY_BIO,
     CLEAR_BODY_BIO,
-    UPDATE_PROFILE_PIC_PT, UPDATE_PROFILE_PIC_CURRENT_CLIENT
+    UPDATE_PROFILE_PIC_PT,
+    UPDATE_PROFILE_PIC_CURRENT_CLIENT,
+    PT_PROFILE_EDITED,
+    PT_NEXT_WORKOUTS
 } from '../actions/types';
 
 const initialState = {
@@ -24,6 +27,7 @@ const initialState = {
     scheduler: null,
     profile_notes: null,
     body_bio: null,
+    pt_next_workouts: null,
     ptLoading: false
 };
 
@@ -75,14 +79,7 @@ export default function(state = initialState, action) {
             };
         case PT_CLEAR_PROFILE:
             return {
-                pt_data: null,
-                current_client: null,
-                clients: null,
-                client_progression: null,
-                scheduler: null,
-                profile_notes: null,
-                body_bio: null,
-                ptLoading: false
+                ...initialState
             };
         case CLEAR_CURRENT_CLIENT_PROFILE:
             return {
@@ -124,6 +121,16 @@ export default function(state = initialState, action) {
                     ...state.current_client,
                     ProfilePicUrl: action.payload
                 }
+            };
+        case PT_NEXT_WORKOUTS:
+            return {
+                ...state,
+                pt_next_workouts: action.payload
+            };
+        case PT_PROFILE_EDITED:
+            return {
+                ...state,
+                pt_data: action.payload
             };
         default:
             return state;

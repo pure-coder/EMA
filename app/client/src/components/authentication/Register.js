@@ -4,8 +4,10 @@ import { connect } from 'react-redux' // Needed when using redux inside a compon
 import {registerUser} from "../../actions/authenticationActions"; // Used to import create action for registering user
 import {clearErrors, clearSuccess} from "../../actions/ptProfileActions";
 import {withRouter} from 'react-router-dom';
-import FormInputGroup from "../common/FormInputGroup";
-import FormSelectComp from "../common/FormSelectComp"; // Allows proper routing and linking using browsers match, location, and history properties
+import FormInputGroup from "../common/Forms/FormInputGroup";
+import FormSelectComp from "../common/Forms/FormSelectComp";
+import isEmpty from "../../utilities/is_empty";
+import DisplayMessage from "../common/Message/DisplayMessage"; // Allows proper routing and linking using browsers match, location, and history properties
 
 
 class Register extends Component {
@@ -19,33 +21,35 @@ class Register extends Component {
             Sex: '',
             Password: '',
             Password2: '',
-            values : [
+            Values : [
                 "Male",
                 "Female"
             ],
             success: undefined,
-            errors: {}
+            errors: {},
+            message: {}
         };
     }
 
-    static getDerivedStateFromProps(nextProps) {
+    static getDerivedStateFromProps(nextProps, state) {
         // Check if isAuthenticated is true then redirect to the dashboard
         if (nextProps.authenticatedUser.isAuthenticated) {
             nextProps.history.push('/users/' + nextProps.authenticatedUser.user.id + '/dashboard');
             return null
         }
 
-        // If property (nextProps) contains errors (contains the "errors" prop) then set the component state of errors
-        // defined in the constructor above to the errors that was sent to it via the dispatch call from
-        // authenicationActions.js
-        if (nextProps.errors) {
+        if(!isEmpty(state.errors)){
             return {
-                errors: nextProps.errors,
-                success: nextProps.success,
+                errors: state.errors
             }
         }
-
-        return null;
+        if (nextProps !== state) {
+            return {
+                errors: nextProps.errors,
+                message: nextProps.success,
+            }
+        }
+        return null
     }
 
     componentDidMount() {
@@ -54,11 +58,29 @@ class Register extends Component {
         document.body.scrollTo(0,0);
     }
 
+    componentWillUnmount(){
+        this.props.clearErrors();
+        this.props.clearSuccess();
+    }
+
     // This captures what the user types and sets the specific input to the respective state variable
     onChange = event => {
-        // event.target.name is used instead of a specific named state (ie "event.target.FullName") as there is more then
-        // one, making it easier to capture all of them with this onChange function.
-        this.setState({[event.target.name]: event.target.value})
+        const {name, value} = event.target;
+
+        if(name === 'FullName' && value.length > 25){
+            this.setState({
+                errors: {
+                    FullName: "Full Name must be less than 25 characters."
+                }
+            });
+            return null;
+        }
+
+        this.setState({
+            [name]: value,
+            message: {},
+            errors: {}
+        })
     };
 
     onSubmit = event => {
@@ -68,15 +90,20 @@ class Register extends Component {
 
         // Clear errors messages
         this.props.clearErrors();
-        this.setState({errors: {}});
+        this.setState({
+            errors: {},
+            message: {}
+        });
+
+        const {FullName, DateOfBirth, Email, Sex, Password, Password2} = this.state;
 
         const newUser = {
-            FullName: this.state.FullName,
-            Email: this.state.Email,
-            DateOfBirth: this.state.DateOfBirth,
-            Sex: this.state.Sex,
-            Password: this.state.Password,
-            Password2: this.state.Password2
+            FullName: FullName,
+            Email: Email,
+            DateOfBirth: DateOfBirth,
+            Sex: Sex,
+            Password: Password,
+            Password2: Password2
         };
 
         // If no errors occur then register user
@@ -84,7 +111,7 @@ class Register extends Component {
     };
 
     render() {
-        const {errors} = this.state; // This allows errors to be pulled out of this.state with pulling them out directly
+        const {errors, FullName, DateOfBirth, Email, Password, Password2, Values, message} = this.state; // This allows errors to be pulled out of this.state with pulling them out directly
 
         return (
             <div className="register">
@@ -98,7 +125,7 @@ class Register extends Component {
                                     myClassName="register-pt"
                                     name="FullName"
                                     placeholder="Full Name"
-                                    value={this.state.FullName}
+                                    value={FullName}
                                     type="text"
                                     onChange={this.onChange}
                                     error={errors.FullName}
@@ -107,7 +134,7 @@ class Register extends Component {
                                     myClassName="register-pt"
                                     name="Email"
                                     placeholder="Email Address"
-                                    value={this.state.Email}
+                                    value={Email}
                                     type="Email"
                                     onChange={this.onChange}
                                     error={errors.Email}
@@ -120,7 +147,7 @@ class Register extends Component {
                                         < FormInputGroup
                                             myClassName="edit-exercise"
                                             name="DateOfBirth"
-                                            value={this.state.DateOfBirth}
+                                            value={DateOfBirth}
                                             type="date"
                                             onChange={this.onChange}
                                             error={errors.DateOfBirth}
@@ -134,7 +161,7 @@ class Register extends Component {
                                         <FormSelectComp
                                             name="Sex"
                                             id="Sex"
-                                            values={this.state.values}
+                                            values={Values}
                                             onChange={this.onChange}
                                             error={errors.Sex}
                                         />
@@ -144,7 +171,7 @@ class Register extends Component {
                                     myClassName="register-pt"
                                     name="Password"
                                     placeholder="Enter Password"
-                                    value={this.state.password}
+                                    value={Password}
                                     type="Password"
                                     onChange={this.onChange}
                                     error={errors.Password}
@@ -152,12 +179,12 @@ class Register extends Component {
                                 <FormInputGroup
                                     name="Password2"
                                     placeholder="Confirm Password"
-                                    value={this.state.password2}
+                                    value={Password2}
                                     type="Password"
                                     onChange={this.onChange}
                                     error={errors.Password2}
                                 />
-                                <div className="text-success">{this.state.success !== undefined ? this.state.success.msg: null}</div>
+                                <DisplayMessage message={message}/>
                                 <input type="submit" value="Register" className="btn btn-info btn-block mt-4 mb-5"/>
                             </form>
                         </div>
@@ -182,12 +209,6 @@ const stateToProps = (state) => ({
     authenticatedUser: state.authenticatedUser,
     errors: state.errors,
     success: state.success
-    });
+});
 
-
-/* connect has stateToProps for the 1st parameter which is used to retrieve the current state of the redux store, the parameter is used to for the action, which is used to change the current state of the redux store. Remember that the redux-store cannot be directly accessed, this is done via actions.
-
-
- Connect must be exported with a passed parameter (not direct parameter) of Register this is wrapped with withRouter function that is part of the react-router-dom package. This allows
- the functions of the package to be used with the component (in this case Register) eg, proper routing, and direct parameters */
 export default connect(stateToProps, { registerUser, clearErrors, clearSuccess })(withRouter(Register));

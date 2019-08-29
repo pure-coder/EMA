@@ -4,8 +4,8 @@ import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import {ptNewClientProgress, setErrors, clearErrors, clearSuccess} from "../../../actions/ptProfileActions";
 import autocomplete from '../../../utilities/autoComplete';
-import FormInputGroup from "../../common/FormInputGroup";
-import DisplayMessage from "../../common/DisplayMessage";
+import FormInputGroup from "../../common/Forms/FormInputGroup";
+import DisplayMessage from "../../common/Message/DisplayMessage";
 import isEmpty from "../../../validation/is_empty";
 
 
@@ -57,10 +57,15 @@ class NewClientProgressForm extends Component {
     static getDerivedStateFromProps(props, state) {
         if (props.visible !== state.visible) {
             let defaultDate = new Date(Date.now()).toISOString().substring(0, 10);
+            props.clearErrors();
+            props.clearSuccess();
             return {
                 progressDate: defaultDate,
                 visible: props.visible,
-                message: {}
+                exerciseName: '',
+                maxWeight: '',
+                message: {},
+                errors: {}
             }
         }
         if (state.errors !== state.message){
@@ -77,9 +82,6 @@ class NewClientProgressForm extends Component {
             return {
                 message: props.success
             }
-        }
-        if(isEmpty(props.errors)){
-            NewClientProgressForm.onFocus();
         }
         return null
     }
@@ -128,6 +130,7 @@ class NewClientProgressForm extends Component {
                     maxWeight: "Max Weight must be a numerical value between 0-999"
                 }
             });
+            return null;
         }
         else if(name === 'maxWeight' && value.length > 3){
             this.setState({
@@ -177,8 +180,6 @@ class NewClientProgressForm extends Component {
         this.props.onClickAway();
         // Clear errors once the modal has been exited
         this.props.clearErrors();
-        this.setState({message: {}});
-        // Reset/ Clear input fields once modal has been exited
         this.setState({
             exerciseName: '',
             maxWeight: '',
@@ -193,10 +194,6 @@ class NewClientProgressForm extends Component {
         let selectedBodyPart = document.getElementById("exerciseName").value;
         this.setState({exerciseName: selectedBodyPart });
     };
-
-    static onFocus(){
-        document.getElementsByName('maxWeight')[0].focus();
-    }
 
     onSubmit = e => {
         e.preventDefault();
@@ -279,6 +276,7 @@ class NewClientProgressForm extends Component {
                         <FormInputGroup
                             name="maxWeight"
                             PlaceHolder="Max Weight"
+                            id="maxWeight"
                             value={maxWeight}
                             type="text"
                             onChange={this.onChange}

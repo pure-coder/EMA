@@ -5,7 +5,7 @@ html, body {
     max-height: 100vh;
     min-height: 100vh;
     max-width: 2560px;
-    min-width: 320px;
+    min-width: 970px;
     /*height: 100%;*/
     overflow: visible;
     overflow-x: hidden;
@@ -142,6 +142,14 @@ label {
         height: 100% !important;
         margin-bottom: 50px;
     }
+
+}
+
+
+@media only Screen and (max-width: 880px){
+    .no_workout, .next_workout_comp {
+        float: left !important;
+}
 }
 
 /* Landing page */
@@ -250,9 +258,17 @@ button.dashboard-new-client , button.dashboard-edit-own-profile {
 
 /* EditClient */
 
+.edit_client h5 {
+    margin-left: 18px;
+}
+
+.edit_client a:hover {
+    text-decoration: none;
+}
+
 .edit-profile-date-div{
     width: 400px;
-    height: 150px;
+    height: 160px;
     margin: 0;
 }
 
@@ -283,7 +299,7 @@ label.edit-profile-label {
 
 .edit_image {
     margin: auto;
-    width: 150px;
+    width: 170px;
 }
 
 .edit_client .edit_image img {
@@ -295,9 +311,6 @@ label.edit-profile-label {
     padding-right: 0;
 }
 
-/*.edit-profile-date-div .invalid-feedback {*/
-    /*display: block;*/
-/*}*/
 
 .edit-gender-div {
     width: 450px;
@@ -340,6 +353,19 @@ label.edit-profile-label {
     min-width: 400px;
 }
 
+/* client_data */
+
+.dashboard_row .row {
+    float: left;
+    width: 100%;
+    margin-left: 0;
+}
+
+.client_data_div {
+    min-width: 400px;
+    width: 100%;
+    float: left;
+}
 
 /* EditClient */
 
@@ -651,7 +677,6 @@ input[type=submit] {
 
 .register-client, .register-pt, .edit-client, .edit-pt {
     height: 62px;
-    margin-top: 20px;
 }
 
 .text-success {
@@ -682,9 +707,10 @@ input[type=submit] {
 /* UserInfo */
 
 .userInfo-container {
-    min-width: 400px;
-    margin-left: 50px;
+    width: 400px;
     padding: 10px 0;
+    display: inline-block;
+    float: left;
 }
 
 .userInfo-custom {
@@ -703,7 +729,7 @@ input[type=submit] {
     width: 130px;
     height: 130px;
     border: solid 1px black;
-    padding-right: 0;
+    margin-left: 1px;
 }
 
 .user_data {
@@ -737,6 +763,7 @@ input[type=submit] {
     min-height: 600px;
     display: flex;
     flex-direction: column;
+    overflow-x: auto;
 }
 .app-header{
     width: 100%;
@@ -974,4 +1001,63 @@ label.Profile_label {
      margin: auto;
  }
 
+ /* next workout */
 
+.next_workout_comp {
+    height: 265px;
+    padding: 10px 5px;
+    width: 425px;
+    display: inline-block;
+    float: right;
+}
+
+.no_workout {
+    height: 100px;
+    padding: 10px 5px;
+    width: 425px;
+    display: inline-block;
+    float: right;
+    margin-right: 15px;
+}
+
+.next_workout img {
+    height: 30px;
+    width: 30px;
+    margin: 3px 0;
+}
+
+.next_workout td {
+    padding: 0;
+    vertical-align: middle;
+}
+
+.next_workout_comp th {
+    padding: 3px 0;
+}
+
+.workout {
+    padding: 0 5px;
+}
+
+.dashboard_top_row {
+    display: flex;
+    justify-content: space-between;
+}
+
+.dashboard_row {
+    margin-left: 50px;
+    width: 90%;
+    min-width: 500px;
+}
+
+.scheduler_row {
+    margin-left: 35px;
+    width: 90%;
+    min-width: 500px;
+}
+
+.client_profile_row {
+    margin-left: 35px;
+    width: 90%;
+    min-width: 500px;
+}

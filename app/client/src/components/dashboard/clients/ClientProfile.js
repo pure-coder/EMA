@@ -7,26 +7,18 @@ import {
     ptGetClientProgression,
     ptGetClientBodyBio,
     ptGetClientProfileNotes,
-    ptClearCurrentClientProfile,
-    ptClearClientProgression,
-    ptClearClientBodyBio,
-    ptClearClientProfileNotes,
 } from "../../../actions/ptProfileActions";
 import {
     clientGetData,
     clientGetProgression,
     clientGetBodyBio,
     clientGetProfileNotes,
-    clientClearProfile,
-    clientClearProgression,
-    clientClearBodyBio,
-    clientClearProfileNotes,
 } from "../../../actions/clientProfileActions";
 import Graphs from "../progression/Graphs";
 // import NewClientProgressForm from "../progression/NewClientProgressForm";
 // import Modal from 'react-awesome-modal';
 import ErrorComponent from "../../error/ErrorComponent";
-import Loading from "../../../elements/Loading";
+import Loading from "../../common/Loading/Loading";
 import UserInfo from "../profile/UserInfo";
 import ProfileNotes from "../profileNotes/ProfileNotes";
 import BodyGraphs from "../bodyBio/BodyGraphs";
@@ -38,7 +30,7 @@ class ClientProfile extends Component {
     constructor(props){
         super(props);
         this.state = {
-            clientData: props.authenticatedUser.user.pt ? props.ptProfile : props.clientProfile,
+            client_data: null,
         };
     }
 
@@ -46,20 +38,20 @@ class ClientProfile extends Component {
         if(prevProps.authenticatedUser.user.pt){
             if(prevProps.ptProfile !== prevState.clientData){
                 return {
-                    clientData: prevProps.ptProfile
+                    client_data: prevProps.ptProfile
                 }
             }
         }
         else{
             if(prevProps.clientProfile !== prevState.clientData){
                 return {
-                    clientData: prevProps.clientProfile
+                    client_data: prevProps.clientProfile
                 }
             }
         }
-
         return null
     }
+
 
     componentDidMount() {
         const {isAuthenticated} = this.props.authenticatedUser;
@@ -73,49 +65,33 @@ class ClientProfile extends Component {
             this.props.ptGetClientProfileNotes(this.props.match.params.cid);
         }
         else{
-            this.props.clientGetData(this.props.authenticatedUser.user.id);
-            this.props.clientGetBodyBio(this.props.authenticatedUser.user.id);
-            this.props.clientGetProgression(this.props.authenticatedUser.user.id);
-            this.props.clientGetProfileNotes(this.props.authenticatedUser.user.id);
+            this.props.clientGetData();
+            this.props.clientGetBodyBio();
+            this.props.clientGetProgression();
+            this.props.clientGetProfileNotes();
         }
 
     } // did mount
 
-    componentWillUnmount(){
-        // This got rid of the Date: null bug for now, need to find route cause!!!
-        if(this.props.authenticatedUser.user.pt){
-            this.props.ptClearCurrentClientProfile(this.props.match.params.cid, this.props.history);
-            this.props.ptClearClientProgression(this.props.match.params.cid, this.props.history);
-            this.props.ptClearClientBodyBio(this.props.match.params.cid, this.props.history);
-            this.props.ptClearClientProfileNotes(this.props.match.params.cid, this.props.history);
-        }
-        else{
-            this.props.clientClearProfile(this.props.authenticatedUser.user.id, this.props.history);
-            this.props.clientClearBodyBio(this.props.authenticatedUser.user.id, this.props.history);
-            this.props.clientClearProfileNotes(this.props.authenticatedUser.user.id, this.props.history);
-            this.props.clientClearProgression(this.props.authenticatedUser.user.id, this.props.history);
-        }
-    }
-
     render() {
         const {user, isAuthenticated} = this.props.authenticatedUser;
-        const {clientData} = this.state;
+        const {client_data} = this.state;
 
         if(user.pt){
-            if (clientData.current_client === null ||
-                clientData.body_bio === null ||
-                clientData.client_progression === null ||
-                clientData.profile_notes === null ||
-                clientData.ptLoading) {
+            if (client_data === null ||
+                client_data.body_bio === null ||
+                client_data.client_progression === null ||
+                client_data.profile_notes === null
+            ) {
                 return <Loading myClassName="loading_container"/>
             }
         }
         else {
-            if (clientData.client_data === null ||
-                clientData.body_bio === null ||
-                clientData.client_progression === null ||
-                clientData.profile_notes === null ||
-                clientData.clientLoading) {
+            if (client_data === null ||
+                client_data.body_bio === null ||
+                client_data.client_progression === null ||
+                client_data.profile_notes === null
+            ){
                 return <Loading myClassName="loading_container"/>
             }
         }
@@ -126,15 +102,16 @@ class ClientProfile extends Component {
             return (
                 <div className="client-profile">
                     <h1 className=" text-center display-5 mb-3">Client Profile</h1>
-                    <UserInfo userData={user.pt ? clientData.current_client
-                        : clientData.client_data}/>
+                    <div className=" client_profile_row row">
+                        <UserInfo userData={user.pt ? client_data.current_client : client_data.client_data}/>
+                    </div>
                     <div className="row">
                         <div className="col-sm Profile_margin">
-                            <BodyGraphs bodyGraphData={clientData.body_bio}/>
-                            <Graphs graphData={clientData.client_progression}/>
+                            <BodyGraphs bodyGraphData={client_data.body_bio}/>
+                            <Graphs graphData={client_data.client_progression}/>
                         </div>
                         <div className="col-sm">
-                            <ProfileNotes data={clientData.profile_notes}/>
+                            <ProfileNotes data={client_data.profile_notes}/>
                         </div>
                     </div>
                 </div>
@@ -153,10 +130,10 @@ ClientProfile.propTypes = {
 
 // Used to pull auth state and errors into this component
 const stateToProps = (state) => ({
-        authenticatedUser: state.authenticatedUser,
-        clientProfile: state.clientProfile,
-        ptProfile: state.ptProfile,
-        errors: state.errors
+    authenticatedUser: state.authenticatedUser,
+    clientProfile: state.clientProfile,
+    ptProfile: state.ptProfile,
+    errors: state.errors
 });
 
 export default connect(stateToProps, {
@@ -164,16 +141,8 @@ export default connect(stateToProps, {
     ptGetClientProgression,
     ptGetClientBodyBio,
     ptGetClientProfileNotes,
-    ptClearCurrentClientProfile,
-    ptClearClientProgression,
-    ptClearClientBodyBio,
-    ptClearClientProfileNotes,
     clientGetData,
     clientGetProgression,
     clientGetBodyBio,
     clientGetProfileNotes,
-    clientClearProfile,
-    clientClearProgression,
-    clientClearBodyBio,
-    clientClearProfileNotes,
 })(withRouter(ClientProfile));

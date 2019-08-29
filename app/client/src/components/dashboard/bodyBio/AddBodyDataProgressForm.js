@@ -8,8 +8,8 @@ import {
     clearErrors,
     clearSuccess
 } from "../../../actions/ptProfileActions";
-import FormInputGroup from "../../common/FormInputGroup";
-import DisplayMessage from "../../common/DisplayMessage";
+import FormInputGroup from "../../common/Forms/FormInputGroup";
+import DisplayMessage from "../../common/Message/DisplayMessage";
 import isEmpty from "../../../validation/is_empty";
 
 
@@ -36,6 +36,11 @@ class AddBodyDataProgressForm extends Component {
                 progressDate: defaultDate,
                 visible: props.visible,
                 message: {}
+            }
+        }
+        if (!isEmpty(state.errors)){
+            return {
+                message: state.errors
             }
         }
         if (state.errors !== state.message){
@@ -149,6 +154,7 @@ class AddBodyDataProgressForm extends Component {
         e.preventDefault();
         this.setState({
             message: {},
+            errors: {}
         });
         this.props.clearSuccess();
 
@@ -222,7 +228,6 @@ class AddBodyDataProgressForm extends Component {
                             error={errors.Date || errors.progressDate}
                         />
                         <DisplayMessage message={message}/>
-                        {/*<div className="valid-feedback">{this.state.success.msg}</div>*/}
                         <input type="submit" value="Submit" className="btn btn-info btn-block mt-4 mb-5"/>
                     </form>
                 </div>

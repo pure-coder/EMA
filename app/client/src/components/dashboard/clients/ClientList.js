@@ -2,20 +2,17 @@ import {connect} from 'react-redux';
 import React, {Component} from 'react';
 import {Link, withRouter} from 'react-router-dom';
 // import {ptDeleteClient, ptGetClientProgression} from "../../../actions/ptProfileActions";
-import PropTypes from "prop-types";
 import Modal from "react-awesome-modal";
 import DeleteConfirm from './DeleteConfirm'
 import isEmpty from "../../../utilities/is_empty";
 import ErrorComponent from "../../error/ErrorComponent";
-import Loading from "../../../elements/Loading";
 
 class ClientList extends Component {
     constructor(props) {
         super(props);
         this.state = {
             loaded: false,
-            clientId: props.authenticatedUser.clientId || props.match.params.cid,
-            deleteId: "",
+            clientId: '',
             ptId: "",
             clientName: "",
             visible: false,
@@ -27,7 +24,7 @@ class ClientList extends Component {
     openModal = (cId, ptId, clientName) => {
         this.setState({
             visible: true,
-            cid: cId,
+            clientId: cId,
             ptId: ptId,
             clientName: clientName
         })
@@ -58,10 +55,8 @@ class ClientList extends Component {
 
     render() {
         const {user} = this.props.authenticatedUser;
-        const {ptData} = this.props;
-        if (ptData.ptLoading) {
-            return <Loading myClassName="loading_container"/>
-        }
+        const {ptData, clients} = this.props;
+
         if(isEmpty(user)){
             return <ErrorComponent/>
         }
@@ -69,22 +64,22 @@ class ClientList extends Component {
             // check clients are set properly
 
             // Use sortedMap function to sort the client names and then send to view
-            const ptClients = this.sortedMap(ptData.clients).map((client, index) => (
+            const ptClients = this.sortedMap(clients).map((client, index) => (
                 <tr key={client._id} className={index % 2 === 0 ? "odd-row" : "even-row"}>
                     <td><b>{client.FullName}</b></td>
                     <td align="center">
-                        <Link to={`/users/${ptData.pt_data._id}/client_profile/${client._id}`}>
+                        <Link to={`/users/${ptData._id}/client_profile/${client._id}`}>
                             <i className="fas fa-columns fa-2x"></i>
                         </Link>
 
                     </td>
                     <td align="center">
-                        <Link to={`/users/${ptData.pt_data._id}/scheduler/${client._id}`}><i
+                        <Link to={`/users/${ptData._id}/scheduler/${client._id}`}><i
                             className="far fa-calendar-alt fa-2x"></i>
                         </Link>
                     </td>
                     <td align="center">
-                        <Link to={`/users/$${ptData.pt_data._id}/edit_client/${client._id}`}><i
+                        <Link to={`/users/${ptData._id}/edit_client/${client._id}`}><i
                             className="fas fa-edit fa-2x"></i>
                         </Link>
                     </td>
@@ -138,7 +133,7 @@ class ClientList extends Component {
                            onClickAway={this.clickAway}
                     >
                         <DeleteConfirm name={this.state.clientName}
-                                       clientId={this.state.deleteId}
+                                       clientId={this.state.clientId}
                                        ptId={this.state.ptId}
                                        onClickAway={this.clickAway}
                                        visible={this.state.visible}
@@ -152,13 +147,6 @@ class ClientList extends Component {
         }
     }
 }
-
-ClientList.propTypes = {
-    // ptDeleteClient: PropTypes.func.isRequired,
-    // ptGetClientProgression: PropTypes.func.isRequired,
-    // ptProfile: PropTypes.object.isRequired
-    ptData: PropTypes.object.isRequired,
-};
 
 const stateToProps = (state) => ({
     authenticatedUser: state.authenticatedUser,

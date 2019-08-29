@@ -5,55 +5,67 @@ import {withRouter} from 'react-router-dom';
 import {
     ptGetClients,
     ptGetData,
-    clearErrors,
-    clearSuccess,
-    ptClearCurrentClientProfile,
-    ptClearClientProgression,
-    ptClearClientBodyBio,
-    ptClearClientProfileNotes,
+    ptNextWorkouts
 } from "../../../actions/ptProfileActions";
 import {
     clientGetData,
-    clientGetProgression,
-    clientGetBodyBio,
-    clientGetProfileNotes,
-    clientClearProfile,
-    clientClearProgression,
-    clientClearBodyBio,
-    clientClearProfileNotes,
+    clientNextWorkouts
 } from "../../../actions/clientProfileActions";
 import ClientList from '../clients/ClientList'
-import Loading from "../../../elements/Loading";
+import Loading from "../../common/Loading/Loading";
 import ClientData from "../clients/ClientData";
 import isEmpty from "../../../utilities/is_empty";
 import ErrorComponent from "../../error/ErrorComponent";
 import UserInfo from "./UserInfo";
 import checkExp from '../../../utilities/checkExp'
+import NextWorkouts from "../../common/Workout/NextWorkouts";
 
 class Dashboard extends Component {
     constructor(props){
         super(props);
         this.state = {
-            clientData: !props.authenticatedUser.user.pt && props.clientProfile,
-            ptData: props.authenticatedUser.user.pt && props.ptProfile,
+            userData: null,
+            clients: null,
+            nextWorkouts: null
         };
     }
 
-    static getDerivedStateFromProps(prevProps, prevState){
-        if(prevProps.authenticatedUser.user.pt){
-            if(prevProps.ptProfile !== prevState.ptData){
-                return {
-                    ptData: prevProps.ptProfile
-                }
+    componentDidUpdate(prevProps, prevState){
+        const {isAuthenticated, user} = this.props.authenticatedUser;
+        const {pt_data, clients, pt_next_workouts} = this.props.ptProfile;
+        const {client_data, client_next_workouts} = this.props.clientProfile;
+
+        if(isAuthenticated && user.pt){
+            if(prevProps.ptProfile.pt_data !== prevState.userData){
+                this.setState({
+                    userData: pt_data,
+                });
+            }
+            if(prevProps.ptProfile.clients !== prevState.clients){
+                this.setState({
+                    clients: clients
+                });
+            }
+            if(prevProps.ptProfile.pt_next_workouts !== prevState.nextWorkouts){
+                this.setState({
+                    nextWorkouts: pt_next_workouts
+                });
             }
         }
-        if(prevProps.clientProfile !== prevState.clientData){
-            return {
-                clientData: prevProps.clientProfile
+        else{
+            if(prevProps.clientProfile.client_data !== this.state.userData) {
+                this.setState({
+                    userData: client_data,
+                });
+            }
+            if(prevProps.clientProfile.client_next_workouts !== this.state.nextWorkouts){
+                this.setState({
+                    nextWorkouts: client_next_workouts
+                });
             }
         }
-        return null
     }
+
 
     // Life cycle method for react which will run when this component receives new properties
     componentDidMount() {
@@ -61,12 +73,15 @@ class Dashboard extends Component {
         if(!isAuthenticated)
             this.props.history.push('/login');
         checkExp();
+        // Check to see if data is already loaded, increases performance
         if(this.props.authenticatedUser.user.pt){
-            this.props.ptGetData(this.props.history);
-            this.props.ptGetClients(this.props.history);
+            this.props.ptGetData();
+            this.props.ptGetClients();
+            this.props.ptNextWorkouts();
         }
         else{
-            this.props.clientGetData(this.props.authenticatedUser.user.id);
+            this.props.clientGetData();
+            this.props.clientNextWorkouts();
         }
         document.body.scrollTo(0,0);
     } // ComponentDidMount
@@ -74,14 +89,21 @@ class Dashboard extends Component {
     render() {
         let displayContent;
         const {user, isAuthenticated} = this.props.authenticatedUser;
-        const {ptData} = this.state;
-        const {clientData} = this.state;
+        const {clients, pt_data, pt_next_workouts} = this.props.ptProfile;
+        const {client_data, client_next_workouts} = this.props.clientProfile;
+
 
         if(user.pt){
             if(!isAuthenticated){
                 return <ErrorComponent/>
             }
-            if (ptData.pt_data === null || ptData.clients === null || ptData.ptLoading) {
+            if (pt_data === null){
+                return <Loading myClassName="loading_container"/>
+            }
+            if (clients === null){
+                return <Loading myClassName="loading_container"/>
+            }
+            if (pt_next_workouts === null){
                 return <Loading myClassName="loading_container"/>
             }
             else {
@@ -89,14 +111,19 @@ class Dashboard extends Component {
                 displayContent = (
                     // send clients data to client component, and render client component
                     <div className="dashboard-custom">
-                        <UserInfo userData={ptData.pt_data}/>
-                        <ClientList ptData={ptData}/>
+                        <div className="row dashboard_top_row">
+                            <div className="dashboard_row">
+                                <UserInfo userData={pt_data}/>
+                                <NextWorkouts nextWorkouts={pt_next_workouts}/>
+                            </div>
+                        </div>
+                        <ClientList ptData={pt_data} clients={clients}/>
                     </div>
                 )
             }
         } //if user is pt
         else{
-            if (clientData.client_data === null || clientData.clientLoading) {
+            if (client_data === null) {
                 return <Loading myClassName="loading_container"/>
             }
             if(isEmpty(user)){
@@ -107,8 +134,13 @@ class Dashboard extends Component {
                 displayContent = (
                     // send clients data to client component, and render client component
                     <div className="dashboard-custom client">
-                        <UserInfo userData={clientData.client_data}/>
-                        <ClientData clientData={clientData.client_data}/>
+                        <div className="row dashboard_top_row">
+                            <div className="dashboard_row">
+                                <UserInfo userData={client_data}/>
+                                <NextWorkouts nextWorkouts={client_next_workouts}/>
+                                <ClientData clientData={client_data}/>
+                            </div>
+                        </div>
                     </div>
                 )
             }
@@ -136,8 +168,6 @@ Dashboard.propTypes = {
     // Client data
     clientGetData: PropTypes.func.isRequired,
 
-    clearSuccess: PropTypes.func.isRequired,
-    errors: PropTypes.object.isRequired
 };
 
 // Used to pull auth state and errors into this component.... DEFINED IN reducers/index.js {combineReducers} !!!! USED FOR THE REDUX STORE
@@ -146,24 +176,12 @@ const stateToProps = (state) => ({
     ptProfile: state.ptProfile,
     clientProfile: state.clientProfile,
     errors: state.errors, // errors is set in index.js file in the reducers folder
-    location: state.location
 });
 
 export default connect(stateToProps, {
     ptGetClients,
     ptGetData,
-    clearSuccess,
-    clearErrors,
-    ptClearCurrentClientProfile,
-    ptClearClientProgression,
-    ptClearClientBodyBio,
-    ptClearClientProfileNotes,
     clientGetData,
-    clientGetProgression,
-    clientGetBodyBio,
-    clientGetProfileNotes,
-    clientClearProfile,
-    clientClearProgression,
-    clientClearBodyBio,
-    clientClearProfileNotes,
+    ptNextWorkouts,
+    clientNextWorkouts
 })(withRouter(Dashboard));

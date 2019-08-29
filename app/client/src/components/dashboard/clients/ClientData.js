@@ -2,7 +2,7 @@ import {connect} from 'react-redux';
 import React, {Component} from 'react';
 import {withRouter} from 'react-router-dom';
 import ErrorComponent from "../../error/ErrorComponent";
-import Loading from "../../../elements/Loading";
+import Loading from "../../common/Loading/Loading";
 import Link from "react-router-dom/es/Link";
 // import PropTypes from "prop-types";
 
@@ -26,18 +26,18 @@ class ClientData extends Component {
     render() {
 
         const {user, isAuthenticated} = this.props.authenticatedUser;
-        const {clientLoading} = this.props.clientData;
+        const {clientData} = this.props;
 
         if(!isAuthenticated){
             return <ErrorComponent/>
         }
-        if(clientLoading){
+        if(clientData === null){
             return <Loading/>;
         }
         else {
             return (
                 <div className="row">
-                    <div className="m-auto col-md-10">
+                    <div className="m-auto client_data_div">
                         <h3 className="mt-5 mb-3">Client Links</h3>
                         <table className="table client-table">
                             <thead>

@@ -4,9 +4,14 @@ import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import defaultProfilePic from '../../../img/default_profile_pic.png';
-import {ptSaveProfilePic} from "../../../actions/ptProfileActions";
-import {clientSaveProfilePic} from "../../../actions/clientProfileActions";
-import DisplayMessage from "../../common/DisplayMessage";
+import {
+    ptUploadProfilePic
+} from "../../../actions/ptProfileActions";
+import {
+    clientUploadProfilePic
+} from "../../../actions/clientProfileActions";
+import DisplayMessage from "../../common/Message/DisplayMessage";
+import isEmpty from "../../../validation/is_empty";
 
 class ProfilePicUpload extends Component {
     constructor(props){
@@ -14,7 +19,6 @@ class ProfilePicUpload extends Component {
         this.state = {
             userId: props.authenticatedUser.user.id,
             src: defaultProfilePic,
-            croppedImage: null,
             width: 300,
             height: 300,
             border: 50,
@@ -27,10 +31,8 @@ class ProfilePicUpload extends Component {
             scale: 1.2,
             rotate: 0,
             fileName: "profile_pic",
-            message : {
-                type: null,
-                msg: null
-            },
+            errors: {},
+            message : {},
             loaded : null,
             //img: null
         };
@@ -43,7 +45,7 @@ class ProfilePicUpload extends Component {
     }
 
     static getDerivedStateFromProps(props, state){
-        if(props.success !== state.message) {
+        if(!isEmpty(props.success)) {
             return {
                 message: {
                     type: props.success.type,
@@ -51,12 +53,22 @@ class ProfilePicUpload extends Component {
                 }
             }
         }
-        if(props.errors !== state.message){
+        if(!isEmpty(props.errors)){
             return {
                 message: {
                     type : "ERROR",
                     msg: props.errors
                 }
+            }
+        }
+        if(!isEmpty(state.errors)){
+            return {
+                message: state.errors
+            }
+        }
+        if(isEmpty(state.errors)){
+            return {
+                message: {}
             }
         }
         return null
@@ -87,20 +99,41 @@ class ProfilePicUpload extends Component {
     };
 
     onClickSave = () => {
-        this.makeCroppedImage()
-            .then(blob => {
-                if(this.props.authenticatedUser.user.pt){
-                    this.props.ptSaveProfilePic(blob, this.state.croppedImage ,this.state.history);
-                }
-                else{
-                    this.props.clientSaveProfilePic(blob, this.state.croppedImage ,this.state.history);
-                }
-            }).catch(() => {
-                this.setState({message: {
+        let {src} = this.state;
+        // Reset error message
+        this.setState({
+            errors: {}
+        });
+        if(src !== defaultProfilePic){
+            // Create file name out of date and user id
+            const XAmzDate = new Date(Date.now()).toISOString().replace(/[ :,.-]/g, "").substring(0, 15).concat('Z');
+            const {id} = this.props.authenticatedUser.user;
+            let fileName = `${XAmzDate}-${id}`;
+            this.makeCroppedImage()
+                .then(blob => {
+                    if(this.props.authenticatedUser.user.pt){
+                        this.props.ptUploadProfilePic(blob, fileName);
+                    }
+                    else{
+                        this.props.clientUploadProfilePic(blob, fileName);
+                    }
+                }).catch(() => {
+                this.setState({
+                    message: {
                         type: "ERROR",
                         msg: "Could not upload profile image."
-                    }});
-            })
+                    }
+                });
+            });
+        }
+        else {
+            this.setState({
+                errors: {
+                    type: "ERROR",
+                    msg: "Please choose an image file to upload."
+                }
+            });
+        }
     };
 
     static dataURItoBlob(dataURI) {
@@ -127,24 +160,12 @@ class ProfilePicUpload extends Component {
             // drawn on another canvas, or added to the DOM.
             const canvas = this.editor.getImage();
             const image = canvas.toDataURL();
-            this.setState({croppedImage: image });
             return await ProfilePicUpload.dataURItoBlob(image);
-
-            // used for previous tests
-            //this.props.ptSaveProfilePic(blob, canvas.toDataURL() ,this.state.history);
         }
     }
 
-    // onSample(){
-    //     if(this.state.croppedImage !== null){
-    //         let imageUrl = URL.createObjectURL(this.state.croppedImage);
-    //         URL.revokeObjectURL(this.state.croppedImage);
-    //         this.setState({img: imageUrl});
-    //     }
-    // }
-
     render(){
-        const {src} = this.state;
+        const {src, width, height, border, borderRadius, position, color, scale, message} = this.state;
         return (
             <div className="Profile_pic_upload">
                 <div className="Profile_canvas" id="Profile_canvas">
@@ -153,16 +174,14 @@ class ProfilePicUpload extends Component {
                             ref={this.setEditorRef}
                             image={src}
                             className="Viewing_canvas"
-                            width={this.state.width}
-                            height={this.state.height}
-                            border={this.state.border}
-                            position={this.state.position}
-                            borderRadius={parseFloat(this.state.borderRadius)}
-                            color={this.state.color} // RGBA
-                            scale={parseFloat(this.state.scale)}
-                            rotate={this.state.rotate}
-                            onPositionChange={this.myChange.bind(this.state.position)}
-                            // onPositionChange={this.myChange.bind('mousemove',{data: this.state.position})}
+                            width={width}
+                            height={height}
+                            border={border}
+                            position={position}
+                            borderRadius={parseFloat(borderRadius)}
+                            color={color} // RGBA
+                            scale={parseFloat(scale)}
+                            onPositionChange={this.myChange.bind(position)}
                         />
                     </div>
                     <div className="upload-zoom-profile-image">
@@ -185,7 +204,7 @@ class ProfilePicUpload extends Component {
                                 <input type="file" className="form-control" onChange={this.onSelectFile}/>
                             </div>
                         </form>
-                        <DisplayMessage message={this.state.message}/>
+                        <DisplayMessage message={message}/>
                         <button type="button"
                                 className="btn btn-info mb-4 upload-button"
                                 onClick={this.onClickSave}
@@ -193,21 +212,15 @@ class ProfilePicUpload extends Component {
                             Upload
                         </button>
                     </div>
-                    {/*<button type="button" onClick={this.onSample}>Sample</button>*/}
                 </div>
-                {/*{this.state.img !== null &&*/}
-                    {/*<img className="rounded"*/}
-                         {/*src={this.state.img}*/}
-                         {/*alt="Upload profile"*/}
-                    {/*/>}*/}
             </div>
         );
     }
 }
 
 ProfilePicUpload.propTypes = ({
-    ptSaveProfilePic: PropTypes.func.isRequired,
-    clientSaveProfilePic: PropTypes.func.isRequired,
+    ptUploadProfilePic: PropTypes.func.isRequired,
+    clientUploadProfilePic: PropTypes.func.isRequired,
 });
 
 const stateToProps = state => ({
@@ -216,4 +229,7 @@ const stateToProps = state => ({
     errors: state.errors
 });
 
-export default connect(stateToProps, {ptSaveProfilePic, clientSaveProfilePic})(withRouter(ProfilePicUpload));
+export default connect(stateToProps, {
+    ptUploadProfilePic,
+    clientUploadProfilePic
+})(withRouter(ProfilePicUpload));

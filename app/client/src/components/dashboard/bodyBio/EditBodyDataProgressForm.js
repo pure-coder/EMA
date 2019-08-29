@@ -3,8 +3,8 @@ import {withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import {setErrors, clearErrors, clearSuccess, ptDeleteBodyPart, ptEditClientBodyBio} from "../../../actions/ptProfileActions";
-import FormInputGroup from "../../common/FormInputGroup";
-import DisplayMessage from "../../common/DisplayMessage";
+import FormInputGroup from "../../common/Forms/FormInputGroup";
+import DisplayMessage from "../../common/Message/DisplayMessage";
 import isEmpty from "../../../validation/is_empty";
 
 
@@ -38,7 +38,7 @@ class EditBodyDataProgressForm extends Component {
                 message: props.errors
             }
         }
-        if (!isEmpty(props.success) && isEmpty(state.message)) {
+        if (!isEmpty(props.success)) {
             return {
                 message: props.success
             }
@@ -88,42 +88,47 @@ class EditBodyDataProgressForm extends Component {
     }
 
     onChange = e => {
-        this.setState({message: {}});
+        this.setState({
+            message: {},
+            errors: {}
+        });
         const {bodyMetrics, toDelete} = this.state;
-        let id = e.target.id;
-        let name = e.target.name;
-        let value = e.target.value;
+        let {id, name, value} = e.target;
 
-        // For measurement Check to see if value entered is a number, if not then don't update state and exit function.
+        // Make sure measurement entered is a number and value does not exceed 3 characters if not then don't
+        // update state and exit function
         if(name === 'measurement' && isNaN(value)){
+            this.setState({
+                errors: {
+                    id: id,
+                    measurement: "Numbers only"
+                }
+            });
+            return null;
+        }
+        else if(name === 'measurement' && value.length > 3){
+            this.setState({
+                errors: {
+                    id: id,
+                    measurement: "Max 0-999"
+                }
+            });
             return null;
         }
 
-        // Check that valid date is given and is not null
+        let defaultDate = new Date(Date.now()).toISOString().substring(0, 10);
+
+        // Check that valid date is given and is not in future.
         if(name === 'Date'){
-            if(value === ""){
-                this.setState({errors: {
-                        type: "ERROR",
-                        msg: "A valid date must be entered."
-                    }});
+            if(value === "" || (value > defaultDate)){
+                this.setState({
+                    errors: {
+                        id: id,
+                        Date: "A valid date must be entered."
+                    }
+                });
                 return null
             }
-            else {
-                this.setState({errors: {}});
-            }
-        }
-
-        // Make sure measurement value does not exceed 3 characters
-        if(name === 'measurement' && (value.length > 3)){
-            let message = {
-                type: "ERROR",
-                msg: "Measurement value must be between 0-999!"
-            };
-            this.setState({errors: message});
-            return null;
-        }
-        else {
-            this.setState({errors: {}});
         }
 
         // For delete checkbox, check to see if data key exists in delete if un/checked.
@@ -167,7 +172,8 @@ class EditBodyDataProgressForm extends Component {
     onSubmit = e => {
         e.preventDefault();
         this.setState({
-            message: {}
+            message: {},
+            errors: {}
         });
         this.props.clearSuccess();
 
@@ -240,7 +246,7 @@ class EditBodyDataProgressForm extends Component {
                                                 value={Date.toString()}
                                                 type="date"
                                                 onChange={this.onChange}
-                                                error={errors.Date}
+                                                error={errors.id === index.toString() && errors.Date}
                                             />
                                         </td>
                                         <td>
@@ -251,7 +257,7 @@ class EditBodyDataProgressForm extends Component {
                                                 value={measurement.toString()}
                                                 type="text"
                                                 onChange={this.onChange}
-                                                error={errors.measurement}
+                                                error={errors.id === index.toString() && errors.measurement}
                                             />
                                         </td>
                                         <td>

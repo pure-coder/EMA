@@ -4,8 +4,8 @@ import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import {ptNewClientBodyBio, setErrors, clearErrors, clearSuccess} from "../../../actions/ptProfileActions";
 import autocomplete from '../../../utilities/autoComplete';
-import FormInputGroup from "../../common/FormInputGroup";
-import DisplayMessage from "../../common/DisplayMessage";
+import FormInputGroup from "../../common/Forms/FormInputGroup";
+import DisplayMessage from "../../common/Message/DisplayMessage";
 import isEmpty from "../../../validation/is_empty";
 
 
@@ -43,10 +43,14 @@ class NewBodyProgressForm extends Component {
     static getDerivedStateFromProps(props, state) {
         //Set default date to today's date, makes sure date is always entered.
         if (props.visible !== state.visible) {
+            props.clearErrors();
+            props.clearSuccess();
             let defaultDate = new Date(Date.now()).toISOString().substring(0, 10);
             return {
                 progressDate: defaultDate,
                 visible: props.visible,
+                bodyPart: '',
+                measurement: '',
                 message: {},
                 errors: {}
             }
@@ -65,9 +69,6 @@ class NewBodyProgressForm extends Component {
             return {
                 message: props.success
             }
-        }
-        if(isEmpty(props.errors)){
-            NewBodyProgressForm.onFocus();
         }
         return null
     }
@@ -180,10 +181,6 @@ class NewBodyProgressForm extends Component {
         this.setState({bodyPart: selectedBodyPart });
     };
 
-    static onFocus(){
-        document.getElementsByName('measurement')[0].focus();
-    }
-
     onSubmit = e => {
         e.preventDefault();
         this.setState({
@@ -265,6 +262,7 @@ class NewBodyProgressForm extends Component {
                         <FormInputGroup
                             name="measurement"
                             PlaceHolder="Measurement (In)"
+                            id="measurement"
                             value={measurement}
                             type="text"
                             onChange={this.onChange}

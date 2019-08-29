@@ -3,10 +3,10 @@ import React from 'react';
 /**
  * @return {null}
  */
- function DisplayMessage (props) {
+ function DisplayMessage ({message}) {
 
     // Only two options (true and false) with default being null
-    const message = props.message;
+
     if (message.type === "SUCCESS") {
         return  <div className="text-success mb-2" id="display-message"> {message.msg} </div>
     }

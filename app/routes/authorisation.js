@@ -62,7 +62,7 @@ router.post('/login', (req, res) => {
                         if (!client) {
                             // if Personal client is found this will get over written with a success msg
                             errors.Email = 'User not found';
-                            return res.status(404).json(errors);
+                            return res.status(400).json(errors);
                         }
 
                         // Check if user is activated before Password check and logging in
@@ -106,7 +106,7 @@ router.post('/login', (req, res) => {
                         }
                         if (!pt && !client) {
                             errors.Email = 'User not found';
-                            return res.status(404).json(errors);
+                            return res.status(400).json(errors);
                         }
                     })
             }
@@ -297,7 +297,7 @@ router.post('/new_client', passport.authenticate('pt_rule', {session: false}), (
                                         }
                                     })
                                     .catch(err => {
-                                        //console.log(err)
+                                        return res.status(400).json(err);
                                     });
 
                                 // Add default body bio for client
@@ -312,9 +312,9 @@ router.post('/new_client', passport.authenticate('pt_rule', {session: false}), (
                                         // console.log(bioResult)
                                         res.status(200).json();
                                     })
-                                    .catch(() => {
+                                    .catch(err => {
                                         // console.log(err)
-                                        res.status(400).json();
+                                        res.status(400).json(err);
                                     });
 
                                 // Add default body bio for client
@@ -331,25 +331,25 @@ router.post('/new_client', passport.authenticate('pt_rule', {session: false}), (
                                         // console.log(result)
                                         res.status(200).json();
                                     })
-                                    .catch(() => {
+                                    .catch(err => {
                                         // console.log(err)
-                                        res.status(400).json();
+                                        res.status(400).json(err);
                                     });
 
                             })
                             .catch(err => {
-                                    //console.log(4, err)
+                                    return res.status(400).json(err)
                                 }
                             ); // catch client save
                     } // else
 
                 }).catch(err => {
-                    //console.log(5, err)
+                return res.status(400).json(err)
                 }
             ); // catch pt find
 
         }).catch(err => {
-            //console.log(6, err)
+        return res.status(400).json(err)
         }
     ); // catch client find
 });
@@ -433,7 +433,7 @@ router.get('/verify', (req, res) => {
                 return res.status(400).json({msg: "Token not found"});
             }
         }).catch(err => {
-        console.log(err);
+        return res.status(400).json(err);
     })// catch end
 
 });

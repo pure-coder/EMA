@@ -42,7 +42,6 @@ FormInputGroup.propTypes = {
     placeholder: PropTypes.string,
     value: PropTypes.string,
     type: PropTypes.string.isRequired,
-    error: PropTypes.string,
     onChange: PropTypes.func.isRequired
 };
 

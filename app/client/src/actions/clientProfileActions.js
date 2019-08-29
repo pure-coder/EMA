@@ -8,17 +8,17 @@ import {
     GET_PROFILE_NOTES,
     CLEAR_PROFILE_NOTES,
     BODY_BIO_CLIENT,
-    CLEAR_BODY_BIO_CLIENT,
     UPDATE_PROFILE_PIC_CLIENT,
-    CLEAR_CLIENT_PROGRESSION
+    CLIENT_PROFILE_EDITED,
+    CLIENT_NEXT_WORKOUTS
 } from "./types"; // import custom defined types
-import {manageErrors} from "./authenticationActions";
 import {setSuccess} from "./ptProfileActions";
+import {manageErrors} from "./errorsAction";
 
-export const clientGetData = (clientId, history) => dispatch => {
+export const clientGetData = () => dispatch => {
     dispatch(setProfileLoading());
     axios
-        .get(`/api/client/${clientId}`)
+        .get(`/api/client/:cid`)
         .then(result => {
             dispatch({
                 type: GET_CLIENT_PROFILE,
@@ -26,8 +26,21 @@ export const clientGetData = (clientId, history) => dispatch => {
             });
         })
         .catch(err => {
-            manageErrors(err, dispatch, history);
+            dispatch(manageErrors(err));
         });
+};
+
+export const clientNextWorkouts = () => dispatch => {
+    axios.get(`/api/next_workouts`)
+        .then(result => {
+            dispatch({
+                type: CLIENT_NEXT_WORKOUTS,
+                payload: result.data
+            })
+        })
+        .catch(err =>{
+            dispatch(manageErrors(err));
+        })
 };
 
 export const setProfileLoading = () => {
@@ -37,9 +50,9 @@ export const setProfileLoading = () => {
 };
 
 // Get pt Clients profile notes
-export const clientGetProfileNotes = (clientId, history) => dispatch => {
+export const clientGetProfileNotes = () => dispatch => {
     axios
-        .get(`/api/profile_notes/${clientId}`)
+        .get(`/api/profile_notes/`)
         .then(result => {
                 // dispatch this action to the action below so the data can be sent to the respective reducer
                 dispatch(
@@ -51,13 +64,13 @@ export const clientGetProfileNotes = (clientId, history) => dispatch => {
             }
         )
         .catch(err => {
-            manageErrors(err, dispatch, history);
+            dispatch(manageErrors(err));
         })
 };
 
-export const clientGetBodyBio = (clientId, history) => dispatch => {
+export const clientGetBodyBio = () => dispatch => {
     // userId can either be same as clientId or the id of the personal trainer
-    axios.get(`/api/body_bio/${clientId}` ) // using grave accent instead of single quote
+    axios.get(`/api/body_bio/` ) // using grave accent instead of single quote
         .then(result => {
             dispatch({
                 type: BODY_BIO_CLIENT,
@@ -65,13 +78,13 @@ export const clientGetBodyBio = (clientId, history) => dispatch => {
             });
         })
         .catch(err => {
-            manageErrors(err, dispatch, history);
+            dispatch(manageErrors(err));
         });
 };
 
-export const clientGetProgression = (clientId, history) => dispatch => {
+export const clientGetProgression = () => dispatch => {
     // userId can either be same as clientId or the id of the personal trainer
-    axios.get(`/api/client_progression/${clientId}` ) // using grave accent instead of single quote
+    axios.get(`/api/client_progression/` ) // using grave accent instead of single quote
         .then(result => {
             dispatch({
                 type: CLIENT_PROGRESSION,
@@ -79,27 +92,55 @@ export const clientGetProgression = (clientId, history) => dispatch => {
             });
         })
         .catch(err => {
-            manageErrors(err, dispatch, history);
+            dispatch(manageErrors(err));
         });
 };
 
-export const clientSaveProfilePic = (data, image, history) => dispatch => {
+export const clientUploadProfilePic = (dataImage, fileName) => dispatch => {
     const formData = new FormData();
-    formData.append('profilePicture', data, 'filename.png');
-    axios.post(`/api/upload_profile_pic`, formData)
-        .then(() => {
+    formData.append('profileImage', dataImage, fileName);
+
+    // Get token for fetch ---- content type
+    const token = localStorage.getItem('jwtToken');
+    if(token !== null){
+        let config = {
+            method: 'POST',
+            headers: new Headers({
+                Authorization: token
+            }),
+            body : formData
+        };
+
+        fetch(`/api/upload_profile_pic`, config)
+            .then(result => result.json())
+            .then(data => {
                 dispatch({
                     type: UPDATE_PROFILE_PIC_CLIENT,
-                    payload: image
+                    payload: data.url
                 });
-                dispatch(setSuccess("Profile Picture has been updated."));
-            }
-        )
-        .catch(err => {
-            manageErrors(err, dispatch, history);
-        });
+                dispatch(setSuccess(data.msg))
+            })
+            .catch(err => {dispatch(manageErrors(err));
+            })
+    }
 };
 
+export const clientEditData = (data) => dispatch => {
+    axios
+        .put(`/api/edit_client/`, data)
+        .then(result => {
+            if(result.status === 200){
+                dispatch({
+                    type : CLIENT_PROFILE_EDITED,
+                    payload: result.data
+                });
+                dispatch(setSuccess("Client data successfully updated."))
+            }
+        })
+        .catch(err => {
+           dispatch(manageErrors(err));
+        })
+};
 
 /* Clear */
 
@@ -107,18 +148,6 @@ export const clientClearProfile = () => {
     return {
         type: CLEAR_CLIENT_PROFILE
     }
-};
-
-export const clientClearBodyBio = () => dispatch => {
-    dispatch({
-        type: CLEAR_BODY_BIO_CLIENT
-    });
-};
-
-export const clientClearProgression = () => dispatch => {
-    dispatch({
-        type: CLEAR_CLIENT_PROGRESSION
-    });
 };
 
 export const clientClearProfileNotes = () => dispatch => {

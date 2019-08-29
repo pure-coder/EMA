@@ -5,13 +5,13 @@ import PropTypes from 'prop-types';
 import BodyGraphComp from './BodyGraphComp';
 import isEmpty from "../../../utilities/is_empty";
 import ErrorComponent from "../../error/ErrorComponent";
-import Loading from "../../../elements/Loading";
+import Loading from "../../common/Loading/Loading";
 import NewBodyProgressForm from "./NewBodyProgressForm";
 import Modal from "react-awesome-modal";
 import {clientGetBodyBio} from "../../../actions/clientProfileActions";
 import {ptGetClientBodyBio, clearErrors, clearSuccess} from "../../../actions/ptProfileActions";
-import {NoProgressDataComp} from "../../common/NoProgessDataComp";
-import {ProgressTitleComp} from "../../common/ProgressTitleComp";
+import {NoProgressDataComp} from "../../common/Progress/NoProgessDataComp";
+import {ProgressTitleComp} from "../../common/Progress/ProgressTitleComp";
 
 class BodyGraphs extends Component {
     // This allows the component states to be up{dated and re-rendered)
@@ -19,7 +19,7 @@ class BodyGraphs extends Component {
         super(props);
         this.state = {
             userId: props.authenticatedUser.user.id,
-            clientId: props.authenticatedUser.user.pt ? props.match.params.cid : props.authenticatedUser.user.id,
+            clientId: props.match.params.cid,
             bodyGraphData: props.bodyGraphData,
             success: {},
             errors: {},
@@ -82,10 +82,10 @@ class BodyGraphs extends Component {
 
     clientGetBodyBio = () => {
         if(this.props.authenticatedUser.user.pt){
-            this.props.ptGetClientBodyBio(this.state.clientId, this.props.history);
+            this.props.ptGetClientBodyBio(this.state.clientId);
         }
         else{
-            this.props.clientGetBodyBio(this.state.clientId, this.props.history);
+            this.props.clientGetBodyBio();
         }
     };
 
