@@ -686,9 +686,9 @@ input[type=submit] {
 /* UserInfo */
 
 .userInfo-container {
-    min-width: 400px;
-    margin-left: 50px;
+    width: 400px;
     padding: 10px 0;
+    display: inline-block;
 }
 
 .userInfo-custom {
@@ -981,10 +981,11 @@ label.Profile_label {
  /* next workout */
 
 .next_workout_comp {
-    height: 280px;
+    height: 265px;
     padding: 10px 5px;
     width: 425px;
     display: inline-block;
+    float: right;
 }
 
 .next_workout img {
@@ -993,8 +994,28 @@ label.Profile_label {
     margin: 3px 0;
 }
 
+.next_workout td {
+    padding: 0;
+    vertical-align: middle;
+}
+
+.next_workout_comp th {
+    padding: 3px 0;
+}
+
 .workout {
     padding: 0 5px;
+}
+
+.dashboard_top_row {
+    display: flex;
+    justify-content: space-between;
+}
+
+.dashboard_row {
+    margin-left: 50px;
+    width: 90%;
+    min-width: 500px;
 }
 
 

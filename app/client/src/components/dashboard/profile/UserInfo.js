@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'; // Used to document prop types sent to compo
 import {connect} from 'react-redux' // Needed when using redux inside a component (connects redux to this component)
 import {withRouter} from 'react-router-dom';
 import isEmpty from '../../../utilities/is_empty';
-import Loading from "../../common/Loading";
+import Loading from "../../common/Loading/Loading";
 import ErrorComponent from "../../error/ErrorComponent";
 import defaultUserImage from '../../../img/user-regular.svg';
 import {ProfileImage} from "./ProfileImage";
@@ -54,10 +54,8 @@ class UserInfo extends Component {
             );
 
             return (
-                <div className="row">
-                    <div className="userInfo-container">
-                        {displayContent}
-                    </div>
+                <div className="userInfo-container">
+                    {displayContent}
                 </div>
             );
         } // else

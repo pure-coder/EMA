@@ -25,7 +25,7 @@ import EditClient from './components/dashboard/edit/EditClient'
 
 import ErrorComponent from './components/error/ErrorComponent';
 /* import PrivateRoute function for authorised access of pages */
-import PrivateRoute from './components/common/PrivateRoute';
+import PrivateRoute from './components/common/Private/PrivateRoute';
 import './App.css';
 import EditPersonalTrainer from "./components/dashboard/edit/EditPersonalTrainer";
 import ExpiredLogin from "./components/authentication/ExpiredLogin";

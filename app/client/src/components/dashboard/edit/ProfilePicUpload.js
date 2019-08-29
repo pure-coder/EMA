@@ -10,7 +10,7 @@ import {
 import {
     clientUploadProfilePic
 } from "../../../actions/clientProfileActions";
-import DisplayMessage from "../../common/DisplayMessage";
+import DisplayMessage from "../../common/Message/DisplayMessage";
 import isEmpty from "../../../validation/is_empty";
 
 class ProfilePicUpload extends Component {

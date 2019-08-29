@@ -3,8 +3,8 @@ import {withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import {setErrors, clearErrors, clearSuccess, ptDeleteExercise, ptEditClientExercise} from "../../../actions/ptProfileActions";
-import FormInputGroup from "../../common/FormInputGroup";
-import DisplayMessage from "../../common/DisplayMessage";
+import FormInputGroup from "../../common/Forms/FormInputGroup";
+import DisplayMessage from "../../common/Message/DisplayMessage";
 import isEmpty from "../../../validation/is_empty";
 
 

@@ -216,7 +216,7 @@ router.get(`/next_workouts`, passport.authenticate('pt_rule',  {session: false},
                     .where('start_date')
                     .gte(todaysDate)
                     .sort('start_date')
-                    .limit(7)
+                    .limit(5)
                     .then(eventResults => {
 
                         let nextWorkouts = [];
@@ -225,6 +225,7 @@ router.get(`/next_workouts`, passport.authenticate('pt_rule',  {session: false},
                             clients.forEach(client => {
                                 if(client._id.toString() === event.clientId){
                                     let workout = {
+                                        id: event._id,
                                         start_date: event.start_date,
                                         clientName: client.FullName,
                                         clientImage: client.ProfilePicUrl,

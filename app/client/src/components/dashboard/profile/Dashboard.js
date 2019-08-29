@@ -11,13 +11,13 @@ import {
     clientGetData,
 } from "../../../actions/clientProfileActions";
 import ClientList from '../clients/ClientList'
-import Loading from "../../common/Loading";
+import Loading from "../../common/Loading/Loading";
 import ClientData from "../clients/ClientData";
 import isEmpty from "../../../utilities/is_empty";
 import ErrorComponent from "../../error/ErrorComponent";
 import UserInfo from "./UserInfo";
 import checkExp from '../../../utilities/checkExp'
-import NextWorkouts from "../../common/NextWorkouts";
+import NextWorkouts from "../../common/Workout/NextWorkouts";
 
 class Dashboard extends Component {
     constructor(props){
@@ -103,9 +103,11 @@ class Dashboard extends Component {
                 displayContent = (
                     // send clients data to client component, and render client component
                     <div className="dashboard-custom">
-                        <div className="row">
-                            <UserInfo userData={pt_data}/>
-                            <NextWorkouts nextWorkouts={next_workouts}/>
+                        <div className="row dashboard_top_row">
+                            <div className="dashboard_row">
+                                <UserInfo userData={pt_data}/>
+                                <NextWorkouts nextWorkouts={next_workouts}/>
+                            </div>
                         </div>
                         <ClientList ptData={pt_data} clients={clients}/>
                     </div>

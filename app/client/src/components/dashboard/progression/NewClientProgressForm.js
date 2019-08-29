@@ -4,8 +4,8 @@ import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import {ptNewClientProgress, setErrors, clearErrors, clearSuccess} from "../../../actions/ptProfileActions";
 import autocomplete from '../../../utilities/autoComplete';
-import FormInputGroup from "../../common/FormInputGroup";
-import DisplayMessage from "../../common/DisplayMessage";
+import FormInputGroup from "../../common/Forms/FormInputGroup";
+import DisplayMessage from "../../common/Message/DisplayMessage";
 import isEmpty from "../../../validation/is_empty";
 
 

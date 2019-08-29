@@ -12,12 +12,12 @@ import {
     clearSuccess
 } from "../../../actions/ptProfileActions"; // Used to import create action for getting pt data and editing pt data
 import {withRouter} from 'react-router-dom';
-import FormInputGroup from "../../common/FormInputGroup";
-import Loading from "../../common/Loading";
+import FormInputGroup from "../../common/Forms/FormInputGroup";
+import Loading from "../../common/Loading/Loading";
 import isEmpty from "../../../utilities/is_empty";
 import ErrorComponent from "../../error/ErrorComponent"; // Allows proper routing and linking using browsers match, location, and history properties
-import DisplayMessage from '../../common/DisplayMessage';
-import FormSelectComp from "../../common/FormSelectComp";
+import DisplayMessage from '../../common/Message/DisplayMessage';
+import FormSelectComp from "../../common/Forms/FormSelectComp";
 import checkExp from "../../../utilities/checkExp";
 import {Link} from 'react-router-dom';
 import {ProfileImage} from "../profile/ProfileImage";

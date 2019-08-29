@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'; // Used to document prop types sent to compo
 import {connect} from 'react-redux' // Needed when using redux inside a component (connects redux to this component)
 import {loginUser} from "../../actions/authenticationActions"; // Used to import create action for registering user
 import {withRouter} from 'react-router-dom'; // Allows proper routing and linking using browsers match, location, and history properties
-import FormInputGroup from '../common/FormInputGroup';
+import FormInputGroup from '../common/Forms/FormInputGroup';
 
 
 class ExpiredLogin extends Component {

@@ -5,15 +5,44 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ec8ccf39-8487-4892-a38d-de9c288878a3" name="Default" comment="Action and reducer created next workouts for pt.&#10;Basic layout of next workouts created for pt.">
-      <change afterPath="$PROJECT_DIR$/client/src/components/common/NextWorkouts.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/src/components/common/Workout.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/App.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/actions/ptProfileActions.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/actions/ptProfileActions.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/actions/types.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/actions/types.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/dashboard/clients/ClientList.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/dashboard/clients/ClientList.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/authentication/ExpiredLogin.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/authentication/ExpiredLogin.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/authentication/Login.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/authentication/Login.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/authentication/Register.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/authentication/Register.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/authentication/RegisterClient.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/authentication/RegisterClient.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/common/ClientMenuComp.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/common/Menu/ClientMenuComp.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/common/DisplayMessage.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/common/Message/DisplayMessage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/common/FormInputGroup.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/common/Forms/FormInputGroup.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/common/FormSelectComp.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/common/Forms/FormSelectComp.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/common/Loading.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/common/Loading/Loading.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/common/NextWorkouts.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/common/Workout/NextWorkouts.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/common/NoProgessDataComp.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/common/Progress/NoProgessDataComp.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/common/PrivateRoute.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/common/Private/PrivateRoute.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/common/ProfileInputForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/common/Forms/ProfileInputForm.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/common/ProgressTitleComp.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/common/Progress/ProgressTitleComp.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/common/PtMenuComp.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/common/Menu/PtMenuComp.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/common/Workout.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/common/Workout/Workout.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/dashboard/bodyBio/AddBodyDataProgressForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/dashboard/bodyBio/AddBodyDataProgressForm.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/dashboard/bodyBio/BodyGraphs.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/dashboard/bodyBio/BodyGraphs.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/dashboard/bodyBio/EditBodyDataProgressForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/dashboard/bodyBio/EditBodyDataProgressForm.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/dashboard/bodyBio/NewBodyProgressForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/dashboard/bodyBio/NewBodyProgressForm.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/dashboard/clients/ClientData.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/dashboard/clients/ClientData.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/dashboard/clients/ClientProfile.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/dashboard/clients/ClientProfile.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/dashboard/edit/EditClient.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/dashboard/edit/EditClient.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/dashboard/edit/EditPersonalTrainer.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/dashboard/edit/EditPersonalTrainer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/dashboard/edit/ProfilePicUpload.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/dashboard/edit/ProfilePicUpload.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/dashboard/profile/Dashboard.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/dashboard/profile/Dashboard.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/reducers/ptProfileReducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/reducers/ptProfileReducer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/dashboard/profile/UserInfo.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/dashboard/profile/UserInfo.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/dashboard/profileNotes/ProfileNotes.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/dashboard/profileNotes/ProfileNotes.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/dashboard/progression/AddDataProgressForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/dashboard/progression/AddDataProgressForm.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/dashboard/progression/EditDataProgressForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/dashboard/progression/EditDataProgressForm.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/dashboard/progression/Graphs.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/dashboard/progression/Graphs.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/dashboard/progression/NewClientProgressForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/dashboard/progression/NewClientProgressForm.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/layout/Navigator.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/layout/Navigator.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/scheduler/Scheduler.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/scheduler/Scheduler.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/scheduler.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/scheduler.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -53,12 +82,12 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="css" value="12508" />
+          <entry key="css" value="12658" />
           <entry key="editorConfig" value="285" />
           <entry key="eslintignore" value="18" />
           <entry key="gitignore" value="22" />
           <entry key="html" value="1117" />
-          <entry key="js" value="271651" />
+          <entry key="js" value="272396" />
           <entry key="json" value="84" />
           <entry key="md" value="150" />
           <entry key="txt" value="26446" />
@@ -66,9 +95,9 @@
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="CSS" value="3403" />
+          <entry key="CSS" value="3553" />
           <entry key="JSON" value="55" />
-          <entry key="JavaScript" value="83411" />
+          <entry key="JavaScript" value="84156" />
           <entry key="PLAIN_TEXT" value="13429" />
         </counts>
       </usages-collector>
@@ -76,13 +105,13 @@
         <counts>
           <entry key="Local" value="1" />
           <entry key="bson" value="2" />
-          <entry key="css" value="118" />
+          <entry key="css" value="119" />
           <entry key="editorConfig" value="2" />
           <entry key="eslintignore" value="3" />
           <entry key="gitignore" value="9" />
           <entry key="html" value="19" />
           <entry key="ico" value="1" />
-          <entry key="js" value="2331" />
+          <entry key="js" value="2351" />
           <entry key="json" value="18" />
           <entry key="map" value="1" />
           <entry key="md" value="4" />
@@ -95,11 +124,11 @@
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="CSS" value="118" />
+          <entry key="CSS" value="119" />
           <entry key="HTML" value="19" />
           <entry key="Image" value="3" />
           <entry key="JSON" value="20" />
-          <entry key="JavaScript" value="2331" />
+          <entry key="JavaScript" value="2351" />
           <entry key="PLAIN_TEXT" value="21" />
           <entry key="SVG" value="1" />
           <entry key="Scratch" value="1" />
@@ -121,12 +150,12 @@
   <component name="FileEditorManager">
     <leaf>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/src/actions/ptProfileActions.js">
+        <entry file="file://$PROJECT_DIR$/client/src/components/common/Workout/NextWorkouts.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="326" column="40" lean-forward="true" selection-start-line="326" selection-start-column="40" selection-end-line="326" selection-end-column="40" />
+            <state relative-caret-position="169">
+              <caret line="12" column="28" lean-forward="true" selection-start-line="12" selection-start-column="28" selection-end-line="12" selection-end-column="75" />
               <folding>
-                <element signature="e#48#74#0" expanded="true" />
+                <element signature="e#0#25#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -135,8 +164,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/profile/Dashboard.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="272">
-              <caret line="108" column="30" selection-start-line="108" selection-start-column="30" selection-end-line="108" selection-end-column="30" />
+            <state relative-caret-position="204">
+              <caret line="107" column="32" selection-start-line="107" selection-start-column="32" selection-end-line="108" selection-end-column="76" />
               <folding>
                 <element signature="e#278#322#0" expanded="true" />
               </folding>
@@ -145,67 +174,28 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/src/components/common/NextWorkouts.js">
+        <entry file="file://$PROJECT_DIR$/client/src/App.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="237">
-              <caret line="15" column="2" selection-start-line="15" selection-start-column="2" selection-end-line="15" selection-end-column="2" />
-              <folding>
-                <element signature="e#0#25#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="155">
+              <caret line="1014" selection-start-line="1014" selection-end-line="1018" selection-end-column="1" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/src/components/common/Workout.js">
+        <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/profile/UserInfo.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="260">
-              <caret line="17" column="2" selection-start-line="17" selection-start-column="2" selection-end-line="17" selection-end-column="2" />
+            <state relative-caret-position="255">
+              <caret line="58" column="22" selection-start-line="58" selection-start-column="22" selection-end-line="58" selection-end-column="22" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/client/src/reducers/ptProfileReducer.js">
+        <entry file="file://$PROJECT_DIR$/client/src/components/common/Workout/Workout.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="141">
-              <caret line="128" column="14" selection-start-line="128" selection-start-column="14" selection-end-line="128" selection-end-column="14" />
-              <folding>
-                <element signature="e#0#496#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/profile/ProfileImage.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <folding>
-                <element signature="e#0#25#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/src/components/layout/Navigator.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="234">
-              <caret line="62" column="18" lean-forward="true" selection-start-line="62" selection-start-column="18" selection-end-line="62" selection-end-column="18" />
-              <folding>
-                <element signature="e#0#39#0" expanded="true" />
-                <element signature="e#254#289#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/src/App.css">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="254">
-              <caret line="986" column="26" selection-start-line="986" selection-start-column="26" selection-end-line="986" selection-end-column="26" />
+            <state relative-caret-position="153">
+              <caret line="9" column="68" selection-start-line="9" selection-start-column="68" selection-end-line="9" selection-end-column="68" />
             </state>
           </provider>
         </entry>
@@ -222,8 +212,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>401</find>
-      <find>404</find>
       <find>.edit-profile-date-</find>
       <find>re-login</find>
       <find>ContactNu</find>
@@ -252,6 +240,8 @@
       <find>$in</find>
       <find>includes</find>
       <find>rounded</find>
+      <find>even</find>
+      <find>user</find>
     </findStrings>
     <replaceStrings>
       <replace>ptEditClientExercise</replace>
@@ -308,8 +298,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/config/passport.js" />
-        <option value="$PROJECT_DIR$/client/src/utilities/setAuthorisationToken.js" />
         <option value="$PROJECT_DIR$/client/public/manifest.json" />
         <option value="$PROJECT_DIR$/config/AWS.json" />
         <option value="$PROJECT_DIR$/client/src/components/dashboard/edit/ProfilePicUpload.js" />
@@ -322,7 +310,6 @@
         <option value="$PROJECT_DIR$/client/src/reducers/clientProfileReducer.js" />
         <option value="$PROJECT_DIR$/client/src/components/dashboard/clients/ClientData.js" />
         <option value="$PROJECT_DIR$/client/src/components/dashboard/profileNotes/ProfileNotes.js" />
-        <option value="$PROJECT_DIR$/client/src/components/dashboard/profile/UserInfo.js" />
         <option value="$PROJECT_DIR$/client/src/components/dashboard/bodyBio/BodyGraphs.js" />
         <option value="$PROJECT_DIR$/client/src/actions/clientProfileActions.js" />
         <option value="$PROJECT_DIR$/client/src/components/error/ErrorComponent.js" />
@@ -349,16 +336,19 @@
         <option value="$PROJECT_DIR$/client/src/components/common/PtMenuComp.js" />
         <option value="$PROJECT_DIR$/client/src/components/common/ClientMenuComp.js" />
         <option value="$PROJECT_DIR$/models/Events.js" />
-        <option value="$PROJECT_DIR$/routes/scheduler.js" />
         <option value="$PROJECT_DIR$/client/src/actions/types.js" />
         <option value="$PROJECT_DIR$/client/src/components/common/WorkOut.js" />
         <option value="$PROJECT_DIR$/client/src/actions/ptProfileActions.js" />
         <option value="$PROJECT_DIR$/client/src/components/dashboard/clients/ClientList.js" />
-        <option value="$PROJECT_DIR$/client/src/App.css" />
-        <option value="$PROJECT_DIR$/client/src/components/dashboard/profile/Dashboard.js" />
-        <option value="$PROJECT_DIR$/client/src/components/common/NextWorkouts.js" />
         <option value="$PROJECT_DIR$/client/src/components/common/Workout.js" />
         <option value="$PROJECT_DIR$/client/src/reducers/ptProfileReducer.js" />
+        <option value="$PROJECT_DIR$/client/src/components/common/NextWorkouts.js" />
+        <option value="$PROJECT_DIR$/routes/scheduler.js" />
+        <option value="$PROJECT_DIR$/client/src/components/dashboard/profile/UserInfo.js" />
+        <option value="$PROJECT_DIR$/client/src/components/dashboard/profile/Dashboard.js" />
+        <option value="$PROJECT_DIR$/client/src/App.css" />
+        <option value="$PROJECT_DIR$/client/src/components/common/Workout/NextWorkouts.js" />
+        <option value="$PROJECT_DIR$/client/src/components/common/Workout/Workout.js" />
       </list>
     </option>
   </component>
@@ -457,15 +447,6 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="components" type="462c0819:PsiDirectoryNode" />
               <item name="dashboard" type="462c0819:PsiDirectoryNode" />
-              <item name="clients" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="app" type="b2602c69:ProjectViewProjectNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="client" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
-              <item name="dashboard" type="462c0819:PsiDirectoryNode" />
               <item name="profile" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -490,6 +471,11 @@
               <item name="client" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="reducers" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="app" type="b2602c69:ProjectViewProjectNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="routes" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -525,11 +511,11 @@
       <recent name="C:\TM470\app\client\src\utilities\dhtmlxsceduler" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\TM470\app\client\src\components\common" />
-      <recent name="C:\TM470\app\client\src\components\dashboard\edit" />
-      <recent name="C:\TM470\app\client\src\img" />
-      <recent name="C:\TM470\app\client\src\components\dashboard\profile" />
-      <recent name="C:\TM470\app\client\src\components\dashboard\clients" />
+      <recent name="C:\TM470\app\client\src\components\common\Private" />
+      <recent name="C:\TM470\app\client\src\components\common\Progress" />
+      <recent name="C:\TM470\app\client\src\components\common\Message" />
+      <recent name="C:\TM470\app\client\src\components\common\Loading" />
+      <recent name="C:\TM470\app\client\src\components\common\Menu" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -618,14 +604,7 @@
       <workItem from="1565691741200" duration="30487000" />
       <workItem from="1565814825599" duration="34529000" />
       <workItem from="1565849788934" duration="81098000" />
-      <workItem from="1566251293964" duration="291542000" />
-    </task>
-    <task id="LOCAL-00234" summary="Log in checked (isAuthenticated) for main pages, redirecting users to login page if not logged in.">
-      <created>1565995361485</created>
-      <option name="number" value="00234" />
-      <option name="presentableId" value="LOCAL-00234" />
-      <option name="project" value="LOCAL" />
-      <updated>1565995361485</updated>
+      <workItem from="1566251293964" duration="298371000" />
     </task>
     <task id="LOCAL-00235" summary="Changed layout of profile picture upload component, made child divs inline-blocks, gave container max-width and min-width with margin auto, allowing dynamic layout so zoom and upload fall beneath canvas.">
       <created>1566046116114</created>
@@ -963,11 +942,18 @@
       <option name="project" value="LOCAL" />
       <updated>1567042590316</updated>
     </task>
-    <option name="localTasksCounter" value="283" />
+    <task id="LOCAL-00283" summary="Action and reducer created next workouts for pt.&#10;Basic layout of next workouts created for pt.">
+      <created>1567046829304</created>
+      <option name="number" value="00283" />
+      <option name="presentableId" value="LOCAL-00283" />
+      <option name="project" value="LOCAL" />
+      <updated>1567046829304</updated>
+    </task>
+    <option name="localTasksCounter" value="284" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="2341223000" />
+    <option name="totallyTimeSpent" value="2348052000" />
   </component>
   <component name="TodoView" selected-index="4">
     <todo-panel id="selected-file">
@@ -982,10 +968,10 @@
     <frame x="-8" y="-8" width="1382" height="784" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.20758928" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.20758928" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.24943988" />
       <window_info id="Favorites" order="2" side_tool="true" weight="0.32935026" />
-      <window_info active="true" anchor="bottom" id="Messages" order="0" sideWeight="0.49813294" visible="true" weight="0.32615384" />
+      <window_info anchor="bottom" id="Messages" order="0" sideWeight="0.49813294" visible="true" weight="0.32615384" />
       <window_info anchor="bottom" id="Message" order="1" />
       <window_info anchor="bottom" id="Find" order="2" weight="0.32615384" />
       <window_info anchor="bottom" id="Run" order="3" />
@@ -1135,30 +1121,6 @@
     <option name="LAST_COMMIT_MESSAGE" value="Action and reducer created next workouts for pt.&#10;Basic layout of next workouts created for pt." />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/client/src/registerServiceWorker.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="40" selection-start-column="40" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/package-lock.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="208">
-          <caret line="9873" column="46" selection-start-line="9873" selection-start-column="46" selection-end-line="9873" selection-end-column="46" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="24" selection-start-line="2" selection-start-column="24" selection-end-line="2" selection-end-column="24" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/client/src/reducers/clientProfileReducer.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="204">
@@ -1186,13 +1148,6 @@
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/profile/UserInfo.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="27" column="38" selection-start-line="27" selection-start-column="38" selection-end-line="27" selection-end-column="38" />
         </state>
       </provider>
     </entry>
@@ -1224,9 +1179,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/components/common/Loading.js">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/client/src/App.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="203">
@@ -1248,13 +1200,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/components/common/PrivateRoute.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="9" column="26" selection-start-line="9" selection-start-column="26" selection-end-line="9" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/client/src/actions/errorsAction.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="153">
@@ -1272,13 +1217,6 @@
           <folding>
             <element signature="e#277#321#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/components/common/DisplayMessage.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="7" column="64" selection-start-line="7" selection-start-column="64" selection-end-line="7" selection-end-column="64" />
         </state>
       </provider>
     </entry>
@@ -1362,16 +1300,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/components/common/FormInputGroup.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="727">
-          <caret line="43" column="38" selection-start-line="43" selection-start-column="38" selection-end-line="43" selection-end-column="38" />
-          <folding>
-            <element signature="e#0#25#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/edit/EditClient.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="272">
@@ -1389,15 +1317,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/components/common/FormSelectComp.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <folding>
-            <element signature="e#0#25#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/client/src/components/authentication/Register.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2890">
@@ -1409,26 +1328,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="272">
           <caret line="39" column="8" selection-start-line="39" selection-start-column="8" selection-end-line="51" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/components/common/PtMenuComp.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="260">
-          <caret line="18" column="2" selection-start-line="18" selection-start-column="2" selection-end-line="18" selection-end-column="2" />
-          <folding>
-            <element signature="e#0#25#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/components/common/ClientMenuComp.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="237">
-          <caret line="20" column="2" selection-start-line="20" selection-start-column="2" selection-end-line="20" selection-end-column="2" />
-          <folding>
-            <element signature="e#0#25#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1476,20 +1375,6 @@
         <state relative-caret-position="-663" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/routes/users.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="95">
-          <caret line="1275" column="48" selection-start-line="1275" selection-start-column="45" selection-end-line="1275" selection-end-column="48" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/routes/scheduler.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-108">
-          <caret line="210" lean-forward="true" selection-start-line="210" selection-end-line="210" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/client/src/actions/ptProfileActions.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="136">
@@ -1516,17 +1401,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/clients/ClientList.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="7" column="56" selection-start-line="7" selection-start-column="56" selection-end-line="7" selection-end-column="56" />
-          <folding>
-            <element signature="e#0#36#0" expanded="true" />
-            <element signature="e#221#261#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/client/src/components/layout/Navigator.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="234">
@@ -1538,47 +1412,144 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/App.css">
+    <entry file="file://$PROJECT_DIR$/client/src/reducers/ptProfileReducer.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="254">
-          <caret line="986" column="26" selection-start-line="986" selection-start-column="26" selection-end-line="986" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/profile/Dashboard.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="108" column="30" selection-start-line="108" selection-start-column="30" selection-end-line="108" selection-end-column="30" />
+        <state relative-caret-position="396">
+          <caret line="128" column="14" selection-start-line="128" selection-start-column="14" selection-end-line="128" selection-end-column="14" />
           <folding>
-            <element signature="e#278#322#0" expanded="true" />
+            <element signature="e#0#496#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/components/common/NextWorkouts.js">
+    <entry file="file://$PROJECT_DIR$/routes/users.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="237">
-          <caret line="15" column="2" selection-start-line="15" selection-start-column="2" selection-end-line="15" selection-end-column="2" />
+        <state relative-caret-position="-579">
+          <caret line="1275" column="48" selection-start-line="1275" selection-start-column="45" selection-end-line="1275" selection-end-column="48" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/components/common/Forms/ProfileInputForm.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/components/common/Forms/FormSelectComp.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
           <folding>
             <element signature="e#0#25#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/components/common/Workout.js">
+    <entry file="file://$PROJECT_DIR$/client/src/components/common/Forms/FormInputGroup.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="260">
-          <caret line="17" column="2" selection-start-line="17" selection-start-column="2" selection-end-line="17" selection-end-column="2" />
+        <state relative-caret-position="356">
+          <caret line="43" column="38" selection-start-line="43" selection-start-column="38" selection-end-line="43" selection-end-column="38" />
+          <folding>
+            <element signature="e#0#25#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/reducers/ptProfileReducer.js">
+    <entry file="file://$PROJECT_DIR$/client/src/components/common/Menu/PtMenuComp.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="141">
-          <caret line="128" column="14" selection-start-line="128" selection-start-column="14" selection-end-line="128" selection-end-column="14" />
+        <state relative-caret-position="306">
+          <caret line="18" column="2" selection-start-line="18" selection-start-column="2" selection-end-line="18" selection-end-column="2" />
           <folding>
-            <element signature="e#0#496#0" expanded="true" />
+            <element signature="e#0#25#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/components/common/Menu/ClientMenuComp.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="237">
+          <caret line="20" column="2" selection-start-line="20" selection-start-column="2" selection-end-line="20" selection-end-column="2" />
+          <folding>
+            <element signature="e#0#25#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/components/common/Loading/Loading.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/components/common/Message/DisplayMessage.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="64" selection-start-line="7" selection-start-column="64" selection-end-line="7" selection-end-column="64" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/components/common/Progress/NoProgessDataComp.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/components/common/Progress/ProgressTitleComp.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/components/common/Private/PrivateRoute.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="12" column="21" lean-forward="true" selection-start-line="12" selection-start-column="21" selection-end-line="12" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/scheduler.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="227" column="51" selection-start-line="227" selection-start-column="51" selection-end-line="227" selection-end-column="51" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/clients/ClientList.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="67" column="89" selection-start-line="67" selection-start-column="37" selection-end-line="67" selection-end-column="89" />
+          <folding>
+            <element signature="e#0#36#0" expanded="true" />
+            <element signature="e#221#261#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/profile/UserInfo.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="58" column="22" selection-start-line="58" selection-start-column="22" selection-end-line="58" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/components/dashboard/profile/Dashboard.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="107" column="32" selection-start-line="107" selection-start-column="32" selection-end-line="108" selection-end-column="76" />
+          <folding>
+            <element signature="e#278#322#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/App.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="155">
+          <caret line="1014" selection-start-line="1014" selection-end-line="1018" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/components/common/Workout/NextWorkouts.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="169">
+          <caret line="12" column="28" lean-forward="true" selection-start-line="12" selection-start-column="28" selection-end-line="12" selection-end-column="75" />
+          <folding>
+            <element signature="e#0#25#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/components/common/Workout/Workout.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="9" column="68" selection-start-line="9" selection-start-column="68" selection-end-line="9" selection-end-column="68" />
         </state>
       </provider>
     </entry>

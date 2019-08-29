@@ -10,7 +10,7 @@ import {
     clientClearProfileNotes
 } from "../../../actions/clientProfileActions";
 import isEmpty from "../../../validation/is_empty";
-import ProfileInputForm from "../../common/ProfileInputForm";
+import ProfileInputForm from "../../common/Forms/ProfileInputForm";
 
 class ProfileNotes extends Component {
     constructor(props){

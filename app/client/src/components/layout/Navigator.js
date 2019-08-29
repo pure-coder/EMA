@@ -15,8 +15,8 @@ import {
 } from "../../actions/clientProfileActions";
 
 import {ProfileImage} from "../dashboard/profile/ProfileImage";
-import PtMenuComp from "../common/PtMenuComp";
-import ClientMenuComp from "../common/ClientMenuComp";
+import PtMenuComp from "../common/Menu/PtMenuComp";
+import ClientMenuComp from "../common/Menu/ClientMenuComp";
 
 class Navigation extends Component {
     constructor(props){

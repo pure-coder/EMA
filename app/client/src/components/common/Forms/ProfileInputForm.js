@@ -1,5 +1,5 @@
 import React from 'react';
-import isEmpty from "../../validation/is_empty";
+import isEmpty from "../../../validation/is_empty";
 import PropTypes from "prop-types";
 
 const ProfileInputForm = ({

@@ -4,10 +4,10 @@ import { connect } from 'react-redux' // Needed when using redux inside a compon
 import {registerUser} from "../../actions/authenticationActions"; // Used to import create action for registering user
 import {clearErrors, clearSuccess} from "../../actions/ptProfileActions";
 import {withRouter} from 'react-router-dom';
-import FormInputGroup from "../common/FormInputGroup";
-import FormSelectComp from "../common/FormSelectComp";
+import FormInputGroup from "../common/Forms/FormInputGroup";
+import FormSelectComp from "../common/Forms/FormSelectComp";
 import isEmpty from "../../utilities/is_empty";
-import DisplayMessage from "../common/DisplayMessage"; // Allows proper routing and linking using browsers match, location, and history properties
+import DisplayMessage from "../common/Message/DisplayMessage"; // Allows proper routing and linking using browsers match, location, and history properties
 
 
 class Register extends Component {

@@ -3,12 +3,12 @@ import PropTypes from 'prop-types'; // Used to document prop types sent to compo
 import { connect } from 'react-redux' // Needed when using redux inside a component (connects redux to this component)
 import { registerClient, clearSuccess, clearErrors} from "../../actions/ptProfileActions"; // Used to import create action for registering user
 import { withRouter } from 'react-router-dom';
-import FormInputGroup from "../common/FormInputGroup";
-import Loading from "../common/Loading";
+import FormInputGroup from "../common/Forms/FormInputGroup";
+import Loading from "../common/Loading/Loading";
 import isEmpty from "../../utilities/is_empty";
 import ErrorComponent from "../error/ErrorComponent";
-import FormSelectComp from "../common/FormSelectComp";
-import DisplayMessage from "../common/DisplayMessage"; // Allows proper routing and linking using browsers match, location, and history properties
+import FormSelectComp from "../common/Forms/FormSelectComp";
+import DisplayMessage from "../common/Message/DisplayMessage"; // Allows proper routing and linking using browsers match, location, and history properties
 
 class RegisterClient extends Component {
     // This allows the component states to be updated and re-rendered

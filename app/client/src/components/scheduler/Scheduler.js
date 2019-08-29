@@ -5,7 +5,7 @@ import {withRouter} from "react-router-dom";
 import {ptGetCurrentClient, ptWorkoutScheduler, ptClearWorkoutData} from "../../actions/ptProfileActions";
 import {clientGetData} from "../../actions/clientProfileActions";
 import 'dhtmlx-scheduler';
-import Loading from "../common/Loading";
+import Loading from "../common/Loading/Loading";
 import isEmpty from "../../utilities/is_empty";
 import ErrorComponent from "../error/ErrorComponent";
 import UserInfo from "../dashboard/profile/UserInfo";
