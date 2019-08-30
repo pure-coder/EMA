@@ -33,7 +33,7 @@ app.use(bodyParser.json());
 
 
 // require database setup in the config folder
-const db = require('./config/config_data');
+const db = require('./config/db');
 
 // Connect to MongoDB
 
