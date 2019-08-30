@@ -30,6 +30,8 @@ const port = process.env.PORT || 8000; // Set port to 8000
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
+
+
 // require database setup in the config folder
 const db = require('./config/config_data');
 
