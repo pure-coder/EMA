@@ -93,7 +93,7 @@ class Navigation extends Component {
                     !user.pt && userData && <ClientMenuComp userData={userData}/>
                 }
                 <ul className="navbar-nav ml-auto">
-                    <a href="" onClick={this.onLogOutClick} className="nav-link">
+                    <a href="/" onClick={this.onLogOutClick} className="nav-link">
                         <ProfileImage image={ProfilePicUrl} style={{backgroundColor: 'white', 'borderRadius': 25, width: 45, height: 45, paddingRight: 0}}/>
                         {/*{' '} is used to provide space */}
                         {' '}

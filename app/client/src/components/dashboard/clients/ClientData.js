@@ -3,7 +3,7 @@ import React, {Component} from 'react';
 import {withRouter} from 'react-router-dom';
 import ErrorComponent from "../../error/ErrorComponent";
 import Loading from "../../common/Loading/Loading";
-import Link from "react-router-dom/es/Link";
+import {Link} from "react-router-dom";
 // import PropTypes from "prop-types";
 
 

@@ -63,7 +63,7 @@ class DeleteBodyProgressConfirm extends Component {
     }; // render
 }
 
-DeleteBodyProgressConfirm.proptypes = {
+DeleteBodyProgressConfirm.propTypes = {
     ptDeleteBodyPart: PropTypes.func.isRequired,
     modalSize: PropTypes.func.isRequired,
     progressFormHeight: PropTypes.string.isRequired,

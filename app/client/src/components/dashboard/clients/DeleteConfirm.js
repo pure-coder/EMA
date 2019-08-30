@@ -66,7 +66,7 @@ class DeleteConfirm extends Component {
     }; // render
 }
 
-DeleteConfirm.proptypes = {
+DeleteConfirm.propTypes = {
     ptDeleteClient: PropTypes.func.isRequired,
     modalSize: PropTypes.func.isRequired,
     progressFormHeight: PropTypes.string.isRequired,

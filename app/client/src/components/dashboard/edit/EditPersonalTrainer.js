@@ -149,19 +149,18 @@ class EditPersonalTrainer extends Component {
             Password2: Password2
         };
 
-        // Check if any of the fields have been modified, break asap if one has, no need to continue loop.
-        for(let element in editData) {
+        Object.keys(editData).forEach(key =>{
             // format DateOfBirth in pt_data for check
-            if(element === "DateOfBirth"){
-                pt_data[element] = pt_data[element].substring(0,10);
+            if(key === "DateOfBirth"){
+                pt_data[key] = pt_data[key].substring(0,10);
             }
-            if(!isEmpty(editData[element]) && pt_data[element] !== editData[element]){
+            if(!isEmpty(editData[key]) && pt_data[key] !== editData[key]){
                 dataChanged = true;
             }
-            if (pt_data.hasOwnProperty(element)){
-                pt_data[element] = editData[element];
+            if (pt_data.hasOwnProperty(key)){
+                pt_data[key] = editData[key];
             }
-        }
+        });
 
         if (!dataChanged){
 

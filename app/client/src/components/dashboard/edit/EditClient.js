@@ -214,21 +214,21 @@ class EditClient extends Component {
 
         // Use client data supplied to form for managing form field data after data has been submitted (keeps view the same whilst resetting
         // state.FullName etc.
-
-        // Check if any of the fields have been modified.
-        for(let element in editData) {
-            if(element === "DateOfBirth"){
-                client_data[element] = client_data[element].substring(0,10);
+        
+        
+        Object.keys(editData).forEach(key => {
+            if(key === "DateOfBirth"){
+                client_data[key] = client_data[key].substring(0,10);
             }
             // Check if data has changed
-            if(!isEmpty(editData[element]) && client_data[element] !== editData[element]){
+            if(!isEmpty(editData[key]) && client_data[key] !== editData[key]){
                 // Update client_data with new data.
-                if (client_data.hasOwnProperty(element)){
-                    client_data[element] = editData[element];
+                if (client_data.hasOwnProperty(key)){
+                    client_data[key] = editData[key];
                 }
                 dataChanged = true;
             }
-        }
+        });
 
         if (!dataChanged){
             this.setState({
