@@ -1,4 +1,4 @@
-const jwtStrategy = require('passport-jwt').Strategy;
+const JwtStrategy = require('passport-jwt').Strategy;
 const ExtractJWT = require('passport-jwt').ExtractJwt;
 // Mongoose is needed to find user that comes with the payload
 const mongoose = require('mongoose');
@@ -16,7 +16,7 @@ module.exports = passport => {
 
         // This strategy only allows the pt to access the current page, the client must also be added by finding id
 
-        new jwtStrategy(opts, (jwt_payload, done) => {
+        new JwtStrategy(opts, (jwt_payload, done) => {
             // Get data from model using jwt (finding user by id)
             PT.findById(jwt_payload.id)
                 .then(pt => {
@@ -41,7 +41,7 @@ module.exports = passport => {
 
         // This strategy only allows the client to access the current page, the client must also be added by finding id
 
-        new jwtStrategy(opts, (jwt_payload, done) => {
+        new JwtStrategy(opts, (jwt_payload, done) => {
             // Get data from model using jwt (finding user by id)
             Client.findById(jwt_payload.id)
                 .then(client => {
@@ -66,7 +66,7 @@ module.exports = passport => {
 
         // This strategy only allows both to access the current page, the client must also be added by finding id
 
-        new jwtStrategy(opts, (jwt_payload, done) => {
+        new JwtStrategy(opts, (jwt_payload, done) => {
             // Get data from model using jwt (finding user by id)
             PT.findById(jwt_payload.id)
                 .then(pt => {

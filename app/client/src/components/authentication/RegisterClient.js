@@ -3,11 +3,12 @@ import PropTypes from 'prop-types'; // Used to document prop types sent to compo
 import { connect } from 'react-redux' // Needed when using redux inside a component (connects redux to this component)
 import { registerClient, clearSuccess, clearErrors} from "../../actions/ptProfileActions"; // Used to import create action for registering user
 import { withRouter } from 'react-router-dom';
-import FormInputGroup from "../common/FormInputGroup";
-import Loading from "../../elements/Loading";
+import FormInputGroup from "../common/Forms/FormInputGroup";
+import Loading from "../common/Loading/Loading";
 import isEmpty from "../../utilities/is_empty";
 import ErrorComponent from "../error/ErrorComponent";
-import FormSelectComp from "../common/FormSelectComp"; // Allows proper routing and linking using browsers match, location, and history properties
+import FormSelectComp from "../common/Forms/FormSelectComp";
+import DisplayMessage from "../common/Message/DisplayMessage"; // Allows proper routing and linking using browsers match, location, and history properties
 
 class RegisterClient extends Component {
     // This allows the component states to be updated and re-rendered
@@ -20,7 +21,8 @@ class RegisterClient extends Component {
             Sex: '',
             ContactNumber: '',
             errors: {},
-            values : [
+            message: {},
+            Values : [
                 "Male",
                 "Female"
             ],
@@ -35,10 +37,15 @@ class RegisterClient extends Component {
             props.history.push('/users/' + props.authenticatedUser.user.id + '/dashboard');
             return null
         }
+        if(!isEmpty(state.errors)){
+            return {
+                errors: state.errors
+            }
+        }
         if (props !== state) {
             return {
                 errors: props.errors,
-                success: props.success,
+                message: props.success,
                 loaded: true
             }
         }
@@ -54,14 +61,55 @@ class RegisterClient extends Component {
         document.body.scrollTo(0,0);
     }
 
-    componentDidUpdate(){
+    componentWillUnmount(){
+        this.props.clearErrors();
+        this.props.clearSuccess();
     }
 
     // This captures what the user types and sets the specific input to the respective state variable
     onChange = event => {
-        // event.target.name is used instead of a specific named state (ie "event.target.FullName") as there is more then
-        // one, making it easier to capture all of them with this onChange function.
-        this.setState({[event.target.name]: event.target.value})
+        const {name, value} = event.target;
+
+        if(name === 'FullName' && value.length > 25){
+            this.setState({
+                errors: {
+                    FullName: "Full Name must be less than 25 characters."
+                }
+            });
+            return null;
+        }
+
+        if(name === 'ContactNumber' && isNaN(value)){
+            this.setState({
+                errors: {
+                    ContactNumber: "Must contain numbers only."
+                }
+            });
+            return null;
+        }
+
+        if(name === 'ContactNumber' && isNaN(value)){
+            this.setState({
+                errors: {
+                    ContactNumber: "Must contain numbers only."
+                }
+            });
+            return null;
+        }
+        else if(name === 'ContactNumber' && value.length > 11) {
+            this.setState({
+                errors: {
+                    ContactNumber: "Contact Number must not contain more than 11 numbers."
+                }
+            });
+            return null;
+        }
+
+        this.setState({
+            [name]: value,
+            message: {},
+            errors: {}
+        })
     };
 
     onSubmit = event => {
@@ -71,14 +119,19 @@ class RegisterClient extends Component {
 
         // Clear errors messages
         this.props.clearErrors();
-        this.setState({errors: {}});
+        this.setState({
+            errors: {},
+            message: {}
+        });
+
+        const {FullName, Email, DateOfBirth, Sex, ContactNumber} = this.state;
 
         const newUser = {
-            FullName: this.state.FullName,
-            Email: this.state.Email,
-            DateOfBirth: this.state.DateOfBirth,
-            Sex: this.state.Sex,
-            ContactNumber: this.state.ContactNumber
+            FullName: FullName,
+            Email: Email,
+            DateOfBirth: DateOfBirth,
+            Sex: Sex,
+            ContactNumber: ContactNumber
         };
 
         this.props.registerClient(newUser , this.props, this.props.history);
@@ -93,7 +146,7 @@ class RegisterClient extends Component {
             return <ErrorComponent/>
         }
         else {
-            const {errors} = this.state; // This allows errors to be pulled out of this.state with pulling them out directly
+            const {errors, message, FullName, Email, DateOfBirth, ContactNumber, Values} = this.state; // This allows errors to be pulled out of this.state with pulling them out directly
 
             return (
                 <div className="register">
@@ -107,7 +160,7 @@ class RegisterClient extends Component {
                                         myClassName="register-client"
                                         name="FullName"
                                         placeholder="Full Name"
-                                        value={this.state.FullName}
+                                        value={FullName}
                                         type="text"
                                         onChange={this.onChange}
                                         error={errors.FullName}
@@ -116,7 +169,7 @@ class RegisterClient extends Component {
                                         myClassName="register-client"
                                         name="Email"
                                         placeholder="Email Address"
-                                        value={this.state.Email}
+                                        value={Email}
                                         type="Email"
                                         onChange={this.onChange}
                                         error={errors.Email}
@@ -129,7 +182,7 @@ class RegisterClient extends Component {
                                             < FormInputGroup
                                                 myClassName="edit-exercise"
                                                 name="DateOfBirth"
-                                                value={this.state.DateOfBirth}
+                                                value={DateOfBirth}
                                                 type="date"
                                                 onChange={this.onChange}
                                                 error={errors.DateOfBirth}
@@ -143,7 +196,7 @@ class RegisterClient extends Component {
                                             <FormSelectComp
                                                 name="Sex"
                                                 id="Sex"
-                                                values={this.state.values}
+                                                values={Values}
                                                 onChange={this.onChange}
                                                 error={errors.Sex}
                                             />
@@ -153,14 +206,14 @@ class RegisterClient extends Component {
                                         myClassName="edit-contact-div"
                                         name="ContactNumber"
                                         placeholder="Enter Contact Number"
-                                        value={this.state.ContactNumber}
+                                        value={ContactNumber}
                                         type="text"
                                         onChange={this.onChange}
                                         error={errors.ContactNumber}
                                     />
-                                    <div className="text-success">{this.state.success !== undefined ? this.state.success.msg: null}</div>
+                                    <DisplayMessage message={message}/>
                                     <input type="submit" value="Register Client" className="btn btn-info btn-block mt-1"/>
-                                    <button type="button" className="btn btn-danger btn-block mt-3 mb-3"
+                                    <button type="button" className="btn btn-success btn-block mt-3 mb-3"
                                             onClick={this.props.history.goBack}>Back
                                     </button>
                                 </form>

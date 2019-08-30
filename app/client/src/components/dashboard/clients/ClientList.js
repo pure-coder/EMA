@@ -1,22 +1,18 @@
 import {connect} from 'react-redux';
 import React, {Component} from 'react';
 import {Link, withRouter} from 'react-router-dom';
-import {deleteClient, ptGetClientProgression} from "../../../actions/ptProfileActions";
-import PropTypes from "prop-types";
+// import {ptDeleteClient, ptGetClientProgression} from "../../../actions/ptProfileActions";
 import Modal from "react-awesome-modal";
 import DeleteConfirm from './DeleteConfirm'
 import isEmpty from "../../../utilities/is_empty";
 import ErrorComponent from "../../error/ErrorComponent";
-import Loading from "../../../elements/Loading";
 
 class ClientList extends Component {
-    // This allows the component states to be up{dated and re-rendered)
     constructor(props) {
         super(props);
         this.state = {
             loaded: false,
-            clientId: props.authenticatedUser.clientId || props.match.params.cid,
-            deleteId: "",
+            clientId: '',
             ptId: "",
             clientName: "",
             visible: false,
@@ -25,16 +21,16 @@ class ClientList extends Component {
         };
     }
 
-    openModal = (clientId, ptId, clientName) => {
+    openModal = (cId, ptId, clientName) => {
         this.setState({
-            visible : true,
-            deleteId: clientId,
+            visible: true,
+            clientId: cId,
             ptId: ptId,
             clientName: clientName
-        });
+        })
     };
 
-    onClickAway = () => {
+    clickAway = () => {
         this.setState({
             visible: false
         });
@@ -42,35 +38,6 @@ class ClientList extends Component {
 
     modalSize = height => {
         this.setState({modalHeight: height});
-    };
-
-    static getDerivedStateFromProps(nextProps, state){
-        if(nextProps.errors !== state.errors){
-            return {
-                errors: nextProps.errors,
-                loaded: true
-            }
-        }
-        return null;
-    }
-
-    componentDidMount(){
-        document.body.scrollTo(0,0);
-    }
-
-    onProfileClick(ptId, id, clientData){
-        this.props.history.push({pathname: `/users/${ptId}/client_profile/${id}`, state :  {clientData: clientData} });
-    }
-
-    // Tried to use Link component but it didn't call the url directly like window.location.href so the scheduler data
-    // for clients was not loaded or saved correctly
-    static onScheduleClick(ptId, id) {
-        this.props.history.push(`/users/${ptId}/scheduler/${id}`);
-    };
-
-    onEditProfile(userId, clientId) {
-        // Direct user with history push to edit profile of user id
-        this.props.history.push(`/users/${userId}/edit_client/${clientId}`);
     };
 
     sortedMap = (clients) => {
@@ -88,12 +55,8 @@ class ClientList extends Component {
 
     render() {
         const {user} = this.props.authenticatedUser;
-        const pt_data = this.props.userData;
-        const clients = this.props.clients;
+        const {ptData, clients} = this.props;
 
-        if (pt_data === null) {
-            return <Loading myClassName="loading_container"/>
-        }
         if(isEmpty(user)){
             return <ErrorComponent/>
         }
@@ -104,16 +67,21 @@ class ClientList extends Component {
             const ptClients = this.sortedMap(clients).map((client, index) => (
                 <tr key={client._id} className={index % 2 === 0 ? "odd-row" : "even-row"}>
                     <td><b>{client.FullName}</b></td>
-                    <td align="center"><a onClick={this.onProfileClick.bind(this, client.ptId, client._id, clients[index])}>
-                        <i className="fas fa-columns fa-2x"></i></a>
+                    <td align="center">
+                        <Link to={`/users/${ptData._id}/client_profile/${client._id}`}>
+                            <i className="fas fa-columns fa-2x"></i>
+                        </Link>
+
                     </td>
                     <td align="center">
-                        <a onClick={ClientList.onScheduleClick.bind(this, client.ptId, client._id)}><i
-                            className="far fa-calendar-alt fa-2x"></i></a>
+                        <Link to={`/users/${ptData._id}/scheduler/${client._id}`}><i
+                            className="far fa-calendar-alt fa-2x"></i>
+                        </Link>
                     </td>
                     <td align="center">
-                        <a onClick={this.onEditProfile.bind(this, user.id, client._id)}><i
-                            className="fas fa-edit fa-2x"></i></a>
+                        <Link to={`/users/${ptData._id}/edit_client/${client._id}`}><i
+                            className="fas fa-edit fa-2x"></i>
+                        </Link>
                     </td>
                     <td align="center">
                         <button
@@ -142,53 +110,46 @@ class ClientList extends Component {
                                     </button>
                                 </Link>
                             </div>
-                                <h3 className="mt-5 mb-3">Clients</h3>
-                                <table className="table client-table">
-                                    <thead>
-                                    <tr className="even-row">
-                                        <th id="client-table-name">Name</th>
-                                        <th align="center">Profile</th>
-                                        <th align="center">Workout Schedule</th>
-                                        <th align="center">Edit Details</th>
-                                        <th align="center">Delete User</th>
-                                    </tr>
-                                    {ptClients}
-                                    </thead>
-                                </table>
+                            <h3 className="mt-5 mb-3">Clients</h3>
+                            <table className="table client-table">
+                                <thead>
+                                <tr className="even-row">
+                                    <th id="client-table-name">Name</th>
+                                    <th align="center">Profile</th>
+                                    <th align="center">Workout Schedule</th>
+                                    <th align="center">Edit Details</th>
+                                    <th align="center">Delete User</th>
+                                </tr>
+                                {ptClients}
+                                </thead>
+                            </table>
                         </div>
                     </div>
 
-                    <Modal visible={this.state.visible} width={this.state.modalWidth} height={this.state.modalHeight} effect="fadeInUp"
-                           onClickAway={this.onClickAway}>
-
-                        <DeleteConfirm name={this.state.clientName} clientId={this.state.deleteId} ptId={this.state.ptId} onClickAway={this.onClickAway}
+                    <Modal visible={this.state.visible}
+                           width={this.state.modalWidth}
+                           height={this.state.modalHeight}
+                           effect="fadeInUp"
+                           onClickAway={this.clickAway}
+                    >
+                        <DeleteConfirm name={this.state.clientName}
+                                       clientId={this.state.clientId}
+                                       ptId={this.state.ptId}
+                                       onClickAway={this.clickAway}
                                        visible={this.state.visible}
                                        modalSize={this.modalSize}
-                                       progressFormHeight={this.state.modalHeight}/>
-
+                                       progressFormHeight={this.state.modalHeight}
+                        />
                     </Modal>
 
                 </div>
             );
-
-
-
-
         }
-
     }
 }
 
-ClientList.propTypes = {
-    deleteClient: PropTypes.func.isRequired,
-    ptGetClientProgression: PropTypes.func.isRequired,
-    ptProfile: PropTypes.object.isRequired
-};
-
 const stateToProps = (state) => ({
     authenticatedUser: state.authenticatedUser,
-    ptProfile: state.ptProfile,
-    errors: state.errors
 });
 
-export default connect(stateToProps, {deleteClient, ptGetClientProgression})(withRouter(ClientList));
+export default connect(stateToProps, {})(withRouter(ClientList));

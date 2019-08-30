@@ -5,54 +5,63 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { logOutUser } from "../../actions/authenticationActions";
 import { withRouter } from 'react-router-dom';
-import {getPtData, getClients, clearCurrentProfile} from "../../actions/ptProfileActions";
-import {getClientData, clearClientProfile} from "../../actions/clientProfileActions";
+import {
+    ptGetData,
+    ptClearProfile
+} from "../../actions/ptProfileActions";
+import {
+    clientGetData,
+    clientClearProfile
+} from "../../actions/clientProfileActions";
 
-import defaultUserImage from '../../img/user-regular.svg';
 import {ProfileImage} from "../dashboard/profile/ProfileImage";
+import PtMenuComp from "../common/Menu/PtMenuComp";
+import ClientMenuComp from "../common/Menu/ClientMenuComp";
 
 class Navigation extends Component {
     constructor(props){
         super(props);
         this.state = {
             userData: null,
-            ProfilePicUrl: defaultUserImage
+            ProfilePicUrl: null,
+            loaded: false
         };
     }
 
-    static getDerivedStateFromProps(props){
-        if(props.authenticatedUser.isAuthenticated) {
-            if (props.authenticatedUser.user.pt) {
-                if (props.ptProfile.pt_data !== null) {
-                    return {
-                        userData: props.ptProfile.pt_data,
-                        ProfilePicUrl: props.ptProfile.pt_data.ProfilePicUrl
-                    }
+    componentDidUpdate(prevProps){
+        const {isAuthenticated, user} = this.props.authenticatedUser;
+        const {pt_data} = this.props.ptProfile;
+        const {client_data} = this.props.clientProfile;
+
+        if(isAuthenticated){
+            if(user.pt){
+                if(prevProps.ptProfile.pt_data !== pt_data){
+                    this.setState({
+                        userData: pt_data,
+                        ProfilePicUrl: pt_data.ProfilePicUrl
+                    });
                 }
-                return null;
             }
             else {
-                if (props.clientProfile.client_data !== null) {
-                    return {
-                        userData: props.clientProfile.client_data,
-                        ProfilePicUrl: props.clientProfile.client_data.ProfilePicUrl
-                    }
+                // if(prevProps.clientProfile.client_data !== this.state.userData ||
+                if(prevProps.clientProfile.client_data !== client_data) {
+                    this.setState({
+                        userData: client_data,
+                        ProfilePicUrl: client_data.ProfilePicUrl
+                    })
                 }
-                return null;
             }
-        }
-        return null;
+        } // isAuthenticated
     }
 
     componentDidMount() {
         const {isAuthenticated} = this.props.authenticatedUser;
         if(isAuthenticated){
             if(this.props.authenticatedUser.user.pt){
-                this.props.getPtData(this.props.history);
-                this.props.getClients(this.props.history);
+                this.props.ptGetData();
             }
             else {
-                this.props.getClientData(this.props.authenticatedUser.user.id, this.props.history);
+                this.props.clientGetData();
             }
         }
     } // ComponentDidMount
@@ -61,30 +70,27 @@ class Navigation extends Component {
     onLogOutClick = e => {
         e.preventDefault();
         if(this.props.authenticatedUser.user.pt){
-            this.props.clearCurrentProfile();
+            this.props.ptClearProfile();
         }
         else {
-            this.props.clearClientProfile();
+            this.props.clientClearProfile();
         }
         this.props.logOutUser();
-        this.props.history.push('/');
+        window.location.href='/';
     };
 
     render() {
-
-        const {isAuthenticated} = this.props.authenticatedUser;
+        const {user ,isAuthenticated} = this.props.authenticatedUser;
         const {userData, ProfilePicUrl} = this.state;
 
         // Define navbar for dynamic navbar
         const authorisedLinks = (
             <div className="collapse navbar-collapse" id="mobile-navigation">
                 {
-                    userData ?
-                        <Link className="nav-main" to={`/users/${userData._id}/dashboard`}>
-                            Dashboard
-                        </Link>
-                        : null
-
+                    user.pt && userData && <PtMenuComp userData={userData}/>
+                }
+                {
+                    !user.pt && userData && <ClientMenuComp userData={userData}/>
                 }
                 <ul className="navbar-nav ml-auto">
                     <a href="" onClick={this.onLogOutClick} className="nav-link">
@@ -141,12 +147,6 @@ Navigation.propTypes = {
     authenticatedUser: PropTypes.object.isRequired,
     ptProfile: PropTypes.object.isRequired,
     clientProfile: PropTypes.object.isRequired,
-    clearCurrentProfile: PropTypes.func.isRequired,
-    clearClientProfile: PropTypes.func.isRequired,
-    logOutUser: PropTypes.func.isRequired,
-    getPtData: PropTypes.func.isRequired,
-    getClients: PropTypes.func.isRequired,
-    getClientData: PropTypes.func.isRequired,
 };
 
 // Used to pull auth state into this component
@@ -160,4 +160,10 @@ const stateToProps = (state) => ({
 // connect must be exported with a passed parameter (not direct parameter) of Register this is wrapped with withRouter
 // allowing the functions of the package to be used with the component eg, proper routing, and direct parameters of
 // stateToProps for the 1st parameter and the action which is registerUser as the 2nd parameter
-export default connect(stateToProps, { logOutUser, getClientData, getPtData, getClients, clearCurrentProfile, clearClientProfile })(withRouter(Navigation));
+export default connect(stateToProps, {
+    logOutUser,
+    clientGetData,
+    clientClearProfile,
+    ptGetData,
+    ptClearProfile
+})(withRouter(Navigation));

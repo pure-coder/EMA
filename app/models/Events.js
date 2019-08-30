@@ -16,7 +16,10 @@ const EventsSchema = new Schema({
         type: String
     },
     clientId: {
-        type: String
+        type: String, require: true
+    },
+    ptId: {
+        type: String, require: true
     }
 }, {collection: "Events"}, {timestamps: true});
 

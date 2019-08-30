@@ -2,9 +2,9 @@ import React, {Component} from 'react' // React is need for rendering JSX HTML e
 import {withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
-import {setErrors, clearErrors, clearSuccess, deleteExercise, editClientExercise} from "../../../actions/ptProfileActions";
-import FormInputGroup from "../../common/FormInputGroup";
-import DisplayMessage from "../../common/DisplayMessage";
+import {setErrors, clearErrors, clearSuccess, ptDeleteExercise, ptEditClientExercise} from "../../../actions/ptProfileActions";
+import FormInputGroup from "../../common/Forms/FormInputGroup";
+import DisplayMessage from "../../common/Message/DisplayMessage";
 import isEmpty from "../../../validation/is_empty";
 
 
@@ -20,28 +20,26 @@ class EditDataProgressForm extends Component {
             edited: false,
             formId : "#"+ props.exerciseName.replace(/\s+/g, '-'),
             errors: {},
-            message: {
-                type: null
-            },
+            message: {},
             progressFormHeight: props.progressFormHeight
         };
     } // constructor
 
     static getDerivedStateFromProps(props, state) {
-        if(props.progressFormHeight !== state.progressFormHeight){
-            return {
-                progressFormHeight: state.progressFormHeight
-            }
-        }
         if (props.visible !== state.visible) {
             return {visible: props.visible}
         }
-        if (isEmpty(props.errors) !== isEmpty(state.errors)){
+        if (state.errors !== state.message){
             return {
-                errors: props.errors
+                message: state.errors
             }
         }
-        if (isEmpty(props.success) !== isEmpty(state.success)) {
+        if (!isEmpty(props.errors) && isEmpty(state.message)){
+            return {
+                message: props.errors
+            }
+        }
+        if (!isEmpty(props.success)) {
             return {
                 message: props.success
             }
@@ -91,28 +89,44 @@ class EditDataProgressForm extends Component {
     }
 
     onChange = e => {
-        const metrics = this.state.metrics;
-        const toDelete = this.state.toDelete;
-        let id = e.target.id;
-        let name = e.target.name;
-        let value = e.target.value;
+        this.setState({errors: {}});
+        const {metrics, toDelete} = this.state;
+        let {id, name, value} = e.target;
+
 
         // For maxWeight Check to see if value entered is a number, if not then don't update state and exit function.
         if(name === 'maxWeight' && isNaN(value)){
+            this.setState({
+                errors: {
+                    id: id,
+                    maxWeight: "Numbers only"
+                }
+            });
+            return null;
+        }
+        else if(name === 'maxWeight' && value.length > 3){
+            this.setState({
+                errors: {
+                    id: id,
+                    maxWeight: "Max 999"
+                }
+            });
             return null;
         }
 
-        // Make sure maxWeight value does not exceed 3 characters
-        if(name === 'maxWeight' && (value.length > 3)){
-            let message = {
-                type: "ERROR",
-                msg: "Max Weight value must be between 0-999!"
-            };
-            this.setState({message});
-            return null;
-        }
-        else{
-            this.setState({message: {type: null}}); // reset to null
+        let defaultDate = new Date(Date.now()).toISOString().substring(0, 10);
+
+        // Check that valid date is given and is not in future.
+        if(name === 'Date'){
+            if(value === "" || (value > defaultDate)){
+                this.setState({
+                    errors: {
+                        id: id,
+                        Date: "A valid date must be entered."
+                    }
+                });
+                return null
+            }
         }
 
         // For delete checkbox, check to see if data key exists in delete if un/checked.
@@ -151,74 +165,67 @@ class EditDataProgressForm extends Component {
         this.props.onClickAway();
         // Clear errors once the modal has been exited
         this.props.clearErrors();
-        this.setState({message: {type: null}});
+        this.setState({message: {}});
     };
 
     onSubmit = e => {
         e.preventDefault();
         this.setState({
-            message: {type: null},
+            message: {},
+            errors: {}
         });
         this.props.clearSuccess();
 
         // Check if any data has been changed, don't want to waste server load and bandwidth on empty requests
         let dataChanged = this.state.edited;
-        let message;
 
         if(!dataChanged){
-            message = {
-                type: "ERROR",
-                msg: "No data has been modified or deleted!"
-            };
-            this.setState({message});
+            this.setState({
+                errors: {
+                    type: "ERROR",
+                    msg: "No data has been modified or deleted!"
+                }
+            });
             return null;
         }
         else{
             this.props.clearErrors();
-            let deleteMetrics = this.state.toDelete;
-            let originalMetrics = this.state.metrics;
+            let {metrics, toDelete, clientId} = this.state;
+            let {exerciseName, history, exerciseId} = this.props;
             let newMetrics = [];
 
-            // Check if all items have been selected for deletion, if so make new empty array and send that to edit function
-            if(originalMetrics.length === deleteMetrics.length){
-                originalMetrics = [];
-            }
-            else{
-                for(let i = 0, len = originalMetrics.length; i < len; i++){
-                    if(!deleteMetrics.includes(originalMetrics[i]._id)){
-                        newMetrics.push(originalMetrics[i]);
-                    }
-                }
-            }
-
-            // Delete whole exercise from client progression (if all checkboxes are ticked, so nothing has been modified)
-            if(isEmpty(originalMetrics)){
-                this.props.deleteExercise(this.state.clientId, this.props.exerciseName, this.props.history);
+            // Check if all items have been selected for deletion, delete whole exercise from client progression
+            if(metrics.length === toDelete.length){
+                this.props.ptDeleteExercise(clientId, exerciseName, history);
                 // Close edit modal there is no data to display.
                 this.onClose();
             }
             // Send new array to overwrite current data for exercise in db for client
             else{
-                this.props.editClientExercise(this.state.clientId, this.props.exerciseId, newMetrics, this.props.history);
-
+                for(let i = 0, len = metrics.length; i < len; i++){
+                    if(!toDelete.includes(metrics[i]._id)){
+                        newMetrics.push(metrics[i]);
+                    }
+                }
+                this.props.ptEditClientExercise(clientId, exerciseId, newMetrics, history);
             }
-
         }
     }; // onSubmit
 
     render() {
-        let {errors, message} = this.state;
-        let metrics = this.state.metrics;
+        let {errors, message, metrics} = this.state;
+        let {exerciseName} = this.props;
+
         
         return (
             <div className="editClientProgress">
                 <div>
                     <button className="closeButton"  onClick={this.onClose}><i className="fas fa-window-close 2x"></i></button>
                 </div>
-                <div id={this.props.exerciseName.replace(/\s+/g, '-') + "-form"} className="modal-margin">
+                <div id={exerciseName.replace(/\s+/g, '-') + "-form"} className="modal-margin">
                     <form autoComplete="off" onSubmit={this.onSubmit}>
                         <label className="control-label form-control-lg new-progression">
-                            Exercise: {this.props.exerciseName}
+                            Exercise: {exerciseName}
                         </label>
                         <label className="control-label form-control-lg new-progression">
                             Data to be modified or deleted:
@@ -231,17 +238,17 @@ class EditDataProgressForm extends Component {
                                 <th align="center">Delete</th>
                             </tr>
                             {
-                                metrics.map((metric, index) => {
-                                    return ( <tr key={metric._id}>
+                                metrics.map(({Date, maxWeight, _id}, index) => {
+                                    return ( <tr key={_id}>
                                         <td>
                                             < FormInputGroup
                                                 myClassName="edit-exercise"
                                                 name="Date"
                                                 id={index}
-                                                value={metric.Date.toString()}
+                                                value={Date.toString()}
                                                 type="date"
                                                 onChange={this.onChange}
-                                                error={errors.Date}
+                                                error={errors.id === index.toString() && errors.Date}
                                             />
                                         </td>
                                         <td>
@@ -249,10 +256,10 @@ class EditDataProgressForm extends Component {
                                                 myClassName="edit-exercise"
                                                 name="maxWeight"
                                                 id={index}
-                                                value={metric.maxWeight.toString()}
+                                                value={maxWeight.toString()}
                                                 type="text"
                                                 onChange={this.onChange}
-                                                error={errors.maxWeight}
+                                                error={errors.id === index.toString() && errors.maxWeight}
                                             />
                                         </td>
                                         <td>
@@ -261,7 +268,7 @@ class EditDataProgressForm extends Component {
                                                 name="Delete"
                                                 id={index}
                                                 type="checkbox"
-                                                value={metric._id}
+                                                value={_id}
                                                 onChange={this.onChange}
                                                 error={errors.deleted}
                                             />
@@ -287,8 +294,8 @@ EditDataProgressForm.propTypes = {
     setErrors: PropTypes.func.isRequired,
     clearSuccess: PropTypes.func.isRequired,
     clearErrors: PropTypes.func.isRequired,
-    deleteExercise: PropTypes.func.isRequired,
-    editClientExercise: PropTypes.func.isRequired,
+    ptDeleteExercise: PropTypes.func.isRequired,
+    ptEditClientExercise: PropTypes.func.isRequired,
     errors: PropTypes.object.isRequired,
     success: PropTypes.object.isRequired
 };
@@ -299,4 +306,4 @@ const stateToProps = (state) => ({
 });
 
 
-export default connect(stateToProps, {setErrors, clearErrors, clearSuccess, deleteExercise, editClientExercise})(withRouter(EditDataProgressForm));
+export default connect(stateToProps, {setErrors, clearErrors, clearSuccess, ptDeleteExercise, ptEditClientExercise})(withRouter(EditDataProgressForm));

@@ -1,38 +1,12 @@
 import axios from 'axios';
 import {
-    GET_ERRS,
     SET_SIGNED_IN_USER,
 } from "./types"; // import custom defined types
 import setAuthorisationToken from '../utilities/setAuthorisationToken';
 import jwtDecode from 'jwt-decode';
-import {clearErrors, setSuccess, clearCurrentProfile} from "./ptProfileActions";
-import {clearClientProfile} from "./clientProfileActions";
-
-export const manageErrors = (err, dispatch, history) => {
-    // 401 Unauthorised
-    if(err.response.status === 401){
-        dispatch({
-            type: GET_ERRS,
-            payload: {
-                error_message: err.response.data,
-                error_code: err.response.status
-            }
-        });
-        dispatch(logOutUser());
-        dispatch(clearErrors());
-        //history.push('/re-login');
-    }
-    // If used direct url, and id doesn't exist send user to error page (404 - Not Found)
-    else if (err.response.status === 404){
-        history.replace('/error_page');
-    }
-    else {
-        dispatch({
-            type: GET_ERRS,
-            payload: err.response.data
-        })
-    }
-};
+import {setSuccess, ptClearProfile} from "./ptProfileActions";
+import {clientClearProfile} from "./clientProfileActions";
+import {manageErrors} from "./errorsAction";
 
 // Register User
 // Used to dispatch (action) data to a reducer, in this case it is the registerUser action with the sign up data
@@ -44,7 +18,7 @@ export const manageErrors = (err, dispatch, history) => {
 // thus allowing the result to be passed to the dispatch function, the dispatch function is called via the connect function in the component.
 //
 // history is passed in from register.js onSubmit so it can be used to direct the user to another link/route
-export const registerUser =(Data, history) => (dispatch) => {
+export const registerUser =(Data) => (dispatch) => {
     // Post user data to the API specifically the user/register route
     axios
         .post('/api/register', Data)
@@ -55,7 +29,7 @@ export const registerUser =(Data, history) => (dispatch) => {
             }
         }) // Uses history.push to direct the user
         .catch(err => {
-            manageErrors(err, dispatch, history)
+            dispatch(manageErrors(err));
         }
     );
 }; // registerUser
@@ -81,10 +55,7 @@ export const loginUser = (Data) => (dispatch) => {
             dispatch(setSignedInUser(decodedToken));
         })
         .catch(err => {
-                dispatch({
-                    type: GET_ERRS,
-                    payload: err.response.data
-                })
+                dispatch(manageErrors(err));
             }
         );
 }; // loginUser
@@ -108,12 +79,10 @@ export const logOutUser = () => dispatch => {
     // Set signed in user to an empty object and isAuthenticated to false by passing in {} (empty object)
     dispatch(setSignedInUser({}));
     // Remove data based on user (either pt or client)
-
     // Clear Profile if pt
-    dispatch(clearCurrentProfile());
-
+    dispatch(ptClearProfile());
     // Clear Profile if client
-    dispatch(clearClientProfile());
+    dispatch(clientClearProfile());
 };
 
 // RefreshToken
@@ -134,7 +103,7 @@ export const refreshToken = () => dispatch => {
             }
         })
         .catch(err =>{
-            console.log(err);
+           dispatch(manageErrors(err));
             }
         )
 };

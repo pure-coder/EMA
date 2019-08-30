@@ -5,6 +5,8 @@ const router = express.Router();
 const PersonalTrainer = require('../models/PersonalTrainer');
 // Require events
 const Events = require('../models/Events');
+
+const Clients = require('../models/Clients');
 // require jason web tokens
 const jwt = require('jsonwebtoken');
 // jwt keys
@@ -94,19 +96,11 @@ router.post('/:id/scheduler/:cid', passport.authenticate('pt_rule', {session: fa
     let data = req.body;
     let schedId, docId; // initialising schedule id and document id
 
-    // Get clientId from frontEnd
-    let userId = req.params.id;
-    let clientId = req.params.cid;
-
     // Check authentication of the current user, will also be used to verify if they can access data
     let token = req.headers.authorization.split(' ')[1];
     let payload = jwt.decode(token, keys.secretOrKey);
-    let isPT = payload.pt;
-
-    // If user is PT then userId will be of pt so change clientId to userId, so that userId is that of the client
-    if (isPT) {
-        userId = clientId;
-    }
+    const signedInId = payload.id;
+    let clientId = req.params.cid;
 
     // Had to rename keys to the data sent as dhtmlxscheduler added the id number into the key
     let addedId = data.ids + '_';
@@ -147,7 +141,8 @@ router.post('/:id/scheduler/:cid', passport.authenticate('pt_rule', {session: fa
                 text: data.text,
                 start_date: data.start_date,
                 end_date: data.end_date,
-                clientId: clientId
+                clientId: clientId,
+                ptId: signedInId
             }, {upsert: true, runValidators: true, new: true})
             .then(result => {
                 if (result) {
@@ -168,12 +163,13 @@ router.post('/:id/scheduler/:cid', passport.authenticate('pt_rule', {session: fa
             text: data.text,
             start_date: data.start_date,
             end_date: data.end_date,
-            clientId: userId
+            clientId: clientId,
+            ptId: signedInId
         });
         // Save new workout to database
         newWorkout.save()
             .then(events => {
-                    //console.log(events);
+                    console.log(events);
                     return res.status(200).json(events);
                 }
             )
@@ -197,6 +193,107 @@ router.post('/:id/scheduler/:cid', passport.authenticate('pt_rule', {session: fa
         res.send("Not supported operation");
     }
 }); // router post /scheduler
+
+
+router.get(`/next_workouts`, passport.authenticate('both_rule',  {session: false}, null), (req, res) => {
+    // Check authentication of the current user, will also be used to verify if they can access data
+    let token = req.headers.authorization.split(' ')[1];
+    let payload = jwt.decode(token, keys.secretOrKey);
+    const signedInId = payload.id;
+    const isPt = payload.pt;
+
+    const todaysDate = new Date(Date.now()).toISOString();
+
+    if(isPt){
+        PersonalTrainer.findOne({"_id" : signedInId}).populate('ClientIDs')
+            .then(result =>{
+                if(result){
+                    // Returned list of populated clients (all client details)
+                    const clients = result.ClientIDs;
+                    // Return ids of all clients of pt
+                    const clientIds = clients.map(client => {
+                        return client._id;
+                    });
+
+                    // Find events for clients from todays date, sorting date in ascending order, and limit to 7 returned docs
+                    Events.find({'clientId': {$in : clientIds }})
+                        .where('start_date')
+                        .gte(todaysDate)
+                        .sort('start_date')
+                        .limit(5)
+                        .then(eventResults => {
+
+                            let nextWorkouts = [];
+
+                            eventResults.map((event) => {
+                                clients.forEach(client => {
+                                    if(client._id.toString() === event.clientId){
+                                        let workout = {
+                                            id: event._id,
+                                            start_date: event.start_date,
+                                            clientName: client.FullName,
+                                            clientImage: client.ProfilePicUrl,
+                                        };
+                                        nextWorkouts.push(workout);
+                                    }
+                                });
+                                return null;
+                            });
+
+                            return res.status(200).json(nextWorkouts)
+                        })
+                        .catch(err =>{
+                            return res.status(400).json(err);
+                        });
+                }
+                else {
+                    return res.status(400).json("Personal Trainer not found.");
+                }
+            })
+            .catch(err => {
+                return res.status(400).json(err);
+            });
+    }
+    else {
+
+        Clients.findOne({"_id": signedInId})
+            .then(client => {
+                if(client){
+                    // Find events for clients from todays date, sorting date in ascending order, and limit to 7 returned docs
+                    Events.find({'clientId': signedInId})
+                        .where('start_date')
+                        .gte(todaysDate)
+                        .sort('start_date')
+                        .limit(5)
+                        .then(eventResults => {
+
+                            let nextWorkouts = [];
+                            eventResults.map((event) => {
+
+                                        let workout = {
+                                            id: event._id,
+                                            start_date: event.start_date,
+                                            clientName: client.FullName,
+                                            clientImage: client.ProfilePicUrl,
+                                        };
+                                        nextWorkouts.push(workout);
+                                    });
+
+                            return res.status(200).json(nextWorkouts)
+                        })
+                        .catch(err =>{
+                            return res.status(400).json(err);
+                        });
+                }
+            })
+            .catch(err => {
+                return res.status(400).json(err);
+            });
+    }
+
+
+
+});
 
 //Export router so it can work with the main restful api server
 module.exports = router;

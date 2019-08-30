@@ -1,6 +1,6 @@
 import {
     GET_CLIENT_PROFILE,
-    PROFILE_LOADING,
+    CLIENT_PROFILE_LOADING,
     CLIENT_PROGRESSION,
     CLEAR_PROGRESSION,
     CLEAR_CLIENT_PROFILE,
@@ -8,7 +8,10 @@ import {
     CLEAR_PROFILE_NOTES,
     BODY_BIO_CLIENT,
     CLEAR_BODY_BIO_CLIENT,
-    UPDATE_PROFILE_PIC_CLIENT
+    UPDATE_PROFILE_PIC_CLIENT,
+    CLIENT_PROFILE_EDITED,
+    PT_CLIENT_PROFILE_EDITED,
+    CLIENT_NEXT_WORKOUTS
 } from '../actions/types';
 
 const initialState = {
@@ -16,28 +19,27 @@ const initialState = {
     profile_notes: null,
     body_bio: null,
     client_progression: null,
-    loading: false
+    client_next_workouts: null,
+    clientLoading: false
 };
 
 
 export default function(state = initialState, action) {
     switch (action.type) {
-        case PROFILE_LOADING:
+        case CLIENT_PROFILE_LOADING:
             return {
                 ...state,
-                loading: true
+                clientLoading: true
             };
         case GET_CLIENT_PROFILE:
             return {
                 ...state,
                 client_data: action.payload,
-                loading: false
+                clientLoading: false
             };
         case CLEAR_CLIENT_PROFILE:
             return {
-                ...state,
-                client_data: null,
-                client_progression: null,
+                ...initialState
             };
         case GET_PROFILE_NOTES:
             return {
@@ -76,6 +78,21 @@ export default function(state = initialState, action) {
                     ...state.client_data,
                     ProfilePicUrl: action.payload
                 }
+            };
+        case CLIENT_PROFILE_EDITED:
+            return {
+                ...state,
+                client_data: action.payload
+            };
+        case PT_CLIENT_PROFILE_EDITED:
+            return {
+                ...state,
+                client_data: action.payload
+            };
+        case CLIENT_NEXT_WORKOUTS:
+            return {
+                ...state,
+                client_next_workouts: action.payload
             };
         default:
             return state;
