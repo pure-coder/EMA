@@ -27,7 +27,7 @@ const validateRegistrationInput = require('../validation/registration');
 // Require Input validation for new Client
 const validateClientInput = require('../validation/newClient');
 // Require Input validation for logging in PT or Client
-const validateLoginInput = require('../validation/Login');
+const validateLoginInput = require('../validation/login');
 
 // Require isEmpty function
 const isEmpty = require('../validation/is_empty');
