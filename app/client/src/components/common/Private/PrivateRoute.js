@@ -13,9 +13,10 @@ const PrivateRoute = ({component: Component, ...rest}) => {
             {...rest}
             render={
                 props =>{
-                     return store.getState().authenticatedUser.isAuthenticated ? (<Component {...props} />) :
+                    return store.getState().authenticatedUser.isAuthenticated ? (<Component {...props} />) :
                         (<Redirect from={props.location.pathname} to={{pathname: '/re-login'}} />)
-                    }
+                }
+
             }
         />
     )
