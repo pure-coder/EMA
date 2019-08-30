@@ -24,7 +24,7 @@ const log = require('./config/logger').logger;
 // scheduler();  /////////////// WITH LINE 7 SORT OUT CRON SCHEDULER
 
 // assign the port that will listen on for the application
-const port = process.env.PORT || 8000; // Set port to 8000
+const port = 80; // Set port to 8000
 
 // allow app to use bodyParser so that the app can process URL encoded forms
 app.use(bodyParser.urlencoded({extended: true}));
@@ -57,9 +57,9 @@ app.use('/api/', scheduler);
 
 // Use static server build for production
 if(process.env.NODE_ENV === 'production'){
-    app.use(express.static('client/build'));
-    app.get('*', (req, res) => {
-        res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+    app.use(express.static(path.join(__dirname, 'client/build')));
+    app.get('/*', (req, res) => {
+        res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
     })
 }
 
