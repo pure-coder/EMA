@@ -3,29 +3,29 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "axios": "^0.18.0",
+    "axios": "^0.18.1",
     "classnames": "^2.2.6",
-    "d3": "^5.7.0",
-    "dhtmlx-scheduler": "^5.0.1",
+    "d3": "^5.11.0",
+    "dhtmlx-scheduler": "^5.2.3",
     "from-cdn": "^1.0.1",
     "jwt-decode": "^2.2.0",
-    "prop-types": "^15.6.2",
-    "react": "^16.4.1",
+    "prop-types": "^15.7.2",
+    "react": "^16.9.0",
     "react-awesome-modal": "^2.0.5",
-    "react-dom": "^16.4.1",
-    "react-helmet": "^5.2.0",
-    "react-redux": "^5.0.7",
+    "react-dom": "^16.9.0",
+    "react-helmet": "^5.2.1",
+    "react-redux": "^5.1.1",
     "react-router-dom": "^4.3.1",
     "react-router-redux": "^4.0.8",
     "react-scripts": "1.1.4",
-    "redux": "^4.0.0",
+    "redux": "^4.0.4",
     "redux-thunk": "^2.3.0"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "set PORT=80 && react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
-  "proxy": "http://localhost:80"
+  "proxy": "http://localhost:8000"
 }
