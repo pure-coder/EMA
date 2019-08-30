@@ -4,11 +4,10 @@
     <bookmark url="file://C:/Learning/clientObjectData.js" description="export {&quot;_id&quot;:&quot;5c2e3454d27ace097420b414&quot;,&quot;FullName..." line="2" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ec8ccf39-8487-4892-a38d-de9c288878a3" name="Default" comment="configuring for deployment">
-      <change afterPath="$PROJECT_DIR$/client/src/actions/errorsAction.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/src/components/common/Private/PrivateRoute.js" afterDir="false" />
+    <list default="true" id="ec8ccf39-8487-4892-a38d-de9c288878a3" name="Default" comment="Lost PrivateRoute somehow so had to restore.">
+      <change afterPath="$PROJECT_DIR$/config/AWS.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/config/db.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/restful_api_server.js" beforeDir="false" afterPath="$PROJECT_DIR$/restful_api_server.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -56,7 +55,7 @@
           <entry key="js" value="229918" />
           <entry key="json" value="32" />
           <entry key="md" value="150" />
-          <entry key="txt" value="21918" />
+          <entry key="txt" value="21966" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
@@ -64,7 +63,7 @@
           <entry key="CSS" value="2599" />
           <entry key="JSON" value="3" />
           <entry key="JavaScript" value="41678" />
-          <entry key="PLAIN_TEXT" value="8901" />
+          <entry key="PLAIN_TEXT" value="8949" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -138,11 +137,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/restful_api_server.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="622">
-              <caret line="68" lean-forward="true" selection-start-line="68" selection-end-line="68" />
+            <state relative-caret-position="265">
+              <caret line="35" column="41" lean-forward="true" selection-start-line="35" selection-start-column="41" selection-end-line="35" selection-end-column="41" />
             </state>
           </provider>
         </entry>
@@ -174,7 +173,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/package.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="449">
+            <state relative-caret-position="214">
               <caret line="39" column="24" lean-forward="true" selection-start-line="39" selection-start-column="24" selection-end-line="39" selection-end-column="24" />
             </state>
           </provider>
@@ -189,11 +188,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/config/config_data.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
-              <caret line="1" column="46" selection-start-line="1" selection-start-column="46" selection-end-line="1" selection-end-column="46" />
+            <state relative-caret-position="102">
+              <caret line="6" lean-forward="true" selection-start-line="6" selection-end-line="6" />
             </state>
           </provider>
         </entry>
@@ -562,13 +561,6 @@
       <workItem from="1565814825599" duration="34529000" />
       <workItem from="1565849788934" duration="81098000" />
     </task>
-    <task id="LOCAL-00193" summary="DeleteBodyDataProgressForm refactored correctly">
-      <created>1565461284802</created>
-      <option name="number" value="00193" />
-      <option name="presentableId" value="LOCAL-00193" />
-      <option name="project" value="LOCAL" />
-      <updated>1565461284802</updated>
-    </task>
     <task id="LOCAL-00194" summary="Had to modify BodyBio modal schema as clientId was mistakenly added as an index">
       <created>1565461969831</created>
       <option name="number" value="00194" />
@@ -905,11 +897,18 @@
       <option name="project" value="LOCAL" />
       <updated>1567122881865</updated>
     </task>
-    <option name="localTasksCounter" value="242" />
+    <task id="LOCAL-00242" summary="Lost PrivateRoute somehow so had to restore.">
+      <created>1567126050583</created>
+      <option name="number" value="00242" />
+      <option name="presentableId" value="LOCAL-00242" />
+      <option name="project" value="LOCAL" />
+      <updated>1567126050583</updated>
+    </task>
+    <option name="localTasksCounter" value="243" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="2035112000" />
+    <option name="totallyTimeSpent" value="2036863000" />
   </component>
   <component name="TodoView" selected-index="4">
     <todo-panel id="selected-file">
@@ -924,7 +923,7 @@
     <frame x="-8" y="-8" width="1382" height="784" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.20758928" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.20758928" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.24943988" />
       <window_info id="Favorites" order="2" side_tool="true" weight="0.32935026" />
       <window_info anchor="bottom" id="Messages" order="0" sideWeight="0.49813294" weight="0.32707354" />
@@ -936,7 +935,7 @@
       <window_info anchor="bottom" id="Inspection" order="6" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="7" weight="0.3276923" />
       <window_info anchor="bottom" id="Docker" order="8" show_stripe_button="false" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="9" sideWeight="0.49776787" visible="true" weight="0.36153847" />
+      <window_info anchor="bottom" id="Terminal" order="9" sideWeight="0.49776787" visible="true" weight="0.36153847" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.50223213" side_tool="true" weight="0.1923077" />
       <window_info anchor="bottom" id="Version Control" order="11" sideWeight="0.6152815" weight="0.36" />
       <window_info anchor="bottom" id="Inspection Results" order="12" weight="0.3276923" />
@@ -1012,7 +1011,6 @@
   <component name="VcsManagerConfiguration">
     <option name="SHOW_DIRTY_RECURSIVELY" value="true" />
     <option name="LIMIT_HISTORY" value="false" />
-    <MESSAGE value="Updating API checks on JWT for access rights" />
     <MESSAGE value="JWT tokens updated, just need to do two more (get/put - personal_trainer)" />
     <MESSAGE value="All JWT check updates complete and working in API." />
     <MESSAGE value="Corrected wrong status response in API for getting pt_clients." />
@@ -1037,7 +1035,8 @@
     <MESSAGE value="Removing all binds as refactoring to arrow functions" />
     <MESSAGE value="Added statements in restful_api_server to get react client from static build folder." />
     <MESSAGE value="configuring for deployment" />
-    <option name="LAST_COMMIT_MESSAGE" value="configuring for deployment" />
+    <MESSAGE value="Lost PrivateRoute somehow so had to restore." />
+    <option name="LAST_COMMIT_MESSAGE" value="Lost PrivateRoute somehow so had to restore." />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/client/src/reducers/clientProfileReducer.js">
@@ -1384,13 +1383,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/restful_api_server.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="622">
-          <caret line="68" lean-forward="true" selection-start-line="68" selection-end-line="68" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -1398,13 +1390,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="102">
           <caret line="6" lean-forward="true" selection-start-line="6" selection-end-line="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/package.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="449">
-          <caret line="39" column="24" lean-forward="true" selection-start-line="39" selection-start-column="24" selection-end-line="39" selection-end-column="24" />
         </state>
       </provider>
     </entry>
@@ -1430,8 +1415,22 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/config/config_data.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="1" column="46" selection-start-line="1" selection-start-column="46" selection-end-line="1" selection-end-column="46" />
+        <state relative-caret-position="102">
+          <caret line="6" lean-forward="true" selection-start-line="6" selection-end-line="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="214">
+          <caret line="39" column="24" lean-forward="true" selection-start-line="39" selection-start-column="24" selection-end-line="39" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/restful_api_server.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="265">
+          <caret line="35" column="41" lean-forward="true" selection-start-line="35" selection-start-column="41" selection-end-line="35" selection-end-column="41" />
         </state>
       </provider>
     </entry>
