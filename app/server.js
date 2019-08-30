@@ -37,8 +37,10 @@ const db = require('./config/db');
 
 // Connect to MongoDB
 
+mongoose.set('useFindAndModify', false);
+
 mongoose
-    .connect(db.mongodb.dsn)
+    .connect(db.mongodb.dsn, { useNewUrlParser: true })
     .then(() => log.info('successfully connected to Mongodb'))
     .catch(err => console.log(err));
 

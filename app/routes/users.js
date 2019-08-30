@@ -86,13 +86,13 @@ router.delete('/delete_client/:cid', passport.authenticate('pt_rule', {session: 
                 // Check to see if signed in pt is pt associated with client
                 if(client.ptId === signedInId){
                     // Had to change $unset to $pull
-                    PersonalTrainer.update({_id: client.ptId}, {$pull: {ClientIDs: client.id}})
+                    PersonalTrainer.updateOne({_id: client.ptId}, {$pull: {ClientIDs: client.id}})
                         .then(pt => {
                             if (pt) {
-                                Client.remove({_id: clientId}).remove()
+                                Client.deleteOne({_id: clientId})
                                     .then(result => {
                                         if (result) {
-                                            ClientProgression.remove({clientId: clientId})
+                                            ClientProgression.deleteOne({clientId: clientId})
                                                 .then(() => {
                                                         // return res.status(200).json("Client deleted successfully")
                                                     }
@@ -100,7 +100,7 @@ router.delete('/delete_client/:cid', passport.authenticate('pt_rule', {session: 
                                                 .catch(err => {
                                                     return res.status(400).json(err);
                                                 });
-                                            Events.remove({clientId: clientId})
+                                            Events.deleteOne({clientId: clientId})
                                                 .then(() => {
                                                         // return res.status(200).json("Client deleted successfully")
                                                         // console.log( "Events deleted for user: " + client.FullName + " ", events)
@@ -110,9 +110,9 @@ router.delete('/delete_client/:cid', passport.authenticate('pt_rule', {session: 
                                                 .catch(err => {
                                                     return res.status(400).json(err);
                                                 });
-                                            BodyBio.remove({clientId: clientId})
+                                            BodyBio.deleteOne({clientId: clientId})
                                                 .then(() => {
-                                                        return res.status(200).json("Client deleted successfully")
+                                                        // return res.status(200).json("Client deleted successfully")
                                                         // console.log( "Events deleted for user: " + client.FullName + " ", events)
                                                     }
                                                 )
@@ -120,16 +120,17 @@ router.delete('/delete_client/:cid', passport.authenticate('pt_rule', {session: 
                                                 .catch(err => {
                                                     return res.status(400).json(err);
                                                 });
-                                            ProfileNotes.remove({clientId: clientId})
+                                            ProfileNotes.deleteOne({clientId: clientId})
                                                 .then(() => {
-                                                        return res.status(200).json("Client deleted successfully")
+                                                        // return res.status(200).json("Client deleted successfully")
                                                         // console.log( "Events deleted for user: " + client.FullName + " ", events)
                                                     }
                                                 )
                                                 // Events.remove
                                                 .catch(err => {
                                                     return res.status(400).json(err);
-                                                })
+                                                });
+                                            return res.status(200).json("Client deleted successfully")
                                         }
                                         // console.log("Deletion of user: " + client.FullName + " ", result)
                                         else{
@@ -492,7 +493,7 @@ router.post('/client_progression/:cid', passport.authenticate('pt_rule', {sessio
                                 // If metricDuplicate is false then insert new metrics else return message stating duplication
                                 if (!metricDuplicate) {
                                     // Update metrics of this document using its unique id (_id), pushing in new metric data with the $push operator.
-                                    ClientProgression.update({_id: result._id}, {$push: {metrics: newMetrics}}, {safe: true})
+                                    ClientProgression.updateOne({_id: result._id}, {$push: {metrics: newMetrics}}, {safe: true})
                                         .then(update => {
                                             return res.status(200).json(update);
                                         })
@@ -637,7 +638,7 @@ router.delete('/client_progression/:cid', passport.authenticate('pt_rule', {sess
                     // return res.status(200).json({userId, clientId, data, result});
 
                     // Remove exercise for client
-                    ClientProgression.remove({$and: [{clientId: clientId}, {exerciseName: data.exerciseName}]})
+                    ClientProgression.deleteOne({$and: [{clientId: clientId}, {exerciseName: data.exerciseName}]})
                         .then(result => {
 
                             // Successful removal returns n:1, unsuccessful returns n:0
@@ -788,7 +789,7 @@ router.post('/body_bio/:cid', passport.authenticate('pt_rule', {session: false},
                                 // If metricDuplicate is false then insert new metrics else return message stating duplication
                                 if (!metricDuplicate) {
                                     // Update metrics of this document using its unique id (_id), pushing in new metric data with the $push operator.
-                                    BodyBio.update({_id: result._id}, {$push: {bodyMetrics: newMetrics}}, {safe: true})
+                                    BodyBio.updateOne({_id: result._id}, {$push: {bodyMetrics: newMetrics}}, {safe: true})
                                         .then(update => {
                                             return res.status(200).json(update);
                                         })
@@ -932,7 +933,7 @@ router.delete('/body_bio/:cid?', passport.authenticate('pt_rule', {session: fals
                     // return res.status(200).json({userId, clientId, data, result});
 
                     // Remove exercise for client
-                    BodyBio.remove({$and: [{clientId: clientId}, {bodyPart: data.bodyPart}]})
+                    BodyBio.deleteOne({$and: [{clientId: clientId}, {bodyPart: data.bodyPart}]})
                         .then(result => {
 
                                 // Successful removal returns n:1, unsuccessful returns n:0

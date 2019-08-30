@@ -136,7 +136,7 @@ router.post('/:id/scheduler/:cid', passport.authenticate('pt_rule', {session: fa
     // Add, edit or delete depending on the type
     if (type === "updated") {
         // Update the existing workout using the document id
-        Events.update({[thisId]: docId},
+        Events.updateOne({[thisId]: docId},
             {
                 text: data.text,
                 start_date: data.start_date,
@@ -180,7 +180,7 @@ router.post('/:id/scheduler/:cid', passport.authenticate('pt_rule', {session: fa
     else if (type === "deleted") {
         // Remove the workout from the schedule that user has deleted
 
-        Events.remove({[thisId]: docId}).remove()
+        Events.deleteOne({[thisId]: docId})
             .then(result => {
                     return res.status(200).json(result)
                 }

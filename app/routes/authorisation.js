@@ -413,7 +413,7 @@ router.get('/verify', (req, res) => {
                 // Compare date to check if it is still valid (valid == true), then set client account to activated
                 if (expiration >= now) {
                     // Update client found by Email, update Activated field, get results from update
-                    Client.update({Email: token[0].Email}, {Activated: true}, (err) => {
+                    Client.updateOne({Email: token[0].Email}, {Activated: true}, (err) => {
                         if (err) throw err;
                         ActivationTokens.findByIdAndDelete(tokenId)
                             .then(result => {
