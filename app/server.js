@@ -4,7 +4,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-const path = require('path');
 
 // require passport
 const passport = require('passport');
@@ -57,9 +56,9 @@ app.use('/api/', scheduler);
 
 // Use static server build for production
 if(process.env.NODE_ENV === 'production'){
-    app.use(express.static(path.join(__dirname, 'client/build')));
+    app.use(express.static(__dirname+ '/client/build'));
     app.get('/*', (req, res) => {
-        res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+        res.sendFile(__dirname+ '/client/build/index.html');
     })
 }
 
