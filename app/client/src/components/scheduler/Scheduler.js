@@ -8,7 +8,7 @@ import 'dhtmlx-scheduler';
 import Loading from "../common/Loading/Loading";
 import isEmpty from "../../utilities/is_empty";
 import ErrorComponent from "../error/ErrorComponent";
-import UserInfo from "../dashboard/profile/UserInfo";
+import UserInfo from "../common/UserInfo/UserInfo";
 import SchedulerHTML from "./SchedulerHTML";
 import checkExp from "../../utilities/checkExp";
 
@@ -32,6 +32,8 @@ class Scheduler extends Component {
         if(!isAuthenticated)
             this.props.history.push('/login');
         checkExp();
+
+
         // Check if isAuthenticated is false then redirect to the dashboard
         if(this.props.authenticatedUser.user.pt){
             this.props.ptGetCurrentClient(this.state.clientId, this.props.history);
@@ -72,7 +74,6 @@ class Scheduler extends Component {
         else {
             return (
                 <div id="scheduler-container">
-                    <h1 className=" text-center display-5 mb-3">Workout Schedule</h1>
                     <div className="row scheduler_row">
                         <UserInfo userData={client_data}/>
                     </div>

@@ -8,10 +8,18 @@ import { withRouter } from 'react-router-dom';
 class Landing_page extends Component {
     // Life cycle method for react which will run when this component receives new properties
     componentDidMount() {
+        // document.body.style.overflow = "hidden";
+        // document.getElementById("root").style.height = "100%";
         // Check if isAuthenticated is true then redirect to the dashboard
         if (this.props.authenticatedUser.isAuthenticated) {
             this.props.history.push('/users/' + this.props.authenticatedUser.user.id + '/dashboard');
         }
+    }
+
+    componentWillUnmount(){
+        // document.body.style.overflowY = "visible";
+        // document.body.style.overflowX = "hidden";
+        // document.getElementById("root").style.height = "";
     }
 
     render() {

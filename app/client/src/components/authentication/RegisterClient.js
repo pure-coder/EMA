@@ -149,12 +149,11 @@ class RegisterClient extends Component {
             const {errors, message, FullName, Email, DateOfBirth, ContactNumber, Values} = this.state; // This allows errors to be pulled out of this.state with pulling them out directly
 
             return (
-                <div className="register">
+                <div className="register page-margin-top">
                     <div className="container  register-custom">
                         <div className="row">
                             <div className="m-auto col-md-8">
-                                <h1 className=" text-center display-5">Client Sign Up</h1>
-                                <p className="description text-center">Enter Client details below</p>
+                                <p className="description text-center">Enter New Client Details Below</p>
                                 <form onSubmit={this.onSubmit}> {/* onSubmit used instead of normal action*/}
                                     <FormInputGroup
                                         myClassName="register-client"
@@ -213,7 +212,7 @@ class RegisterClient extends Component {
                                     />
                                     <DisplayMessage message={message}/>
                                     <input type="submit" value="Register Client" className="btn btn-info btn-block mt-1"/>
-                                    <button type="button" className="btn btn-success btn-block mt-3 mb-3"
+                                    <button type="button" className="btn btn-success btn-block mt-3 mb-5"
                                             onClick={this.props.history.goBack}>Back
                                     </button>
                                 </form>

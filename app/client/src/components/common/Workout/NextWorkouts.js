@@ -9,7 +9,7 @@ const NextWorkouts = ({nextWorkouts}) => {
 
     if(workoutStatus){
         displayContent = (
-            <table className="table client-table">
+            <table className="table workout-table">
                 <thead>
                 <tr className="even-row">
                     <th align="center"></th>

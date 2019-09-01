@@ -72,7 +72,7 @@ class SchedulerHTML extends Component {
 
     render() {
         return (
-            <div className="app-screen mb-5">
+            <div className="app-screen mb-2">
                 <div className="app-header">
                     <div className="app-content">
                         <div id="workoutScheduler" className="widget-box dhx_cal_container">

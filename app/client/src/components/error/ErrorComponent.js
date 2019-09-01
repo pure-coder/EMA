@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
 
 class ErrorComponent extends Component {
+
     goBack = () => {
         this.props.history.go(-2);
     };
@@ -14,8 +15,8 @@ class ErrorComponent extends Component {
                     <div className="ErrorPageNotFound_div">
                         <div className="row">
                             <div className="text-center col-md-12 landing_div text-info">
-                                <h1 className="display-1-md display-3-sm">404 - Page Not Found!
-                                </h1>
+                                <h3 className="display-1-md display-3-sm">404 - Page Not Found!
+                                </h3>
                                 <button type="button" className="btn btn-success btn-block mt-5 mb-3 error-button" onClick={this.goBack}>Back</button>
                             </div>
                         </div>

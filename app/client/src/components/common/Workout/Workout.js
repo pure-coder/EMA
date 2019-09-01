@@ -49,8 +49,8 @@ const Workout = ({workout, index}) => {
     return (<tr className={index % 2 === 0 ? 'next_workout odd-row' : 'next_workout even-row'}>
                 <td align="center" className="workout"><img className="rounded" src={workout.clientImage} alt="workout"/></td>
                 <td style={{textAlign: 'left', paddingLeft: '5px'}} className="workout">{workout.clientName}</td>
-                <td align="center" className="workout">{weekDay}, {day} {aMonth}</td>
-                <td align="center" className="workout">{time}</td>
+                <td style={{textAlign: 'left'}} align="center" className="workout">{weekDay}, {day} {aMonth}</td>
+                <td style={{textAlign: 'left'}} className="workout">{time}</td>
             </tr>)
 };
 

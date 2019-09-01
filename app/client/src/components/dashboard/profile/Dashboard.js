@@ -11,12 +11,12 @@ import {
     clientGetData,
     clientNextWorkouts
 } from "../../../actions/clientProfileActions";
-import ClientList from '../clients/ClientList'
+import ClientList from '../clients/LinkComp/ClientList'
 import Loading from "../../common/Loading/Loading";
-import ClientData from "../clients/ClientData";
+import ClientData from "../clients/LinkComp/ClientData";
 import isEmpty from "../../../utilities/is_empty";
 import ErrorComponent from "../../error/ErrorComponent";
-import UserInfo from "./UserInfo";
+import UserInfo from "../../common/UserInfo/UserInfo";
 import checkExp from '../../../utilities/checkExp'
 import NextWorkouts from "../../common/Workout/NextWorkouts";
 
@@ -147,8 +147,7 @@ class Dashboard extends Component {
         }
 
         return (
-            <div className="dashboard-container">
-                <h1 className=" text-center display-5 mb-3">Dashboard</h1>
+            <div className="dashboard-container mt-2">
                 {displayContent}
             </div>
         );

@@ -55,9 +55,9 @@ class ExpiredLogin extends Component {
         const {errors} = this.state; // This allows errors to be pulled out of this.state with pulling them out directly
 
         return (
-            <div className="container  login-custom">
+            <div className="container re-login-custom-container">
                 <div className="row">
-                    <div className="col-md-8 m-auto">
+                    <div className="col-md-8 m-auto login-custom">
                         <h1 className="text-center display-5 text-danger">Session Expired</h1>
                         <p className="description text-center">Please sign in</p>
                         <form onSubmit={this.onSubmit}>  {/* onSubmit used instead of normal action*/}

@@ -16,6 +16,17 @@ class Login extends Component {
         };
     }
 
+    componentDidMount(){
+        document.body.style.overflow = "hidden";
+        document.getElementById("root").style.height = "100%";
+    }
+
+    componentWillUnmount(){
+        document.body.style.overflowY = "visible";
+        document.body.style.overflowX = "hidden";
+        document.getElementById("root").style.height = "";
+    }
+
     // Life cycle method for react which will run when this component receives new properties
     static getDerivedStateFromProps(nextProps) {
         // Check if isAuthenticated is true then redirect to the dashboard
@@ -61,9 +72,9 @@ class Login extends Component {
         const {errors} = this.state; // This allows errors to be pulled out of this.state with pulling them out directly
 
         return (
-            <div className="container  login-custom">
-                <div className="row">
-                    <div className="col-md-8 m-auto">
+            <div className="container  login-custom-container">
+
+                    <div className="col-md-8 m-auto login-custom">
                         <h1 className="text-center display-5">Log In</h1>
                         <p className="description text-center">Sign into Fitness App account</p>
                         <form onSubmit={this.onSubmit}>  {/* onSubmit used instead of normal action*/}
@@ -86,7 +97,6 @@ class Login extends Component {
                             <input type="submit" value="Login" className="btn btn-info btn-block mt-5"/>
                         </form>
                     </div>
-                </div>
             </div>
         );
     }

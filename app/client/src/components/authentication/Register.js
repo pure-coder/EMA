@@ -114,7 +114,7 @@ class Register extends Component {
         const {errors, FullName, DateOfBirth, Email, Password, Password2, Values, message} = this.state; // This allows errors to be pulled out of this.state with pulling them out directly
 
         return (
-            <div className="register">
+            <div className="register page-margin-top">
                 <div className="container  register-custom">
                     <div className="row">
                         <div className="m-auto col-md-8">

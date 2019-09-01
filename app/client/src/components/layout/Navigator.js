@@ -14,7 +14,7 @@ import {
     clientClearProfile
 } from "../../actions/clientProfileActions";
 
-import {ProfileImage} from "../dashboard/profile/ProfileImage";
+import {ProfileImage} from "../common/ProfileImage/ProfileImage";
 import PtMenuComp from "../common/Menu/PtMenuComp";
 import ClientMenuComp from "../common/Menu/ClientMenuComp";
 
@@ -94,12 +94,13 @@ class Navigation extends Component {
                 }
                 <ul className="navbar-nav ml-auto">
                     <a href="/" onClick={this.onLogOutClick} className="nav-link">
-                        <ProfileImage image={ProfilePicUrl} style={{backgroundColor: 'white', 'borderRadius': 25, width: 45, height: 45, paddingRight: 0}}/>
-                        {/*{' '} is used to provide space */}
-                        {' '}
-                        {userData !== null ? userData.FullName : null}
-                        {' '}
-                        - Log Out</a>
+                        <ProfileImage image={ProfilePicUrl}/>
+                            {/*{' '} is used to provide space */}
+                            {' '}
+                            {userData !== null ? userData.FullName : null}
+                            {' '}
+                            - Log Out
+                    </a>
                 </ul>
             </div>
         );
@@ -123,7 +124,7 @@ class Navigation extends Component {
         );
 
         return (
-            <nav className="navbar navbar-expand-sm navbar-dark navbar-custom mb-5">
+            <nav className="navbar navbar-expand-sm navbar-dark navbar-custom">
                 <div className="navbar-container">
                     <Link className="navbar-brand" to={isAuthenticated ? '/users/' +
                         this.props.authenticatedUser.user.id + '/dashboard' : "/"}>

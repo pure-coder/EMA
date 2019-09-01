@@ -1,7 +1,7 @@
 import React from 'react'
 import defaultUserImage from '../../../img/user-regular.svg';
 
-export const ProfileImage = ({image, style}) => {
+export const ProfileImage = ({image}) => {
     if(image === null || image === undefined){
         image = defaultUserImage;
     }
@@ -10,7 +10,6 @@ export const ProfileImage = ({image, style}) => {
             className="rounded"
             alt={"User profile."}
             src = {image}
-            style={style}
         />)
     );
 };

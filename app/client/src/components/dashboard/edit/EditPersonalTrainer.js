@@ -20,7 +20,7 @@ import DisplayMessage from '../../common/Message/DisplayMessage';
 import FormSelectComp from "../../common/Forms/FormSelectComp";
 import checkExp from "../../../utilities/checkExp";
 import {Link} from 'react-router-dom';
-import {ProfileImage} from "../profile/ProfileImage";
+import {ProfileImage} from "../../common/ProfileImage/ProfileImage";
 
 class EditPersonalTrainer extends Component {
     // This allows the component states to be updated and re-rendered
@@ -203,11 +203,10 @@ class EditPersonalTrainer extends Component {
             const {errors, message, profilePicture, FullName, Email, DateOfBirth, Values, Password, Password2} = this.state; // This allows errors to be pulled out of this.state without pulling them out directly
 
             return (
-                <div className="edit_client">
+                <div className="edit_client page-margin-top">
                     <div className="container  edit_client-custom">
                         <div className="row">
                             <div className="m-auto col-md-8">
-                                <h1 className=" text-center display-5">Edit Personal Trainer Profile</h1>
                                 <div className="edit_image">
                                     <Link to={`upload_profile_picture`}>
                                         <ProfileImage image={profilePicture} />

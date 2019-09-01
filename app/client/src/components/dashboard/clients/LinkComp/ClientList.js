@@ -3,9 +3,9 @@ import React, {Component} from 'react';
 import {Link, withRouter} from 'react-router-dom';
 // import {ptDeleteClient, ptGetClientProgression} from "../../../actions/ptProfileActions";
 import Modal from "react-awesome-modal";
-import DeleteConfirm from './DeleteConfirm'
-import isEmpty from "../../../utilities/is_empty";
-import ErrorComponent from "../../error/ErrorComponent";
+import DeleteConfirm from '../../../common/DeleteComp/DeleteConfirm'
+import isEmpty from "../../../../utilities/is_empty";
+import ErrorComponent from "../../../error/ErrorComponent";
 
 class ClientList extends Component {
     constructor(props) {
@@ -96,7 +96,7 @@ class ClientList extends Component {
                 <div className="row">
                     <div className="ClientList">
                         <div className="m-auto">
-                            <div className="pt-buttons mt-5">
+                            <div className="pt-buttons">
                                 <Link to={`/users/${user.id}/register_client`}>
                                     <button
                                         className="btn btn-primary dashboard-new-client">
@@ -110,7 +110,7 @@ class ClientList extends Component {
                                     </button>
                                 </Link>
                             </div>
-                            <h3 className="mt-5 mb-3">Clients</h3>
+                            <h3 className="mt-2 mb-3">Clients</h3>
                             <table className="table client-table">
                                 <thead>
                                 <tr className="even-row">

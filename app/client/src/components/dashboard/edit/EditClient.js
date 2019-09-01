@@ -25,7 +25,7 @@ import DisplayMessage from '../../common/Message/DisplayMessage';
 import FormSelectComp from "../../common/Forms/FormSelectComp";
 import defaultUserImage from "../../../img/user-regular.svg";
 import checkExp from "../../../utilities/checkExp";
-import {ProfileImage} from "../profile/ProfileImage";
+import {ProfileImage} from "../../common/ProfileImage/ProfileImage";
 
 class EditClient extends Component {
     // This allows the component states to be updated and re-rendered
@@ -281,11 +281,10 @@ class EditClient extends Component {
         }
         else {
             return (
-                <div className="edit_client">
+                <div className="edit_client page-margin-top">
                     <div className="container  edit_client-custom">
                         <div className="row">
                             <div className="m-auto col-md-8">
-                                <h1 className=" text-center display-5">Edit Client Profile</h1>
                                 <div className="edit_image">
                                     {!this.props.authenticatedUser.user.pt ?
                                         <Link to={`upload_profile_picture`}>

@@ -19,7 +19,7 @@ import Graphs from "../progression/Graphs";
 // import Modal from 'react-awesome-modal';
 import ErrorComponent from "../../error/ErrorComponent";
 import Loading from "../../common/Loading/Loading";
-import UserInfo from "../profile/UserInfo";
+import UserInfo from "../../common/UserInfo/UserInfo";
 import ProfileNotes from "../profileNotes/ProfileNotes";
 import BodyGraphs from "../bodyBio/BodyGraphs";
 import checkExp from "../../../utilities/checkExp";
@@ -101,7 +101,6 @@ class ClientProfile extends Component {
         else{
             return (
                 <div className="client-profile">
-                    <h1 className=" text-center display-5 mb-3">Client Profile</h1>
                     <div className=" client_profile_row row">
                         <UserInfo userData={user.pt ? client_data.current_client : client_data.client_data}/>
                     </div>
