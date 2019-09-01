@@ -1,5 +1,7 @@
 import React from 'react'
 
+import defaultUserImage from '../../../img/user-regular.svg';
+
 const Workout = ({workout, index}) => {
 
     // Old format used
@@ -44,6 +46,11 @@ const Workout = ({workout, index}) => {
     }
     else{
         day = day.concat("th");
+    }
+
+    // Check if user has image, if not place default image in.
+    if(workout.clientImage === null){
+        workout.clientImage = defaultUserImage;
     }
 
     return (<tr className={index % 2 === 0 ? 'next_workout odd-row' : 'next_workout even-row'}>
