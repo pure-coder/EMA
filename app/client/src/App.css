@@ -231,6 +231,10 @@ label {
     min-height: 550px;
 }
 
+.dashboard-custom.client{
+    height: 85vh;
+}
+
 .dashboard {
     position: relative;
     min-width: 692px;
@@ -900,6 +904,7 @@ input[type=submit].profile_notes {
 .Profile_pic_upload {
     min-height: 485px;
     min-width: 500px;
+    height: 86.2vh;
 }
 
 .Profile_canvas {
