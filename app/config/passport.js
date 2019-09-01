@@ -4,7 +4,7 @@ const ExtractJWT = require('passport-jwt').ExtractJwt;
 const mongoose = require('mongoose');
 const PT = mongoose.model('PersonalTrainers');
 const Client = mongoose.model('Clients');
-const keys = require('../config/db');
+const keys = require('./prod_config');
 
 const opts = {};
 opts.jwtFromRequest = ExtractJWT.fromAuthHeaderAsBearerToken();

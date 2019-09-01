@@ -7,7 +7,7 @@ const bcrypt = require('bcryptjs');
 // require jason web tokens
 const jwt = require('jsonwebtoken');
 // jwt keys
-const keys = require('../config/db');
+const keys = require('../config/prod_config');
 // require passport
 const passport = require('passport');
 const {capitaliseFirstLetter} = require('../services/capitalise');

@@ -15,7 +15,7 @@ const NextWorkouts = ({nextWorkouts}) => {
                     <th align="center"></th>
                     <th style={{textAlign: 'left', paddingLeft: '5px'}}>Client Name</th>
                     <th align="center">Date</th>
-                    <th align="center">time</th>
+                    <th align="center">Time</th>
                 </tr>
                 {nextWorkouts.map((workout, index) => {
                     return( <Workout key={workout.id} workout={workout} index={index}/>)

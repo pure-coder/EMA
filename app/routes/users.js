@@ -9,7 +9,7 @@ const {capitaliseFirstLetter} = require('../services/capitalise');
 // require jason web tokens
 const jwt = require('jsonwebtoken');
 // jwt keys
-const keys = require('../config/db');
+const keys = require('../config/prod_config');
 const multer  = require('multer');
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });

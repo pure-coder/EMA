@@ -22,14 +22,12 @@
     "redux-thunk": "^2.3.0"
   },
   "scripts": {
-    "start": "set PORT=80 && react-scripts start",
-    "aws_start": "export PORT=80 && react-scripts start",
+    "start": "set PORT=8001 && react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
   "proxy": "http://localhost:8000",
-  "homepage": "http://3.9.14.55:80",
   "browserslist": {
     "production": [
       ">0.2%",
