@@ -81,18 +81,28 @@ class ProfilePicUpload extends Component {
         let name = e.target.name;
         let value = e.target.value;
 
-        this.setState({[name]: value});
+        this.setState({
+            [name]: value,
+            errors: {},
+            message: {}
+        });
     };
 
     myChange = e => {
-        this.setState({position: e});
+        this.setState({
+            position: e,
+            errors: {},
+            message: {}
+        });
     };
 
     onSelectFile = e => {
         if (e.target.files && e.target.files.length > 0) {
             const reader = new FileReader();
             reader.addEventListener("load", () => {
-                this.setState({src: reader.result});
+                this.setState({
+                    src: reader.result
+                });
             });
             reader.readAsDataURL(e.target.files[0]);
         }
@@ -111,12 +121,24 @@ class ProfilePicUpload extends Component {
             let fileName = `${XAmzDate}-${id}`;
             this.makeCroppedImage()
                 .then(blob => {
-                    if(this.props.authenticatedUser.user.pt){
-                        this.props.ptUploadProfilePic(blob, fileName);
+                    // Make sure file is under 2MB
+                    if(blob.size < 2*Math.pow(10,6)){
+                        if(this.props.authenticatedUser.user.pt){
+                            this.props.ptUploadProfilePic(blob, fileName);
+                        }
+                        else{
+                            this.props.clientUploadProfilePic(blob, fileName);
+                        }
                     }
                     else{
-                        this.props.clientUploadProfilePic(blob, fileName);
+                        this.setState({
+                            errors: {
+                                type: "ERROR",
+                                msg: "File size is larger than 2MB."
+                            }
+                        });
                     }
+
                 }).catch(() => {
                 this.setState({
                     message: {
@@ -150,7 +172,6 @@ class ProfilePicUpload extends Component {
         for (let i = 0; i < byteString.length; i++) {
             ia[i] = byteString.charCodeAt(i);
         }
-        // write the ArrayBuffer to a blob, and you're done
         return new Blob([ab], {type: mimeString});
     }
 
@@ -159,7 +180,7 @@ class ProfilePicUpload extends Component {
             // This returns a HTMLCanvasElement, it can be made into a data URL or a blob,
             // drawn on another canvas, or added to the DOM.
             const canvas = this.editor.getImage();
-            const image = canvas.toDataURL();
+            const image = canvas.toDataURL('image/jpeg', 0.5);
             return await ProfilePicUpload.dataURItoBlob(image);
         }
     }
@@ -200,7 +221,7 @@ class ProfilePicUpload extends Component {
                         </div>
                         <form method="post" action="#" id="upload-profile">
                             <div className="form-group files">
-                                <label>Upload Your File: </label>
+                                <label>Upload Your File: <span style={{color: "red"}}>(2 MB Limit)</span></label>
                                 <input type="file" className="form-control" onChange={this.onSelectFile}/>
                             </div>
                         </form>

@@ -16,16 +16,6 @@ class Login extends Component {
         };
     }
 
-    componentDidMount(){
-        document.body.style.overflow = "hidden";
-        document.getElementById("root").style.height = "100%";
-    }
-
-    componentWillUnmount(){
-        document.body.style.overflowY = "visible";
-        document.body.style.overflowX = "hidden";
-        document.getElementById("root").style.height = "";
-    }
 
     // Life cycle method for react which will run when this component receives new properties
     static getDerivedStateFromProps(nextProps) {
