@@ -6,9 +6,10 @@ const Loading = ({
 
     return (
 
-        <div className={"Loading fa-3x " + myClassName}>
-            <i className="fas fa-spinner fa-pulse"></i>
-            <h1>Loading</h1>
+        <div className={"Loading-container fa-3x " + myClassName}>
+            <div className={"Loading"}>
+                <i className="fas fa-spinner fa-pulse"></i>
+                <h1>Loading</h1></div>
         </div>
     )
 };

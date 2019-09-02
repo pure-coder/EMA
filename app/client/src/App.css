@@ -384,11 +384,15 @@ label.edit-profile-label {
 
 /* Loading */
 
-.Loading {
+.Loading-container {
     height: 87vh;
     min-width: 100%;
-    top: 200px;
     text-align: center;
+}
+
+.Loading {
+    position: relative;
+    top: 30%;
 }
 
 /* clientList */
