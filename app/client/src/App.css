@@ -179,7 +179,7 @@ label {
 
 .landing_div {
     position: relative;
-    top: 120px;
+    top: 30%;
     width: 600px;
     margin: auto;
 }
@@ -210,7 +210,13 @@ label {
 
 .login-custom {
     width: 400px;
-    top: 130px;
+    top: 20%;
+}
+
+.re-login-custom {
+    position: relative;
+    width: 400px;
+    top: 20%;
 }
 
 .re-login-custom-container {
@@ -416,13 +422,13 @@ label.edit-profile-label {
     position: relative;
     width: 400px;
     margin: auto;
-    height: 86.2vh;
+    height: 87vh;
     padding: 0;
 }
 
 .ErrorPageNotFound_div {
     position: relative;
-    top: 100px;
+    top: 30%;
 }
 
 .error-button {
