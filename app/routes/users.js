@@ -17,8 +17,16 @@ require('es6-promise').polyfill();
 require('isomorphic-fetch');
 
 // AWS
+let AWS_S3_REGION     = process.env.AWS_S3_REGION;
+let AWS_S3_SECRET     = process.env.AWS_S3_SECRET;
+let AWS_S3_KEY        = process.env.AWS_S3_KEY;
+
 const AWS = require('aws-sdk');
-AWS.config.loadFromPath('./config/AWS.json');
+AWS.config.update({
+    accessKeyId     : AWS_S3_KEY,
+    secretAccessKey : AWS_S3_SECRET,
+    region          : AWS_S3_REGION
+});
 const s3 = new AWS.S3();
 
 
