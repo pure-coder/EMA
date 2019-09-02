@@ -277,14 +277,80 @@ router.put('/edit_client/:cid?', passport.authenticate('both_rule', {session: fa
         .then(result => {
             if(result){
                 errors.Email =  "Email already exists";
-                res.status(400).json(errors)
+                return res.status(400).json(errors)
             }
             else{
                 Client.findOne({Email: updateClient['Email']})
                     .then(result => {
                         if(result){
-                            errors.Email =  "Email already exists";
-                            res.status(400).json(errors)
+
+                            if(result._id.toString() === id){
+
+                                Client.findOne({_id: id})
+                                    .then(clientResult => {
+                                        if (clientResult){
+                                            if(clientResult._id.toString() === id || clientResult.ptId === signedInId){
+                                                // If it exists as the for loop above checked if password was null or undefined, hash the password and update client
+                                                // profile if password doesn't exist update profile without hashing non existent password
+                                                if (updateClient.Password) {
+
+                                                    // This can be done synchronously via bcrypt.genSaltSync and bcrypt.hashSync, but for better performance async
+                                                    // is used so the encrypting of users passwords does not tie up the node.js thread.
+                                                    bcrypt.genSalt(12, (err, salt) => {
+                                                        bcrypt.hash(updateClient.Password, salt, (err, hash) => {
+                                                            if (err) throw err;
+                                                            // Set plain Password to the hash that was created for the Password
+                                                            updateClient.Password = hash;
+                                                            // Update password in client database
+                                                            Client.findByIdAndUpdate(id, updateClient, {new: true})
+                                                                .then(result => {
+                                                                    if(result) {
+                                                                        return res.status(200).json(result)
+                                                                    }
+                                                                    return res.status(404).json({err: "Client does not exist!"})
+                                                                })
+                                                                .catch(err => {
+                                                                    return res.status(400).json(err)
+                                                                });
+                                                        })
+                                                    })
+                                                }
+                                                else {
+                                                    // Find client by id
+                                                    Client.findByIdAndUpdate(id, updateClient, {new: true})
+                                                        .then(client => {
+                                                            if (client) {
+                                                                return res.status(200).json(client);
+                                                            }
+                                                            else {
+                                                                return res.status(400).json({msg: "Client does not exist!"});
+                                                            }
+                                                        })
+                                                        .catch(err => {
+                                                            return res.status(400).json(err)
+                                                        });
+                                                }
+                                            }
+                                            else{
+                                                return res.status(400).json({msg: "Not authorised to update data."})
+                                            }
+
+                                        }
+                                        else{
+                                            return res.status(400).json({msg: "Client not found"})
+                                        }
+                                    })
+                                    .catch(() => {
+                                            // console.log(err)
+                                            return res.status(400).json();
+                                        }
+                                    );
+                            }
+                            else {
+                                errors.Email =  "Email already exists";
+                                res.status(400).json(errors)
+                            }
+
                         }
                         else{
 
@@ -435,15 +501,60 @@ router.put('/edit_personal_trainer', passport.authenticate('pt_rule', {session: 
     PersonalTrainer.findOne({Email: updatePt['Email']})
         .then(result => {
             if(result){
-                errors.Email =  "Email already exists";
-                res.status(400).json(errors)
+
+                if(result.id.toString() === signedInId){
+
+                    // If it exists as the for loop above checked if password was null or undefined, hash the password and update client profile if password doesn't exist update profile without hashing non existent password
+                    if (updatePt.Password) {
+
+                        // This can be done synchronously via bcrypt.genSaltSync and bcrypt.hashSync, but for better performance async is used so the
+                        // encrypting of users passwords does not tie up the node.js thread.
+                        bcrypt.genSalt(12, (err, salt) => {
+                            bcrypt.hash(updatePt.Password, salt, (err, hash) => {
+                                if (err) throw err;
+                                // Set plain Password to the hash that was created for the Password
+                                updatePt.Password = hash;
+                                // Update password in client database
+                                PersonalTrainer.findByIdAndUpdate(signedInId, updatePt, {new: true})
+                                    .then(result => {
+                                        if(result) {
+                                            return res.status(200).json(result)
+                                        }
+                                        return res.status(404).json({err: "Personal Trainer does not exist!"})
+                                    })
+                                    .catch(err => {
+                                        return res.status(400).json(err)
+                                    });
+                            })
+                        })
+                    }
+                    else {
+                        // Find client by id
+                        PersonalTrainer.findByIdAndUpdate(signedInId, updatePt, {new: true})
+                            .then(pt => {
+                                if (pt) {
+                                    return res.status(200).json(pt);
+                                }
+                                else {
+                                    return res.status(400).json({msg: "Personal Trainer does not exist!"});
+                                }
+                            })
+                            .catch(err => {
+                                return res.status(400).json(err)
+                            });
+                    }
+                }
+                else{
+                    errors.Email =  "Email already exists";
+                    res.status(400).json(errors)
+                }
             }
             else{
                 Client.findOne({Email: updatePt['Email']})
                     .then(result => {
                         if(result){
                             errors.Email =  "Email already exists";
-                            res.status(400).json(errors)
+                            return res.status(400).json(errors)
                         }
                         else{
 
@@ -488,7 +599,6 @@ router.put('/edit_personal_trainer', passport.authenticate('pt_rule', {session: 
                                         return res.status(400).json(err)
                                     });
                             }
-
                         }
                     })
                     .catch(err => res.status(400).json(err));
@@ -1243,7 +1353,7 @@ router.post(`/upload_profile_pic`, upload.single('profileImage'),passport.authen
     let fileSize = req.file.size;
     let key = `images/${fileName}.jpg`;
 
-    const bucket = 'jrdunkleyfitnessapp';
+    const bucket = process.env.BUCKET;
     const region = AWS.config.region;
 
     let newUrl;
