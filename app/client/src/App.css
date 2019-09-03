@@ -156,11 +156,12 @@ label {
 /*}*/
 
 
-/*@media only Screen and (max-width: 880px){*/
-    /*.no_workout, .next_workout_comp {*/
-        /*float: left !important;*/
-/*}*/
-/*}*/
+@media only Screen and (max-width: 880px){
+    .no_workout, .next_workout_comp {
+        float: left !important;
+        margin-bottom: 2rem;
+}
+}
 
 /* page margin other than dash and client */
 
