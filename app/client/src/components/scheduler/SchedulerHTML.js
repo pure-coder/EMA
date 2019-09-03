@@ -17,7 +17,6 @@ class SchedulerHTML extends Component {
 
     }// constructor
 
-
     componentDidMount() {
         document.body.scrollTo(0,0);
         const {data, uid, cid} = this.props.Data;
@@ -33,6 +32,11 @@ class SchedulerHTML extends Component {
             let year = now.getFullYear();
             // Initialising workout scheduler to current date and display the month view
             let thisDate = new Date(year, month, date);
+
+            // Makes scheduler read only for clients
+            if(!this.props.authenticatedUser.user.pt){
+                scheduler.config.readonly = true;
+            }
 
             /* globals scheduler */
             // Needs clearAll as it was retaining previous clients data
@@ -64,8 +68,9 @@ class SchedulerHTML extends Component {
                     Authorization: token}});
 
             // Check if user is still authorised to change event (ie token hasn't expired)
-            scheduler.attachEvent("onBeforeEventChanged", function (){
+            scheduler.attachEvent("onBeforeEventChanged", function myFunction () {
                 checkExp();
+                return true;
             });
         });
     };
