@@ -314,9 +314,6 @@ router.get(`/next_workouts`, passport.authenticate('both_rule',  {session: false
                 return res.status(400).json(err);
             });
     }
-
-
-
 });
 
 //Export router so it can work with the main restful api server

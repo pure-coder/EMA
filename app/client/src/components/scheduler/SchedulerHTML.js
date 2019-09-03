@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import connect from "react-redux/es/connect/connect";
 import {withRouter} from "react-router-dom";
 import 'dhtmlx-scheduler';
+import checkExp from "../../utilities/checkExp";
 
 
 class SchedulerHTML extends Component {
@@ -62,6 +63,10 @@ class SchedulerHTML extends Component {
             dataProc.setTransactionMode({mode: "POST", headers:{ "Content-Type": "application/x-www-form-urlencoded",
                     Authorization: token}});
 
+            // Check if user is still authorised to change event (ie token hasn't expired)
+            scheduler.attachEvent("onBeforeEventChanged", function (){
+                checkExp();
+            });
         });
     };
 
