@@ -105,7 +105,7 @@ class Graphs extends Component {
                     showData = true;
                     return (
                         // Changed key from GraphComp to div as div was first child, otherwise error was given.
-                        <div className="graphs card mb-5" key={graph._id}>
+                        <div className="graphs card shadow-lg mb-5" key={graph._id}>
                             <GraphComp graphData={graph}/>
                         </div>
                     )
@@ -115,7 +115,7 @@ class Graphs extends Component {
                 }
             });
             return (
-                <div id="Progression" className="Progression card Progression_head mb-5">
+                <div id="Progression" className="Progression card shadow-lg Progression_head mb-5">
                     <ProgressTitleComp Title="Client progression data"/>
                     {/*Show add progress button only if pt*/}
                     {this.props.authenticatedUser.user.pt === true ?

@@ -88,7 +88,7 @@ class ProfileNotes extends Component {
 
     render() {
         return (
-            <div className="Profile_notes card">
+            <div className="Profile_notes shadow-lg card">
                 <div className="mt-2 mb-5">
                     <ProfileInputForm
                         onSubmit={this.onSubmit}

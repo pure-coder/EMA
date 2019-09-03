@@ -34,7 +34,7 @@ const NextWorkouts = ({nextWorkouts}) => {
 
 
     return (
-        <div className={workoutStatus ? "next_workout_comp card" : "no_workout card"} >
+        <div className={workoutStatus ? "next_workout_comp shadow-lg card" : "no_workout card"} >
             <h5 style={{textAlign: 'center'}}>Next 5 workout sessions</h5>
             {
                 displayContent

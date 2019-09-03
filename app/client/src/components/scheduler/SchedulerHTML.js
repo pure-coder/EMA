@@ -46,7 +46,7 @@ class SchedulerHTML extends Component {
             //scheduler.parse(this.props.ptProfile.scheduler, "json");
             scheduler.parse(data, "json");
             // Add, edit, and delete data in the database
-            scheduler.config.xml_date = "%Y-%m-%d %H:%i";
+            // scheduler.config.xml_date = "%Y-%m-%d %H:%i";
 
 
 

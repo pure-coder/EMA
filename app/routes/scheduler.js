@@ -14,6 +14,11 @@ const keys = require('../config/prod_config');
 // require passport
 const passport = require('passport');
 
+function convertDateToLocal(aDate){
+    let tzoffset = (new Date()).getTimezoneOffset() * 60000;
+    return new Date(new Date(aDate) - tzoffset).toISOString();
+}
+
 // @route  GET api/:id/scheduler/:cid?
 // @desc   Workout scheduler - retrieve data from database for client
 // @access private for PT's and clients
@@ -133,14 +138,17 @@ router.post('/:id/scheduler/:cid', passport.authenticate('pt_rule', {session: fa
     // Take away data properties that won't be saved to the database
     delete data["!nativeeditor_status"];
 
+    // let sDate = (new Date(data.start_date)) - tzoffset;
+    // console.log( sDate.toISOString())
+
     // Add, edit or delete depending on the type
     if (type === "updated") {
         // Update the existing workout using the document id
         Events.updateOne({[thisId]: docId},
             {
                 text: data.text,
-                start_date: data.start_date,
-                end_date: data.end_date,
+                start_date: convertDateToLocal(data.start_date),
+                end_date: convertDateToLocal(data.end_date),
                 clientId: clientId,
                 ptId: signedInId
             }, {upsert: true, runValidators: true, new: true})
@@ -149,7 +157,11 @@ router.post('/:id/scheduler/:cid', passport.authenticate('pt_rule', {session: fa
                     // Because of the way mongoose update works update needs to be performed as it makes a new
                     // doc as id are unique, have to delete old doc with previous id so new and updated doc
                     // do not appear on schedule
-                    return res.status(200).json(result);
+                    // return res.status(200).json(result);
+                    return res.status(200).json("Workout updated");
+                }
+                else {
+                    return res.status(400).json("Workout couldn't be updated");
                 }
             })
             .catch(err => {
@@ -161,18 +173,24 @@ router.post('/:id/scheduler/:cid', passport.authenticate('pt_rule', {session: fa
         const newWorkout = new Events({
             id: schedId,
             text: data.text,
-            start_date: data.start_date,
-            end_date: data.end_date,
+            start_date: convertDateToLocal(data.start_date),
+            end_date: convertDateToLocal(data.end_date),
             clientId: clientId,
             ptId: signedInId
         });
         // Save new workout to database
         newWorkout.save()
             .then(events => {
-                    console.log(events);
-                    return res.status(200).json(events);
+                if(events){
+                    // console.log(events);
+                    // return res.status(200).json(events);
+                    return res.status(200).json("Workout created");
                 }
-            )
+                else {
+                    return res.status(400).json("Workout couldn't be created");
+                }
+
+            })
             .catch(err => {
                 return res.status(400).json(err);
             })
@@ -181,10 +199,16 @@ router.post('/:id/scheduler/:cid', passport.authenticate('pt_rule', {session: fa
         // Remove the workout from the schedule that user has deleted
 
         Events.deleteOne({[thisId]: docId})
-            .then(result => {
-                    return res.status(200).json(result)
+            .then(events => {
+                if(events){
+                    // console.log(events);
+                    // return res.status(200).json(events);
+                    return res.status(200).json("Workout deleted");
                 }
-            )
+                else {
+                    return res.status(400).json("Workout couldn't be deleted");
+                }
+            })
             .catch(err => {
                 return res.status(400).json(err)
             })
