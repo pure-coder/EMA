@@ -29,7 +29,7 @@ class EditDataProgressForm extends Component {
         if (props.visible !== state.visible) {
             return {visible: props.visible}
         }
-        if (state.errors !== state.message){
+        if (!isEmpty(state.errors)){
             return {
                 message: state.errors
             }
@@ -208,6 +208,9 @@ class EditDataProgressForm extends Component {
                     }
                 }
                 this.props.ptEditClientExercise(clientId, exerciseId, newMetrics, history);
+                this.setState({
+                    edited: false
+                });
             }
         }
     }; // onSubmit

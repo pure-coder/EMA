@@ -16,11 +16,12 @@ class EditBodyDataProgressForm extends Component {
             clientId: props.ids.clientId,
             visible: false,
             bodyMetrics: props.bodyMetrics,
+            original: [],
             toDelete: [],
             edited: false,
             errors: {},
             message: {},
-            progressFormHeight: props.progressFormHeight
+            progressFormHeight: props.progressFormHeight,
         };
     } // constructor
 
@@ -28,7 +29,7 @@ class EditBodyDataProgressForm extends Component {
         if (props.visible !== state.visible) {
             return {visible: props.visible}
         }
-        if (state.errors !== state.message){
+        if (!isEmpty(state.errors)){
             return {
                 message: state.errors
             }
@@ -52,7 +53,10 @@ class EditBodyDataProgressForm extends Component {
         formHeight = el.offsetHeight;
         formHeight += parseInt(window.getComputedStyle(el).getPropertyValue('margin-top'), 10);
         formHeight += parseInt(window.getComputedStyle(el).getPropertyValue('margin-bottom'), 10);
-        this.setState({progressFormHeight: formHeight});
+
+        this.setState({
+            progressFormHeight: formHeight,
+        });
 
         // Change format of Date in bodyMetrics so that it can be presented correctly in HTML 5 date format.
         // Was previously getting errors when converting in map below as onChange would not except a single zero, etc
@@ -83,6 +87,7 @@ class EditBodyDataProgressForm extends Component {
             this.props.bodyMetrics.forEach(bodyMetrics => {
                 bodyMetrics.Date = new Date(bodyMetrics.Date).toISOString().substring(0, 10);
             });
+
             this.setState({bodyMetrics: this.props.bodyMetrics});
         }
     }
@@ -166,7 +171,10 @@ class EditBodyDataProgressForm extends Component {
         this.props.onClickAway();
         // Clear errors once the modal has been exited
         this.props.clearErrors();
-        this.setState({message: {}});
+        this.setState({
+            message: {},
+            errors: {}
+        });
     };
 
     onSubmit = e => {
@@ -185,7 +193,7 @@ class EditBodyDataProgressForm extends Component {
                 errors: {
                     type: "ERROR",
                     msg: "No data has been modified or deleted!"
-                }}, ()=>console.log(this.state.errors));
+                }});
         }
         else{
             this.props.clearErrors();
@@ -207,6 +215,9 @@ class EditBodyDataProgressForm extends Component {
                     }
                 }
                 this.props.ptEditClientBodyBio(clientId, bodyPartId, newMetrics, history);
+                this.setState({
+                    edited: false
+                })
             }
         }
     }; // onSubmit
