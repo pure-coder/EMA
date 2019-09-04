@@ -254,6 +254,8 @@ router.get(`/next_workouts`, passport.authenticate('both_rule',  {session: false
                                     if(client._id.toString() === event.clientId){
                                         let workout = {
                                             id: event._id,
+                                            ptId: signedInId,
+                                            clientId: client._id,
                                             start_date: event.start_date,
                                             clientName: client.FullName,
                                             clientImage: client.ProfilePicUrl,
@@ -296,6 +298,7 @@ router.get(`/next_workouts`, passport.authenticate('both_rule',  {session: false
 
                                         let workout = {
                                             id: event._id,
+                                            clientId: client._id,
                                             start_date: event.start_date,
                                             clientName: client.FullName,
                                             clientImage: client.ProfilePicUrl,

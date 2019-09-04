@@ -1,13 +1,15 @@
 import React from 'react'
-
 import defaultUserImage from '../../../img/user-regular.svg';
+import {Link} from "react-router-dom";
 
 const Workout = ({workout, index}) => {
 
     // Old format used
-    // let date = workout.start_date.toString().substring(0, 10);
+
     let time = workout.start_date.toString().substring(11,16);
     let dateOther = new Date(workout.start_date);
+    // Link format needed for scheduler component
+    let date = new Date (dateOther.getFullYear(), dateOther.getMonth(), dateOther.getDate());
 
     let weekday = new Array(7);
     weekday[0] =  "Sun";
@@ -53,12 +55,33 @@ const Workout = ({workout, index}) => {
         workout.clientImage = defaultUserImage;
     }
 
-    return (<tr className={index % 2 === 0 ? 'next_workout odd-row' : 'next_workout even-row'}>
-                <td align="center" className="workout"><img className="rounded" src={workout.clientImage} alt="workout"/></td>
-                <td style={{textAlign: 'left', paddingLeft: '5px'}} className="workout">{workout.clientName}</td>
-                <td style={{textAlign: 'left'}} align="center" className="workout">{weekDay}, {day} {aMonth}</td>
-                <td style={{textAlign: 'left'}} className="workout">{time}</td>
-            </tr>)
+    let path;
+
+    // Different path for pt and client
+    if(workout.ptId !== undefined){
+        path = `/users/${workout.ptId}/scheduler/${workout.clientId}`
+    }
+    else {
+        path = `/users/${workout.clientId}/scheduler`;
+    }
+
+    // If user uses mouse scroll click on link date is not sent to new page via state, so using search param, need to add dash for url
+    let dateParam = date.toString().replace(/\s+/g, '-');
+
+
+    return (
+        <tr className={index % 2 === 0 ? 'next_workout odd-row' : 'next_workout even-row'}>
+            <td align="center" className="workout"><img className="rounded" src={workout.clientImage} alt="workout"/></td>
+            <td style={{textAlign: 'left', paddingLeft: '5px'}} className="workout">{workout.clientName}</td>
+            <td style={{textAlign: 'left'}} align="center" className="workout">{weekDay}, {day} {aMonth}</td>
+            <td style={{textAlign: 'left'}} className="workout">{time}</td>
+            <td style={{textAlign: 'left', paddingLeft: '10px'}}>
+                <Link to={{pathname: path, search: `?${dateParam}` }}>
+                    <i className="far fa-calendar-alt fa-1x"></i>
+                </Link>
+            </td>
+        </tr>
+    )
 };
 
 export default Workout;

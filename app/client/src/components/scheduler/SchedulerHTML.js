@@ -10,12 +10,29 @@ import checkExp from "../../utilities/checkExp";
 class SchedulerHTML extends Component {
     constructor(props) {
         super(props);
+
+        let date = null;
+        let dateParam = props.location.search;
+        if(dateParam !== ''){
+            dateParam = dateParam.substring(1, dateParam.length).replace(/-/g, ' ');
+            date = new Date(dateParam)
+        }
+
+        this.state = {
+            clientWorkoutDate: date !== null ? date : null
+        };
         this.ready = fromCDN([
             "//cdn.dhtmlx.com/scheduler/5.0/dhtmlxscheduler.js",
             "//cdn.dhtmlx.com/scheduler/5.0/dhtmlxscheduler.css"
         ]);
 
     }// constructor
+
+    // static getDerivedStateFromProps(){
+    //
+    //
+    //     return null;
+    // }
 
     componentDidMount() {
         document.body.scrollTo(0,0);
@@ -30,8 +47,16 @@ class SchedulerHTML extends Component {
             let date = now.getDate();
             let month = now.getMonth();
             let year = now.getFullYear();
-            // Initialising workout scheduler to current date and display the month view
-            let thisDate = new Date(year, month, date);
+
+
+            // Initialising workout schedule date to date clicked on in next workout section of profile, if not available use todays date.
+            let thisDate;
+            if(this.state.clientWorkoutDate !== null){
+                thisDate = this.state.clientWorkoutDate;
+            }
+            else{
+                thisDate = new Date(year, month, date);
+            }
 
             // Makes scheduler read only for clients
             if(!this.props.authenticatedUser.user.pt){

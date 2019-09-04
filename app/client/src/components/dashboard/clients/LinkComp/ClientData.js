@@ -53,8 +53,7 @@ class ClientData extends Component {
                                     </Link>
                                 </td>
                                 <td align="center">
-                                    <Link
-                                        to={{pathname: `/users/${user.id}/scheduler`}}>
+                                    <Link to={{pathname: `/users/${user.id}/scheduler`}}>
                                         <i className="far fa-calendar-alt fa-2x"></i>
                                     </Link>
                                 </td>
