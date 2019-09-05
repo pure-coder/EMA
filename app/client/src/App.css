@@ -161,8 +161,8 @@ nav a.active {
         margin-bottom: 2rem;
     }
 
-    .guest {
-        flex-direction: row-reverse !important;
+    .navbar-nav {
+        flex-direction: column !important;
     }
 
     .guest .navbar-collapse {
@@ -232,7 +232,7 @@ nav a.active {
     }
 
     .navbar-nav {
-        flex-direction: row-reverse;
+        flex-direction: column !important;
     }
 
     .landing_page {
