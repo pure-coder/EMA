@@ -21,17 +21,6 @@ html, body {
     overflow: visible;
 }
 
-.navbar-brand img {
-    width: 2em;
-    padding-right: 10px;
-}
-
-.navbar-nav img {
-    background-color: white;
-    width: 2em;
-    padding-right: 0;
-}
-
 textarea {
     resize: none;
 }
@@ -56,11 +45,23 @@ label {
 
 /* navbar */
 
+.navbar-brand img {
+    width: 2em;
+    padding-right: 10px;
+}
+
+.nav-item img {
+    background-color: white;
+    width: 2em;
+    padding-right: 0;
+}
+
 .navbar {
-    height: 2.6rem;
+    /*height: 2.6rem;*/
     min-width: 500px;
     padding: 0 1rem;
 }
+
 
 .navbar-container {
     width: 100%;
@@ -101,6 +102,40 @@ label {
 .nav-link {
     display: block;
     padding: .3rem 1rem;
+    float: right;
+}
+
+.navbar-nav {
+    width: 100% !important;
+    flex-direction: row!important;
+}
+
+.guest .navbar-nav {
+    width: 100% !important;
+    flex-direction: row-reverse!important;
+}
+
+ul {
+    padding-inline-start: 0 !important;
+    margin-bottom: 0 !important;
+}
+
+li {
+    display: inline-block;
+}
+
+.nav-item li {
+    float: right;
+}
+
+nav a {
+    display: block;
+    padding: 10px 10px 0;
+    color: #4444ff;
+}
+nav a.active {
+    background: #666;
+    color:white;
 }
 
 /* footer */
@@ -119,48 +154,155 @@ label {
 
 /* media and screen */
 
-/*@media only Screen and (max-width: 500px) {*/
+@media only Screen and (max-width: 875px){
 
-    /*html, body, #root, .App {*/
-        /*overflow-x: hidden;*/
-    /*}*/
-
-    /*.navbar-container {*/
-        /*max-width: 100%;*/
-    /*}*/
-
-    /*.landing_page {*/
-        /*background: url("img/landing_page_mobile_img.jpg") no-repeat;*/
-        /*position: relative;*/
-        /*background-size: cover;*/
-        /*width: 100%;*/
-        /*min-height: 590px;*/
-        /*!* margin-top: -10px; *!*/
-    /*}*/
-
-    /*.landing_div {*/
-        /*position: absolute;*/
-        /*top: 110px;*/
-    /*}*/
-
-    /*.login-custom {*/
-        /*min-height: 460px !important;*/
-        /*height: 460px !important;*/
-    /*}*/
-
-    /*.register-custom {*/
-        /*min-height: 550px !important;*/
-        /*height: 100% !important;*/
-    /*}*/
-
-/*}*/
-
-
-@media only Screen and (max-width: 880px){
     .no_workout, .next_workout_comp {
         float: left !important;
         margin-bottom: 2rem;
+    }
+
+    .guest {
+        flex-direction: row-reverse !important;
+    }
+
+    .guest .navbar-collapse {
+        margin: 0 !important;
+    }
+
+    .guest a.nav-link {
+        width: unset;
+        padding: 0 5px;
+    }
+
+    .navbar-toggler {
+        display: block !important;
+    }
+    .navbar-collapse.collapse {
+        display: none!important;
+        flex-basis: auto;
+        flex-grow: 0 !important;
+    }
+
+    .navbar-collapse.collapse.show{
+        display: flex!important;
+        flex-grow: 0 !important;
+    }
+    .navbar-collapse.collapsing {
+        display: flex!important;
+        flex-basis: auto;
+        flex-grow: 0 !important;
+    }
+    .nav-main {
+        float: none!important;
+    }
+
+    a.nav-main {
+        width: 150px;
+    }
+
+    .nav-link {
+        display: block;
+        padding: .3rem 0;
+        float: right;
+    }
+
+    a.nav-link{
+        width: 300px;
+    }
+
+    ul {
+        padding-inline-start: 0 !important;
+    }
+    li {
+        display: block;
+    }
+    /*.navbar-collapse.collapse.in {*/
+        /*display: block!important;*/
+    /*}*/
 }
+
+@media only Screen and (max-width: 500px){
+
+    html, body, #root, .App {
+    overflow-x: hidden;
+    }
+
+    .navbar-container {
+    max-width: 100%;
+    }
+
+    .navbar-nav {
+        flex-direction: row-reverse;
+    }
+
+    .landing_page {
+    background: url("img/landing_page_mobile_img.jpg") no-repeat;
+    position: relative;
+    background-size: cover;
+    width: 100%;
+    min-height: 590px;
+    /* margin-top: -10px; */
+    }
+
+    .landing_div {
+    position: absolute;
+    top: 110px;
+    }
+
+    .login-custom {
+    min-height: 460px !important;
+    height: 460px !important;
+    }
+
+    .register-custom {
+    min-height: 550px !important;
+    height: 100% !important;
+    }
+
+    .guest a.nav-link {
+        width: unset;
+        padding: 0 5px;
+    }
+
+    .navbar-toggler {
+        display: block !important;
+    }
+    .navbar-collapse.collapse {
+        display: none!important;
+        flex-basis: auto;
+        flex-grow: 0 !important;
+    }
+
+    .navbar-collapse.collapsing {
+        display: none!important;
+        flex-basis: auto;
+        flex-grow: 0 !important;
+    }
+
+    .navbar-collapse.collapse.show{
+        display: flex!important;
+        flex-grow: 0 !important;
+    }
+    .nav-main {
+        float: none!important;
+    }
+
+    .nav-link {
+        display: block;
+        padding: .3rem 0;
+        float: right;
+    }
+
+    a.nav-link{
+        width: 300px;
+    }
+
+    ul {
+        padding-inline-start: 0 !important;
+    }
+    /*.navbar-collapse.collapse.in {*/
+    /*display: block!important;*/
+    /*}*/
 }
 
 /* page margin other than dash and client */
@@ -866,15 +1008,7 @@ input[type=submit] {
     /*!*overflow-y: hidden !important;*!*/
 /*}*/
 
-nav a {
-    display: block;
-    padding: 3px 10px 0;
-    color: #4444ff;
-}
-nav a.active {
-    background: #666;
-    color:white;
-}
+
 
 /* Profile notes */
 

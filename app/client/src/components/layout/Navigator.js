@@ -86,29 +86,31 @@ class Navigation extends Component {
         // Define navbar for dynamic navbar
         const authorisedLinks = (
             <div className="collapse navbar-collapse" id="mobile-navigation">
-                {
-                    user.pt && userData && <PtMenuComp userData={userData}/>
-                }
-                {
-                    !user.pt && userData && <ClientMenuComp userData={userData}/>
-                }
-                <ul className="navbar-nav ml-auto">
-                    <a href="/" onClick={this.onLogOutClick} className="nav-link">
-                        <ProfileImage image={ProfilePicUrl}/>
-                            {/*{' '} is used to provide space */}
-                            {' '}
-                            {userData !== null ? userData.FullName : null}
-                            {' '}
-                            - Log Out
-                    </a>
+                <ul className="navbar-nav">
+                    {
+                        user.pt && userData && <PtMenuComp userData={userData}/>
+                    }
+                    {
+                        !user.pt && userData && <ClientMenuComp userData={userData}/>
+                    }
+                    <li className="nav-item">
+                        <a href="/" onClick={this.onLogOutClick} className="nav-link">
+                            <ProfileImage image={ProfilePicUrl}/>
+                                {/*{' '} is used to provide space */}
+                                {' '}
+                                {userData !== null ? userData.FullName : null}
+                                {' '}
+                                - Log Out
+                        </a>
+                    </li>
                 </ul>
             </div>
         );
 
 
         const guestLinks = (
-            <div className="collapse navbar-collapse" id="mobile-navigation">
-                <ul className="navbar-nav ml-auto">
+            <div className="collapse navbar-collapse guest" id="mobile-navigation">
+                <ul className="navbar-nav mr-auto">
                     <li className="nav-item">
                         <Link className="nav-link" to="/register">
                             Sign Up
@@ -131,8 +133,8 @@ class Navigation extends Component {
                         <img src={require('../../img/logo.jpg')} alt={"Fitness app logo"}></img>
                         Fitness App
                     </Link> {/*Using Link instead of anchor tag*/}
-                    <button className="navbar-toggler" type="button" data-target="#mobile-navigation" data-toggle="collapse">
-                        <span className="navbar-toggler-icon"></span>
+                    <button className="navbar-toggler ml-auto" type="button" data-target="#mobile-navigation" data-toggle="collapse">
+                        <span className="navbar-toggler-icon ml-auto"></span>
                     </button>
 
                     {/*Depending on isLoggedIn the navbar will display either authorisedLinks or guestLinks*/}
