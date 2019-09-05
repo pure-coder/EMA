@@ -93,7 +93,7 @@ class ClientList extends Component {
                 </tr>
             ));
             return (
-                <div className="row">
+                <div className="row pb-5">
                     <div className="ClientList">
                         <div className="m-auto">
                             <div className="pt-buttons">

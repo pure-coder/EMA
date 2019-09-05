@@ -205,7 +205,7 @@ class EditPersonalTrainer extends Component {
             return (
                 <div className="edit_client page-margin-top">
                     <div className="container  edit_client-custom">
-                        <div className="row">
+                        <div className="row pb-5">
                             <div className="m-auto col-md-8">
                                 <div className="edit_image">
                                     <Link to={`upload_profile_picture`}>

@@ -104,7 +104,7 @@ class ClientProfile extends Component {
                     <div className=" client_profile_row row">
                         <UserInfo userData={user.pt ? client_data.current_client : client_data.client_data}/>
                     </div>
-                    <div className="row">
+                    <div className="row pb-4">
                         <div className="col-sm Profile_margin">
                             <BodyGraphs bodyGraphData={client_data.body_bio}/>
                             <Graphs graphData={client_data.client_progression}/>

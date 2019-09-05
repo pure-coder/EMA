@@ -141,7 +141,7 @@ class RegisterClient extends Component {
         return (
             <div className="register page-margin-top">
                 <div className="container  register-custom">
-                    <div className="row">
+                    <div className="row pb-4">
                         <div className="m-auto col-md-8">
                             <p className="description text-center">Enter New Client Details Below</p>
                             <form onSubmit={this.onSubmit}> {/* onSubmit used instead of normal action*/}

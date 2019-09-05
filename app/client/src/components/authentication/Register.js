@@ -116,7 +116,7 @@ class Register extends Component {
         return (
             <div className="register page-margin-top">
                 <div className="container  register-custom">
-                    <div className="row">
+                    <div className="row pb-5">
                         <div className="m-auto col-md-8">
                             <h1 className=" text-center display-5">Personal Trainer <br/> Sign Up</h1>
                             <p className="description text-center">Create your Personal Trainer account</p>
