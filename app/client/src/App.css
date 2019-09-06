@@ -1190,6 +1190,11 @@ label.Profile_label {
 
     a.nav-link{
         width: 200px;
+        padding-left: 0;
+    }
+
+    nav a {
+        padding: 0.3rem 0;
     }
 
     ul {
@@ -1270,6 +1275,10 @@ label.Profile_label {
         display: block;
         padding: .3rem 0;
         float: right;
+    }
+
+    nav a {
+        padding: 0.3rem 0;
     }
 
     a.nav-link{
