@@ -142,6 +142,7 @@ nav a.active {
     background-size: cover;
     /*width: 100%;*/
     height: 94.5vh;
+    overflow: hidden;
 }
 
 .landing_div {
@@ -1132,17 +1133,6 @@ label.Profile_label {
         background-size: cover;
     }
 
-
-    .login-custom {
-        min-height: 460px !important;
-        height: 460px !important;
-    }
-
-    .register-custom {
-        min-height: 550px !important;
-        height: 100% !important;
-    }
-
     .no_workout, .next_workout_comp {
         float: left !important;
         margin-bottom: 2rem;
@@ -1159,6 +1149,11 @@ label.Profile_label {
     .guest a.nav-link {
         width: unset;
         padding: 0 5px;
+    }
+
+    .dashboard-container {
+        /* min-height: 500px; */
+        min-height: 600px;
     }
 
     .navbar-toggler {
@@ -1237,9 +1232,15 @@ label.Profile_label {
     height: 100% !important;
     }
 
+
     .guest a.nav-link {
         width: unset;
         padding: 0 5px;
+    }
+
+    .dashboard-container {
+        /* min-height: 500px; */
+        min-height: 600px;
     }
 
     .navbar-toggler {
@@ -1307,6 +1308,66 @@ label.Profile_label {
         display: flex;
         align-items: center;
         justify-content: space-between;
+    }
+
+    .navbar-nav {
+        flex-direction: column !important;
+    }
+
+    .guest a.nav-link {
+        width: unset;
+        padding: 0 5px;
+    }
+
+    .navbar-toggler {
+        display: block !important;
+    }
+    .navbar-collapse.collapse {
+        display: none!important;
+        flex-basis: auto;
+        flex-grow: 0 !important;
+    }
+
+    .navbar-collapse.collapsing {
+        display: none!important;
+        flex-basis: auto;
+        flex-grow: 0 !important;
+    }
+
+    .navbar-collapse.collapse.show{
+        display: flex!important;
+        flex-grow: 0 !important;
+    }
+    .nav-main {
+        float: none!important;
+        width: 120px!important;
+    }
+
+    .mr-auto{
+        margin-right: 0!important;
+    }
+
+    .nav-link {
+        display: block;
+        padding: .3rem 0;
+        float: right;
+    }
+
+    .navbar-brand img {
+        width: 15px;
+        padding-right: 5px;
+    }
+
+    nav a {
+        padding: 0.3rem 0;
+    }
+
+    a.nav-link{
+        width: 120px;
+    }
+
+    ul {
+        padding-left: 0 !important;
     }
 
     .edit-date-div {
