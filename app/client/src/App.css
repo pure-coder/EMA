@@ -1133,6 +1133,10 @@ label.Profile_label {
         background-size: cover;
     }
 
+    .userInfo-container {
+        width: 600px;
+    }
+
     .no_workout, .next_workout_comp {
         float: left !important;
         margin-bottom: 2rem;
