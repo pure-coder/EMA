@@ -141,7 +141,7 @@ nav a.active {
     position: relative;
     background-size: cover;
     /*width: 100%;*/
-    height: 94.5vh;
+    height: 87.9vh;;
     overflow: hidden;
 }
 
@@ -173,7 +173,7 @@ nav a.active {
     margin: auto;
     min-height: 300px;
     /*height: 87vh;*/
-    height: 94.5vh;
+    height: 87.9vh;;
     padding: 0;
 }
 
@@ -194,7 +194,7 @@ nav a.active {
     margin: auto;
     min-height: 300px;
     /*height: 87vh;*/
-    height: 94.5vh;
+    height: 87.9vh;;
     padding: 0;
 }
 
@@ -210,7 +210,7 @@ nav a.active {
 
 .dashboard-custom.client{
     /*height: 85.8vh;*/
-    height: 92.5vh;
+    height: 85.8vh;;
 }
 
 .dashboard {
@@ -365,7 +365,7 @@ label.edit-profile-label {
 
 .Loading-container {
     /*height: 87vh;*/
-    height: 94.5vh;
+    height: 87vh;
     min-width: 100%;
     text-align: center;
 }
@@ -405,7 +405,7 @@ label.edit-profile-label {
     width: 400px;
     margin: auto;
     /*height: 87vh;*/
-    height: 93.8vh;
+    height: 87vh;;;
     padding: 0;
 }
 
@@ -788,7 +788,7 @@ input[type=submit] {
 }
 
 .app-screen{
-    height: 471px;
+    height: 64.5vh;
     /*display: flex;*/
     flex-direction: column;
     overflow: hidden;
@@ -885,10 +885,8 @@ input[type=submit].profile_notes {
 /* Profile pic */
 
 .Profile_pic_upload {
-    min-height: 485px;
+    min-height: 87vh;;
     min-width: 500px;
-    /*height: 87vh;*/
-    height: 93.8vh;
 }
 
 .Profile_canvas {
@@ -1045,6 +1043,7 @@ label.Profile_label {
     max-width: 420px;
     display: inline-block;
     float: right;
+    margin-bottom: 10px;
 }
 
 .no_workout {
@@ -1103,7 +1102,7 @@ label.Profile_label {
 /* footer */
 
 .footer-custom {
-    position: absolute;
+    position: relative;
     height: 2.8rem;
     width: 100%;
     padding-right: 10px;
@@ -1136,7 +1135,6 @@ label.Profile_label {
     }
 
     .dashboard-container {
-        height: 70.8vh;
         min-height: 500px;
     }
 
@@ -1190,7 +1188,7 @@ label.Profile_label {
     }
 
     a.nav-link{
-        width: 200px;
+        min-width: 220px;
         padding-left: 0;
     }
 
@@ -1204,9 +1202,10 @@ label.Profile_label {
     li {
         display: block;
     }
-    /*.navbar-collapse.collapse.in {*/
-        /*display: block!important;*/
-    /*}*/
+
+    .Profile_pic_upload {
+        margin-bottom: 10px;
+    }
 }
 
 @media only Screen and (max-width: 800px) {
@@ -1428,7 +1427,7 @@ label.Profile_label {
     }
 
     .footer-custom {
-        position: absolute;
+        position: relative;
         height: 2.8rem;
         width: 100%;
         padding-right: 10px;
