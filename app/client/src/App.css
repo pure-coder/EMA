@@ -51,6 +51,7 @@ label {
     /*height: 2.6rem;*/
     /*min-width: 500px;*/
     padding: 0 1rem;
+    min-height: 48px;
 }
 
 
@@ -171,7 +172,7 @@ nav a.active {
 .login-custom-container {
     width: 400px;
     margin: auto;
-    min-height: 300px;
+    min-height: 420px;
     /*height: 87vh;*/
     height: 87.9vh;;
     padding: 0;
@@ -192,7 +193,7 @@ nav a.active {
 .re-login-custom-container {
     width: 400px;
     margin: auto;
-    min-height: 300px;
+    min-height: 420px;
     /*height: 87vh;*/
     height: 87.9vh;;
     padding: 0;
@@ -1125,8 +1126,12 @@ label.Profile_label {
         max-width: 875px;
     }
 
-    .navbar-nav {
+    .navbar-nav, .guest .navbar-nav {
         flex-direction: column !important;
+    }
+
+    .guest a.nav-link {
+        min-width: 50px;
     }
 
     .landing_page {
@@ -1315,7 +1320,7 @@ label.Profile_label {
         max-width: 360px!important;
         min-width: 360px!important;
         min-height: 100vh;
-        font-size: 0.5rem;
+        font-size: 0.8rem;
         overflow-x: hidden;
     }
 
