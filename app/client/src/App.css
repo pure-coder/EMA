@@ -224,6 +224,7 @@ nav a.active {
 .ClientList {
     margin-left: 50px;
     width: 90%;
+    margin-right: 15px;
 }
 
 .client-table td, .client-table th {
@@ -1379,6 +1380,10 @@ label.Profile_label {
         display: block;
         padding: .3rem 0;
         float: right;
+    }
+
+    a.nav-link {
+        min-width: 100px;
     }
 
     .navbar-brand img {
