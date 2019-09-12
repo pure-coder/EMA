@@ -1,5 +1,5 @@
 import store from '../store'
-import {refreshToken} from "../actions/authenticationActions";
+import {refreshToken} from "../redux/actions/authenticationActions";
 
 const checkExp = () => {
     const auth = store.getState();

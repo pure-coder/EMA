@@ -1,6 +1,6 @@
 import {createStore, applyMiddleware, compose} from 'redux';
 import thunk from 'redux-thunk';
-import rootReducer from './reducers'; // THIS IMPORTS combineReducers function from ./reducers/index.js
+import rootReducer from './redux/reducers'; // THIS IMPORTS combineReducers function from ./reducers/index.js
 
 // Read combineReducers docs on redux website for better explanation of how reducers are invoked via store
 

@@ -3,7 +3,7 @@
 import {
     SET_SIGNED_IN_USER,
 } from "../actions/types";
-import isEmpty from '../validation/is_empty';
+import isEmpty from '../../validation/is_empty';
 
 const initialisedState = {
     isAuthenticated: false,

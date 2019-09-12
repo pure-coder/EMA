@@ -6,11 +6,11 @@ import {
     ptGetClients,
     ptGetData,
     ptNextWorkouts
-} from "../../../actions/ptProfileActions";
+} from "../../../redux/actions/ptProfileActions";
 import {
     clientGetData,
     clientNextWorkouts
-} from "../../../actions/clientProfileActions";
+} from "../../../redux/actions/clientProfileActions";
 import ClientList from '../clients/LinkComp/ClientList'
 import Loading from "../../common/Loading/Loading";
 import ClientData from "../clients/LinkComp/ClientData";

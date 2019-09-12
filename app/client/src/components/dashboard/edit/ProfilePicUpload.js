@@ -6,10 +6,10 @@ import PropTypes from 'prop-types';
 import defaultProfilePic from '../../../img/default_profile_pic.png';
 import {
     ptUploadProfilePic
-} from "../../../actions/ptProfileActions";
+} from "../../../redux/actions/ptProfileActions";
 import {
     clientUploadProfilePic
-} from "../../../actions/clientProfileActions";
+} from "../../../redux/actions/clientProfileActions";
 import DisplayMessage from "../../common/Message/DisplayMessage";
 import isEmpty from "../../../validation/is_empty";
 

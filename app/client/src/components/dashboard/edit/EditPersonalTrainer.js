@@ -10,7 +10,7 @@ import {
     setSuccess,
     ptDeleteAccount,
     clearSuccess
-} from "../../../actions/ptProfileActions"; // Used to import create action for getting pt data and editing pt data
+} from "../../../redux/actions/ptProfileActions"; // Used to import create action for getting pt data and editing pt data
 import {withRouter} from 'react-router-dom';
 import FormInputGroup from "../../common/Forms/FormInputGroup";
 import Loading from "../../common/Loading/Loading";

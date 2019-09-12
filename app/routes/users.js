@@ -3,6 +3,10 @@ const express = require('express');
 const router = express();
 // require bcrypt to encrypt Password
 const bcrypt = require('bcryptjs');
+
+// require bunyan for logging errors to file
+const log = require('../config/logger').logger;
+
 /* require passport*/
 const passport = require('passport');
 const {capitaliseFirstLetter} = require('../services/capitalise');
@@ -26,6 +30,7 @@ AWS.config.update({
     accessKeyId     : AWS_S3_KEY,
     secretAccessKey : AWS_S3_SECRET,
     region          : AWS_S3_REGION
+
 });
 const s3 = new AWS.S3();
 
@@ -65,7 +70,10 @@ router.get('/pt_clients', passport.authenticate('pt_rule', {session: false}, nul
     // get personal trainers client list
     PersonalTrainer.findOne({_id: signedInId}).populate('ClientIDs', '-Password -Date -Activated -__v')
         .exec(function (err, personalTrainer) {
-                if (err) return res.status(400).json({msg : "No data for personal trainer logged in: " + err.stringValue});
+                if (err){
+                    log.info(err);
+                    return res.status(400).json({msg : "No data for personal trainer logged in: " + err.stringValue});
+                }
 
                 if (personalTrainer) {
                     return res.status(200).json(personalTrainer.ClientIDs)
@@ -106,6 +114,7 @@ router.delete('/delete_client/:cid', passport.authenticate('pt_rule', {session: 
                                                     }
                                                 )
                                                 .catch(err => {
+                                                    log.info(err);
                                                     return res.status(400).json(err);
                                                 });
                                             Events.deleteOne({clientId: clientId})
@@ -116,6 +125,7 @@ router.delete('/delete_client/:cid', passport.authenticate('pt_rule', {session: 
                                                 )
                                                 // Events.remove
                                                 .catch(err => {
+                                                    log.info(err);
                                                     return res.status(400).json(err);
                                                 });
                                             BodyBio.deleteOne({clientId: clientId})
@@ -126,6 +136,7 @@ router.delete('/delete_client/:cid', passport.authenticate('pt_rule', {session: 
                                                 )
                                                 // Events.remove
                                                 .catch(err => {
+                                                    log.info(err);
                                                     return res.status(400).json(err);
                                                 });
                                             ProfileNotes.deleteOne({clientId: clientId})
@@ -136,6 +147,7 @@ router.delete('/delete_client/:cid', passport.authenticate('pt_rule', {session: 
                                                 )
                                                 // Events.remove
                                                 .catch(err => {
+                                                    log.info(err);
                                                     return res.status(400).json(err);
                                                 });
                                             return res.status(200).json("Client deleted successfully")
@@ -147,6 +159,7 @@ router.delete('/delete_client/:cid', passport.authenticate('pt_rule', {session: 
                                     })
                                     // Client.remove
                                     .catch(err => {
+                                        log.info(err);
                                         return res.status(400).json(err);
                                     })
                             }
@@ -156,6 +169,7 @@ router.delete('/delete_client/:cid', passport.authenticate('pt_rule', {session: 
                         })
                         // PersonalTrainer.update
                         .catch(err => {
+                            log.info(err);
                             return res.status(400).json(err);
                         })
                 }// if client.ptId === signedInId
@@ -169,6 +183,7 @@ router.delete('/delete_client/:cid', passport.authenticate('pt_rule', {session: 
         }
         ) // then Client.findOne
         .catch(err => {
+            log.info(err);
             return res.status(404).json({err})
         })
 
@@ -214,8 +229,9 @@ router.get('/client/:cid?', passport.authenticate('both_rule', {session: false},
                 }
             }
         ) // then Client.findOne
-        .catch(() => {
-            return res.status(404).json({error: `Client with id: ${cid} does not exist.`})
+        .catch(err => {
+            log.info(err);
+            return res.status(404).json({error: `Client with id: ${id} does not exist.`})
         })
 
 });
@@ -298,7 +314,10 @@ router.put('/edit_client/:cid?', passport.authenticate('both_rule', {session: fa
                                                     // is used so the encrypting of users passwords does not tie up the node.js thread.
                                                     bcrypt.genSalt(12, (err, salt) => {
                                                         bcrypt.hash(updateClient.Password, salt, (err, hash) => {
-                                                            if (err) throw err;
+                                                            if (err) {
+                                                                log.info(err);
+                                                                throw err;
+                                                            }
                                                             // Set plain Password to the hash that was created for the Password
                                                             updateClient.Password = hash;
                                                             // Update password in client database
@@ -310,6 +329,7 @@ router.put('/edit_client/:cid?', passport.authenticate('both_rule', {session: fa
                                                                     return res.status(404).json({err: "Client does not exist!"})
                                                                 })
                                                                 .catch(err => {
+                                                                    log.info(err);
                                                                     return res.status(400).json(err)
                                                                 });
                                                         })
@@ -327,6 +347,7 @@ router.put('/edit_client/:cid?', passport.authenticate('both_rule', {session: fa
                                                             }
                                                         })
                                                         .catch(err => {
+                                                            log.info(err);
                                                             return res.status(400).json(err)
                                                         });
                                                 }
@@ -340,8 +361,8 @@ router.put('/edit_client/:cid?', passport.authenticate('both_rule', {session: fa
                                             return res.status(400).json({msg: "Client not found"})
                                         }
                                     })
-                                    .catch(() => {
-                                            // console.log(err)
+                                    .catch(err => {
+                                            log.info(err);
                                             return res.status(400).json();
                                         }
                                     );
@@ -368,7 +389,10 @@ router.put('/edit_client/:cid?', passport.authenticate('both_rule', {session: fa
                                                 // is used so the encrypting of users passwords does not tie up the node.js thread.
                                                 bcrypt.genSalt(12, (err, salt) => {
                                                     bcrypt.hash(updateClient.Password, salt, (err, hash) => {
-                                                        if (err) throw err;
+                                                        if (err) {
+                                                            log.info(err);
+                                                            throw err;
+                                                        }
                                                         // Set plain Password to the hash that was created for the Password
                                                         updateClient.Password = hash;
                                                         // Update password in client database
@@ -380,6 +404,7 @@ router.put('/edit_client/:cid?', passport.authenticate('both_rule', {session: fa
                                                                 return res.status(404).json({err: "Client does not exist!"})
                                                             })
                                                             .catch(err => {
+                                                                log.info(err);
                                                                 return res.status(400).json(err)
                                                             });
                                                     })
@@ -397,6 +422,7 @@ router.put('/edit_client/:cid?', passport.authenticate('both_rule', {session: fa
                                                         }
                                                     })
                                                     .catch(err => {
+                                                        log.info(err);
                                                         return res.status(400).json(err)
                                                     });
                                             }
@@ -410,17 +436,23 @@ router.put('/edit_client/:cid?', passport.authenticate('both_rule', {session: fa
                                         return res.status(400).json({msg: "Client not found"})
                                     }
                                 })
-                                .catch(() => {
-                                        // console.log(err)
+                                .catch(err => {
+                                        log.info(err);
                                         return res.status(400).json();
                                     }
                                 );
                         }
                     })
-                    .catch(err => res.status(400).json(err));
+                    .catch(err => {
+                        log.info(err);
+                        return res.status(400).json(err);
+                    });
             }
         })
-        .catch(err => res.status(400).json(err));
+        .catch(err => {
+            log.info(err);
+            return res.status(400).json(err);
+        });
 
 
 
@@ -454,6 +486,7 @@ router.get('/personal_trainer', passport.authenticate('pt_rule', {session: false
             }
         ) // then PersonalTrainer.findOne
         .catch(err => {
+            log.info(err);
             return res.status(400).json("No data for id: " + err.stringValue)
         })
 
@@ -511,7 +544,10 @@ router.put('/edit_personal_trainer', passport.authenticate('pt_rule', {session: 
                         // encrypting of users passwords does not tie up the node.js thread.
                         bcrypt.genSalt(12, (err, salt) => {
                             bcrypt.hash(updatePt.Password, salt, (err, hash) => {
-                                if (err) throw err;
+                                if (err) {
+                                    log.info(err);
+                                    throw err;
+                                }
                                 // Set plain Password to the hash that was created for the Password
                                 updatePt.Password = hash;
                                 // Update password in client database
@@ -523,6 +559,7 @@ router.put('/edit_personal_trainer', passport.authenticate('pt_rule', {session: 
                                         return res.status(404).json({err: "Personal Trainer does not exist!"})
                                     })
                                     .catch(err => {
+                                        log.info(err);
                                         return res.status(400).json(err)
                                     });
                             })
@@ -540,6 +577,7 @@ router.put('/edit_personal_trainer', passport.authenticate('pt_rule', {session: 
                                 }
                             })
                             .catch(err => {
+                                log.info(err);
                                 return res.status(400).json(err)
                             });
                     }
@@ -567,7 +605,10 @@ router.put('/edit_personal_trainer', passport.authenticate('pt_rule', {session: 
                                 // encrypting of users passwords does not tie up the node.js thread.
                                 bcrypt.genSalt(12, (err, salt) => {
                                     bcrypt.hash(updatePt.Password, salt, (err, hash) => {
-                                        if (err) throw err;
+                                        if (err) {
+                                            log.info(err);
+                                            throw err;
+                                        }
                                         // Set plain Password to the hash that was created for the Password
                                         updatePt.Password = hash;
                                         // Update password in client database
@@ -579,6 +620,7 @@ router.put('/edit_personal_trainer', passport.authenticate('pt_rule', {session: 
                                                 return res.status(404).json({err: "Personal Trainer does not exist!"})
                                             })
                                             .catch(err => {
+                                                log.info(err);
                                                 return res.status(400).json(err)
                                             });
                                     })
@@ -596,15 +638,22 @@ router.put('/edit_personal_trainer', passport.authenticate('pt_rule', {session: 
                                         }
                                     })
                                     .catch(err => {
+                                        log.info(err);
                                         return res.status(400).json(err)
                                     });
                             }
                         }
                     })
-                    .catch(err => res.status(400).json(err));
+                    .catch(err => {
+                        log.info(err);
+                        return res.status(400).json(err);
+                    });
             }
         })
-        .catch(err => res.status(400).json(err));
+        .catch(err => {
+            log.info(err);
+            return res.status(400).json(err);
+        });
 
 
 }); // PUT /edit_personal_trainer
@@ -672,6 +721,7 @@ router.post('/client_progression/:cid', passport.authenticate('pt_rule', {sessio
                                             return res.status(200).json(update);
                                         })
                                         .catch(err => {
+                                            log.info(err);
                                             return res.status(400).json(err);
                                         });
                                 }
@@ -705,12 +755,13 @@ router.post('/client_progression/:cid', passport.authenticate('pt_rule', {sessio
                                         return res.status(200).json(data);
                                     })
                                     .catch(err => {
+                                        log.info(err);
                                         return res.status(400).json(err);
                                     });
                             }
                         })
                         .catch(err => {
-                            // console.log(err)
+                            log.info(err);
                             return res.status(400).json(err)
                         });
 
@@ -720,7 +771,8 @@ router.post('/client_progression/:cid', passport.authenticate('pt_rule', {sessio
                 }
             }
         })
-        .catch(() => {
+        .catch(err => {
+            log.info(err);
             return res.status(400).json({msg: "Client not found!"})
         }); // Client.findOne()
 
@@ -767,6 +819,7 @@ router.get('/client_progression/:cid?', passport.authenticate('both_rule', {sess
                             }
                         })
                         .catch(err => {
+                                log.info(err);
                                 return res.status(400).json(err);
                             }
                         ); // router get client progression
@@ -781,7 +834,8 @@ router.get('/client_progression/:cid?', passport.authenticate('both_rule', {sess
                 return res.status(404).json();
             }
         })
-        .catch(() => {
+        .catch(err => {
+            log.info(err);
             // Return an empty object
             return res.status(400).json({});
         }); // Client.findOne()
@@ -826,7 +880,8 @@ router.delete('/client_progression/:cid', passport.authenticate('pt_rule', {sess
 
                             }
                         )
-                        .catch(() => {
+                        .catch(err => {
+                            log.info(err);
                             return res.status(400).json({msg: "Could not delete this exercise."})
                         })
 
@@ -837,7 +892,8 @@ router.delete('/client_progression/:cid', passport.authenticate('pt_rule', {sess
                 }
             }
         })
-        .catch(() => {
+        .catch(err => {
+            log.info(err);
             return res.status(400).json({msg: "Client not found!"});
         })
 
@@ -893,7 +949,8 @@ router.put('/client_progression/:cid?', passport.authenticate('pt_rule', {sessio
 
                             }
                         )
-                        .catch(() => {
+                        .catch(err => {
+                            log.info(err);
                             return res.status(400).json({msg: "Could not update this exercise."})
                         })
 
@@ -904,7 +961,8 @@ router.put('/client_progression/:cid?', passport.authenticate('pt_rule', {sessio
                 }
             }
         })
-        .catch(() => {
+        .catch(err => {
+            log.info(err);
             return res.status(400).json({msg: "Client not found!"});
         })
     // end of Client.findOne
@@ -968,6 +1026,7 @@ router.post('/body_bio/:cid', passport.authenticate('pt_rule', {session: false},
                                             return res.status(200).json(update);
                                         })
                                         .catch(err => {
+                                            log.info(err);
                                             return res.status(400).json(err);
                                         });
                                 }
@@ -998,12 +1057,13 @@ router.post('/body_bio/:cid', passport.authenticate('pt_rule', {session: false},
                                         return res.status(200).json(data);
                                     })
                                     .catch(err => {
+                                        log.info(err);
                                         return res.status(400).json(err);
                                     });
                             }
                         })
                         .catch(err => {
-                            // console.log(err)
+                            log.info(err);
                             return res.status(400).json(err)
                         });
 
@@ -1013,7 +1073,8 @@ router.post('/body_bio/:cid', passport.authenticate('pt_rule', {session: false},
                 }
             }
         })
-        .catch(() => {
+        .catch(err => {
+            log.info(err);
             return res.status(400).json({msg: "Client not found!"})
         }); // Client.findOne()
 
@@ -1060,6 +1121,7 @@ router.get('/body_bio/:cid?', passport.authenticate('both_rule', {session: false
                             }
                         })
                         .catch(err => {
+                                log.info(err);
                                 return res.status(400).json(err);
                             }
                         ); // router get client progression
@@ -1074,7 +1136,8 @@ router.get('/body_bio/:cid?', passport.authenticate('both_rule', {session: false
                 return res.status(404).json();
             }
         })
-        .catch(() => {
+        .catch(err => {
+            log.info(err);
             // Return an empty object
             return res.status(400).json({});
         }); // Client.findOne()
@@ -1121,7 +1184,8 @@ router.delete('/body_bio/:cid?', passport.authenticate('pt_rule', {session: fals
 
                             }
                         )
-                        .catch(() => {
+                        .catch(err => {
+                            log.info(err);
                             return res.status(400).json({msg: "Could not delete this exercise."})
                         })
 
@@ -1132,7 +1196,8 @@ router.delete('/body_bio/:cid?', passport.authenticate('pt_rule', {session: fals
                 }
             }
         })
-        .catch(() => {
+        .catch(err => {
+            log.info(err);
             return res.status(400).json({msg: "Client not found!"});
         })
 
@@ -1179,7 +1244,8 @@ router.put('/body_bio/:cid?', passport.authenticate('pt_rule', {session: false},
 
                             }
                         )
-                        .catch(() => {
+                        .catch(err => {
+                            log.info(err);
                             return res.status(400).json({msg: "Could not update this body part."})
                         })
 
@@ -1190,7 +1256,8 @@ router.put('/body_bio/:cid?', passport.authenticate('pt_rule', {session: false},
                 }
             }
         })
-        .catch(() => {
+        .catch(err => {
+            log.info(err);
             return res.status(400).json({msg: "Client not found!"});
         })
     // end of Client.findOne
@@ -1239,6 +1306,7 @@ router.get('/profile_notes/:cid?', passport.authenticate('both_rule', {session: 
                             }
                         })
                         .catch(err => {
+                                log.info(err);
                                 return res.status(400).json(err);
                             }
                         ); // router get profile notes
@@ -1253,7 +1321,8 @@ router.get('/profile_notes/:cid?', passport.authenticate('both_rule', {session: 
                 return res.status(404).json();
             }
         })
-        .catch(() => {
+        .catch(err => {
+            log.info(err);
             // Return an empty object
             return res.status(400).json({});
         }); // Client.findOne()
@@ -1308,7 +1377,8 @@ router.put('/profile_notes/:cid', passport.authenticate('pt_rule', {session: fal
                                 return res.status(200).json({msg: "Data successfully updated"})
                             }
                         })
-                        .catch(() => {
+                        .catch(err => {
+                            log.info(err);
                             return res.status(400).json({msg: "Could not update data"})
                         })
 
@@ -1321,7 +1391,8 @@ router.put('/profile_notes/:cid', passport.authenticate('pt_rule', {session: fal
                 }
             }
         })
-        .catch(() => {
+        .catch(err => {
+            log.info(err);
             return res.status(400).json({msg: "Client not found!"});
         })
     // end of Client.findOne
@@ -1365,7 +1436,8 @@ router.post(`/upload_profile_pic`, upload.single('profileImage'),passport.authen
         ACL : 'public-read' // Use this to make resource url available to public
     }, (err, url) => {
         if(err){
-            return res.status(400).json(err);
+            log.info(err);
+            return res.status(400).json({msg: "Failed to upload profile picture", type: "ERROR"});
         }
         else{
             fetch(url, {
@@ -1393,11 +1465,13 @@ router.post(`/upload_profile_pic`, upload.single('profileImage'),passport.authen
                         )
                             .then(result => {
                                 if (result) {
+                                    // console.log(result)
                                     return res.status(200).json({msg: "Profile picture updated", url: newUrl})
                                 }
                             })
-                            .catch(() => {
-                                return res.status(400).json({msg: "Not authorised to update profile picture"})
+                            .catch(err => {
+                                log.info(err);
+                                return res.status(400).json({msg: "Not authorised to update profile picture", type: "ERROR"})
                             })
                     }
                     else {
@@ -1413,17 +1487,20 @@ router.post(`/upload_profile_pic`, upload.single('profileImage'),passport.authen
                                     return res.status(200).json({msg: "User profile image updated.", url: newUrl})
                                 }
                             })
-                            .catch(() => {
-                                return res.status(400).json({msg: "Not authorised to update profile picture"})
+                            .catch(err => {
+                                log.info(err);
+                                return res.status(400).json({msg: "Not authorised to update profile picture", type: "ERROR"})
                             })
                     }
                 }
                 else{
-                    return res.status(400).json("Failed to upload profile picture");
+                    // console.log(result)
+                    return res.status(400).json({msg: "Failed to upload profile picture", type: "ERROR"});
                 }
             })
             .catch(err => {
-                console.log(err);
+                log.info(err);
+                return res.status(400).json({msg: "Failed to upload profile picture", type: "ERROR"});
             });
         }
     });
@@ -1454,6 +1531,7 @@ router.delete('/delete_personal_trainer', passport.authenticate('pt_rule', {sess
                         })
                         // Client.remove
                         .catch(err => {
+                            log.info(err);
                             return res.status(400).json(err)
                         });
                     ClientProgression.deleteMany({clientId: {$in: clientsArray}})
@@ -1461,7 +1539,8 @@ router.delete('/delete_personal_trainer', passport.authenticate('pt_rule', {sess
                                 // return res.status(200).json("Client deleted successfully")
                             }
                         )
-                        .catch(() => {
+                        .catch(err => {
+                            log.info(err);
                             // console.log("error deleting client progress")
                         });
                     Events.deleteMany({clientId: {$in: clientsArray}})
@@ -1471,7 +1550,8 @@ router.delete('/delete_personal_trainer', passport.authenticate('pt_rule', {sess
                             }
                         )
                         // Events.deleteMany
-                        .catch(() => {
+                        .catch(err => {
+                            log.info(err);
                             // console.log("error deleting client progress")
                         });
                     BodyBio.deleteMany({clientId: {$in: clientsArray}})
@@ -1482,6 +1562,7 @@ router.delete('/delete_personal_trainer', passport.authenticate('pt_rule', {sess
                         )
                         // Events.deleteMany
                         .catch(err => {
+                            log.info(err);
                             return res.status(400).json(err)
                         });
                     ProfileNotes.deleteMany({clientId: {$in: clientsArray}})
@@ -1492,6 +1573,7 @@ router.delete('/delete_personal_trainer', passport.authenticate('pt_rule', {sess
                         )
                         // Events.deleteMany
                         .catch(err => {
+                            log.info(err);
                             return res.status(400).json(err)
                         });
                 }
@@ -1500,11 +1582,13 @@ router.delete('/delete_personal_trainer', passport.authenticate('pt_rule', {sess
                 .then(()=>{
                     return res.status(200).json("Personal trainer deleted along with associated clients.");
                 })
-                .catch(()=>{
+                .catch(err =>{
+                    log.info(err);
                     return res.status(400).json("Personal trainer account could not be deleted.");
                 });
         })
-        .catch(() => {
+        .catch(err => {
+            log.info(err);
             return res.status(400).json({msg: "Personal trainer not found!"});
         })
 }); // router delete /delete_personal_trainer

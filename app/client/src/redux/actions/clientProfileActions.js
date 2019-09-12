@@ -111,16 +111,31 @@ export const clientUploadProfilePic = (dataImage, fileName) => dispatch => {
             body : formData
         };
 
+        // As using fetch dealing with result status is different then axios
         fetch(`/api/upload_profile_pic`, config)
-            .then(result => result.json())
-            .then(data => {
-                dispatch({
-                    type: UPDATE_PROFILE_PIC_CLIENT,
-                    payload: data.url
-                });
-                dispatch(setSuccess(data.msg))
+            .then(response => {
+                if(response.status === 400){
+                    response.json()
+                        .then(result => {
+                            dispatch({
+                                type: GET_ERRS,
+                                payload: result.msg
+                            })
+                        })
+                }
+                else {
+                    response.json()
+                        .then(data =>{
+                            dispatch({
+                                type: UPDATE_PROFILE_PIC_CLIENT,
+                                payload: data.url
+                            });
+                            dispatch(setSuccess(data.msg));
+                        })
+                }
             })
-            .catch(err => {dispatch(manageErrors(err));
+            .catch(err => {
+                dispatch(manageErrors(err));
             })
     }
 };

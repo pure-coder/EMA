@@ -3,16 +3,16 @@ import {Link} from 'react-router-dom'; /*This will be used instead of the anchor
 // For dynamic navbar depending on login status (either guest link (not signed in) or authorised link (signed in))
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { logOutUser } from "../../actions/authenticationActions";
+import { logOutUser } from "../../redux/actions/authenticationActions";
 import { withRouter } from 'react-router-dom';
 import {
     ptGetData,
     ptClearProfile
-} from "../../actions/ptProfileActions";
+} from "../../redux/actions/ptProfileActions";
 import {
     clientGetData,
     clientClearProfile
-} from "../../actions/clientProfileActions";
+} from "../../redux/actions/clientProfileActions";
 
 import {ProfileImage} from "../common/ProfileImage/ProfileImage";
 import PtMenuComp from "../common/Menu/PtMenuComp";

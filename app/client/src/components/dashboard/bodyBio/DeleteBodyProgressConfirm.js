@@ -2,7 +2,7 @@ import React, {Component} from 'react' // React is need for rendering JSX HTML e
 import {withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
-import {ptDeleteBodyPart} from "../../../actions/ptProfileActions";
+import {ptDeleteBodyPart} from "../../../redux/actions/ptProfileActions";
 
 
 class DeleteBodyProgressConfirm extends Component {

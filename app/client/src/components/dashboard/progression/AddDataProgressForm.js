@@ -7,7 +7,7 @@ import {
     setErrors,
     clearErrors,
     clearSuccess,
-} from "../../../actions/ptProfileActions";
+} from "../../../redux/actions/ptProfileActions";
 import FormInputGroup from "../../common/Forms/FormInputGroup";
 import DisplayMessage from "../../common/Message/DisplayMessage";
 import isEmpty from "../../../validation/is_empty";

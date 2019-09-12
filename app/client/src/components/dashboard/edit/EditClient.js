@@ -11,11 +11,11 @@ import {
     ptGetCurrentClient,
     ptClearCurrentClientProfile,
     ptGetClients
-} from "../../../actions/ptProfileActions"; // Used to import create action for getting client data and editing client data
+} from "../../../redux/actions/ptProfileActions"; // Used to import create action for getting client data and editing client data
 import {
     clientEditData
-} from "../../../actions/clientProfileActions";
-import {clientGetData} from "../../../actions/clientProfileActions";
+} from "../../../redux/actions/clientProfileActions";
+import {clientGetData} from "../../../redux/actions/clientProfileActions";
 import {Link, withRouter} from 'react-router-dom';
 import FormInputGroup from "../../common/Forms/FormInputGroup";
 import Loading from "../../common/Loading/Loading";

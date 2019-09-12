@@ -7,13 +7,13 @@ import {
     ptGetClientProgression,
     ptGetClientBodyBio,
     ptGetClientProfileNotes,
-} from "../../../actions/ptProfileActions";
+} from "../../../redux/actions/ptProfileActions";
 import {
     clientGetData,
     clientGetProgression,
     clientGetBodyBio,
     clientGetProfileNotes,
-} from "../../../actions/clientProfileActions";
+} from "../../../redux/actions/clientProfileActions";
 import Graphs from "../progression/Graphs";
 // import NewClientProgressForm from "../progression/NewClientProgressForm";
 // import Modal from 'react-awesome-modal';

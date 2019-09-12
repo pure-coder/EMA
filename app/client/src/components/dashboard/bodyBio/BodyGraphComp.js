@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {addGraph} from "../../../utilities/drawProgressGraph";
-import {ptDeleteExercise, ptGetClientBodyBio} from "../../../actions/ptProfileActions";
+import {ptDeleteExercise, ptGetClientBodyBio} from "../../../redux/actions/ptProfileActions";
 import PropTypes from "prop-types";
 import connect from "react-redux/es/connect/connect";
 import {withRouter} from "react-router-dom";

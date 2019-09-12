@@ -2,7 +2,7 @@ import axios from 'axios';
 import {
     SET_SIGNED_IN_USER,
 } from "./types"; // import custom defined types
-import setAuthorisationToken from '../utilities/setAuthorisationToken';
+import setAuthorisationToken from '../../utilities/setAuthorisationToken';
 import jwtDecode from 'jwt-decode';
 import {setSuccess, ptClearProfile} from "./ptProfileActions";
 import {clientClearProfile} from "./clientProfileActions";

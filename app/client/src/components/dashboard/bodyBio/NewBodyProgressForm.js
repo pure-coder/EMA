@@ -2,7 +2,7 @@ import React, {Component} from 'react' // React is need for rendering JSX HTML e
 import {withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
-import {ptNewClientBodyBio, setErrors, clearErrors, clearSuccess} from "../../../actions/ptProfileActions";
+import {ptNewClientBodyBio, setErrors, clearErrors, clearSuccess} from "../../../redux/actions/ptProfileActions";
 import autocomplete from '../../../utilities/autoComplete';
 import FormInputGroup from "../../common/Forms/FormInputGroup";
 import DisplayMessage from "../../common/Message/DisplayMessage";

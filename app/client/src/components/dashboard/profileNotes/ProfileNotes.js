@@ -5,10 +5,10 @@ import {
     ptClearClientProfileNotes,
     ptUpdateClientProfileNotes,
     clearErrors, clearSuccess
-} from "../../../actions/ptProfileActions";
+} from "../../../redux/actions/ptProfileActions";
 import {
     clientClearProfileNotes
-} from "../../../actions/clientProfileActions";
+} from "../../../redux/actions/clientProfileActions";
 import isEmpty from "../../../validation/is_empty";
 import ProfileInputForm from "../../common/Forms/ProfileInputForm";
 

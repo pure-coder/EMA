@@ -8,8 +8,8 @@ import ErrorComponent from "../../error/ErrorComponent";
 import Loading from "../../common/Loading/Loading";
 import NewClientProgressForm from "./NewClientProgressForm";
 import Modal from "react-awesome-modal";
-import {clientGetProgression} from "../../../actions/clientProfileActions";
-import {ptGetClientProgression, clearErrors, clearSuccess} from "../../../actions/ptProfileActions";
+import {clientGetProgression} from "../../../redux/actions/clientProfileActions";
+import {ptGetClientProgression, clearErrors, clearSuccess} from "../../../redux/actions/ptProfileActions";
 import {NoProgressDataComp} from "../../common/Progress/NoProgessDataComp";
 import {ProgressTitleComp} from "../../common/Progress/ProgressTitleComp";
 
