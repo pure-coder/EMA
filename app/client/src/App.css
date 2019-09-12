@@ -735,13 +735,15 @@ input[type=submit] {
 
 .userInfo-container {
     width: 400px;
-    padding: 10px 0;
+    height: 145px;
+    padding: 5px 0;
     display: inline-block;
     float: left;
 }
 
 .userInfo-custom {
     padding: 0;
+    height: 130px;
     margin-bottom: 20px !important;
 }
 
@@ -1055,13 +1057,13 @@ label.Profile_label {
 }
 
 .next_workout img {
-    height: 30px;
-    width: 30px;
+    height: 2rem;
+    width: 2rem;
     margin: 3px 0;
 }
 
 .next_workout td {
-    padding: 0;
+    padding: 0 10px;
     vertical-align: middle;
 }
 
@@ -1116,7 +1118,7 @@ label.Profile_label {
     html, body, #root, .App {
         min-height: 100vh;
         overflow-x: hidden;
-        font-size: 0.8rem;
+        font-size: 0.9rem;
     }
 
     .navbar-container {
@@ -1133,13 +1135,13 @@ label.Profile_label {
         background-size: cover;
     }
 
-    .userInfo-container {
-        width: 600px;
+    .dashboard-container {
+        height: 70.8vh;
+        min-height: 500px;
     }
 
-    .no_workout, .next_workout_comp {
-        float: left !important;
-        margin-bottom: 2rem;
+    .userInfo-container {
+        min-width: 300px;
     }
 
     .navbar-nav {
@@ -1153,11 +1155,6 @@ label.Profile_label {
     .guest a.nav-link {
         width: unset;
         padding: 0 5px;
-    }
-
-    .dashboard-container {
-        /* min-height: 500px; */
-        min-height: 600px;
     }
 
     .navbar-toggler {
@@ -1212,11 +1209,19 @@ label.Profile_label {
     /*}*/
 }
 
+@media only Screen and (max-width: 800px) {
+
+    .no_workout, .next_workout_comp {
+    float: left !important;
+    margin-bottom: 2rem;
+    }
+}
+
 @media only Screen and (max-width: 500px){
 
     html, body, #root, .App {
         min-height: 100vh;
-        font-size: 0.8rem;
+        font-size: 0.85rem;
         overflow-x: hidden;
     }
 
@@ -1241,7 +1246,6 @@ label.Profile_label {
     height: 100% !important;
     }
 
-
     .guest a.nav-link {
         width: unset;
         padding: 0 5px;
@@ -1249,7 +1253,7 @@ label.Profile_label {
 
     .dashboard-container {
         /* min-height: 500px; */
-        min-height: 600px;
+        min-height: 400px;
     }
 
     .navbar-toggler {
@@ -1292,12 +1296,24 @@ label.Profile_label {
     ul {
         padding-left: 0 !important;
     }
+
+    .next_workout img {
+        height: 1.5rem;
+        width: 1.5rem;
+    }
+
+    .client_data_div {
+        min-width: 310px;
+        width: 100%;
+        float: left;
+    }
+
 }
 
-@media only Screen and (max-width: 300px){
+@media only Screen and (max-width: 360px){
     html, body, #root, .App {
-        max-width: 300px!important;
-        min-width: 300px!important;
+        max-width: 360px!important;
+        min-width: 360px!important;
         min-height: 100vh;
         font-size: 0.5rem;
         overflow-x: hidden;
@@ -1383,6 +1399,17 @@ label.Profile_label {
         padding-left: 0 !important;
     }
 
+    .App, body, html {
+        max-height: 200px;
+        overflow-x: auto;
+    }
+
+    .client_data_div {
+        min-width: 310px;
+        width: 100%;
+        float: left;
+    }
+
     .edit-date-div {
         display: inline-block;
         min-width: 250px;
@@ -1393,6 +1420,11 @@ label.Profile_label {
         width: 250px;
         height: 75px;
         margin: 0 10px 10px 0;
+    }
+
+    .next_workout img {
+        height: 1.25rem;
+        width: 1.25rem;
     }
 
     .footer-custom {
