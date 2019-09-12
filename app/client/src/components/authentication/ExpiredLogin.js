@@ -56,30 +56,28 @@ class ExpiredLogin extends Component {
 
         return (
             <div className="container re-login-custom-container">
-                <div className="row re-login-custom">
-                    <div className="col-md-8 m-auto ">
-                        <h1 className="text-center display-5 text-danger">Session Expired</h1>
-                        <p className="description text-center">Please sign in</p>
-                        <form onSubmit={this.onSubmit}>  {/* onSubmit used instead of normal action*/}
-                            <FormInputGroup
-                                name="Email"
-                                placeholder="Email Address"
-                                value={this.state.Email}
-                                type="Email"
-                                onChange={this.onChange}
-                                error={errors.Email}
-                            />
-                            <FormInputGroup
-                                name="Password"
-                                placeholder="Enter Password"
-                                value={this.state.password}
-                                type="Password"
-                                onChange={this.onChange}
-                                error={errors.Password}
-                            />
-                            <input type="submit" value="Login" className="btn btn-info btn-block mt-5"/>
-                        </form>
-                    </div>
+                <div className="col-md-8 m-auto re-login-custom">
+                    <h1 className="text-center display-5 text-danger">Session Expired</h1>
+                    <p className="description text-center">Please sign in</p>
+                    <form onSubmit={this.onSubmit}>  {/* onSubmit used instead of normal action*/}
+                        <FormInputGroup
+                            name="Email"
+                            placeholder="Email Address"
+                            value={this.state.Email}
+                            type="Email"
+                            onChange={this.onChange}
+                            error={errors.Email}
+                        />
+                        <FormInputGroup
+                            name="Password"
+                            placeholder="Enter Password"
+                            value={this.state.password}
+                            type="Password"
+                            onChange={this.onChange}
+                            error={errors.Password}
+                        />
+                        <input type="submit" value="Login" className="btn btn-info btn-block mt-5"/>
+                    </form>
                 </div>
             </div>
         );

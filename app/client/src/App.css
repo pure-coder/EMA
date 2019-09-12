@@ -1188,7 +1188,7 @@ label.Profile_label {
 
     .nav-link {
         display: block;
-        padding: .3rem 0;
+        padding: .3rem 0 !important;
         float: right;
     }
 
