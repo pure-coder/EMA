@@ -4,8 +4,9 @@
   "description": "PT and Client fitness app",
   "main": "server.js",
   "scripts": {
-    "start-server" : "node ./scripts/createLogging.js && node server.js",
+    "start-server": "node ./scripts/createLogging.js && node server.js",
     "client-install": "npm install --prefix client",
+    "client-build": "npm run build --prefix client",
     "start": "nodemon server.js",
     "client": "npm start --prefix client",
     "dev": "concurrently \"npm run start\" \"npm run client\"",
