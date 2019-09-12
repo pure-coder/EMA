@@ -789,7 +789,7 @@ input[type=submit] {
 }
 
 .app-screen{
-    height: 64.5vh;
+    height: 430px;
     /*display: flex;*/
     flex-direction: column;
     overflow: hidden;
