@@ -1,5 +1,8 @@
 const nodemailer = require('nodemailer');
 
+// require bunyan for logging errors to file
+const log = require('../config/logger').logger;
+
 let EMAIL = process.env.EMAIL;
 let EMAIL_PASSWD = process.env.EMAIL_PASSWD;
 let WEB_ADDRESS_ROOT = process.env.WEB_ADDRESS_ROOT;
@@ -33,10 +36,10 @@ module.exports = function (Email, Token) {
     let smtpTransport = nodemailer.createTransport(smtpConfig);
     smtpTransport.sendMail(message, function (error) {
         if (error) {
-          console.log("Email error")
+          log.info(error)
         }
         else {
-          console.log('Mail has been sent');
+          log.info("Activation email sent ", Email)
         }
     });
 };
