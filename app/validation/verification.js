@@ -21,7 +21,7 @@ module.exports = function (Email) {
     // console.log(expiration);
 
     // Save activation token in datebase
-    TokenDetails = {
+    const TokenDetails = {
         Token: token,
         ExpirationDate: expiration
     };
@@ -45,6 +45,7 @@ module.exports = function (Email) {
                 // Add token to database
                 newToken.save()
                     .then(
+                        // Email new client for verification.
                         mail(Email, token),
                         result = 'Token created',
                     )

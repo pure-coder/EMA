@@ -1,5 +1,9 @@
 const nodemailer = require('nodemailer');
 
+let EMAIL = process.env.EMAIL;
+let EMAIL_PASSWD = process.env.EMAIL_PASSWD;
+let WEB_ADDRESS_ROOT = process.env.WEB_ADDRESS_ROOT;
+
 module.exports = function (Email, Token) {
 
     let smtpConfig = {
@@ -7,26 +11,27 @@ module.exports = function (Email, Token) {
         port: 587,
         secure: false, // upgrade later with STARTTLS
         auth: {
-            user: 'jdun101@gmail.com',
-            pass: 'gokuhson3A'
+            user: EMAIL,
+            pass: EMAIL_PASSWD
         },
         tls: {
             rejectUnauthorized: false
         }
     };
     let message = {
-        from: 'jdun101@gmail.com', // listed in rfc822 message header
+        from: EMAIL, // listed in rfc822 message header
         to: Email, // listed in rfc822 message header
         subject: 'Fitness App Activation code',
         envelope: {
-            from: 'JRDunkley <jdun101@gmail.com>', // used as MAIL FROM: address for SMTP
+            from: `Fitness App <${EMAIL}>`, // used as MAIL FROM: address for SMTP
             to: Email + ', Mailer <' + Email + '>' // used as RCPT TO: address for SMTP
         },
         text: Token,
-        html: '<a href="http://localhost:8000/api/verify?activation_link=' + Token + '">Activation Link</a>'
+        html: `Please click here on the <a href="${WEB_ADDRESS_ROOT}/api/verify?activation_link=` + Token +
+            '">Activation Link</a> for verification of this email address. Once clicked your account will be activated.'
     };
     let smtpTransport = nodemailer.createTransport(smtpConfig);
-    smtpTransport.sendMail(message, function (error, response) {
+    smtpTransport.sendMail(message, function (error) {
         if (error) {
           console.log("Email error")
         }

@@ -38,7 +38,7 @@ The application also uses the react library for the user interface. (MIT License
 The scheduler part of the application uses the DHTMLX Scheduler framework. (GNU GPL License)
 The progression charts in the application use the D3.js library. (BSD License)
 
-To Install the application clone the project to your server, you will then need to install the Express application server from the app directory
+To Install the application, clone the project to your server. You will then need to install the Express application server from the app directory
 using "npm install". After that has successfully completed you will need to install and build the react application, to do this you will need to 
 run "npm install" from the client directory, and then "npm run build" (The build folder is needed when using it for production, for developing 
 purposes it is not needed, the development version can be run from the app directory using npm run dev). Run "node server.js" from the app directory 

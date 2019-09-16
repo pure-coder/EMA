@@ -2,6 +2,9 @@ const express = require('express');
 // set router so routes can be used
 const router = express.Router();
 
+// require bunyan for logging errors to file
+const log = require('../config/logger').logger;
+
 // require bcrypt to encrypt Password
 const bcrypt = require('bcryptjs');
 // require jason web tokens
@@ -398,23 +401,26 @@ router.get('/verify', (req, res) => {
             // Check if token is found in the database (returns empty array if token isn't found so used isEmpty)
             if (!isEmpty(token)) {
                 // Check token from database is returned properly
-                // console.log(token);
+                //  console.log(token);
 
                 // Get current date and time
                 let now = new Date();
-                now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+                now = now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
 
                 // Get expiration date from token
-                let expiration = token[0].TokenData.ExpirationDate;
+                let expiration = token.TokenData.ExpirationDate;
                 // Get token id for deletion later
-                let tokenId = token[0].id;
-
+                let tokenId = token.id;
 
                 // Compare date to check if it is still valid (valid == true), then set client account to activated
                 if (expiration >= now) {
                     // Update client found by Email, update Activated field, get results from update
-                    Client.updateOne({Email: token[0].Email}, {Activated: true}, (err) => {
-                        if (err) throw err;
+                    Client.updateOne({Email: token.Email}, {Activated: true}, (err) => {
+                        if (err) {
+                            log.info(err);
+                            throw err;
+                        }
+                        // Delete authorisation token, send msg confirming activation
                         ActivationTokens.findByIdAndDelete(tokenId)
                             .then(result => {
                                 if (result) {
@@ -433,6 +439,7 @@ router.get('/verify', (req, res) => {
                 return res.status(400).json({msg: "Token not found"});
             }
         }).catch(err => {
+            log.info(err);
         return res.status(400).json(err);
     })// catch end
 
