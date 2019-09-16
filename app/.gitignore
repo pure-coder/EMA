@@ -4,3 +4,4 @@ package-lock.json
 ./config/AWS.json
 ./log/log.json
 ./ecosystem.config.js
+../.idea
