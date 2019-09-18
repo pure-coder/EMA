@@ -23,7 +23,7 @@ label {
 }
 
 .container {
-    min-height: 380px;
+    min-height: 550px;
 }
 
 .loading_container {
@@ -176,7 +176,7 @@ nav a.active {
 .login-custom-container {
     width: 400px;
     margin: auto;
-    min-height: 420px;
+    min-height: 550px !important;
     /*height: 87vh;*/
     height: 86vh;;
     padding: 0;
@@ -197,7 +197,7 @@ nav a.active {
 .re-login-custom-container {
     width: 400px;
     margin: auto;
-    min-height: 420px;
+    min-height: 550px !important;
     /*height: 87vh;*/
     height: 86vh;;
     padding: 0;
@@ -206,7 +206,7 @@ nav a.active {
 /* dashboard */
 
 .dashboard-container {
-    min-height: 500px;
+    min-height: 550px !important;
 }
 
 .dashboard-custom {
@@ -428,7 +428,7 @@ label.edit-profile-label {
 /* Client profile */
 
 .client-profile {
-    min-height: 500px;
+    min-height: 550px !important;
 }
 
 
@@ -891,7 +891,7 @@ input[type=submit].profile_notes {
 /* Profile pic */
 
 .Profile_pic_upload {
-    min-height: 86vh;;
+    min-height: 550px !important;
     min-width: 500px;
 }
 
@@ -1145,7 +1145,7 @@ label.Profile_label {
     }
 
     .dashboard-container {
-        min-height: 500px;
+        min-height: 550px !important;
     }
 
     .userInfo-container {
@@ -1246,7 +1246,7 @@ label.Profile_label {
 
 
     .login-custom {
-    min-height: 460px !important;
+    min-height: 550px !important;
     height: 460px !important;
     }
 
