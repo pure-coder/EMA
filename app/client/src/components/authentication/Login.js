@@ -67,6 +67,11 @@ class Login extends Component {
                     <div className="col-md-8 m-auto login-custom">
                         <h1 className="text-center display-5">Log In</h1>
                         <p className="description text-center">Sign into Fitness App account</p>
+                        <h5 className="description text-center text-danger">Demo accounts</h5>
+                        <h6 className="text-center">Personal Trainer</h6>
+                        <h6 className="text-center text-danger">jrdun101@gmail.com : password</h6>
+                        <h6 className="text-center">Client</h6>
+                        <h6 className="text-center text-danger mb-3">Ljones@sky.com : password</h6>
                         <form onSubmit={this.onSubmit}>  {/* onSubmit used instead of normal action*/}
                             <FormInputGroup
                                 name="Email"

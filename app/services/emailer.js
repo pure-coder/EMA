@@ -14,6 +14,7 @@ module.exports = function (Email, Token) {
         port: 587,
         secure: false, // upgrade later with STARTTLS
         auth: {
+            type: "OAuth2",
             user: EMAIL,
             pass: EMAIL_PASSWD
         },
