@@ -891,7 +891,7 @@ input[type=submit].profile_notes {
 /* Profile pic */
 
 .Profile_pic_upload {
-    min-height: 550px !important;
+    min-height: 570px !important;
     min-width: 500px;
 }
 
